@@ -6,3 +6,12 @@
 
 二、連結：
    1. 學習如何開發 Web：https://reurl.cc/dLgd2k
+
+2024/03/03 - 學習Web
+
+一、概念
+   1. HTML、CSS、JS基礎語法
+   2. 增加「基本網頁互動功能」
+
+二、連結：
+   1. 學習如何開發 Web：https://reurl.cc/dLgd2k
