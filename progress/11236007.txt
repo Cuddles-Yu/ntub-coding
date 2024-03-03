@@ -1,0 +1,9 @@
+2024/03/01 - 學習Python基本觀念
+
+一、觀念
+  1. Python資料型態（基本概念）
+  2. Python網路爬蟲（大略）
+
+二、連結
+  1. Python 爬蟲 - pala.tw：https://reurl.cc/80Rr2o
+  2. Python 基础教程 | 菜鸟教程：https://reurl.cc/pr2qxr
