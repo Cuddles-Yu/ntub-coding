@@ -1,0 +1,12 @@
+2024/03/01 - 學習Python網路爬蟲
+
+一、概念
+   1. 網路爬蟲基本概念
+   2. Python Selenium 套件的語法及架構
+   3. 嘗試「搜尋地點關鍵字後爬取相關結果」
+
+二、連結：
+   1. 文組也看得懂的 - 網路爬蟲：https://reurl.cc/bDgLVy
+   2. Python 應用 - 爬蟲篇：https://reurl.cc/VNgrM5
+   3. Selenium教學1：https://reurl.cc/yY0pLE
+   4. Selenium教學2：https://reurl.cc/qr2xrE
