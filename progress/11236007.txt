@@ -1,3 +1,14 @@
+2024/03/03 - 學習Python基本觀念
+一、觀念
+  1. Python 流程控制（if判斷式、while迴圈、for迴圈）
+  2. Python 函式基礎
+  3. 複習+優化資料型態筆記
+  4. 練習迴圈、函式
+
+二、連結
+  1. https://reurl.cc/E4v2e0 | Python 入門教學課程
+
+
 2024/03/01 - 學習Python基本觀念
 
 一、觀念
@@ -5,5 +16,5 @@
   2. Python網路爬蟲（大略）
 
 二、連結
-  1. Python 爬蟲 - pala.tw：https://reurl.cc/80Rr2o
-  2. Python 基础教程 | 菜鸟教程：https://reurl.cc/pr2qxr
+  1. https://reurl.cc/80Rr2o | Python 爬蟲 - pala.tw
+  2. https://reurl.cc/pr2qxr | Python 基础教程
