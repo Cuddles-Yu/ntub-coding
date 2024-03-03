@@ -1,3 +1,14 @@
+2024/03/03 - 學習Python 基礎觀念
+
+一、概念
+   1. 基本操作、變數與資料型別
+   2. 布林、IF 條件判斷式（if、else、巢狀if、elif）
+   3. List 串列（split、join、tuple、append、extend）
+   4. Loop 迴圈
+
+二、連結：
+   1. https://reurl.cc/mr2WGG | python 零基礎新手入門
+
 2024/03/01 - 學習Python 基礎觀念
 
 一、概念
