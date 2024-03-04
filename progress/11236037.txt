@@ -1,11 +1,12 @@
-2024/03/01 - 學習Web
+2024/03/04 - 學習python基礎觀念
 
 一、概念
-   1. HTML與CSS基礎語法
-   2. 嘗試「寫出基本網頁」
+   1. 變數與資料型態
+   2. 數字、字串的基本運算
+   3. 有序列表基礎觀念(List、Tuple)
 
 二、連結：
-   1. 學習如何開發 Web：https://reurl.cc/dLgd2k
+   1. https://reurl.cc/2zOvEa | Python 入門教學課程
 
 2024/03/03 - 學習Web
 
@@ -14,4 +15,13 @@
    2. 增加「基本網頁互動功能」
 
 二、連結：
-   1. 學習如何開發 Web：https://reurl.cc/dLgd2k
+   1. https://reurl.cc/dLgd2k | 學習如何開發 Web
+
+2024/03/01 - 學習Web
+
+一、概念
+   1. HTML與CSS基礎語法
+   2. 嘗試「寫出基本網頁」
+
+二、連結：
+   1. https://reurl.cc/dLgd2k | 學習如何開發 Web
