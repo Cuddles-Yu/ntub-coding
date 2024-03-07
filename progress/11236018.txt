@@ -1,3 +1,17 @@
+2024/03/07 - 初步瞭解GoogleMap-API
+一、概念
+   1. 申請Google地圖平台API服務之金鑰(key)
+   2. 透過JS和Request等方式取得相關資料
+   3. 相關服務條款與說明
+   4. 嘗試透過Javascript串接API
+二、後續
+   1. 詳細瞭解提供的服務模式與可能提供的協助
+三、連結
+   1. https://reurl.cc/09beYK | Maps API學習筆記1
+   2. https://reurl.cc/A4WlEe | (官方)關於API
+   3. https://reurl.cc/D4MMnR | (官方)API使用條款
+
+
 2024/03/03 - 實作Python網路爬蟲
 
 一、方法
