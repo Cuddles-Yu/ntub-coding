@@ -1,9 +1,37 @@
+2024/03/09 - 學習Python基本觀念
+一、觀念
+  1. While迴圈
+  2. 函式
+  3. 模組
+  4. 類別
+二、連結
+  1. https://reurl.cc/eL4lVQ | Python 零基礎新手入門 #06 While Loop (迴圈)
+  2. https://reurl.cc/OG83RD | Python 零基礎新手入門 #07 Function (函式)
+  3. https://reurl.cc/M4x5ML | Python 零基礎新手入門 #08 Dictionaries (字典)
+  4. https://reurl.cc/VNvOmZ | Python 零基礎新手入門 #09 Module (模組)
+  5. https://reurl.cc/xLjMKV | Python 零基礎新手入門 #10 Class (類別)
+
+
+2024/03/08 - 學習Python基本觀念
+一、觀念
+  1. 資料型態
+  2. 條件式
+  3. For迴圈
+二、連結
+  1. https://reurl.cc/OG83Rv | Python 零基礎新手入門 #01 基本簡介與安裝
+  2. https://reurl.cc/QekAVZ | Python 零基礎新手入門 #02 變數與資料型態
+  3. https://reurl.cc/N4mdNQ | Python 零基礎新手入門 #03 IF 條件判斷式
+  4. https://reurl.cc/97YNbn | Python 零基礎新手入門 #04 List 清單(串列)
+  5. https://reurl.cc/E4Mlbm | Python 零基礎新手入門 #05 For Loop (迴圈)
+
+
 2024/03/07 - 學習Python基本觀念
 一、觀念
   1. Python 模組、封包使用方法
   2. 練習使用函式、模組、封包
 二、連結
-  1. https://reurl.cc/E4v2e0 | Python 入門教學課程
+  1. https://reurl.cc/dLjkpV | Python Module 模組的載入與使用 By 彭彭
+  2. https://reurl.cc/2zkGar | Python Package 封包的設計與使用 By 彭彭
 
 
 2024/03/03 - 學習Python基本觀念
@@ -13,7 +41,11 @@
   3. 複習+優化資料型態筆記
   4. 練習迴圈、函式
 二、連結
-  1. https://reurl.cc/E4v2e0 | Python 入門教學課程
+  1. https://reurl.cc/mrj5k1 |  Python 流程控制：if 判斷式 By 彭彭
+  2. https://reurl.cc/aLjmM3 | Python 流程控制：迴圈基礎，while 迴圈、for 迴圈 By 彭彭
+  3. https://reurl.cc/v0jOKy | Python 流程控制：迴圈進階控制，break、continue、else 命令 By 彭彭
+  4. https://reurl.cc/YVrNDl | Python 函式基礎：定義並呼叫函式 By 彭彭
+  5. https://reurl.cc/54yW3q | Python 函式參數詳解：參數預設值、名稱對應、任意長度參數 By 彭彭
 
 
 2024/03/01 - 學習Python基本觀念
