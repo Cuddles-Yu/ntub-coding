@@ -1,10 +1,44 @@
+2024/03/10 - 學習python基礎觀念
+
+一、概念
+   1. while語法
+   2. 函式(def)
+   3. 字典型態運用
+   4. 模組、第三方模組運用
+   5. 類別(class)
+
+二、連結：
+   1. https://reurl.cc/oronov | Python 零基礎新手入門 #06 While Loop (迴圈)
+   2. https://reurl.cc/E4M3Mv | Python 零基礎新手入門 #07 Function (函式)
+   3. https://reurl.cc/qrjxjE | Python 零基礎新手入門 #08 Dictionaries (字典)
+   4. https://reurl.cc/mrjVjW | Python 零基礎新手入門 #09 Module (模組)
+   5. https://reurl.cc/prjz0x | Python 零基礎新手入門 #10 Class (類別)
+
+
+2024/03/09 - 學習python基礎觀念
+
+一、概念
+   1. 變數型態、input語法使用
+   2. if判斷式
+   3. for迴圈
+
+二、連結：
+   1. https://reurl.cc/WRZ5oO | Python 零基礎新手入門 #01 基本簡介與安裝
+   2. https://reurl.cc/prjzRl | Python 零基礎新手入門 #02 變數與資料型態
+   3. https://reurl.cc/D4QRMm | Python 零基礎新手入門 #03 IF 條件判斷式
+   4. https://reurl.cc/RWlp7D | Python 零基礎新手入門 #04 List 清單(串列)
+   5. https://reurl.cc/zljvG0 | Python 零基礎新手入門 #05 For Loop (迴圈)
+
+
 2024/03/07 - 學習python基礎觀念
 一、概念
    1. 資料型態的運算(Set、Dictionary)
    2. if 判斷式
    3. 迴圈基礎(while、for)
 二、連結：
-   1. https://reurl.cc/2zOvEa | Python 入門教學課程
+   1. https://reurl.cc/4j7AVK | Python 集合、字典的基本運算 - Set、Dictionary By 彭彭
+   2. https://reurl.cc/97Yj8O | Python 流程控制：if 判斷式 By 彭彭
+   3. https://reurl.cc/RWlpMe | Python 流程控制：迴圈基礎，while 迴圈、for 迴圈 By 彭彭
 
 
 2024/03/04 - 學習python基礎觀念
@@ -13,7 +47,10 @@
    2. 數字、字串的基本運算
    3. 有序列表基礎觀念(List、Tuple)
 二、連結：
-   1. https://reurl.cc/2zOvEa | Python 入門教學課程
+   1. https://reurl.cc/77vg8d | Python 簡介、安裝、與快速開始 By 彭彭
+   2. https://reurl.cc/XqYd80 | Python 變數與資料型態 By 彭彭
+   3. https://reurl.cc/QekyKp | Python 數字、字串的基本運算 By 彭彭
+   4. https://reurl.cc/97YjmO | Python 有序列表的基本運算 - List、Tuple By 彭彭
 
 
 2024/03/03 - 學習Web
