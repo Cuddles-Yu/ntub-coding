@@ -1,3 +1,10 @@
+2024/03/09 - 實作Python網路爬蟲 II
+一、概念
+   1. 嘗試取得地點中的相關評論
+二、連結
+   1. https://reurl.cc/37l279 | Google Map Review動態爬蟲
+
+
 2024/03/07 - 初步瞭解GoogleMap-API
 一、概念
    1. 申請Google地圖平台API服務之金鑰(key)
@@ -12,36 +19,29 @@
    3. https://reurl.cc/D4MMnR | (官方)API使用條款
 
 
-2024/03/03 - 實作Python網路爬蟲
-
+2024/03/03 - 實作Python網路爬蟲 I
 一、方法
    1. 以Json結構儲存地點資訊
    2. 取得地點名稱、評分、評論數、電話與網站等資料
    3. 透過Python Pandas套件進行資料處理+匯出資料
    4. 排除了網站內資料格式不同產生資料結構的問題
-
 二、問題
    1. 大量的地點資訊會佔用過長的時間
-   2. 如果評論數量較大時，透過Selenium套件執行效率較差
-
-三、對策
-   1. 嘗試能否串接GoogleMap API來取得地點資訊
-
-四、連結：
+   2. 如果評論數量較大時執行效率較差
+三、連結：
    1. https://reurl.cc/g4omOb | selenium網頁自動化
    2. https://reurl.cc/RWo1x6 | Web Crawler基本教學
    3. https://reurl.cc/OGoqd7 | Pandas DataFrame處理雙維度資料方法
 
 
 2024/03/01 - 學習Python網路爬蟲
-
 一、概念
    1. 網路爬蟲基本概念
    2. Python Selenium套件的語法及架構
    3. 嘗試「搜尋地點關鍵字後爬取相關結果」
-
 二、連結：
    1. https://reurl.cc/bDgLVy | 文組也看得懂的-網路爬蟲
    2. https://reurl.cc/VNgrM5 | Python應用-爬蟲篇
    3. https://reurl.cc/yY0pLE | Selenium教學1
    4. https://reurl.cc/qr2xrE | Selenium教學2
+   5. https://reurl.cc/xLjr6z | Python爬蟲新手筆記
