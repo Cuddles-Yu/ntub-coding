@@ -1,4 +1,12 @@
-2024/03/11 - 學習Python基本觀念
+2024/03/12 - Python類別II
+一、觀念
+  1. 了解如何透過類別建立實體物件
+  2. 了解如何使用實體屬性
+二、
+  1. https://reurl.cc/zlR0NN | Python 實體物件的建立與使用 - 上篇 - 實體屬性 Instance Attributes By 彭彭
+
+
+2024/03/11 - Python類別I
 一、觀念
   1. 了解類別的基本運作概念
   2. 了解如何定義類別和使用類別中的屬性
@@ -6,14 +14,14 @@
   1. https://reurl.cc/Z93ZLg | Python 類別的定義與使用 - Class Attributes By 彭彭
 
 
-2024/03/10 - 學習Python基本觀念
+2024/03/10 - Python操作檔案
 一、觀念
   1. 操作檔案（讀取和寫入文字檔案、JSON檔案）
 二、連結
   1. https://reurl.cc/2zG699 | Python 文字檔案的讀取和儲存 By 彭彭
 
 
-2024/03/09 - 學習Python基本觀念
+2024/03/09 - Python基本觀念V
 一、觀念
   1. While迴圈
   2. 函式
@@ -27,7 +35,7 @@
   5. https://reurl.cc/xLjMKV | Python 零基礎新手入門 #10 Class (類別)
 
 
-2024/03/08 - 學習Python基本觀念
+2024/03/08 - Python基本觀念IV
 一、觀念
   1. 資料型態
   2. 條件式
@@ -40,7 +48,7 @@
   5. https://reurl.cc/E4Mlbm | Python 零基礎新手入門 #05 For Loop (迴圈)
 
 
-2024/03/07 - 學習Python基本觀念
+2024/03/07 - Python基本觀念III
 一、觀念
   1. Python 模組、封包使用方法
   2. 練習使用函式、模組、封包
@@ -49,7 +57,7 @@
   2. https://reurl.cc/2zkGar | Python Package 封包的設計與使用 By 彭彭
 
 
-2024/03/03 - 學習Python基本觀念
+2024/03/03 - Python基本觀念II
 一、觀念
   1. Python 流程控制（if判斷式、while迴圈、for迴圈）
   2. Python 函式基礎
@@ -63,7 +71,7 @@
   5. https://reurl.cc/54yW3q | Python 函式參數詳解：參數預設值、名稱對應、任意長度參數 By 彭彭
 
 
-2024/03/01 - 學習Python基本觀念
+2024/03/01 - Python基本觀念I
 一、觀念
   1. Python資料型態（基本概念）
   2. Python網路爬蟲（大略）
