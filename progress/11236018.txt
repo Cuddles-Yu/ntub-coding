@@ -1,4 +1,14 @@
-2024/03/10 - 學習HTML
+2024/03/11 - 學習CSS基礎
+一、概念
+   1. CSS基礎概念
+   2. 載入CSS檔案至HTML
+   3. HTML中的Class、ID標籤對CSS的影響
+   4. 屬性(Padding、Margin、Opacity)
+   5. 設定顏色轉換動畫Animation
+二、連結
+   1. https://reurl.cc/67OojM | 【css】2小時初學者教學
+
+2024/03/10 - 學習HTML基礎
 一、概念
    1. HTML基礎語法
    2. 網頁技術基礎(HTML、CSS、JS)
