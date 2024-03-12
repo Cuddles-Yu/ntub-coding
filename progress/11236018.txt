@@ -1,3 +1,13 @@
+
+2024/03/12 - 實作Python網路爬蟲 III
+一、實作
+   1. 嘗試取得地點中的連結網站與相關評論
+   2. 學習Python中的Module和Class概念
+二、連結
+   1. https://reurl.cc/QeAz9p | Python零基礎新手入門 #09 Module
+   2. https://reurl.cc/E4lEZR | Python 零基礎新手入門 #10 Class
+
+
 2024/03/11 - 學習CSS基礎
 一、概念
    1. CSS基礎概念
@@ -7,6 +17,7 @@
    5. 設定顏色轉換動畫Animation
 二、連結
    1. https://reurl.cc/67OojM | 【css】2小時初學者教學
+
 
 2024/03/10 - 學習HTML基礎
 一、概念
@@ -19,7 +30,7 @@
 
 
 2024/03/09 - 實作Python網路爬蟲 II
-一、概念
+一、實作
    1. 嘗試取得地點中的相關評論
 二、連結
    1. https://reurl.cc/37l279 | Google Map Review動態爬蟲
@@ -31,9 +42,7 @@
    2. 透過JS和Request等方式取得相關資料
    3. 相關服務條款與說明
    4. 嘗試透過Javascript串接API
-二、後續
-   1. 詳細瞭解提供的服務模式與可能提供的協助
-三、連結
+二、連結
    1. https://reurl.cc/09beYK | Maps API學習筆記1
    2. https://reurl.cc/A4WlEe | (官方)關於API
    3. https://reurl.cc/D4MMnR | (官方)API使用條款
