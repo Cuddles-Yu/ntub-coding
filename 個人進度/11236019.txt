@@ -1,3 +1,13 @@
+2024/03/12 - 學習Python 概念 VI
+一、概念
+   1. Module 模組(import, import as, from import, random, choice 選擇,randint, digits 
+      數字, ascii_letters大小寫, shuffle, text)
+   2. Class 類別(attributes 屬性,init 初始化, self, methods 方法,  inheritance 繼承)
+二、連結
+   1. https://reurl.cc/QeAz9p | Python零基礎新手入門 #09 Module(模組)
+   2. https://reurl.cc/E4lEZR | Python 零基礎新手入門 #10 Class(類別)
+
+
 2024/03/11 - 學習Python 概念 V
 一、概念
    1. Function函式(global variable 全域變數, local variable 區域變數) 
