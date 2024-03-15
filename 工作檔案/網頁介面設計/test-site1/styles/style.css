@@ -1,0 +1,48 @@
+html {
+    font-size: 10px;
+    /* px means 'pixels': the base font size is now 10 pixels high  */
+    font-family: "Madimi One", "Noto Sans TC", sans-serif;
+}
+
+h1 {
+    font-size: 60px;
+    text-align: center;
+}
+
+p,
+li {
+    font-size: 16px;
+    line-height: 2;
+    letter-spacing: 2px;
+}
+
+p {
+    font-size: 20px;
+    color: red;
+  }
+
+a{
+    font-size: 30px;
+}
+
+html{
+    background-color: gray;
+}
+
+body{
+    width: 600px;
+    margin: auto;
+    background-color: white;
+    padding: 0 20px 20px 20px;
+    border: 3px solid black;
+}
+
+.img1{
+    width: 90px;
+    height: auto;
+}
+
+.img2{
+    width: auto;
+    height: 60px;
+}

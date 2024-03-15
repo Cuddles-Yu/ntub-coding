@@ -9,6 +9,7 @@ from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 
 # 初始化 Driver
 options = webdriver.EdgeOptions()
@@ -16,6 +17,7 @@ options.add_experimental_option("detach", True)
 driver = webdriver.Edge(options=options)
 driver.get('https://www.google.com.tw/maps/preview')
 
+print('\r正在搜尋關鍵字', end='')
 
 # 等待 Driver 瀏覽到指定頁面後，對搜尋框輸入關鍵字搜尋
 WebDriverWait(driver, 10).until(
@@ -26,10 +28,14 @@ keywords = '國立臺北商業大學 附近的蛋塔'
 element.send_keys(keywords)
 element.send_keys(Keys.ENTER)
 
+print('\r正在搜尋關鍵字', end='')
+
 WebDriverWait(driver, 10).until(
     EC.presence_of_element_located((By.CLASS_NAME, 'Nv2PK'))
 )
 container = driver.find_element(By.XPATH, '/html/body/div[1]/div[3]/div[8]/div[9]/div/div/div[1]/div[2]/div/div[1]/div/div/div[1]/div[1]')
+
+print('\r初步取得所有搜尋結果', end='')
 
 while True:
     try:
@@ -44,6 +50,7 @@ comments = driver.find_elements(By.CLASS_NAME, 'UY7F9')
 url = [title.get_attribute('href') for title in titles]
 data = {
     '名稱': [title.get_attribute('aria-label') for title in titles],
+    '座標': [],
     '連結': url,
     '評分': [str(value.text) for value in values],
     '評論數': [re.sub(r'\D', '', comment.text) for comment in comments]
@@ -77,18 +84,26 @@ for i in range(maxCount):
                         data[name].append(href)
                     else:
                         data[name].append(tag.find_element(By.CLASS_NAME, 'Io6YTe').text)
+    canvas = driver.find_element(By.XPATH, "//*[name()='canvas']")
+    ActionChains(driver).context_click(canvas).perform()
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CLASS_NAME, 'mLuXec'))
+    )
+    data['座標'].append(driver.find_element(By.CLASS_NAME, 'mLuXec').text)
+
     for dic in data:
         if len(data[dic.title()]) < i+1:
             data[dic.title()].append("None")
     commentTab = driver.find_element(By.CLASS_NAME, 'RWPxGd').find_elements(By.CLASS_NAME, 'hh2c6')[1]
     commentTab.click()
-    print(f'\r正在取得搜尋結果... |{"█" * (i+1)}{" " * (maxCount - (i+1))}| {str(i+1).zfill(len(str(maxCount)))}/{maxCount}, {round((i+1) * 100 / maxCount, 2)}%', end='')
+    # print(f'\r正在取得搜尋結果... |{"█" * (i+1)}{" " * (maxCount - (i+1))}| {str(i+1).zfill(len(str(maxCount)))}/{maxCount}, {round((i+1) * 100 / maxCount, 2)}%', end='')
+    print(f'\r正在取得搜尋結果... {str(i+1).zfill(len(str(maxCount)))}/{maxCount} ({round((i+1) * 100 / maxCount, 2)}%)', end='')
 
 # pyautogui.hotkey('ctrl', 'w', interval=0.1)
 
 frame = pd.DataFrame(data)
 frame.to_csv(format('%s的搜尋結果.csv' % keywords), encoding='utf-8-sig')
 
-print(format('\ncsv輸出完成，總共有 %d 筆資料' %len(titles)))
+print('\rcsv輸出完成', end='')
 
-driver.close()
+# driver.close()
