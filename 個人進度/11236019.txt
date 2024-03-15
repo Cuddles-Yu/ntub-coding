@@ -1,3 +1,11 @@
+2024/03/13 - 學習網站後端開發概念
+一、概念
+   1.了解網站網站基礎架構 
+   2.flask 網站框架
+二、連結
+   1. https://reurl.cc/bDK3Gr | Python Flask 網站後端開發 - 網站基礎架構總覽、Flask 快速開       始
+
+
 2024/03/12 - 學習Python 概念 VI
 一、概念
    1. Module 模組(import, import as, from import, random, choice 選擇,randint, digits 
