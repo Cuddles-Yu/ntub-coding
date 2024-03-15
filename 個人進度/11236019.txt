@@ -1,3 +1,12 @@
+2024/03/14 - 學習基礎雲端知識
+一、概念
+   1.認識基礎雲端知識（雲端運算的好處）
+   2.建立 Google Cloud Platform 專案
+二、連結
+   1. https://reurl.cc/L4K5A9 | GDSC-speak.pptx(講師簡報）
+   2. https://reurl.cc/RW3Lzz | (GCP)Google cloud 
+
+
 2024/03/13 - 學習網站後端開發概念
 一、概念
    1.了解網站網站基礎架構 
