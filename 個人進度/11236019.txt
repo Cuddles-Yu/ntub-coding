@@ -1,24 +1,40 @@
-2024/03/07 - 學習Python 基礎觀念
+2024/03/09 - 學習 Python 概念 IV
+一、概念
+   1. while loop 迴圈(while True, abs絕對值)
+   2. Function函式(def定義、arguments 引數、return 回傳)
+二、連結
+   1. https://reurl.cc/RWVx9e | Python 零基礎新手入門 #06 While Loop(迴圈)
+   2. https://reurl.cc/VNxknZ | Python 零基礎新手入門 #07 Function(函式)
+
+
+2024/03/07 - 學習 Python 基礎觀念 III
 一、概念
    1. for loop 迴圈（break, continue, range）
    2. while loop 迴圈
 二、連結：
-   1. https://reurl.cc/mr2WGG | python 零基礎新手入門
+   1. https://reurl.cc/g4AKnL | Python 零基礎新手入門 #05 For Loop(迴圈)
+   2. https://reurl.cc/RWVx9e | Python 零基礎新手入門 #06 While Loop(迴圈)
 
-2024/03/03 - 學習Python 基礎觀念
+
+2024/03/03 - 學習 Python 基礎觀念 II
 一、概念
    1. 基本操作、變數與資料型別
    2. 布林、IF 條件判斷式（if、else、巢狀if、elif）
    3. List 串列（split、join、tuple、append、extend）
    4. Loop 迴圈
 二、連結：
-   1. https://reurl.cc/mr2WGG | python 零基礎新手入門
+   1. https://reurl.cc/549d1V | Python 零基礎新手入門 #01 基本簡介與安裝
+   2. https://reurl.cc/A4v20Y | Python 零基礎新手入門 #02 變數與資料型態
+   3. https://reurl.cc/bDKYlv | Python 零基礎新手入門 #03 IF 條件判斷式
+   4. https://reurl.cc/QeKEep | Python 零基礎新手入門 #04 List 清單(串列)
 
 
-2024/03/01 - 學習Python 基礎觀念
+2024/03/01 - 學習 Python 基礎觀念 I
 一、概念
    1. 變數與資料型別
    2. IF 條件判斷式
    3. List 清單（串列）
 二、連結：
-   1. https://reurl.cc/mr2WGG | python 零基礎新手入門
+   1. https://reurl.cc/A4v20Y | Python 零基礎新手入門 #02 變數與資料型態
+   2. https://reurl.cc/bDKYlv | Python 零基礎新手入門 #03 IF 條件判斷式
+   3. https://reurl.cc/QeKEep | Python 零基礎新手入門 #04 List 清單(串列)
