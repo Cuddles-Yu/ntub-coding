@@ -1,3 +1,15 @@
+2024/03/16 - 初步了解Google Map API相關資訊II
+一、實作（但還不太明白JavaScript運作原理）
+  1. 將Google Map API串接到網站
+  2. 能夠定位使用者所在位置（問題：使用電腦瀏覽Google Map位置不夠精準）
+  3. 能夠搜尋需要的資訊並提示完整地址
+  4. 能夠在地圖上顯示地點相關資訊和步行路線
+二、參考資料
+  1. https://reurl.cc/rrOXbN | Google Map API 官方文件
+  2. https://reurl.cc/zlnox7 | 網頁前端 Side Project 之午餐吃什麼？EP2｜Google Maps 地圖（上） Google Maps API 設定 & 使用者定位
+  3. https://reurl.cc/zlnXkp | 網頁前端 Side Project 之午餐吃什麼？EP3｜Google Maps 地圖（下）搜尋餐廳 & 餐廳資訊 & 步行路線
+
+
 2024/03/15 - 初步了解Google Map API相關資訊I
 一、觀念&實作
   1. 了解Google Map API計費方式
