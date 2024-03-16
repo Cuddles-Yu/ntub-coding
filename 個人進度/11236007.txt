@@ -1,3 +1,11 @@
+2024/03/14 - Python類別III
+一、觀念
+  1. 了解如何透過類別建立實體方法
+  2. 了解如何使用實體方法
+二、連結
+  1. https://reurl.cc/rrqm41 | Python 實體物件的建立與使用 - 下篇 - 實體方法 - Instance Methods By 彭彭
+
+
 2024/03/13 - 初步了解ChatGPT相關資訊I
 一、觀念&實作
   1. 了解OpenAI開發人員工具功能
