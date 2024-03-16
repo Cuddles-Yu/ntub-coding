@@ -1,3 +1,14 @@
+2024/03/13 - 初步了解ChatGPT相關資訊I
+一、觀念&實作
+  1. 了解OpenAI開發人員工具功能
+  2. 申請OpenAI API keys
+二、連結
+  1. https://reurl.cc/7785Kd | Day3 - ChatGPT Prompt的撰寫秘訣
+  2. https://reurl.cc/Qeqzap | Day16 - OpenAI API 介紹
+  3. https://reurl.cc/qrRQKn | Day17 - OpenAI API 的方法
+  4. https://reurl.cc/13VykD | Day18 - 如何申請OpenAI API keys
+
+
 2024/03/12 - Python類別II
 一、觀念
   1. 了解如何透過類別建立實體物件
