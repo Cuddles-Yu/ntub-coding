@@ -1,3 +1,14 @@
+2024/03/14 - 初步了解ChatGPT相關資訊II
+一、實作
+  1. 嘗試熟悉ChatGPT開發人員介面
+  2. 嘗試使用Python程式連接ChatGPT API（官方文件的範例）
+二、參考資料
+  1. https://reurl.cc/eL21pQ | Day22 - 使用Python串接OpenAI API
+  2. https://reurl.cc/dL3ED8 | ChatGPT GPT3.5 API Python 教學：10行程式碼輕鬆串接 OpenAI GPT3.5 API Python tutorial: 10 lines of code
+  3. https://reurl.cc/bDrL9v | ChatGPT API 串接教學、應用：1分鐘輕鬆串接 ChatGPT API Python with GPT-3.5-turbo
+  4. https://reurl.cc/80aKN7 | ChatGPT不能用怎麼辦？使用限制、解法和AI工具（What to Do ChatGPT Isn't Working and Dealing with Usage Limits）
+
+
 2024/03/14 - Python類別III
 一、觀念
   1. 了解如何透過類別建立實體方法
