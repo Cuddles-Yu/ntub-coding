@@ -1,4 +1,12 @@
 
+2024/03/14 - 實作Python網路爬蟲 IV
+一、實作
+   1. 透過右鍵開啟功能選單來取得地點所在的實際座標位置(x,y)
+二、問題
+   1. 點在錯誤位置會導致功能選單無法正確出現，導致爬蟲抓不到
+   2. 有些地點沒有實際的地址，需要加上額外的條件判斷
+
+
 2024/03/12 - 實作Python網路爬蟲 III
 一、實作
    1. 嘗試取得地點中的連結網站與相關評論
@@ -57,7 +65,7 @@
 二、問題
    1. 大量的地點資訊會佔用過長的時間
    2. 如果評論數量較大時執行效率較差
-三、連結：
+三、連結
    1. https://reurl.cc/g4omOb | selenium網頁自動化
    2. https://reurl.cc/RWo1x6 | Web Crawler基本教學
    3. https://reurl.cc/OGoqd7 | Pandas DataFrame處理雙維度資料方法
@@ -68,7 +76,7 @@
    1. 網路爬蟲基本概念
    2. Python Selenium套件的語法及架構
    3. 嘗試「搜尋地點關鍵字後爬取相關結果」
-二、連結：
+二、連結
    1. https://reurl.cc/bDgLVy | 文組也看得懂的-網路爬蟲
    2. https://reurl.cc/VNgrM5 | Python應用-爬蟲篇
    3. https://reurl.cc/yY0pLE | Selenium教學1
