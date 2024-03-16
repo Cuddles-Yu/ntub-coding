@@ -1,3 +1,13 @@
+2024/03/15 - 初步了解Google Map API相關資訊I
+一、觀念&實作
+  1. 了解Google Map API計費方式
+  2. 申請Google Map API Key
+二、參考資料
+  1. https://reurl.cc/D4rD7N | Google 地圖平台計費方式（官方說明）
+  2. https://reurl.cc/eLKaom | Google 地圖開始收費，怎麼申請 Google Map API Key 綁定信用卡？
+  3. https://reurl.cc/dL49qq | 網頁前端 Side Project 之午餐吃什麼？EP1｜Side Project 簡介 & 功能介紹 & 使用技術
+
+
 2024/03/14 - 初步了解ChatGPT相關資訊II
 一、實作
   1. 嘗試熟悉ChatGPT開發人員介面
