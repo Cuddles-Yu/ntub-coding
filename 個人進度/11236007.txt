@@ -1,3 +1,13 @@
+2024/03/17 - JavaScript基本觀念I
+一、觀念
+  1. 了解JavaScript資料型態
+  2. 了解JavaScript如何宣告變數和常數
+二、參考資料
+  1. https://reurl.cc/zlnnW7 | JavaScript 簡介、快速開始
+  2. https://reurl.cc/Z9LLj6 | JavaScript 資料、資料型態
+  3. https://reurl.cc/A4vvRE | JavaScript 變數、常數
+
+
 2024/03/16 - 初步了解Google Map API相關資訊II
 一、實作（但還不太明白JavaScript運作原理）
   1. 將Google Map API串接到網站
