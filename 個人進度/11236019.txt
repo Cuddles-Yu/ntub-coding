@@ -1,4 +1,14 @@
-2024/03/14 - 學習基礎雲端知識
+2024/03/16 - 複習資料庫知識
+一、概念
+   1.認識資料庫和SQL
+   2.安裝MySQL
+   3.tables & key 的關係(primary key, foreign key)
+   4.創建 database
+二、連結
+   1. https://reurl.cc/D4rrdd | 【資料庫】SQL 3小時初學者教學
+
+
+2024/03/15 - 學習基礎雲端知識
 一、概念
    1.認識基礎雲端知識（雲端運算的好處）
    2.建立 Google Cloud Platform 專案
@@ -12,7 +22,7 @@
    1.了解網站網站基礎架構 
    2.flask 網站框架
 二、連結
-   1. https://reurl.cc/bDK3Gr | Python Flask 網站後端開發 - 網站基礎架構總覽、Flask 快速開       始
+   1. https://reurl.cc/bDK3Gr | Python Flask 網站後端開發 - 網站基礎架構總覽、Flask 快速開始
 
 
 2024/03/12 - 學習Python 概念 VI
