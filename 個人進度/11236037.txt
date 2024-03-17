@@ -1,47 +1,48 @@
-2024/03/15 - 學習Web II
+2024/03/16 - 學習Web II
+一、概念、實作
+   1. 嘗試使用javascript加入開合式選單(失敗)
+二、面臨問題
+   1.選單內文字無法隱藏，選單圖片也會無意義消失
+三、連結
+   1. https://reurl.cc/QeKKWo | ChatGPT
 
+
+2024/03/15 - 學習Web II
 一、概念
    1. 容器div的使用
    2. 網頁頂部欄 
    3. 框架平行顯示(display、vertical-align)
    4. 嘗試寫出「具有頂部欄與三個平行方塊」的網頁
-
-二、連結：
+二、連結
    1. https://reurl.cc/Z9LV1A | 網頁前端工程入門：網頁排版教學 By 彭彭
 
 
 2024/03/14 - 學習Web Ⅰ
-
 一、概念
    1. 標題元素練習
-
-二、連結：
+二、連結
    1. https://reurl.cc/WRmlbD | 基本 HTML 文字
    2. https://reurl.cc/13Nb0X | 網頁前端工程入門：CSS 選擇器 - 詳細使用介紹 By 彭彭
 
 
 2024/03/11 - 學習Web
-
 一、概念
    1. 輸入欄與禁用輸入元素(input、disabled)
    2. html註解(<!-- -->)
    3. 增加「可由瀏覽者選擇顏色框、開新分頁連結、滑鼠移到連結上有提示」功能
-
-二、連結：
+二、連結
    1. https://reurl.cc/dLkQ72 | HTML介紹
    2. https://reurl.cc/or280V | HTML 入門
 
 
 2024/03/10 - 學習python基礎觀念
-
 一、概念
    1. while語法
    2. 函式(def)
    3. 字典型態運用
    4. 模組、第三方模組運用
    5. 類別(class)
-
-二、連結：
+二、連結
    1. https://reurl.cc/oronov | Python 零基礎新手入門 #06 While Loop (迴圈)
    2. https://reurl.cc/E4M3Mv | Python 零基礎新手入門 #07 Function (函式)
    3. https://reurl.cc/qrjxjE | Python 零基礎新手入門 #08 Dictionaries (字典)
@@ -50,13 +51,11 @@
 
 
 2024/03/09 - 學習python基礎觀念
-
 一、概念
    1. 變數型態、input語法使用
    2. if判斷式
    3. for迴圈
-
-二、連結：
+二、連結
    1. https://reurl.cc/WRZ5oO | Python 零基礎新手入門 #01 基本簡介與安裝
    2. https://reurl.cc/prjzRl | Python 零基礎新手入門 #02 變數與資料型態
    3. https://reurl.cc/D4QRMm | Python 零基礎新手入門 #03 IF 條件判斷式
@@ -69,7 +68,7 @@
    1. 資料型態的運算(Set、Dictionary)
    2. if 判斷式
    3. 迴圈基礎(while、for)
-二、連結：
+二、連結
    1. https://reurl.cc/4j7AVK | Python 集合、字典的基本運算 - Set、Dictionary By 彭彭
    2. https://reurl.cc/97Yj8O | Python 流程控制：if 判斷式 By 彭彭
    3. https://reurl.cc/RWlpMe | Python 流程控制：迴圈基礎，while 迴圈、for 迴圈 By 彭彭
@@ -80,7 +79,7 @@
    1. 變數與資料型態
    2. 數字、字串的基本運算
    3. 有序列表基礎觀念(List、Tuple)
-二、連結：
+二、連結
    1. https://reurl.cc/77vg8d | Python 簡介、安裝、與快速開始 By 彭彭
    2. https://reurl.cc/XqYd80 | Python 變數與資料型態 By 彭彭
    3. https://reurl.cc/QekyKp | Python 數字、字串的基本運算 By 彭彭
@@ -91,7 +90,7 @@
 一、概念
    1. HTML、CSS、JS基礎語法
    2. 增加「基本網頁互動功能」
-二、連結：
+二、連結
    1. https://reurl.cc/dLgd2k | 學習如何開發 Web
 
 
@@ -99,5 +98,5 @@
 一、概念
    1. HTML與CSS基礎語法
    2. 嘗試「寫出基本網頁」
-二、連結：
+二、連結
    1. https://reurl.cc/dLgd2k | 學習如何開發 Web
