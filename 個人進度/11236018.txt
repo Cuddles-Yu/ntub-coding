@@ -1,82 +1,100 @@
 
-2024/03/14 - 實作Python網路爬蟲 IV
-一、實作
+2024/03/15 - Python爬蟲之取得座標相關問題
+一、觀察結果
+   1. 開啟功能選單的位置會影響取得的實際座標
+   2. 需等待一段時間才會顯示座標在網址列中
+   3. 網址列顯示的@x,y,z為地圖檢視的中心座標與縮放 
+二、解決對策
+   1. 將在爬取評論的過程中一併等待座標顯示在網誌列
+   2. 透過讀取並拆分網址列顯示的中心座標取得地點座標(忽略縮放值)
+三、其他方法
+   1. 地址轉換經緯度的服務網站
+   2. GoogleMap-API提供的geocode()方法
+   3. GoogleEarth提供的地址定位功能
+四、參考連結
+   1. https://reurl.cc/mrKbKV | 大量地址資料轉換經緯度
+
+
+2024/03/14 - 實作Python爬蟲 IV
+一、實作功能
    1. 透過右鍵開啟功能選單來取得地點所在的實際座標位置(x,y)
-二、問題
+二、面臨問題
    1. 點在錯誤位置會導致功能選單無法正確出現，導致爬蟲抓不到
    2. 有些地點沒有實際的地址，需要加上額外的條件判斷
+三、參考連結
+   1. https://reurl.cc/nrG2lX | Python Selenium滑鼠右鍵
+   2. https://reurl.cc/g4X3pp | ActionChains 的使用
 
 
-2024/03/12 - 實作Python網路爬蟲 III
-一、實作
-   1. 嘗試取得地點中的連結網站與相關評論
+2024/03/12 - 實作Python爬蟲 III
+一、實作功能
+   1. 嘗試取得地點中的連結網站
    2. 學習Python中的Module和Class概念
-二、連結
+二、參考連結
    1. https://reurl.cc/QeAz9p | Python零基礎新手入門 #09 Module
    2. https://reurl.cc/E4lEZR | Python 零基礎新手入門 #10 Class
 
 
 2024/03/11 - 學習CSS基礎
-一、概念
+一、學習重點
    1. CSS基礎概念
    2. 載入CSS檔案至HTML
    3. HTML中的Class、ID標籤對CSS的影響
    4. 屬性(Padding、Margin、Opacity)
    5. 設定顏色轉換動畫Animation
-二、連結
+二、參考連結
    1. https://reurl.cc/67OojM | 【css】2小時初學者教學
 
 
 2024/03/10 - 學習HTML基礎
-一、概念
+一、學習重點
    1. HTML基礎語法
    2. 網頁技術基礎(HTML、CSS、JS)
    3. 在網頁中實現連結與嵌入影片
    4. 元素：列表、容器與輸入框
-二、連結
+二、參考連結
    1. https://reurl.cc/rrjpb4 | 【html】1小時初學者教學
 
 
-2024/03/09 - 實作Python網路爬蟲 II
-一、實作
-   1. 嘗試取得地點中的相關評論
-二、連結
-   1. https://reurl.cc/37l279 | Google Map Review動態爬蟲
+2024/03/09 - 實作Python爬蟲 II
+一、實作功能
+   1. 選擇地點「總覽/評論/簡介」中的評論標籤以取得所有評論
 
 
 2024/03/07 - 初步瞭解GoogleMap-API
-一、概念
+一、學習重點
    1. 申請Google地圖平台API服務之金鑰(key)
    2. 透過JS和Request等方式取得相關資料
    3. 相關服務條款與說明
    4. 嘗試透過Javascript串接API
-二、連結
+二、參考連結
    1. https://reurl.cc/09beYK | Maps API學習筆記1
    2. https://reurl.cc/A4WlEe | (官方)關於API
    3. https://reurl.cc/D4MMnR | (官方)API使用條款
 
 
-2024/03/03 - 實作Python網路爬蟲 I
-一、方法
+2024/03/03 - 實作Python爬蟲 I
+一、實作功能
    1. 以Json結構儲存地點資訊
    2. 取得地點名稱、評分、評論數、電話與網站等資料
    3. 透過Python Pandas套件進行資料處理+匯出資料
    4. 排除了網站內資料格式不同產生資料結構的問題
-二、問題
+二、面臨問題
    1. 大量的地點資訊會佔用過長的時間
    2. 如果評論數量較大時執行效率較差
-三、連結
+三、參考連結
    1. https://reurl.cc/g4omOb | selenium網頁自動化
    2. https://reurl.cc/RWo1x6 | Web Crawler基本教學
    3. https://reurl.cc/OGoqd7 | Pandas DataFrame處理雙維度資料方法
+   4. https://reurl.cc/37l279 | Google Map Review動態爬蟲
 
 
-2024/03/01 - 學習Python網路爬蟲
-一、概念
+2024/03/01 - 學習Python爬蟲
+一、學習重點
    1. 網路爬蟲基本概念
    2. Python Selenium套件的語法及架構
    3. 嘗試「搜尋地點關鍵字後爬取相關結果」
-二、連結
+二、參考連結
    1. https://reurl.cc/bDgLVy | 文組也看得懂的-網路爬蟲
    2. https://reurl.cc/VNgrM5 | Python應用-爬蟲篇
    3. https://reurl.cc/yY0pLE | Selenium教學1
