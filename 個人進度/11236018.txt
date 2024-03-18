@@ -1,4 +1,23 @@
 
+2024/03/18 - 學習網頁架構與PHP基礎語法
+一、學習重點
+   1. 網頁程式前端/後端的執行順序與流程
+   2. PHP語法基礎
+      - 以開頭「<?php」與結尾「?>」
+      - 指令以分號「;」來結束，並以點「.」做字串間的連接
+      - 變數以符號「$」後接上變數名稱來直接賦值宣告(不用設定變數類型)
+   3. 陣列型態
+      - 索引陣列array(value1, value2...)
+      - 關聯陣列array(key1=>value1, key2=>value2...)
+   4. 瞭解PHP與HTML之間的相互關係
+二、參考連結
+   1. https://reurl.cc/09NXKb | 前端與後端架構
+      2. https://reurl.cc/VNV8YA | 後端基礎 — PHP 基礎語法
+   3. https://reurl.cc/qreN0q | PHP 基本變數說明
+   4. https://reurl.cc/QeQbn0 | PHP 與 HTML 的關係
+   5. https://reurl.cc/978pmO | PHP練習(w3School)
+
+
 2024/03/17 - 實作Python爬蟲V
 一、實作功能
    1. 新增地點資訊欄位「留言數、留言」
@@ -8,12 +27,12 @@
    5. 將所有評論內容List[]轉換成String，暫時儲存至欄位「留言」中
 二、面臨問題
    1. 若在每次滾動後都透過判斷總評論數來檢查是否至底部，是否會對效能產生影響？
-二、學習重點
+三、學習重點
    1. HTML中role的作用是描述自定義組件的實際作用
    2. 用div做為button，設定role="button"就會識別為按鈕
    3. try...except語法中透過在except中加入關鍵字pass來略過例外處理
    4. 透過join()方法搭配間隔字串來將List[]轉換成String的格式
-三、參考連結
+四、參考連結
    1. https://reurl.cc/M4Kxqm | HTML中role屬性的作用
    2. https://reurl.cc/VNbOOA | 例外處理 ( try、except ) - Python 教學
    3. https://reurl.cc/yY9N3a | Python List to String
