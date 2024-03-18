@@ -1,3 +1,14 @@
+2024/03/18 - python 連結資料庫
+一、實作
+   1. 安裝vscode
+   2. import mysql.connector 模組
+   3. 創建新資料庫與取得所有資料庫名稱
+   4. 選擇資料庫和創建表格
+二、連結
+   1. https://reurl.cc/D4rrdd | 【資料庫】SQL 3小時初學者教學
+   2. https://reurl.cc/VNV8OR |  解決無法連到MySQL密碼的方法
+
+
 2024/03/17 - 複習資料庫知識 II
 一、概念
    1. 創建表格(刪除表格、新增與刪除屬性)
