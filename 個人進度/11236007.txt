@@ -1,3 +1,10 @@
+2024/03/18 - JavaScript基本觀念II
+一、觀念
+  1. 了解JavaScript運算符號基本操作
+二、參考資料
+  1. https://reurl.cc/g45DZX | JavaScript 運算符號
+
+
 2024/03/17 - JavaScript基本觀念I
 一、觀念
   1. 了解JavaScript資料型態
