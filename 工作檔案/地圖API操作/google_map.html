@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google API 練習</title>
+</head>
+<body style="margin: 0;"> <!--網頁邊界設為0，不會有滑動效果-->
+    <div style="display: flex;"> 
+        <div id="map" style="width: 50%;height: 100vh;"></div> <!--網頁左半邊-->
+        <div style="padding: 16px;"> <!--網頁右半邊-->
+            <input id="search-input"/> <!--簡易文字輸入框-->
+        </div>
+    </div>
+
+    <script>
+        // 前置動作：GCP新增專案、啟用Google Map API服務、建立API Key
+        let map; // 顯示Google地圖
+        let currentPosition; // 地圖定位在目前位置
+
+        function initMap(){ 
+            // 顯示Google地圖，定位在台灣
+            map = new google.maps.Map(document.getElementById('map'),{
+                center:{lat:23.553118,lng:121.0211024}, // 地圖中心點(台灣的緯度、經度)
+                zoom:7, // 地圖預設的縮放大小
+            });
+
+            // 地圖定位在目前位置
+            navigator.geolocation.getCurrentPosition(function(position){
+                currentPosition = {
+                    lat:position.coords.latitude, // 緯度
+                    lng:position.coords.longitude, // 經度
+                };
+
+                map.setCenter(currentPosition); 
+                map.setZoom(16);
+
+                // 搜尋結果提示
+                const autocomplete = new google.maps.places.Autocomplete(
+                    document.getElementById("search-input"), // 選到文字輸入框
+                    {
+                        type: ['restaurant'], // 搜尋類型為餐廳
+                        bounds:{ // 優先搜尋地理邊界(東西南北)
+                            east:currentPosition.lng + 0.001, // 往東邊+100公尺
+                            west:currentPosition.lng - 0.001, 
+                            south:currentPosition.lat - 0.001,
+                            north:currentPosition.lat + 0.001,
+                        },
+                        strictBounds:false, // 不限制在以上地理邊界
+                    }
+                );
+            });
+        }
+    </script>
+
+    <!--載入API程式庫-->
+    <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGLiQP_01fRLSXKvui9RJORScJaHHcMxw&libraries=places&callback=initMap&region=TW&language=zh-TW">
+    </script>
+</body>
+</html>
