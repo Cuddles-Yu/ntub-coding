@@ -1,0 +1,109 @@
+2024/03/18 - python 連結資料庫
+一、實作
+   1. 安裝vscode
+   2. import mysql.connector 模組
+   3. 創建新資料庫與取得所有資料庫名稱
+   4. 選擇資料庫和創建表格
+二、連結
+   1. https://reurl.cc/D4rrdd | 【資料庫】SQL 3小時初學者教學
+   2. https://reurl.cc/VNV8OR |  解決無法連到MySQL密碼的方法
+
+
+2024/03/17 - 複習資料庫知識 II
+一、概念
+   1. 創建表格(刪除表格、新增與刪除屬性)
+   2. 儲存、資料
+   3. constraint(限制)屬性
+   4. 修改&刪除資料 
+   5. 取得資料
+   6. 創建公司資料庫(依照影片範例做練習)
+二、連結
+   1. https://reurl.cc/D4rrdd | 【資料庫】SQL 3小時初學者教學
+
+
+2024/03/16 - 複習資料庫知識 I
+一、概念
+   1. 認識資料庫和SQL
+   2. 安裝MySQL
+   3. tables & key 的關係(primary key, foreign key)
+   4. 創建 database
+二、連結
+   1. https://reurl.cc/D4rrdd | 【資料庫】SQL 3小時初學者教學
+
+
+2024/03/15 - 學習基礎雲端知識
+一、概念
+   1. 認識基礎雲端知識（雲端運算的好處）
+   2. 建立 Google Cloud Platform 專案
+二、連結
+   1. https://reurl.cc/L4K5A9 | GDSC-speak.pptx(講師簡報）
+   2. https://reurl.cc/RW3Lzz | (GCP)Google cloud 
+
+
+2024/03/13 - 學習網站後端開發概念
+一、概念
+   1. 了解網站網站基礎架構 
+   2. flask 網站框架
+二、連結
+   1. https://reurl.cc/bDK3Gr | Python Flask 網站後端開發 - 網站基礎架構總覽、Flask 快速開始
+
+
+2024/03/12 - 學習Python 概念 VI
+一、概念
+   1. Module 模組(import, import as, from import, random, choice 選擇,randint, digits 
+      數字, ascii_letters大小寫, shuffle, text)
+   2. Class 類別(attributes 屬性,init 初始化, self, methods 方法,  inheritance 繼承)
+二、連結
+   1. https://reurl.cc/QeAz9p | Python零基礎新手入門 #09 Module(模組)
+   2. https://reurl.cc/E4lEZR | Python 零基礎新手入門 #10 Class(類別)
+
+
+2024/03/11 - 學習Python 概念 V
+一、概念
+   1. Function函式(global variable 全域變數, local variable 區域變數) 
+   2. Dictionary 字典(key 鍵, value 值, item 項目, get , pop, popitem, clear)
+二、連結
+   1. https://reurl.cc/VNxknZ | Python零基礎新手入門 #07 Function(函式)
+   2. https://reurl.cc/80adOy | Python 零基礎新手入門 #08 Dictionaries(字典)
+
+
+2024/03/09 - 學習 Python 概念 IV
+一、概念
+   1. while loop 迴圈(while True, abs絕對值)
+   2. Function函式(def定義、arguments 引數、return 回傳)
+二、連結
+   1. https://reurl.cc/RWVx9e | Python 零基礎新手入門 #06 While Loop(迴圈)
+   2. https://reurl.cc/VNxknZ | Python 零基礎新手入門 #07 Function(函式)
+
+
+2024/03/07 - 學習 Python 基礎觀念 III
+一、概念
+   1. for loop 迴圈（break, continue, range）
+   2. while loop 迴圈
+二、連結：
+   1. https://reurl.cc/g4AKnL | Python 零基礎新手入門 #05 For Loop(迴圈)
+   2. https://reurl.cc/RWVx9e | Python 零基礎新手入門 #06 While Loop(迴圈)
+
+
+2024/03/03 - 學習 Python 基礎觀念 II
+一、概念
+   1. 基本操作、變數與資料型別
+   2. 布林、IF 條件判斷式（if、else、巢狀if、elif）
+   3. List 串列（split、join、tuple、append、extend）
+   4. Loop 迴圈
+二、連結：
+   1. https://reurl.cc/549d1V | Python 零基礎新手入門 #01 基本簡介與安裝
+   2. https://reurl.cc/A4v20Y | Python 零基礎新手入門 #02 變數與資料型態
+   3. https://reurl.cc/bDKYlv | Python 零基礎新手入門 #03 IF 條件判斷式
+   4. https://reurl.cc/QeKEep | Python 零基礎新手入門 #04 List 清單(串列)
+
+
+2024/03/01 - 學習 Python 基礎觀念 I
+一、概念
+   1. 變數與資料型別
+   2. IF 條件判斷式
+   3. List 清單（串列）
+二、連結：
+   1. https://reurl.cc/A4v20Y | Python 零基礎新手入門 #02 變數與資料型態
+   2. https://reurl.cc/bDKYlv | Python 零基礎新手入門 #03 IF 條件判斷式
+   3. https://reurl.cc/QeKEep | Python 零基礎新手入門 #04 List 清單(串列)

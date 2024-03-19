@@ -1,0 +1,149 @@
+2024/03/18 - JavaScript基本觀念II
+一、觀念
+  1. 了解JavaScript運算符號基本操作
+二、參考資料
+  1. https://reurl.cc/g45DZX | JavaScript 運算符號
+
+
+2024/03/17 - JavaScript基本觀念I
+一、觀念
+  1. 了解JavaScript資料型態
+  2. 了解JavaScript如何宣告變數和常數
+二、參考資料
+  1. https://reurl.cc/zlnnW7 | JavaScript 簡介、快速開始
+  2. https://reurl.cc/Z9LLj6 | JavaScript 資料、資料型態
+  3. https://reurl.cc/A4vvRE | JavaScript 變數、常數
+
+
+2024/03/16 - 初步了解Google Map API相關資訊II
+一、實作（但還不太明白JavaScript運作原理）
+  1. 將Google Map API串接到網站
+  2. 能夠定位使用者所在位置（問題：使用電腦瀏覽Google Map位置不夠精準）
+  3. 能夠搜尋需要的資訊並提示完整地址
+  4. 能夠在地圖上顯示地點相關資訊和步行路線
+二、參考資料
+  1. https://reurl.cc/rrOXbN | Google Map API 官方文件
+  2. https://reurl.cc/zlnox7 | 網頁前端 Side Project 之午餐吃什麼？EP2｜Google Maps 地圖（上） Google Maps API 設定 & 使用者定位
+  3. https://reurl.cc/zlnXkp | 網頁前端 Side Project 之午餐吃什麼？EP3｜Google Maps 地圖（下）搜尋餐廳 & 餐廳資訊 & 步行路線
+
+
+2024/03/15 - 初步了解Google Map API相關資訊I
+一、觀念&實作
+  1. 了解Google Map API計費方式
+  2. 申請Google Map API Key
+二、參考資料
+  1. https://reurl.cc/D4rD7N | Google 地圖平台計費方式（官方說明）
+  2. https://reurl.cc/eLKaom | Google 地圖開始收費，怎麼申請 Google Map API Key 綁定信用卡？
+  3. https://reurl.cc/dL49qq | 網頁前端 Side Project 之午餐吃什麼？EP1｜Side Project 簡介 & 功能介紹 & 使用技術
+
+
+2024/03/14 - 初步了解ChatGPT相關資訊II
+一、實作
+  1. 嘗試熟悉ChatGPT開發人員介面
+  2. 嘗試使用Python程式連接ChatGPT API（官方文件的範例）
+二、參考資料
+  1. https://reurl.cc/eL21pQ | Day22 - 使用Python串接OpenAI API
+  2. https://reurl.cc/dL3ED8 | ChatGPT GPT3.5 API Python 教學：10行程式碼輕鬆串接 OpenAI GPT3.5 API Python tutorial: 10 lines of code
+  3. https://reurl.cc/bDrL9v | ChatGPT API 串接教學、應用：1分鐘輕鬆串接 ChatGPT API Python with GPT-3.5-turbo
+  4. https://reurl.cc/80aKN7 | ChatGPT不能用怎麼辦？使用限制、解法和AI工具（What to Do ChatGPT Isn't Working and Dealing with Usage Limits）
+
+
+2024/03/14 - Python類別III
+一、觀念
+  1. 了解如何透過類別建立實體方法
+  2. 了解如何使用實體方法
+二、連結
+  1. https://reurl.cc/rrqm41 | Python 實體物件的建立與使用 - 下篇 - 實體方法 - Instance Methods By 彭彭
+
+
+2024/03/13 - 初步了解ChatGPT相關資訊I
+一、觀念&實作
+  1. 了解OpenAI開發人員工具功能
+  2. 申請OpenAI API keys
+二、連結
+  1. https://reurl.cc/7785Kd | Day3 - ChatGPT Prompt的撰寫秘訣
+  2. https://reurl.cc/Qeqzap | Day16 - OpenAI API 介紹
+  3. https://reurl.cc/qrRQKn | Day17 - OpenAI API 的方法
+  4. https://reurl.cc/13VykD | Day18 - 如何申請OpenAI API keys
+
+
+2024/03/12 - Python類別II
+一、觀念
+  1. 了解如何透過類別建立實體物件
+  2. 了解如何使用實體屬性
+二、
+  1. https://reurl.cc/zlR0NN | Python 實體物件的建立與使用 - 上篇 - 實體屬性 Instance Attributes By 彭彭
+
+
+2024/03/11 - Python類別I
+一、觀念
+  1. 了解類別的基本運作概念
+  2. 了解如何定義類別和使用類別中的屬性
+二、連結
+  1. https://reurl.cc/Z93ZLg | Python 類別的定義與使用 - Class Attributes By 彭彭
+
+
+2024/03/10 - Python操作檔案
+一、觀念
+  1. 操作檔案（讀取和寫入文字檔案、JSON檔案）
+二、連結
+  1. https://reurl.cc/2zG699 | Python 文字檔案的讀取和儲存 By 彭彭
+
+
+2024/03/09 - Python基本觀念V
+一、觀念
+  1. While迴圈
+  2. 函式
+  3. 模組
+  4. 類別
+二、連結
+  1. https://reurl.cc/eL4lVQ | Python 零基礎新手入門 #06 While Loop (迴圈)
+  2. https://reurl.cc/OG83RD | Python 零基礎新手入門 #07 Function (函式)
+  3. https://reurl.cc/M4x5ML | Python 零基礎新手入門 #08 Dictionaries (字典)
+  4. https://reurl.cc/VNvOmZ | Python 零基礎新手入門 #09 Module (模組)
+  5. https://reurl.cc/xLjMKV | Python 零基礎新手入門 #10 Class (類別)
+
+
+2024/03/08 - Python基本觀念IV
+一、觀念
+  1. 資料型態
+  2. 條件式
+  3. For迴圈
+二、連結
+  1. https://reurl.cc/OG83Rv | Python 零基礎新手入門 #01 基本簡介與安裝
+  2. https://reurl.cc/QekAVZ | Python 零基礎新手入門 #02 變數與資料型態
+  3. https://reurl.cc/N4mdNQ | Python 零基礎新手入門 #03 IF 條件判斷式
+  4. https://reurl.cc/97YNbn | Python 零基礎新手入門 #04 List 清單(串列)
+  5. https://reurl.cc/E4Mlbm | Python 零基礎新手入門 #05 For Loop (迴圈)
+
+
+2024/03/07 - Python基本觀念III
+一、觀念
+  1. Python 模組、封包使用方法
+  2. 練習使用函式、模組、封包
+二、連結
+  1. https://reurl.cc/dLjkpV | Python Module 模組的載入與使用 By 彭彭
+  2. https://reurl.cc/2zkGar | Python Package 封包的設計與使用 By 彭彭
+
+
+2024/03/03 - Python基本觀念II
+一、觀念
+  1. Python 流程控制（if判斷式、while迴圈、for迴圈）
+  2. Python 函式基礎
+  3. 複習+優化資料型態筆記
+  4. 練習迴圈、函式
+二、連結
+  1. https://reurl.cc/mrj5k1 |  Python 流程控制：if 判斷式 By 彭彭
+  2. https://reurl.cc/aLjmM3 | Python 流程控制：迴圈基礎，while 迴圈、for 迴圈 By 彭彭
+  3. https://reurl.cc/v0jOKy | Python 流程控制：迴圈進階控制，break、continue、else 命令 By 彭彭
+  4. https://reurl.cc/YVrNDl | Python 函式基礎：定義並呼叫函式 By 彭彭
+  5. https://reurl.cc/54yW3q | Python 函式參數詳解：參數預設值、名稱對應、任意長度參數 By 彭彭
+
+
+2024/03/01 - Python基本觀念I
+一、觀念
+  1. Python資料型態（基本概念）
+  2. Python網路爬蟲（大略）
+二、連結
+  1. https://reurl.cc/80Rr2o | Python 爬蟲 - pala.tw
+  2. https://reurl.cc/pr2qxr | Python 基础教程
