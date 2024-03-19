@@ -1,3 +1,10 @@
+2024/03/19 - JavaScript基本觀念III
+一、觀念
+  1. 了解JavaScript判斷式基本操作(if...else if...else)
+二、參考資料
+  1. https://reurl.cc/RWMVQZ | JavaScript 流程控制：判斷式
+
+
 2024/03/18 - JavaScript基本觀念II
 一、觀念
   1. 了解JavaScript運算符號基本操作
