@@ -1,0 +1,56 @@
+.html{
+    display: flex;
+}
+
+.head{
+    background-color: #485465; 
+    color: aliceblue;
+    font-weight: bold;
+    font-size: 30px;
+    height: 40px;
+    text-align: left;
+    padding: 20px ;
+    min-width: 100%;
+}
+
+.content{
+    width: 1000px; 
+    margin-left: auto;
+    margin-right: auto;
+    border: 3px ;
+}
+
+.box{ 
+    position: relative;
+    left: 50%;
+    width: 220px;
+    padding: 10px;
+    margin: 10px;
+    background-color: white;
+    display: inline-block;
+    vertical-align: top;
+    line-height: 30px;
+}
+
+.title{
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.box img{
+    position: absolute;
+    top: 50%;
+    left: 90%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: auto;
+    float: right;
+    object-fit: cover;
+}
+
+.img1{
+    width: 30px;
+    height: auto;
+}
+
+
