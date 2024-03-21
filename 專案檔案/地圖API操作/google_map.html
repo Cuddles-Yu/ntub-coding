@@ -17,6 +17,8 @@
         // 前置動作：GCP新增專案、啟用Google Map API服務、建立API Key
         let map; // 顯示Google地圖
         let currentPosition; // 地圖定位在目前位置
+        let selectedRestaurant; // 搜尋的地點
+        let marker; // 地點標示
 
         function initMap(){ 
             // 顯示Google地圖，定位在台灣
@@ -49,6 +51,28 @@
                         strictBounds:false, // 不限制在以上地理邊界
                     }
                 );
+                autocomplete.addListener('place_changed', function(){ // 取得地點資訊
+                    const place = autocomplete.getPlace();
+
+                    selectedRestaurant = {
+                        location:place.geometry.location, // 地點位置(經緯度)
+                        placeId:place.place_id, // 地點ID
+                        name:place.name, // 名稱
+                        address:place.formatted_address, // 地址
+                        phoneNumber:place.formatted_phone_number, // 電話號碼
+                        rating:place.rating, // 評分
+                    };
+
+                    map.setCenter(selectedRestaurant.location); // 地圖中心設為搜尋到的地點
+
+                    if (!marker){ // 地點標示
+                        marker = new google.maps.Marker({
+                            map: map,
+                        });
+                    }
+
+                    marker.setPosition(selectedRestaurant.location); // 設定標示為搜尋到的地點的位置
+                });
             });
         }
     </script>
