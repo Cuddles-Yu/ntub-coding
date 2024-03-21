@@ -1,3 +1,15 @@
+2024/03/21 - JavaScript函式
+一、觀念
+  1. 了解函式基本用法
+  2. 了解函式回傳值
+二、實作
+  1. 在地圖中標註地點位置
+三、參考資料
+  1. https://reurl.cc/VNdxG5 | JavaScript 函式基礎
+  2. https://reurl.cc/135VnW | JavaScript 函式回傳值
+  3. https://reurl.cc/zlnXkp | 網頁前端 Side Project 之午餐吃什麼？EP3｜Google Maps 地圖（下）搜尋餐廳 & 餐廳資訊 & 步行路線
+
+
 2024/03/20 - JavaScript迴圈
 一、觀念
   1. 了解while迴圈基本用法
