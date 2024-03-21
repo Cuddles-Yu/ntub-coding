@@ -48,6 +48,7 @@ comments = driver.find_elements(By.CLASS_NAME, 'UY7F9')
 url = [title.get_attribute('href') for title in titles]
 data = {
     '名稱': [title.get_attribute('aria-label') for title in titles],
+    '標籤': [],
     'X座標': [],
     'Y座標': [],
     '連結': url,
@@ -83,7 +84,7 @@ for i in range(maxCount):
                         data[name].append(href)
                     else:
                         data[name].append(tag.find_element(By.CLASS_NAME, 'Io6YTe').text)
-
+    data['標籤'].append(driver.find_element(By.CLASS_NAME, 'DkEaL').text)
     # 1.模擬滑鼠右鍵打開功能選單來取得座標位置
     # canvas = driver.find_element(By.XPATH, "//*[name()='canvas']")
     # ActionChains(driver).context_click(canvas).perform()
