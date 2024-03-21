@@ -3,16 +3,16 @@
     color: aliceblue;
     font-weight: bold;
     font-size: 30px;
-    height: 40px;
+    height: 70px;
     text-align: left;
     padding: 20px ;
     max-width: 100%;
 }
 
-.content{
+.content-up{
     width: 600px;
     margin-left: auto;
-    margin-right: 25px;
+    margin-right: 8%;
     border: 3px solid #EFEFEF;
     line-height: 30px;
     vertical-align: top;
@@ -24,7 +24,7 @@
     padding: 10px;
     margin: 10px;
     background-color: white;
-    display: inline-block;   
+    display: inline-block;
 }
 
 .box2{ 
@@ -69,11 +69,19 @@
     vertical-align: middle;
 }
 
+.content{
+    width: auto;
+    height: auto;
+    vertical-align: top;
+    display: flex;
+}
+
 .map-margin{
-    max-width: 1150px;
+    width: 1050px;
     max-height: auto;
-    border: 3px solid;
-    margin: 10px 10px 10px 30px;
+    border: 1px solid;
+    margin-left: 1%;
+    display: inline-block;
 }
 
 .map{
@@ -81,4 +89,19 @@
     width: 100%;
     height: 700px;
     text-align: center;
+}
+
+.search-result{
+    width: 750px;
+    height: auto;
+    border: 1px solid;
+    margin-left: auto;
+    margin-right: 2%;
+    display: inline-block;
+}
+
+.search-column{
+    width: 100%;
+    height: 700px;
+    border: 1px black ;
 }
