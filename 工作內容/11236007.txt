@@ -1,18 +1,36 @@
-2024/03/19 - JavaScript基本觀念III
+2024/03/20 - JavaScript迴圈
+一、觀念
+  1. 了解while迴圈基本用法
+  2. 了解for迴圈基本用法
+二、實作
+  1. 將搜尋結果提示改為不指定類型
+三、參考資料
+  1. https://reurl.cc/M4l8M4 | JavaScript 流程控制：迴圈基礎
+  2. https://reurl.cc/QevXVO | JavaScript 流程控制：迴圈指令
+  3. https://reurl.cc/2zdq44 | Google地圖API - 地點類型限制
+
+
+2024/03/19 - JavaScript判斷式
 一、觀念
   1. 了解JavaScript判斷式基本操作(if...else if...else)
-二、參考資料
+二、實作
+  1. 利用Google Map API在網頁上顯示地圖
+  2. 利用Google Map API定位使用者位置
+  3. 利用Google Map API提供搜尋結果提示
+三、參考資料
   1. https://reurl.cc/RWMVQZ | JavaScript 流程控制：判斷式
+  2. https://reurl.cc/zlnox7 | 網頁前端 Side Project 之午餐吃什麼？EP2｜Google Maps 地圖（上） Google Maps API 設定 & 使用者定位
+  3. https://reurl.cc/zlnXkp | 網頁前端 Side Project 之午餐吃什麼？EP3｜Google Maps 地圖（下）搜尋餐廳 & 餐廳資訊 & 步行路線
 
 
-2024/03/18 - JavaScript基本觀念II
+2024/03/18 - JavaScript基本運算
 一、觀念
   1. 了解JavaScript運算符號基本操作
 二、參考資料
   1. https://reurl.cc/g45DZX | JavaScript 運算符號
 
 
-2024/03/17 - JavaScript基本觀念I
+2024/03/17 - JavaScript資料型態
 一、觀念
   1. 了解JavaScript資料型態
   2. 了解JavaScript如何宣告變數和常數
@@ -23,11 +41,10 @@
 
 
 2024/03/16 - 初步了解Google Map API相關資訊II
-一、實作（但還不太明白JavaScript運作原理）
-  1. 將Google Map API串接到網站
-  2. 能夠定位使用者所在位置（問題：使用電腦瀏覽Google Map位置不夠精準）
-  3. 能夠搜尋需要的資訊並提示完整地址
-  4. 能夠在地圖上顯示地點相關資訊和步行路線
+一、實作
+  1. 嘗試將Google Map API串接到網站並顯示地圖
+  2. 嘗試能夠定位使用者所在位置
+  3. 嘗試能夠搜尋需要的資訊並提示完整地址
 二、參考資料
   1. https://reurl.cc/rrOXbN | Google Map API 官方文件
   2. https://reurl.cc/zlnox7 | 網頁前端 Side Project 之午餐吃什麼？EP2｜Google Maps 地圖（上） Google Maps API 設定 & 使用者定位
@@ -59,7 +76,7 @@
 一、觀念
   1. 了解如何透過類別建立實體方法
   2. 了解如何使用實體方法
-二、連結
+二、參考資料
   1. https://reurl.cc/rrqm41 | Python 實體物件的建立與使用 - 下篇 - 實體方法 - Instance Methods By 彭彭
 
 
@@ -67,7 +84,7 @@
 一、觀念&實作
   1. 了解OpenAI開發人員工具功能
   2. 申請OpenAI API keys
-二、連結
+二、參考資料
   1. https://reurl.cc/7785Kd | Day3 - ChatGPT Prompt的撰寫秘訣
   2. https://reurl.cc/Qeqzap | Day16 - OpenAI API 介紹
   3. https://reurl.cc/qrRQKn | Day17 - OpenAI API 的方法
@@ -78,7 +95,7 @@
 一、觀念
   1. 了解如何透過類別建立實體物件
   2. 了解如何使用實體屬性
-二、
+二、參考資料
   1. https://reurl.cc/zlR0NN | Python 實體物件的建立與使用 - 上篇 - 實體屬性 Instance Attributes By 彭彭
 
 
@@ -86,24 +103,24 @@
 一、觀念
   1. 了解類別的基本運作概念
   2. 了解如何定義類別和使用類別中的屬性
-二、連結
+二、參考資料
   1. https://reurl.cc/Z93ZLg | Python 類別的定義與使用 - Class Attributes By 彭彭
 
 
-2024/03/10 - Python操作檔案
+2024/03/10 - Python檔案操作
 一、觀念
   1. 操作檔案（讀取和寫入文字檔案、JSON檔案）
-二、連結
+二、參考資料
   1. https://reurl.cc/2zG699 | Python 文字檔案的讀取和儲存 By 彭彭
 
 
-2024/03/09 - Python基本觀念V
+2024/03/09 - Python基礎總複習II
 一、觀念
   1. While迴圈
   2. 函式
   3. 模組
   4. 類別
-二、連結
+二、參考資料
   1. https://reurl.cc/eL4lVQ | Python 零基礎新手入門 #06 While Loop (迴圈)
   2. https://reurl.cc/OG83RD | Python 零基礎新手入門 #07 Function (函式)
   3. https://reurl.cc/M4x5ML | Python 零基礎新手入門 #08 Dictionaries (字典)
@@ -111,12 +128,12 @@
   5. https://reurl.cc/xLjMKV | Python 零基礎新手入門 #10 Class (類別)
 
 
-2024/03/08 - Python基本觀念IV
+2024/03/08 - Python基礎總複習I
 一、觀念
   1. 資料型態
   2. 條件式
   3. For迴圈
-二、連結
+二、參考資料
   1. https://reurl.cc/OG83Rv | Python 零基礎新手入門 #01 基本簡介與安裝
   2. https://reurl.cc/QekAVZ | Python 零基礎新手入門 #02 變數與資料型態
   3. https://reurl.cc/N4mdNQ | Python 零基礎新手入門 #03 IF 條件判斷式
@@ -124,22 +141,22 @@
   5. https://reurl.cc/E4Mlbm | Python 零基礎新手入門 #05 For Loop (迴圈)
 
 
-2024/03/07 - Python基本觀念III
+2024/03/07 - Python模組、封包
 一、觀念
   1. Python 模組、封包使用方法
   2. 練習使用函式、模組、封包
-二、連結
+二、參考資料
   1. https://reurl.cc/dLjkpV | Python Module 模組的載入與使用 By 彭彭
   2. https://reurl.cc/2zkGar | Python Package 封包的設計與使用 By 彭彭
 
 
-2024/03/03 - Python基本觀念II
+2024/03/03 - Python流程控制、函式基礎
 一、觀念
-  1. Python 流程控制（if判斷式、while迴圈、for迴圈）
+  1. Python if判斷式、while迴圈、for迴圈
   2. Python 函式基礎
   3. 複習+優化資料型態筆記
   4. 練習迴圈、函式
-二、連結
+二、參考資料
   1. https://reurl.cc/mrj5k1 |  Python 流程控制：if 判斷式 By 彭彭
   2. https://reurl.cc/aLjmM3 | Python 流程控制：迴圈基礎，while 迴圈、for 迴圈 By 彭彭
   3. https://reurl.cc/v0jOKy | Python 流程控制：迴圈進階控制，break、continue、else 命令 By 彭彭
@@ -147,10 +164,10 @@
   5. https://reurl.cc/54yW3q | Python 函式參數詳解：參數預設值、名稱對應、任意長度參數 By 彭彭
 
 
-2024/03/01 - Python基本觀念I
+2024/03/01 - Python資料型態
 一、觀念
-  1. Python資料型態（基本概念）
+  1. Python資料型態基本概念
   2. Python網路爬蟲（大略）
-二、連結
+二、參考資料
   1. https://reurl.cc/80Rr2o | Python 爬蟲 - pala.tw
-  2. https://reurl.cc/pr2qxr | Python 基础教程
+  2. https://reurl.cc/pr2qxr |  Python 基础教程
