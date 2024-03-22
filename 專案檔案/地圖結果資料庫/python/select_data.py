@@ -15,5 +15,12 @@ records = cursor.fetchall()
 for r in records:
     print(r)
 
+#取得表格結構
+cursor.execute('DESCRIBE `mapg`;')
+columns = cursor.fetchall()
+for c in columns:
+    print(c)
+
+    
 cursor.close()
 connection.close()
