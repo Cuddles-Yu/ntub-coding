@@ -1,3 +1,13 @@
+2024/03/22 - 頁底與Flexbox
+一、概念、實作
+   1. 學習將文字固定在底部
+   2. 學習Flexbox基礎知識
+二、連結：
+   1. https://reurl.cc/kr6a9b | CSS彈性盒子用法
+   2. https://reurl.cc/dLYmO6 | footer置底的五種方式
+   3. https://reurl.cc/j3Avaq | Flexbox 完整指南
+
+
 2024/03/20 - 頁面寬度調整
 一、概念、實作
    1. 學習將頁面內容設定在範圍內，不會出現左右卷軸
