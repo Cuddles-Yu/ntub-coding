@@ -1,3 +1,15 @@
+2024/03/22 - JavaScript模組
+一、觀念
+  1. 了解模組基本用法
+  2. 了解模組輸出和輸入的用法
+二、實作
+  1. 嘗試在地圖中顯示地點資訊
+三、參考資料
+  1. https://reurl.cc/E4A4KK | JavaScript Modules 模組基礎
+  2. https://reurl.cc/VN9NaR | JavaScript Modules 模組的輸出和輸入
+  3. https://reurl.cc/zlnXkp | 網頁前端 Side Project 之午餐吃什麼？EP3｜Google Maps 地圖（下）搜尋餐廳 & 餐廳資訊 & 步行路線
+
+
 2024/03/21 - JavaScript函式
 一、觀念
   1. 了解函式基本用法
