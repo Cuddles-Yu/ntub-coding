@@ -10,9 +10,9 @@
 }
 
 .content-up{
-    width: 600px;
+    width: 700px;
     margin-left: auto;
-    margin-right: 8%;
+    margin-right: 2%;
     border: 3px solid #EFEFEF;
     line-height: 30px;
     vertical-align: top;
@@ -20,31 +20,34 @@
 
 .box1{ 
     position: relative;
-    width: 320px;
+    width: 400px;
     padding: 10px;
     margin: 10px;
     background-color: white;
     display: inline-block;
+    border-radius: 15px;
 }
 
 .box2{ 
     position: relative;
-    width: 75px;
+    width: 80px;
     padding: 10px;
-    margin: 10px;
+    margin: 10px 0px 0px 30px;
     background-color: white;
     display: inline-block;
     text-align: right;
+    border-radius: 15px;
 }
 
 .box3{ 
     position: relative;
-    width: 75px;
+    width: 80px;
     padding: 10px;
-    margin: 10px;
+    margin: 10px 0px 0px 30px;
     background-color: white;
     display: inline-block;
     text-align: right;
+    border-radius: 15px;
 }
 
 .title{
@@ -63,10 +66,38 @@
     object-fit: cover;
 }
 
+.box2 img{
+    position: absolute;
+    top: 50%;
+    left: 27%;
+    transform: translate(-50%, -50%);
+    width: 27px;
+    height: auto;
+    float: right;
+    object-fit: cover;
+}
+
+.box3 img{
+    position: absolute;
+    top: 50%;
+    left: 27%;
+    transform: translate(-50%, -50%);
+    width: 27px;
+    height: auto;
+    float: right;
+    object-fit: cover;
+}
+
 .img1{
     width: 40px;
     height: auto;
     vertical-align: middle;
+}
+
+.Q{
+    width: 15px;
+    height: auto;
+
 }
 
 .content{
