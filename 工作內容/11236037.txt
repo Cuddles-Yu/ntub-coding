@@ -1,3 +1,10 @@
+2024/03/24 - 滾動功能
+一、概念
+   1. 學習滾動效果
+二、連結：
+   1. https://reurl.cc/rrej0O | 用簡單的 CSS 和 JavaScript 輕鬆製造視差滾動（Parallax Scrolling）
+
+
 2024/03/23 - 展開框
 一、概念、實作
    1. 學習將外框設置圓角(margin-radius)
