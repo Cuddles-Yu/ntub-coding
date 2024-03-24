@@ -1,3 +1,4 @@
+import os
 import time
 import re
 import pandas as pd
@@ -46,8 +47,11 @@ WebDriverWait(driver, 10).until(
 )
 element = driver.find_element(By.CLASS_NAME, 'searchboxinput')
 keywords = '臺北商業大學 附近的蛋塔'
-element.send_keys(keywords)
 element.send_keys(Keys.ENTER)
+element.send_keys(keywords)
+
+# 檔案儲存路徑
+filePath = f'{keywords.strip().replace(' ','')}的搜尋結果.csv'
 
 # 取得所有搜尋結果所在的'容器'物件
 print('\r正在取得搜尋結果...(可能會花費較多時間)', end='')
@@ -64,29 +68,36 @@ while True:
         resultContainer.send_keys(Keys.PAGE_DOWN)
         time.sleep(0.1)
 
-print('\r正在建立資料...', end='')
-titles = driver.find_elements(By.CLASS_NAME, 'hfpxzc')  # 地點名稱
-values = driver.find_elements(By.CLASS_NAME, 'MW4etd')  # 平均評分
-comments = driver.find_elements(By.CLASS_NAME, 'UY7F9')  # 評分總數
+titles = driver.find_elements(By.CLASS_NAME, 'hfpxzc')
+# 地點名稱
+names = [title.get_attribute('aria-label') for title in titles]
+# 地圖連結
 url = [title.get_attribute('href') for title in titles]
-data = {
-    '地點名稱': [title.get_attribute('aria-label') for title in titles],
-    '地圖標籤': [],
-    '地圖連結': url,
-    '經度座標': [],
-    '緯度座標': [],
-    '平均評分': [str(value.text) for value in values],
-    '評分總數': [re.sub(r'\D', '', comment.text) for comment in comments],
-    '留言總數': [],
-    '相關留言': [],
-    '最新留言': [],
-    '所在區域': []
-}
+# 平均評分
+values = [str(value.text) for value in driver.find_elements(By.CLASS_NAME, 'MW4etd')]
+# 評分總數
+comments = [str(re.sub(r'\D', '', comment.text)) for comment in driver.find_elements(By.CLASS_NAME, 'UY7F9') ]
 
-maxCount = len(url)
+maxCount = len(titles)
 for i in range(maxCount):
-    # driver.switch_to.window(driver.window_handles[1])
-    driver.get(url[i])
+    data = {
+        '地點名稱': names[i],
+        '地圖標籤': 'None',
+        '地圖連結': url[i],
+        '經度座標': 'None',
+        '緯度座標': 'None',
+        '平均評分': values[i],
+        '評分總數': comments[i],
+        '留言總數': 'None',
+        '相關留言': 'None',
+        '最新留言': 'None',
+        '所在區域': 'None',
+        '地址': 'None',
+        '網站': 'None',
+        '電話號碼': 'None',
+        'Plus Code': 'None'
+    }
+    driver.get(data['地圖連結'])
     WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.CLASS_NAME, 'lfPIob'))
     )
@@ -94,25 +105,21 @@ for i in range(maxCount):
     print('\r正在取得地點資訊...(可能會花費較多時間)', end='')
     if tags:
         for tag in tags:
-            name = ''
-            names = tag.find_elements(By.CLASS_NAME, 'CsEnBe')
-            if names:
-                name = names[0].get_attribute('aria-label')
-                href = names[0].get_attribute('href')
-                if ': ' in name:
-                    name = name.split(': ')[0]
-                    if name not in data:
-                        data[name] = []
-                        for j in range(i-1):
-                            data[name].append("None")
-                    if href:
-                        data[name].append(href)
-                    else:
-                        data[name].append(tag.find_element(By.CLASS_NAME, 'Io6YTe').text)
-    data['地圖標籤'].append(driver.find_element(By.CLASS_NAME, 'DkEaL').text)
+            items = tag.find_elements(By.CLASS_NAME, 'CsEnBe')
+            if items:
+                label = items[0].get_attribute('aria-label')
+                href = items[0].get_attribute('href')
+                if ': ' in label:
+                    name = label.split(': ')[0]
+                    if name in data:
+                        if href:
+                            data[name] = href
+                        else:
+                            data[name] = tag.find_element(By.CLASS_NAME, 'Io6YTe').text
+    data['地圖標籤'] = driver.find_element(By.CLASS_NAME, 'DkEaL').text
 
     # 變數宣告'評分總數'
-    totalCommentCount = int(data['評分總數'][i])
+    totalCommentCount = int(data['評分總數'])
     # 標籤按鈕 - 總覽/[評論]/簡介
     WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.CLASS_NAME, 'RWPxGd'))
@@ -144,14 +151,14 @@ for i in range(maxCount):
     WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.CLASS_NAME, 'jftiEf'))
     )
-    comments = commentContainer.find_elements(By.CLASS_NAME, 'jftiEf')
+    allComments = commentContainer.find_elements(By.CLASS_NAME, 'jftiEf')
     latestComments = []
-    for comment in comments[0:storeCount] if len(comments) >= storeCount else comments:
+    for comment in allComments[0:storeCount] if len(allComments) >= storeCount else allComments:
         try:
             latestComments.append(comment.find_element(By.CLASS_NAME, 'wiI7pd').text)
         except:
             pass
-    data['最新留言'].append(', '.join(latestComments))
+    data['最新留言'] = ', '.join(latestComments)
     orderButton[ButtonType['排序評論']].click()
 
     print(f'\r正在取得前%d筆相關評論...' % storeCount, end='')
@@ -164,14 +171,14 @@ for i in range(maxCount):
     WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.CLASS_NAME, 'jftiEf'))
     )
-    comments = commentContainer.find_elements(By.CLASS_NAME, 'jftiEf')
+    allComments = commentContainer.find_elements(By.CLASS_NAME, 'jftiEf')
     relatedComments = []
-    for comment in comments[0:storeCount] if len(comments) >= storeCount else comments:
+    for comment in allComments[0:storeCount] if len(allComments) >= storeCount else allComments:
         try:
             relatedComments.append(comment.find_element(By.CLASS_NAME, 'wiI7pd').text)
         except:
             pass
-    data['相關留言'].append(', '.join(relatedComments))
+    data['相關留言'] = ', '.join(relatedComments)
 
     # 滾動評論面板取得所有評論
     while True:
@@ -182,7 +189,7 @@ for i in range(maxCount):
         if currentCount >= totalCommentCount:
             break
         time.sleep(0.1)
-    data['留言總數'].append(str(len(commentContainer.find_elements(By.CLASS_NAME, 'Upo0Ec'))))
+    data['留言總數'] = len(commentContainer.find_elements(By.CLASS_NAME, 'Upo0Ec'))
 
     # 取得所有留言並重新計算評分
     # allComments = commentContainer.find_elements(By.CLASS_NAME, 'jftiEf')
@@ -192,31 +199,24 @@ for i in range(maxCount):
     #     except:
     #         pass
 
-    if len(data['地址']) == i + 1:
-        # 等待網址列顯示座標位置後取得座標位置
-        print('\r正在取得地點座標...', end='')
-        while True:
-            if '@' in driver.current_url:
-                coordinate = driver.current_url.split('@')[1].split(',')[0:2]
-                data['經度座標'].append(coordinate[0])
-                data['緯度座標'].append(coordinate[1])
-                break
-            time.sleep(1)
-        # 取得該地點對應地址的所在區域
-        data['所在區域'].append(getRegionFromAddress(data['地址'][i]))
+    # 等待網址列顯示座標位置後取得座標位置
+    print('\r正在取得地點座標...', end='')
+    while True:
+        if '@' in driver.current_url:
+            coordinate = driver.current_url.split('@')[1].split(',')[0:2]
+            data['經度座標'] = coordinate[0]
+            data['緯度座標'] = coordinate[1]
+            break
+        time.sleep(1)
+    # 取得該地點對應地址的所在區域
+    data['所在區域'] = getRegionFromAddress(data['地址'])
 
-    # 補齊所有欄位的陣列大小
-    for dic in data:
-        if len(data[dic.title()]) < i+1:
-            data[dic.title()].append("None")
+    # 準備寫入檔案前先清空資料表
+    if i == 0: pd.DataFrame(columns=data.keys()).to_csv(filePath, index=False, encoding='utf-8-sig')
+    # 新增資料至資料表
+    df = pd.DataFrame(data, index=[1]).to_csv(filePath, mode='a', header=False, index=False, encoding='utf-8-sig')
+    print(f'\r【已完成{str(i + 1).zfill(len(str(maxCount)))}/{maxCount}】{data['地點名稱']} ({data['評分總數']})\n', end='')
 
-    # 已完成該指定地點的資料蒐集
-    print(f'\r【已完成{str(i + 1).zfill(len(str(maxCount)))}/{maxCount}】{data['地點名稱'][i]} ({data['評分總數'][i]})\n', end='')
-
-print('\r正在輸出csv搜尋結果...', end='')
-# print(data)
-frame = pd.DataFrame(data)
-frame.to_csv(format('%s的搜尋結果.csv' % keywords.strip().replace(' ','')), encoding='utf-8-sig')
-print('\rcsv搜尋結果已完成輸出！', end='')
+print('\r已輸出所有搜尋結果的資料！', end='')
 
 # driver.close()
