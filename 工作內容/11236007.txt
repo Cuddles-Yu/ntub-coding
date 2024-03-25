@@ -1,3 +1,14 @@
+2024/03/24 - JavaScript物件
+一、觀念
+1. 了解物件、物件屬性、物件方法的基本用法
+2. 了解陣列物件的基本用法
+二、實作
+1. 在地圖中顯示地點資訊（利用資訊視窗）
+三、參考資料
+1. https://reurl.cc/nrK216 | JavaScript 物件基礎
+2. https://reurl.cc/77aNDD | JavaScript Array 陣列物件
+
+
 2024/03/22 - JavaScript模組
 一、觀念
   1. 了解模組基本用法
