@@ -19,6 +19,7 @@
         let currentPosition; // 地圖定位在目前位置
         let selectedRestaurant; // 搜尋的地點
         let marker; // 地點標示
+        let infoWindow; // 資訊視窗
 
         function initMap(){ 
             // 顯示Google地圖，定位在台灣
@@ -62,7 +63,7 @@
                         phoneNumber:place.formatted_phone_number, // 電話號碼
                         rating:place.rating, // 評分
                     };
-
+                    
                     map.setCenter(selectedRestaurant.location); // 地圖中心設為搜尋到的地點
 
                     if (!marker){ // 地點標示
@@ -70,6 +71,23 @@
                             map: map,
                         });
                     }
+                    
+                    if (!infoWindow){ // 資訊視窗
+                        infoWindow = new google.maps.InfoWindow({
+                            map:map,
+                        });
+                    }
+
+                    infoWindow.setContent( // 資訊視窗內容
+                        `
+                        <h3>${selectedRestaurant.name}</h3>
+                        <div>地址：${selectedRestaurant.address}</div>
+                        <div>電話：${selectedRestaurant.phoneNumber}</div>
+                        <div>評分：${selectedRestaurant.rating}</div>
+                        `
+                    );
+                    infoWindow.open(map, marker);
+                    
 
                     marker.setPosition(selectedRestaurant.location); // 設定標示為搜尋到的地點的位置
                 });
