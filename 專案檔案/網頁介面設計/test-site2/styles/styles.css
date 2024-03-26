@@ -5,8 +5,59 @@
     font-size: 30px;
     height: 70px;
     text-align: left;
-    padding: 20px ;
+    padding: 15px ;
     max-width: 100%;
+    vertical-align: top;
+}
+
+.img1{
+    width: 40px;
+    height: auto;
+    vertical-align: top;
+    float: left;
+}
+
+.Gutters-icon{
+    width: 20px;
+    height: auto;
+    vertical-align: auto;
+}
+
+.header-icon2{
+    width: 40px;
+    height: auto;
+    margin: 10px 0px 0px 0px;
+}
+
+.offcanvas-body{
+    position: relative;
+    width: 400px;
+}
+
+.Options{
+    margin: auto;
+    width: 170px;
+    text-align: center;
+    font-size: 25px;
+    color: white;
+    list-style-type: none;
+    text-align-last: justify;
+    line-height: 5;
+
+}
+
+.Options-icon,.Options2-icon{
+    width: 20px;
+    margin: 0px 5px 0px 0px;
+}
+
+.Options2{
+    border-top: 2px solid white;
+    font-size: 25px;
+    color: white;
+    list-style-type: none;
+    text-align: center;
+    line-height: 5;
 }
 
 .content-up{
@@ -88,12 +139,6 @@
     object-fit: cover;
 }
 
-.img1{
-    width: 40px;
-    height: auto;
-    vertical-align: middle;
-}
-
 .Q{
     width: 15px;
     height: auto;
@@ -131,6 +176,7 @@
     display: inline-block;
     border: #EBEBEB;
 }
+
 
 
 

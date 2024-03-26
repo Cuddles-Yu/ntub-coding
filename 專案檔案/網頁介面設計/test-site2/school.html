@@ -11,7 +11,30 @@
 </head>
 
 <body style="margin: 0px;  background-color: #EFEFEF">
-    <div class="head"><img src="images/icon.png" class="img1">評星而論/評星宇宙/地評說/真實評論家</div>
+    <div class="head"><img src="images/icon.png" class="img1">評星而論/評星宇宙/地評說/真實評論家
+      
+      <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"style="float: right; background-color: #485465; border-color: #485465">
+        <img class="Gutters-icon" src="images/Gutters.png"/></button>
+
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style="background-color: #485465">
+        <div class="offcanvas-header">
+          <img class="header-icon2" src="images/icon2.png">
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="Options">
+            <li><img class="Options-icon" src="images/home.png"/>主頁</li>
+            <li><img class="Options-icon" src="images/people.png"/>會員專區</li>
+            <li><img class="Options-icon" src="images/schedule.png"/>行程規劃</li>
+          </ul>
+          <ul class="Options2">
+            <li><img class="Options2-icon" src="images/!.png"/>使用說明</li>
+            <li><img class="Options2-icon" src="images/mail.png"/>問題回饋</li>
+            <li><img class="Options2-icon" src="images/team.png"/>成員介紹</li>
+          </ul>
+        </div>
+      </div>
+    </div>
     
     <div class="content-up" >
         <div class="box1">
@@ -29,23 +52,23 @@
         <div class="map-margin">
             <div class="map">map</div>
         </div>
-        <div class="accordion" id="accordionPanelsStayOpenExample" data-bs-spy="scroll" data-bs-target="#navbar-example">
+        <div class="accordion" id="accordionPanelsStayOpenExample" >
             <div class="accordion-item">
               <h2 class="accordion-header">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne" style="background-color: #EBEBEB;">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne" style="background-color: #EBEBEB;" >
                   搜尋結果&nbsp;<img src="images/Q.png" class="Q">
                 </button>
               </h2>
               <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
-                <div class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 15px;">
-                  <div>店家資訊1</div>
-                </div>
-                <div class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 15px;">
-                  <div>店家資訊2</div>
-                </div>
-                <div class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 15px;">
-                  <div>店家資訊3</div>
-                </div>
+                <ul class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 15px;">
+                  <li>店家資訊1</li>
+                </ul>
+                <ul class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 15px;">
+                  <li>店家資訊2</li>
+                </ul>
+                <ul class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 15px;">
+                  <li>店家資訊3</li>
+                </ul>
               </div>
             </div>
             <div class="accordion-item" style="margin: 10px 0px 0px 0px;">
@@ -66,9 +89,8 @@
                 </div>
               </div>
             </div>
-            
     </div>
-
+    
     <div class="fixed-bottom">
         <div>
             <div>台北商業大學 | 資訊管理系</div>
@@ -78,6 +100,8 @@
             </div>        
         </div>
     </div>
+
+
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="scripts/script2.js"></script>
