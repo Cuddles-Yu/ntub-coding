@@ -1,4 +1,17 @@
 
+2024/03/25 - 學習正則表達式的應用
+一、學習重點
+   1. 透過正則表達式Re套件來拆分地址
+   2. 以「?P<category>」作為分組標籤
+   3. 「\d」表示所有數字，等同於「[0-9]」的效果
+   4. 「\D」表示所有非數字
+   5. 「+」表示匹配1個或多個字符、「*」表示匹配0個或多個字符
+二、參考連結
+   1. https://reurl.cc/N4vo8p | 正規表達式 - HackMD
+   2. https://reurl.cc/VNAoxn | Python小筆記 —  RegularExpression
+   3. https://reurl.cc/VNAoVb | 測試網站 - regular expressions 101
+
+
 2024/03/24 - 載入過多評論卡頓之問題
 一、觀察結果
    1. 評論內容過多會導致載入超過一定數量後出現網頁卡頓的現象
