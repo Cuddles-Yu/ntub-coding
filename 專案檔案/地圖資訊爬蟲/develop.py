@@ -27,3 +27,5 @@ import pyautogui
 # }
 #
 # pd.DataFrame(data, index=[1]).to_csv('data.csv', encoding='utf-8-sig')
+
+# return re.sub(r'\d', '', address).split('區')[0] + '區'
