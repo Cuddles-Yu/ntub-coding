@@ -1,3 +1,11 @@
+2024/03/26 - python 定義、呼叫、回傳函式
+一、概念
+   1. 了解如何定義、呼叫、回傳函式
+二、連結
+   1. https://reurl.cc/M4pmQL | 函式基礎，什麼是函式？什麼是回傳值 return？
+   2. https://reurl.cc/krxbzn | Python 自定義方法及函數def
+
+
 2024/03/18 - python 連結資料庫
 一、實作
    1. 安裝vscode
