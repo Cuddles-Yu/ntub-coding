@@ -1,8 +1,18 @@
+2024/03/26 - 列表設定
+一、概念
+   1. 學習選單功能
+   2. 無序列表項目符號去除(list-style-type:none)
+   3. 行高設定(line-height)
+   4. 文字分散對齊(text-align-last:justify)
+二、連結：
+   1. https://reurl.cc/rrej0O | 实现文本在标签内平均分布的css样式
+
+
 2024/03/24 - 滾動功能
 一、概念
    1. 學習滾動效果
 二、連結：
-   1. https://reurl.cc/rrej0O | 用簡單的 CSS 和 JavaScript 輕鬆製造視差滾動（Parallax Scrolling）
+   1. https://reurl.cc/krxb7x | 用簡單的 CSS 和 JavaScript 輕鬆製造視差滾動（Parallax Scrolling）
 
 
 2024/03/23 - 展開框
