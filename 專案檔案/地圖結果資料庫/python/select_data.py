@@ -9,7 +9,7 @@ connection = mysql.connector.connect(
     user='root2',
     password='Mi700329',
     host='localhost',
-    database='mapg',
+    database='mapdb',
     auth_plugin='mysql_native_password' #指定 auth_plugin 告訴 MySQL 連接器使用舊的驗證外掛程式才能相容於舊版的 MySQL 和 MySQL 連接器。
     ) 
 
@@ -23,7 +23,7 @@ for r in records: #用迴圈將所有資料取出
     print(r)'''
 
 #取得表格中所有資料
-cursor.execute('SELECT * FROM mapg')
+cursor.execute('SELECT * FROM user')
 records = cursor.fetchall()
 for r in records:
     print(r)

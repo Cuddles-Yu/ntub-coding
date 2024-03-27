@@ -33,7 +33,7 @@ def main():
     cursor = connection.cursor()
 
     # 要檢查的資料庫名稱
-    database_name = "mapg"
+    database_name = "test"
 
 
     # 如果資料庫不存在，則創建資料庫，否則顯示資料庫已存在的訊息
@@ -48,22 +48,61 @@ def main():
     
     # 創建表格和定義欄位
     cursor.execute('''
-        CREATE TABLE IF NOT EXISTS mapg (
+    CREATE TABLE IF NOT EXISTS `stores` (
             name VARCHAR(255),
-            x_coordinate DECIMAL(7,5),
-            y_coordinate DECIMAL(7,5),
+            tags VARCHAR(255),
+            categories VARCHAR(20),
             link VARCHAR(255),
-            ratings VARCHAR(255),
-            total_ratings VARCHAR(255),
-            total_comments VARCHAR(255),
-            comments VARCHAR(255),
-            address VARCHAR(255),
             webpage VARCHAR(255),
-            phone_number INT(10),
+            phone_number VARCHAR(255),
+            key_words TEXT,
             PRIMARY KEY(name)
-        )
-    ''')
+        )'''
+)
 
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS `comments` (
+            store_name VARCHAR(255) REFERENCES `stores`(name),
+            sort VARCHAR(255),
+            contents TEXT,
+            time VARCHAR(20),
+            stars INT,
+            user_id VARCHAR(255) REFERENCES `users`(id),
+            PRIMARY KEY(store_name, sort)
+        )'''
+)
+
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS `locations` (
+            store_name VARCHAR(255) REFERENCES `stores`(name),
+            postal_code VARCHAR(5),
+            city VARCHAR(3),
+            dist VARCHAR(3),
+            vil VARCHAR(3),
+            details VARCHAR(255),
+            PRIMARY KEY(store_name)
+        )'''
+)
+
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS `responses` (
+            store_name VARCHAR(255) REFERENCES `stores`(name),
+            average_ratings DECIMAL(3,1),
+            total_ratings INT,
+            total_comments INT,
+            real_rates DECIMAL(2,1),
+            times INT,
+            PRIMARY KEY(store_name)
+        )'''
+)
+
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS `users` (
+            id VARCHAR(255),
+            level VARCHAR(255),
+            PRIMARY KEY(id)
+        )'''
+)
 
     cursor.close() #使用完這個變數後關閉他(以釋放資源、提高程式性能)
     connection.close() #關閉連線

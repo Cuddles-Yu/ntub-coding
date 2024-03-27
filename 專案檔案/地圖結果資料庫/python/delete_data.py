@@ -1,14 +1,15 @@
 import mysql.connector 
 
-connection = mysql.connector.connect(user='root2', password='Mi700329',
-                              host='localhost', database='mapg',
-                              auth_plugin='mysql_native_password') 
+connection = mysql.connector.connect(
+    user='root2',
+    password='Mi700329',
+    host='localhost',
+    database='mapdb',
+    auth_plugin='mysql_native_password'
+) 
 
 cursor = connection.cursor()
 
-
-#刪除整個表格
-#cursor.execute("DROP TABLE 【表格名字】")
 #刪除整個表格(如果存在)
 #cursor.execute("DROP TABLE IF EXISTS【表格名字】")
 
