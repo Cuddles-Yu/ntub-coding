@@ -139,6 +139,38 @@
     object-fit: cover;
 }
 
+.score, .price{
+    width: auto;
+    display: inline-block;
+    vertical-align: top;
+    border: 1px solid black;
+}
+.star1, .star2, .star3, .star4, .star5{
+    width: 15px;
+    margin: 0px 0.025px 0px 0px;
+}
+
+.tag{
+    width: 150px;
+    font-size: small;
+    border: 1px solid black;
+}
+
+.standard-text{
+    width: 300px;
+    border: 1px solid black;
+}
+
+.standard{
+    width: 300px;
+    margin: 10px;
+    position: relative;
+    float: right;
+    right: 10%;
+    border: 1px solid black;
+    display: inline-block;
+}
+
 .Q{
     width: 15px;
     height: auto;
