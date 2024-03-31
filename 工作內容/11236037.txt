@@ -1,3 +1,13 @@
+2024/03/31 - Grid排版
+一、概念、實作
+   1. 學習使用Grid排版
+   2. 學習使用display: contents 定位元素
+   3. 連結底線去除(text-decoration:none)
+二、連結：
+   1. https://reurl.cc/54Ya5G | CSS 移除連結底線＆自訂底線
+   2. https://reurl.cc/krDv1G | CSS彈性盒子用法
+
+
 2024/03/26 - 列表設定
 一、概念
    1. 學習選單功能
