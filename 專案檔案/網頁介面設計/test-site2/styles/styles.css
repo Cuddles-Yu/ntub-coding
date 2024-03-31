@@ -143,7 +143,6 @@
     width: auto;
     display: inline-block;
     vertical-align: top;
-    border: 1px solid black;
 }
 .star1, .star2, .star3, .star4, .star5{
     width: 15px;
@@ -153,28 +152,52 @@
 .tag{
     width: 150px;
     font-size: small;
-    border: 1px solid black;
-}
-
-.standard-text{
-    width: 300px;
-    border: 1px solid black;
 }
 
 .standard{
-    width: 300px;
-    margin: 10px;
     position: relative;
-    float: right;
-    right: 10%;
-    border: 1px solid black;
+    width: 250px;
+    height: auto;
+    top: 4px;
+}
+
+.standard-text{
+    position: absolute;
+    width: auto;
+    line-height: 1.7;
     display: inline-block;
+    font-size: smaller;
+    margin: 4px 5px 1px 0px;
+}
+
+.text1{
+    color: #B45F5F;
+}
+
+.text2{
+    color: #7B8F60;
+}
+
+.text3{
+    color: #5053AF;
+}
+
+.text4{
+    color: #C19237;
+}
+
+.right-box{
+    line-height: 2;
+}
+
+.right-box img{
+    width: 15px;
+    height: auto;
 }
 
 .Q{
     width: 15px;
     height: auto;
-
 }
 
 .content{

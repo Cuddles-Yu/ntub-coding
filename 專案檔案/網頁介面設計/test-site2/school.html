@@ -2,144 +2,280 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <title>二技專題試作</title>
-    <link rel="stylesheet" href="styles/styles.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-    <meta name="keywords" content="評價, google map" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1 ,user-scalable=no">
+  <meta charset="utf-8" />
+  <title>二技專題試作</title>
+  <link rel="stylesheet" href="styles/styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <meta name="keywords" content="評價, google map" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1 ,user-scalable=no">
 </head>
 
 <body style="margin: 0px;  background-color: #EFEFEF">
-    <div class="head"><img src="images/icon.png" class="img1">評星而論/評星宇宙/地評說/真實評論家
-      
-      <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"style="float: right; background-color: #485465; border-color: #485465">
-        <img class="Gutters-icon" src="images/Gutters.png"/></button>
+  <div class="head"><img src="images/icon.png" class="img1">評星而論/評星宇宙/地評說/真實評論家
 
-      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style="background-color: #485465">
-        <div class="offcanvas-header">
-          <img class="header-icon2" src="images/icon2.png">
-          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+      aria-controls="offcanvasRight" style="float: right; background-color: #485465; border-color: #485465">
+      <img class="Gutters-icon" src="images/Gutters.png" /></button>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel"
+      style="background-color: #485465">
+      <div class="offcanvas-header">
+        <img class="header-icon2" src="images/icon2.png">
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="Options">
+          <li><img class="Options-icon" src="images/home.png" />主頁</li>
+          <li><img class="Options-icon" src="images/people.png" />會員專區</li>
+          <li><img class="Options-icon" src="images/schedule.png" />行程規劃</li>
+        </ul>
+        <ul class="Options2">
+          <li><img class="Options2-icon" src="images/!.png" />使用說明</li>
+          <li><img class="Options2-icon" src="images/mail.png" />問題回饋</li>
+          <li><img class="Options2-icon" src="images/team.png" />成員介紹</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-up">
+    <div class="box1">
+      <div class="title" style="text-align: left;">搜尋</div>
+      <div class="img2"> <img src="images/search.png"> </div>
+    </div>
+    <div class="box2">
+      <div class="title"><img src="images/restaurant.png">餐廳</div>
+    </div>
+    <div class="box3">
+      <div class="title"><img src="images/picture.png">景點</div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="map-margin">
+      <div class="map">map</div>
+    </div>
+    <div class="accordion" id="accordionPanelsStayOpenExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse"
+            data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne"
+            style="background-color: #EBEBEB;">
+            搜尋結果&nbsp;<img src="images/Q.png" class="Q">
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+          <div class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 15px;">
+            <div class="container text-center" style="display: contents;">
+              <div class="row">
+                <div class="col-5">
+                  <div style="font-size: x-large; text-align: left; text-align: left;">店家資訊1</div>
+                    <div class="score" style="float: left">
+                          <img class="star1" src="images/star.png">
+                          <img class="star2" src="images/star.png">
+                          <img class="star3" src="images/star.png">
+                          <img class="star4" src="images/star.png">
+                          <img class="star5" src="images/star.png">
+                          <div class="price">$1-200</div>
+                    </div>
+
+                    <div class="tag" style="text-align: left; margin-top: 30px;">
+                        <h7>標籤 · 地址</h7>
+                    </div>
+                </div>
+                <div class="col-5" style="position: relative;" >
+                  <div class="standard-group" style="display: contents;">
+                      <div class="standard-text" style="position: relative; float: left; ">
+                          <div class="text1">環境</div>
+                          <div class="text2">產品</div>
+                          <div class="text3">服務</div>
+                          <div class="text4">售價</div>
+                      </div>
+                      <div class="standard" style="vertical-align: top;">
+                        <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin: 4px 0px 6px 0px;">
+                          <div class="progress-bar " style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 10px; font-size: 10px;">25%</div>
+                        </div>
+                        <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                          <div class="progress-bar" style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 10px; font-size: 10px;">50%</div>
+                        </div>
+                        <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin: 0px 0px 7px 0px;">
+                          <div class="progress-bar" style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 10px; font-size: 10px;">75%</div>
+                        </div>
+                        <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                          <div class="progress-bar" style="width: 80%; background-color: #C19237; text-align: left; padding-left: 10px; font-size: 10px;">80%</div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="right-box">
+                    <img src="images/love.png"><a href="#" style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;最愛</a><br>
+                    <img src="images/map.png"><a href="#" style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;地圖</a><br>
+                    <img src="images/web.png"><a href="#" style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;官網</a>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col"  style="border: 1px solid black;">
+                  1 of 3
+                </div> 
+            </div> 
+          </div>
         </div>
-        <div class="offcanvas-body">
-          <ul class="Options">
-            <li><img class="Options-icon" src="images/home.png"/>主頁</li>
-            <li><img class="Options-icon" src="images/people.png"/>會員專區</li>
-            <li><img class="Options-icon" src="images/schedule.png"/>行程規劃</li>
-          </ul>
-          <ul class="Options2">
-            <li><img class="Options2-icon" src="images/!.png"/>使用說明</li>
-            <li><img class="Options2-icon" src="images/mail.png"/>問題回饋</li>
-            <li><img class="Options2-icon" src="images/team.png"/>成員介紹</li>
-          </ul>
+
+          <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+            <div class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 15px;">
+              <div class="container text-center" style="display: contents;">
+                <div class="row">
+                  <div class="col-5">
+                    <div style="font-size: x-large; text-align: left; text-align: left;">店家資訊2</div>
+                      <div class="score" style="float: left">
+                            <img class="star1" src="images/star.png">
+                            <img class="star2" src="images/star.png">
+                            <img class="star3" src="images/star.png">
+                            <img class="star4" src="images/star.png">
+                            <img class="star5" src="images/star.png">
+                            <div class="price">$1-200</div>
+                      </div>
+  
+                      <div class="tag" style="text-align: left; margin-top: 30px;">
+                          <h7>標籤 · 地址</h7>
+                      </div>
+                  </div>
+                  <div class="col-5" style="position: relative" >
+                    <div class="standard-group" style="display: contents;">
+                        <div class="standard-text" style="position: relative; float: left; ">
+                            <div class="text1">環境</div>
+                            <div class="text2">產品</div>
+                            <div class="text3">服務</div>
+                            <div class="text4">售價</div>
+                        </div>
+                        <div class="standard" style="vertical-align: top;">
+                          <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin: 4px 0px 6px 0px;">
+                            <div class="progress-bar " style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 10px; font-size: 10px;">25%</div>
+                          </div>
+                          <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                            <div class="progress-bar" style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 10px; font-size: 10px;">50%</div>
+                          </div>
+                          <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin: 0px 0px 7px 0px;">
+                            <div class="progress-bar" style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 10px; font-size: 10px;">75%</div>
+                          </div>
+                          <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                            <div class="progress-bar" style="width: 80%; background-color: #C19237; text-align: left; padding-left: 10px; font-size: 10px;">80%</div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="right-box">
+                      <img src="images/love.png"><a href="#" style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;最愛</a><br>
+                      <img src="images/map.png"><a href="#" style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;地圖</a><br>
+                      <img src="images/web.png"><a href="#" style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;官網</a>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col"  style="border: 1px solid black;">
+                    1 of 3
+                  </div> 
+              </div> 
+            </div>
+          </div>
+          <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+            <div class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 15px;">
+              <div class="container text-center" style="display: contents;">
+                <div class="row">
+                  <div class="col-5">
+                    <div style="font-size: x-large; text-align: left; text-align: left;">店家資訊3</div>
+                      <div class="score" style="float: left">
+                            <img class="star1" src="images/star.png">
+                            <img class="star2" src="images/star.png">
+                            <img class="star3" src="images/star.png">
+                            <img class="star4" src="images/star.png">
+                            <img class="star5" src="images/star.png">
+                            <div class="price">$1-200</div>
+                      </div>
+  
+                      <div class="tag" style="text-align: left; margin-top: 30px;">
+                          <h7>標籤 · 地址</h7>
+                      </div>
+                  </div>
+                  <div class="col-5" style="position: relative;">
+                    <div class="standard-group" style="display: contents;">
+                        <div class="standard-text" style="position: relative; float: left; ">
+                            <div class="text1">環境</div>
+                            <div class="text2">產品</div>
+                            <div class="text3">服務</div>
+                            <div class="text4">售價</div>
+                        </div>
+                        <div class="standard" style="vertical-align: top;">
+                          <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin: 4px 0px 6px 0px;">
+                            <div class="progress-bar " style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 10px; font-size: 10px;">25%</div>
+                          </div>
+                          <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                            <div class="progress-bar" style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 10px; font-size: 10px;">50%</div>
+                          </div>
+                          <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin: 0px 0px 7px 0px;">
+                            <div class="progress-bar" style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 10px; font-size: 10px;">75%</div>
+                          </div>
+                          <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                            <div class="progress-bar" style="width: 80%; background-color: #C19237; text-align: left; padding-left: 10px; font-size: 10px;">80%</div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="right-box">
+                      <img src="images/love.png"><a href="#" style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;最愛</a><br>
+                      <img src="images/map.png"><a href="#" style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;地圖</a><br>
+                      <img src="images/web.png"><a href="#" style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;官網</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="row"  style="border: 1px solid black;">
+                  <div class="col" >
+                    1 of 3
+                  </div> 
+              </div> 
+            </div>
+            </div>
+      </div>
+      <div class="accordion-item" style="margin: 10px 0px 0px 0px;">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+            aria-controls="panelsStayOpen-collapseTwo" style="background-color: #EBEBEB;">
+            熱門搜尋&nbsp;<img src="images/Q.png" class="Q">
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+          <div class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 20px;">
+            <div class="store-name">店家名稱</div>
+
+          </div>
+          <div class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 20px;">
+            <div>店家資訊2</div>
+          </div>
+          <div class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 20px;">
+            <div>店家資訊3</div>
+          </div>
         </div>
       </div>
     </div>
-    
-    <div class="content-up" >
-        <div class="box1">
-            <div class="title" style="text-align: left;">搜尋</div>
-            <div class="img2"> <img src="images/search.png"> </div>
-        </div>
-        <div class="box2">
-            <div class="title"><img src="images/restaurant.png">餐廳</div>
-        </div>
-        <div class="box3">
-            <div class="title"><img src="images/picture.png">景點</div>
-        </div>
-    </div>
-    <div class="content">
-        <div class="map-margin">
-            <div class="map">map</div>
-        </div>
-        <div class="accordion" id="accordionPanelsStayOpenExample" >
-            <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne" style="background-color: #EBEBEB;" >
-                  搜尋結果&nbsp;<img src="images/Q.png" class="Q">
-                </button>
-              </h2>
-              <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
-                <ul class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 15px; list-style: none">
-                  <div class="standard">
-                    <div class="standard-text">
-                      <ul>
-                        <li>環境</li>
-                        <li>產品</li>
-                        <li>服務</li>
-                        <li>售價</li>
-                      </ul>
-                    </div>
-                    
-                    <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9;">
-                      <div class="progress-bar bg-success" style="width: 25%">25%</div>
-                    </div>
-                    <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9;">
-                      <div class="progress-bar bg-info text-dark" style="width: 50%">50%</div>
-                    </div>
-                    <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9;">
-                      <div class="progress-bar bg-warning text-dark" style="width: 75%">75%</div>
-                    </div>
-                    <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9;">
-                      <div class="progress-bar bg-danger" style="width: 95%">95%</div>
-                    </div>
-                  </div>
-                  <li style="font-size: x-large;">店家資訊1</li> 
-                    <div class="score">
-                      <img class="star1" src="images/star.png">
-                      <img class="star2" src="images/star.png">
-                      <img class="star3" src="images/star.png">
-                      <img class="star4" src="images/star.png">
-                      <img class="star5" src="images/star.png">
-                      <div class="price">$1-200</div>
-                    </div>
-                    <div class="tag">
-                      <h7>標籤 · 地址</h7>
-                    </div>
-                    
-                </ul>
-                
-                <ul class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 15px; list-style: none">
-                  <li>店家資訊2</li>
-                </ul>
-                <ul class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 15px; list-style: none">
-                  <li>店家資訊3</li>
-                </ul>
-              </div>
-            </div>
-            <div class="accordion-item" style="margin: 10px 0px 0px 0px;">
-              <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo" style="background-color: #EBEBEB;">
-                  熱門搜尋&nbsp;<img src="images/Q.png" class="Q">
-                </button>
-              </h2>
-              <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" >
-                <div class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 20px;">
-                  <div class="store-name">店家名稱</div>
 
-                </div>
-                <div class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 20px;">
-                  <div>店家資訊2</div>
-                </div>
-                <div class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 20px;">
-                  <div>店家資訊3</div>
-                </div>
-              </div>
-            </div>
-    </div>
-    
     <div class="fixed-bottom">
-        <div>
-            <div>台北商業大學 | 資訊管理系</div>
-            <div>北商資管專題 113206 小組</div>
-            <div>成員：鄧惠中、余奕博、邱綺琳、陳彥瑾     
-                <en style="margin-right: 10px; float: right; font-size: 10px;">Copyright ©2024 All rights reserved.</en>
-            </div>        
+      <div>
+        <div>台北商業大學 | 資訊管理系</div>
+        <div>北商資管專題 113206 小組</div>
+        <div>成員：鄧惠中、余奕博、邱綺琳、陳彥瑾
+          <en style="margin-right: 10px; float: right; font-size: 10px;">Copyright ©2024 All rights reserved.</en>
         </div>
+      </div>
     </div>
 
 
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="scripts/script2.js"></script>
 </body>
