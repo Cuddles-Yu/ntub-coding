@@ -1,55 +1,48 @@
-############################################## 各種取得與查詢##############################################
+############################################## 查詢 ##############################################
 import mysql.connector
-from update_data import connect_to_db
+import database as db
 
 def select_db(operation, table_name=None, columns=None):
-    connection = connect_to_db()
+    connection = db.connect(use_database=True)
     cursor = connection.cursor()
-
     try:
         if operation == "show_databases":
-            #取得所有資料庫名稱(檢查是否成功建立資料庫)
+            # 取得所有資料庫名稱(檢查是否成功建立資料庫)
             cursor.execute("SHOW DATABASES;")
-            records = cursor.fetchall() #將所有回傳的資料取出(是列表)
-            for r in records: #用迴圈將所有資料取出
+            records = cursor.fetchall()  # 將所有回傳的資料取出(是列表)
+            for r in records:  # 用迴圈將所有資料取出
                 print(r)
-
         elif operation == "select_table_value":
-            #取得表格中所有資料
+            # 取得表格中所有資料
             cursor.execute(f"SELECT * FROM {table_name}")
             records = cursor.fetchall()
             for r in records:
                 print(r)
-
         elif operation == "select_columns":
-            #取得表格中特定欄位資料
+            # 取得表格中特定欄位資料
             columns_str = ", ".join(columns)
             cursor.execute(f"SELECT {columns_str} FROM {table_name}")
             values = cursor.fetchall()
             for v in values:
                 print(v)
-
         elif operation == "select_first_row":
-            #取得表格中第一筆欄位資料
+            # 取得表格中第一筆欄位資料
             cursor.execute(f"SELECT * FROM {table_name}")
             row = cursor.fetchone()
             for r in row:
                 print(r)
-
         elif operation == "describe_table":
-            #取得所有欄位(檢查是否成功建立所需欄位)
+            # 取得所有欄位(檢查是否成功建立所需欄位)
             cursor.execute(f"DESCRIBE {table_name}")
             columns = cursor.fetchall()
             for c in columns:
                 print(c)
-    
         elif operation == "sort_by_ratings":
-            #根據欄位結果進行排序
-            cursor.execute(f"SELECT * FROM {table_name} ORDER BY ratings") #要查降序直接在後面加上DESC就好
+            # 根據欄位結果進行排序
+            cursor.execute(f"SELECT * FROM {table_name} ORDER BY ratings")  # 要查降序直接在後面加上DESC就好
             sorted_records = cursor.fetchall()
             for record in sorted_records:
                 print(record)
-
         else:
             print("無效的操作選項")
     except mysql.connector.Error as error:

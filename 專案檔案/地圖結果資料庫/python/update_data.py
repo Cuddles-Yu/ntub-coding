@@ -1,40 +1,27 @@
-import mysql.connector 
-
-# 連接資料庫
-def connect_to_db():
-    connection = mysql.connector.connect(
-        user='root2',
-        password='Mi700329',
-        host='localhost',
-        database='mapdb',
-        auth_plugin='mysql_native_password'
-    ) 
-    return connection 
+############################################## 更新 ##############################################
+import mysql.connector
+import database as db
 
 # 修改資料庫結構 # 設定參數 operation 可以指定要執行的操作類型
 def modify_db(operation, table_name=None, column_name=None, column_type=None, new_column_name=None, new_column_value=None, old_column_name=None, old_column_value=None):
-    connection = connect_to_db()
+    connection = db.connect(use_database=True)
     cursor = connection.cursor()
-
     try:
         if operation == "add_column":
-        # 新增欄位
+            # 新增欄位
             cursor.execute(f"ALTER TABLE {table_name} ADD COLUMN {column_name} {column_type} ")
-
         elif operation == "modify_column":
-        # 改變欄位的位置
+            # 改變欄位的位置
             cursor.execute(f"ALTER TABLE {table_name} MODIFY COLUMN {column_name} {column_type} AFTER {column_name}")
-
         elif operation == "update_data":
-        # 手動修改欄位資料
+            # 手動修改欄位資料
             cursor.execute(f"UPDATE {table_name} SET {new_column_name}={new_column_value} WHERE {old_column_name}={old_column_value};")
-
         elif operation == "change_type":
-        #改變欄位類型
+            # 改變欄位類型
             cursor.execute(f"ALTER TABLE {table_name} MODIFY COLUMN {column_name} {column_type}")
 
         # 提交更改
-        connection.commit() #以上指令都會a改變資料，需要這樣指令才會被提交上去(生效)
+        connection.commit()  # 以上指令都會a改變資料，需要這樣指令才會被提交上去(生效)
         print("資料庫結構修改成功！")
     except mysql.connector.Error as error:
         # 處理錯誤
@@ -45,7 +32,6 @@ def modify_db(operation, table_name=None, column_name=None, column_type=None, ne
 
 if __name__ == "__main__":
     operation = input("請輸入要執行的操作 (add_column, modify_column, update_data, change_type): ")
-
     if operation == "add_column":
         table_name = input("請輸入要新增欄位的表格名稱: ")
         column_name = input("請輸入要新增的欄位名稱: ")

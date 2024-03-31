@@ -1,5 +1,6 @@
 # Folders
 .idea/
+__pycache__/
 
 # Files
 *.bkp

@@ -34,5 +34,17 @@ import pyautogui
 
 import re
 
-village = re.search(r'(?P<village>\S+里)', 'XGQ4+VQ 外南區 新北市中和區')
-print(village.group() if village else 'None')
+# village = re.search(r'(?P<village>\S+里)', 'XGQ4+VQ 外南區 新北市中和區')
+# print(village.group() if village else 'None')
+
+# 準備寫入檔案前先清空資料表
+# if i == 0: pd.DataFrame(columns=data.keys()).to_csv(filePath, index=False, encoding='utf-8-sig')
+# 新增資料至資料表
+# pd.DataFrame(data, index=[1]).to_csv(filePath, mode='a', header=False, index=False, encoding='utf-8-sig')
+
+# class ButtonType:
+#     write = ('撰寫評論', 0)
+#     search = ('查詢評論', 1)
+#     order = ('排序評論', 2)
+#
+# print(ButtonType.write[1])
