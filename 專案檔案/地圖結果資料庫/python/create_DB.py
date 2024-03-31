@@ -50,7 +50,7 @@ def main():
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS `stores` (
             name VARCHAR(255),
-            tags VARCHAR(255),
+            tags VARCHAR(20),
             categories VARCHAR(20),
             link VARCHAR(255),
             webpage VARCHAR(255),
@@ -63,7 +63,7 @@ def main():
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS `comments` (
             store_name VARCHAR(255) REFERENCES `stores`(name),
-            sort VARCHAR(255),
+            sort INT,
             contents TEXT,
             time VARCHAR(20),
             stars INT,

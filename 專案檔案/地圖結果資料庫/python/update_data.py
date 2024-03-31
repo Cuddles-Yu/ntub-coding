@@ -1,33 +1,72 @@
 import mysql.connector 
 
-connection = mysql.connector.connect(
-    user='root2',
-    password='Mi700329',
-    host='localhost',
-    database='mapdb',
-    auth_plugin='mysql_native_password'
-) 
+# 連接資料庫
+def connect_to_db():
+    connection = mysql.connector.connect(
+        user='root2',
+        password='Mi700329',
+        host='localhost',
+        database='mapdb',
+        auth_plugin='mysql_native_password'
+    ) 
+    return connection 
 
-cursor = connection.cursor()
+# 修改資料庫結構 # 設定參數 operation 可以指定要執行的操作類型
+def modify_db(operation, table_name=None, column_name=None, column_type=None, new_column_name=None, new_column_value=None, old_column_name=None, old_column_value=None):
+    connection = connect_to_db()
+    cursor = connection.cursor()
 
-#新增欄位
-#cursor.execute("ALTER TABLE locations ADD COLUMN latitude DECIMAL(10,7) ")
+    try:
+        if operation == "add_column":
+        # 新增欄位
+            cursor.execute(f"ALTER TABLE {table_name} ADD COLUMN {column_name} {column_type} ")
 
-#手動新增欄位資料
-#cursor.execute("INSERT INTO `mapg` VALUES( '大師傅', '麵包西餅','http://example.com', 25.02378,121.5007 , 4.3, 235, 195,'' , '台北市','' , '0223652500')")
+        elif operation == "modify_column":
+        # 改變欄位的位置
+            cursor.execute(f"ALTER TABLE {table_name} MODIFY COLUMN {column_name} {column_type} AFTER {column_name}")
 
-#修改欄位資料
-#cursor.execute("UPDATE `mapg` SET 【新欄位名稱】=【新的值】 WHERE 【舊欄位名稱】=【[舊的值】;")
+        elif operation == "update_data":
+        # 手動修改欄位資料
+            cursor.execute(f"UPDATE {table_name} SET {new_column_name}={new_column_value} WHERE {old_column_name}={old_column_value};")
 
-#改變欄位類型(一次修改多行,MODIFY COLUMN【欄位名稱】【新數據類型】)
-#cursor.execute("ALTER TABLE mapg MODIFY COLUMN ratings DECIMAL(3,1)")
+        elif operation == "change_type":
+        #改變欄位類型
+            cursor.execute(f"ALTER TABLE {table_name} MODIFY COLUMN {column_name} {column_type}")
 
-#改變欄位位置(資料庫尚未有數據)
-cursor.execute("ALTER TABLE locations MODIFY COLUMN latitude  DECIMAL(10,7) AFTER longitude")
+        # 提交更改
+        connection.commit() #以上指令都會a改變資料，需要這樣指令才會被提交上去(生效)
+        print("資料庫結構修改成功！")
+    except mysql.connector.Error as error:
+        # 處理錯誤
+        print("Error:", error)
+    finally:
+        cursor.close() 
+        connection.close()
 
-#手動新增欄位資料(使用佔位符%s)防止SQL注入攻擊
-#cursor.execute("INSERT INTO mapg VALUES ('兩津蛋塔', '麵包西餅', 'http://example.com', NULL,NULL, 4, 123, 23,'' , '新北市','' , '0226191234')")
+if __name__ == "__main__":
+    operation = input("請輸入要執行的操作 (add_column, modify_column, update_data, change_type): ")
 
-cursor.close()
-connection.commit() #以上指令都會改變資料，需要這樣指令才會被提交上去(生效)
-connection.close()
+    if operation == "add_column":
+        table_name = input("請輸入要新增欄位的表格名稱: ")
+        column_name = input("請輸入要新增的欄位名稱: ")
+        column_type = input("請輸入新欄位的資料類型: ")
+        modify_db(operation, table_name, column_name, column_type)
+    elif operation == "modify_column":
+        table_name = input("請輸入要修改欄位的表格名稱: ")
+        column_name = input("請輸入要修改的欄位名稱: ")
+        column_type = input("請輸入新欄位的資料類型: ")
+        modify_db(operation, table_name, column_name, column_type)
+    elif operation == "update_data":
+        table_name = input("請輸入要更新資料的表格名稱: ")
+        new_column_name = input("請輸入新的欄位名稱: ")
+        new_column_value = input("請輸入新的欄位值: ")
+        old_column_name = input("請輸入舊的欄位名稱: ")
+        old_column_value = input("請輸入舊的欄位值: ")
+        modify_db(operation, table_name, None, None, new_column_name, new_column_value, old_column_name, old_column_value)
+    elif operation == "change_type":
+        table_name = input("請輸入要修改欄位類型的表格名稱: ")
+        column_name = input("請輸入要修改的欄位名稱: ")
+        column_type = input("請輸入新的資料類型: ")
+        modify_db(operation, table_name, column_name, column_type)
+    else:
+        print("無效的操作選項")
