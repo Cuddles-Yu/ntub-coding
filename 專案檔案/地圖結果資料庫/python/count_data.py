@@ -1,15 +1,25 @@
-import database as db
+import mysql.connector
+from update_data import connect_to_db
 
-connection = db.connect(use_database=True)
-cursor = connection.cursor()
+def countdb(table_name):
+    connection = connect_to_db()
+    cursor = connection.cursor()
 
-# 查詢並計算百分比
-cursor.execute('SELECT (total_comments / total_ratings * 100) AS percentage FROM mapg WHERE total_ratings != 0')
+    try:
+        # 查詢並計算百分比
+        cursor.execute(f"SELECT (total_comments / total_ratings* 100) AS percentage FROM {table_name} WHERE total_ratings != 0")
 
-# 取得结果
-percentage = cursor.fetchall()[0]
+        # 取得結果
+        percentage = cursor.fetchall()[0][0]  # 提取百分比值
 
-print("留言比:", percentage)
+        print("留言比:", percentage)
 
-cursor.close()
-connection.close()
+    except mysql.connector.Error as error:
+        print("Error:", error)
+    finally:
+        cursor.close()
+        connection.close()
+
+if __name__ == "__main__":
+    table_name = input("請輸入要查詢的表格名稱: ")
+    countdb(table_name)
