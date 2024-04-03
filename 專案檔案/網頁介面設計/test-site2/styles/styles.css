@@ -195,6 +195,30 @@
     height: auto;
 }
 
+.Featured-message{
+    background-color: #FFFFFF;
+    border-radius: 30px;
+    height: 40px;
+    
+}
+
+.message{
+    width: 30px;
+    margin-left: 25px;
+    margin-right: 10px;
+    float: left;
+    position: relative;
+    top: 14%;
+}
+
+.message-font{
+    font-size: x-small;
+    text-align: left;
+    padding: 5px;
+    position: relative;
+    top: 14%;
+}
+
 .Q{
     width: 15px;
     height: auto;
