@@ -1,8 +1,8 @@
 import mysql.connector
-from update_data import connect_to_db
+import core_database as db
 
 def countdb(table_name):
-    connection = connect_to_db()
+    connection = db.connect(use_database=True)
     cursor = connection.cursor()
 
     try:
