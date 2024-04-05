@@ -48,3 +48,6 @@ import re
 #     order = ('排序評論', 2)
 #
 # print(ButtonType.write[1])
+
+
+# -(使用者名稱: filtered_comments[index].find_element(By.CLASS_NAME, 'd4r55').text)
