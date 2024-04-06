@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>二技專題試作-店家詳細資訊</title>
+  <link rel="stylesheet" href="styles/styles2.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <meta name="keywords" content="評價, google map" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1 ,user-scalable=no">
+</head>
+
+<body style="margin: 0px;  background-color: #EFEFEF">
+  <!--頂欄-->
+  <div class="head"><img src="images/icon.png" class="team-icon">評星而論/評星宇宙/地評說/真實評論家
+    <!--主選單-->
+    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+      aria-controls="offcanvasRight" style="float: right; background-color: #485465; border-color: #485465">
+      <img class="Gutters-icon" src="images/Gutters.png" /></button>
+    <!--選單內頁-->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel"
+      style="background-color: #485465">
+      <div class="offcanvas-header">
+        <img class="header-icon2" src="images/icon2.png">
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="Options">
+          <li><img class="Options-icon" src="images/home.png" />主頁</li>
+          <li><img class="Options-icon" src="images/people.png" />會員專區</li>
+          <li><img class="Options-icon" src="images/schedule.png" />行程規劃</li>
+        </ul>
+        <ul class="Options2">
+          <li><img class="Options2-icon" src="images/!.png" />使用說明</li>
+          <li><img class="Options2-icon" src="images/mail.png" />問題回饋</li>
+          <li><img class="Options2-icon" src="images/team.png" />成員介紹</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!--地圖位置-->
+  <div class="content">
+    <div class="map-margin">
+      <div class="map">map</div>
+    </div>
+  </div>
+
+  <div class="accordion-item" style="margin: 10px 0px 0px 0px;">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+        data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+        aria-controls="panelsStayOpen-collapseTwo" style="background-color: #EBEBEB;">
+        熱門搜尋&nbsp;<img src="images/Q.png" class="Q">
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+      <div class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 15px;">
+        <div class="container text-center" style="display: contents;">
+          <div class="row">
+            <div class="col-5">
+              <!--店家資訊-左側-->
+              <div style="font-size: x-large; text-align: left; text-align: left;font-weight: bold;">店家資訊2</div>
+                <div class="score" style="float: left">
+                      <img class="star1" src="images/star.png">
+                      <img class="star2" src="images/star.png">
+                      <img class="star3" src="images/star.png">
+                      <img class="star4" src="images/star.png">
+                      <img class="star5" src="images/star.png">
+                      <div class="price">$1-200</div>
+                </div>
+                <div class="tag" style="text-align: left; margin-top: 30px;">
+                    <h7>標籤 · 地址</h7>
+                </div>
+            </div>
+            <div class="col-5" style="position: relative" >
+              <!--progress組-中間-->
+              <div class="standard-group">
+                  <div class="standard-text" style="position: relative; float: left; ">
+                      <div class="text1">環境</div>
+                      <div class="text2">產品</div>
+                      <div class="text3">服務</div>
+                      <div class="text4">售價</div>
+                  </div>
+                  <div class="standard" style="vertical-align: top;">
+                    <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin: 4px 0px 6px 0px;">
+                      <div class="progress-bar " style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 10px; font-size: 10px;">25%</div>
+                    </div>
+                    <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                      <div class="progress-bar" style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 10px; font-size: 10px;">50%</div>
+                    </div>
+                    <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin: 0px 0px 7px 0px;">
+                      <div class="progress-bar" style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 10px; font-size: 10px;">75%</div>
+                    </div>
+                    <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                      <div class="progress-bar" style="width: 80%; background-color: #C19237; text-align: left; padding-left: 10px; font-size: 10px;">80%</div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <div class="col">
+              <!--部分快捷-右側-->
+              <div class="right-box">
+                <img src="images/love.png"><a href="#" style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;最愛</a><br>
+                <img src="images/map.png"><a href="#" style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;地圖</a><br>
+                <img src="images/web.png"><a href="#" style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;官網</a>
+              </div>
+            </div>
+            </div>
+          </div>
+          <div class="row">
+            <!--一欄精選留言-->
+            <div class="col">
+              <div class="row" style="padding-top: 10px;">
+                <!--一欄精選留言-->
+                <div class="col">
+                  <div class="Featured-message">
+                    <img src="images/message.png" class="message">
+                    <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐</div>
+                  </div>
+                </div>                
+            </div> 
+        </div>
+      </div>
+      <div class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 20px;">
+        <div>店家資訊2</div>
+      </div>
+      <div class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 20px;">
+        <div>店家資訊3</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!--底部欄-->
+  <div class="fixed-bottom">
+    <div>
+      <div>台北商業大學 | 資訊管理系</div>
+      <div>北商資管專題 113206 小組</div>
+      <div>成員：鄧惠中、余奕博、邱綺琳、陳彥瑾
+        <en style="margin-right: 0.5%; float: right">Copyright ©2024 All rights reserved.</en>
+      </div>
+    </div>
+  </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts/script2.js"></script>
+</body>
+
+</html>

@@ -2,36 +2,38 @@
     background-color: #485465; 
     color: aliceblue;
     font-weight: bold;
-    font-size: 30px;
-    height: 70px;
+    font-size: 1.3em;
+    height: 3em;
     text-align: left;
-    padding: 15px ;
+    padding: 1%;
     max-width: 100%;
-    vertical-align: top;
+    
 }
 
-.img1{
-    width: 40px;
+.team-icon{
+    width: 2em;
     height: auto;
-    vertical-align: top;
     float: left;
+    position: relative;
+    bottom:  15%;
 }
 
 .Gutters-icon{
-    width: 20px;
+    width: 1.25em;
     height: auto;
     vertical-align: auto;
+    position: relative;
 }
 
 .header-icon2{
-    width: 40px;
+    width: 1.5em;
     height: auto;
-    margin: 10px 0px 0px 0px;
+    margin-top: 0.625em;
 }
 
 .offcanvas-body{
     position: relative;
-    width: 400px;
+    width: 700px;
 }
 
 .Options{
@@ -224,25 +226,21 @@
     height: auto;
 }
 
-.content{
-    width: auto;
-    height: auto;
-    vertical-align: top;
-    display: flex;
-}
 
 .map-margin{
-    width: 1050px;
-    max-height: auto;
+    width: 49%;
+    height: 32em;
     border: 1px solid;
     margin-left: 1%;
     display: inline-block;
+    position: absolute;
+    
 }
 
 .map{
     background-color: #EBEBEB;
     width: 100%;
-    height: 650px;
+    height: auto;
     text-align: center;
 }
 
@@ -254,6 +252,8 @@
     margin-right: 2%;
     display: inline-block;
     border: #EBEBEB;
+    position: absolute;
+    left: 50%;
 }
 
 
@@ -264,4 +264,5 @@
     padding: 13px 13px 13px 50px;
     color: #EBEBEB;
     font-size: 15px;
+    
 }
