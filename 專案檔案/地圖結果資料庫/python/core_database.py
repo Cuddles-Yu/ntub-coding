@@ -120,6 +120,7 @@ def create_database(c, database_name) -> bool:
         cursor.execute(f"CREATE DATABASE {database_name}")
         c.execute(f"USE `{database_name}`")
         _create_stores_table(c)
+        _create_keywords_table(c)
         _create_users_table(c)
         _create_rates_table(c)
         _create_locations_table(c)

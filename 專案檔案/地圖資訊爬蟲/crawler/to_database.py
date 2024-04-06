@@ -1,6 +1,7 @@
 ### 匯入模組 ###
 import re
 import time
+import pyautogui
 from module.tables import *
 import 地圖結果資料庫.python.core_database as db
 from selenium import webdriver
@@ -12,9 +13,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 
 ### 系統常數設定 ###
-SEARCH_KEYWORD = '臺北商業大學 鹹水雞'
+SEARCH_KEYWORD = '臺北商業大學 附近的蛋塔店'
 FILE_PATH = f'{SEARCH_KEYWORD.strip().replace(' ', '')}的搜尋結果.csv'
-ENABLE_SCROLL_DOWN = False
+ENABLE_SCROLL_DOWN = True
 
 BUTTON_TYPE = {
     '撰寫評論': 0,
@@ -107,7 +108,7 @@ driver = webdriver.Edge(options=options)
 driver.get('https://www.google.com.tw/maps/preview')
 
 # 等待 Driver 瀏覽到指定頁面後，對搜尋框輸入關鍵字搜尋
-print('\r正在搜尋關鍵字...', end='')
+print(f'\r正在搜尋關鍵字[{SEARCH_KEYWORD}]...', end='')
 WebDriverWait(driver, 10).until(
     ec.presence_of_element_located((By.CLASS_NAME, 'searchboxinput'))
 )
@@ -134,11 +135,11 @@ element_search_title = driver.find_elements(By.CLASS_NAME, 'hfpxzc')
 element_search_img = driver.find_elements(By.CLASS_NAME, 'Nv2PK')
 # 地點名稱
 names = [title.get_attribute('aria-label') for title in element_search_title]
-time.sleep(5)
+time.sleep(3)
 # 預覽圖片
 images = [img.find_element(By.CLASS_NAME, 'p0Hhde').find_element(By.TAG_NAME, 'img').get_attribute('src').split('/')[-1] for img in element_search_img]
 # 地圖連結
-url = [title.get_attribute('href').split('/')[-1] for title in element_search_title]
+url = [title.get_attribute('href') for title in element_search_title]
 # 平均評分
 values = [str(value.text) for value in driver.find_elements(By.CLASS_NAME, 'MW4etd')]
 # 評分總數
@@ -151,7 +152,7 @@ for i in range(max_count):
         category=None,
         tag=None,
         preview_image=images[i],
-        link=url[i],
+        link=url[i].split('/')[-1],
         website=None,
         phone_number=None
     )
@@ -182,8 +183,11 @@ for i in range(max_count):
         else:
             is_repairing = True
 
+    # 瀏覽器開啟並切換至新視窗
+    # driver.switch_to.new_window('tab')
+
     # 瀏覽器載入指定的商家地圖連結
-    driver.get(store_item.get_link())
+    driver.get(url[i])
     WebDriverWait(driver, 10).until(
         ec.presence_of_element_located((By.CLASS_NAME, 'lfPIob'))
     )
@@ -241,16 +245,20 @@ for i in range(max_count):
     commentContainer = driver.find_element(By.CLASS_NAME, 'dS8AEf')
 
     # 取得關鍵字
+    WebDriverWait(driver, 10).until(
+        ec.presence_of_element_located((By.CLASS_NAME, 'e2moi'))
+    )
     for keyword in commentContainer.find_elements(By.CLASS_NAME, 'e2moi'):
         count = keyword.find_elements(By.CLASS_NAME, 'bC3Nkc')
         if len(count) == 0: continue
-        keywordItem = {
-            '名稱': keyword.find_element(By.CLASS_NAME, 'uEubGf').text,
-            '次數': int(count[0].text)
-        }
+        keyword_item = Keyword(
+            store_name=names[i],
+            word=keyword.find_element(By.CLASS_NAME, 'uEubGf').text,
+            count=int(count[0].text)
+        )
+        keyword_item.insert(connection)
 
     switch_to_order(order_type='最相關')
-
     # 滾動評論面板取得所有評論
     while True:
         ActionChains(driver).move_to_element(commentContainer.find_elements(By.CLASS_NAME, 'jftiEf')[-1]).perform()
@@ -288,9 +296,8 @@ for i in range(max_count):
     else:
         print(f'\r【✅已完成】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {names[i]} ({comment_count[i]})\n', end='')
 
-    # 執行完第一個資料後暫時停止繼續爬蟲(開發用)
     # driver.close()
-    # break
+    # driver.switch_to.window(driver.window_handles[0])
 
 print('\r已儲存所有搜尋結果的資料！', end='')
 driver.close()
