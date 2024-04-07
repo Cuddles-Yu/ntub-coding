@@ -1,3 +1,25 @@
+2024/04/08 - 了解 PHP、Laravel與設定安裝
+一、概念
+   1. 前、後端的架構和之間的溝通的模式
+   2. 了解 PHP和語法:
+      - 「<?php」開頭，「?>」結尾
+      - 「echo "string"」輸入字串前面要加echo
+      - 以「.」連結多個字串，使輸出為一個完整的字串
+      - 「//」單行註解，「/*  */」多行註解
+      - 「;」結尾
+   3. 了解 Laravel:PHP 的一種框架，方便管理程式碼檔案
+   4. 下載安裝 PHP 主程式
+   5. 下載安裝 Composer
+二、連結
+   1. https://reurl.cc/4j20VY | 前、後端是什麼及如何溝通
+   2. https://reurl.cc/zlmd9e | 前、後端的架構
+   3. https://reurl.cc/540mgV | 了解 PHP 和語法
+   4. https://reurl.cc/L49E03 | PHP語法
+   5. https://reurl.cc/D4W0n5 | 了解 Laravel 
+   6. https://reurl.cc/13r5rX | 安裝 PHP 主程式
+   7. https://reurl.cc/L49k9e | 安裝 Composer  
+
+
 2024/03/26 - python 定義、呼叫、回傳函式
 一、概念
    1. 了解如何定義、呼叫、回傳函式
