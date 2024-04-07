@@ -90,7 +90,7 @@ def _create_locations_table(c):
             store_name VARCHAR(255),
             longitude DECIMAL(10,7),
             latitude DECIMAL(10,7),
-            postal_code VARCHAR(5),
+            postal_code VARCHAR(6),
             city VARCHAR(3),
             dist VARCHAR(3),
             vil VARCHAR(3),
