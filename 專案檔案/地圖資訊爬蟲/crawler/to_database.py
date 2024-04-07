@@ -1,9 +1,9 @@
 ### 匯入模組 ###
 import re
 import time
-import pyautogui
 from module.tables import *
-import 地圖結果資料庫.python.core_database as db
+from module.database import *
+import 地圖結果資料庫.python.create_database as db
 from selenium import webdriver
 from selenium.webdriver import Keys
 from selenium.webdriver.common.action_chains import ActionChains
@@ -36,9 +36,31 @@ TAB_TYPE = {
 
 
 ### 函式 ###
+def combine(str_array: list, separator: str) -> str:
+    return separator.join(str_array)
+
 def get_split_from_address(address):
-    matches = re.match(r'(?P<postal>\d+)(?P<city>\D+[縣市])(?P<district>\D+[鄉鎮市區])(?P<detail>.+)', address)
-    return matches.group('postal'), matches.group('city'), matches.group('district'), matches.group('detail')
+    if ',' in address:
+        # 英譯地址
+        _split = address.split(', ')
+        if len(_split) > 3:
+            # 正常拆分
+            details = combine(_split[0:len(_split)], ', ')
+            matches = re.match(r'(?P<district>\D{2}[鄉鎮市區])(?P<city>\D{2}[縣市])(?P<postal>.+)', _split[-1])
+            if matches and details:
+                return matches.group('postal'), matches.group('city'), matches.group('district'), details
+        else:
+            # 換位拆分
+            matches = re.match(r'(?P<detail>.+)(?P<district>\D{2}[鄉鎮市區])(?P<city>\D{2}[縣市])(?P<postal>\d+)', address)
+            if matches:
+                return matches.group('postal'), matches.group('city'), matches.group('district'), matches.group('detail')
+    else:
+        # 中文地址
+        matches = re.match(r'(?P<postal>\d+)(?P<city>\D{2}[縣市])(?P<district>\D{2}[鄉鎮市區])(?P<detail>.+)', address)
+        if matches:
+            return matches.group('postal'), matches.group('city'), matches.group('district'), matches.group('detail')
+    # 皆無匹配
+    return None, None, None, None
 
 def switch_to_order(order_type: str):
     print(f'\r正在切換至{order_type}評論...', end='')
@@ -47,7 +69,7 @@ def switch_to_order(order_type: str):
         ec.presence_of_element_located((By.CLASS_NAME, 'S9kvJb'))
     )
     order_button = driver.find_elements(By.CLASS_NAME, 'S9kvJb')
-    order_button[BUTTON_TYPE['排序評論']].click()
+    order_button[-1].click()
     # 排序選單 - 最相關/最新/評分最高/評分最低
     WebDriverWait(driver, 10).until(
         ec.presence_of_element_located((By.CLASS_NAME, 'fxNQSd'))
@@ -102,10 +124,12 @@ connection = db.connect(use_database=True)
 print('\r正在連線到GoogleMap...', end='')
 options = webdriver.EdgeOptions()
 options.add_experimental_option("detach", True)
+options.add_argument('--window-size=950,1020')
 # options.add_argument("--headless")  # 不顯示視窗
 driver = webdriver.Edge(options=options)
 # driver.minimize_window()  # 最小化視窗
 driver.get('https://www.google.com.tw/maps/preview')
+driver.set_window_position(x=970, y=10)
 
 # 等待 Driver 瀏覽到指定頁面後，對搜尋框輸入關鍵字搜尋
 print(f'\r正在搜尋關鍵字[{SEARCH_KEYWORD}]...', end='')
@@ -182,6 +206,8 @@ for i in range(max_count):
             continue
         else:
             is_repairing = True
+            print(f'\r正在移除不完整的資料...', end='')
+            delete_all_records(connection, escape_quotes(names[i]))
 
     # 瀏覽器開啟並切換至新視窗
     # driver.switch_to.new_window('tab')
@@ -212,8 +238,10 @@ for i in range(max_count):
                     else:
                         labels[name] = label.split(': ')[1]
 
-    # 商家欄位資料
-    store_item._tag = driver.find_element(By.CLASS_NAME, 'DkEaL').text
+    # 商家欄位資料(可能為永久歇業/暫時關閉)
+    store_state = driver.find_elements(By.CLASS_NAME, 'fCEvvc')
+    store_item._tag = store_state[0].text if len(store_state) > 0 else driver.find_element(By.CLASS_NAME, 'DkEaL').text
+
     store_item._website = labels['網站']
     if labels['電話號碼']: store_item._phone_number = labels['電話號碼'].replace(' ', '-')
     # 儲存至資料庫
@@ -231,7 +259,7 @@ for i in range(max_count):
         location_item._vil = village.group('village') if village else None
 
     # 變數宣告'評分總數'
-    total_ratings_count = int(rate_item._total_ratings)
+    total_ratings_count = int(rate_item.total_ratings)
     # 標籤按鈕 - 總覽/[評論]/簡介
     WebDriverWait(driver, 10).until(
         ec.presence_of_element_located((By.CLASS_NAME, 'RWPxGd'))
@@ -274,8 +302,8 @@ for i in range(max_count):
             break
     total_score = get_comments(store_name=names[i])
     rate_item._store_responses = len(commentContainer.find_elements(By.CLASS_NAME, 'CDe7pd'))
-    rate_item._total_comments = len(commentContainer.find_elements(By.CLASS_NAME, 'wiI7pd')) - rate_item._store_responses
-    rate_item._real_ratings = round(total_score / rate_item._total_comments, 1)
+    rate_item._total_comments = len(commentContainer.find_elements(By.CLASS_NAME, 'wiI7pd')) - rate_item.store_responses
+    rate_item._real_ratings = round(total_score / rate_item.total_comments, 1)
     # 儲存至資料庫
     rate_item.insert(connection)
 
@@ -298,6 +326,7 @@ for i in range(max_count):
 
     # driver.close()
     # driver.switch_to.window(driver.window_handles[0])
+    driver.refresh()
 
 print('\r已儲存所有搜尋結果的資料！', end='')
 driver.close()

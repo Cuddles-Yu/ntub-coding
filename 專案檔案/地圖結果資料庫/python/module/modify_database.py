@@ -161,7 +161,7 @@ def get_value_count(connection, table_name, column_name, value) -> int:
     try:
         cursor.execute(f'''
             SELECT COUNT(*) FROM {table_name}
-            WHERE {column_name} = {value if value.isdigit() else f"'{value}'"}
+            WHERE {column_name} = {value}
         ''')
         return int(cursor.fetchone()[0])
     except mysql.connector.Error as error:
@@ -176,7 +176,7 @@ def is_value_exist(connection, table_name, column_name, value) -> bool:
     try:
         cursor.execute(f'''
             SELECT COUNT(*) FROM {table_name}
-            WHERE {column_name} = {value if value.isdigit() else f"'{value}'"}
+            WHERE {column_name} = {value}
         ''')
         return int(cursor.fetchone()[0]) > 0
     except mysql.connector.Error as error:

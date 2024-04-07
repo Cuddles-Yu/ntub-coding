@@ -51,3 +51,5 @@ import re
 
 
 # -(使用者名稱: filtered_comments[index].find_element(By.CLASS_NAME, 'd4r55').text)
+
+# print(', '.join('No. 72, No. 36, Section 1, Zhongxiao West Road, 中正區台北市100'.split(', ')[0: 2]))

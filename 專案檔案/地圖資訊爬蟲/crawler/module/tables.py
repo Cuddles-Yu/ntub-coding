@@ -1,11 +1,14 @@
-import 地圖結果資料庫.python.modify_database as mdb
+import 地圖結果資料庫.python.module.modify_database as mdb
 
 # 常數宣告
 IMG_URL = 'https://lh5.googleusercontent.com/p/'
 MAP_URL = 'https://www.google.com.tw/maps/place/'
 
-def transform(param):
+def transform(param: str) -> str:
     return f"'{param}'" if param is not None else 'NULL'
+
+def escape_quotes(param: str) -> str:
+    return param.replace('"', r'\"').replace("'", r"\'")
 
 class Store:
     _name = ''
@@ -27,7 +30,7 @@ class Store:
 
     @property
     def name(self):
-        return transform(self._name)
+        return transform(escape_quotes(self._name))
 
     @property
     def category(self):
@@ -57,7 +60,7 @@ class Store:
         return f"({self.name}, {self.category}, {self.tag}, {self.preview_image}, {self.link}, {self.website}, {self.phone_number})"
 
     def exists(self, connection) -> bool:
-        return mdb.is_value_exist(connection, 'stores', 'name', self._name)
+        return mdb.is_value_exist(connection, 'stores', 'name', self.name)
 
     def insert_if_not_exists(self, connection):
         if not self.exists(connection):  mdb.add_data(connection, 'stores', self.to_string())
@@ -89,7 +92,7 @@ class User:
         return f"({self.id}, {self.level})"
 
     def exists(self, connection) -> bool:
-        return mdb.is_value_exist(connection, 'users', 'id', self._id)
+        return mdb.is_value_exist(connection, 'users', 'id', self.id)
 
     def insert_if_not_exists(self, connection):
         if not self.exists(connection): mdb.add_data(connection, 'users', self.to_string())
@@ -112,7 +115,7 @@ class Comment:
 
     @property
     def store_name(self):
-        return transform(self._store_name)
+        return transform(escape_quotes(self._store_name))
 
     @property
     def sort(self):
@@ -120,7 +123,7 @@ class Comment:
 
     @property
     def contents(self):
-        return transform(self._contents)
+        return transform(escape_quotes(self._contents))
 
     @property
     def time(self):
@@ -152,7 +155,7 @@ class Keyword:
 
     @property
     def store_name(self):
-        return transform(self._store_name)
+        return transform(escape_quotes(self._store_name))
 
     @property
     def word(self):
@@ -190,7 +193,7 @@ class Location:
 
     @property
     def store_name(self):
-        return transform(self._store_name)
+        return transform(escape_quotes(self._store_name))
 
     @property
     def longitude(self):
@@ -224,7 +227,7 @@ class Location:
         return f"({self.store_name}, {self.longitude}, {self.latitude}, {self.postal_code}, {self.city}, {self.dist}, {self.vil}, {self.details})"
 
     def exists(self, connection) -> bool:
-        return mdb.is_value_exist(connection, 'locations', 'store_name', self._store_name)
+        return mdb.is_value_exist(connection, 'locations', 'store_name', self.store_name)
 
     def insert(self, connection):
         mdb.add_data(connection, 'locations', self.to_string())
@@ -247,7 +250,7 @@ class Rate:
 
     @property
     def store_name(self):
-        return transform(self._store_name)
+        return transform(escape_quotes(self._store_name))
 
     @property
     def avg_ratings(self):
