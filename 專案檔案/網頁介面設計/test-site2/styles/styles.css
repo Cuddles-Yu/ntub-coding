@@ -2,12 +2,23 @@
     background-color: #485465; 
     color: aliceblue;
     font-weight: bold;
-    font-size: 1.3em;
-    height: 3em;
+    font-size: x-large;
+    height: 2.5em;
     text-align: left;
-    padding: 1%;
-    max-width: 100%;
-    
+    padding: 0.5em;
+    width: 100%;
+}
+@media (max-width: 600px){
+    .head{
+        background-color: #485465; 
+        color: aliceblue;
+        font-weight: bold;
+        font-size: x-large;
+        height: 1.9em;
+        padding: 1%;
+        width: 100%;
+        text-align: center;
+    }
 }
 
 .team-icon{
@@ -17,6 +28,13 @@
     position: relative;
     bottom:  15%;
 }
+@media (max-width: 600px){
+    .team-icon{
+        width: 2em;
+        height: auto;
+        position: relative;
+    }
+}
 
 .Gutters-icon{
     width: 1.25em;
@@ -24,28 +42,60 @@
     vertical-align: auto;
     position: relative;
 }
+@media (max-width: 600px){
+    .team-icon{
+        width: 2em;
+        height: auto;
+        position: relative;
+    }
+}
 
 .header-icon2{
-    width: 1.5em;
+    width: 1.2em;
     height: auto;
-    margin-top: 0.625em;
+    margin-top: 1%;
+}
+@media (max-width: 600px){
+    .header-icon2{
+        width: 1.5em;
+        height: auto;
+        margin-top: 0.625em;
+    }
 }
 
 .offcanvas-body{
     position: relative;
-    width: 700px;
+    width: 100%;
+}
+@media (max-width: 600px){
+    .offcanvas-body{
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
 }
 
 .Options{
-    margin: auto;
-    width: 170px;
+    margin: 0 auto;
+    width: 8em;
     text-align: center;
-    font-size: 25px;
+    font-size: x-large;
     color: white;
     list-style-type: none;
     text-align-last: justify;
     line-height: 5;
-
+}
+@media (max-width: 600px){
+    .Options{
+        margin: auto;
+        width: 8em;
+        text-align: center;
+        font-size: large;
+        color: white;
+        list-style-type: none;
+        text-align-last: justify;
+        line-height: 4.5;
+    }
 }
 
 .Options-icon,.Options2-icon{
@@ -53,57 +103,100 @@
     margin: 0px 5px 0px 0px;
 }
 
-.Options2{
-    border-top: 2px solid white;
-    font-size: 25px;
-    color: white;
-    list-style-type: none;
-    text-align: center;
-    line-height: 5;
+.line{
+    border: white 1px solid;
+    width: 100%;
+    margin: 0 auto;
 }
 
-.content-up{
-    width: 700px;
+.Options2{
+    margin: auto;
+    width: 8em;
+    text-align: center;
+    font-size: x-large;
+    color: white;
+    list-style-type: none;
+    text-align-last: justify;
+    line-height: 5;
+}
+@media (max-width: 600px){
+    .Options2{
+        margin: auto;
+        width: 8em;
+        text-align: center;
+        font-size: large;
+        color: white;
+        list-style-type: none;
+        text-align-last: justify;
+        line-height: 4.5;
+    }
+}
+
+.Quick{
+    width: 44em;
     margin-left: auto;
     margin-right: 2%;
-    border: 3px solid #EFEFEF;
-    line-height: 30px;
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+    line-height: 1.9em;
     vertical-align: top;
+}
+@media (max-width: 600px){
+    .Quick{
+        width: auto;
+        margin-left: 0;
+        margin-top: 0.5%;
+        margin-bottom: 0.5%;
+        line-height: 1.9em;
+        vertical-align: top;
+    }
 }
 
 .box1{ 
     position: relative;
-    width: 400px;
-    padding: 10px;
-    margin: 10px;
+    width: 25em;
+    padding: 0.625em;
+    margin: 0.625em;
     background-color: white;
     display: inline-block;
     border-radius: 15px;
 }
+@media (max-width: 650px){
+    .box1{
+        width: 15em;
+        padding: 0.625em;
+        margin: 0.625em;
+        background-color: white;
+        display: inline-block;
+        border-radius: 15px;
+    }
+}
 
-.box2{ 
+.box2, .box3{ 
     position: relative;
-    width: 80px;
-    padding: 10px;
-    margin: 10px 0px 0px 30px;
+    width: 5em;
+    padding: 0.625em;
+    margin-top: 0.625em;
+    margin-left: 1.875em;
     background-color: white;
     display: inline-block;
     text-align: right;
     border-radius: 15px;
 }
-
-.box3{ 
-    position: relative;
-    width: 80px;
-    padding: 10px;
-    margin: 10px 0px 0px 30px;
-    background-color: white;
-    display: inline-block;
-    text-align: right;
-    border-radius: 15px;
+@media (max-width: 650px){
+    .box2, .box3{
+        width: 5em;
+        padding: 0.625em;
+        margin-top: 0.625em;
+        margin-left: 1.875em;
+        background-color: white;
+        display: inline-block;
+        text-align: right;
+        border-radius: 15px;
+    }
 }
 
-.title{
+.Quick-title{
     font-size: 15px;
     font-weight: bold;
 }
@@ -111,12 +204,11 @@
 .box1 img{
     position: absolute;
     top: 50%;
-    left: 90%;
+    left: 93%;
     transform: translate(-50%, -50%);
-    width: 30px;
+    width: 1.3em;
     height: auto;
     float: right;
-    object-fit: cover;
 }
 
 .box2 img{
@@ -124,10 +216,9 @@
     top: 50%;
     left: 27%;
     transform: translate(-50%, -50%);
-    width: 27px;
+    width: 1.3em;
     height: auto;
     float: right;
-    object-fit: cover;
 }
 
 .box3 img{
@@ -135,16 +226,78 @@
     top: 50%;
     left: 27%;
     transform: translate(-50%, -50%);
-    width: 27px;
+    width: 1.3em;
     height: auto;
     float: right;
-    object-fit: cover;
+}
+
+.map-margin{
+    width: 57%;
+    height: 80%;
+    border: 1px solid;
+    margin-left: 1.5%;
+    top: 9%;
+    position: absolute;
+    border-radius: 15px;
+}
+@media (max-width: 1780px){
+    .map-margin{
+        width: 56%;
+        height: 30em;
+        border: 1px solid;
+        margin-left: 1em;
+        display: inline-block;
+        position: relative;
+    }
+}
+@media (max-width: 600px){
+    .map-margin{
+        width: 94%;
+        height: 30em;
+        border: 1px solid;
+        margin-left: 1em;
+        top: 9%;
+        position: relative;
+    }
+}
+
+.map{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    align-content: center;
+}
+
+.accordion{
+    width: 35%;
+    height: auto;
+    border: 1px solid #EBEBEB;
+    left: 62%;
+    position: absolute;
+}
+@media (max-width: 1780px){
+    .accordion{
+        width: 41em;
+        height: auto;
+        border: 1px solid #EBEBEB;
+        position: relative;
+    }
+}
+@media (max-width: 600px){
+    .accordion{
+        width: 100%;
+        height: auto;
+        border: 1px solid black;
+        display: flex;
+        flex-direction: row;
+    }
 }
 
 .score, .price{
     width: auto;
     display: inline-block;
     vertical-align: top;
+    
 }
 .star1, .star2, .star3, .star4, .star5{
     width: 15px;
@@ -158,9 +311,9 @@
 
 .standard{
     position: relative;
-    width: 250px;
+    width: 15.625em;
     height: auto;
-    top: 4px;
+    top: 7%;
 }
 
 .standard-text{
@@ -169,7 +322,7 @@
     line-height: 1.7;
     display: inline-block;
     font-size: smaller;
-    margin: 4px 5px 1px 0px;
+    margin: 0.4em 0.3125em 0.0625em 0em;
 }
 
 .text1{
@@ -193,7 +346,7 @@
 }
 
 .right-box img{
-    width: 15px;
+    width: 0.9375em;
     height: auto;
 }
 
@@ -205,9 +358,9 @@
 }
 
 .message{
-    width: 30px;
-    margin-left: 25px;
-    margin-right: 10px;
+    width: 1.875em;
+    margin-left: 3%;
+    margin-right: 2%;
     float: left;
     position: relative;
     top: 14%;
@@ -216,51 +369,24 @@
 .message-font{
     font-size: x-small;
     text-align: left;
-    padding: 5px;
+    align-items: center;
     position: relative;
-    top: 14%;
+    top: 30%;
+    white-space: nowrap; /* 防止文字自動換行 */
+    overflow: hidden; 
+    text-overflow: ellipsis; /* 使用省略符號截斷超出的文字 */
 }
 
 .Q{
-    width: 15px;
+    width: 0.9375em;
     height: auto;
 }
-
-
-.map-margin{
-    width: 49%;
-    height: 32em;
-    border: 1px solid;
-    margin-left: 1%;
-    display: inline-block;
-    position: absolute;
-    
-}
-
-.map{
-    background-color: #EBEBEB;
-    width: 100%;
-    height: auto;
-    text-align: center;
-}
-
-.accordion{
-    width: 750px;
-    height: auto;
-    border: 1px solid;
-    display: inline-block;
-    border: #EBEBEB;
-    position: absolute;
-    left: 60%;
-}
-
-
-
 
 .fixed-bottom{
+    height: 10%;
     background-color: #485465;
-    padding: 13px 13px 13px 50px;
+    padding: 0.9em 0.9em 0.9em 3em;
     color: #EBEBEB;
-    font-size: 15px;
-    
+    font-size: 0.8em;
+    line-height: 1.8;
 }

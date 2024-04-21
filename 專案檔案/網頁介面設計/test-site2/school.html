@@ -8,12 +8,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
   <meta name="keywords" content="評價, google map" />
   <meta name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1 ,user-scalable=no">
+    content="width=device-width, initial-scale=1.0,user-scalable=no">
 </head>
 
 <body style="margin: 0px;  background-color: #EFEFEF">
   <!--頂欄-->
-  <div class="head"><img src="images/icon.png" class="team-icon">評星而論/評星宇宙/地評說/真實評論家
+  <div class="head"><img src="images/icon.png" class="team-icon">評星宇宙
     <!--主選單-->
     <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
       aria-controls="offcanvasRight" style="float: right; background-color: #485465; border-color: #485465">
@@ -31,6 +31,7 @@
           <li><img class="Options-icon" src="images/people.png" />會員專區</li>
           <li><img class="Options-icon" src="images/schedule.png" />行程規劃</li>
         </ul>
+        <div class="line"></div>
         <ul class="Options2">
           <li><img class="Options2-icon" src="images/!.png" />使用說明</li>
           <li><img class="Options2-icon" src="images/mail.png" />問題回饋</li>
@@ -40,16 +41,16 @@
     </div>
   </div>
   <!--搜尋快捷欄-->
-  <div class="content-up">
+  <div class="Quick">
     <div class="box1">
-      <div class="title" style="text-align: left;">搜尋</div>
+      <div class="Quick-title" style="text-align: left;">搜尋</div>
       <div class="img2"> <img src="images/search.png"> </div>
     </div>
     <div class="box2">
-      <div class="title"><img src="images/restaurant.png">餐廳</div>
+      <div class="Quick-title"><img src="images/restaurant.png">餐廳</div>
     </div>
     <div class="box3">
-      <div class="title"><img src="images/picture.png">景點</div>
+      <div class="Quick-title"><img src="images/picture.png">景點</div>
     </div>
   </div>
   <!--地圖位置-->
@@ -68,14 +69,14 @@
           搜尋結果&nbsp;<img src="images/Q.png" class="Q">
         </button>
       </h2>
-      <div id="panelsStayOpen-collapse" class="accordion-collapse collapse show" style="overflow: scroll; max-height: 20em;">
-        <div class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 15px;">
+      <div id="panelsStayOpen-collapse" class="accordion-collapse collapse show" style="overflow: scroll; overflow-x: hidden; max-height: 20em;">
+        <div class="accordion-body" style="background-color: #E7EAEE; margin: 0.625em; border-radius: 15px;">
           <!--grid定位-->
           <div class="container text-center" style="display: contents;">
             <div class="row">
               <div class="col-4">
                 <!--店家資訊-左側-->
-                <div style="font-size: x-large; text-align: left; text-align: left;font-weight: bold;">店家資訊1</div>
+                <div style="font-size: large; text-align: left; text-align: left;font-weight: bold;">店家資訊1</div>
                 <div class="score" style="float: left">
                   <img class="star1" src="images/star.png">
                   <img class="star2" src="images/star.png">
@@ -84,7 +85,7 @@
                   <img class="star5" src="images/star.png">
                   <div class="price">$1-200</div>
                 </div>
-                <div class="tag" style="text-align: left; margin-top: 30px;">
+                <div class="tag" style="text-align: left; margin-top: 2.5em;">
                   <h7>標籤 · 地址</h7>
                 </div>
               </div>
@@ -99,27 +100,27 @@
                   </div>
                   <div class="standard" style="vertical-align: top;">
                     <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25"
-                      aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin: 4px 0px 6px 0px;">
+                      aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.25em; margin-bottom: 0.375em;">
                       <div class="progress-bar "
-                        style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 10px; font-size: 10px;">
+                        style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                         25%</div>
                     </div>
                     <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50"
-                      aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                      aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.25em; margin-bottom: 0.375em;">
                       <div class="progress-bar"
-                        style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 10px; font-size: 10px;">
+                        style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                         50%</div>
                     </div>
                     <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75"
-                      aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin: 0px 0px 7px 0px;">
+                      aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9;  margin-top: 0.57em; margin-bottom: 0.4375em;">
                       <div class="progress-bar"
-                        style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 10px; font-size: 10px;">
+                        style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                         75%</div>
                     </div>
                     <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100"
-                      aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                      aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.60em; margin-bottom: 0.375em;">
                       <div class="progress-bar"
-                        style="width: 80%; background-color: #C19237; text-align: left; padding-left: 10px; font-size: 10px;">
+                        style="width: 80%; background-color: #C19237; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                         80%</div>
                     </div>
                   </div>
@@ -137,25 +138,25 @@
                 </div>
               </div>
             </div>
-            <div class="row" style="padding-top: 10px;">
+            <div class="row" style="padding-top: 0.625em;">
               <!--一欄精選留言-->
               <div class="col">
                 <div class="Featured-message">
                   <img src="images/message.png" class="message">
-                  <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐</div>
+                  <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐1111111111111111111111111</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div id="panelsStayOpen-collapse2" class="accordion-collapse collapse show">
-          <div class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 15px;">
+          <div class="accordion-body" style="background-color: #E7EAEE; margin: 0.625em; border-radius: 15px;">
             <!--grid定位-->
             <div class="container text-center" style="display: contents;">
               <div class="row">
                 <div class="col-4">
                   <!--店家資訊-左側-->
-                  <div style="font-size: x-large; text-align: left; text-align: left;font-weight: bold;">店家資訊2</div>
+                  <div style="font-size: large; text-align: left; text-align: left;font-weight: bold;">店家資訊2</div>
                   <div class="score" style="float: left">
                     <img class="star1" src="images/star.png">
                     <img class="star2" src="images/star.png">
@@ -164,7 +165,7 @@
                     <img class="star5" src="images/star.png">
                     <div class="price">$1-200</div>
                   </div>
-                  <div class="tag" style="text-align: left; margin-top: 30px;">
+                  <div class="tag" style="text-align: left; margin-top: 2.5em;">
                     <h7>標籤 · 地址</h7>
                   </div>
                 </div>
@@ -179,31 +180,27 @@
                     </div>
                     <div class="standard" style="vertical-align: top;">
                       <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25"
-                        aria-valuemin="0" aria-valuemax="100"
-                        style="background-color: #d9d9d9; margin: 4px 0px 6px 0px;">
+                        aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.25em; margin-bottom: 0.375em;">
                         <div class="progress-bar "
-                          style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 10px; font-size: 10px;">
+                          style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                           25%</div>
                       </div>
                       <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50"
-                        aria-valuemin="0" aria-valuemax="100"
-                        style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                        aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.25em; margin-bottom: 0.375em;">
                         <div class="progress-bar"
-                          style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 10px; font-size: 10px;">
+                          style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                           50%</div>
                       </div>
                       <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75"
-                        aria-valuemin="0" aria-valuemax="100"
-                        style="background-color: #d9d9d9; margin: 0px 0px 7px 0px;">
+                        aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9;  margin-top: 0.57em; margin-bottom: 0.4375em;">
                         <div class="progress-bar"
-                          style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 10px; font-size: 10px;">
+                          style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                           75%</div>
                       </div>
                       <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100"
-                        aria-valuemin="0" aria-valuemax="100"
-                        style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                        aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.60em; margin-bottom: 0.375em;">
                         <div class="progress-bar"
-                          style="width: 80%; background-color: #C19237; text-align: left; padding-left: 10px; font-size: 10px;">
+                          style="width: 80%; background-color: #C19237; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                           80%</div>
                       </div>
                     </div>
@@ -221,24 +218,25 @@
                   </div>
                 </div>
               </div>
-              <div class="row" style="padding-top: 10px;">
+              <div class="row" style="padding-top: 0.625em;">
                 <!--一欄精選留言-->
                 <div class="col">
                   <div class="Featured-message">
                     <img src="images/message.png" class="message">
-                    <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐</div>
+                    <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐1111111111111111111111111</div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div id="panelsStayOpen-collapse3" class="accordion-collapse collapse show">
-            <div class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 15px;">
+            <div class="accordion-body" style="background-color: #E7EAEE; margin: 0.625em; border-radius: 15px;">
+              <!--grid定位-->
               <div class="container text-center" style="display: contents;">
                 <div class="row">
                   <div class="col-4">
                     <!--店家資訊-左側-->
-                    <div style="font-size: x-large; text-align: left; text-align: left;font-weight: bold;">店家資訊3</div>
+                    <div style="font-size: large; text-align: left; text-align: left;font-weight: bold;">店家資訊3</div>
                     <div class="score" style="float: left">
                       <img class="star1" src="images/star.png">
                       <img class="star2" src="images/star.png">
@@ -247,7 +245,7 @@
                       <img class="star5" src="images/star.png">
                       <div class="price">$1-200</div>
                     </div>
-                    <div class="tag" style="text-align: left; margin-top: 30px;">
+                    <div class="tag" style="text-align: left; margin-top: 2.5em;">
                       <h7>標籤 · 地址</h7>
                     </div>
                   </div>
@@ -262,31 +260,27 @@
                       </div>
                       <div class="standard" style="vertical-align: top;">
                         <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25"
-                          aria-valuemin="0" aria-valuemax="100"
-                          style="background-color: #d9d9d9; margin: 4px 0px 6px 0px;">
+                          aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.25em; margin-bottom: 0.375em;">
                           <div class="progress-bar "
-                            style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 10px; font-size: 10px;">
+                            style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                             25%</div>
                         </div>
                         <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50"
-                          aria-valuemin="0" aria-valuemax="100"
-                          style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                          aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.25em; margin-bottom: 0.375em;">
                           <div class="progress-bar"
-                            style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 10px; font-size: 10px;">
+                            style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                             50%</div>
                         </div>
                         <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75"
-                          aria-valuemin="0" aria-valuemax="100"
-                          style="background-color: #d9d9d9; margin: 0px 0px 7px 0px;">
+                          aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9;  margin-top: 0.57em; margin-bottom: 0.4375em;">
                           <div class="progress-bar"
-                            style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 10px; font-size: 10px;">
+                            style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                             75%</div>
                         </div>
                         <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100"
-                          aria-valuemin="0" aria-valuemax="100"
-                          style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                          aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.60em; margin-bottom: 0.375em;">
                           <div class="progress-bar"
-                            style="width: 80%; background-color: #C19237; text-align: left; padding-left: 10px; font-size: 10px;">
+                            style="width: 80%; background-color: #C19237; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                             80%</div>
                         </div>
                       </div>
@@ -304,12 +298,12 @@
                     </div>
                   </div>
                 </div>
-                <div class="row" style="padding-top: 10px;">
+                <div class="row" style="padding-top: 0.625em;">
                   <!--一欄精選留言-->
                   <div class="col">
                     <div class="Featured-message">
                       <img src="images/message.png" class="message">
-                      <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐</div>
+                      <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐1111111111111111111111111</div>
                     </div>
                   </div>
                 </div>
@@ -317,12 +311,13 @@
             </div>
           </div>
           <div id="panelsStayOpen-collapse4" class="accordion-collapse collapse show">
-            <div class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 15px;">
+            <div class="accordion-body" style="background-color: #E7EAEE; margin: 0.625em; border-radius: 15px;">
+              <!--grid定位-->
               <div class="container text-center" style="display: contents;">
                 <div class="row">
                   <div class="col-4">
                     <!--店家資訊-左側-->
-                    <div style="font-size: x-large; text-align: left; text-align: left;font-weight: bold;">店家資訊4</div>
+                    <div style="font-size: large; text-align: left; text-align: left;font-weight: bold;">店家資訊4</div>
                     <div class="score" style="float: left">
                       <img class="star1" src="images/star.png">
                       <img class="star2" src="images/star.png">
@@ -331,7 +326,7 @@
                       <img class="star5" src="images/star.png">
                       <div class="price">$1-200</div>
                     </div>
-                    <div class="tag" style="text-align: left; margin-top: 30px;">
+                    <div class="tag" style="text-align: left; margin-top: 2.5em;">
                       <h7>標籤 · 地址</h7>
                     </div>
                   </div>
@@ -346,31 +341,27 @@
                       </div>
                       <div class="standard" style="vertical-align: top;">
                         <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25"
-                          aria-valuemin="0" aria-valuemax="100"
-                          style="background-color: #d9d9d9; margin: 4px 0px 6px 0px;">
+                          aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.25em; margin-bottom: 0.375em;">
                           <div class="progress-bar "
-                            style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 10px; font-size: 10px;">
+                            style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                             25%</div>
                         </div>
                         <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50"
-                          aria-valuemin="0" aria-valuemax="100"
-                          style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                          aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.25em; margin-bottom: 0.375em;">
                           <div class="progress-bar"
-                            style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 10px; font-size: 10px;">
+                            style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                             50%</div>
                         </div>
                         <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75"
-                          aria-valuemin="0" aria-valuemax="100"
-                          style="background-color: #d9d9d9; margin: 0px 0px 7px 0px;">
+                          aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9;  margin-top: 0.57em; margin-bottom: 0.4375em;">
                           <div class="progress-bar"
-                            style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 10px; font-size: 10px;">
+                            style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                             75%</div>
                         </div>
                         <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100"
-                          aria-valuemin="0" aria-valuemax="100"
-                          style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                          aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.60em; margin-bottom: 0.375em;">
                           <div class="progress-bar"
-                            style="width: 80%; background-color: #C19237; text-align: left; padding-left: 10px; font-size: 10px;">
+                            style="width: 80%; background-color: #C19237; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                             80%</div>
                         </div>
                       </div>
@@ -388,12 +379,12 @@
                     </div>
                   </div>
                 </div>
-                <div class="row" style="padding-top: 10px;">
+                <div class="row" style="padding-top: 0.625em;">
                   <!--一欄精選留言-->
                   <div class="col">
                     <div class="Featured-message">
                       <img src="images/message.png" class="message">
-                      <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐</div>
+                      <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐1111111111111111111111111</div>
                     </div>
                   </div>
                 </div>
@@ -401,12 +392,13 @@
             </div>
           </div>
           <div id="panelsStayOpen-collapse5" class="accordion-collapse collapse show">
-            <div class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 15px;">
+            <div class="accordion-body" style="background-color: #E7EAEE; margin: 0.625em; border-radius: 15px;">
+              <!--grid定位-->
               <div class="container text-center" style="display: contents;">
                 <div class="row">
                   <div class="col-4">
                     <!--店家資訊-左側-->
-                    <div style="font-size: x-large; text-align: left; text-align: left;font-weight: bold;">店家資訊5</div>
+                    <div style="font-size: large; text-align: left; text-align: left;font-weight: bold;">店家資訊5</div>
                     <div class="score" style="float: left">
                       <img class="star1" src="images/star.png">
                       <img class="star2" src="images/star.png">
@@ -415,7 +407,7 @@
                       <img class="star5" src="images/star.png">
                       <div class="price">$1-200</div>
                     </div>
-                    <div class="tag" style="text-align: left; margin-top: 30px;">
+                    <div class="tag" style="text-align: left; margin-top: 2.5em;">
                       <h7>標籤 · 地址</h7>
                     </div>
                   </div>
@@ -430,31 +422,27 @@
                       </div>
                       <div class="standard" style="vertical-align: top;">
                         <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25"
-                          aria-valuemin="0" aria-valuemax="100"
-                          style="background-color: #d9d9d9; margin: 4px 0px 6px 0px;">
+                          aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.25em; margin-bottom: 0.375em;">
                           <div class="progress-bar "
-                            style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 10px; font-size: 10px;">
+                            style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                             25%</div>
                         </div>
                         <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50"
-                          aria-valuemin="0" aria-valuemax="100"
-                          style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                          aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.25em; margin-bottom: 0.375em;">
                           <div class="progress-bar"
-                            style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 10px; font-size: 10px;">
+                            style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                             50%</div>
                         </div>
                         <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75"
-                          aria-valuemin="0" aria-valuemax="100"
-                          style="background-color: #d9d9d9; margin: 0px 0px 7px 0px;">
+                          aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9;  margin-top: 0.57em; margin-bottom: 0.4375em;">
                           <div class="progress-bar"
-                            style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 10px; font-size: 10px;">
+                            style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                             75%</div>
                         </div>
                         <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100"
-                          aria-valuemin="0" aria-valuemax="100"
-                          style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                          aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.60em; margin-bottom: 0.375em;">
                           <div class="progress-bar"
-                            style="width: 80%; background-color: #C19237; text-align: left; padding-left: 10px; font-size: 10px;">
+                            style="width: 80%; background-color: #C19237; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                             80%</div>
                         </div>
                       </div>
@@ -472,12 +460,12 @@
                     </div>
                   </div>
                 </div>
-                <div class="row" style="padding-top: 10px;">
+                <div class="row" style="padding-top: 0.625em;">
                   <!--一欄精選留言-->
                   <div class="col">
                     <div class="Featured-message">
                       <img src="images/message.png" class="message">
-                      <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐</div>
+                      <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐1111111111111111111111111</div>
                     </div>
                   </div>
                 </div>
@@ -488,20 +476,20 @@
       </div>  
        
       <!--展開欄-熱門搜尋-->
-      <div class="accordion-item" style="position: relative; top: 5%;">
+      <div class="accordion-item" >
         <h2 class="accordion-header" >
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo" style="background-color: #EBEBEB;">
             熱門搜尋&nbsp;<img src="images/Q.png" class="Q">
           </button>
         </h2>
-        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" style="overflow: scroll; max-height: 15.4em;">
-          <div class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 15px;">
+        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" style="overflow: scroll; overflow-x: hidden; max-height: 15em;">
+          <div class="accordion-body" style="background-color: #E7EAEE; margin: 0.625em; border-radius: 15px;">
             <!--grid定位-->
             <div class="container text-center" style="display: contents;">
               <div class="row">
                 <div class="col-4">
                   <!--店家資訊-左側-->
-                  <div style="font-size: x-large; text-align: left; text-align: left;font-weight: bold;">店家資訊1</div>
+                  <div style="font-size: large; text-align: left; text-align: left;font-weight: bold;">店家資訊1</div>
                   <div class="score" style="float: left">
                     <img class="star1" src="images/star.png">
                     <img class="star2" src="images/star.png">
@@ -510,7 +498,7 @@
                     <img class="star5" src="images/star.png">
                     <div class="price">$1-200</div>
                   </div>
-                  <div class="tag" style="text-align: left; margin-top: 30px;">
+                  <div class="tag" style="text-align: left; margin-top: 2.5em;">
                     <h7>標籤 · 地址</h7>
                   </div>
                 </div>
@@ -525,27 +513,27 @@
                     </div>
                     <div class="standard" style="vertical-align: top;">
                       <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25"
-                        aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin: 4px 0px 6px 0px;">
+                        aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.25em; margin-bottom: 0.375em;">
                         <div class="progress-bar "
-                          style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 10px; font-size: 10px;">
+                          style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                           25%</div>
                       </div>
                       <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50"
-                        aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                        aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.25em; margin-bottom: 0.375em;">
                         <div class="progress-bar"
-                          style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 10px; font-size: 10px;">
+                          style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                           50%</div>
                       </div>
                       <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75"
-                        aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin: 0px 0px 7px 0px;">
+                        aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9;  margin-top: 0.57em; margin-bottom: 0.4375em;">
                         <div class="progress-bar"
-                          style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 10px; font-size: 10px;">
+                          style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                           75%</div>
                       </div>
                       <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100"
-                        aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                        aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.60em; margin-bottom: 0.375em;">
                         <div class="progress-bar"
-                          style="width: 80%; background-color: #C19237; text-align: left; padding-left: 10px; font-size: 10px;">
+                          style="width: 80%; background-color: #C19237; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                           80%</div>
                       </div>
                     </div>
@@ -563,25 +551,25 @@
                   </div>
                 </div>
               </div>
-              <div class="row" style="padding-top: 10px;">
+              <div class="row" style="padding-top: 0.625em;">
                 <!--一欄精選留言-->
                 <div class="col">
                   <div class="Featured-message">
                     <img src="images/message.png" class="message">
-                    <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐</div>
+                    <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐1111111111111111111111111</div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div id="panelsStayOpen-collapseTwo2" class="accordion-collapse collapse show">
-            <div class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 15px;">
+            <div class="accordion-body" style="background-color: #E7EAEE; margin: 0.625em; border-radius: 15px;">
               <!--grid定位-->
               <div class="container text-center" style="display: contents;">
                 <div class="row">
                   <div class="col-4">
                     <!--店家資訊-左側-->
-                    <div style="font-size: x-large; text-align: left; text-align: left;font-weight: bold;">店家資訊2</div>
+                    <div style="font-size: large; text-align: left; text-align: left;font-weight: bold;">店家資訊2</div>
                     <div class="score" style="float: left">
                       <img class="star1" src="images/star.png">
                       <img class="star2" src="images/star.png">
@@ -590,7 +578,7 @@
                       <img class="star5" src="images/star.png">
                       <div class="price">$1-200</div>
                     </div>
-                    <div class="tag" style="text-align: left; margin-top: 30px;">
+                    <div class="tag" style="text-align: left; margin-top: 2.5em;">
                       <h7>標籤 · 地址</h7>
                     </div>
                   </div>
@@ -605,31 +593,27 @@
                       </div>
                       <div class="standard" style="vertical-align: top;">
                         <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25"
-                          aria-valuemin="0" aria-valuemax="100"
-                          style="background-color: #d9d9d9; margin: 4px 0px 6px 0px;">
+                          aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.25em; margin-bottom: 0.375em;">
                           <div class="progress-bar "
-                            style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 10px; font-size: 10px;">
+                            style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                             25%</div>
                         </div>
                         <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50"
-                          aria-valuemin="0" aria-valuemax="100"
-                          style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                          aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.25em; margin-bottom: 0.375em;">
                           <div class="progress-bar"
-                            style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 10px; font-size: 10px;">
+                            style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                             50%</div>
                         </div>
                         <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75"
-                          aria-valuemin="0" aria-valuemax="100"
-                          style="background-color: #d9d9d9; margin: 0px 0px 7px 0px;">
+                          aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9;  margin-top: 0.57em; margin-bottom: 0.4375em;">
                           <div class="progress-bar"
-                            style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 10px; font-size: 10px;">
+                            style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                             75%</div>
                         </div>
                         <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100"
-                          aria-valuemin="0" aria-valuemax="100"
-                          style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                          aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.60em; margin-bottom: 0.375em;">
                           <div class="progress-bar"
-                            style="width: 80%; background-color: #C19237; text-align: left; padding-left: 10px; font-size: 10px;">
+                            style="width: 80%; background-color: #C19237; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                             80%</div>
                         </div>
                       </div>
@@ -647,24 +631,25 @@
                     </div>
                   </div>
                 </div>
-                <div class="row" style="padding-top: 10px;">
+                <div class="row" style="padding-top: 0.625em;">
                   <!--一欄精選留言-->
                   <div class="col">
                     <div class="Featured-message">
                       <img src="images/message.png" class="message">
-                      <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐</div>
+                      <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐1111111111111111111111111</div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             <div id="panelsStayOpen-collapseTwo3" class="accordion-collapse collapse show">
-              <div class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 15px;">
+              <div class="accordion-body" style="background-color: #E7EAEE; margin: 0.625em; border-radius: 15px;">
+                <!--grid定位-->
                 <div class="container text-center" style="display: contents;">
                   <div class="row">
                     <div class="col-4">
                       <!--店家資訊-左側-->
-                      <div style="font-size: x-large; text-align: left; text-align: left;font-weight: bold;">店家資訊3</div>
+                      <div style="font-size: large; text-align: left; text-align: left;font-weight: bold;">店家資訊3</div>
                       <div class="score" style="float: left">
                         <img class="star1" src="images/star.png">
                         <img class="star2" src="images/star.png">
@@ -673,7 +658,7 @@
                         <img class="star5" src="images/star.png">
                         <div class="price">$1-200</div>
                       </div>
-                      <div class="tag" style="text-align: left; margin-top: 30px;">
+                      <div class="tag" style="text-align: left; margin-top: 2.5em;">
                         <h7>標籤 · 地址</h7>
                       </div>
                     </div>
@@ -688,31 +673,27 @@
                         </div>
                         <div class="standard" style="vertical-align: top;">
                           <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25"
-                            aria-valuemin="0" aria-valuemax="100"
-                            style="background-color: #d9d9d9; margin: 4px 0px 6px 0px;">
+                            aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.25em; margin-bottom: 0.375em;">
                             <div class="progress-bar "
-                              style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 10px; font-size: 10px;">
+                              style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                               25%</div>
                           </div>
                           <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50"
-                            aria-valuemin="0" aria-valuemax="100"
-                            style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                            aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.25em; margin-bottom: 0.375em;">
                             <div class="progress-bar"
-                              style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 10px; font-size: 10px;">
+                              style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                               50%</div>
                           </div>
                           <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75"
-                            aria-valuemin="0" aria-valuemax="100"
-                            style="background-color: #d9d9d9; margin: 0px 0px 7px 0px;">
+                            aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9;  margin-top: 0.57em; margin-bottom: 0.4375em;">
                             <div class="progress-bar"
-                              style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 10px; font-size: 10px;">
+                              style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                               75%</div>
                           </div>
                           <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100"
-                            aria-valuemin="0" aria-valuemax="100"
-                            style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                            aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.60em; margin-bottom: 0.375em;">
                             <div class="progress-bar"
-                              style="width: 80%; background-color: #C19237; text-align: left; padding-left: 10px; font-size: 10px;">
+                              style="width: 80%; background-color: #C19237; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                               80%</div>
                           </div>
                         </div>
@@ -730,12 +711,12 @@
                       </div>
                     </div>
                   </div>
-                  <div class="row" style="padding-top: 10px;">
+                  <div class="row" style="padding-top: 0.625em;">
                     <!--一欄精選留言-->
                     <div class="col">
                       <div class="Featured-message">
                         <img src="images/message.png" class="message">
-                        <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐</div>
+                        <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐1111111111111111111111111</div>
                       </div>
                     </div>
                   </div>
@@ -743,12 +724,13 @@
               </div>
             </div>
             <div id="panelsStayOpen-collapseTwo4" class="accordion-collapse collapse show">
-              <div class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 15px;">
+              <div class="accordion-body" style="background-color: #E7EAEE; margin: 0.625em; border-radius: 15px;">
+                <!--grid定位-->
                 <div class="container text-center" style="display: contents;">
                   <div class="row">
                     <div class="col-4">
                       <!--店家資訊-左側-->
-                      <div style="font-size: x-large; text-align: left; text-align: left;font-weight: bold;">店家資訊4</div>
+                      <div style="font-size: large; text-align: left; text-align: left;font-weight: bold;">店家資訊4</div>
                       <div class="score" style="float: left">
                         <img class="star1" src="images/star.png">
                         <img class="star2" src="images/star.png">
@@ -757,7 +739,7 @@
                         <img class="star5" src="images/star.png">
                         <div class="price">$1-200</div>
                       </div>
-                      <div class="tag" style="text-align: left; margin-top: 30px;">
+                      <div class="tag" style="text-align: left; margin-top: 2.5em;">
                         <h7>標籤 · 地址</h7>
                       </div>
                     </div>
@@ -772,31 +754,27 @@
                         </div>
                         <div class="standard" style="vertical-align: top;">
                           <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25"
-                            aria-valuemin="0" aria-valuemax="100"
-                            style="background-color: #d9d9d9; margin: 4px 0px 6px 0px;">
+                            aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.25em; margin-bottom: 0.375em;">
                             <div class="progress-bar "
-                              style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 10px; font-size: 10px;">
+                              style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                               25%</div>
                           </div>
                           <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50"
-                            aria-valuemin="0" aria-valuemax="100"
-                            style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                            aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.25em; margin-bottom: 0.375em;">
                             <div class="progress-bar"
-                              style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 10px; font-size: 10px;">
+                              style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                               50%</div>
                           </div>
                           <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75"
-                            aria-valuemin="0" aria-valuemax="100"
-                            style="background-color: #d9d9d9; margin: 0px 0px 7px 0px;">
+                            aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9;  margin-top: 0.57em; margin-bottom: 0.4375em;">
                             <div class="progress-bar"
-                              style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 10px; font-size: 10px;">
+                              style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                               75%</div>
                           </div>
                           <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100"
-                            aria-valuemin="0" aria-valuemax="100"
-                            style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                            aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.60em; margin-bottom: 0.375em;">
                             <div class="progress-bar"
-                              style="width: 80%; background-color: #C19237; text-align: left; padding-left: 10px; font-size: 10px;">
+                              style="width: 80%; background-color: #C19237; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                               80%</div>
                           </div>
                         </div>
@@ -814,12 +792,12 @@
                       </div>
                     </div>
                   </div>
-                  <div class="row" style="padding-top: 10px;">
+                  <div class="row" style="padding-top: 0.625em;">
                     <!--一欄精選留言-->
                     <div class="col">
                       <div class="Featured-message">
                         <img src="images/message.png" class="message">
-                        <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐</div>
+                        <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐1111111111111111111111111</div>
                       </div>
                     </div>
                   </div>
@@ -827,12 +805,13 @@
               </div>
             </div>
             <div id="panelsStayOpen-collapseTwo5" class="accordion-collapse collapse show">
-              <div class="accordion-body" style="background-color: #E7EAEE; margin: 10px; border-radius: 15px;">
+              <div class="accordion-body" style="background-color: #E7EAEE; margin: 0.625em; border-radius: 15px;">
+                <!--grid定位-->
                 <div class="container text-center" style="display: contents;">
                   <div class="row">
                     <div class="col-4">
                       <!--店家資訊-左側-->
-                      <div style="font-size: x-large; text-align: left; text-align: left;font-weight: bold;">店家資訊5</div>
+                      <div style="font-size: large; text-align: left; text-align: left;font-weight: bold;">店家資訊5</div>
                       <div class="score" style="float: left">
                         <img class="star1" src="images/star.png">
                         <img class="star2" src="images/star.png">
@@ -841,7 +820,7 @@
                         <img class="star5" src="images/star.png">
                         <div class="price">$1-200</div>
                       </div>
-                      <div class="tag" style="text-align: left; margin-top: 30px;">
+                      <div class="tag" style="text-align: left; margin-top: 2.5em;">
                         <h7>標籤 · 地址</h7>
                       </div>
                     </div>
@@ -856,31 +835,27 @@
                         </div>
                         <div class="standard" style="vertical-align: top;">
                           <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25"
-                            aria-valuemin="0" aria-valuemax="100"
-                            style="background-color: #d9d9d9; margin: 4px 0px 6px 0px;">
+                            aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.25em; margin-bottom: 0.375em;">
                             <div class="progress-bar "
-                              style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 10px; font-size: 10px;">
+                              style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                               25%</div>
                           </div>
                           <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50"
-                            aria-valuemin="0" aria-valuemax="100"
-                            style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                            aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.25em; margin-bottom: 0.375em;">
                             <div class="progress-bar"
-                              style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 10px; font-size: 10px;">
+                              style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                               50%</div>
                           </div>
                           <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75"
-                            aria-valuemin="0" aria-valuemax="100"
-                            style="background-color: #d9d9d9; margin: 0px 0px 7px 0px;">
+                            aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9;  margin-top: 0.57em; margin-bottom: 0.4375em;">
                             <div class="progress-bar"
-                              style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 10px; font-size: 10px;">
+                              style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                               75%</div>
                           </div>
                           <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100"
-                            aria-valuemin="0" aria-valuemax="100"
-                            style="background-color: #d9d9d9; margin: 0px 0px 6px 0px;">
+                            aria-valuemin="0" aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.60em; margin-bottom: 0.375em;">
                             <div class="progress-bar"
-                              style="width: 80%; background-color: #C19237; text-align: left; padding-left: 10px; font-size: 10px;">
+                              style="width: 80%; background-color: #C19237; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                               80%</div>
                           </div>
                         </div>
@@ -898,12 +873,12 @@
                       </div>
                     </div>
                   </div>
-                  <div class="row" style="padding-top: 10px;">
+                  <div class="row" style="padding-top: 0.625em;">
                     <!--一欄精選留言-->
                     <div class="col">
                       <div class="Featured-message">
                         <img src="images/message.png" class="message">
-                        <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐</div>
+                        <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐1111111111111111111111111</div>
                       </div>
                     </div>
                   </div>
@@ -920,7 +895,7 @@
         <div>台北商業大學 | 資訊管理系</div>
         <div>北商資管專題 113206 小組</div>
         <div>成員：鄧惠中、余奕博、邱綺琳、陳彥瑾
-          <en style="margin-right: 10px; float: right; font-size: 10px;">Copyright ©2024 All rights reserved.</en>
+          <en style="margin-right: 0.6em; float: right; font-size: 0.6em;">Copyright ©2024 All rights reserved.</en>
         </div>
       </div>
     </div>
