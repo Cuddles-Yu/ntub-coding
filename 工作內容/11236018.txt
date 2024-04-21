@@ -1,3 +1,24 @@
+2024/04/21 - 學習Django網站框架的基礎概念
+一、學習重點
+   1. 建立Django專案
+      - django-admin startproject <專案名稱>
+   2.  建立Application應用程式
+      - python manage.py startapp <應用程式名稱>
+   3. 啟動伺服器
+      - python manage.py runserver
+   4. 設定環境(settings.py)
+      - 開啟DEBUG模式
+      - 加入Application應用程式
+      - 設定Template路徑
+      - 設定語系和時區
+      - 設定static靜態檔的路徑
+   5. 設定連結(urls.py)
+      - path(<網址>, <函式名稱>)
+   6. 瀏覽網址與執行定義之函式
+二、參考書籍
+   1. Python架站特訓班: Django 3最強實戰
+
+
 2024/04/05 - 學習Python的屬性宣告
 一、學習重點
    1. 加上修飾詞「@property」來將方法表示為屬性
