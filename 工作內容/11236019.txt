@@ -1,3 +1,14 @@
+2024/04/22 - xampp、composer、Laravel與設定安裝
+一、概念
+   1. 安裝 XAMPP 的 PHP 整合套件
+   2. 安裝 Laravel 開發環境
+二、遇到問題
+   1. 下載laravel後，輸入php artisan serv 後http://127.0.0.1:8000 應該要可以連上 laravel 的歡迎頁面，但出現的是SQLSTATE[HY000] [1049] Unknown database 'ch17_3'
+三、參考資料
+   1. https://reurl.cc/dnV4QM | 設定安裝 Laravel
+   2. 新觀念PHP8+MYSQL+AJAX網頁程式範例教本
+
+
 2024/04/08 - 了解 PHP、Laravel與設定安裝
 一、概念
    1. 前、後端的架構和之間的溝通的模式
