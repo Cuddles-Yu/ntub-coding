@@ -1,3 +1,13 @@
+2024/04/21 - 響應式網站RWD
+一、概念、實作
+   1. 學習使用RWD (@media)
+   2. white-space: nowrap;(防止文字自動換行)
+   3. text-overflow: ellipsis;(使用省略符號截斷超出的文字)
+二、連結：
+   1. https://reurl.cc/ZeQky3 | 什麼是『響應式網站』Responsive Web Design?十分鐘，理解＋實作
+   2. https://reurl.cc/4ryzj3 | 如何做出響應式網頁(RWD)？
+
+
 2024/03/31 - Grid排版
 一、概念、實作
    1. 學習使用Grid排版
