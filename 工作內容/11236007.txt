@@ -1,3 +1,10 @@
+2024/04/21 - 查詢OSM相關資料
+一、參考資料
+  1. https://reurl.cc/OM0Gdy | 用於行動裝置友善的互動式地圖的開源 JavaScript 庫
+  2. https://reurl.cc/NQr439 | OSM + Leaflet 學習筆記 1：建地圖、marker、事件、換圖層
+  3. https://reurl.cc/VzENKZ | OSM + Leaflet 學習筆記 2：移動中心點、抓目前地點
+  4. https://reurl.cc/9vr7MY | OSM + Leaflet 學習筆記 3：定位、全螢幕、小地圖、列印、客製選單
+
 2024/04/03 - 優化顯示方式
 一、實作
   1. 將地圖中心設置為所有地點標記的中心
