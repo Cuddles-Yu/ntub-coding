@@ -1,3 +1,10 @@
+2024/04/22 - 建立簡單範例地圖
+一、實作
+  1. 在網頁上建立簡單範例地圖
+二、參考資料
+  1. https://reurl.cc/yLEYxM | Leaflet Quick Start Guide
+  2. https://reurl.cc/xaGLzZ | [Leaflet互動式地圖] 001 快速建立地圖
+
 2024/04/21 - 查詢OSM相關資料
 一、參考資料
   1. https://reurl.cc/OM0Gdy | 用於行動裝置友善的互動式地圖的開源 JavaScript 庫
