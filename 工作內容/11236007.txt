@@ -1,3 +1,13 @@
+2024/04/26 - 嘗試建構地圖圖層
+一、實作
+  1. 尋找免費地圖圖層資源
+  2. 嘗試建構不同地圖圖層
+  3. 建構圖層控制面板
+二、參考資料
+  1. https://reurl.cc/mMGyKM | 免費圖層預覽
+  2. https://reurl.cc/aqkdKZ | 關於Leaflet的小小筆記 - DowYuu
+  3. https://reurl.cc/ez6yYx | Map Styles - Stadia Maps
+
 2024/04/25 - 設置地圖中心
 一、實作
   1. 調整JSON資料內容
