@@ -1,3 +1,15 @@
+2024/04/23 - 嘗試marker相關功能
+一、實作
+  1. 學習建構基本地圖
+  2. 學習建構marker
+  3. 學習建構客製化icon
+  4. 學習在icon上點擊產生資訊視窗
+  5. 模擬JSON格式資料
+二、參考資料
+  1. https://reurl.cc/r9geOy | Leaflet + OpenStreetMap 地圖應用開發（六角學院）
+  2. https://reurl.cc/4rax9X | Leaflet + OpenStreetMap (OSM) 特訓班教學
+  3. https://reurl.cc/Gjm10A | Leaflet icon 官方說明文件
+
 2024/04/22 - 建立簡單範例地圖
 一、實作
   1. 在網頁上建立簡單範例地圖
