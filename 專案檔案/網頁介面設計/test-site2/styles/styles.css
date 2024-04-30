@@ -277,10 +277,11 @@
 }
 @media (max-width: 1780px){
     .accordion{
-        width: 41em;
+        width:auto;
         height: auto;
         border: 1px solid #EBEBEB;
-        position: relative;
+        display: inline-block;
+        
     }
 }
 @media (max-width: 600px){

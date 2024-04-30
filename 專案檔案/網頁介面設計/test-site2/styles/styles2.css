@@ -2,12 +2,23 @@
     background-color: #485465; 
     color: aliceblue;
     font-weight: bold;
-    font-size: 1.3em;
-    height: 3em;
+    font-size: x-large;
+    height: 2.5em;
     text-align: left;
-    padding: 1%;
-    max-width: 100%;
-    
+    padding: 0.5em;
+    width: 100%;
+}
+@media (max-width: 600px){
+    .head{
+        background-color: #485465; 
+        color: aliceblue;
+        font-weight: bold;
+        font-size: x-large;
+        height: 1.9em;
+        padding: 1%;
+        width: 100%;
+        text-align: center;
+    }
 }
 
 .team-icon{
@@ -17,6 +28,13 @@
     position: relative;
     bottom:  15%;
 }
+@media (max-width: 600px){
+    .team-icon{
+        width: 2em;
+        height: auto;
+        position: relative;
+    }
+}
 
 .Gutters-icon{
     width: 1.25em;
@@ -24,28 +42,60 @@
     vertical-align: auto;
     position: relative;
 }
+@media (max-width: 600px){
+    .team-icon{
+        width: 2em;
+        height: auto;
+        position: relative;
+    }
+}
 
 .header-icon2{
-    width: 1.5em;
+    width: 1.2em;
     height: auto;
-    margin-top: 0.625em;
+    margin-top: 1%;
+}
+@media (max-width: 600px){
+    .header-icon2{
+        width: 1.5em;
+        height: auto;
+        margin-top: 0.625em;
+    }
 }
 
 .offcanvas-body{
     position: relative;
-    width: 700px;
+    width: 100%;
+}
+@media (max-width: 600px){
+    .offcanvas-body{
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
 }
 
 .Options{
-    margin: auto;
-    width: 170px;
+    margin: 0 auto;
+    width: 8em;
     text-align: center;
-    font-size: 25px;
+    font-size: x-large;
     color: white;
     list-style-type: none;
     text-align-last: justify;
     line-height: 5;
-
+}
+@media (max-width: 600px){
+    .Options{
+        margin: auto;
+        width: 8em;
+        text-align: center;
+        font-size: large;
+        color: white;
+        list-style-type: none;
+        text-align-last: justify;
+        line-height: 4.5;
+    }
 }
 
 .Options-icon,.Options2-icon{
@@ -53,43 +103,138 @@
     margin: 0px 5px 0px 0px;
 }
 
-.Options2{
-    border-top: 2px solid white;
-    font-size: 25px;
-    color: white;
-    list-style-type: none;
-    text-align: center;
-    line-height: 5;
+.line{
+    border: white 1px solid;
+    width: 100%;
+    margin: 0 auto;
 }
 
-.content{
-    width: auto;
-    height: auto;
+.Options2{
+    margin: auto;
+    width: 8em;
+    text-align: center;
+    font-size: x-large;
+    color: white;
+    list-style-type: none;
+    text-align-last: justify;
+    line-height: 5;
+}
+@media (max-width: 600px){
+    .Options2{
+        margin: auto;
+        width: 8em;
+        text-align: center;
+        font-size: large;
+        color: white;
+        list-style-type: none;
+        text-align-last: justify;
+        line-height: 4.5;
+    }
+}
+
+.Quick{
+    width: 44em;
+    margin-left: auto;
+    margin-right: 2%;
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+    line-height: 1.9em;
     vertical-align: top;
-    display: flex;
+}
+@media (max-width: 600px){
+    .Quick{
+        width: auto;
+        margin-left: 0;
+        margin-top: 0.5%;
+        margin-bottom: 0.5%;
+        line-height: 1.9em;
+        vertical-align: top;
+    }
 }
 
 .map-margin{
-    width: 45%;
-    height: 50%;
+    width: 100%;
+    height: 80%;
     border: 1px solid;
-    margin: 1.5%;
-    margin-left: 3%;
-    display: inline-block;
+    position: relative;
+    border-radius: 15px;
+}
+@media (max-width: 1780px){
+    .map-margin{
+        width: 100%;
+        height: 30em;
+        border: 1px solid black;
+        display: inline-block;
+        position: relative;
+    }
+}
+@media (max-width: 600px){
+    .map-margin{
+        width: 100%;
+        height: 30em;
+        border: 1px solid;
+        margin-left: 1em;
+        top: 9%;
+        position: relative;
+    }
 }
 
 .map{
-    background-color: #EBEBEB;
     width: 100%;
-    height: 33em;
+    height: 100%;
     text-align: center;
+    align-content: center;
+}
+
+.standard{
+    position: relative;
+    width: 15.625em;
+    height: auto;
+    top: 7%;
+}
+
+.standard-text{
+    position: absolute;
+    width: auto;
+    line-height: 1.7;
+    display: inline-block;
+    font-size: smaller;
+    margin: 0.4em 0.3125em 0.0625em 0em;
+}
+
+.text1{
+    color: #B45F5F;
+}
+
+.text2{
+    color: #7B8F60;
+}
+
+.text3{
+    color: #5053AF;
+}
+
+.text4{
+    color: #C19237;
+}
+
+.state-1, .state-2, .state-3{
+    display: inline-block; 
+    position: relative;
+    margin-right: 0.3em;
+}
+
+.state-icon{
+    width: 1.9em;
+    height: auto;
+    margin-right: 0.3em;
 }
 
 .fixed-bottom{
+    height: 10%;
     background-color: #485465;
-    padding: 0.9em;
-    padding-left: 4.5em;
+    padding: 0.9em 0.9em 0.9em 3em;
     color: #EBEBEB;
-    font-size: x-small;
-    line-height: 1.5;
+    font-size: 0.8em;
+    line-height: 1.8;
 }
