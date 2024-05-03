@@ -230,6 +230,19 @@
     margin-right: 0.3em;
 }
 
+.message{
+    float: left;
+
+}
+
+.Featured-message{
+    background-color: #FFFFFF;
+    border-radius: 30px;
+    height: 40px;
+    
+}
+
+
 .fixed-bottom{
     height: 10%;
     background-color: #485465;
