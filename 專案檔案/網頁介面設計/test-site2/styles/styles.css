@@ -274,6 +274,7 @@
     border: 1px solid #EBEBEB;
     left: 62%;
     position: absolute;
+    display: flex;
 }
 @media (max-width: 1780px){
     .accordion{
