@@ -4,5 +4,6 @@ __pycache__/
 
 # Files
 *.bkp
+~$*.*
 *搜尋結果.csv
 */地圖資訊爬蟲/*.json
