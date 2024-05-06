@@ -169,13 +169,12 @@
 
 .standard{
     position: relative;
-    width: 15.625em;
+    width: 70%;
     height: auto;
     top: 7%;
 }
 
 .standard-text{
-    position: absolute;
     width: auto;
     line-height: 1.7;
     display: inline-block;
