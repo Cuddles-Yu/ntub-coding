@@ -223,7 +223,7 @@
 }
 
 .wizard, .user{
-    width: 1.875em;
+    width: 1.5em;
     margin-left: 3%;
     margin-right: 2%;
     float: left;
@@ -238,4 +238,8 @@
     color: #EBEBEB;
     font-size: 0.8em;
     line-height: 1.8;
+}
+
+.keywords{
+    width: 2.5em;
 }

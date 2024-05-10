@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
 </head>
 
-<body style="margin: 0px;  background-color: #EFEFEF">
+<body style="margin: 0px;  background-color: #ffffff">
   <!--頂欄-->
   <div class="head"><img src="images/icon.png" class="team-icon">評星宇宙
     <!--主選單-->
@@ -39,12 +39,14 @@
       </div>
     </div>
   </div>
-
+  <!--MAP、店家詳細資訊框架-->
   <div class="container-fluid">
     <div class="row">
+      <!--MAP-->
       <div class="col-12 col-md-6 col-lg-7" style="height: 45em;">
         <div class="map">map</div>
       </div>
+      <!--店家詳細資訊-->
       <div class="col-12 col-md-6 col-lg-5">
         <div class="title">
           <div class="label"></div>
@@ -57,17 +59,19 @@
             <img class="star5" src="images/star.png">
           </div>
         </div>
-        <div class="container">
+        <!--地址、電話、網頁與四大評分欄 框架-->
+        <div class="container" >
           <div class="row">
-            <div class="col-12 col-md-6 col-lg-5">
-              <div class="information" style="text-align: left; font-size: small; line-height: 2.5;">
-                <ul>
+            <div class="col-12 col-md-6 col-lg-5 " style="text-align: left;">
+              <div class="information" style="font-size: small; line-height: 2.5;">
+                <ul class="text-left" style="padding-left: 0;">
                   <li>地址: 台北市中正區濟南路二段6號</li>
                   <li>電話: 02-2321-4693</li>
                   <li>網頁: None</li>
                 </ul>
               </div>
             </div>
+            <!--四大評分欄-->
             <div class="col-12 col-md-6 col-lg-7" >
               <div class="standard-text" style="position: relative; float: left;">
                 <div class="text1">環境</div>
@@ -105,6 +109,7 @@
                 </div>
               </div>
             </div>
+            <!--內用、外帶、外送-->
             <div class="row">
               <div class="col">
                 <div class="state" style="text-align: left; vertical-align: top; font-size: small;">
@@ -114,25 +119,117 @@
                 </div>
               </div>
             </div>
+
+            <!--詳細評論標題-->
             <div class="row">
               <div class="comment-group" style="margin-top: 1em;">
                 <img class="message" src="images/message.png">
-                <h4 style="text-align: left; margin-left: 2em;">評論</h4>
+                <h4 style="text-align: left; margin-left: 2em; margin-top: 0.15em;">評論</h4>
               </div>
             </div>
 
-            <div class="row">
-              <div class="col">
-                <div class="Featured-message">
-                  <img src="images/wizard.jpg" class="wizard">
-                  <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐</div>
+            <!--詳細評論內容-->
+            <div class="row overflow-auto" style="height: 17em;">
+              <!--一組白色評論-->  
+              <div class="group" style="margin-top: 0.625em; background-color: #F9F9F9; border-radius: 15px;">
+                <div class="row" style="margin-top: 0.5em;">
+                  <div class="col-2">
+                    <div class="user-information" >
+                      <img src="images/wizard.jpg" class="wizard">
+                      <h6 style="font-size: small; line-height: 2;">使用者姓名</h6>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <h6 class="leave" style="font-size: small; line-height: 2;">嚮導等級 0</h6>
+                  </div>
+                  <div class="col-2">
+                    <div class="score">
+                      <img class="star1" src="images/star.png" style="width: 1em;">
+                      <img class="star2" src="images/star.png"style="width: 1em;">
+                      <img class="star3" src="images/star.png"style="width: 1em;">
+                      <img class="star4" src="images/star.png"style="width: 1em;">
+                      <img class="star5" src="images/star.png"style="width: 1em;">
+                    </div>
+                  </div>
+                  <div class="col-2" >
+                    <h6 class="time" style="font-size: small; line-height: 2;">時間:1天前</h6>
+                  </div>
+                </div> 
+                <div class="row" style=" margin-bottom: 0.5em;">
+                      <div>
+                        <div class="message-font">假日還沒17:00門口就大排長龍!內用等了約15分鐘，干貝水餃可以吃到干貝一絲一絲的口感，很鮮很好吃。韭菜跟高麗菜水餃也不錯，皮不會爛爛的，也好吃。酸辣湯料很足，胡椒辣很夠味，酸也夠明顯。</div>
+                      </div>
                 </div>
-                <div class="Featured-message">
-                  <img src="images/user.jpg" class="user">
-                  <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐</div>
+              </div>
+              <div class="group" style="margin-top: 0.625em; background-color: #F9F9F9; border-radius: 15px;">
+                <div class="row" style="margin-top: 0.5em;">
+                  <div class="col-2">
+                    <div class="user-information" >
+                      <img src="images/user.jpg" class="user">
+                      <h6 style="font-size: small; line-height: 2;">使用者姓名</h6>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <h6 class="leave" style="font-size: small; line-height: 2;">嚮導等級 0</h6>
+                  </div>
+                  <div class="col-2">
+                    <div class="score">
+                      <img class="star1" src="images/star.png" style="width: 1em;">
+                      <img class="star2" src="images/star.png"style="width: 1em;">
+                      <img class="star3" src="images/star.png"style="width: 1em;">
+                      <img class="star4" src="images/star.png"style="width: 1em;">
+                      <img class="star5" src="images/star.png"style="width: 1em;">
+                    </div>
+                  </div>
+                  <div class="col-2" >
+                    <h6 class="time" style="font-size: small; line-height: 2;">時間:1天前</h6>
+                  </div>
+                </div> 
+                <div class="row" style=" margin-bottom: 0.5em;">
+                      <div>
+                        <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐</div>
+                      </div>
+                </div>
+              </div>
+              <div class="group" style="margin-top: 0.625em; background-color: #F9F9F9; border-radius: 15px;">
+                <div class="row" style="margin-top: 0.5em;">
+                  <div class="col-2">
+                    <div class="user-information" >
+                      <img src="images/user.jpg" class="user">
+                      <h6 style="font-size: small; line-height: 2;">使用者姓名</h6>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <h6 class="leave" style="font-size: small; line-height: 2;">嚮導等級 0</h6>
+                  </div>
+                  <div class="col-2">
+                    <div class="score">
+                      <img class="star1" src="images/star.png" style="width: 1em;">
+                      <img class="star2" src="images/star.png"style="width: 1em;">
+                      <img class="star3" src="images/star.png"style="width: 1em;">
+                      <img class="star4" src="images/star.png"style="width: 1em;">
+                      <img class="star5" src="images/star.png"style="width: 1em;">
+                    </div>
+                  </div>
+                  <div class="col-2" >
+                    <h6 class="time" style="font-size: small; line-height: 2;">時間:1天前</h6>
+                  </div>
+                </div> 
+                <div class="row" style=" margin-bottom: 0.5em;">
+                      <div>
+                        <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐</div>
+                      </div>
                 </div>
               </div>
             </div>
+            <!--關鍵字-->  
+            <div class="row" >
+              <div class="keywords-group" style="margin-top: 1em;">
+                <img class="keywords" src="images/keywords.jpg">
+                <h4 style="text-align: left; margin-left: 2em; margin-top: 0.15em; ;">關鍵字</h4>
+              </div>
+            </div>
+
 
           </div>
         </div>
