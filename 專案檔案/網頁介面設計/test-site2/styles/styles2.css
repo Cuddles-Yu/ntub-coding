@@ -238,8 +238,38 @@
     color: #EBEBEB;
     font-size: 0.8em;
     line-height: 1.8;
+    position: sticky;
+    bottom: 0;
 }
 
 .keywords{
     width: 2.5em;
 }
+
+.arrow{
+    width: 0.9em;
+    position: relative;
+    vertical-align: middle;
+}
+
+.keywords-tag{
+    margin-left: 1em;
+    border: 2px solid #d9d9d9;
+    width: 5em;
+    height: 2em;
+    text-align: center;
+    line-height: 1.9;
+    border-radius: 15px;
+    color: #383838;
+}
+
+.keywords-tag-icon{
+    width: 1em;
+    align-items: center;
+    vertical-align: middle;
+    transform: translate(-50%, -50%);
+    margin-top: 0.625em;
+    margin-left: 0.5em;
+}
+
+
