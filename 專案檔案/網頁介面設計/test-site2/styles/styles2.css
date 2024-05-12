@@ -1,3 +1,9 @@
+body {
+    font-family: "Noto Sans TC", sans-serif;
+    --bs-body-font-family:  "Noto Sans TC", sans-serif;
+}
+
+
 .head{
     background-color: #485465; 
     color: aliceblue;
@@ -20,6 +26,7 @@
         text-align: center;
     }
 }
+
 
 .team-icon{
     width: 2em;
@@ -182,8 +189,12 @@
     margin: 0.4em 0.3125em 0.0625em 0em;
 }
 
-.text1{
+.text0{
     color: #B45F5F;
+}
+.text1{
+    color: #562B08;
+    margin-top: 0.1em;
 }
 
 .text2{
@@ -192,6 +203,7 @@
 
 .text3{
     color: #5053AF;
+    margin-top: 0.1em;
 }
 
 .text4{
@@ -272,4 +284,14 @@
     margin-left: 0.5em;
 }
 
+.tag{
+    margin-left: 1em;
 
+    height: 2em;
+    text-align: center;
+    line-height: 1.9;
+    border-radius: 15px;
+    background-color: #6A6A6A;
+    border-radius: 15px;
+
+}
