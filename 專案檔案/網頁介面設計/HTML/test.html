@@ -1,64 +1,117 @@
 <!doctype html>
 <html>
+<style>
+.Quick{
+    width: 44em;
+    top: 15%;
+    margin-left: auto;
+    margin-right: 2%;
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+    line-height: 1.9em;
+    vertical-align: top;
+}
+@media (max-width: 600px){
+    .Quick{
+        width: auto;
+        margin-left: 0;
+        margin-top: 0.5%;
+        margin-bottom: 0.5%;
+        line-height: 1.9em;
+        vertical-align: top;
+    }
+}
 
+.box1{ 
+    position: relative;
+    width: 25em;
+    padding: 0.625em;
+    margin: 0.625em;
+    background-color: #D9D9D9;
+    display: inline-block;
+    border-radius: 15px;
+}
+@media (max-width: 650px){
+    .box1{
+        width: 15em;
+        padding: 0.625em;
+        margin: 0.625em;
+        background-color: #D9D9D9;
+        display: inline-block;
+        border-radius: 15px;
+    }
+}
+
+.box2, .box3{ 
+    position: relative;
+    width: 5em;
+    padding: 0.625em;
+    margin-top: 0.625em;
+    margin-left: 1.875em;
+    background-color: #D9D9D9;
+    display: inline-block;
+    text-align: right;
+    border-radius: 15px;
+}
+@media (max-width: 650px){
+    .box2, .box3{
+        width: 5em;
+        padding: 0.625em;
+        margin-top: 0.625em;
+        margin-left: 1.875em;
+        background-color: #D9D9D9;
+        display: inline-block;
+        text-align: right;
+        border-radius: 15px;
+    }
+}
+
+.Quick-title{
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.box1 img{
+    position: absolute;
+    top: 50%;
+    left: 93%;
+    transform: translate(-50%, -50%);
+    width: 1.3em;
+    height: auto;
+    float: right;
+}
+
+.box2 img{
+    position: absolute;
+    top: 50%;
+    left: 27%;
+    transform: translate(-50%, -50%);
+    width: 1.3em;
+    height: auto;
+    float: right;
+}
+
+.box3 img{
+    position: absolute;
+    top: 50%;
+    left: 27%;
+    transform: translate(-50%, -50%);
+    width: 1.3em;
+    height: auto;
+    float: right;
+}
+
+</style>
 <head>
   <meta charset="utf-8" />
-  <title>評星宇宙</title>
-  <link rel="stylesheet" href="styles/styles.css" />
+  <title>測試用</title>
+  <link rel="stylesheet" href="styles/styles2.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
   <meta name="keywords" content="評價, google map" />
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
 </head>
 
-<body style="margin: 0px;  background-color: #ffffff">
-  <!--頂欄-->
-  <div class="head"><img src="images/icon.png" class="team-icon">評星宇宙
-    <!--主選單-->
-    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-      aria-controls="offcanvasRight" style="float: right; background-color: #485465; border-color: #485465">
-      <img class="Gutters-icon" src="images/Gutters.png" /></button>
-    <!--選單內頁-->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel"
-      style="background-color: #485465">
-      <div class="offcanvas-header">
-        <img class="header-icon2" src="images/icon2.png">
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-        <ul class="Options">
-          <li><img class="Options-icon" src="images/home.png" />主頁</li>
-          <li><img class="Options-icon" src="images/people.png" />會員專區</li>
-          <li><img class="Options-icon" src="images/schedule.png" />行程規劃</li>
-        </ul>
-        <div class="line"></div>
-        <ul class="Options2">
-          <li><img class="Options2-icon" src="images/!.png" />使用說明</li>
-          <li><img class="Options2-icon" src="images/mail.png" />問題回饋</li>
-          <li><img class="Options2-icon" src="images/team.png" />成員介紹</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <!--搜尋快捷欄-->
-  <div class="Quick">
-    <div class="box1">
-      <div class="Quick-title" style="text-align: left;">搜尋</div>
-      <div class="img2"> <img src="images/search.png"> </div>
-    </div>
-    <div class="box2">
-      <div class="Quick-title"><img src="images/restaurant.png">餐廳</div>
-    </div>
-    <div class="box3">
-      <div class="Quick-title"><img src="images/picture.png">景點</div>
-    </div>
-  </div>
-
-
-  <!--地圖位置-->
-  <div class="map-margin">
-    <div class="map">map</div>
-  </div>
+<body style="margin: 0px;  background-color: #EFEFEF">
 
   <!--展開欄-搜尋結果-->
   <div class="accordion" id="accordionPanelsStayOpenExample">
@@ -888,24 +941,25 @@
             </div>
           </div>
         </div>
-      
-
-    <!--底部欄-->
-    <div class="fixed-bottom">
-      <div>
-        <div>台北商業大學 | 資訊管理系</div>
-        <div>北商資管專題 113206 小組</div>
-        <div>成員：鄧惠中、余奕博、邱綺琳、陳彥瑾
-          <en style="margin-right: 0.6em; float: right; font-size: 0.6em;">Copyright ©2024 All rights reserved.</en>
-        </div>
-      </div>
+  
+  
+      <!--搜尋快捷欄-->
+  <div class="Quick">
+    <div class="box1">
+      <div class="Quick-title" style="text-align: left;">搜尋</div>
+      <div class="img2"> <img src="images/search.png"> </div>
     </div>
+    <div class="box2">
+      <div class="Quick-title"><img src="images/restaurant.png">餐廳</div>
+    </div>
+    <div class="box3">
+      <div class="Quick-title"><img src="images/picture.png">景點</div>
+    </div>
+  </div>
 
 
 
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="scripts/script2.js"></script>
+  <script src="scripts/script2.js"></script>
 </body>
 
 </html>

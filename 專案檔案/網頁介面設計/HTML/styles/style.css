@@ -1,4 +1,4 @@
-.head{
+.fixed-top{
     background-color: #485465; 
     color: aliceblue;
     font-weight: bold;
@@ -132,133 +132,14 @@
     }
 }
 
-.Quick{
-    width: 44em;
-    margin-left: auto;
-    margin-right: 2%;
-    margin-top: 0.5%;
-    margin-bottom: 0.5%;
-    line-height: 1.9em;
-    vertical-align: top;
-}
-@media (max-width: 600px){
-    .Quick{
-        width: auto;
-        margin-left: 0;
-        margin-top: 0.5%;
-        margin-bottom: 0.5%;
-        line-height: 1.9em;
-        vertical-align: top;
-    }
-}
 
-.box1{ 
-    position: relative;
-    width: 25em;
-    padding: 0.625em;
-    margin: 0.625em;
-    background-color: #D9D9D9;
-    display: inline-block;
+#map{
+    width: 95%;
+    height: 100%;
+    text-align: center;
+    align-content: center;
+    border: 1px solid black;
     border-radius: 15px;
-}
-@media (max-width: 650px){
-    .box1{
-        width: 15em;
-        padding: 0.625em;
-        margin: 0.625em;
-        background-color: #D9D9D9;
-        display: inline-block;
-        border-radius: 15px;
-    }
-}
-
-.box2, .box3{ 
-    position: relative;
-    width: 5em;
-    padding: 0.625em;
-    margin-top: 0.625em;
-    margin-left: 1.875em;
-    background-color: #D9D9D9;
-    display: inline-block;
-    text-align: right;
-    border-radius: 15px;
-}
-@media (max-width: 650px){
-    .box2, .box3{
-        width: 5em;
-        padding: 0.625em;
-        margin-top: 0.625em;
-        margin-left: 1.875em;
-        background-color: #D9D9D9;
-        display: inline-block;
-        text-align: right;
-        border-radius: 15px;
-    }
-}
-
-.Quick-title{
-    font-size: 15px;
-    font-weight: bold;
-}
-
-.box1 img{
-    position: absolute;
-    top: 50%;
-    left: 93%;
-    transform: translate(-50%, -50%);
-    width: 1.3em;
-    height: auto;
-    float: right;
-}
-
-.box2 img{
-    position: absolute;
-    top: 50%;
-    left: 27%;
-    transform: translate(-50%, -50%);
-    width: 1.3em;
-    height: auto;
-    float: right;
-}
-
-.box3 img{
-    position: absolute;
-    top: 50%;
-    left: 27%;
-    transform: translate(-50%, -50%);
-    width: 1.3em;
-    height: auto;
-    float: right;
-}
-
-.map-margin{
-    width: 57%;
-    height: 80%;
-    border: 1px solid;
-    margin-left: 1.5%;
-    top: 9%;
-    position: absolute;
-    border-radius: 15px;
-}
-@media (max-width: 1780px){
-    .map-margin{
-        width: 56%;
-        height: 30em;
-        border: 1px solid;
-        margin-left: 1em;
-        display: inline-block;
-        position: relative;
-    }
-}
-@media (max-width: 600px){
-    .map-margin{
-        width: 94%;
-        height: 30em;
-        border: 1px solid;
-        margin-left: 1em;
-        top: 9%;
-        position: relative;
-    }
 }
 
 .map{
@@ -392,4 +273,8 @@
     color: #EBEBEB;
     font-size: 0.8em;
     line-height: 1.8;
+}
+
+.search-results{
+    width: 3em;
 }

@@ -1,4 +1,4 @@
-var accordionItems = document.querySelectorAll('.accordion-item');
+/*var accordionItems = document.querySelectorAll('.accordion-item');
   accordionItems.forEach(function(item) {
     item.addEventListener('click', function() {
       // 切換最上層項目的類別以應用不同的CSS樣式
@@ -17,4 +17,4 @@ var accordionItems = document.querySelectorAll('.accordion-item');
       }
     });
   });
-  
+  */

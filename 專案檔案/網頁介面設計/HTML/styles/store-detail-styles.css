@@ -4,7 +4,7 @@ body {
 }
 
 
-.head{
+.fixed-top{
     background-color: #485465; 
     color: aliceblue;
     font-weight: bold;
@@ -163,15 +163,13 @@ body {
     margin-top: 2em;
 }
 
-.map{
+#map{
     width: 95%;
     height: 100%;
     text-align: center;
     align-content: center;
     border: 1px solid black;
     border-radius: 15px;
-
-    
 }
 
 .standard{
