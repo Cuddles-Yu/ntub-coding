@@ -1,3 +1,11 @@
+2024/05/08 - 熱力圖效果
+一、實作
+  1. 修正&更改部分程式碼
+  2. 製作熱力圖效果
+二、參考資料
+  1. https://reurl.cc/9v167X | Leaflet.markercluster
+  2. https://reurl.cc/8vjoYj | 使用 leaflet + OSM 實作口罩地圖
+
 2024/05/04 - 自訂圖標
 一、實作
   1. 建構自訂圖標（暫定）
