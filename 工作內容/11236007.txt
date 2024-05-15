@@ -1,4 +1,13 @@
-## 2024/05/02 - 確認地圖圖層
+2024/05/03 - 嘗試自訂圖標
+一、實作
+  1. 尋找各式圖標資源
+  2. 嘗試建構自訂圖標
+二、參考資料
+  1. https://reurl.cc/NQGbym | Leaflet.awesome-markers - Github
+  2. https://reurl.cc/RqOLWn | Bootstrap Icons
+  3. https://reurl.cc/EjXg1A | Ionicons
+
+2024/05/02 - 確認地圖圖層
 一、實作
   1. 調整 & 確認地圖圖層
   2. 學習透過 Python 串接 Web API
