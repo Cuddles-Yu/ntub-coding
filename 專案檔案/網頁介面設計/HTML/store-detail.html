@@ -11,7 +11,7 @@
 </head>
 
 <body style="margin-top: 80px;  background-color: #ffffff">
-  <!--頂欄-->
+  <!--頁首-->
   <div class="fixed-top"><img src="images/icon.png" class="team-icon">評星宇宙
     <!--主選單-->
     <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
@@ -42,7 +42,7 @@
   <!--MAP、店家詳細資訊框架-->
   <div class="container-fluid">
     <div class="row">
-      <!--MAP-->
+      <!--MAP--><!--"API串聯"-->
       <div class="col-12 col-md-6 col-lg-7" style="height: 45em;">
         <div id="map">map</div>
       </div>
@@ -52,23 +52,24 @@
           <div class="row">
             <div class="col-5">
               <div class="label">
-                <h3>巧之味手工水餃 濟南店</h3>
+                <h3>巧之味手工水餃 濟南店</h3><!--填入"商家名稱"-->
               </div>
             </div>
             <div class="col-2">
               <div class="tag">
                 <div class="title-tag" style="background-color: #6A6A6A;border-radius: 10px;color: white;width: 6em;height: 2em;vertical-align: middle;">
-                  <img src="images/restaurant-2.png" style="width: 1em;">餐廳
+                  <img src="images/restaurant-2.png" style="width: 1em;">餐廳<!--填入"餐廳種類"ex:餐廳、西餐廳-->
                 </div>
               </div>
             </div>
+            <!--餐廳星數-->
             <div class="row">
               <div class="score">
-                <img class="star1" src="images/star.png">
-                <img class="star2" src="images/star.png">
-                <img class="star3" src="images/star.png">
-                <img class="star4" src="images/star.png">
-                <img class="star5" src="images/star.png">
+                <img class="star1" src="images/star.png"><!--填入"一顆星"-->
+                <img class="star2" src="images/star.png"><!--填入"兩顆星"-->
+                <img class="star3" src="images/star.png"><!--填入"三顆星"-->
+                <img class="star4" src="images/star.png"><!--填入"四顆星"-->
+                <img class="star5" src="images/star.png"><!--填入"五顆星"-->
               </div>
             </div>
           </div>          
@@ -79,9 +80,9 @@
             <div class="col-12 col-md-6 col-lg-5 " style="text-align: left;">
               <div class="information" style="font-size: small; line-height: 3;">
                 <ul class="text-left" style="padding-left: 0;">
-                  <li>地址: 台北市中正區濟南路二段6號</li>
-                  <li>電話: 02-2321-4693</li>
-                  <li>網頁: None</li>
+                  <li>地址: 台北市中正區濟南路二段6號</li><!--填入"餐廳地址"-->
+                  <li>電話: 02-2321-4693</li><!--填入"餐廳電話"-->
+                  <li>網頁: None</li><!--填入"餐廳網址"-->
                 </ul>
               </div>
             </div>
@@ -94,40 +95,41 @@
                 <div class="text3">服務</div>
                 <div class="text4">售價</div>
               </div>
+              <!--評分條-->
               <div class="standard" style="vertical-align: top;">
                 <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25"
                   aria-valuemin="0" aria-valuemax="100"
                   style="background-color: #d9d9d9; margin-bottom: 0.625em;">
                   <div class="progress-bar "
                     style="width: 10%; background-color: #B45F5F; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
-                    10%</div>
+                    10%</div><!--填入"熱門指數"width也要跟著改-->
                 </div>
                 <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25"
                   aria-valuemin="0" aria-valuemax="100"
                   style="background-color: #d9d9d9; margin-bottom: 0.375em;">
                   <div class="progress-bar "
                     style="width: 25%; background-color: #562B08; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
-                    25%</div>
+                    25%</div><!--填入"環境指數"width也要跟著改-->
                 </div>
                 <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0"
                   aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.55em; margin-bottom: 0.375em;">
                   <div class="progress-bar"
                     style="width: 50%; background-color: #7B8F60;text-align: left; padding-left: 0.625em; font-size: 0.8em;">
-                    50%</div>
+                    50%</div><!--填入"產品指數"width也要跟著改-->
                 </div>
                 <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75"
                   aria-valuemin="0" aria-valuemax="100"
                   style="background-color: #d9d9d9;  margin-top: 0.57em; margin-bottom: 0.4375em;">
                   <div class="progress-bar"
                     style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
-                    75%</div>
+                    75%</div><!--填入"服務指數"width也要跟著改-->
                 </div>
                 <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100"
                   aria-valuemin="0" aria-valuemax="100"
                   style="background-color: #d9d9d9; margin-top: 0.60em; margin-bottom: 0.375em;">
                   <div class="progress-bar"
                     style="width: 80%; background-color: #C19237; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
-                    80%</div>
+                    80%</div><!--填入"售價指數"width也要跟著改-->
                 </div>
               </div>
             </div>
@@ -135,9 +137,9 @@
             <div class="row">
               <div class="col">
                 <div class="state" style="text-align: left; vertical-align: top; font-size: small;">
-                  <div class="state-1"><img class="state-icon" src="images/YES.png">內用</div>
-                  <div class="state-2"><img class="state-icon" src="images/YES.png">外帶</div>
-                  <div class="state-3"><img class="state-icon" src="images/NO-2.jpg">外送</div>
+                  <div class="state-1"><img class="state-icon" src="images/YES.png">內用</div><!--選擇是否"內用"ICON 改img的src-->
+                  <div class="state-2"><img class="state-icon" src="images/YES.png">外帶</div><!--選擇是否"外帶"ICON 改img的src-->
+                  <div class="state-3"><img class="state-icon" src="images/NO-2.jpg">外送</div><!--選擇是否"外送"ICON 改img的src-->
                 </div>
               </div>
             </div>
@@ -149,97 +151,89 @@
                 <h4 style="text-align: left; margin-left: 2em; margin-top: 0.15em; font-weight: bold;">評論</h4>
               </div>
             </div>
-
             <!--詳細評論內容-->
             <div class="row overflow-auto" style="height: 17em;">
-              <!--一組白色評論-->  
+              <!--一組嚮導版白色評論-->  <!--動態生成""評論" 157~184為一組-->
               <div class="group" style="margin-top: 0.625em; background-color: #F9F9F9; border-radius: 15px;">
                 <div class="row" style="margin-top: 0.5em;">
-                  <div class="col-2">
-                    <div class="user-information" >
-                      <img src="images/wizard.jpg" class="wizard">
-                      <h6 style="font-size: small; line-height: 2;">使用者姓名</h6>
+                  <div class="col-3">
+                    <div class="user-information">
+                      <img src="images/wizard.jpg" class="wizard"><!--選擇是皇冠=wizard 一般=user-->
+                      <h6 class="leave" style="font-size: small; line-height: 2;text-align: center;">嚮導等級 0</h6><!--填入"嚮導等級"-->
                     </div>
-                  </div>
-                  <div class="col-2">
-                    <h6 class="leave" style="font-size: small; line-height: 2;">嚮導等級 0</h6>
                   </div>
                   <div class="col-2">
                     <div class="score">
-                      <img class="star1" src="images/star.png" style="width: 1em;">
-                      <img class="star2" src="images/star.png"style="width: 1em;">
-                      <img class="star3" src="images/star.png"style="width: 1em;">
-                      <img class="star4" src="images/star.png"style="width: 1em;">
-                      <img class="star5" src="images/star.png"style="width: 1em;">
+                      <img class="star1" src="images/star.png" style="width: 1em;"><!--填入"一顆星"-->
+                      <img class="star2" src="images/star.png"style="width: 1em;"><!--填入"二顆星"-->
+                      <img class="star3" src="images/star.png"style="width: 1em;"><!--填入"三顆星"-->
+                      <img class="star4" src="images/star.png"style="width: 1em;"><!--填入"四顆星"-->
+                      <img class="star5" src="images/star.png"style="width: 1em;"><!--填入"五顆星"-->
                     </div>
                   </div>
-                  <div class="col-2" >
-                    <h6 class="time" style="font-size: small; line-height: 2;">時間:1天前</h6>
+                  <div class="col-2">
+                    <h6 class="time" style="font-size: small; line-height: 2;">1天前</h6><!--填入"評論時間"-->
                   </div>
                 </div> 
                 <div class="row" style=" margin-bottom: 0.5em;">
                       <div>
-                        <div class="message-font">假日還沒17:00門口就大排長龍!內用等了約15分鐘，干貝水餃可以吃到干貝一絲一絲的口感，很鮮很好吃。韭菜跟高麗菜水餃也不錯，皮不會爛爛的，也好吃。酸辣湯料很足，胡椒辣很夠味，酸也夠明顯。</div>
+                        <div class="message-font">假日還沒17:00門口就大排長龍!內用等了約15分鐘，干貝水餃可以吃到干貝一絲一絲的口感，很鮮很好吃。</div><!--填寫"評論"-->
                       </div>
                 </div>
               </div>
+              <!--一組一般用戶版白色評論-->  <!--動態生成""評論" 185~212為一組-->
               <div class="group" style="margin-top: 0.625em; background-color: #F9F9F9; border-radius: 15px;">
                 <div class="row" style="margin-top: 0.5em;">
-                  <div class="col-2">
-                    <div class="user-information" >
-                      <img src="images/user.jpg" class="user">
-                      <h6 style="font-size: small; line-height: 2;">使用者姓名</h6>
+                  <div class="col-3">
+                    <div class="user-information">
+                      <img src="images/user.jpg" class="wizard"><!--選擇是皇冠=wizard 一般=user-->
+                      <h6 class="leave" style="font-size: small; line-height: 2;text-align: center;">嚮導等級 0</h6><!--填入"嚮導等級"-->
                     </div>
-                  </div>
-                  <div class="col-2">
-                    <h6 class="leave" style="font-size: small; line-height: 2;">嚮導等級 0</h6>
                   </div>
                   <div class="col-2">
                     <div class="score">
-                      <img class="star1" src="images/star.png" style="width: 1em;">
-                      <img class="star2" src="images/star.png"style="width: 1em;">
-                      <img class="star3" src="images/star.png"style="width: 1em;">
-                      <img class="star4" src="images/star.png"style="width: 1em;">
-                      <img class="star5" src="images/star.png"style="width: 1em;">
+                      <img class="star1" src="images/star.png" style="width: 1em;"><!--填入"一顆星"-->
+                      <img class="star2" src="images/star.png"style="width: 1em;"><!--填入"二顆星"-->
+                      <img class="star3" src="images/star.png"style="width: 1em;"><!--填入"三顆星"-->
+                      <img class="star4" src="images/star.png"style="width: 1em;"><!--填入"四顆星"-->
+                      <img class="star5" src="images/star.png"style="width: 1em;"><!--填入"五顆星"-->
                     </div>
                   </div>
-                  <div class="col-2" >
-                    <h6 class="time" style="font-size: small; line-height: 2;">時間:1天前</h6>
+                  <div class="col-2">
+                    <h6 class="time" style="font-size: small; line-height: 2;">1天前</h6><!--填入"評論時間"-->
                   </div>
                 </div> 
                 <div class="row" style=" margin-bottom: 0.5em;">
                       <div>
-                        <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐</div>
+                        <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐</div><!--填寫"評論"-->
                       </div>
                 </div>
               </div>
+              <!--一組一般用戶版白色評論-->  <!--動態生成""評論" 213~239為一組-->
               <div class="group" style="margin-top: 0.625em; background-color: #F9F9F9; border-radius: 15px;">
                 <div class="row" style="margin-top: 0.5em;">
-                  <div class="col-2">
-                    <div class="user-information" >
-                      <img src="images/user.jpg" class="user">
-                      <h6 style="font-size: small; line-height: 2;">使用者姓名</h6>
+                  <div class="col-3">
+                    <div class="user-information">
+                      <img src="images/user.jpg" class="wizard"><!--選擇是皇冠=wizard 一般=user-->
+                      <h6 class="leave" style="font-size: small; line-height: 2;text-align: center;">嚮導等級 0</h6><!--填入"嚮導等級"-->
                     </div>
-                  </div>
-                  <div class="col-2">
-                    <h6 class="leave" style="font-size: small; line-height: 2;">嚮導等級 0</h6>
                   </div>
                   <div class="col-2">
                     <div class="score">
-                      <img class="star1" src="images/star.png" style="width: 1em;">
-                      <img class="star2" src="images/star.png"style="width: 1em;">
-                      <img class="star3" src="images/star.png"style="width: 1em;">
-                      <img class="star4" src="images/star.png"style="width: 1em;">
-                      <img class="star5" src="images/star.png"style="width: 1em;">
+                      <img class="star1" src="images/star.png" style="width: 1em;"><!--填入"一顆星"-->
+                      <img class="star2" src="images/star.png"style="width: 1em;"><!--填入"二顆星"-->
+                      <img class="star3" src="images/star.png"style="width: 1em;"><!--填入"三顆星"-->
+                      <img class="star4" src="images/star.png"style="width: 1em;"><!--填入"四顆星"-->
+                      <img class="star5" src="images/star.png"style="width: 1em;"><!--填入"五顆星"-->
                     </div>
                   </div>
-                  <div class="col-2" >
-                    <h6 class="time" style="font-size: small; line-height: 2;">時間:1天前</h6>
+                  <div class="col-2">
+                    <h6 class="time" style="font-size: small; line-height: 2;">1天前</h6><!--填入"評論時間"-->
                   </div>
                 </div> 
                 <div class="row" style=" margin-bottom: 0.5em;">
                       <div>
-                        <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐</div>
+                        <div class="message-font">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐</div><!--填寫"評論"-->
                       </div>
                 </div>
               </div>
@@ -256,18 +250,18 @@
               <div class="CommonlyUsed" style="display: flex; align-items: center;">
                 <h6 style="width: 2.7em; margin-top: 0.6em; font-size: large;">常用</h6>
                 <img class="arrow" src="images/arrow.jpg">
-                <!--關鍵字TAG-->
-                <div class="keywords-tag">台北市</div>
-                <div class="keywords-tag"><img class="keywords-tag-icon" src="images/restaurant.png">餐廳</div>
+                <!--關鍵字TAG--> <!--動態生成"關鍵字組" 可參考254、255、256-->
+                <div class="keywords-tag">台北市</div><!--填入"所在市區"-->
+                <div class="keywords-tag"><img class="keywords-tag-icon" src="images/restaurant.png">餐廳</div><!--填入"餐廳種類"-->
                 <div class="keywords-tag">$1-200</div>
               </div>
             </div>
-            <!--關鍵字 分類-->
+            <!--關鍵字 分類--> 
             <div class="row" style="margin-top: 1em;">
               <div class="CommonlyUsed" style="display: flex; align-items: center;">
                 <h6 style="width: 2.7em; margin-top: 0.6em; font-size: large;">分類</h6>
                 <img class="arrow" src="images/arrow.jpg">
-                <!--關鍵字TAG-->
+                <!--關鍵字TAG--><!--動態生成"關鍵種類" 可參考265~270 271尚未開發-->
                 <div class="keywords-tag">水餃</div>
                 <div class="keywords-tag">酸辣湯</div>
                 <div class="keywords-tag">小菜</div>
