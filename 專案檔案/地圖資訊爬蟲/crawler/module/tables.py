@@ -63,7 +63,7 @@ class Store:
         return mdb.is_value_exist(connection, 'stores', 'name', self.name)
 
     def insert_if_not_exists(self, connection):
-        if not self.exists(connection):  mdb.add_data(connection, 'stores', self.to_string())
+        if not self.exists(connection):  mdb.add_data(connection , 'stores', self.to_string())
 
     def get_link(self) -> str:
         return MAP_URL + self._link

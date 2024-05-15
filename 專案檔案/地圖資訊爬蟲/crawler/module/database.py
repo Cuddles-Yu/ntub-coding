@@ -21,7 +21,7 @@ def delete_all_records(connect, store_name: str):
     c.close()
 
 if __name__ == "__main__":
-    TARGET_STORE = 'Grandpa老爺爺葡式蛋塔'
+    TARGET_STORE = input('刪除哪個商家的所有資料？')
     # 連線資料庫
     connection = db.connect(use_database=True)
     # 執行操作

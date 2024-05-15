@@ -13,9 +13,10 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 
 ### 系統常數設定 ###
-SEARCH_KEYWORD = '臺北商業大學 附近的蛋塔店'
+SEARCH_KEYWORD = '臺北商業大學 附近的鹹水雞'
 FILE_PATH = f'{SEARCH_KEYWORD.strip().replace(' ', '')}的搜尋結果.csv'
 ENABLE_SCROLL_DOWN = True
+MAXIMUM_TIMEOUT = 10
 
 BUTTON_TYPE = {
     '撰寫評論': 0,
@@ -65,18 +66,18 @@ def get_split_from_address(address):
 def switch_to_order(order_type: str):
     print(f'\r正在切換至{order_type}評論...', end='')
     # 功能按鈕 - 撰寫/查詢/[排序評論]
-    WebDriverWait(driver, 10).until(
+    WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
         ec.presence_of_element_located((By.CLASS_NAME, 'S9kvJb'))
     )
     order_button = driver.find_elements(By.CLASS_NAME, 'S9kvJb')
     order_button[-1].click()
     # 排序選單 - 最相關/最新/評分最高/評分最低
-    WebDriverWait(driver, 10).until(
+    WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
         ec.presence_of_element_located((By.CLASS_NAME, 'fxNQSd'))
     )
     order_list = driver.find_elements(By.CLASS_NAME, 'fxNQSd')
     order_list[ORDER_TYPE[order_type]].click()
-    WebDriverWait(driver, 10).until(
+    WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
         ec.presence_of_element_located((By.CLASS_NAME, 'jftiEf'))
     )
 
@@ -128,40 +129,54 @@ options.add_argument('--window-size=950,1020')
 # options.add_argument("--headless")  # 不顯示視窗
 driver = webdriver.Edge(options=options)
 # driver.minimize_window()  # 最小化視窗
-driver.get('https://www.google.com.tw/maps/preview')
-driver.set_window_position(x=970, y=10)
 
-# 等待 Driver 瀏覽到指定頁面後，對搜尋框輸入關鍵字搜尋
-print(f'\r正在搜尋關鍵字[{SEARCH_KEYWORD}]...', end='')
-WebDriverWait(driver, 10).until(
-    ec.presence_of_element_located((By.CLASS_NAME, 'searchboxinput'))
-)
-search_box = driver.find_element(By.CLASS_NAME, 'searchboxinput')
-search_box.send_keys(SEARCH_KEYWORD)
-search_box.send_keys(Keys.ENTER)
+while True:
+    driver.get('https://www.google.com.tw/maps/preview')
+    driver.set_window_position(x=970, y=10)
 
-# 取得所有搜尋結果所在的'容器'物件
-print('\r正在取得搜尋結果...(可能會花費較多時間)', end='')
-WebDriverWait(driver, 10).until(
-    ec.presence_of_element_located((By.CLASS_NAME, 'Nv2PK'))
-)
-container_search_result = driver.find_element(By.XPATH, '/html/body/div[1]/div[3]/div[8]/div[9]/div/div/div[1]/div[2]/div/div[1]/div/div/div[1]/div[1]')
-# 向下捲動瀏覽所有搜尋結果
-if ENABLE_SCROLL_DOWN:
-    while True:
-        if len(driver.find_elements(By.CLASS_NAME, 'HlvSq')) > 0:
-            break
-        ActionChains(driver).move_to_element(container_search_result.find_elements(By.CLASS_NAME, 'Nv2PK')[-1]).perform()
-        container_search_result.send_keys(Keys.PAGE_DOWN)
-        time.sleep(0.1)
+    # 等待 Driver 瀏覽到指定頁面後，對搜尋框輸入關鍵字搜尋
+    print(f'\r正在搜尋關鍵字[{SEARCH_KEYWORD}]...', end='')
+    WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
+        ec.presence_of_element_located((By.CLASS_NAME, 'searchboxinput'))
+    )
+    search_box = driver.find_element(By.CLASS_NAME, 'searchboxinput')
+    search_box.send_keys(SEARCH_KEYWORD)
+    search_box.send_keys(Keys.ENTER)
+
+    # 取得所有搜尋結果所在的'容器'物件
+    print('\r正在取得搜尋結果...(可能會花費較多時間)', end='')
+    WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
+        ec.presence_of_element_located((By.CLASS_NAME, 'Nv2PK'))
+    )
+    container_search_result = driver.find_element(By.XPATH, '/html/body/div[1]/div[3]/div[8]/div[9]/div/div/div[1]/div[2]/div/div[1]/div/div/div[1]/div[1]')
+
+    # 紀錄爬取評論的等待時間
+    start_time = time.time()
+    current_results = 0
+    finish_scroll = True
+
+    # 向下捲動瀏覽所有搜尋結果
+    if ENABLE_SCROLL_DOWN:
+        while True:
+            if len(driver.find_elements(By.CLASS_NAME, 'HlvSq')) > 0:
+                break
+            ActionChains(driver).move_to_element(container_search_result.find_elements(By.CLASS_NAME, 'Nv2PK')[-1]).perform()
+            container_search_result.send_keys(Keys.PAGE_DOWN)
+            time.sleep(0.1)
+            # 檢查是否持續一段時間皆未出現新的結果(卡住)
+            results = driver.find_elements(By.CLASS_NAME, 'hfpxzc')
+            if current_results != len(results): start_time = time.time()
+            current_results = len(results)
+            if time.time() - start_time > MAXIMUM_TIMEOUT:
+                finish_scroll = False
+                break
+
+    if finish_scroll: break
 
 element_search_title = driver.find_elements(By.CLASS_NAME, 'hfpxzc')
-element_search_img = driver.find_elements(By.CLASS_NAME, 'Nv2PK')
 # 地點名稱
 names = [title.get_attribute('aria-label') for title in element_search_title]
 time.sleep(3)
-# 預覽圖片
-images = [img.find_element(By.CLASS_NAME, 'p0Hhde').find_element(By.TAG_NAME, 'img').get_attribute('src').split('/')[-1] for img in element_search_img]
 # 地圖連結
 url = [title.get_attribute('href') for title in element_search_title]
 # 平均評分
@@ -175,7 +190,7 @@ for i in range(max_count):
         name=names[i],
         category=None,
         tag=None,
-        preview_image=images[i],
+        preview_image=None,
         link=url[i].split('/')[-1],
         website=None,
         phone_number=None
@@ -214,7 +229,7 @@ for i in range(max_count):
 
     # 瀏覽器載入指定的商家地圖連結
     driver.get(url[i])
-    WebDriverWait(driver, 10).until(
+    WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
         ec.presence_of_element_located((By.CLASS_NAME, 'lfPIob'))
     )
     tags = driver.find_elements(By.CLASS_NAME, 'RcCsl')
@@ -229,14 +244,18 @@ for i in range(max_count):
         for tag in tags:
             items = tag.find_elements(By.CLASS_NAME, 'CsEnBe')
             if items:
-                label = items[0].get_attribute('aria-label').strip()
+                label = items[0].get_attribute('aria-label')
                 href = items[0].get_attribute('href')
-                if ': ' in label:
-                    name = label.split(': ')[0]
+                if label and ': ' in label:
+                    name = label.strip().split(': ')[0]
                     if href:
                         labels[name] = href
                     else:
-                        labels[name] = label.split(': ')[1]
+                        labels[name] = label.strip().split(': ')[1]
+
+    # 商家相片
+    store_img = driver.find_elements(By.CLASS_NAME, 'ZKCDEc')
+    store_item._preview_image = store_img[0].find_element(By.CLASS_NAME, 'aoRNLd').find_element(By.TAG_NAME, 'img').get_attribute('src').split('/')[-1] if len(store_img) > 0 else None
 
     # 商家欄位資料(可能為永久歇業/暫時關閉)
     store_state = driver.find_elements(By.CLASS_NAME, 'fCEvvc')
@@ -244,6 +263,7 @@ for i in range(max_count):
 
     store_item._website = labels['網站']
     if labels['電話號碼']: store_item._phone_number = labels['電話號碼'].replace(' ', '-')
+
     # 儲存至資料庫
     store_item.insert_if_not_exists(connection)
 
@@ -258,52 +278,72 @@ for i in range(max_count):
         village = re.search(r'(?P<village>\S+里)', labels['Plus Code'])
         location_item._vil = village.group('village') if village else None
 
-    # 變數宣告'評分總數'
-    total_ratings_count = int(rate_item.total_ratings)
-    # 標籤按鈕 - 總覽/[評論]/簡介
-    WebDriverWait(driver, 10).until(
-        ec.presence_of_element_located((By.CLASS_NAME, 'RWPxGd'))
-    )
-    tabs = driver.find_element(By.CLASS_NAME, 'RWPxGd').find_elements(By.CLASS_NAME, 'hh2c6')
-    tabs[TAB_TYPE['評論']].click()
-    # 評論面板
-    WebDriverWait(driver, 10).until(
-        ec.presence_of_element_located((By.CLASS_NAME, 'dS8AEf'))
-    )
-    commentContainer = driver.find_element(By.CLASS_NAME, 'dS8AEf')
-
-    # 取得關鍵字
-    WebDriverWait(driver, 10).until(
-        ec.presence_of_element_located((By.CLASS_NAME, 'e2moi'))
-    )
-    for keyword in commentContainer.find_elements(By.CLASS_NAME, 'e2moi'):
-        count = keyword.find_elements(By.CLASS_NAME, 'bC3Nkc')
-        if len(count) == 0: continue
-        keyword_item = Keyword(
-            store_name=names[i],
-            word=keyword.find_element(By.CLASS_NAME, 'uEubGf').text,
-            count=int(count[0].text)
+    get_all_comments = False
+    if rate_item.total_ratings > 600:
+        print(f'\r【💎多評論】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {names[i]}\n', end='')
+    elif rate_item.total_ratings == 0:
+        print(f'\r【📝無評論】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {names[i]}\n', end='')
+    else:
+        # 標籤按鈕 - 總覽/[評論]/簡介
+        WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
+            ec.presence_of_element_located((By.CLASS_NAME, 'RWPxGd'))
         )
-        keyword_item.insert(connection)
+        tabs = driver.find_element(By.CLASS_NAME, 'RWPxGd').find_elements(By.CLASS_NAME, 'hh2c6')
+        tabs[TAB_TYPE['評論']].click()
+        # 評論面板
+        WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
+            ec.presence_of_element_located((By.CLASS_NAME, 'dS8AEf'))
+        )
+        commentContainer = driver.find_element(By.CLASS_NAME, 'dS8AEf')
 
-    switch_to_order(order_type='最相關')
-    # 滾動評論面板取得所有評論
-    while True:
-        ActionChains(driver).move_to_element(commentContainer.find_elements(By.CLASS_NAME, 'jftiEf')[-1]).perform()
-        commentContainer.send_keys(Keys.PAGE_DOWN)
-        comments = commentContainer.find_elements(By.CLASS_NAME, 'jftiEf')
-        time.sleep(0.1)
-        # 按下「全文」以展開過長的評論內容
-        for comment in comments:
-            expand_comment = comment.find_elements(By.CLASS_NAME, 'w8nwRe')
-            if len(expand_comment) > 0: expand_comment[0].click()
-        print(f'\r正在取得所有評論(%d/%d)...' % (len(comments), total_ratings_count), end='')
-        if len(comments) >= total_ratings_count:
-            break
-    total_score = get_comments(store_name=names[i])
-    rate_item._store_responses = len(commentContainer.find_elements(By.CLASS_NAME, 'CDe7pd'))
-    rate_item._total_comments = len(commentContainer.find_elements(By.CLASS_NAME, 'wiI7pd')) - rate_item.store_responses
-    rate_item._real_ratings = round(total_score / rate_item.total_comments, 1)
+        # 取得關鍵字
+        WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
+            ec.presence_of_element_located((By.CLASS_NAME, 'e2moi'))
+        )
+        for keyword in commentContainer.find_elements(By.CLASS_NAME, 'e2moi'):
+            count = keyword.find_elements(By.CLASS_NAME, 'bC3Nkc')
+            if len(count) == 0: continue
+            keyword_item = Keyword(
+                store_name=names[i],
+                word=keyword.find_element(By.CLASS_NAME, 'uEubGf').text,
+                count=int(count[0].text)
+            )
+            keyword_item.insert(connection)
+
+        switch_to_order(order_type='最相關')
+
+        # 紀錄爬取評論的等待時間
+        start_time = time.time()
+        current_comments = 0
+
+        # 滾動評論面板取得所有評論
+        is_timeout = False
+        while True:
+            ActionChains(driver).move_to_element(commentContainer.find_elements(By.CLASS_NAME, 'jftiEf')[-1]).perform()
+            commentContainer.send_keys(Keys.PAGE_DOWN)
+            comments = commentContainer.find_elements(By.CLASS_NAME, 'jftiEf')
+            time.sleep(0.1)
+            # 檢查是否持續一段時間皆未出現新的評論(卡住)
+            if current_comments != len(comments): start_time = time.time()
+            current_comments = len(comments)
+            if time.time()-start_time > (MAXIMUM_TIMEOUT if current_comments < 200 else 50):
+                print(f'\r【⏱️已超時】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {names[i]}\n', end='')
+                is_timeout = True
+                break
+            # 按下「全文」以展開過長的評論內容
+            for comment in comments:
+                expand_comment = comment.find_elements(By.CLASS_NAME, 'w8nwRe')
+                if len(expand_comment) > 0: expand_comment[0].click()
+            print(f'\r正在取得所有評論(%d/%d)...' % (len(comments), rate_item.total_ratings), end='')
+            if len(comments) >= rate_item.total_ratings:
+                get_all_comments = True
+                break
+        if is_timeout: continue
+        total_score = get_comments(store_name=names[i])
+        rate_item._store_responses = len(commentContainer.find_elements(By.CLASS_NAME, 'CDe7pd'))
+        rate_item._total_comments = len(commentContainer.find_elements(By.CLASS_NAME, 'wiI7pd')) - rate_item.store_responses
+        rate_item._real_ratings = round(total_score / rate_item.total_comments, 1)
+
     # 儲存至資料庫
     rate_item.insert(connection)
 
@@ -319,10 +359,11 @@ for i in range(max_count):
     # 儲存至資料庫
     location_item.insert(connection)
 
-    if is_repairing:
-        print(f'\r【🛠️已修復】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {names[i]} ({comment_count[i]})\n', end='')
-    else:
-        print(f'\r【✅已完成】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {names[i]} ({comment_count[i]})\n', end='')
+    if get_all_comments:
+        if is_repairing:
+            print(f'\r【🛠️已修復】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {names[i]} ({comment_count[i]})\n', end='')
+        else:
+            print(f'\r【✅已完成】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {names[i]} ({comment_count[i]})\n', end='')
 
     # driver.close()
     # driver.switch_to.window(driver.window_handles[0])

@@ -10,7 +10,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 # 系統常數設定
 SEARCH_KEYWORD = '臺北商業大學 蛋塔'
-FILE_PATH = f'{SEARCH_KEYWORD.strip().replace(' ', '')}的搜尋結果.csv'
 
 IMG_URL = 'https://lh5.googleusercontent.com/p/'
 MAP_URL = 'https://www.google.com.tw/maps/place/'
