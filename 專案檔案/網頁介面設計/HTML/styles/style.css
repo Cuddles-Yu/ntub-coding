@@ -8,18 +8,6 @@
     padding: 0.5em;
     width: 100%;
 }
-@media (max-width: 600px){
-    .head{
-        background-color: #485465; 
-        color: aliceblue;
-        font-weight: bold;
-        font-size: x-large;
-        height: 1.9em;
-        padding: 1%;
-        width: 100%;
-        text-align: center;
-    }
-}
 
 .team-icon{
     width: 2em;
@@ -133,51 +121,30 @@
 }
 
 
-#map{
+.map-margin{
     width: 95%;
-    height: 100%;
+    height: 95%;
     text-align: center;
     align-content: center;
     border: 1px solid black;
-    border-radius: 15px;
+    border-radius: 5px;
 }
 
-.map{
+#map{
     width: 100%;
     height: 100%;
     text-align: center;
     align-content: center;
 }
 
+
 .accordion{
-    width: 35%;
     height: auto;
-    border: 0.1px solid #E7EAEE;
     border-radius: 15px;
-    left: 62%;
-    position: absolute;
-    display: flex;
-}
-@media (max-width: 1780px){
-    .accordion{
-        width:auto;
-        height: auto;
-        border: 1px solid #EBEBEB;
-        display: inline-block;
-        
-    }
-}
-@media (max-width: 600px){
-    .accordion{
-        width: 100%;
-        height: auto;
-        border: 1px solid black;
-        display: flex;
-        flex-direction: row;
-    }
 }
 
-.score, .price{
+
+.score{
     width: auto;
     display: inline-block;
     vertical-align: top;
@@ -264,17 +231,26 @@
 .Q{
     width: 0.9375em;
     height: auto;
+    margin-left: 0.625em;
 }
 
-.fixed-bottom{
-    height: 10%;
+.bottom{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
     background-color: #485465;
-    padding: 0.9em 0.9em 0.9em 3em;
     color: #EBEBEB;
-    font-size: 0.8em;
-    line-height: 1.8;
-}
+    font-size: smaller;
+    line-height: 1.5;
+    padding: 1em;
+}*/
+
+
+
 
 .search-results{
     width: 3em;
 }
+
+
