@@ -1,6 +1,13 @@
+2024/05/14 - 更改JSON資料來源
+一、實作
+  1. 將JSON資料更改為自本地端引入
+  2. 去除地圖下標記圖示
+
 2024/05/12 - HTML DOM 核心觀念
 一、觀念
   1. 了解JavaScript HTML DOM 核心觀念
+二、參考資料
+  1. https://reurl.cc/QRR6Ro | JavaScript HTML DOM 核心觀念 - Front End 網頁前端工程教學
 
 2024/05/08 - 熱力圖效果
 一、實作
