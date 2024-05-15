@@ -1,3 +1,11 @@
+2024/04/29 - 定位使用者位置
+一、實作
+  1. 定位使用者所在位置
+  2. 修正模擬資料經緯度
+二、參考資料
+  1. https://reurl.cc/mMoVv1 | Map Locate
+  2. https://reurl.cc/aqnoN3 | Map Locate Options
+
 2024/04/27 - STP分析
 一、實作
   1. 製作專題STP分析文件
