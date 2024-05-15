@@ -1,3 +1,12 @@
+2024/05/04 - 自訂圖標
+一、實作
+  1. 建構自訂圖標（暫定）
+  2. 依照美食種類自訂圖標（暫定）
+  3. 調整、新增模擬資料庫資料
+二、參考資料
+  1. https://reurl.cc/Ajy60d | Free Icons - Font Awesome
+  2. https://reurl.cc/LWX56a | Font Awesome Get Started
+
 2024/05/03 - 嘗試自訂圖標
 一、實作
   1. 尋找各式圖標資源
