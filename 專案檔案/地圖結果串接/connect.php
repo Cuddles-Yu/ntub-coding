@@ -6,17 +6,13 @@
 </head>
 <body>
 <?php
-  // 建立 MySQL 資料庫連接
-  $link = mysqli_connect("localhost", "root", "", "mapdb")
-    or die("無法開啟 MySQL 資料庫連接!<br/>");
-  echo "資料庫 mapdb 開啟成功!<br/>";
-
+  include 'DB.php';
   $sql = "SELECT * FROM comments"; //指定SQL查詢字串
   echo "SQL 查詢字串: $sql <br/>";
 
   //送出查詢的SQL指令
   if ($result = mysqli_query($link, $sql)) {
-     echo "<b>商家留言關鍵字:</b><br/>"; //顯示查詢結果
+     echo "<b>商家留言關鍵字:</b><br/>";//顯示查詢結果
      while ($row = mysqli_fetch_assoc($result)) {
         echo $row["store_name"] . "-" . $row["contents"] . "<br/>";
      }
