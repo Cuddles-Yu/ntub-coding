@@ -1,3 +1,15 @@
+2024/05/16 - 修復各式錯誤
+一、實作
+  1. 修復 MarkerCluster 無法套用樣式問題
+  2. 修復資訊視窗顯示錯誤問題
+  3. 修復圖標顏色顯示錯誤問題
+二、參考資料
+  1. https://reurl.cc/9v167X | Leaflet.markercluster
+  2. https://reurl.cc/NQGbym | Leaflet.awesome-markers - Github
+  3. https://reurl.cc/Wxxole | Leaflet.MarkerCluster 0.1 Released
+  4. https://reurl.cc/8vjoYj | 使用 leaflet + OSM 實作口罩地圖
+  5. https://reurl.cc/QRRo0p | [8-1] 展點多到爆？那就試試看 Leaflet MarkerCluster吧！
+
 2024/05/15 - 修改圖標樣式
 一、實作
   1. 將圖標依照真實評分分顏色
