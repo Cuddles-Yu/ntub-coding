@@ -1,3 +1,22 @@
+2024/05/16 - PHP 語法
+一、概念
+   1. include 跟require 差別
+     ． include
+      	- 適合用來引入動態的程式碼
+      	- 用於流程敘述：條件判斷、迴圈
+      	- 需經條件判斷之後，才能決定是否引用該檔案
+     ． require
+      	- 適合用來引入靜態的內容
+      	- 常放在程式開頭，檔案引入後 PHP 會將網頁重新編譯
+      	- 需經條件判斷之後，才能決定是否引用該檔案
+   2. include_once 跟require_once 
+      	- 加上 _once，代表「只會引入一次」。PHP 會檢測檔案是否有重複引入，避免重複執行浪費效能
+二、參考資料
+   1. https://reurl.cc/DjjpQQ |[PHP]include 與 require 的差別
+   2. https://reurl.cc/qVVqAD |PHP 相關語法⭐
+   3. 新觀念PHP8+MYSQL+AJAX網頁程式範例教本
+
+
 2024/04/26 - PHP 與 MySQL 建立網頁資料庫
 一、概念
    1. PHP與資料庫的關係
