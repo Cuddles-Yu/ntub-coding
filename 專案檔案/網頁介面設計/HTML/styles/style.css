@@ -123,11 +123,12 @@
 
 .map-margin{
     width: 95%;
-    height: 95%;
+    height: 93%;
     text-align: center;
     align-content: center;
     border: 1px solid black;
     border-radius: 5px;
+    margin-top: 1vh;
 }
 
 #map{
@@ -137,12 +138,14 @@
     align-content: center;
 }
 
-
 .accordion{
     height: auto;
     border-radius: 15px;
 }
 
+.Search-results-group{
+    width: 40vw;
+}
 
 .score{
     width: auto;

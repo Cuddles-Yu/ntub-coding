@@ -40,29 +40,50 @@
     </div>
   </div>
 
-  <div class="container-fluid" style="margin-top: 5em;">
+  <div class="container-fluid" style="margin-top: 5em;max-width: 98%;">
     <div class="row">
-      <div class="col">
-        <!--搜尋按鈕1-->
-        <div class="dropdown">
+      <div class="col-12 col-md-6 col-lg-7" >
+        <!--選項按鈕1 地點-->
+        <div class="dropdown" style="display: inline-block;">
           <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
-            Dropdown link
+            標記地點
           </a>
 
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><a class="dropdown-item" href="#">國立台北商業大學</a></li>
+            <li><a class="dropdown-item" href="#">國立台北科技大學</a></li>
+            <li><a class="dropdown-item" href="#">國立中正紀念堂</a></li>
           </ul>
+        </div>
+        <!--選項按鈕2 形容詞-->
+        <div class="dropdown" style="display: inline-block;">
+          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            形容詞
+          </a>
+
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">附近的</a></li>
+            <li><a class="dropdown-item" href="#">熱門</a></li>
+            <li><a class="dropdown-item" href="#">環境</a></li>
+            <li><a class="dropdown-item" href="#">產品</a></li>
+            <li><a class="dropdown-item" href="#">服務</a></li>
+            <li><a class="dropdown-item" href="#">售價</a></li>
+          </ul>
+        </div>
+        <!--輸入按鈕3 食物名稱-->
+        <div class="form-floating"style="display: inline-block;">
+          <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
+          <label for="floatingInputGroup1">食物名稱</label>
         </div>
         <!--地圖位置-->
         <div class="map-margin">
           <div id="map">map</div>
         </div>
       </div>
-      <div class="col" >
-        <div class="Search-results-group"style="border: 1px solid black;" >
+      <div class="col-12 col-md-6 col-lg-5 p-0" >
+        <div class="Search-results-group">
           <div class="row">
             <!--展開欄-熱門搜尋-->
             <div class="accordion" id="accordionPanelsStayOpenExample">
