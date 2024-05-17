@@ -1,4 +1,5 @@
 import mysql.connector
+from itertools import chain
 
 #### 新增+修改
 # 新增欄位
@@ -149,6 +150,35 @@ def select_table_value(connection, table_name):
         records = cursor.fetchall() 
         for r in records: 
             print("資料庫結構查詢成功！" + str(r))
+    except mysql.connector.Error as error:
+        # 處理錯誤
+        print("Error:", error)
+    finally:
+        cursor.close()
+
+# 取得表格中的所有資料
+def select_table_value_by_column(connection, columns, table_name) -> set:
+    cursor = connection.cursor()
+    try:
+        cursor.execute(f'''
+            SELECT {columns} FROM {table_name}
+        ''')
+        return set(chain.from_iterable(cursor.fetchall()))
+    except mysql.connector.Error as error:
+        # 處理錯誤
+        print("Error:", error)
+    finally:
+        cursor.close()
+
+# 取得表格中符合特定條件的資料
+def select_table_value_by_where(connection, target_column, table_name, column_name, value) -> set:
+    cursor = connection.cursor()
+    try:
+        cursor.execute(f'''
+            SELECT `{target_column}` FROM {table_name}
+            WHERE `{column_name}` = "{value}"
+        ''')
+        return set(chain.from_iterable(cursor.fetchall()))
     except mysql.connector.Error as error:
         # 處理錯誤
         print("Error:", error)

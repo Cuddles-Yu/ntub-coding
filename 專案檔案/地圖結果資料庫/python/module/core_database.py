@@ -1,6 +1,7 @@
 ############################################## 資料庫核心 ##############################################
 # (pip install mysql-connector-python) 安裝第三方模組來連結
 import mysql.connector
+from mysql.connector import Error
 
 # 系統變數
 NAME = 'mapdb'
@@ -8,21 +9,27 @@ USERNAME = 'root'
 PASSWORD = '11236018'
 
 def connect(use_database):  # 連接資料庫
-    if use_database:
-        return mysql.connector.connect(
-            user=USERNAME,
-            password=PASSWORD,
-            host='localhost',
-            database=NAME,
-            auth_plugin='mysql_native_password'
-        )
-    else:
-        return mysql.connector.connect(
-            user=USERNAME,
-            password=PASSWORD,
-            host='localhost',
-            auth_plugin='mysql_native_password'
-        )
+    try:
+        if use_database:
+            connection = mysql.connector.connect(
+                user=USERNAME,
+                password=PASSWORD,
+                host='localhost',
+                database=NAME,
+                auth_plugin='mysql_native_password'
+            )
+        else:
+            connection = mysql.connector.connect(
+                user=USERNAME,
+                password=PASSWORD,
+                host='localhost',
+                auth_plugin='mysql_native_password'
+            )
+        if connection.is_connected():
+            return connection
+    except Error as e:
+        print('資料庫連線失敗，請確認服務是否啟用後再嘗試一次')
+        return None
 
 # 檢查資料庫是否存在
 def exists(c, database_name: str) -> bool:

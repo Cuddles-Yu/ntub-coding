@@ -2,6 +2,8 @@ from 地圖結果資料庫.python.module.core_database import *
 
 ### 主程式 ###
 connection = connect(use_database=False)
+if connection is None: exit()
+
 cursor = connection.cursor()
 if exists(cursor, NAME):
     if __name__ == "__main__":

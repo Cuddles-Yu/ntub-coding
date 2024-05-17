@@ -62,6 +62,14 @@ class Store:
     def exists(self, connection) -> bool:
         return mdb.is_value_exist(connection, 'stores', 'name', self.name)
 
+    def check_if_perfect(self, connection, comments_count: int) -> bool:
+        return (
+            mdb.is_value_exist(connection, 'stores', 'name', self.name) and
+            mdb.is_value_exist(connection, 'rates', 'store_name', self.name) and
+            mdb.is_value_exist(connection, 'locations', 'store_name', self.name) and
+            mdb.get_value_count(connection, 'comments', 'store_name', self.name) >= comments_count
+        )
+
     def insert_if_not_exists(self, connection):
         if not self.exists(connection):  mdb.add_data(connection , 'stores', self.to_string())
 
