@@ -43,40 +43,48 @@
   <div class="container-fluid" style="margin-top: 5em;max-width: 98%;">
     <div class="row">
       <div class="col-12 col-md-6 col-lg-7" >
-        <!--選項按鈕1 地點-->
-        <div class="dropdown" style="display: inline-block;">
-          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            標記地點
-          </a>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col">
+              <!--選項按鈕1 地點-->
+              <div class="form-floating">
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                  <option selected>請選擇地點</option>
+                  <option value="1">國立台北商業大學</option>
+                  <option value="2">國立台北科技大學</option>
+                  <option value="3">國立中正紀念堂</option>
+                </select>
+                <label for="floatingSelect">地點</label>
+              </div>
+            </div>
+            <div class="col">
+              <!--選項按鈕2 形容詞-->
+              <div class="form-floating">
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                  <option selected>請選擇形容詞</option>
+                  <option value="1">附近的</option>
+                  <option value="2">熱門</option>
+                  <option value="3">環境</option>
+                  <option value="4">產品</option>
+                  <option value="5">服務</option>
+                  <option value="6">售價</option>
+                </select>
+                <label for="floatingSelect">形容詞</label>
+              </div>
+            </div>
+            <div class="col">
+              <!--輸入按鈕3 食物名稱-->
+            <div class="form-floating" style="display: inline-block; width: 15vw;">
+              <!-- 將 placeholder 改為 "First name" 並保留 id 和 for 的匹配 -->
+              <input type="text" class="form-control" id="floatingInputGroup1" placeholder="First name">
+              <label for="floatingInputGroup1">食物名稱</label>
+            </div>
 
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">國立台北商業大學</a></li>
-            <li><a class="dropdown-item" href="#">國立台北科技大學</a></li>
-            <li><a class="dropdown-item" href="#">國立中正紀念堂</a></li>
-          </ul>
+            </div>
+          </div>
         </div>
-        <!--選項按鈕2 形容詞-->
-        <div class="dropdown" style="display: inline-block;">
-          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            形容詞
-          </a>
-
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">附近的</a></li>
-            <li><a class="dropdown-item" href="#">熱門</a></li>
-            <li><a class="dropdown-item" href="#">環境</a></li>
-            <li><a class="dropdown-item" href="#">產品</a></li>
-            <li><a class="dropdown-item" href="#">服務</a></li>
-            <li><a class="dropdown-item" href="#">售價</a></li>
-          </ul>
-        </div>
-        <!--輸入按鈕3 食物名稱-->
-        <div class="form-floating"style="display: inline-block;">
-          <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-          <label for="floatingInputGroup1">食物名稱</label>
-        </div>
+        
+        
         <!--地圖位置-->
         <div class="map-margin">
           <div id="map">map</div>
