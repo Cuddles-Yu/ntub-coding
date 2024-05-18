@@ -1,0 +1,24 @@
+html,body{
+    margin: 0;
+    width: 100%;
+    height:100%;
+}
+
+#map {
+    display: flex;
+    width:50%;
+    height:100vh;
+}
+
+.legend { 
+    background: white; /* 背景顏色 */
+    padding: 10px; /* 內邊距 */
+    border-radius: 5px; /* 圓角長方形 */
+}
+
+.legend span {
+    margin-left: 8px; /* 與其左側的元素之間有 8px 的空間 */
+    vertical-align: middle; /* 垂直置中 */
+    text-align: center; /* 水平置中 */
+    line-height: 20px; /* 行高 */
+}

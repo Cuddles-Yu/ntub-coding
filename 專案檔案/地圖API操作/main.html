@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Street Map 嘗試</title>
+
+    <!-- 載入 leaflet.css -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/> 
+
+    <!-- 載入 leaflet.awesome-markers.css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers/dist/leaflet.awesome-markers.css" />
+
+    <!-- 載入 MarkerCluster.css -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    
+    <!-- 載入 main.css -->
+    <link rel="stylesheet" type="text/css" href="./main.css">
+
+</head>
+<body>
+    <!-- 地圖物件: map -->
+    <div id="map"></div>
+
+    <!-- 載入地圖框架 leaflet.js -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- 載入 leaflet.awesome-markers.min.js -->
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers/dist/leaflet.awesome-markers.min.js"></script>
+
+    <!-- 載入 Font Awesome Kit -->
+    <script src="https://kit.fontawesome.com/876a36192d.js" crossorigin="anonymous"></script>
+
+    <!-- 載入 Markercluster.js -->
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+
+    <!-- 載入JSON資料 data.json -->
+    <script src="./data.json"></script>
+
+    <!-- 載入主程式 main.js -->
+    <script src="./main.js"></script>
+</body>
+</html>
