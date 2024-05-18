@@ -42,7 +42,7 @@
 
   <div class="container-fluid" style="margin-top: 5em;max-width: 98%;">
     <div class="row">
-      <div class="col-12 col-md-6 col-lg-7" >
+      <div class="col-12 col-md-6 col-lg-7">
         <div class="container-fluid">
           <div class="row">
             <div class="col">
@@ -63,8 +63,8 @@
                 <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
                   <option selected>請選擇形容詞</option>
                   <option value="1">附近的</option>
-                  <option value="2">熱門</option>
-                  <option value="3">環境</option>
+                  <option value="2">熱門高的</option>
+                  <option value="3">環境好的</option>
                   <option value="4">產品</option>
                   <option value="5">服務</option>
                   <option value="6">售價</option>
@@ -74,23 +74,23 @@
             </div>
             <div class="col">
               <!--輸入按鈕3 食物名稱-->
-            <div class="form-floating" style="display: inline-block; width: 15vw;">
-              <!-- 將 placeholder 改為 "First name" 並保留 id 和 for 的匹配 -->
-              <input type="text" class="form-control" id="floatingInputGroup1" placeholder="First name">
-              <label for="floatingInputGroup1">食物名稱</label>
-            </div>
+              <div class="form-floating" style="display: inline-block; width: 15vw;">
+                <!-- 將 placeholder 改為 "First name" 並保留 id 和 for 的匹配 -->
+                <input type="text" class="form-control" id="floatingInputGroup1" placeholder="First name">
+                <label for="floatingInputGroup1">請輸入查詢關鍵字</label>
+              </div>
 
             </div>
           </div>
         </div>
-        
-        
+
+
         <!--地圖位置-->
         <div class="map-margin">
           <div id="map">map</div>
         </div>
       </div>
-      <div class="col-12 col-md-6 col-lg-5 p-0" >
+      <div class="col-12 col-md-6 col-lg-5 p-0">
         <div class="Search-results-group">
           <div class="row">
             <!--展開欄-熱門搜尋-->
@@ -107,22 +107,27 @@
                     <!--grid定位-->
                     <div class="container text-center" style="display: contents;">
                       <div class="row">
-                        <div class="col-4">
-                          <!--店家資訊-左側-->
-                          <div style="font-size: large; text-align: left; text-align: left;font-weight: bold;">店家資訊1
+                        <div class="col-4" style="text-align: left;">
+                          <div class="row">
+                            <!-- 店家資訊-左側 -->
+                            <div style="font-size: large; font-weight: bold;">店家資訊1</div>
                           </div>
-                          <div class="score" style="float: left">
-                            <img class="star1" src="images/star.png">
-                            <img class="star2" src="images/star.png">
-                            <img class="star3" src="images/star.png">
-                            <img class="star4" src="images/star.png">
-                            <img class="star5" src="images/star.png">
+                          <div class="row">
+                            <div class="score">
+                              <img class="star1" src="images/star.png">
+                              <img class="star2" src="images/star.png">
+                              <img class="star3" src="images/star.png">
+                              <img class="star4" src="images/star.png">
+                              <img class="star5" src="images/star.png">
+                            </div>
                           </div>
-                          <div class="tag" style="text-align: left; margin-top: 2.5em;">
-                            <h7>標籤 · 地址</h7>
+                          <div class="row">
+                            <div class="tag" style="margin-top:1em;">
+                              <h7>標籤 · 地址</h7>
+                            </div>
                           </div>
                         </div>
-                        <div class="col-5" style="position: relative;">
+                        <div class="col-5">
                           <!--progress組-中間-->
                           <div class="standard-group" style="display: contents;">
                             <div class="standard-text" style="position: relative; float: left">
@@ -183,22 +188,27 @@
                       <!--grid定位-->
                       <div class="container text-center" style="display: contents;">
                         <div class="row">
-                          <div class="col-4">
-                            <!--店家資訊-左側-->
-                            <div style="font-size: large; text-align: left; text-align: left;font-weight: bold;">店家資訊2
+                          <div class="col-4" style="text-align: left;">
+                            <div class="row">
+                              <!-- 店家資訊-左側 -->
+                              <div style="font-size: large; font-weight: bold;">店家資訊2</div>
                             </div>
-                            <div class="score" style="float: left">
-                              <img class="star1" src="images/star.png">
-                              <img class="star2" src="images/star.png">
-                              <img class="star3" src="images/star.png">
-                              <img class="star4" src="images/star.png">
-                              <img class="star5" src="images/star.png">
+                            <div class="row">
+                              <div class="score">
+                                <img class="star1" src="images/star.png">
+                                <img class="star2" src="images/star.png">
+                                <img class="star3" src="images/star.png">
+                                <img class="star4" src="images/star.png">
+                                <img class="star5" src="images/star.png">
+                              </div>
                             </div>
-                            <div class="tag" style="text-align: left; margin-top: 2.5em;">
-                              <h7>標籤 · 地址</h7>
+                            <div class="row">
+                              <div class="tag" style="margin-top:1em;">
+                                <h7>標籤 · 地址</h7>
+                              </div>
                             </div>
                           </div>
-                          <div class="col-5" style="position: relative;">
+                          <div class="col-5">
                             <!--progress組-中間-->
                             <div class="standard-group" style="display: contents;">
                               <div class="standard-text" style="position: relative; float: left">
@@ -259,22 +269,27 @@
                         <!--grid定位-->
                         <div class="container text-center" style="display: contents;">
                           <div class="row">
-                            <div class="col-4">
-                              <!--店家資訊-左側-->
-                              <div style="font-size: large; text-align: left; text-align: left;font-weight: bold;">店家資訊3
+                            <div class="col-4" style="text-align: left;">
+                              <div class="row">
+                                <!-- 店家資訊-左側 -->
+                                <div style="font-size: large; font-weight: bold;">店家資訊3</div>
                               </div>
-                              <div class="score" style="float: left">
-                                <img class="star1" src="images/star.png">
-                                <img class="star2" src="images/star.png">
-                                <img class="star3" src="images/star.png">
-                                <img class="star4" src="images/star.png">
-                                <img class="star5" src="images/star.png">
+                              <div class="row">
+                                <div class="score">
+                                  <img class="star1" src="images/star.png">
+                                  <img class="star2" src="images/star.png">
+                                  <img class="star3" src="images/star.png">
+                                  <img class="star4" src="images/star.png">
+                                  <img class="star5" src="images/star.png">
+                                </div>
                               </div>
-                              <div class="tag" style="text-align: left; margin-top: 2.5em;">
-                                <h7>標籤 · 地址</h7>
+                              <div class="row">
+                                <div class="tag" style="margin-top:1em;">
+                                  <h7>標籤 · 地址</h7>
+                                </div>
                               </div>
                             </div>
-                            <div class="col-5" style="position: relative;">
+                            <div class="col-5">
                               <!--progress組-中間-->
                               <div class="standard-group" style="display: contents;">
                                 <div class="standard-text" style="position: relative; float: left">
@@ -284,8 +299,8 @@
                                   <div class="text4">售價</div>
                                 </div>
                                 <div class="standard" style="vertical-align: top;">
-                                  <div class="progress" role="progressbar" aria-label="Success example"
-                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"
+                                  <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25"
+                                    aria-valuemin="0" aria-valuemax="100"
                                     style="background-color: #d9d9d9; margin-top: 0.25em; margin-bottom: 0.375em;">
                                     <div class="progress-bar "
                                       style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
@@ -298,15 +313,15 @@
                                       style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                                       50%</div>
                                   </div>
-                                  <div class="progress" role="progressbar" aria-label="Warning example"
-                                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"
+                                  <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75"
+                                    aria-valuemin="0" aria-valuemax="100"
                                     style="background-color: #d9d9d9;  margin-top: 0.57em; margin-bottom: 0.4375em;">
                                     <div class="progress-bar"
                                       style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                                       75%</div>
                                   </div>
-                                  <div class="progress" role="progressbar" aria-label="Danger example"
-                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                                  <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100"
+                                    aria-valuemin="0" aria-valuemax="100"
                                     style="background-color: #d9d9d9; margin-top: 0.60em; margin-bottom: 0.375em;">
                                     <div class="progress-bar"
                                       style="width: 80%; background-color: #C19237; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
@@ -329,7 +344,6 @@
                           </div>
                         </div>
                       </div>
-                    </div>
                     <div id="panelsStayOpen-collapse4" class="accordion-collapse collapse show">
                       <div class="accordion-body"
                         style="background-color: #E7EAEE; margin: 0.625em; border-radius: 15px;">
@@ -413,22 +427,27 @@
                         <!--grid定位-->
                         <div class="container text-center" style="display: contents;">
                           <div class="row">
-                            <div class="col-4">
-                              <!--店家資訊-左側-->
-                              <div style="font-size: large; text-align: left; text-align: left;font-weight: bold;">店家資訊5
+                            <div class="col-4" style="text-align: left;">
+                              <div class="row">
+                                <!-- 店家資訊-左側 -->
+                                <div style="font-size: large; font-weight: bold;">店家資訊5</div>
                               </div>
-                              <div class="score" style="float: left">
-                                <img class="star1" src="images/star.png">
-                                <img class="star2" src="images/star.png">
-                                <img class="star3" src="images/star.png">
-                                <img class="star4" src="images/star.png">
-                                <img class="star5" src="images/star.png">
+                              <div class="row">
+                                <div class="score">
+                                  <img class="star1" src="images/star.png">
+                                  <img class="star2" src="images/star.png">
+                                  <img class="star3" src="images/star.png">
+                                  <img class="star4" src="images/star.png">
+                                  <img class="star5" src="images/star.png">
+                                </div>
                               </div>
-                              <div class="tag" style="text-align: left; margin-top: 2.5em;">
-                                <h7>標籤 · 地址</h7>
+                              <div class="row">
+                                <div class="tag" style="margin-top:1em;">
+                                  <h7>標籤 · 地址</h7>
+                                </div>
                               </div>
                             </div>
-                            <div class="col-5" style="position: relative;">
+                            <div class="col-5">
                               <!--progress組-中間-->
                               <div class="standard-group" style="display: contents;">
                                 <div class="standard-text" style="position: relative; float: left">
@@ -438,8 +457,8 @@
                                   <div class="text4">售價</div>
                                 </div>
                                 <div class="standard" style="vertical-align: top;">
-                                  <div class="progress" role="progressbar" aria-label="Success example"
-                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"
+                                  <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25"
+                                    aria-valuemin="0" aria-valuemax="100"
                                     style="background-color: #d9d9d9; margin-top: 0.25em; margin-bottom: 0.375em;">
                                     <div class="progress-bar "
                                       style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
@@ -452,15 +471,15 @@
                                       style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                                       50%</div>
                                   </div>
-                                  <div class="progress" role="progressbar" aria-label="Warning example"
-                                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"
+                                  <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75"
+                                    aria-valuemin="0" aria-valuemax="100"
                                     style="background-color: #d9d9d9;  margin-top: 0.57em; margin-bottom: 0.4375em;">
                                     <div class="progress-bar"
                                       style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                                       75%</div>
                                   </div>
-                                  <div class="progress" role="progressbar" aria-label="Danger example"
-                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                                  <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100"
+                                    aria-valuemin="0" aria-valuemax="100"
                                     style="background-color: #d9d9d9; margin-top: 0.60em; margin-bottom: 0.375em;">
                                     <div class="progress-bar"
                                       style="width: 80%; background-color: #C19237; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
@@ -483,7 +502,6 @@
                           </div>
                         </div>
                       </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -503,22 +521,27 @@
                     <!--grid定位-->
                     <div class="container text-center" style="display: contents;">
                       <div class="row">
-                        <div class="col-4">
-                          <!--店家資訊-左側-->
-                          <div style="font-size: large; text-align: left; text-align: left;font-weight: bold;">店家資訊1
+                        <div class="col-4" style="text-align: left;">
+                          <div class="row">
+                            <!-- 店家資訊-左側 -->
+                            <div style="font-size: large; font-weight: bold;">店家資訊1</div>
                           </div>
-                          <div class="score" style="float: left">
-                            <img class="star1" src="images/star.png">
-                            <img class="star2" src="images/star.png">
-                            <img class="star3" src="images/star.png">
-                            <img class="star4" src="images/star.png">
-                            <img class="star5" src="images/star.png">
+                          <div class="row">
+                            <div class="score">
+                              <img class="star1" src="images/star.png">
+                              <img class="star2" src="images/star.png">
+                              <img class="star3" src="images/star.png">
+                              <img class="star4" src="images/star.png">
+                              <img class="star5" src="images/star.png">
+                            </div>
                           </div>
-                          <div class="tag" style="text-align: left; margin-top: 2.5em;">
-                            <h7>標籤 · 地址</h7>
+                          <div class="row">
+                            <div class="tag" style="margin-top:1em;">
+                              <h7>標籤 · 地址</h7>
+                            </div>
                           </div>
                         </div>
-                        <div class="col-5" style="position: relative;">
+                        <div class="col-5">
                           <!--progress組-中間-->
                           <div class="standard-group" style="display: contents;">
                             <div class="standard-text" style="position: relative; float: left">
@@ -579,22 +602,27 @@
                       <!--grid定位-->
                       <div class="container text-center" style="display: contents;">
                         <div class="row">
-                          <div class="col-4">
-                            <!--店家資訊-左側-->
-                            <div style="font-size: large; text-align: left; text-align: left;font-weight: bold;">店家資訊2
+                          <div class="col-4" style="text-align: left;">
+                            <div class="row">
+                              <!-- 店家資訊-左側 -->
+                              <div style="font-size: large; font-weight: bold;">店家資訊2</div>
                             </div>
-                            <div class="score" style="float: left">
-                              <img class="star1" src="images/star.png">
-                              <img class="star2" src="images/star.png">
-                              <img class="star3" src="images/star.png">
-                              <img class="star4" src="images/star.png">
-                              <img class="star5" src="images/star.png">
+                            <div class="row">
+                              <div class="score">
+                                <img class="star1" src="images/star.png">
+                                <img class="star2" src="images/star.png">
+                                <img class="star3" src="images/star.png">
+                                <img class="star4" src="images/star.png">
+                                <img class="star5" src="images/star.png">
+                              </div>
                             </div>
-                            <div class="tag" style="text-align: left; margin-top: 2.5em;">
-                              <h7>標籤 · 地址</h7>
+                            <div class="row">
+                              <div class="tag" style="margin-top:1em;">
+                                <h7>標籤 · 地址</h7>
+                              </div>
                             </div>
                           </div>
-                          <div class="col-5" style="position: relative;">
+                          <div class="col-5">
                             <!--progress組-中間-->
                             <div class="standard-group" style="display: contents;">
                               <div class="standard-text" style="position: relative; float: left">
@@ -655,22 +683,27 @@
                         <!--grid定位-->
                         <div class="container text-center" style="display: contents;">
                           <div class="row">
-                            <div class="col-4">
-                              <!--店家資訊-左側-->
-                              <div style="font-size: large; text-align: left; text-align: left;font-weight: bold;">店家資訊3
+                            <div class="col-4" style="text-align: left;">
+                              <div class="row">
+                                <!-- 店家資訊-左側 -->
+                                <div style="font-size: large; font-weight: bold;">店家資訊3</div>
                               </div>
-                              <div class="score" style="float: left">
-                                <img class="star1" src="images/star.png">
-                                <img class="star2" src="images/star.png">
-                                <img class="star3" src="images/star.png">
-                                <img class="star4" src="images/star.png">
-                                <img class="star5" src="images/star.png">
+                              <div class="row">
+                                <div class="score">
+                                  <img class="star1" src="images/star.png">
+                                  <img class="star2" src="images/star.png">
+                                  <img class="star3" src="images/star.png">
+                                  <img class="star4" src="images/star.png">
+                                  <img class="star5" src="images/star.png">
+                                </div>
                               </div>
-                              <div class="tag" style="text-align: left; margin-top: 2.5em;">
-                                <h7>標籤 · 地址</h7>
+                              <div class="row">
+                                <div class="tag" style="margin-top:1em;">
+                                  <h7>標籤 · 地址</h7>
+                                </div>
                               </div>
                             </div>
-                            <div class="col-5" style="position: relative;">
+                            <div class="col-5">
                               <!--progress組-中間-->
                               <div class="standard-group" style="display: contents;">
                                 <div class="standard-text" style="position: relative; float: left">
@@ -680,8 +713,8 @@
                                   <div class="text4">售價</div>
                                 </div>
                                 <div class="standard" style="vertical-align: top;">
-                                  <div class="progress" role="progressbar" aria-label="Success example"
-                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"
+                                  <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25"
+                                    aria-valuemin="0" aria-valuemax="100"
                                     style="background-color: #d9d9d9; margin-top: 0.25em; margin-bottom: 0.375em;">
                                     <div class="progress-bar "
                                       style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
@@ -694,15 +727,15 @@
                                       style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                                       50%</div>
                                   </div>
-                                  <div class="progress" role="progressbar" aria-label="Warning example"
-                                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"
+                                  <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75"
+                                    aria-valuemin="0" aria-valuemax="100"
                                     style="background-color: #d9d9d9;  margin-top: 0.57em; margin-bottom: 0.4375em;">
                                     <div class="progress-bar"
                                       style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                                       75%</div>
                                   </div>
-                                  <div class="progress" role="progressbar" aria-label="Danger example"
-                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                                  <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100"
+                                    aria-valuemin="0" aria-valuemax="100"
                                     style="background-color: #d9d9d9; margin-top: 0.60em; margin-bottom: 0.375em;">
                                     <div class="progress-bar"
                                       style="width: 80%; background-color: #C19237; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
@@ -725,29 +758,33 @@
                           </div>
                         </div>
                       </div>
-                    </div>
                     <div id="panelsStayOpen-collapse4" class="accordion-collapse collapse show">
                       <div class="accordion-body"
                         style="background-color: #E7EAEE; margin: 0.625em; border-radius: 15px;">
                         <!--grid定位-->
                         <div class="container text-center" style="display: contents;">
                           <div class="row">
-                            <div class="col-4">
-                              <!--店家資訊-左側-->
-                              <div style="font-size: large; text-align: left; text-align: left;font-weight: bold;">店家資訊4
+                            <div class="col-4" style="text-align: left;">
+                              <div class="row">
+                                <!-- 店家資訊-左側 -->
+                                <div style="font-size: large; font-weight: bold;">店家資訊4</div>
                               </div>
-                              <div class="score" style="float: left">
-                                <img class="star1" src="images/star.png">
-                                <img class="star2" src="images/star.png">
-                                <img class="star3" src="images/star.png">
-                                <img class="star4" src="images/star.png">
-                                <img class="star5" src="images/star.png">
+                              <div class="row">
+                                <div class="score">
+                                  <img class="star1" src="images/star.png">
+                                  <img class="star2" src="images/star.png">
+                                  <img class="star3" src="images/star.png">
+                                  <img class="star4" src="images/star.png">
+                                  <img class="star5" src="images/star.png">
+                                </div>
                               </div>
-                              <div class="tag" style="text-align: left; margin-top: 2.5em;">
-                                <h7>標籤 · 地址</h7>
+                              <div class="row">
+                                <div class="tag" style="margin-top:1em;">
+                                  <h7>標籤 · 地址</h7>
+                                </div>
                               </div>
                             </div>
-                            <div class="col-5" style="position: relative;">
+                            <div class="col-5">
                               <!--progress組-中間-->
                               <div class="standard-group" style="display: contents;">
                                 <div class="standard-text" style="position: relative; float: left">
@@ -757,8 +794,8 @@
                                   <div class="text4">售價</div>
                                 </div>
                                 <div class="standard" style="vertical-align: top;">
-                                  <div class="progress" role="progressbar" aria-label="Success example"
-                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"
+                                  <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25"
+                                    aria-valuemin="0" aria-valuemax="100"
                                     style="background-color: #d9d9d9; margin-top: 0.25em; margin-bottom: 0.375em;">
                                     <div class="progress-bar "
                                       style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
@@ -771,15 +808,15 @@
                                       style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                                       50%</div>
                                   </div>
-                                  <div class="progress" role="progressbar" aria-label="Warning example"
-                                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"
+                                  <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75"
+                                    aria-valuemin="0" aria-valuemax="100"
                                     style="background-color: #d9d9d9;  margin-top: 0.57em; margin-bottom: 0.4375em;">
                                     <div class="progress-bar"
                                       style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                                       75%</div>
                                   </div>
-                                  <div class="progress" role="progressbar" aria-label="Danger example"
-                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                                  <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100"
+                                    aria-valuemin="0" aria-valuemax="100"
                                     style="background-color: #d9d9d9; margin-top: 0.60em; margin-bottom: 0.375em;">
                                     <div class="progress-bar"
                                       style="width: 80%; background-color: #C19237; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
@@ -802,29 +839,33 @@
                           </div>
                         </div>
                       </div>
-                    </div>
                     <div id="panelsStayOpen-collapse5" class="accordion-collapse collapse show">
                       <div class="accordion-body"
                         style="background-color: #E7EAEE; margin: 0.625em; border-radius: 15px;">
                         <!--grid定位-->
                         <div class="container text-center" style="display: contents;">
                           <div class="row">
-                            <div class="col-4">
-                              <!--店家資訊-左側-->
-                              <div style="font-size: large; text-align: left; text-align: left;font-weight: bold;">店家資訊5
+                            <div class="col-4" style="text-align: left;">
+                              <div class="row">
+                                <!-- 店家資訊-左側 -->
+                                <div style="font-size: large; font-weight: bold;">店家資訊5</div>
                               </div>
-                              <div class="score" style="float: left">
-                                <img class="star1" src="images/star.png">
-                                <img class="star2" src="images/star.png">
-                                <img class="star3" src="images/star.png">
-                                <img class="star4" src="images/star.png">
-                                <img class="star5" src="images/star.png">
+                              <div class="row">
+                                <div class="score">
+                                  <img class="star1" src="images/star.png">
+                                  <img class="star2" src="images/star.png">
+                                  <img class="star3" src="images/star.png">
+                                  <img class="star4" src="images/star.png">
+                                  <img class="star5" src="images/star.png">
+                                </div>
                               </div>
-                              <div class="tag" style="text-align: left; margin-top: 2.5em;">
-                                <h7>標籤 · 地址</h7>
+                              <div class="row">
+                                <div class="tag" style="margin-top:1em;">
+                                  <h7>標籤 · 地址</h7>
+                                </div>
                               </div>
                             </div>
-                            <div class="col-5" style="position: relative;">
+                            <div class="col-5">
                               <!--progress組-中間-->
                               <div class="standard-group" style="display: contents;">
                                 <div class="standard-text" style="position: relative; float: left">
@@ -834,8 +875,8 @@
                                   <div class="text4">售價</div>
                                 </div>
                                 <div class="standard" style="vertical-align: top;">
-                                  <div class="progress" role="progressbar" aria-label="Success example"
-                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"
+                                  <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25"
+                                    aria-valuemin="0" aria-valuemax="100"
                                     style="background-color: #d9d9d9; margin-top: 0.25em; margin-bottom: 0.375em;">
                                     <div class="progress-bar "
                                       style="width: 25%; background-color: #B45F5F; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
@@ -848,15 +889,15 @@
                                       style="width: 50%; background-color: #7B8F60; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                                       50%</div>
                                   </div>
-                                  <div class="progress" role="progressbar" aria-label="Warning example"
-                                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"
+                                  <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75"
+                                    aria-valuemin="0" aria-valuemax="100"
                                     style="background-color: #d9d9d9;  margin-top: 0.57em; margin-bottom: 0.4375em;">
                                     <div class="progress-bar"
                                       style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
                                       75%</div>
                                   </div>
-                                  <div class="progress" role="progressbar" aria-label="Danger example"
-                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                                  <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100"
+                                    aria-valuemin="0" aria-valuemax="100"
                                     style="background-color: #d9d9d9; margin-top: 0.60em; margin-bottom: 0.375em;">
                                     <div class="progress-bar"
                                       style="width: 80%; background-color: #C19237; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
@@ -883,23 +924,23 @@
                   </div>
                 </div>
               </div>
-            </div> 
+            </div>
 
           </div>
         </div>
       </div>
     </div>
 
-  <div class="bottom">
-    台北商業大學 | 資訊管理系<br>
-    北商資管專題 113206 小組<br>
-    成員：鄧惠中、余奕博、邱綺琳、陳彥瑾
-    <en style="margin-right: 0.6em; float: right; font-size: 0.6em;">Copyright ©2024 All rights reserved.</en>
-  </div>
+    <div class="bottom">
+      台北商業大學 | 資訊管理系<br>
+      北商資管專題 113206 小組<br>
+      成員：鄧惠中、余奕博、邱綺琳、陳彥瑾
+      <en style="margin-right: 0.6em; float: right; font-size: 0.6em;">Copyright ©2024 All rights reserved.</en>
+    </div>
 
 
 
-        <!--底部欄
+    <!--底部欄
         <div class="fixed-bottom">
           <div>
             <div>台北商業大學 | 資訊管理系</div>
@@ -913,8 +954,8 @@
 
 
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="scripts/ui-interactions.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts/ui-interactions.js"></script>
 </body>
 
 </html>
