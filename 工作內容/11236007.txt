@@ -1,3 +1,13 @@
+2024/05/18 - 建構比例尺與圖例
+一、實作
+  1. 建構比例尺
+  2. 建構圖例說明
+  3. 更改圖標顏色
+二、參考資料
+  1. https://reurl.cc/qVvnxy | Control.Scale 官方文件 
+  2. https://reurl.cc/70d45D | Control.Scale 官方文件 
+  3. https://reurl.cc/2Yj6p6 | DomUtil 官方文件
+
 2024/05/16 - 修復各式錯誤
 一、實作
   1. 修復 MarkerCluster 無法套用樣式問題
