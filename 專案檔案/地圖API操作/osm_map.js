@@ -152,7 +152,7 @@ function processJsonData(data) {
             .bindPopup(
                 `
                 <h3>${data[i].name}</h3>
-                <img src="${data[i].preview_image}" style="width: 160px; height:90px;"/>
+                <img src="${data[i].preview_image}" style="width: 200px; height: 112.5px; object-fit: cover; object-position: center;"/>
                 <div>地址：${data[i].address}</div>
                 <div>電話：${data[i].phoneNumber}</div>
                 <div>評分：${data[i].rating}</div>
