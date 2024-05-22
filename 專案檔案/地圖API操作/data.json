@@ -1,6 +1,6 @@
 [
     {
-        "name":"雙月食品社",
+        "name":"雙月食品社 青島店",
         "category":"中式餐廳",
         "tag":"餐廳",
         "website":"https://www.moonmoonfood.com/",
@@ -9,7 +9,9 @@
         "address":"100台北市中正區青島東路6之2號",
         "phoneNumber":"0233938953",
         "rating":"4.8",
-        "reRating":"95"
+        "comment_amount":"20,075",
+        "reRating":"95",
+        "weightRating":"98"
     },
     {
         "name":"阜杭豆漿",
@@ -21,10 +23,12 @@
         "address":"100台北市中正區忠孝東路一段108號2樓",
         "phoneNumber":"0223922175",
         "rating":"4.1",
-        "reRating":"85"
+        "comment_amount":"19,546",
+        "reRating":"85",
+        "weightRating":"88"
     },
     {
-        "name":"巧之味",
+        "name":"巧之味手工水餃 濟南店",
         "category":"中式餐廳",
         "tag":"餃子店",
         "website":"https://zh-tw.facebook.com/takuminoazi/menu/",
@@ -33,10 +37,12 @@
         "address":"100台北市中正區濟南路二段6號",
         "phoneNumber":"0223214693",
         "rating":"4.3",
-        "reRating":"88"
+        "comment_amount":"7,698",
+        "reRating":"88",
+        "weightRating":"85"
     },
     {
-        "name":"客美多咖啡 - 華山杭南店",
+        "name":"客美多咖啡 Komeda‘s Coffee - 華山杭南店",
         "category":"飲料店",
         "tag":"咖啡廳",
         "website":"https://komeda.com.tw/",
@@ -45,7 +51,9 @@
         "address":"100台北市中正區杭州南路一段23-1號",
         "phoneNumber":"0223911389",
         "rating":"4.3",
-        "reRating":"84"
+        "comment_amount":"457",
+        "reRating":"84",
+        "weightRating":"82"
     },
     {
         "name":"怡客咖啡 忠杭店",
@@ -57,7 +65,9 @@
         "address":"100台北市中正區杭州南路一段8-2號",
         "phoneNumber":"0223223766",
         "rating":"4.0",
-        "reRating":"78"
+        "comment_amount":"658",
+        "reRating":"78",
+        "weightRating":"75"
     },
     {
         "name":"萃茶風健康餐(台北杭州店)",
@@ -69,10 +79,12 @@
         "address":"100台北市中正區杭州南路一段9-1號號",
         "phoneNumber":"0223581299",
         "rating":"4.5",
-        "reRating":"65"
+        "comment_amount":"161",
+        "reRating":"65",
+        "weightRating":"62"
     },
     {
-        "name":"伍玲年代(杭州店)",
+        "name":"伍玲年代(杭州店) | 懷舊美食 | 古早味紅茶 | 台北推薦美食 | 企業訂餐 | 會議便當 | 熱情外送 |",
         "category":"中式餐廳",
         "tag":"熟食店",
         "website":"https://www.facebook.com/WuLing.NianDai",
@@ -81,7 +93,9 @@
         "address":"100台北市中正區杭州南路一段5號",
         "phoneNumber":"0223568011",
         "rating":"4.7",
-        "reRating":"68"
+        "comment_amount":"1,441",
+        "reRating":"68",
+        "weightRating":"65"
     },
     {
         "name":"以馬內利鮮魚湯",
@@ -93,7 +107,9 @@
         "address":"100台北市中正區杭州南路一段3號",
         "phoneNumber":"0223515378",
         "rating":"4.4",
-        "reRating":"75"
+        "comment_amount":"1,586",
+        "reRating":"75",
+        "weightRating":"78"
     },
     {
         "name":"爭鮮PLUS-善導寺店",
@@ -105,7 +121,9 @@
         "address":"100台北市中正區忠孝東路一段152號",
         "phoneNumber":"0227565561",
         "rating":"4.5",
-        "reRating":"72"
+        "comment_amount":"468",
+        "reRating":"72",
+        "weightRating":"70"
     },
     {
         "name":"麥當勞-林森二餐廳",
@@ -117,7 +135,9 @@
         "address":"100台北市中正區林森南路1號",
         "phoneNumber":"0223911196",
         "rating":"4.0",
-        "reRating":"80"
+        "comment_amount":"5,271",
+        "reRating":"80",
+        "weightRating":"83"
     },
     {
         "name":"甜點架式 Jasmine & Partners",
@@ -129,6 +149,8 @@
         "address":"100台北市中正區林森北路5巷11之2號1樓",
         "phoneNumber":"0911490594",
         "rating":"4.8",
-        "reRating":"92"
+        "comment_amount":"315",
+        "reRating":"92",
+        "weightRating":"95"
     }
 ]

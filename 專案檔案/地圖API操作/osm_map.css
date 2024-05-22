@@ -5,9 +5,20 @@ html,body{
 }
 
 #map {
+    position: relative;  /* 確保可以相對於地圖容器定位按鈕 */
     display: flex;
     width:50%;
     height:100vh;
+}
+
+#locateButton {
+    position: absolute;
+    background-color: white;
+    top: 10px;  /* 上方 */
+    left: 60px; /* 左方 */
+    width: 100px; /* 寬度 */
+    height: 30px; /* 高度 */
+    z-index: 1000;  /* 確保按鈕在地圖上方 */
 }
 
 .legend { 

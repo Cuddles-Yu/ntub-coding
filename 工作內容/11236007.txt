@@ -1,3 +1,14 @@
+2024/05/22 - 修改地圖資訊內容
+一、實作
+  1. 修改圖例內容（根據顏色分類）
+  2. 修改資訊視窗內容
+  3. 增加「使用您的位置」按鈕
+二、注意事項
+  1. 401 Error Invalid Authentication：需使用本地伺服器發送跨域請求，否則會因為同源政策而無法使用。
+三、參考資料
+  1. https://reurl.cc/ZeZkl3 | Acceptable Use - Stadia Maps 
+  2. https://reurl.cc/QR5q2Z | Authentication - Stadia Maps
+
 2024/05/21 - 資訊視窗圖片裁切
 一、實作
   1. 資訊視窗圖片裁切

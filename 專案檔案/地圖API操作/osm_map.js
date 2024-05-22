@@ -9,9 +9,6 @@ if(map){
     console.log('地圖建構成功！');
 };
 
-// 定位使用者所在位置
-map.locate({setView: true, maxZoom: 16});
-
 // 建構不同地圖圖層，載入地圖資料
 // OpenStreetMap 預設
 var OpenStreetMap_Mapnik = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -64,12 +61,12 @@ var legend = L.control({position: 'bottomleft'});
 
 legend.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'legend');
-    div.innerHTML += '<h3 style="text-align: center;">圖例說明</h3>';
-    div.innerHTML += '<i class="fa-solid fa-bowl-rice"></i> <span>中式餐廳</span><br>';
-    div.innerHTML += '<i class="fa-solid fa-burger"></i> <span>美式餐廳</span><br>';
-    div.innerHTML += '<i class="fa-solid fa-fish-fins"></i> <span>日式餐廳</span><br>';
-    div.innerHTML += '<i class="fa-solid fa-cheese"></i> <span>甜點店</span><br>';
-    div.innerHTML += '<i class="fa-solid fa-mug-hot"></i> <span>飲料店</span><br>';
+    div.innerHTML += '<h3 style="text-align: center;">標記顏色說明</h3>';
+    div.innerHTML += '<span style="background-color: #008000; display: inline-block; width: 15px; height: 15px;"></span> <span>評分 90-100</span><br>';
+    div.innerHTML += '<span style="background-color: #3388ff; display: inline-block; width: 15px; height: 15px;"></span> <span>評分 80-89</span><br>';
+    div.innerHTML += '<span style="background-color: #9370DB; display: inline-block; width: 15px; height: 15px;"></span> <span>評分 70-79</span><br>';
+    div.innerHTML += '<span style="background-color: #FFA500; display: inline-block; width: 15px; height: 15px;"></span> <span>評分 60-69</span><br>';
+    div.innerHTML += '<span style="background-color: #f03; display: inline-block; width: 15px; height: 15px;"></span> <span>評分 0-59</span><br>';
     return div;
 };
 legend.addTo(map);
@@ -130,7 +127,6 @@ function processJsonData(data) {
 
         // 根據評分設置 marker 的顏色
         // 顏色：'red', 'darkred', 'orange', 'green', 'darkgreen', 'blue', 'purple', 'darkpurple', 'cadetblue'
-        let markerColor = 'darkblue'; // 預設顏色
         if(data[i].reRating >= 90){
             markerColor = 'green'; // 真實評分90以上為綠色
         } 
@@ -151,12 +147,11 @@ function processJsonData(data) {
         var marker = L.marker([data[i].Latlng[0], data[i].Latlng[1]], {icon: icon})
             .bindPopup(
                 `
-                <h3>${data[i].name}</h3>
                 <img src="${data[i].preview_image}" style="width: 200px; height: 112.5px; object-fit: cover; object-position: center;"/>
-                <div>地址：${data[i].address}</div>
-                <div>電話：${data[i].phoneNumber}</div>
-                <div>評分：${data[i].rating}</div>
-                <div>真實評分：${data[i].reRating}</div>
+                <div style="font-weight: bold; font-size: 16px; ; margin-top: 10px; margin-bottom: 10px;">${data[i].name}</div>
+                <div style="font-size: 14px; margin-bottom: 5px;">類別：${data[i].category} | ${data[i].tag}</div>
+                <div style="font-size: 14px; margin-bottom: 5px;">Google評分：${data[i].rating} / ${data[i].comment_amount}則評論</div>
+                <div style="font-size: 14px; margin-bottom: 5px;">過濾評分：${data[i].reRating} | 權重評分：${data[i].weightRating}</div>
                 `
             );
 
@@ -191,3 +186,19 @@ function setPlaceCenter(data) {
     var bounds = L.latLngBounds(data.map(item => item.Latlng));
     map.fitBounds(bounds); // 根據給定的座標範圍自動調整地圖的視野範圍
 }
+
+// 定位使用者所在位置
+function userLocate() {
+    map.locate({setView: true, maxZoom: 16});
+}
+
+// 定位成功時的處理
+map.on('locationfound', function(e) {
+    console.log("成功定位使用者所在位置！");
+});
+
+// 定位失敗時的處理
+map.on('locationerror', function(e) {
+    console.error("定位失敗：", e.message);
+    alert("定位失敗，請確認您是否已開啟定位。");
+});

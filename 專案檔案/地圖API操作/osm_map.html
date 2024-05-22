@@ -23,7 +23,10 @@
 </head>
 <body>
     <!-- 地圖物件: map -->
-    <div id="map"></div>
+    <div id="map">
+        <!-- 使用者定位按鈕 -->
+        <button type="button" id="locateButton" onclick="userLocate()">使用您的位置</button>
+    </div>
 
     <!-- 載入地圖框架 leaflet.js -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
