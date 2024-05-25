@@ -87,7 +87,7 @@ for store_name in mdb.select_table_value_by_column(connection, 'DISTINCT `name`'
 
         content += f'【{store_name}】\n{comments}\n---={sort_by_value(word_count_list)}\n\n'
         # print(f'【{store_name}】\n{comments}\n---={sort_by_value(word_count_list)}\n\n')
-
+        #
         # for w in sort_by_value(word_count_list):
         #     if w not in load_exception and w not in load_symbol and w not in load_level and w not in load_adjective and w not in load_keywords:
         #         print(f'{w} [0:保留 1:排除 2:程度 3:符號 4:形容] ', end='')
