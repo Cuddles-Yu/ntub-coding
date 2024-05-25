@@ -15,7 +15,7 @@
 require 'queries.php';
 
 // 設置店家名稱 (假設從 GET 參數中獲取)
-$storeName = isset($_GET['store_name']) ? $_GET['store_name'] : '85度C 中和圓通店';
+$storeName = isset($_GET['store_name']) ? $_GET['store_name'] : 'Lady M 台北旗艦店';
 
 // 獲取店家資訊
 $storeInfo = getStoreInfo($storeName);
@@ -95,9 +95,11 @@ $rating = getRating($storeName);
           <div class="col-12 col-md-6 col-lg-5" style="text-align: left;">
             <div class="information" style="font-size: small; line-height: 3;">
               <ul class="text-left" style="padding-left: 0;">
-                <li>地址: <?php echo htmlspecialchars($location['details']); ?></li>
+                <li>地址: <a href="https://maps.google.com/?q=<?php echo urlencode($location['store_name']); ?>">
+                          <?php echo htmlspecialchars($location['postal_code'] . '' . $location['dist'] . '' . $location['vil'] . '' . $location['city'] . '' . $location['details']); ?></a></li>
                 <li>電話: <?php echo htmlspecialchars($storeInfo['phone_number']); ?></li>
-                <li>網頁: <?php echo htmlspecialchars($storeInfo['website']); ?></li>
+                <li>網頁: <a href="<?php echo htmlspecialchars($storeInfo['website']); ?>">
+                          <?php echo htmlspecialchars($storeInfo['website']); ?></a></li>
               </ul>
             </div>
           </div>
