@@ -8,6 +8,19 @@
     padding: 0.5em;
     width: 100%;
 }
+@media (max-width: 600px){
+    .head{
+        background-color: #485465; 
+        color: aliceblue;
+        font-weight: bold;
+        font-size: x-large;
+        height: 1.9em;
+        padding: 1%;
+        width: 100%;
+        text-align: center;
+    }
+}
+
 
 .team-icon{
     width: 1.7em;
@@ -114,62 +127,18 @@
 }
 
 
-.map-margin{
-    width: 95%;
-    height: 93%;
-    text-align: center;
-    align-content: center;
-    border: 1px solid black;
-    border-radius: 5px;
-    margin-top: 1vh;
-}
-
-#map{
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    align-content: center;
-}
-
-.accordion{
-    height: auto;
-    border-radius: 15px;
-}
-
-.Search-results-group{
-    width: 40vw;
-}
-
-.score{
-    width: auto;
-    display: inline-block;
-    vertical-align: top;
-    
-}
-.star1, .star2, .star3, .star4, .star5{
-    width: 15px;
-    margin: 0px 0.025px 0px 0px;
-}
-
-.tag{
-    width: 150px;
-    font-size: small;
-}
-
 .standard{
     position: relative;
-    width: 13vw;
+    width: 70%;
     height: auto;
-    top: 7%;
+
 }
 
 .standard-text{
-    position: absolute;
-    width: auto;
-    line-height: 1.7;
     display: inline-block;
     font-size: smaller;
-    margin: 0.4em 0.3125em 0.0625em 0em;
+    margin-left: 1vw;
+    margin-right: 1vw;
 }
 
 .text0{
@@ -177,86 +146,60 @@
 }
 
 .text1{
-    color: #B45F5F;
+    color: #562B08;
+    margin-top: 0.4em;
 }
 
 .text2{
     color: #7B8F60;
+    margin-top: 0.4em;
 }
 
 .text3{
     color: #5053AF;
+    margin-top: 0.4em;
 }
 
 .text4{
     color: #C19237;
+    margin-top: 0.4em;
 }
 
-.state-1, .state-2, .state-3{
-    display: inline-block; 
-    position: relative;
-    margin-right: 0.3em;
-}
-
-.right-box{
-    line-height: 2;
-}
-
-.right-box img{
-    width: 0.9375em;
-    height: auto;
-}
-
-.Featured-message{
-    background-color: #FFFFFF;
-    border-radius: 30px;
-    height: 40px;
-    
-}
-
-.message{
-    width: 1.875em;
-    margin-left: 3%;
-    margin-right: 2%;
-    float: left;
-    position: relative;
-    top: 14%;
-}
-
-.message-font{
-    font-size: x-small;
-    text-align: left;
-    align-items: center;
-    position: relative;
-    top: 30%;
-    white-space: nowrap; /* 防止文字自動換行 */
-    overflow: hidden; 
-    text-overflow: ellipsis; /* 使用省略符號截斷超出的文字 */
-}
-
-.Q{
-    width: 0.9375em;
-    height: auto;
-    margin-left: 0.625em;
-}
-
-.bottom{
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
+.fixed-bottom{
+    height: 10%;
     background-color: #485465;
+    padding: 0.9em 0.9em 0.9em 3em;
     color: #EBEBEB;
-    font-size: x-small;
-    line-height: 1.5;
-    padding: 1.2em;
+    font-size: 0.8em;
+    line-height: 1.8;
+    position: sticky;
+    bottom: 0;
 }
 
-
-
-
-.search-results{
-    width: 3em;
+.revise{
+    width: 1em;
+    position: relative;
+    margin-top: -10px;
 }
 
+.keywords-tag{
+    margin-left: 1em;
+    border: 2px solid #d9d9d9;
+    width: 5em;
+    height: 2em;
+    text-align: center;
+    line-height: 1.9;
+    border-radius: 15px;
+    color: #383838;
+    display: inline-block;
+}
 
+.tag{
+    margin-left: 1em;
+    height: 2em;
+    text-align: center;
+    line-height: 1.9;
+    border-radius: 15px;
+    background-color: #6A6A6A;
+    border-radius: 15px;
+}

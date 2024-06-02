@@ -1,15 +1,9 @@
-body {
-    font-family: "Noto Sans TC", sans-serif;
-    --bs-body-font-family:  "Noto Sans TC", sans-serif;
-}
-
-
 .fixed-top{
     background-color: #485465; 
     color: aliceblue;
     font-weight: bold;
     font-size: x-large;
-    height: 2.5em;
+    height: 7vh;
     text-align: left;
     padding: 0.5em;
     width: 100%;
@@ -29,18 +23,11 @@ body {
 
 
 .team-icon{
-    width: 2em;
+    width: 1.7em;
     height: auto;
     float: left;
     position: relative;
     bottom:  15%;
-}
-@media (max-width: 600px){
-    .team-icon{
-        width: 2em;
-        height: auto;
-        position: relative;
-    }
 }
 
 .Gutters-icon{
@@ -271,6 +258,7 @@ body {
     line-height: 1.9;
     border-radius: 15px;
     color: #383838;
+    display: inline-block;
 }
 
 .keywords-tag-icon{
@@ -284,12 +272,10 @@ body {
 
 .tag{
     margin-left: 1em;
-
     height: 2em;
     text-align: center;
     line-height: 1.9;
     border-radius: 15px;
     background-color: #6A6A6A;
     border-radius: 15px;
-
 }

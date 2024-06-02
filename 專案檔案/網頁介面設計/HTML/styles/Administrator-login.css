@@ -3,14 +3,14 @@
     color: aliceblue;
     font-weight: bold;
     font-size: x-large;
-    height: 2.5em;
+    height: 7vh;
     text-align: left;
     padding: 0.5em;
     width: 100%;
 }
 
 .team-icon{
-    width: 2vw;
+    width: 1.7em;
     height: auto;
     float: left;
     position: relative;
