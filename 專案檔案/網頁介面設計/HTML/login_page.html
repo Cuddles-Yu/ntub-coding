@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會員登入頁面</title>
+    <link rel="stylesheet" type="text/css" href="styles/login_page.css"> <!-- 載入 login_page.css -->
+</head>
+<body>
+    <div class="header">
+        <img src="images/icon.png" alt="評星宇宙icon" id="header_icon">
+        <div>評星宇宙</div>
+    </div>
+
+    <div class="container">
+        <div class="background_color">
+            <div class="left-side">
+                <img src="images/logo_blue.png" alt="評星宇宙logo" id="container_logo">
+            </div>
+            
+            <div class="right-side">
+                <h1 class="login_text">登入您的帳號</h1>
+                <div>
+                    <div class="enter_word">
+                        <img src="images/mail2.png" alt="mail" id="mail_icon">
+                        <span id="email">電子郵件地址</span>
+                    </div>
+                    <div class="enter_word">
+                        <img src="images/key.png" alt="password" id="password_icon">
+                        <span id="password">密碼</span>
+                        <img src="images/hide_pwd.png" alt="password" id="hide_password_icon">
+                    </div>
+
+                    <div class="remember_container">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember" id="remember_text">記住我</label>
+                        <span class="forget_pwd">忘記密碼？</span>
+                    </div>
+                    
+                    <div class="login_area">
+                        <div class="google_button">
+                            <img src="images/google_icon.png" alt="google" id="google_icon">
+                            <span>Google登入</span>
+                        </div>
+                        <div id="sign_up_button">註冊</div>
+                        <div id="log_in_button">登入</div>
+                    </div>       
+
+                    <div class="agree">登入即表示您同意我們的服務條款與隱私政策</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <div class="footer_text">
+            <p>台北商業大學 | 資訊管理系</p>
+            <p>北商資管專題 113206 小組</p>
+            <p>成員：鄧惠中、余奕博、邱綺琳、陳彦瑾</p>
+        </div>
+        <p class="copyright">Copyright © 2024 All rights reserved.</p>
+    </div>
+
+    <script src="scripts/login_page.js"></script> <!-- 載入 login_page.js -->
+</body>
+</html>
