@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理者介面</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="user-info">
+                <span>adm@system</span>
+                <a href="#">登出</a>
+            </div>
+            <div class="mode-switch">
+                <button id="adminMode" class="active">管理者模式</button>
+                <button id="userMode">使用者模式</button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <h1>系統管理者</h1>
+        <section class="add-admin">
+            <h2>新增管理者</h2>
+            <label for="email">Email：</label>
+            <input type="email" id="email" required>
+            <div class="role-options">
+                <label>
+                    <input type="radio" name="role" value="systemAdmin" checked> 系統管理者
+                </label>
+                <label>
+                    <input type="radio" name="role" value="supervisor"> 自訂管理員身分
+                </label>
+            </div>
+            <button id="addAdmin">新增</button>
+        </section>
+        <section class="admin-list">
+            <h2>管理者列表</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>管理者 Email</th>
+                        <th>帳號新增時間</th>
+                        <th>權限</th>
+                        <th class="action-column">變更密碼</th>
+                        <th class="action-column">編輯</th>
+                        <th class="action-column">刪除</th>
+                    </tr>
+                </thead>
+                <tbody id="adminTable">
+                    <!-- JS will populate this table -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
