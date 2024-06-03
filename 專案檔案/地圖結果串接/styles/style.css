@@ -1,0 +1,259 @@
+.fixed-top{
+    background-color: #485465; 
+    color: aliceblue;
+    font-weight: bold;
+    font-size: x-large;
+    height: 2.5em;
+    text-align: left;
+    padding: 0.5em;
+    width: 100%;
+}
+
+.team-icon{
+    width: 2em;
+    height: auto;
+    float: left;
+    position: relative;
+    bottom:  15%;
+}
+@media (max-width: 600px){
+    .team-icon{
+        width: 2em;
+        height: auto;
+        position: relative;
+    }
+}
+
+.Gutters-icon{
+    width: 1.25em;
+    height: auto;
+    vertical-align: auto;
+    position: relative;
+}
+@media (max-width: 600px){
+    .team-icon{
+        width: 2em;
+        height: auto;
+        position: relative;
+    }
+}
+
+.header-icon2{
+    width: 1.2em;
+    height: auto;
+    margin-top: 1%;
+}
+@media (max-width: 600px){
+    .header-icon2{
+        width: 1.5em;
+        height: auto;
+        margin-top: 0.625em;
+    }
+}
+
+.offcanvas-body{
+    position: relative;
+    width: 100%;
+}
+@media (max-width: 600px){
+    .offcanvas-body{
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.Options{
+    margin: 0 auto;
+    width: 8em;
+    text-align: center;
+    font-size: x-large;
+    color: white;
+    list-style-type: none;
+    text-align-last: justify;
+    line-height: 5;
+}
+@media (max-width: 600px){
+    .Options{
+        margin: auto;
+        width: 8em;
+        text-align: center;
+        font-size: large;
+        color: white;
+        list-style-type: none;
+        text-align-last: justify;
+        line-height: 4.5;
+    }
+}
+
+.Options-icon,.Options2-icon{
+    width: 20px;
+    margin: 0px 5px 0px 0px;
+}
+
+.line{
+    border: white 1px solid;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.Options2{
+    margin: auto;
+    width: 8em;
+    text-align: center;
+    font-size: x-large;
+    color: white;
+    list-style-type: none;
+    text-align-last: justify;
+    line-height: 5;
+}
+@media (max-width: 600px){
+    .Options2{
+        margin: auto;
+        width: 8em;
+        text-align: center;
+        font-size: large;
+        color: white;
+        list-style-type: none;
+        text-align-last: justify;
+        line-height: 4.5;
+    }
+}
+
+
+.map-margin{
+    width: 95%;
+    height: 93%;
+    text-align: center;
+    align-content: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-top: 1vh;
+}
+
+#map{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    align-content: center;
+}
+
+.accordion{
+    height: auto;
+    border-radius: 15px;
+}
+
+.Search-results-group{
+    width: 40vw;
+}
+
+.score{
+    width: auto;
+    display: inline-block;
+    vertical-align: top;
+    
+}
+.star1, .star2, .star3, .star4, .star5{
+    width: 15px;
+    margin: 0px 0.025px 0px 0px;
+}
+
+.tag{
+    width: 150px;
+    font-size: small;
+}
+
+.standard{
+    position: relative;
+    width: 13vw;
+    height: auto;
+    top: 7%;
+}
+
+.standard-text{
+    position: absolute;
+    width: auto;
+    line-height: 1.7;
+    display: inline-block;
+    font-size: smaller;
+    margin: 0.4em 0.3125em 0.0625em 0em;
+}
+
+.text1{
+    color: #B45F5F;
+}
+
+.text2{
+    color: #7B8F60;
+}
+
+.text3{
+    color: #5053AF;
+}
+
+.text4{
+    color: #C19237;
+}
+
+.right-box{
+    line-height: 2;
+}
+
+.right-box img{
+    width: 0.9375em;
+    height: auto;
+}
+
+.Featured-message{
+    background-color: #FFFFFF;
+    border-radius: 30px;
+    height: 40px;
+    
+}
+
+.message{
+    width: 1.875em;
+    margin-left: 3%;
+    margin-right: 2%;
+    float: left;
+    position: relative;
+    top: 14%;
+}
+
+.message-font{
+    font-size: x-small;
+    text-align: left;
+    align-items: center;
+    position: relative;
+    top: 30%;
+    white-space: nowrap; /* 防止文字自動換行 */
+    overflow: hidden; 
+    text-overflow: ellipsis; /* 使用省略符號截斷超出的文字 */
+}
+
+.Q{
+    width: 0.9375em;
+    height: auto;
+    margin-left: 0.625em;
+}
+
+.bottom{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #485465;
+    color: #EBEBEB;
+    font-size: smaller;
+    line-height: 1.5;
+    padding: 1em;
+}*/
+
+
+
+
+.search-results{
+    width: 3em;
+}
+
+
