@@ -1,0 +1,232 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>評星宇宙</title>
+  <link rel="stylesheet" href="styles/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <meta name="keywords" content="評價, google map" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/> 
+
+    <!-- 載入 leaflet.awesome-markers.css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers/dist/leaflet.awesome-markers.css" />
+
+    <!-- 載入 MarkerCluster.css -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    
+    <!-- 載入 osm_map.css -->
+    <link rel="stylesheet" type="text/css" href="./osm_map.css"> 
+</head>
+
+<body style="margin-top: 60px; background-color: #ffffff;">
+  <!--頂欄-->
+  <div class="fixed-top"><img src="images/Logo設計_圖像(藍+).png" class="team-icon"><a class="title" href="https://commentspace.ascdc.tw/search.html">評星宇宙</a>
+    <!--會員頭像-->
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end position-absolute top-0 end-0" style="margin-top: 10px;">
+      <button class="btn btn-primary me-md-2" type="button" style="background-color: #485465; border-color: #485465; border-radius: 15px;">
+        <a href="https://commentspace.ascdc.tw/member/information.html"><img class="member-button" src="images/avatar.jpg"></a>
+      </button>   
+      <!--主選單-->
+      <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+        aria-controls="offcanvasRight" style="background-color: #485465; border-color: #485465">
+        <img class="Gutters-icon" src="images/Gutters.png" /></button>
+      <!--選單內頁-->
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel"
+        style="background-color: #485465">
+        <div class="offcanvas-header">
+          <img class="header-icon2" src="images/Logo設計_圖像(藍+).png">
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="Options">
+            <li><a href="https://commentspace.ascdc.tw/search.html" class="Options-link"><img class="Options-icon" src="images/home.png" />主頁</a></li>
+            <li><a href="https://commentspace.ascdc.tw/member/information.html" class="Options-link"><img class="Options-icon" src="images/people.png" />會員專區</a></li>
+            <li><a href="#" class="Options-link"><img class="Options-icon" src="images/!.png" />使用說明</a></li>
+            <li><a href="#" class="Options-link"><img class="Options-icon" src="images/mail.png" />問題回饋</a></li>
+            <li><a href="#" class="Options-link"><img class="Options-icon" src="images/team.png" />成員介紹</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid" style="margin-top: 5em;max-width: 98%;">
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-7">
+        <div class="container-fluid">
+          <form id="searchForm">
+            <div class="row">
+              <div class="col-4">
+                <!--選項按鈕1 地點-->
+                <div class="form-floating">
+                  <select class="form-select" id="location" name="location" aria-label="Floating label select example">
+                    <option selected value="台北市">台北市</option>
+                  </select>
+                  <label for="location">地點</label>
+                </div>
+              </div>
+              <!--<div class="col">
+                選項按鈕2 形容詞
+                <div class="form-floating">
+                  <select class="form-select" id="adjective" name="adjective" aria-label="Floating label select example">
+                    <option selected>請選擇形容詞</option>
+                    <option value="1">附近的</option>
+                    <option value="2">熱門的</option>
+                    <option value="3">環境好的</option>
+                    <option value="4">產品</option>
+                    <option value="5">服務</option>
+                    <option value="6">售價</option>
+                  </select>
+                  <label for="adjective">形容詞</label>
+                </div>
+              </div>-->
+              <div class="col">
+                <!--輸入按鈕3 關鍵字-->
+                <div class="form-floating" style="display: inline-block; width: 20vw; color: gray;"><!--寬度原為15vw-->
+                  <input type="text" class="form-control" id="keyword" name="keyword" placeholder="關鍵字">
+                  <label for="keyword">請輸入查詢關鍵字</label>
+                </div>
+              </div>
+              <div class="col">
+                <button type="submit" class="btn btn-primary mt-3">搜尋</button>
+              </div>
+            </div>
+          </form>
+          <div class="row" style="height: 76vh;">
+            <!-- 地圖物件: map -->
+            <div id="map">
+                <!-- 使用者定位按鈕 -->
+                <button type="button" id="locateButton" onclick="userLocate()">使用您的位置</button>
+            </div>
+
+            <!-- 載入地圖框架 leaflet.js -->
+            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+            <!-- 載入 leaflet.awesome-markers.min.js -->
+            <script src="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers/dist/leaflet.awesome-markers.min.js"></script>
+
+            <!-- 載入 Font Awesome Kit -->
+            <script src="https://kit.fontawesome.com/876a36192d.js" crossorigin="anonymous"></script>
+
+            <!-- 載入 Markercluster.js -->
+            <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+
+            <!-- 載入JSON資料 data.json -->
+            <script src="./data.json"></script>
+
+            <!-- 載入主程式 osm_map.js -->
+            <script src="./osm_map.js"></script>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-5 p-0">
+        <div class="Search-results-group">
+          <!-- Search results will be injected here -->
+          <div class="Search-results-group">
+            <div class="row">
+              <!--展開欄-熱門搜尋-->
+              <div class="accordion" id="accordionPanelsStayOpenExample">
+                <div class="accordion-item" id="searchResults">
+                  <h2 class="accordion-header">
+                    <div class="accordion-button" style="background-color: #EBEBEB; ">
+                      搜尋結果&nbsp;
+                    </div>
+                  </h2>
+                  <div id="panelsStayOpen-collapse" class="accordion-collapse collapse show" style="overflow: scroll; overflow-x: hidden; height: 36vh;">
+                    <div class="accordion-body" style="background-color: #E7EAEE; margin: 0.625em; border-radius: 15px;">
+                      <!--grid定位-->
+                      <div class="container text-center" style="display: contents;">
+                        <div class="row">
+                          <div class="col-12" >
+                            <div style="display: flex; align-items: center; justify-content: center; height: 10vh; font-size: x-large; font-weight: bold;">您尚未搜尋商家。</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <!--展開欄-熱門搜尋-->
+              <div class="accordion" style="margin-top: 0.625em;">
+                <div class="accordion-item" id="popularResults">
+                  <h2 class="accordion-header">
+                    <div class="accordion-button" style="background-color: #EBEBEB;">
+                      熱門搜尋
+                    </div>
+                  </h2>
+                  <div id="panelsStayOpen-collapse" class="accordion-collapse collapse show"
+                    style="overflow: scroll; overflow-x: hidden; max-height: 34vh;">
+                    <div class="accordion-body" style="background-color: #E7EAEE; margin: 0.625em; border-radius: 15px;">
+                      <!--grid定位-->
+                      <div class="container text-center" style="display: contents;">
+                        <div class="row">
+                          <div class="col-12" >
+                              <!-- 店家資訊-左側 -->
+                              <div style="display: flex; align-items: center; justify-content: center; height: 26.3vh; font-size: x-large; font-weight: bold;">正在搜尋熱門商家...</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+  <div class="bottom">
+    台北商業大學 | 資訊管理系<br>
+    北商資管專題 113206 小組<br>
+    成員：鄧惠中、余奕博、邱綺琳、陳彥瑾
+    <en style="margin-right: 0.6em; float: right; font-size: 0.6em;">Copyright ©2024 All rights reserved.</en>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="scripts/ui-interactions.js"></script>
+  <script>
+    document.addEventListener('load', function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        fetch('popularStores.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('popularResults').innerHTML = data;
+        })
+        .catch(error => console.error('Error:', error));
+    });
+</script>
+  <script>
+    document.getElementById('searchForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        fetch('search.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('searchResults').innerHTML = data;
+        })
+        .catch(error => console.error('Error:', error));
+    });
+    function navigateToDetail(element) {
+      var storeName = element.getAttribute('data-name');
+      window.location.href = '/store-detail2.php?name=' + encodeURIComponent(storeName);
+    }
+  </script>
+</body>
+
+</html>

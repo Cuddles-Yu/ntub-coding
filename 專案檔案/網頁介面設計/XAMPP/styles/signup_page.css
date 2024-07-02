@@ -1,0 +1,188 @@
+body {
+    display: flex;
+    margin: 0; /* 清除預設的 margin */
+    padding: 0; /* 清除預設的 padding */
+    width: 100%; /* 設定寬度 */
+    height:100%; /* 設定高度 */
+}
+
+/* header 相關元素 */
+.header {
+    position: absolute; /* 固定在畫面上方 */
+    display: flex;
+    align-items: center;
+    top: 0;
+    left: 0;
+    height: 80px;
+    width: 100%;
+    background-color: #485465;
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 28px;
+}
+
+#header_icon {
+    width: 30px;
+    height: 40px;
+    padding-left: 30px;
+}
+
+#header_text {
+    padding-left: 5px;
+}
+
+/* container 相關元素 */
+.container {    
+    position: absolute; /* 固定在畫面上方 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 80px;
+    left: 0;
+    height: 872px;
+    width: 100%;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #FFFFFF;
+}
+
+.background_color {
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    width: 95vw;
+    height: 804px;
+    border-radius: 50px;
+}
+
+.left-side {
+    padding-left: 350px;
+}
+
+.right-side {
+    padding-left: 200px;
+}
+
+#container_logo {
+    position: relative;
+    top: -35px;
+    width: 350px;
+    height: 450px;
+    margin-top: 0;
+}
+
+.signup_text {
+    position: relative;
+    display: flex;
+    top: -35px;
+    justify-content: center;
+    font-size: 64px;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.enter_word {
+    position: relative;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-bottom: 30px;
+    background-color: #D9D9D9;
+    border-radius: 40px;
+    height: 90px;
+    width: 650px;
+    font-size: 28px;
+    box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.4);
+}
+
+.input_box {
+    border: 0;
+    background-color: #D9D9D9;
+    font-size: 28px;
+    outline: none;
+}
+
+.rule_area {
+    display: flex;
+    justify-content: center;
+    margin-left: 30px;
+}
+
+#agree_rule_text {
+    position: relative;
+    cursor: pointer;
+    font-size: 24px;
+    padding-left: 5px;
+}
+
+#agree_box {
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
+}
+
+#sign_up_button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #D9D9D9;
+    border: 0;
+    border-radius: 40px;
+    cursor: pointer;
+    height: 70px;
+    width: 150px;
+    font-size: 28px;
+    margin-left: auto;
+    box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.4);
+}
+
+.icon {
+    width: 48px;
+    height: 48px;
+    padding-left: 20px;
+    padding-right: 10px;
+
+}
+
+#hide_password_icon1 {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    right: 20px;
+    cursor: pointer;
+}
+
+#hide_password_icon2 {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    right: 20px;
+    cursor: pointer;
+}
+
+/* footer 相關元素 */
+.footer {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    background-color: #485465;
+    width: 100%;
+    height: 128px;
+    top: 952px;
+    left: 0;
+    font-size: 16px;
+}
+
+.footer_text {
+    position: relative;
+    left: 30px;
+    line-height: 12px;
+    color: #FFFFFF;
+}
+
+.copyright {
+    position: relative;
+    color: #FFFFFF;
+    margin-left: auto;
+    align-self: flex-end;
+    right: 20px;
+}
