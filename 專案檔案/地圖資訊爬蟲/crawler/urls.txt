@@ -1,0 +1,7 @@
+1 | https://www.google.com.tw/maps/place/+/data=!4m7!3m6!1s0x3442aa31ca335509:0x6778a4cf73f9e7e3!8m2!3d25.0221397!4d121.549751!16s%2Fg%2F1tmqp1fs!19sChIJCVUzyjGqQjQR4-f5c8-keGc
+2 | https://www.google.com.tw/maps/place/+/data=!4m7!3m6!1s0x3442a9b0fb09fa89:0x61f291a4a59adfae!8m2!3d25.0277196!4d121.5002608!16s%2Fg%2F1tdk7s0j!19sChIJifoJ-7CpQjQRrt-apaSR8mE
+3 | https://www.google.com.tw/maps/place/+/data=!4m7!3m6!1s0x3442a9a76a51d019:0x7049c4f46633d3ec!8m2!3d25.0387778!4d121.5069102!16s%2Fg%2F1tdxbzwh!19sChIJGdBRaqepQjQR7NMzZvTESXA
+4 | https://www.google.com.tw/maps/place/+/data=!4m7!3m6!1s0x3442a9ae539e7d53:0xb138f7bde2c4bb85!8m2!3d25.0332225!4d121.4996955!16s%2Fg%2F11g9j4s4fg!19sChIJU32eU66pQjQRhbvE4r33OLE
+5 | https://www.google.com.tw/maps/place/+/data=!4m7!3m6!1s0x3442ab9d896f7fb5:0xad043072caf116b3!8m2!3d25.04292!4d121.5554503!16s%2Fg%2F11fn4n64p8!19sChIJtX9viZ2rQjQRsxbxynIwBK0
+6 | https://www.google.com.tw/maps/place/+/data=!4m7!3m6!1s0x3442abc66e970041:0xc48e2b8bf5110c52!8m2!3d25.042911!4d121.5541987!16s%2Fg%2F1tdmh538!19sChIJQQCXbsarQjQRUgwR9YsrjsQ
+7 | https://www.google.com.tw/maps/place/+/data=!4m7!3m6!1s0x3442abbbeadeeae9:0x78dbb9243e9c680a!8m2!3d25.0405099!4d121.5671637!16s%2Fg%2F11g8fl1vjd!19sChIJ6ere6rurQjQRCmicPiS523g

@@ -1,8 +1,12 @@
 # 匯入套件
 import jieba
 import re
-import 地圖結果資料庫.python.module.core_database as db
-import 地圖結果資料庫.python.module.modify_database as mdb
+from 地圖資訊爬蟲.crawler.tables import Keyword
+import 地圖資訊爬蟲.crawler.module.core_database as db
+import 地圖資訊爬蟲.crawler.module.modify_database as mdb
+
+TRAINING = False
+TO_FILE = False
 
 connection = db.connect(use_database=True)
 if connection is None: exit()
@@ -63,9 +67,13 @@ def sort_by_value(dictionary: dict) -> dict:
 
 
 # 宣告字串
-for store_name in mdb.select_table_value_by_column(connection, 'DISTINCT `name`', 'stores', ):
+current = 0
+stores = mdb.select_table_value_by_column(connection, 'DISTINCT name, id', 'stores')
+names, ids = [store[0] for store in stores], [store[1] for store in stores]
+for i in range(len(names)):
+    current += 1
     word_count_list = {}
-    comments = mdb.select_table_value_by_where(connection, 'contents', 'comments', 'store_name', store_name)
+    comments = mdb.select_table_value_by_where(connection, 'contents', 'comments', 'store_id', ids[i])
     if comments:
         for comment in comments:
             # 斷詞並加入到字典列表中計算頻率
@@ -85,30 +93,48 @@ for store_name in mdb.select_table_value_by_column(connection, 'DISTINCT `name`'
                     else:
                         word_count_list[word] = 1
 
-        content += f'【{store_name}】\n{comments}\n---={sort_by_value(word_count_list)}\n\n'
-        # print(f'【{store_name}】\n{comments}\n---={sort_by_value(word_count_list)}\n\n')
-        #
-        # for w in sort_by_value(word_count_list):
-        #     if w not in load_exception and w not in load_symbol and w not in load_level and w not in load_adjective and w not in load_keywords:
-        #         print(f'{w} [0:保留 1:排除 2:程度 3:符號 4:形容] ', end='')
-        #         match input():
-        #             case '0':
-        #                 with open(keywords_dictionary_path, 'a', encoding='utf-8') as f:
-        #                     f.write(w + '\n')
-        #             case '1':
-        #                 with open(exception_dictionary_path, 'a', encoding='utf-8') as f:
-        #                     f.write(w + '\n')
-        #             case '2':
-        #                 with open(level_dictionary_path, 'a', encoding='utf-8') as f:
-        #                     f.write(w + '\n')
-        #             case '3':
-        #                 with open(symbol_dictionary_path, 'a', encoding='utf-8') as f:
-        #                     f.write(w + '\n')
-        #             case '4':
-        #                 with open(adjective_dictionary_path, 'a', encoding='utf-8') as f:
-        #                     f.write(w + '\n')
-        #             case '-1':
-        #                 exit()
+        if TRAINING:
+            print(f'【{names[i]}】\n{comments}\n---={sort_by_value(word_count_list)}\n\n')
+            for w in sort_by_value(word_count_list):
+                if w not in load_exception and w not in load_symbol and w not in load_level and w not in load_adjective and w not in load_keywords:
+                    print(f'{w} [0:保留 1:排除 2:程度 3:符號 4:形容] ', end='')
+                    match input():
+                        case '0':
+                            with open(keywords_dictionary_path, 'a', encoding='utf-8') as f:
+                                f.write(w + '\n')
+                        case '1':
+                            with open(exception_dictionary_path, 'a', encoding='utf-8') as f:
+                                f.write(w + '\n')
+                        case '2':
+                            with open(level_dictionary_path, 'a', encoding='utf-8') as f:
+                                f.write(w + '\n')
+                        case '3':
+                            with open(symbol_dictionary_path, 'a', encoding='utf-8') as f:
+                                f.write(w + '\n')
+                        case '4':
+                            with open(adjective_dictionary_path, 'a', encoding='utf-8') as f:
+                                f.write(w + '\n')
+                        case '-1':
+                            exit()
+        else:
+            words = sort_by_value(word_count_list)
+            print(f'\r正在儲存 -> 第 {current} 個, 共 {len(stores)} 個 | {names[i]}', end='')
+            if TO_FILE:
+                content += f'【{names[i]}】\n{comments}\n---={words}\n\n'
+            else:
+                for w, v in list(words.items())[:20]:
+                    Keyword.Keyword(
+                        store_id=ids[i],
+                        word=w,
+                        count=v,
+                        source='comment'
+                    ).insert_if_not_exists(connection)
 
-with open(log_path, 'w+', encoding='utf-8') as f:
-    f.write(content)
+
+if not TRAINING and TO_FILE:
+    if TO_FILE:
+        print('\r已完成評論關鍵字分析')
+        with open(log_path, 'w+', encoding='utf-8') as f:
+            f.write(content)
+    else:
+        print('\r已匯入關鍵字分析結果至資料庫')
