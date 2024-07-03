@@ -153,7 +153,7 @@ if REPAIR_DATA:
     urls = mdb.get_urls_from_incomplete_store(connection)
 else:
     urls = [
-
+        
     ]
 
 need_to_save_urls = len(urls) == 0
@@ -491,33 +491,32 @@ for i in range(max_count):
         ]  # 沒留言的不會爬
         for index in range(len(filtered_comments)):
             try:
-                sum_score += int(
-                    filtered_comments[index].find_element(By.CLASS_NAME, 'kvMYJc').get_attribute('aria-label').split(
-                        ' ')[0])
+                score = 0
+                comment_time = ''
+                if len(filtered_comments[index].find_elements(By.CLASS_NAME, 'kvMYJc')) > 0:
+                    score = int(filtered_comments[index].find_element(By.CLASS_NAME, 'kvMYJc').get_attribute('aria-label').split(' ')[0])
+                    comment_time = filtered_comments[index].find_element(By.CLASS_NAME, 'rsqaWe').text
+                else:
+                    score = int(filtered_comments[index].find_element(By.CLASS_NAME, 'fzvQIb').text.split('/')[0])
+                    comment_time = filtered_comments[index].find_element(By.CLASS_NAME, 'xRkPPb').text.split('(')[0].strip()
+                sum_score += score
                 sum_responses += 1 if len(filtered_comments[index].find_elements(By.CLASS_NAME, 'CDe7pd')) > 0 else 0
-                contrib_id = \
-                filtered_comments[index].find_element(By.CLASS_NAME, 'al6Kxe').get_attribute('data-href').split('/')[-2]
-
+                contrib_id = filtered_comments[index].find_element(By.CLASS_NAME, 'al6Kxe').get_attribute('data-href').split('/')[-2]
                 # 取得評論者結構
-                level = re.search(r'ba(?P<level>\d+)',
-                                  filtered_comments[index].find_element(By.CLASS_NAME, 'NBa7we').get_attribute('src'))
+                level = re.search(r'ba(?P<level>\d+)', filtered_comments[index].find_element(By.CLASS_NAME, 'NBa7we').get_attribute('src'))
                 contrib_items.append(Contributor.Contributor(
                     uid=contrib_id,
                     level=int(level.group('level')) + 2 if level else 0
                 ))
-
                 # 取得留言結構
                 comment_items.append(Comment.Comment(
                     store_id=store_id,
                     sort=index + 1,
-                    contents=filtered_comments[index].find_element(By.CLASS_NAME, 'MyEned').find_element(By.CLASS_NAME,
-                                                                                                         'wiI7pd').text,
-                    time=filtered_comments[index].find_element(By.CLASS_NAME, 'rsqaWe').text,
-                    rating=int(filtered_comments[index].find_element(By.CLASS_NAME, 'kvMYJc').get_attribute(
-                        'aria-label').split(' ')[0]),
+                    contents=filtered_comments[index].find_element(By.CLASS_NAME, 'MyEned').find_element(By.CLASS_NAME, 'wiI7pd').text,
+                    time=comment_time,
+                    rating=score,
                     contributor_id=contrib_id
                 ))
-
             finally:
                 pass
 
@@ -548,7 +547,7 @@ for i in range(max_count):
     # 關鍵字
     for index in range(len(keyword_items)):
         print(f'\r正在儲存關鍵字結構(%d/%d)...' % (index + 1, len(keyword_items)), end='')
-        keyword_items[index].insert(connection)
+        keyword_items[index].insert_if_not_exists(connection)
     # 貢獻者
     for index in range(len(contrib_items)):
         print(f'\r正在儲存貢獻者結構(%d/%d)...' % (index + 1, len(contrib_items)), end='')
