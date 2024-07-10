@@ -177,6 +177,7 @@
 .text0{
     color: #B45F5F;
 }
+
 .text1{
     color: #562B08;
     margin-top: 0.1em;
@@ -278,4 +279,8 @@
     border-radius: 15px;
     background-color: #6A6A6A;
     border-radius: 15px;
+}
+
+.star1, .star2, .star3, .star4, .star5{
+    width: 1.5vw;
 }

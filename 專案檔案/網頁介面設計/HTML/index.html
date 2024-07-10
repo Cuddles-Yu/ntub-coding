@@ -13,29 +13,31 @@
 <body style="margin-top: 60px;  background-color: #ffffff;">
   <!--頂欄-->
   <div class="fixed-top"><img src="images/Logo設計_圖像(藍+).png" class="team-icon">評星宇宙
-    <!--主選單-->
-    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-      aria-controls="offcanvasRight" style="float: right; background-color: #485465; border-color: #485465">
-      <img class="Gutters-icon" src="images/Gutters.png" /></button>
-    <!--選單內頁-->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel"
-      style="background-color: #485465">
-      <div class="offcanvas-header">
-        <img class="header-icon2" src="images/icon2.png">
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-        <ul class="Options">
-          <li><img class="Options-icon" src="images/home.png" />主頁</li>
-          <li><img class="Options-icon" src="images/people.png" />會員專區</li>
-          <li><img class="Options-icon" src="images/schedule.png" />行程規劃</li>
-        </ul>
-        <div class="line"></div>
-        <ul class="Options2">
-          <li><img class="Options2-icon" src="images/!.png" />使用說明</li>
-          <li><img class="Options2-icon" src="images/mail.png" />問題回饋</li>
-          <li><img class="Options2-icon" src="images/team.png" />成員介紹</li>
-        </ul>
+    <!--會員頭像-->
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end position-absolute top-0 end-0" style="margin-top: 10px;">
+      <button class="btn btn-primary me-md-2" type="button" style="background-color: #485465; border-color: #485465; border-radius: 15px;">
+        <a href="#"></a><img class="member-button" src="images/avatar.jpg">
+      </button>   
+      <!--主選單-->
+      <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+        aria-controls="offcanvasRight" style="background-color: #485465; border-color: #485465">
+        <img class="Gutters-icon" src="images/Gutters.png" /></button>
+      <!--選單內頁-->
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel"
+        style="background-color: #485465">
+        <div class="offcanvas-header">
+          <img class="header-icon2" src="images/Logo設計_圖像(藍+).png">
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="Options">
+            <li><a href="#" class="Options-link"><img class="Options-icon" src="images/home.png" />主頁</a></li>
+            <li><a href="#" class="Options-link"><img class="Options-icon" src="images/people.png" />會員專區</a></li>
+            <li><a href="#" class="Options-link"><img class="Options-icon" src="images/!.png" />使用說明</a></li>
+            <li><a href="#" class="Options-link"><img class="Options-icon" src="images/mail.png" />問題回饋</a></li>
+            <li><a href="#" class="Options-link"><img class="Options-icon" src="images/team.png" />成員介紹</a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -111,6 +113,7 @@
                           <div class="row">
                             <!-- 店家資訊-左側 -->
                             <div style="font-size: large; font-weight: bold;">店家資訊6</div>
+                            <button type="button" class="btn btn-danger" style="width: 5.9vw; margin-left: 0.5vw; font-size: small;">綜合評分 85 分</button>
                           </div>
                           <div class="row">
                             <div class="score">
@@ -123,7 +126,12 @@
                           </div>
                           <div class="row">
                             <div class="tag" style="margin-top:1em;">
-                              <h7>標籤 · 地址</h7>
+                              <h7>標籤</h7>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="tag" style="margin-top:1em;">
+                              <h7>地址</h7>
                             </div>
                           </div>
                         </div>
@@ -210,7 +218,12 @@
                           </div>
                           <div class="row">
                             <div class="tag" style="margin-top:1em;">
-                              <h7>標籤 · 地址</h7>
+                              <h7>標籤 </h7>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="tag" style="margin-top:1em;">
+                              <h7>地址</h7>
                             </div>
                           </div>
                         </div>
@@ -547,7 +560,7 @@
               <div class="accordion-item">
                 <h2 class="accordion-header">
                   <div class="accordion-button" style="background-color: #EBEBEB;">
-                    熱門搜尋<img src="images/Q.png" class="Q">
+                    熱門搜尋
                   </div>
                 </h2>
                 <div id="panelsStayOpen-collapse" class="accordion-collapse collapse show"
@@ -559,20 +572,20 @@
                         <div class="col-4" style="text-align: left;">
                           <div class="row">
                             <!-- 店家資訊-左側 -->
-                            <div style="font-size: large; font-weight: bold;">店家資訊1</div>
+                            <div style="font-size: large; font-weight: bold;">店家資訊1</div><!--填入"商家名稱"-->
                           </div>
                           <div class="row">
                             <div class="score">
-                              <img class="star1" src="images/star.png">
-                              <img class="star2" src="images/star.png">
-                              <img class="star3" src="images/star.png">
-                              <img class="star4" src="images/star.png">
-                              <img class="star5" src="images/star.png">
+                              <img class="star1" src="images/star.png"><!--填入"一顆星"-->
+                              <img class="star2" src="images/star.png"><!--填入"兩顆星"-->
+                              <img class="star3" src="images/star.png"><!--填入"三顆星"-->
+                              <img class="star4" src="images/star.png"><!--填入"四顆星"-->
+                              <img class="star5" src="images/star.png"><!--填入"五顆星"-->
                             </div>
                           </div>
                           <div class="row">
                             <div class="tag" style="margin-top:1em;">
-                              <h7>標籤 · 地址</h7>
+                              <h7>標籤 · 地址</h7><!--填入標籤 地址-->
                             </div>
                           </div>
                         </div>
@@ -631,9 +644,9 @@
                             <img src="images/love.png"><a href="#"
                               style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;最愛</a><br>
                             <img src="images/map.png"><a href="#"
-                              style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;地圖</a><br>
+                              style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;地圖</a><br><!--629 a href裡面的# 要換成商家地圖網址-->
                             <img src="images/web.png"><a href="#"
-                              style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;官網</a>
+                              style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;官網</a><!--631 a href裡面的# 要換成商家官網-->
                           </div>
                         </div>
                       </div>
@@ -646,20 +659,20 @@
                         <div class="col-4" style="text-align: left;">
                           <div class="row">
                             <!-- 店家資訊-左側 -->
-                            <div style="font-size: large; font-weight: bold;">店家資訊2</div>
+                            <div style="font-size: large; font-weight: bold;">店家資訊2</div><!--填入"商家名稱"-->
                           </div>
                           <div class="row">
                             <div class="score">
-                              <img class="star1" src="images/star.png">
-                              <img class="star2" src="images/star.png">
-                              <img class="star3" src="images/star.png">
-                              <img class="star4" src="images/star.png">
-                              <img class="star5" src="images/star.png">
+                              <img class="star1" src="images/star.png"><!--填入"一顆星"-->
+                              <img class="star2" src="images/star.png"><!--填入"兩顆星"-->
+                              <img class="star3" src="images/star.png"><!--填入"三顆星"-->
+                              <img class="star4" src="images/star.png"><!--填入"四顆星"-->
+                              <img class="star5" src="images/star.png"><!--填入"五顆星"-->
                             </div>
                           </div>
                           <div class="row">
                             <div class="tag" style="margin-top:1em;">
-                              <h7>標籤 · 地址</h7>
+                              <h7>標籤 · 地址</h7><!--填入標籤 地址-->
                             </div>
                           </div>
                         </div>
@@ -718,9 +731,9 @@
                             <img src="images/love.png"><a href="#"
                               style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;最愛</a><br>
                             <img src="images/map.png"><a href="#"
-                              style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;地圖</a><br>
+                              style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;地圖</a><br><!--629 a href裡面的# 要換成商家地圖網址-->
                             <img src="images/web.png"><a href="#"
-                              style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;官網</a>
+                              style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;官網</a><!--631 a href裡面的# 要換成商家官網-->
                           </div>
                         </div>
                       </div>
@@ -733,20 +746,20 @@
                         <div class="col-4" style="text-align: left;">
                           <div class="row">
                             <!-- 店家資訊-左側 -->
-                            <div style="font-size: large; font-weight: bold;">店家資訊3</div>
+                            <div style="font-size: large; font-weight: bold;">店家資訊3</div><!--填入"商家名稱"-->
                           </div>
                           <div class="row">
                             <div class="score">
-                              <img class="star1" src="images/star.png">
-                              <img class="star2" src="images/star.png">
-                              <img class="star3" src="images/star.png">
-                              <img class="star4" src="images/star.png">
-                              <img class="star5" src="images/star.png">
+                              <img class="star1" src="images/star.png"><!--填入"一顆星"-->
+                              <img class="star2" src="images/star.png"><!--填入"兩顆星"-->
+                              <img class="star3" src="images/star.png"><!--填入"三顆星"-->
+                              <img class="star4" src="images/star.png"><!--填入"四顆星"-->
+                              <img class="star5" src="images/star.png"><!--填入"五顆星"-->
                             </div>
                           </div>
                           <div class="row">
                             <div class="tag" style="margin-top:1em;">
-                              <h7>標籤 · 地址</h7>
+                              <h7>標籤 · 地址</h7><!--填入標籤 地址-->
                             </div>
                           </div>
                         </div>
@@ -805,188 +818,15 @@
                             <img src="images/love.png"><a href="#"
                               style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;最愛</a><br>
                             <img src="images/map.png"><a href="#"
-                              style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;地圖</a><br>
+                              style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;地圖</a><br><!--629 a href裡面的# 要換成商家地圖網址-->
                             <img src="images/web.png"><a href="#"
-                              style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;官網</a>
+                              style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;官網</a><!--631 a href裡面的# 要換成商家官網-->
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="accordion-body" style="background-color: #E7EAEE; margin: 0.625em; border-radius: 15px;">
-                    <!--grid定位-->
-                    <div class="container text-center" style="display: contents;">
-                      <div class="row">
-                        <div class="col-4" style="text-align: left;">
-                          <div class="row">
-                            <!-- 店家資訊-左側 -->
-                            <div style="font-size: large; font-weight: bold;">店家資訊4</div>
-                          </div>
-                          <div class="row">
-                            <div class="score">
-                              <img class="star1" src="images/star.png">
-                              <img class="star2" src="images/star.png">
-                              <img class="star3" src="images/star.png">
-                              <img class="star4" src="images/star.png">
-                              <img class="star5" src="images/star.png">
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="tag" style="margin-top:1em;">
-                              <h7>標籤 · 地址</h7>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-5">
-                          <!--progress組-中間-->
-                          <div class="standard-group" style="display: contents;">
-                            <div class="standard-text" style="position: relative; float: left">
-                              <div class="text0">熱門</div>
-                              <div class="text1">環境</div>
-                              <div class="text2">產品</div>
-                              <div class="text3">服務</div>
-                              <div class="text4">售價</div>
-                            </div>
-                            <!--評分條-->
-                            <div class="standard" style="vertical-align: top;">
-                              <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25"
-                                aria-valuemin="0" aria-valuemax="100"
-                                style="background-color: #d9d9d9; margin-bottom: 0.625em;">
-                                <div class="progress-bar "
-                                  style="width: 10%; background-color: #B45F5F; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
-                                  10%</div><!--填入"熱門指數"width也要跟著改-->
-                              </div>
-                              <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25"
-                                aria-valuemin="0" aria-valuemax="100"
-                                style="background-color: #d9d9d9; margin-bottom: 0.375em;">
-                                <div class="progress-bar "
-                                  style="width: 25%; background-color: #562B08; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
-                                  25%</div><!--填入"環境指數"width也要跟著改-->
-                              </div>
-                              <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0"
-                                aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.55em; margin-bottom: 0.375em;">
-                                <div class="progress-bar"
-                                  style="width: 50%; background-color: #7B8F60;text-align: left; padding-left: 0.625em; font-size: 0.8em;">
-                                  50%</div><!--填入"產品指數"width也要跟著改-->
-                              </div>
-                              <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75"
-                                aria-valuemin="0" aria-valuemax="100"
-                                style="background-color: #d9d9d9;  margin-top: 0.57em; margin-bottom: 0.4375em;">
-                                <div class="progress-bar"
-                                  style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
-                                  75%</div><!--填入"服務指數"width也要跟著改-->
-                              </div>
-                              <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100"
-                                aria-valuemin="0" aria-valuemax="100"
-                                style="background-color: #d9d9d9; margin-top: 0.60em; margin-bottom: 0.375em;">
-                                <div class="progress-bar"
-                                  style="width: 80%; background-color: #C19237; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
-                                  80%</div><!--填入"售價指數"width也要跟著改-->
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <!--部分快捷-右側-->
-                          <div class="right-box">
-                            <img src="images/love.png"><a href="#"
-                              style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;最愛</a><br>
-                            <img src="images/map.png"><a href="#"
-                              style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;地圖</a><br>
-                            <img src="images/web.png"><a href="#"
-                              style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;官網</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="accordion-body" style="background-color: #E7EAEE; margin: 0.625em; border-radius: 15px;">
-                    <!--grid定位-->
-                    <div class="container text-center" style="display: contents;">
-                      <div class="row">
-                        <div class="col-4" style="text-align: left;">
-                          <div class="row">
-                            <!-- 店家資訊-左側 -->
-                            <div style="font-size: large; font-weight: bold;">店家資訊5</div>
-                          </div>
-                          <div class="row">
-                            <div class="score">
-                              <img class="star1" src="images/star.png">
-                              <img class="star2" src="images/star.png">
-                              <img class="star3" src="images/star.png">
-                              <img class="star4" src="images/star.png">
-                              <img class="star5" src="images/star.png">
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="tag" style="margin-top:1em;">
-                              <h7>標籤 · 地址</h7>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-5">
-                          <!--progress組-中間-->
-                          <div class="standard-group" style="display: contents;">
-                            <div class="standard-text" style="position: relative; float: left">
-                              <div class="text0">熱門</div>
-                              <div class="text1">環境</div>
-                              <div class="text2">產品</div>
-                              <div class="text3">服務</div>
-                              <div class="text4">售價</div>
-                            </div>
-                            <!--評分條-->
-                            <div class="standard" style="vertical-align: top;">
-                              <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25"
-                                aria-valuemin="0" aria-valuemax="100"
-                                style="background-color: #d9d9d9; margin-bottom: 0.625em;">
-                                <div class="progress-bar "
-                                  style="width: 10%; background-color: #B45F5F; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
-                                  10%</div><!--填入"熱門指數"width也要跟著改-->
-                              </div>
-                              <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25"
-                                aria-valuemin="0" aria-valuemax="100"
-                                style="background-color: #d9d9d9; margin-bottom: 0.375em;">
-                                <div class="progress-bar "
-                                  style="width: 25%; background-color: #562B08; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
-                                  25%</div><!--填入"環境指數"width也要跟著改-->
-                              </div>
-                              <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0"
-                                aria-valuemax="100" style="background-color: #d9d9d9; margin-top: 0.55em; margin-bottom: 0.375em;">
-                                <div class="progress-bar"
-                                  style="width: 50%; background-color: #7B8F60;text-align: left; padding-left: 0.625em; font-size: 0.8em;">
-                                  50%</div><!--填入"產品指數"width也要跟著改-->
-                              </div>
-                              <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75"
-                                aria-valuemin="0" aria-valuemax="100"
-                                style="background-color: #d9d9d9;  margin-top: 0.57em; margin-bottom: 0.4375em;">
-                                <div class="progress-bar"
-                                  style="width: 75%; background-color: #5053AF; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
-                                  75%</div><!--填入"服務指數"width也要跟著改-->
-                              </div>
-                              <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100"
-                                aria-valuemin="0" aria-valuemax="100"
-                                style="background-color: #d9d9d9; margin-top: 0.60em; margin-bottom: 0.375em;">
-                                <div class="progress-bar"
-                                  style="width: 80%; background-color: #C19237; text-align: left; padding-left: 0.625em; font-size: 0.8em;">
-                                  80%</div><!--填入"售價指數"width也要跟著改-->
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <!--部分快捷-右側-->
-                          <div class="right-box">
-                            <img src="images/love.png"><a href="#"
-                              style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;最愛</a><br>
-                            <img src="images/map.png"><a href="#"
-                              style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;地圖</a><br>
-                            <img src="images/web.png"><a href="#"
-                              style="color: #374957; text-decoration: none; font-weight: bold;">&nbsp;官網</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+            
                 </div>
               </div>
             </div>
