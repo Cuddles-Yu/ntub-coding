@@ -1,10 +1,12 @@
 # Folders
 .idea/
+.vscode/
 __pycache__/
 
 # Files
 *.bkp
 *.tmp
 ~$*.*
+*develop*.py
 *搜尋結果.csv
 */地圖資訊爬蟲/*.json

@@ -5,7 +5,7 @@ import time
 
 from selenium.common.exceptions import TimeoutException
 
-from tables import Administrator, Comment, Contributor, Favorite, Keyword, Location, Member, Rate, Service, Store, Tag
+from tables import Administrator, Comment, Contributor, Favorite, Keyword, Location, Member, Rate, Service, Store, Tag, OpenHours
 from tables._base import *
 from module.delete_database import *
 from module.const import *
@@ -36,12 +36,9 @@ ORDER_TYPE = {
 def rad2deg(radians):
     degrees = radians * 180 / pi
     return degrees
-
-
 def deg2rad(degrees):
     radians = degrees * pi / 180
     return radians
-
 
 def getDistanceBetweenPointsNew(coordinate1: list, coordinate2: list, unit='kilometers'):
     theta = coordinate1[1] - coordinate2[1]
@@ -60,11 +57,8 @@ def getDistanceBetweenPointsNew(coordinate1: list, coordinate2: list, unit='kilo
 
 def limit_list(array, c) -> list:
     return array[:c]
-
-
 def combine(str_array: list, separator: str) -> str:
     return separator.join(str_array)
-
 
 def has_service(k: str, yes: list, no: list):
     if k in no:
@@ -74,7 +68,6 @@ def has_service(k: str, yes: list, no: list):
     else:
         return None
 
-
 def wait_for_element(by, value):
     try:
         element = WebDriverWait(driver, MAXIMUM_WAITING).until(
@@ -83,7 +76,6 @@ def wait_for_element(by, value):
         return element
     except TimeoutException:
         return None
-
 
 def get_split_from_address(address):
     if ',' in address:
@@ -97,8 +89,7 @@ def get_split_from_address(address):
                 return matches.group('postal'), matches.group('city'), matches.group('district'), details
         else:
             # 換位拆分
-            matches = re.match(r'(?P<detail>.+)(?P<district>\D{2}[鄉鎮市區])(?P<city>\D{2}[縣市])(?P<postal>\d+)',
-                               address)
+            matches = re.match(r'(?P<detail>.+)(?P<district>\D{2}[鄉鎮市區])(?P<city>\D{2}[縣市])(?P<postal>\d+)', address)
             if matches:
                 return matches.group('postal'), matches.group('city'), matches.group('district'), matches.group(
                     'detail')
@@ -140,11 +131,11 @@ connection = db.connect(use_database=True)
 
 # 初始化 Driver
 # print('\r正在連線到GoogleMap...', end='\n')
-options = webdriver.EdgeOptions()
+options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)
 options.add_argument('--window-size=950,1020')
 # options.add_argument("--headless")  # 不顯示視窗
-driver = webdriver.Edge(options=options)
+driver = webdriver.Chrome(options=options)
 # driver.minimize_window()  # 最小化視窗
 driver.get('https://www.google.com.tw/maps/preview')
 driver.set_window_position(x=970, y=10)
@@ -162,7 +153,7 @@ print(f'資料將儲存至資料庫 -> {NAME}')
 if len(urls) == 0:
     while True:
         # 等待 Driver 瀏覽到指定頁面後，對搜尋框輸入關鍵字搜尋
-        print(f'正在搜尋關鍵字 -> {SEARCH_KEYWORD}')
+        print(f'正在搜尋關鍵字 -> {SEARCH_KEYWORD}\n')
         WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
             ec.presence_of_element_located((By.CLASS_NAME, 'searchboxinput'))
         )
@@ -248,7 +239,7 @@ for i in range(max_count):
     tabs = driver.find_element(By.CLASS_NAME, 'RWPxGd').find_elements(By.CLASS_NAME, 'hh2c6')
     tabs_name = [tab.find_element(By.CLASS_NAME, 'Gpq6kf').text for tab in tabs]
 
-    # 標籤按鈕 - 總覽/評論/[簡介]
+    # 標籤按鈕 - [總覽]/評論/簡介
     if '總覽' in tabs_name:
         tabs[tabs_name.index('總覽')].click()
 
@@ -259,7 +250,8 @@ for i in range(max_count):
         preview_image=None,
         link=urls[i],
         website=None,
-        phone_number=None
+        phone_number=None,
+        last_update=None
     )
     rate_item = Rate.Rate(
         store_id=None,
@@ -298,10 +290,7 @@ for i in range(max_count):
         # case 'ref_location':
         #     print(f'\r【🌐參照點】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title}\n', end='')
 
-    WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
-        ec.presence_of_element_located((By.CLASS_NAME, 'lfPIob'))
-    )
-    tags = driver.find_elements(By.CLASS_NAME, 'RcCsl')
+    ### 取得標籤資訊 ###
     print('\r正在取得地點資訊...', end='')
     labels = {
         '地址': None,
@@ -309,18 +298,39 @@ for i in range(max_count):
         '電話號碼': None,
         'Plus Code': None
     }
-    if tags:
-        for tag in tags:
-            items = tag.find_elements(By.CLASS_NAME, 'CsEnBe')
-            if items:
-                label = items[0].get_attribute('aria-label')
-                href = items[0].get_attribute('href')
-                if label and ': ' in label:
-                    name = label.strip().split(': ')[0]
-                    if href:
-                        labels[name] = href
-                    else:
-                        labels[name] = label.strip().split(': ')[1]
+    WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
+        ec.presence_of_element_located((By.CLASS_NAME, 'lfPIob'))
+    )
+    tags = driver.find_elements(By.CLASS_NAME, 'RcCsl')
+    for tag in tags:
+        items = tag.find_elements(By.CLASS_NAME, 'CsEnBe')
+        if not items: continue
+        label = items[0].get_attribute('aria-label')
+        href = items[0].get_attribute('href')
+        if label and ': ' in label:
+            name, value = label.strip().split(': ', 1)
+            labels[name] = href if href else value
+
+    ### 營業資訊標籤 ###
+    print('\r正在取得營業資訊...', end='')
+    open_hours_tag = driver.find_elements(By.CLASS_NAME, 'OqCZI')
+    open_hours_dict = {}
+    if open_hours_tag:
+        # 更新時間
+        update_info = driver.find_elements(By.CLASS_NAME, 'zaf2le')
+        if update_info: store_item._last_update = re.findall(r'\d+ \D+前', update_info[0].text.strip())[0]
+        # 營業時間
+        open_hours_tag[0].click()  # (沒打開標籤會抓不到元素文字)
+        days_of_week = driver.find_element(By.CLASS_NAME, 't39EBf').find_elements(By.CLASS_NAME, 'y0skZc')
+        for day in days_of_week:
+            # 星期
+            day_of_week = day.find_element(By.CLASS_NAME, 'ylH6lf').find_element(By.TAG_NAME, 'div').text
+            # 時間
+            open_hours_list = [
+                {'open': time.text.split('–')[0], 'close': time.text.split('–')[1]}
+                for time in day.find_elements(By.CLASS_NAME, 'G8aQO') if ':' in time.text
+            ]
+            open_hours_dict[day_of_week] = open_hours_list if open_hours_list else None
 
     # 商家相片
     WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
@@ -450,8 +460,7 @@ for i in range(max_count):
                 ))
 
         if not switch_to_order(order_type='最相關'):
-            print(f'\r【❌已失敗】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | 最相關留言切換失敗 - {title}\n',
-                  end='')
+            print(f'\r【❌已失敗】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | 最相關留言切換失敗 - {title}\n', end='')
             continue
 
         # 紀錄爬取評論的等待時間
@@ -473,8 +482,7 @@ for i in range(max_count):
             for comment in comments:
                 expand_comment = comment.find_elements(By.CLASS_NAME, 'w8nwRe')
                 if len(expand_comment) > 0: expand_comment[0].send_keys(Keys.ENTER)
-            print(f'\r正在取得所有評論(%d/%d) | {store_item.name}...' % (len(comments), rate_item.total_ratings),
-                  end='')
+            print(f'\r正在取得所有評論(%d/%d) | {store_item.name}...' % (len(comments), rate_item.total_ratings), end='')
             if len(comments) >= rate_item.total_ratings:
                 get_comments_type = 'all'
                 break
@@ -542,6 +550,23 @@ for i in range(max_count):
         time.sleep(1)
 
     ### 儲存至資料庫 ###
+    # 營業時間
+    for day_of_week, open_list in open_hours_dict.items():
+        if open_list:
+            for open_time in open_list:
+                openhours_item = OpenHours.OpenHours(
+                    store_id=store_id,
+                    day_of_week=day_of_week,
+                    open_time=open_time['open'],
+                    close_time=open_time['close']
+                ).insert(connection)
+        else:
+            openhours_item = OpenHours.OpenHours(
+                store_id=store_id,
+                day_of_week=day_of_week,
+                open_time=None,
+                close_time=None
+            ).insert(connection)
     # 服務
     service_item.insert_if_not_exists(connection)
     # 關鍵字
@@ -557,9 +582,9 @@ for i in range(max_count):
         print(f'\r正在儲存評論結構(%d/%d)...' % (index + 1, len(comment_items)), end='')
         comment_items[index].insert(connection)
     # 評分
-    rate_item.insert(connection)
+    rate_item.insert_if_not_exists(connection)
     # 地點
-    location_item.insert(connection)
+    location_item.insert_if_not_exists(connection)
 
     ### 評估完成狀態 ###
     if rate_item.total_ratings == 0:

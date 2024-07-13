@@ -37,7 +37,7 @@ def exists(c, database_name: str) -> bool:
             return True
     return False
 
-# 建立'管理者'資料表(新)
+# 建立'管理者'資料表
 def _create_administrators_table(c):
     c.execute('''
         CREATE TABLE IF NOT EXISTS `administrators` (
@@ -50,7 +50,7 @@ def _create_administrators_table(c):
         )
     ''')
 
-# 建立'貢獻者'資料表(新)
+# 建立'貢獻者'資料表
 def _create_contributors_table(c):
     c.execute('''
         CREATE TABLE IF NOT EXISTS `contributors` (
@@ -60,7 +60,7 @@ def _create_contributors_table(c):
         )
     ''')
 
-# 建立'標籤'資料表(新)
+# 建立'標籤'資料表
 def _create_tags_table(c):
     c.execute('''
         CREATE TABLE IF NOT EXISTS `tags` (
@@ -70,7 +70,7 @@ def _create_tags_table(c):
         )
     ''')
 
-# 建立'會員'資料表(新)
+# 建立'會員'資料表
 def _create_members_table(c):
     c.execute('''
         CREATE TABLE IF NOT EXISTS `members` (
@@ -90,7 +90,7 @@ def _create_members_table(c):
         )
     ''')
 
-# 建立'商家'資料表(新)
+# 建立'商家'資料表
 def _create_stores_table(c):
     c.execute('''
         CREATE TABLE IF NOT EXISTS `stores` (
@@ -102,7 +102,8 @@ def _create_stores_table(c):
             `link` varchar(2000) NOT NULL,
             `website` varchar(2000) DEFAULT NULL,
             `phone_number` varchar(30) DEFAULT NULL,
-            `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `last_update` varchar(20) DEFAULT NULL,
+            `crawler_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (`id`),
             UNIQUE KEY `name_UNIQUE` (`name`),
             KEY `fk_tag_s_idx` (`tag`),
@@ -110,7 +111,7 @@ def _create_stores_table(c):
         )
     ''')
 
-# 建立'評分'資料表(新)
+# 建立'評分'資料表
 def _create_rates_table(c):
     c.execute('''
         CREATE TABLE IF NOT EXISTS `rates` (
@@ -130,7 +131,7 @@ def _create_rates_table(c):
         )
     ''')
 
-# 建立'地點'資料表(新)
+# 建立'地點'資料表
 def _create_locations_table(c):
     c.execute('''
         CREATE TABLE IF NOT EXISTS `locations` (
@@ -147,7 +148,7 @@ def _create_locations_table(c):
         )
     ''')
 
-# 建立'關鍵字'資料表(新)
+# 建立'關鍵字'資料表
 def _create_keywords_table(c):
     c.execute('''
         CREATE TABLE IF NOT EXISTS `keywords` (
@@ -161,7 +162,7 @@ def _create_keywords_table(c):
         )
     ''')
 
-# 建立'服務'資料表(新)
+# 建立'服務'資料表
 def _create_services_table(c):
     c.execute('''
         CREATE TABLE IF NOT EXISTS `services` (
@@ -174,7 +175,7 @@ def _create_services_table(c):
         )
     ''')
 
-# 建立'評論'資料表(新)
+# 建立'評論'資料表
 def _create_comments_table(c):
     c.execute('''
         CREATE TABLE IF NOT EXISTS `comments` (
@@ -192,7 +193,7 @@ def _create_comments_table(c):
         )
     ''')
 
-# 建立'收藏夾'資料表(新)
+# 建立'收藏夾'資料表
 def _create_favorites_table(c):
     c.execute('''
         CREATE TABLE IF NOT EXISTS `favorites` (
@@ -203,6 +204,21 @@ def _create_favorites_table(c):
             KEY `fk_store_id` (`store_id`),
             CONSTRAINT `fk_store_id` FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
             CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `members` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+        )
+    ''')
+
+# 建立'營業時間'資料表
+def _create_openhours_table(c):
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS `openhours` (
+            `store_id` INT NOT NULL,
+            `id` INT NOT NULL AUTO_INCREMENT,
+            `day_of_week` VARCHAR(3) NOT NULL,
+            `open_time` TIME NULL DEFAULT NULL,
+            `close_time` TIME NULL DEFAULT NULL,
+            PRIMARY KEY (`id`, `store_id`),
+            INDEX `fk_store_id_o_idx` (`store_id` ASC) VISIBLE,
+            CONSTRAINT `fk_store_id_o` FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
         )
     ''')
 
@@ -217,6 +233,7 @@ def create_database(c, database_name) -> bool:
         _create_members_table(c)
         _create_stores_table(c)
         _create_rates_table(c)
+        _create_comments_table(c)
         _create_locations_table(c)
         _create_keywords_table(c)
         _create_services_table(c)

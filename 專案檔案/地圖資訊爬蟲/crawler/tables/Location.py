@@ -58,5 +58,5 @@ class Location:
     def exists(self, connection) -> bool:
         return mdb.is_value_exist(connection, 'locations', 'store_id', self.store_id)
 
-    def insert(self, connection):
-        mdb.add_data(connection, 'locations', self.to_string())
+    def insert_if_not_exists(self, connection):
+        if not self.exists(connection): mdb.add_data(connection, 'locations', self.to_string())

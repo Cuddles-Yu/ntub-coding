@@ -8,8 +8,9 @@ class Store:
     _link = ''
     _website = ''
     _phone_number = ''
+    _last_update = ''
 
-    def __init__(self, name, description, tag, preview_image, link, website, phone_number):
+    def __init__(self, name, description, tag, preview_image, link, website, phone_number, last_update):
         self._name = name
         self._description = description
         self._tag = tag
@@ -17,6 +18,7 @@ class Store:
         self._link = link
         self._website = website
         self._phone_number = phone_number
+        self._last_update = last_update
 
     @property
     def id(self):
@@ -51,11 +53,15 @@ class Store:
         return transform(self._phone_number)
 
     @property
-    def time(self):
+    def last_update(self):
+        return transform(self._last_update)
+
+    @property
+    def crawler_time(self):
         return 'DEFAULT'
 
     def to_string(self):
-        return f"({self.id}, {self.name}, {self.description}, {self.tag}, {self.preview_image}, {self.link}, {self.website}, {self.phone_number}, {self.time})"
+        return f"({self.id}, {self.name}, {self.description}, {self.tag}, {self.preview_image}, {self.link}, {self.website}, {self.phone_number}, {self.last_update}, {self.crawler_time})"
 
     def get_id(self, connection):
         return mdb.get_value(connection, 'id', 'stores', 'name', self.name)
@@ -97,4 +103,4 @@ class Store:
 
 class Reference(Store):
     def __init__(self, name):
-        super().__init__(name, None, None, None, None, None, None)
+        super().__init__(name, None, None, None, None, None, None, None)

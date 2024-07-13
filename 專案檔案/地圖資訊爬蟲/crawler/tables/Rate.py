@@ -73,5 +73,8 @@ class Rate:
     def to_string(self):
         return f"({self.store_id}, {self.avg_ratings}, {self.total_ratings}, {self.sample_ratings}, {self.total_comments}, {self.real_ratings}, {self.environment_rating}, {self.price_rating}, {self.product_rating}, {self.service_rating}, {self.store_responses})"
 
-    def insert(self, connection):
-        mdb.add_data(connection, 'rates', self.to_string())
+    def exists(self, connection) -> bool:
+        return mdb.is_value_exist(connection, 'rates', 'store_id', self.store_id)
+
+    def insert_if_not_exists(self, connection):
+        if not self.exists(connection): mdb.add_data(connection, 'rates', self.to_string())
