@@ -60,14 +60,6 @@ def limit_list(array, c) -> list:
 def combine(str_array: list, separator: str) -> str:
     return separator.join(str_array)
 
-def has_service(k: str, yes: list, no: list):
-    if k in no:
-        return 0
-    elif k not in no and k in yes:
-        return 1
-    else:
-        return None
-
 def wait_for_element(by, value):
     try:
         element = WebDriverWait(driver, MAXIMUM_WAITING).until(
@@ -144,7 +136,7 @@ if REPAIR_DATA:
     urls = mdb.get_urls_from_incomplete_store(connection)
 else:
     urls = [
-        
+        'https://www.google.com/maps/place/+/data=!4m2!3m1!1s0x0:0x402997801d76852d'
     ]
 
 need_to_save_urls = len(urls) == 0
@@ -276,8 +268,21 @@ for i in range(max_count):
         vil=None,
         details=None
     )
+
+    ### 商家欄位資料 ###
+    store_state = driver.find_elements(By.CLASS_NAME, 'fCEvvc')
+    if len(store_state) > 0:
+        store_item._tag = store_state[0].text
+    else:
+        store_tag = wait_for_element(By.CLASS_NAME, 'DkEaL')
+        store_item._tag = store_tag.text if store_tag else None
+    # 可能為永久歇業/暫時關閉
+    if any(pass_tag in store_item._tag for pass_tag in PASS_TAGS):
+        print(f'\r【⛔休業中】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title}\n', end='')
+        continue
+
+    ### 檢查資料庫中是否已經存在指定的商家 ###
     is_repairing = False
-    # 檢查資料庫中是否已經存在指定的商家
     match (store_item.check_if_sample(connection, MAXIMUM_SAMPLES)):
         case 'is_exists':
             print(f'\r【💡已存在】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title}\n', end='')
@@ -332,7 +337,8 @@ for i in range(max_count):
             ]
             open_hours_dict[day_of_week] = open_hours_list if open_hours_list else None
 
-    # 商家相片
+    ### 商家相片 ###
+    print('\r正在取得商家相片...', end='')
     WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
         ec.presence_of_element_located((By.CLASS_NAME, 'ZKCDEc'))
     )
@@ -346,14 +352,6 @@ for i in range(max_count):
     )
     store_img3 = store_img2[0].find_element(By.TAG_NAME, 'img')
     store_item._preview_image = store_img3.get_attribute('src').split('/')[-1] if len(store_img1) > 0 else None
-
-    # 商家欄位資料(可能為永久歇業/暫時關閉)
-    store_state = driver.find_elements(By.CLASS_NAME, 'fCEvvc')
-    if len(store_state) > 0:
-        store_item._tag = store_state[0].text
-    else:
-        store_tag = wait_for_element(By.CLASS_NAME, 'DkEaL')
-        store_item._tag = store_tag.text if store_tag else None
 
     store_item._website = labels['網站']
     if labels['電話號碼']: store_item._phone_number = labels['電話號碼'].replace(' ', '-')
@@ -373,34 +371,23 @@ for i in range(max_count):
         print(f'\r【🌍範圍外】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title}\n', end='')
         continue
 
-    get_comments_type = ''
-    current_comments = 0
-
-    service_item = Service.Service(
-        store_id=None,
-        dine_in=None,
-        take_away=None,
-        delivery=None
-    )
-
-    # 標籤按鈕 - 總覽/評論/[簡介]
+    ### 服務項目 ###
+    print('\r正在取得服務項目...', end='')
+    service_dict = {}
     if '簡介' in tabs_name:
+        # 標籤按鈕 - 總覽/評論/[簡介]
         tabs[tabs_name.index('簡介')].click()
-
-        # 讀取商家簡介 (選擇性)
+        # 商家簡介 (選擇性)
         description = wait_for_element(By.CLASS_NAME, 'PbZDve')
-        if description: store_item._description = description.find_element(By.CLASS_NAME, 'ZqFyf').find_element(
-            By.TAG_NAME, 'span').text
-
-        # 讀取商家細節
-        ns = driver.find_elements(By.CLASS_NAME, 'WeoVJe')
-        ys = driver.find_elements(By.CLASS_NAME, 'hpLkke')
-        services_no = [service.text for service in ns] if ns else []
-        services_yes = [service.text for service in ys] if ys else []
-
-        service_item._dine_in = has_service('內用', services_yes, services_no)
-        service_item._take_away = has_service('外帶', services_yes, services_no)
-        service_item._delivery = has_service('外送', services_yes, services_no)
+        if description: store_item._description = description.find_element(By.CLASS_NAME, 'ZqFyf').find_element(By.TAG_NAME, 'span').text
+        # 服務類別
+        for category in driver.find_elements(By.CLASS_NAME, 'iP2t7d'):
+            category_name = category.find_element(By.CLASS_NAME, 'iL3Qke').text
+            # 服務項目
+            for service in category.find_elements(By.CLASS_NAME, 'WeoVJe'):  # 沒有提供的服務
+                service_dict[service.find_element(By.TAG_NAME, 'span').text] = (category_name, 0)
+            for service in category.find_elements(By.CLASS_NAME, 'hpLkke'):  # 所有提供的服務
+                if service_dict.get(service.find_element(By.TAG_NAME, 'span').text) is None: service_dict[service.find_element(By.TAG_NAME, 'span').text] = (category_name, 1)
 
     # 儲存商家資料，並取得其 store_id
     if store_item._tag:
@@ -417,9 +404,9 @@ for i in range(max_count):
     store_id = store_item.get_id(connection)
     rate_item._store_id = store_id
     location_item._store_id = store_id
-    service_item._store_id = store_id
 
     # 標籤按鈕 - 總覽/[評論]/簡介
+    print('\r正在取得商家評論...', end='')
     if '評論' in tabs_name:
         tabs[tabs_name.index('評論')].click()
         # 取得評論星級
@@ -466,6 +453,8 @@ for i in range(max_count):
         # 紀錄爬取評論的等待時間
         start_time = time.time()
         # 滾動評論面板取得所有評論
+        get_comments_type = ''
+        current_comments = 0
         while True:
             ActionChains(driver).move_to_element(commentContainer.find_elements(By.CLASS_NAME, 'jftiEf')[-1]).perform()
             commentContainer.send_keys(Keys.PAGE_DOWN)
@@ -568,7 +557,13 @@ for i in range(max_count):
                 close_time=None
             ).insert(connection)
     # 服務
-    service_item.insert_if_not_exists(connection)
+    for properties, state in service_dict.items():
+        service_item = Service.Service(
+            store_id=store_id,
+            properties=properties,
+            category=state[0],
+            state=state[1]
+        ).insert(connection)
     # 關鍵字
     for index in range(len(keyword_items)):
         print(f'\r正在儲存關鍵字結構(%d/%d)...' % (index + 1, len(keyword_items)), end='')

@@ -166,11 +166,12 @@ def _create_keywords_table(c):
 def _create_services_table(c):
     c.execute('''
         CREATE TABLE IF NOT EXISTS `services` (
-            `store_id` int NOT NULL,
-            `dine_in` tinyint DEFAULT NULL,
-            `take_away` tinyint DEFAULT NULL,
-            `delivery` tinyint DEFAULT NULL,
-            PRIMARY KEY (`store_id`),
+            `id` INT NOT NULL AUTO_INCREMENT,
+            `store_id` INT NOT NULL,
+            `property` VARCHAR(20) NOT NULL,
+            `state` TINYINT NULL DEFAULT NULL,
+            PRIMARY KEY (`id`, `store_id`),
+            INDEX `fk_store_id_s_idx` (`store_id` ASC) VISIBLE,
             CONSTRAINT `fk_store_id_s` FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
         )
     ''')

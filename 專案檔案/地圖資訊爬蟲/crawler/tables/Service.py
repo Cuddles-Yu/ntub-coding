@@ -2,37 +2,38 @@ from 地圖資訊爬蟲.crawler.tables._base import *
 
 class Service:
     _store_id = 0
-    _dine_in = True
-    _take_away = True
-    _delivery = True
+    _properties = ''
+    _category = ''
+    _state = 0
 
-    def __init__(self, store_id, dine_in, take_away, delivery):
+    def __init__(self, store_id, properties, category, state):
         self._store_id = int(store_id) if store_id else None
-        self._dine_in = dine_in
-        self._take_away = take_away
-        self._delivery = delivery
+        self._properties = properties
+        self._category = category
+        self._state = state
 
     @property
     def store_id(self):
         return self._store_id
 
     @property
-    def dine_in(self):
-        return transform(self._dine_in)
+    def id(self):
+        return 'DEFAULT'
 
     @property
-    def take_away(self):
-        return transform(self._take_away)
+    def properties(self):
+        return transform(self._properties)
 
     @property
-    def delivery(self):
-        return transform(self._delivery)
+    def category(self):
+        return transform(self._category)
+
+    @property
+    def state(self):
+        return transform(self._state)
 
     def to_string(self):
-        return f"({self.store_id}, {self.dine_in}, {self.take_away}, {self.delivery})"
+        return f"({self.id}, {self.store_id}, {self.properties}, {self.category}, {self.state})"
 
-    def exists(self, connection) -> bool:
-        return mdb.is_value_exist(connection, 'services', 'store_id', self.store_id)
-
-    def insert_if_not_exists(self, connection):
-        if not self.exists(connection): mdb.add_data(connection, 'services', self.to_string())
+    def insert(self, connection):
+        mdb.add_data(connection, 'services', self.to_string())

@@ -13,12 +13,12 @@ class OpenHours:
         self._close_time = close_time
 
     @property
-    def store_id(self):
-        return self._store_id
-
-    @property
     def id(self):
         return 'DEFAULT'
+
+    @property
+    def store_id(self):
+        return self._store_id
 
     @property
     def day_of_week(self):
@@ -33,7 +33,7 @@ class OpenHours:
         return transform(self._close_time)
 
     def to_string(self):
-        return f"({self.store_id}, {self.id}, {self.day_of_week}, {self.open_time}, {self.close_time})"
+        return f"({self.id}, {self.store_id}, {self.day_of_week}, {self.open_time}, {self.close_time})"
 
     def insert(self, connection):
         mdb.add_data(connection, 'openhours', self.to_string())
