@@ -50,16 +50,6 @@ def _create_administrators_table(c):
         )
     ''')
 
-# 建立'貢獻者'資料表
-def _create_contributors_table(c):
-    c.execute('''
-        CREATE TABLE IF NOT EXISTS `contributors` (
-            `id` varchar(255) NOT NULL,
-            `level` int NOT NULL,
-            PRIMARY KEY (`id`)
-        )
-    ''')
-
 # 建立'標籤'資料表
 def _create_tags_table(c):
     c.execute('''
@@ -118,8 +108,11 @@ def _create_rates_table(c):
             `store_id` int NOT NULL,
             `avg_ratings` decimal(2,1) DEFAULT NULL,
             `total_ratings` int DEFAULT NULL,
-            `sample_ratings` int DEFAULT NULL,
-            `total_comments` int DEFAULT NULL,
+            `total_sample` int DEFAULT NULL,
+            `total_withcomments` int DEFAULT NULL,
+            `total_withoutcomments` int DEFAULT NULL,
+            `mixreviews_count` int DEFAULT NULL,
+            `additionalcomments_count` int DEFAULT NULL,
             `real_rating` decimal(2,1) DEFAULT NULL,
             `environment_rating` decimal(4,1) DEFAULT NULL,
             `price_rating` decimal(4,1) DEFAULT NULL,
@@ -156,7 +149,7 @@ def _create_keywords_table(c):
             `word` varchar(20) NOT NULL,
             `count` int NOT NULL,
             `source` enum('google','comment') NOT NULL DEFAULT 'google',
-            PRIMARY KEY (`word`,`store_id`),
+            PRIMARY KEY (`store_id`, `word`),
             KEY `fk_store_id_k` (`store_id`),
             CONSTRAINT `fk_store_id_k` FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
         )
@@ -169,6 +162,7 @@ def _create_services_table(c):
             `id` INT NOT NULL AUTO_INCREMENT,
             `store_id` INT NOT NULL,
             `property` VARCHAR(20) NOT NULL,
+            `category` VARCHAR(20) NOT NULL,
             `state` TINYINT NULL DEFAULT NULL,
             PRIMARY KEY (`id`, `store_id`),
             INDEX `fk_store_id_s_idx` (`store_id` ASC) VISIBLE,
@@ -181,15 +175,21 @@ def _create_comments_table(c):
     c.execute('''
         CREATE TABLE IF NOT EXISTS `comments` (
             `store_id` int NOT NULL,
-            `sort` int NOT NULL,
+            `index` int NOT NULL,
             `contents` text NOT NULL,
+            `has_image` TINYINT NOT NULL,
             `time` varchar(20) NOT NULL,
             `rating` int NOT NULL,
-            `contributor_id` varchar(255) NOT NULL,
-            PRIMARY KEY (`sort`,`store_id`),
+            `food_rating` int DEFAULT NULL,
+            `service_rating` int DEFAULT NULL,
+            `atmosphere_rating` int DEFAULT NULL,
+            `contributor_level` INT NOT NULL,
+            `environment_state` VARCHAR(10) DEFAULT NULL,
+            `price_state` VARCHAR(10) DEFAULT NULL,
+            `product_state` VARCHAR(10) DEFAULT NULL,
+            `service_state` VARCHAR(10) DEFAULT NULL,
+            PRIMARY KEY (`store_id`, `index`),
             KEY `store_id_idx` (`store_id`),
-            KEY `comments_ibfk_2` (`contributor_id`),
-            CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`contributor_id`) REFERENCES `contributors` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
             CONSTRAINT `store_id` FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
         )
     ''')
@@ -212,8 +212,8 @@ def _create_favorites_table(c):
 def _create_openhours_table(c):
     c.execute('''
         CREATE TABLE IF NOT EXISTS `openhours` (
-            `store_id` INT NOT NULL,
             `id` INT NOT NULL AUTO_INCREMENT,
+            `store_id` INT NOT NULL,
             `day_of_week` VARCHAR(3) NOT NULL,
             `open_time` TIME NULL DEFAULT NULL,
             `close_time` TIME NULL DEFAULT NULL,
@@ -229,10 +229,10 @@ def create_database(c, database_name) -> bool:
         c.execute(f"CREATE DATABASE IF NOT EXISTS {database_name}")
         c.execute(f"USE `{database_name}`")
         _create_administrators_table(c)
-        _create_contributors_table(c)
         _create_tags_table(c)
         _create_members_table(c)
         _create_stores_table(c)
+        _create_openhours_table(c)
         _create_rates_table(c)
         _create_comments_table(c)
         _create_locations_table(c)

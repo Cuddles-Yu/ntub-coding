@@ -87,7 +87,7 @@ class Store:
         store_id = mdb.get_value(connection, 'id', 'stores', 'name', self.name)
         if not mdb.is_value_exist(connection, 'rates', 'store_id', store_id): return 'ref_location'
 
-        s = mdb.get_value(connection, 'sample_ratings', 'rates', 'store_id', store_id)
+        s = mdb.get_value(connection, 'total_samples', 'rates', 'store_id', store_id)
         t = mdb.get_value(connection, 'total_ratings', 'rates', 'store_id', store_id)
         samples = int(s) if t else 0
         total = int(t) if t else 0

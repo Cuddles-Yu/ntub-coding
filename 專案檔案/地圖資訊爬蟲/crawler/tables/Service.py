@@ -13,12 +13,12 @@ class Service:
         self._state = state
 
     @property
-    def store_id(self):
-        return self._store_id
-
-    @property
     def id(self):
         return 'DEFAULT'
+
+    @property
+    def store_id(self):
+        return self._store_id
 
     @property
     def properties(self):

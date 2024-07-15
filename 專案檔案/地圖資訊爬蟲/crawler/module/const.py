@@ -1,6 +1,6 @@
 
 ### 資料庫設定 ###
-NAME = 'mapdb'
+NAME = 'map'
 USERNAME = 'root'
 PASSWORD = '11236018'
 
