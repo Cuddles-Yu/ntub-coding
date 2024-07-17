@@ -7,9 +7,9 @@ def add_column(connection, table_name, column_name, column_type):
     cursor = connection.cursor()
     try:
         cursor.execute(f'''
-            ALTER TABLE {table_name} ADD COLUMN {column_name} {column_type}
+            ALTER TABLE {table_name} 
+            ADD COLUMN {column_name} {column_type}
         ''')
-        print("資料庫結構修改成功！")
     except mysql.connector.Error as error:
         # 處理錯誤
         print("Error:", error)
@@ -27,7 +27,6 @@ def change_column(connection, table_name, column_name, column_type):
             MODIFY COLUMN {column_name} {column_type} 
             AFTER {column_name}
         ''')
-        print("資料庫結構修改成功！")
     except mysql.connector.Error as error:
         # 處理錯誤
         print("Error:", error)
@@ -37,29 +36,44 @@ def change_column(connection, table_name, column_name, column_type):
         cursor.close() 
 
 # 手動修改欄位資料
-def update_data(connection, table_name, new_column_name, new_column_value, old_column_name, old_column_value):
+def update_data(connection, table_name, target_column, target_value, condition_column, condition_value):
     cursor = connection.cursor()
     try:
         cursor.execute(f"""
-            UPDATE {table_name} SET {new_column_name} = {new_column_value} WHERE {old_column_name} = {old_column_value}
+            UPDATE {table_name}
+            SET {target_column} = {target_value}
+            WHERE {condition_column} = {condition_value}
         """)
-        print("資料庫結構修改成功！")
     except mysql.connector.Error as error:
         # 處理錯誤
         print("Error:", error)
     finally:
         # 提交更改
         connection.commit() 
-        cursor.close() 
+        cursor.close()
+def update(connection, table_name, setter, condition):
+    cursor = connection.cursor()
+    try:
+        cursor.execute(f"""
+            UPDATE {table_name}
+            SET {setter}
+            WHERE {condition}
+        """)
+    except mysql.connector.Error as error:
+        # 處理錯誤
+        print("Error:", error)
+    finally:
+        # 提交更改
+        connection.commit()
+        cursor.close()
 
-# 改變欄位類型
+        # 改變欄位類型
 def change_type(connection, table_name, column_name, column_type):
     cursor = connection.cursor()
     try:
         cursor.execute(f'''
             ALTER TABLE {table_name} MODIFY COLUMN {column_name} {column_type}
         ''')
-        print("資料庫結構修改成功！")
     except mysql.connector.Error as error:
         # 處理錯誤
         print("Error:", error)

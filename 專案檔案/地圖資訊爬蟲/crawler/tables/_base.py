@@ -8,6 +8,7 @@ def transform(param: str) -> str:
     return f"'{param}'" if param is not None else 'NULL'
 
 def escape_quotes(param: str) -> str:
+    if param is None: return None
     return param.replace('\\', '\\\\').replace('"', '\\"').replace("'", "\\'")
 
 def to_map_url(urls: list) -> list:

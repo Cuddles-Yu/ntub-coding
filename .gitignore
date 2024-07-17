@@ -11,3 +11,4 @@ __pycache__/
 *develop*.py
 *搜尋結果.csv
 */地圖資訊爬蟲/*.json
+**/crawler/urls.txt

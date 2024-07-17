@@ -5,12 +5,16 @@ class Keyword:
     _word = ''
     _count = 0
     _source = ''
+    _image_url = ''
+    _source_url = ''
 
-    def __init__(self, store_id, word, count, source):
+    def __init__(self, store_id, word, count, source, image_url, source_url):
         self._store_id = int(store_id) if store_id else None
         self._word = word
         self._count = int(count)
         self._source = source
+        self._image_url = image_url
+        self._source_url = source_url
 
     @property
     def store_id(self):
@@ -28,8 +32,16 @@ class Keyword:
     def source(self):
         return transform(self._source)
 
+    @property
+    def image_url(self):
+        return transform(self._image_url)
+
+    @property
+    def source_url(self):
+        return transform(self._source_url)
+
     def to_string(self):
-        return f"({self.store_id}, {self.word}, {self.count}, {self.source})"
+        return f"({self.store_id}, {self.word}, {self.count}, {self.source}, {self.image_url}, {self.source_url})"
 
     def exists(self, connection) -> bool:
         return mdb.is_value_exist(connection, 'keywords', 'word', self.word)
