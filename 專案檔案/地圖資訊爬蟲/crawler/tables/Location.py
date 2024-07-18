@@ -1,5 +1,17 @@
 from 地圖資訊爬蟲.crawler.tables._base import *
 
+def newObject():
+    return Location(
+        store_id=None,
+        longitude=None,
+        latitude=None,
+        postal_code=None,
+        city=None,
+        dist=None,
+        vil=None,
+        details=None
+    )
+
 class Location:
     _store_id = 0
     _longitude = 0.0
@@ -55,8 +67,11 @@ class Location:
     def to_string(self):
         return f"({self.store_id}, {self.longitude}, {self.latitude}, {self.postal_code}, {self.city}, {self.dist}, {self.vil}, {self.details})"
 
+    def get_city(self):
+        return self._city
+
     def exists(self, connection) -> bool:
         return mdb.is_value_exist(connection, 'locations', 'store_id', self.store_id)
 
     def insert_if_not_exists(self, connection):
-        if not self.exists(connection): mdb.add_data(connection, 'locations', self.to_string())
+        if not self.exists(connection): mdb.add(connection, 'locations', self.to_string())

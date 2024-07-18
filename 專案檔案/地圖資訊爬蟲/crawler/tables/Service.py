@@ -36,4 +36,4 @@ class Service:
         return f"({self.id}, {self.store_id}, {self.properties}, {self.category}, {self.state})"
 
     def insert(self, connection):
-        mdb.add_data(connection, 'services', self.to_string())
+        mdb.add(connection, 'services', self.to_string())

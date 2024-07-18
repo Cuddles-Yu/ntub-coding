@@ -23,4 +23,4 @@ class Tag:
         return mdb.is_value_exist(connection, 'tags', 'tag', self.tag)
 
     def insert_if_not_exists(self, connection):
-        if not self.exists(connection): mdb.add_data(connection, 'tags', self.to_string())
+        if not self.exists(connection): mdb.add(connection, 'tags', self.to_string())

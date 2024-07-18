@@ -48,4 +48,4 @@ class Keyword:
 
     def insert_if_not_exists(self, connection):
         if self._word.strip() == '': return
-        if not self.exists(connection): mdb.add_data(connection, 'keywords', self.to_string())
+        if not self.exists(connection): mdb.add(connection, 'keywords', self.to_string())

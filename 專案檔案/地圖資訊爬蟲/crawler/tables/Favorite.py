@@ -24,4 +24,4 @@ class Favorite:
         return f"({self.user_id}, {self.store_id}, {self.create_time})"
 
     def insert(self, connection):
-        mdb.add_data(connection, 'favorites', self.to_string())
+        mdb.add(connection, 'favorites', self.to_string())

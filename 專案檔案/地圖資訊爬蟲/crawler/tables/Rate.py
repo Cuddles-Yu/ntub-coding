@@ -1,9 +1,29 @@
 from 地圖資訊爬蟲.crawler.tables._base import *
 
+def newObject():
+    return Rate(
+        store_id=None,
+        avg_rating=0.0,
+        total_reviews=0,
+        total_browses=0,
+        total_samples=0,
+        total_withcomments=0,
+        total_withoutcomments=0,
+        mixreviews_count=0,
+        additionalcomments_count=0,
+        real_rating=0.0,
+        environment_rating=0.0,
+        price_rating=0.0,
+        product_rating=0.0,
+        service_rating=0.0,
+        store_responses=0
+    )
+
 class Rate:
     _store_id = 0
     _avg_rating = 0.0
-    _total_ratings = 0
+    _total_reviews = 0
+    _total_browses = 0
     _total_samples = 0
     _total_withcomments = 0
     _total_withoutcomments = 0
@@ -16,10 +36,13 @@ class Rate:
     _service_rating = 0.0
     _store_responses = 0
 
-    def __init__(self, store_id, avg_rating, total_ratings, total_samples, total_withcomments, total_withoutcomments, mixreviews_count, additionalcomments_count, real_rating, environment_rating, price_rating, product_rating, service_rating, store_responses):
+    def __init__(self, store_id, avg_rating, total_reviews, total_browses, total_samples, total_withcomments,
+                 total_withoutcomments, mixreviews_count, additionalcomments_count, real_rating, environment_rating,
+                 price_rating, product_rating, service_rating, store_responses):
         self._store_id = int(store_id) if store_id else None
         self._avg_rating = float(avg_rating)
-        self._total_ratings = int(total_ratings)
+        self._total_reviews = int(total_reviews)
+        self._total_browses = int(total_browses)
         self._total_samples = int(total_samples)
         self._total_withcomments = int(total_withcomments)
         self._total_withoutcomments = int(total_withoutcomments)
@@ -41,8 +64,12 @@ class Rate:
         return self._avg_rating
 
     @property
-    def total_ratings(self):
-        return self._total_ratings
+    def total_reviews(self):
+        return self._total_reviews
+
+    @property
+    def total_browses(self):
+        return self._total_browses
 
     @property
     def total_samples(self):
@@ -89,10 +116,10 @@ class Rate:
         return self._store_responses
 
     def to_string(self):
-        return f"({self.store_id}, {self.avg_rating}, {self.total_ratings}, {self.total_samples}, {self.total_withcomments}, {self.total_withoutcomments}, {self.mixreviews_count}, {self.additionalcomments_count}, {self.real_rating}, {self.environment_rating}, {self.price_rating}, {self.product_rating}, {self.service_rating}, {self.store_responses})"
+        return f"({self.store_id}, {self.avg_rating}, {self.total_reviews}, {self.total_browses}, {self.total_samples}, {self.total_withcomments}, {self.total_withoutcomments}, {self.mixreviews_count}, {self.additionalcomments_count}, {self.real_rating}, {self.environment_rating}, {self.price_rating}, {self.product_rating}, {self.service_rating}, {self.store_responses})"
 
     def exists(self, connection) -> bool:
         return mdb.is_value_exist(connection, 'rates', 'store_id', self.store_id)
 
     def insert_if_not_exists(self, connection):
-        if not self.exists(connection): mdb.add_data(connection, 'rates', self.to_string())
+        if not self.exists(connection): mdb.add(connection, 'rates', self.to_string())

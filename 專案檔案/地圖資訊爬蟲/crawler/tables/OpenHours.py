@@ -36,4 +36,4 @@ class OpenHours:
         return f"({self.id}, {self.store_id}, {self.day_of_week}, {self.open_time}, {self.close_time})"
 
     def insert(self, connection):
-        mdb.add_data(connection, 'openhours', self.to_string())
+        mdb.add(connection, 'openhours', self.to_string())

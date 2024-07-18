@@ -92,4 +92,4 @@ class Comment:
         return f"({self.store_id}, {self.index}, {self.contents}, {self.has_image}, {self.time}, {self.rating}, {self.food_rating}, {self.service_rating}, {self.atmosphere_rating}, {self.contributor_level}, {self.environment_state}, {self.price_state}, {self.product_state}, {self.service_state})"
 
     def insert(self, connection):
-        mdb.add_data(connection, 'comments', self.to_string())
+        mdb.add(connection, 'comments', self.to_string())

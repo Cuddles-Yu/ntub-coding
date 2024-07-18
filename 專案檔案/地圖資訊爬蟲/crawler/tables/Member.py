@@ -73,4 +73,4 @@ class Member:
         return mdb.is_value_exist(connection, 'members', 'email', self.email)
 
     def insert_if_not_exists(self, connection):
-        if not self.exists(connection): mdb.add_data(connection, 'members', self.to_string())
+        if not self.exists(connection): mdb.add(connection, 'members', self.to_string())

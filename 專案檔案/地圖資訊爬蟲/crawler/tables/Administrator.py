@@ -31,4 +31,4 @@ class Administrator:
         return mdb.is_value_exist(connection, 'administrators', 'email', self.email)
 
     def insert_if_not_exists(self, connection):
-        if not self.exists(connection): mdb.add_data(connection, 'administrators', self.to_string())
+        if not self.exists(connection): mdb.add(connection, 'administrators', self.to_string())

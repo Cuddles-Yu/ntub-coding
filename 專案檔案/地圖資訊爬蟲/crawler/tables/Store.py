@@ -1,5 +1,19 @@
 from 地圖資訊爬蟲.crawler.tables._base import *
 
+def newObject(title, url):
+    return Store(
+        name=title,
+        description=None,
+        tag=None,
+        preview_image=None,
+        link=url,
+        website=None,
+        phone_number=None,
+        last_update=None,
+        crawler_state='DEFAULT',
+        crawler_description=None
+    )
+
 class Store:
     _name = ''
     _description = ''
@@ -75,6 +89,9 @@ class Store:
     def to_string(self):
         return f"({self.id}, {self.name}, {self.description}, {self.tag}, {self.preview_image}, {self.link}, {self.website}, {self.phone_number}, {self.last_update}, {self.crawler_state}, {self.crawler_description}, {self.crawler_time})"
 
+    def to_value(self):
+        return f"description={self.description}, tag={self.tag}, preview_image={self.preview_image}, link={self.link}, website={self.website}, phone_number={self.phone_number}, last_update={self.last_update}"
+
     def get_id(self, connection):
         return mdb.get_value(connection, 'id', 'stores', 'name', self.name)
 
@@ -95,8 +112,11 @@ class Store:
             mdb.get_value(connection, 'crawler_description', 'stores', 'name', self.name)
         )
 
-    def insert_if_not_exists(self, connection):
-        if not self.exists(connection):  mdb.add_data(connection, 'stores', self.to_string())
+    def update_if_exists(self, connection):
+        if not self.exists(connection):
+            mdb.add(connection, 'stores', self.to_string())
+        else:
+            mdb.update(connection, 'stores', self.to_value(), f'name={self.name}')
 
 
 class Reference(Store):

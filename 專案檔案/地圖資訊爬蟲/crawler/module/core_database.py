@@ -95,7 +95,7 @@ def _create_stores_table(c):
             `last_update` varchar(20) DEFAULT NULL,
             `crawler_state` varchar(10) DEFAULT '建立',
             `crawler_description` varchar(100) DEFAULT NULL,
-            `crawler_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `crawler_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             PRIMARY KEY (`id`),
             UNIQUE KEY `name_UNIQUE` (`name`),
             KEY `fk_tag_s_idx` (`tag`),
@@ -109,7 +109,8 @@ def _create_rates_table(c):
         CREATE TABLE IF NOT EXISTS `rates` (
             `store_id` int NOT NULL,
             `avg_ratings` decimal(2,1) DEFAULT NULL,
-            `total_ratings` int DEFAULT NULL,
+            `total_reviews` int DEFAULT NULL,
+            `total_browses` int DEFAULT NULL,
             `total_samples` int DEFAULT NULL,
             `total_withcomments` int DEFAULT NULL,
             `total_withoutcomments` int DEFAULT NULL,
@@ -148,7 +149,7 @@ def _create_keywords_table(c):
     c.execute('''
         CREATE TABLE IF NOT EXISTS `keywords` (
             `store_id` int NOT NULL,
-            `word` varchar(20) NOT NULL,
+            `word` varchar(50) NOT NULL,
             `count` int NOT NULL,
             `source` enum('google','comment','recommend') NOT NULL DEFAULT 'google',
             `image_url` varchar(2000) DEFAULT NULL,

@@ -1,6 +1,55 @@
 import mysql.connector
 from itertools import chain
 
+# 手動新增欄位資料
+def add(connection, table_name, values):
+    cursor = connection.cursor()
+    try:
+        cursor.execute(f'''
+            INSERT INTO {table_name}
+            VALUES {values}
+        ''')
+    except mysql.connector.Error as error:
+        # 處理錯誤
+        print("Error:", error)
+    finally:
+        # 提交更改
+        connection.commit()
+        cursor.close()
+
+
+# 手動修改欄位資料
+def update(connection, table_name, setter, condition):
+    cursor = connection.cursor()
+    try:
+        cursor.execute(f"""
+            UPDATE {table_name}
+            SET {setter}
+            WHERE {condition}
+        """)
+    except mysql.connector.Error as error:
+        # 處理錯誤
+        print("Error:", error)
+    finally:
+        # 提交更改
+        connection.commit()
+        cursor.close()
+
+# 設定自動遞增欄位值
+def set_increment(connection, table_name, value):
+    cursor = connection.cursor()
+    try:
+        cursor.execute(f"""
+            ALTER TABLE {table_name} AUTO_INCREMENT = {value};
+        """)
+    except mysql.connector.Error as error:
+        # 處理錯誤
+        print("Error:", error)
+    finally:
+        # 提交更改
+        connection.commit()
+        cursor.close()
+
 #### 新增+修改
 # 新增欄位
 def add_column(connection, table_name, column_name, column_type):
@@ -33,10 +82,9 @@ def change_column(connection, table_name, column_name, column_type):
     finally:
         # 提交更改
         connection.commit() 
-        cursor.close() 
+        cursor.close()
 
-# 手動修改欄位資料
-def update_data(connection, table_name, target_column, target_value, condition_column, condition_value):
+def update_column(connection, table_name, target_column, target_value, condition_column, condition_value):
     cursor = connection.cursor()
     try:
         cursor.execute(f"""
@@ -51,23 +99,8 @@ def update_data(connection, table_name, target_column, target_value, condition_c
         # 提交更改
         connection.commit() 
         cursor.close()
-def update(connection, table_name, setter, condition):
-    cursor = connection.cursor()
-    try:
-        cursor.execute(f"""
-            UPDATE {table_name}
-            SET {setter}
-            WHERE {condition}
-        """)
-    except mysql.connector.Error as error:
-        # 處理錯誤
-        print("Error:", error)
-    finally:
-        # 提交更改
-        connection.commit()
-        cursor.close()
 
-        # 改變欄位類型
+# 改變欄位類型
 def change_type(connection, table_name, column_name, column_type):
     cursor = connection.cursor()
     try:
@@ -80,23 +113,7 @@ def change_type(connection, table_name, column_name, column_type):
     finally:
         # 提交更改
         connection.commit() 
-        cursor.close() 
-
-# 手動新增欄位資料
-def add_data(connection, table_name, values):
-    cursor = connection.cursor()
-    try:
-        cursor.execute(f'''
-            INSERT INTO {table_name} VALUES {values}
-        ''')
-    except mysql.connector.Error as error:
-        # 處理錯誤
-        print("Error:", error)
-    finally:
-        # 提交更改
-        connection.commit() 
-        cursor.close() 
-
+        cursor.close()
 
 #### 刪除
 # 刪除整個表格(如果存在)
@@ -191,29 +208,13 @@ def select_table_value_by_column(connection, columns, table_name) -> set:
     finally:
         cursor.close()
 
-# 取得未正確爬取留言與評分的商家地圖連結
-def get_urls_from_no_ratings_store(connection) -> set:
-    cursor = connection.cursor()
-    try:
-        cursor.execute(f'''
-            SELECT s.link FROM stores AS s
-            INNER JOIN rates AS r ON s.name = r.store_name
-            WHERE r.avg_ratings = 0.0
-        ''')
-        return set(chain.from_iterable(cursor.fetchall()))
-    except mysql.connector.Error as error:
-        # 處理錯誤
-        print("Error:", error)
-    finally:
-        cursor.close()
-
+# 取得不完整資料的商家連結
 def get_urls_from_incomplete_store(connection) -> set:
     cursor = connection.cursor()
     try:
         cursor.execute(f'''
-            SELECT DISTINCT link FROM rates AS r
-            RIGHT JOIN stores AS s ON s.id = r.store_id
-            WHERE r.store_id IS NULL
+            SELECT DISTINCT link FROM stores
+            WHERE crawler_state IN ('建立','失敗')
         ''')
         return set(chain.from_iterable(cursor.fetchall()))
     except mysql.connector.Error as error:
@@ -291,11 +292,9 @@ def select_columns(connection, column_name, table_name):
     cursor = connection.cursor()
     try:
         cursor.execute(f"""
-            SELECT {column_name} FROM {table_name};
+            SELECT {column_name} FROM {table_name}            
         """)
-        values = cursor.fetchall() 
-        for v in values: 
-            print("資料庫結構查詢成功！" + str(v))
+        return set(chain.from_iterable(cursor.fetchall()))
     except mysql.connector.Error as error:
         # 處理錯誤
         print("Error:", error)
