@@ -11,7 +11,6 @@
     background-color: white;
     top: 10px;  /* 上方 */
     left: 60px; /* 左方 */
-
     z-index: 1000;  /* 確保按鈕在地圖上方 */
 }
 
