@@ -4,9 +4,21 @@ import re
 import sys
 from 地圖資訊爬蟲.crawler.module.return_code import *
 from numpy import sin, cos, arccos, pi, round
+
+from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+
+def init_driver():
+    options = webdriver.EdgeOptions()
+    options.add_experimental_option("detach", True)
+    options.add_argument('--window-size=950,1020')
+    # options.add_argument("--headless")  # 不顯示視窗
+    driver = webdriver.Edge(options=options)
+    driver.get('https://www.google.com.tw/maps/preview')
+    driver.set_window_position(x=970, y=10)
+    return driver
 
 ### 函式 ###
 def crawler_exit(driver, connection):

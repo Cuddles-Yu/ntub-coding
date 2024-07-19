@@ -2,16 +2,19 @@
 import time
 from datetime import datetime
 
-from tables import Administrator, Comment, Favorite, Keyword, Location, Member, Rate, Service, Store, Tag, OpenHours
-from tables._base import *
-from module.delete_database import *
 from module.functions import *
 
+# 資料表
+from tables import Administrator, Comment, Favorite, Keyword, Location, Member, Rate, Service, Store, Tag, OpenHours
+from tables._base import *
+
+# 資料庫操作
+from module.delete_database import *
 import module.create_database as db
 import module.modify_database as mdb
 
-from selenium import webdriver
-from selenium.webdriver import Keys
+# 網頁爬蟲
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
@@ -24,7 +27,6 @@ ORDER_TYPE = {
     '評分最高': 2,
     '評分最低': 3
 }
-
 
 def switch_to_order(order_type: str) -> bool:
     print(f'\r正在切換至{order_type}評論...', end='')
@@ -55,14 +57,7 @@ connection = db.connect(use_database=True)
 
 # 初始化 Driver
 # print('\r正在連線到GoogleMap...', end='\n')
-options = webdriver.EdgeOptions()
-options.add_experimental_option("detach", True)
-options.add_argument('--window-size=950,1020')
-# options.add_argument("--headless")  # 不顯示視窗
-driver = webdriver.Edge(options=options)
-# driver.minimize_window()  # 最小化視窗
-driver.get('https://www.google.com.tw/maps/preview')
-driver.set_window_position(x=970, y=10)
+driver = init_driver()
 
 if REPAIR_DATA:
     urls = mdb.get_urls_from_incomplete_store(connection)
@@ -159,6 +154,26 @@ for i in range(max_count):
 
     store_item = Store.newObject(title, urls[i])
 
+    ### 檢查資料庫中是否已經存在指定的商家 ###
+    is_repairing = False
+    if store_item.exists(connection):
+        crawler_state, crawler_description = store_item.get_state(connection)
+        match crawler_state:
+            case '成功' | '抽樣' | '超時':
+                print(f'\r【⭐已存在】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title} ({crawler_state})\n', end='')
+                continue
+            case '建立':
+                print(f'\r正在準備重新爬取資料...', end='')
+                reset_store(connection, store_item.name)
+            case _:
+                is_repairing = True
+                print(f'\r正在移除不完整的資料...', end='')
+                reset_store(connection, store_item.name)
+
+            # print(f'\r【🌐參照點】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title}\n', end='')
+
+    START_TIME = datetime.now()
+
     ### 營業資訊標籤 ###
     print('\r正在取得營業資訊...', end='')
     # 檢查標籤狀態
@@ -213,25 +228,6 @@ for i in range(max_count):
     if any(pass_tag in store_item.get_tag() for pass_tag in PASS_TAGS):
         print(f'\r【⛔休業中】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title}\n', end='')
         continue
-
-    ### 檢查資料庫中是否已經存在指定的商家 ###
-    is_repairing = False
-    if store_item.exists(connection):
-        crawler_state, crawler_description = store_item.get_state(connection)
-        match crawler_state:
-            case '成功' | '抽樣' | '超時':
-                print(f'\r【💡已{crawler_state}】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title} ({crawler_description})\n', end='')
-                continue
-            case '建立':
-                print(f'\r正在準備重新爬取資料...', end='')
-            case _:
-                is_repairing = True
-                print(f'\r正在移除不完整的資料...', end='')
-                reset_store(connection, store_item.name)
-
-            # print(f'\r【🌐參照點】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title}\n', end='')
-
-    START_TIME = datetime.now()
 
     ### 取得標籤資訊 ###
     print('\r正在取得地點資訊...', end='')
@@ -461,7 +457,9 @@ for i in range(max_count):
                     match (len(line)):
                         case 1:
                             span = line[0].find_element(By.TAG_NAME, 'span').text.split('：')
-                            if span[0] in EXPERIENCE_TARGET and span[1]: user_experiences_dict[span[0]] = int(re.findall(r'\d+', span[1])[0])
+                            if span[0] in EXPERIENCE_TARGET and span[1]:
+                                numbers = re.findall(r'\d+', span[1])
+                                if numbers: user_experiences_dict[span[0]] = int(numbers[0])
                         case _:
                             experience = []
                             for review_tag in line:

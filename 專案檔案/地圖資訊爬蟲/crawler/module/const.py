@@ -1,6 +1,6 @@
 
 ### 資料庫設定 ###
-NAME = 'map'
+NAME = 'mapdb'
 USERNAME = 'root'
 PASSWORD = '11236018'
 
@@ -17,7 +17,8 @@ ENABLE_SCROLL_DOWN = True
 HAVE_TO_GET_ALL_RESULTS = False
 
 STORES_URLS = [
-
+    'https://www.google.com/maps/place/+/data=!3m1!4b1!4m6!3m5!1s0x3442a973be4ad301:0xeff448f93d0b146e!8m2!3d25.0550226!4d121.5195571!16s%2Fg%2F11vlqb8_q6',
+    ''
 ]
 
 SPREADING_BRANCHES = False
