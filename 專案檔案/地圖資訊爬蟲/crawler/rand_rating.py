@@ -1,7 +1,6 @@
 import random
 
 from 地圖資訊爬蟲.crawler.module.core_database import *
-from 地圖資訊爬蟲.crawler.tables._base import escape_quotes
 
 ### 主程式 ###
 connection = connect(use_database=True)

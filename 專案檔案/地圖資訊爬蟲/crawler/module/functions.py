@@ -10,13 +10,13 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 
-def init_driver():
+def init_driver(url: str):
     options = webdriver.EdgeOptions()
     options.add_experimental_option("detach", True)
     options.add_argument('--window-size=950,1020')
     # options.add_argument("--headless")  # 不顯示視窗
     driver = webdriver.Edge(options=options)
-    driver.get('https://www.google.com.tw/maps/preview')
+    if url: driver.get(url)
     driver.set_window_position(x=970, y=10)
     return driver
 
@@ -53,6 +53,8 @@ def getDistanceBetweenPointsNew(coordinate1: list, coordinate2: list, unit='kilo
         case 'kilometers':
             return round(distance * 1.609344, 2)
 
+def keyword_filter(keyword: str):
+    return re.findall(r"[^,-_'&a-zA-Z\s\d]+", keyword)
 
 def limit_list(array, c) -> list:
     if c > 0:

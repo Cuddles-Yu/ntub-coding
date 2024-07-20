@@ -6,7 +6,7 @@ from module.return_code import ReturnCode
 def run_main_program(input_values):
     try:
         process = subprocess.Popen(
-            ["python", "main.py"],
+            ["python", "data.stores.py"],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,

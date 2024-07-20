@@ -7,7 +7,7 @@ if connection is None: exit()
 cursor = connection.cursor()
 if exists(cursor, NAME):
     if __name__ == "__main__":
-        print("刪除並重新建立資料庫？[YES] ", end='')
+        print(f"刪除並重新建立'{NAME}'資料庫？[YES] ", end='')
         if input() == 'YES':
             drop_database(cursor, NAME)
             print("重新建立資料庫成功！")
@@ -15,7 +15,7 @@ if exists(cursor, NAME):
             pass
         create_database(cursor, NAME)
     else:
-        print("清除資料表中的所有資料？[YES] ", end='')
+        print(f"清除'{NAME}'資料庫中的所有資料？[YES] ", end='')
         if input() == 'YES':
             truncate_database(cursor, NAME)
             print("清空資料庫成功！")

@@ -4,10 +4,12 @@ NAME = 'mapdb'
 USERNAME = 'root'
 PASSWORD = '11236018'
 
-### 系統常數設定 ###
+### 檔案儲存設定 ###
+URLS_FILE_NAME = 'urls.txt'
 
+### 系統常數設定 ###
 SEARCH_CITY = '台北市'
-SEARCH_TYPE = '平價餐廳'
+SEARCH_TYPE = '拉麵'
 SEARCH_KEYWORD = SEARCH_CITY + ' ' + SEARCH_TYPE
 
 REF_LOCATION = False
@@ -17,8 +19,7 @@ ENABLE_SCROLL_DOWN = True
 HAVE_TO_GET_ALL_RESULTS = False
 
 STORES_URLS = [
-    'https://www.google.com/maps/place/+/data=!3m1!4b1!4m6!3m5!1s0x3442a973be4ad301:0xeff448f93d0b146e!8m2!3d25.0550226!4d121.5195571!16s%2Fg%2F11vlqb8_q6',
-    ''
+    # 'https://www.google.com.tw/maps/place/+/data=!3m2!4b1!5s0x3442a9660fccec7d:0x8d84c86f1a82e687!4m6!3m5!1s0x3442a966031f5799:0x35822d693796d1a1!8m2!3d25.0519063!4d121.5260228!16s%2Fg%2F1tc_nq74'
 ]
 
 SPREADING_BRANCHES = False
@@ -26,6 +27,8 @@ SPREADING_BRANCHES = False
 PASS_TAGS = ['暫時關閉', '永久歇業']
 EXPERIENCE_TARGET = ['餐點', '服務', '氣氛']
 RECOMMEND_DISHES = '建議的餐點'
+
+MAXIMUM_KEYWORD_LENGTH = 50
 
 MAXIMUM_TIMEOUT = 15
 MAXIMUM_WAITING = 3

@@ -7,7 +7,7 @@ from module.functions import *
 
 # 資料表
 from tables import Administrator, Comment, Favorite, Keyword, Location, Member, Rate, Service, Store, Tag, OpenHours
-from tables._base import *
+from tables.base import *
 
 # 資料庫操作
 # from module.delete_database import *

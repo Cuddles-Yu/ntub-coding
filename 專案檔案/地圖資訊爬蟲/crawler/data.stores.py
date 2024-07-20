@@ -6,7 +6,7 @@ from module.functions import *
 
 # 資料表
 from tables import Administrator, Comment, Favorite, Keyword, Location, Member, Rate, Service, Store, Tag, OpenHours
-from tables._base import *
+from tables.base import *
 
 # 資料庫操作
 from module.delete_database import *
@@ -56,8 +56,7 @@ def switch_to_order(order_type: str) -> bool:
 connection = db.connect(use_database=True)
 
 # 初始化 Driver
-# print('\r正在連線到GoogleMap...', end='\n')
-driver = init_driver()
+driver = init_driver('https://www.google.com.tw/maps/preview')
 
 if REPAIR_DATA:
     urls = mdb.get_urls_from_incomplete_store(connection)
@@ -123,19 +122,16 @@ max_count = len(urls)
 
 # 儲存本次查詢瀏覽連結(DEBUG)
 if need_to_save_urls:
-    with open('urls.txt', 'w+', encoding='utf-8') as f:
+    print(f'\r正在儲存瀏覽連結 -> {URLS_FILE_NAME}', end='')
+    with open(URLS_FILE_NAME, 'w+', encoding='utf-8') as f:
         contents = ''
         for i in range(len(urls)):
             contents += f'{str(i + 1).zfill(len(str(len(urls))))} | {urls[i]}\n'
         f.write(contents)
 
 for i in range(max_count):
-    # 瀏覽器開啟並切換至新視窗
-    # driver.switch_to.new_window('tab')
-
     # 瀏覽器載入指定的商家地圖連結
     driver.get(urls[i])
-
     # 直到商家名稱顯示(無最大等候時間)
     while True:
         WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
@@ -187,20 +183,25 @@ for i in range(max_count):
     open_hours_dict = {}
     if open_hours_tag:
         # 更新時間
-        if to_bool(open_hours_tag.find_element(By.CLASS_NAME, 'OMl5r').get_attribute('aria-expanded')): open_hours_tag.click() # (確保標籤關閉以取得更新時間)
+        if to_bool(open_hours_tag.find_element(By.CLASS_NAME, 'OMl5r').get_attribute('aria-expanded')): open_hours_tag.click()  # (確保標籤關閉以取得更新時間)
         update_info = driver.find_elements(By.CLASS_NAME, 'zaf2le')
-        if update_info: store_item._last_update = re.findall(r'\d+ \D+前', update_info[0].text.strip())[0]
+        if update_info:
+            last_update_info = re.search(r'(?P<time>\d+\s*\D+前)', update_info[0].text.strip())
+            store_item._last_update = last_update_info.group() if last_update_info else None
         # 營業時間
         if not to_bool(open_hours_tag.find_element(By.CLASS_NAME, 'OMl5r').get_attribute('aria-expanded')): open_hours_tag.click()  # (沒打開標籤會抓不到元素文字)
         days_of_week = driver.find_element(By.CLASS_NAME, 't39EBf').find_elements(By.CLASS_NAME, 'y0skZc')
         for day in days_of_week:
             # 星期
             day_of_week = day.find_element(By.CLASS_NAME, 'ylH6lf').find_element(By.TAG_NAME, 'div').text
+            open_hour_info = day.find_elements(By.CLASS_NAME, 'G8aQO')
             # 時間
             open_hours_list = [
                 {'open': time.text.split('–')[0], 'close': time.text.split('–')[1]}
-                for time in day.find_elements(By.CLASS_NAME, 'G8aQO') if ':' in time.text
+                for time in open_hour_info if ':' in time.text
             ]
+            if not open_hours_list and open_hour_info:
+                if '24 小時營業' in open_hour_info[0].text: open_hours_list.append({'open': '00:00', 'close': '24:00'})
             open_hours_dict[day_of_week] = open_hours_list if open_hours_list else None
     if filtered_tags: wait_for_click(By.CLASS_NAME, driver, 'hYBOP')  # 返回
 
@@ -265,8 +266,8 @@ for i in range(max_count):
         continue
 
     if labels['Plus Code']:
-        village = re.search(r'(?P<village>\S+里)', labels['Plus Code'])
-        location_item._vil = village.group('village') if village else None
+        village = re.search(r'(?P<vil>\S+里)', labels['Plus Code'])
+        location_item._vil = village.group() if village else None
 
     if TARGET_CITY != '' and location_item.get_city() == TARGET_CITY:
         print(f'\r【🌍範圍外】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title}\n', end='')
@@ -330,8 +331,8 @@ for i in range(max_count):
         # 取得評論星級
         rating = wait_for_element(By.CLASS_NAME, driver, 'jANrlb')
         if rating:
-            rate_item._avg_rating = float(''.join(re.findall(r'[0-9]+[.][0-9]+', rating.find_element(By.CLASS_NAME, 'fontDisplayLarge').text)))
-            rate_item._total_reviews = int(''.join(re.findall(r'[0-9]+', rating.find_element(By.CLASS_NAME, 'fontBodySmall').text)))
+            rate_item._avg_rating = float(rating.find_element(By.CLASS_NAME, 'fontDisplayLarge').text)
+            rate_item._total_reviews = int(''.join(re.findall(r'\d+', rating.find_element(By.CLASS_NAME, 'fontBodySmall').text)))
 
     if rate_item.total_reviews == 0:
         print(f'\r【📝無評論】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title}\n', end='')
@@ -357,7 +358,7 @@ for i in range(max_count):
                 count = keyword.find_elements(By.CLASS_NAME, 'bC3Nkc')
                 if len(count) == 0: continue
                 kw = keyword.find_element(By.CLASS_NAME, 'uEubGf').text
-                if len(kw) > 20 or kw.isnumeric(): continue
+                if len(kw) > MAXIMUM_KEYWORD_LENGTH or not keyword_filter(kw): continue
                 keywords_dict[kw] = (int(count[0].text), 'DEFAULT')
 
         if not switch_to_order(order_type='最相關'):
@@ -377,7 +378,7 @@ for i in range(max_count):
             total_reviews = commentContainer.find_elements(By.CLASS_NAME, 'jftiEf')
             filtered_reviews = [
                 c for c in total_reviews
-                if not ('年' in c.find_element(By.CLASS_NAME, 'rsqaWe').text and int(re.findall(r'\d+', c.find_element(By.CLASS_NAME, 'rsqaWe').text)[0]) > MAX_COMMENT_YEARS)  # 有文字內容(包含分享按鈕)
+                if not ('年' in c.find_element(By.CLASS_NAME, 'rsqaWe').text and int(re.search(r'\d+', c.find_element(By.CLASS_NAME, 'rsqaWe').text).group()) > MAX_COMMENT_YEARS)  # 有文字內容(包含分享按鈕)
             ]
             total_withcomments = limit_list([
                 c for c in filtered_reviews
@@ -454,20 +455,21 @@ for i in range(max_count):
                 user_experiences = total_samples[index].find_elements(By.CLASS_NAME, 'PBK6be')
                 for ue in user_experiences:
                     line = ue.find_elements(By.CLASS_NAME, 'RfDO5c')
-                    match (len(line)):
-                        case 1:
-                            span = line[0].find_element(By.TAG_NAME, 'span').text.split('：')
-                            if span[0] in EXPERIENCE_TARGET and span[1]:
-                                numbers = re.findall(r'\d+', span[1])
-                                if numbers: user_experiences_dict[span[0]] = int(numbers[0])
-                        case _:
-                            experience = []
-                            for review_tag in line:
-                                experience.append(review_tag.find_element(By.TAG_NAME, 'span').text)
-                            if experience[0] in RECOMMEND_DISHES and experience[1]:
-                                dishes = re.findall(r'[^,&\s]+', experience[1])
-                                for dish in dishes:
-                                    keywords_dict[dish] = (keywords_dict.get(dish)[0]+1, 'recommend') if keywords_dict.get(dish) else (1, 'recommend')
+                    if len(line) == 1:
+                        span = line[0].find_element(By.TAG_NAME, 'span').text.split('：')
+                        if span[0] in EXPERIENCE_TARGET and span[1]:
+                            numbers = re.search(r'\d+', span[1])
+                            if numbers: user_experiences_dict[span[0]] = int(numbers.group())
+                    else:
+                        dishes = []
+                        experience = []
+                        for review_tag in line:
+                            experience.append(review_tag.find_element(By.TAG_NAME, 'span').text)
+                        if experience[1]: dishes = keyword_filter(experience[1])
+                        if experience[0] in RECOMMEND_DISHES and dishes:
+                            for dish in dishes:
+                                keywords_dict[dish] = (keywords_dict.get(dish)[0]+1, 'recommend') if keywords_dict.get(dish) else (1, 'recommend')
+
                 contents_element = total_samples[index].find_elements(By.CLASS_NAME, 'MyEned')
                 contents = contents_element[0].find_element(By.CLASS_NAME, 'wiI7pd').text if contents_element else None
                 sum_score += score if contents_element else 0
@@ -483,7 +485,7 @@ for i in range(max_count):
                     food_rating=user_experiences_dict.get(EXPERIENCE_TARGET[0]) if user_experiences_dict else None,
                     service_rating=user_experiences_dict.get(EXPERIENCE_TARGET[1]) if user_experiences_dict else None,
                     atmosphere_rating=user_experiences_dict.get(EXPERIENCE_TARGET[2]) if user_experiences_dict else None,
-                    contributor_level=int(level.group('level')) + 2 if level else 0,
+                    contributor_level=int(level.group('level'))+2 if level else 0,
                     environment_state=None,
                     price_state=None,
                     product_state=None,
@@ -563,20 +565,20 @@ for i in range(max_count):
     match get_comments_type:
         case 'all':
             if is_repairing:
-                print(f'\r【🛠️已修復】耗時:{MINUTES_ELAPSE:.2f}分鐘 | {str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title} ({rate_item.total_reviews})\n', end='')
+                print(f'\r【🛠️已修復】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | 耗時:{MINUTES_ELAPSE:.2f}分鐘 | {title} ({rate_item.total_reviews})\n', end='')
                 store_item.change_state(connection, '成功', '取得完整資料(修復)')
             else:
-                print(f'\r【✅已完成】耗時:{MINUTES_ELAPSE:.2f}分鐘 | {str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title} ({rate_item.total_reviews})\n', end='')
+                print(f'\r【✅已完成】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | 耗時:{MINUTES_ELAPSE:.2f}分鐘 | {title} ({rate_item.total_reviews})\n', end='')
                 store_item.change_state(connection, '成功', '取得完整資料')
         case 'sample':
             if is_repairing:
-                print(f'\r【🛠️已修復】耗時:{MINUTES_ELAPSE:.2f}分鐘 | {str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title} ({rate_item.total_reviews})\n', end='')
+                print(f'\r【🛠️已修復】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | 耗時:{MINUTES_ELAPSE:.2f}分鐘 | {title} ({rate_item.total_reviews})\n', end='')
                 store_item.change_state(connection, '抽樣', '取得樣本資料(修復)')
             else:
-                print(f'\r【📝已抽樣】耗時:{MINUTES_ELAPSE:.2f}分鐘 | {str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title} ({rate_item.total_samples}/{rate_item.total_reviews})\n', end='')
+                print(f'\r【📝已抽樣】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | 耗時:{MINUTES_ELAPSE:.2f}分鐘 | {title} ({rate_item.total_samples}/{rate_item.total_reviews})\n', end='')
                 store_item.change_state(connection, '抽樣', '取得樣本資料')
         case 'timeout':
-            print(f'\r【⏱️已超時】耗時:{MINUTES_ELAPSE:.2f}分鐘 | {str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title} (留言:{current_total_withcomments}/過濾:{current_filtered_reviews_count}/瀏覽:{current_total_reviews_count}/總共:{rate_item.total_reviews})\n', end='')
+            print(f'\r【⏱️已超時】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | 耗時:{MINUTES_ELAPSE:.2f}分鐘 | {title} (留言:{current_total_withcomments}/過濾:{current_filtered_reviews_count}/瀏覽:{current_total_reviews_count}/總共:{rate_item.total_reviews})\n', end='')
             store_item.change_state(connection, '超時', '超出爬蟲時間限制')
 
     # driver.close()

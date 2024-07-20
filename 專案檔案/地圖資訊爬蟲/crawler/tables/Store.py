@@ -1,4 +1,4 @@
-from 地圖資訊爬蟲.crawler.tables._base import *
+from 地圖資訊爬蟲.crawler.tables.base import *
 
 def newObject(title, url):
     return Store(
