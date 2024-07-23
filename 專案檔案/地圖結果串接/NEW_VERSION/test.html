@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>測試用</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 載入 leaflet.css -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""/> 
+
+  <!-- 載入 leaflet.awesome-markers.css -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers/dist/leaflet.awesome-markers.css" />
+
+  <!-- 載入 MarkerCluster.css -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    
+  <!-- 載入 osm_map.css -->
+  <link rel="stylesheet" type="text/css" href="API/osm_map.css">
+</head>
+<style>
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+header {
+  border-bottom: 4px solid #838199;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 9999;
+}
+
+.wrapper-content{
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.header-content {
+  height: 80px;
+  padding-left: 30px;
+  padding-right: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-group {
+  font-size: xx-large;
+}
+
+.Logo {
+  width: 35px;
+  height: 50px;
+}
+
+.Logo-text {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.header-nav {
+  width: 680px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.link__text {
+  color: #424242;
+  text-decoration: none;
+  font-size: large;
+}
+
+.link__text:hover {
+  transition: all 0.2s;
+  color: black;
+}
+
+@media screen and (min-width: 1000px) {
+  .link__text:not(:last-child):after {
+    content: "";
+    border: 0.2px solid #C5C5C5;
+    height: 1px;
+    margin-left: 41px;
+  }
+}
+
+.member {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.member-icon {
+  width: 40px;
+  height: 40px;
+}
+
+@media screen and (max-width: 1000px) {
+  .member {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 15px;
+    flex: 1;
+  }
+
+  .wrapper-hambuger {
+    height: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+
+  .cross-button {
+    width: 30px;
+    height: 3px;
+    background-color: #424242;
+  }
+
+  .header-nav {
+    display: none;
+  }
+
+  .offcanvas-ul {
+    list-style: none;
+    text-align: center;
+  }
+
+  .offcanvas__text {
+    font-size: large;
+    color: #424242;
+    text-decoration: none;
+    list-style: none;
+    line-height: 4;
+  }
+}
+
+.a{
+  max-width: 1600px;
+  min-height: calc(100% - 174px);
+}
+
+.search{
+  align-items: center;
+  padding-top: 30px;
+  padding-left: 20px;
+  justify-content: flex-start;
+  display: flex;
+}
+
+.search-city{
+  width: 200PX;
+  position: relative;
+  margin-left: 10px;
+}
+
+.search-keyword{
+  width: 300px;
+  position: relative;
+  margin-left: 30px;
+}
+
+.search-button{
+  position: relative;
+  margin-left: 30px;
+  margin-bottom: 15px;
+  color: black;
+}
+
+#map{
+  width: 700px;
+  height: 65vh;
+  border-radius: 10px;
+  margin-top: 5px;
+}
+
+.tertiary-text{
+  text-align: center;
+  margin-top: 30px;
+  font-weight: bold;
+}
+
+.title-line{
+  max-width: 600px;
+  display: flex;
+  margin: auto;
+  height: 4px;
+  background-color: #6C6B71;
+  border-radius: 10px;
+}
+.store{
+  margin-top: 10px;
+}
+
+.store-body{
+  background-color: ghostwhite;
+  border-radius: 10px;
+  min-height: 140px;
+  margin-bottom: 30px;
+}
+
+.store-img-group{
+  padding-left: 0;
+}
+
+.store-img{
+  width: 100%;
+  min-height: 100%;
+  border-radius: 3px;
+}
+
+.store-right{
+  margin-left: 3px;
+  margin-bottom: 3px;
+  padding-left: 0;
+}
+
+.store-information{
+  margin-top: 10px;
+}
+
+.store-name{
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.rating{
+  color: #AC3535;
+  font-weight: bold;
+}
+
+.rating-text{
+  font-size: xx-small;
+}
+
+.restaurant-style, .address{
+  font-size: 0.8rem;
+  margin-top: 10px;
+}
+
+.progress-group-text{
+  display: flex;
+  align-items: baseline;
+  text-align: left;
+}
+
+.progress-text{
+  flex-direction: column;
+  font-size: xx-small;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.progress{
+  margin-top: 5px;
+  height: 14px;
+  max-width: 130px;
+  margin-left: 2px;
+}
+
+.progress-bar{
+  align-items: baseline;
+  padding-left: 3px;
+}
+
+.quick-group{
+  line-height: 2;
+}
+
+.love, .map-link, .web{
+  font-weight: bold;
+  color: #374957;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.love-img, .map-link-img, .web-img{
+  width: 20px;
+}
+
+.bottom{
+  background-color: #485465;
+  height: 90px;
+  color: white;
+  padding: 15px 20px 20px 25px;
+  font-size: small;  
+}
+</style>
+
+
+
+<body>
+  <header>
+    <div id="header-content" class="header-content_active header-content wrapper-content">
+      <div class="logo-group">
+        <img class="Logo" src="images/Logo設計_圖像(藍+).png">
+        <a class="Logo-text" href="#">評星宇宙</a>
+      </div>
+      <nav class="header-nav">
+        <a class="link__text" href="#">網站首頁</a>
+        <a class="link__text" href="#">會員專區</a>
+        <a class="link__text" href="#">使用說明</a>
+        <a class="link__text" href="#">問題回饋</a>
+        <a class="link__text" href="#">成員介紹</a>
+      </nav>
+      <div class="member" type="button" data-bs-toggle="offcanvas">
+        <img class="member-icon" src="images/user.jpg">
+      </div>
+      <div id="hamburger" class="wrapper-hambuger" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+        <div class="cross-button-top cross-button"></div>
+        <div class="cross-button-bottom cross-button"></div>
+      </div>
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+        aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title " id="offcanvasExampleLabel">
+            <img class="Logo" src="images/Logo設計_圖像(藍+).png">
+            <a class="Logo-text" href="#">評星宇宙</a>
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="offcanvas-ul">
+            <li><a class="offcanvas__text" href="#">網站首頁</a></li>
+            <li><a class="offcanvas__text" href="#">會員專區</a></li>
+            <li><a class="offcanvas__text" href="#">使用說明</a></li>
+            <li><a class="offcanvas__text" href="#">問題回饋</a></li>
+            <li><a class="offcanvas__text" href="#">成員介紹</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <div class="container-fluid a">
+    <div class="row">
+      <div class="secondary-content col">
+        <form id="searchForm">
+          <div class="search">
+            <div class="form-floating search-city">
+              <select class="form-select" id="location" name="location" aria-label="Floating label select example">
+                <option selected value="台北市">台北市</option>
+              </select>
+              <label for="location">地點</label>
+            </div>
+            <div class="form-floating search-keyword">
+              <input type="text" class="form-control" id="keyword" name="keyword" placeholder="關鍵字">
+              <label for="keyword">請輸入查詢關鍵字</label>
+            </div>
+            <button type="submit" class="btn btn-secondary mt-3 search-button">搜尋</button>
+          </div>
+        </form>
+        <div id="map" class="map">
+          <!-- 使用者定位按鈕 -->
+          <button type="button" id="locateButton" onclick="userLocate()">使用您的位置</button>
+        </div>
+      </div>
+
+      <div class="tertiary-content col">
+        <div class="tertiary-title">
+          <h1 class="tertiary-text">搜尋結果</h1>
+          <div class="title-line"></div>
+        </div>
+        <div class="store">
+          <!--商家-->
+          <div class="container-fluid store-body">
+            <div class="row">
+              <div class="store-img-group col-3">
+                <img class="store-img" src="images/store-map.JPG">
+              </div>
+              <div class="store-right col">
+                <h5 class="store-name">波赫士領地精品咖啡館 昌吉店 BorgesPlace 提拉米蘇 千層蛋糕</h5>
+                <div class="store-information row">
+                  <div class="col-5">
+                    <h5 class="rating">85<small class="rating-text">/綜合評分</small></h5>
+                    <h6 class="restaurant-style">分類: 餃子</h6>
+                    <h6 class="address">地址: <br>台北市 南京東路五段66巷12弄1號</h6>
+                  </div>
+                  <div class="progress-group-text col-5">
+                    <div class="progress-text col-2">
+                      <div class="progress-text" style="color: #B45F5F;">熱門</div>
+                      <div class="progress-text" style="color: #562B08;">環境</div>
+                      <div class="progress-text" style="color: #7B8F60;">產品</div>
+                      <div class="progress-text" style="color: #5053AF;">服務</div>
+                      <div class="progress-text" style="color: #C19237;">售價</div>
+                    </div>
+                    <div class="progress-group col">
+                      <div class="progress" role="progressbar" aria-label="Default example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar" style="width: 15%; background-color: #B45F5F;">15%</div>
+                      </div>
+                      <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar" style="width: 25%; background-color: #562B08;">25%</div>
+                      </div>
+                      <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar" style="width: 50%; background-color: #7B8F60;">50%</div>
+                      </div>
+                      <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar" style="width: 75%; background-color: #5053AF;">75%</div>
+                      </div>
+                      <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar" style="width: 100%; background-color: #C19237;">100%</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="quick-group col">
+                    <a class="love" href="#"><img class="love-img" src="images/love.png">最愛</a><br>
+                    <a class="map-link" href="#"><img class="map-link-img" src="images/map.png">地圖</a><br>
+                    <a class="web" href="#"><img class="web-img" src="images/web.png">官網</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--第二間商家-->
+          <div class="container-fluid store-body">
+            <div class="row">
+              <div class="store-img-group col-3">
+                <img class="store-img" src="images/store-map.JPG">
+              </div>
+              <div class="store-right col">
+                <h5 class="store-name">波赫士領地精品咖啡館 昌吉店 BorgesPlace 提拉米蘇 千層蛋糕</h5>
+                <div class="store-information row">
+                  <div class="col-5">
+                    <h5 class="rating">85<small class="rating-text">/綜合評分</small></h5>
+                    <h6 class="restaurant-style">分類: 餃子</h6>
+                    <h6 class="address">地址: <br>台北市 南京東路五段66巷12弄1號</h6>
+                  </div>
+                  <div class="progress-group-text col-5">
+                    <div class="progress-text col-2">
+                      <div class="progress-text" style="color: #B45F5F;">熱門</div>
+                      <div class="progress-text" style="color: #562B08;">環境</div>
+                      <div class="progress-text" style="color: #7B8F60;">產品</div>
+                      <div class="progress-text" style="color: #5053AF;">服務</div>
+                      <div class="progress-text" style="color: #C19237;">售價</div>
+                    </div>
+                    <div class="progress-group col">
+                      <div class="progress" role="progressbar" aria-label="Default example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar" style="width: 15%; background-color: #B45F5F;">15%</div>
+                      </div>
+                      <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar" style="width: 25%; background-color: #562B08;">25%</div>
+                      </div>
+                      <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar" style="width: 50%; background-color: #7B8F60;">50%</div>
+                      </div>
+                      <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar" style="width: 75%; background-color: #5053AF;">75%</div>
+                      </div>
+                      <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar" style="width: 100%; background-color: #C19237;">100%</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="quick-group col">
+                    <a class="love" href="#"><img class="love-img" src="images/love.png">最愛</a><br>
+                    <a class="map-link" href="#"><img class="map-link-img" src="images/map.png">地圖</a><br>
+                    <a class="web" href="#"><img class="web-img" src="images/web.png">官網</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="bottom">
+      台北商業大學 | 資訊管理系<br>
+      北商資管專題 113206 小組<br>
+      成員：鄧惠中、余奕博、邱綺琳、陳彥瑾
+      <en style="margin-right: 0.6em; float: right; font-size: 0.6em;">Copyright ©2024 All rights reserved.</en>
+    </div>
+  </footer>
+
+  <!-- 載入地圖框架 leaflet.js -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- 載入 leaflet.awesome-markers.min.js -->
+  <script src="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers/dist/leaflet.awesome-markers.min.js"></script>
+
+  <!-- 載入 Font Awesome Kit -->
+  <script src="https://kit.fontawesome.com/876a36192d.js" crossorigin="anonymous"></script>
+
+  <!-- 載入 Markercluster.js -->
+  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+
+  <!-- 載入JSON資料 data.json -->
+  <script src="API/data.json"></script>
+
+  <!-- 載入主程式 osm_map.js -->
+  <script src="API/osm_map.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

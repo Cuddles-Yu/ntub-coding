@@ -1,0 +1,272 @@
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+header {
+  border-bottom: 4px solid #838199;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 9999;
+}
+
+.wrapper-content{
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.header-content {
+  height: 80px;
+  padding-left: 30px;
+  padding-right: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-group {
+  font-size: xx-large;
+}
+
+.Logo {
+  width: 35px;
+  height: 50px;
+}
+
+.Logo-text {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.header-nav {
+  width: 680px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.link__text {
+  color: #424242;
+  text-decoration: none;
+  font-size: large;
+}
+
+.link__text:hover {
+  transition: all 0.2s;
+  color: black;
+}
+
+@media screen and (min-width: 1000px) {
+  .link__text:not(:last-child):after {
+    content: "";
+    border: 0.2px solid #C5C5C5;
+    height: 1px;
+    margin-left: 41px;
+  }
+}
+
+.member {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.member-icon {
+  width: 40px;
+  height: 40px;
+}
+
+@media screen and (max-width: 1000px) {
+  .member {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 15px;
+    flex: 1;
+  }
+
+  .wrapper-hambuger {
+    height: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+
+  .cross-button {
+    width: 30px;
+    height: 3px;
+    background-color: #424242;
+  }
+
+  .header-nav {
+    display: none;
+  }
+
+  .offcanvas-ul {
+    list-style: none;
+    text-align: center;
+  }
+
+  .offcanvas__text {
+    font-size: large;
+    color: #424242;
+    text-decoration: none;
+    list-style: none;
+    line-height: 4;
+  }
+}
+
+.secondary-content{
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.title-text{
+  margin-top: 30px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.search{
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.search-city{
+  width: 200PX;
+  position: relative;
+}
+
+.search-keyword{
+  width: 350px;
+  position: relative;
+  margin-left: 30px;
+  overflow-x: hidden;
+}
+
+.search-button{
+  position: relative;
+  margin-left: 30px;
+  margin-bottom: 15px;
+  color: white;
+  white-space: nowrap;
+}
+
+#map{
+  width: 100%;
+  height: 30vh;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.tertiary-content{
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
+}
+
+.restaurant-group{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  height: 60vh;
+  overflow-y: hidden;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.restaurant{
+  margin-top: 20px;
+}
+
+.card-title{
+  font-weight: bold;
+}
+
+.quick-group{
+  display: flex;
+}
+
+.love-text, .map-link-text, .web-text{
+  font-weight: bold;
+  color: #374957;
+  text-decoration: none;
+  white-space: nowrap;
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.love-img, .map-link-img, .web-img{
+  width: 20px;
+  margin-right: 3px;
+}
+
+.rating{
+  color: #AC3535;
+  font-weight: bold;
+}
+
+.rating-text{
+  font-size: xx-small;
+}
+
+.progress-group-text{
+  display: flex;
+  align-items: baseline;
+  text-align: left;
+}
+
+.progress-text{
+  flex-direction: column;
+  font-size: xx-small;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.progress{
+  margin-top: 5px;
+  height: 14px;
+  width: 100px;
+  margin-left: 10px;
+}
+
+.progress-bar{
+  align-items: baseline;
+  padding-left: 3px;
+}
+
+.restaurant-style, .address{
+  font-size: 0.8rem;
+  margin-top: 10px;
+}
+
+.bottom{
+  background-color: #485465;
+  height: 90px;
+  color: white;
+  padding: 15px 20px 20px 25px;
+  font-size: small;  
+}
+
+@media screen and (max-width: 1140px) {
+  .restaurant-group{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+}
+
+@media screen and (max-width: 573px) {
+  .restaurant-group{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
