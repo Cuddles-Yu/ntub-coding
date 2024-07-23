@@ -8,13 +8,12 @@ def fetch(connection, mode: str, sql):
     cursor = connection.cursor()
     try:
         cursor.execute(sql)
-        match mode.lower():
-            case 'all':
-                return cursor.fetchall()
-            case 'one':
-                return cursor.fetchone()
-            case _:
-                return None
+        if mode.lower() == 'all':
+            return cursor.fetchall()
+        elif mode.lower() == 'one':
+            return cursor.fetchone()
+        else:
+            return None
     except mysql.connector.Error as error:
         print(f'''\n執行時發生錯誤 = {{\n"錯誤指令": "{sql.strip()}",\n"錯誤資訊": "{error}"\n}}''')
     finally:

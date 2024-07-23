@@ -98,6 +98,9 @@ class Store:
     def get_tag(self):
         return self._tag
 
+    def get_name(self):
+        return self._name
+
     def change_state(self, connection, state, description) -> bool:
         if not self.exists(connection): return False
         mdb.update(connection, 'stores', f'crawler_state={transform(state)}, crawler_description={transform(description)}', f'name={self.name}')

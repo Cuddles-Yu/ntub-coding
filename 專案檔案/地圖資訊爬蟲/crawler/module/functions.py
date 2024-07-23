@@ -1,3 +1,8 @@
+import time
+
+import selenium.common.exceptions
+import random
+
 from 地圖資訊爬蟲.crawler.module.const import *
 
 import re
@@ -6,24 +11,27 @@ from 地圖資訊爬蟲.crawler.module.return_code import *
 from numpy import sin, cos, arccos, pi, round
 
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 
 def init_driver(url: str):
     options = webdriver.EdgeOptions()
+    options.add_argument('--disable-blink-features=AutomationControlled')
     options.add_experimental_option("detach", True)
     options.add_argument('--window-size=950,1020')
     # options.add_argument("--headless")  # 不顯示視窗
     driver = webdriver.Edge(options=options)
+    driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
     if url: driver.get(url)
     driver.set_window_position(x=970, y=10)
     return driver
 
 ### 函式 ###
 def crawler_exit(driver, connection):
-    driver.close()
-    connection.close()
+    if driver: driver.close()
+    if connection: connection.close()
     sys.exit(ReturnCode.Success)
 
 def to_bool(s: str) -> bool:
@@ -39,6 +47,9 @@ def deg2rad(degrees):
     radians = degrees * pi / 180
     return radians
 
+def random_delay(_min: float, _max: float, _decimals: int):
+    time.sleep(round(random.uniform(_min, _max), _decimals))
+
 def getDistanceBetweenPointsNew(coordinate1: list, coordinate2: list, unit='kilometers'):
     theta = coordinate1[1] - coordinate2[1]
     distance = 60 * 1.1515 * rad2deg(
@@ -47,14 +58,19 @@ def getDistanceBetweenPointsNew(coordinate1: list, coordinate2: list, unit='kilo
             (cos(deg2rad(coordinate1[0])) * cos(deg2rad(coordinate2[0])) * cos(deg2rad(theta)))
         )
     )
-    match unit:
-        case 'miles':
-            return round(distance, 2)
-        case 'kilometers':
-            return round(distance * 1.609344, 2)
+    if unit == 'miles':
+        return round(distance, 2)
+    elif 'kilometers':
+        return round(distance * 1.609344, 2)
 
 def keyword_filter(keyword: str):
-    return re.findall(r"[^,-_'&a-zA-Z\s\d]+", keyword)
+    return 1 < len(keyword) < MAXIMUM_KEYWORD_LENGTH and not only_pattern(r"\d+\s*元", keyword)
+
+def keyword_separator(keyword: str):
+    return re.findall(r"[^,-_'&a-zA-Zâéûêîôäëïöüáíóúàèñìòù\s\d]+", keyword)
+
+def only_pattern(pattern, keyword):
+    return re.sub(pattern, '', keyword).strip() == ''
 
 def limit_list(array, c) -> list:
     if c > 0:
@@ -73,12 +89,24 @@ def combine(str_array: list, separator: str) -> str:
 
 def wait_for_click(by, driver, value):
     try:
-        element = WebDriverWait(driver, MAXIMUM_WAITING).until(
+        WebDriverWait(driver, MAXIMUM_WAITING).until(
             ec.presence_of_element_located((by, value))
         )
+        element = driver.find_element(by, value)
         element.click()
         return element
-    except TimeoutException:
+    except Exception:
+        return None
+
+def wait_for_click_index(by, driver, value, index):
+    try:
+        WebDriverWait(driver, MAXIMUM_WAITING).until(
+            ec.presence_of_element_located((by, value))
+        )
+        element = driver.find_elements(by, value)[index-1]
+        element.click()
+        return element
+    except Exception as e:
         return None
 
 def wait_for_element(by, driver, value):
@@ -86,7 +114,7 @@ def wait_for_element(by, driver, value):
         element = WebDriverWait(driver, MAXIMUM_WAITING).until(
             ec.presence_of_element_located((by, value))
         )
-        return element
+        return driver.find_element(by, value)
     except TimeoutException:
         return None
 

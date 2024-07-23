@@ -1,4 +1,5 @@
 from 地圖資訊爬蟲.crawler.tables.base import *
+import 地圖資訊爬蟲.crawler.keyword_image as ki
 
 class Keyword:
     _store_id = 0
@@ -45,6 +46,15 @@ class Keyword:
 
     def exists(self, connection) -> bool:
         return mdb.is_value_exist(connection, 'keywords', 'word', self.word)
+
+    def is_recommend(self):
+        return self._source == 'recommend'
+
+    def insert_after_search(self, driver, connection, store_name):
+        image_url, source_url = ki.search(driver, store_name, self._word, self._store_id)
+        self._image_url = image_url
+        self._source_url = source_url
+        self.insert_if_not_exists(connection)
 
     def insert_if_not_exists(self, connection):
         if self._word.strip() == '': return

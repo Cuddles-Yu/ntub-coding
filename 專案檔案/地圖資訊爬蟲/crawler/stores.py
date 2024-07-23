@@ -54,6 +54,7 @@ def switch_to_order(order_type: str) -> bool:
 ### 主程式 ###
 # 連線資料庫
 connection = db.connect(use_database=True)
+if RESET_ASKING: db.ask_to_reset_database(connection)
 
 # 初始化 Driver
 driver = init_driver('https://www.google.com.tw/maps/preview')
@@ -74,10 +75,7 @@ if len(urls) == 0:
     while True:
         # 等待 Driver 瀏覽到指定頁面後，對搜尋框輸入關鍵字搜尋
         print(f'正在搜尋關鍵字 -> {SEARCH_KEYWORD}\n')
-        WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
-            ec.presence_of_element_located((By.CLASS_NAME, 'searchboxinput'))
-        )
-        search_box = driver.find_element(By.CLASS_NAME, 'searchboxinput')
+        search_box = wait_for_element(By.CLASS_NAME, driver, 'searchboxinput')
         search_box.send_keys(SEARCH_KEYWORD)
         search_box.send_keys(Keys.ENTER)
 
@@ -98,8 +96,7 @@ if len(urls) == 0:
             while True:
                 if len(driver.find_elements(By.CLASS_NAME, 'HlvSq')) > 0:
                     break
-                ActionChains(driver).move_to_element(
-                    container_search_result.find_elements(By.CLASS_NAME, 'Nv2PK')[-1]).perform()
+                ActionChains(driver).move_to_element(container_search_result.find_elements(By.CLASS_NAME, 'Nv2PK')[-1]).perform()
                 container_search_result.send_keys(Keys.PAGE_DOWN)
                 time.sleep(0.1)
                 # 檢查是否持續一段時間皆未出現新的結果(卡住)
@@ -345,6 +342,7 @@ for i in range(max_count):
 
     comment_items = []
     keywords_dict = {}
+    get_comments_type = ''
     if rate_item.total_reviews > 0:
         # 評論面板
         WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
@@ -357,8 +355,9 @@ for i in range(max_count):
             for keyword in commentContainer.find_elements(By.CLASS_NAME, 'e2moi'):
                 count = keyword.find_elements(By.CLASS_NAME, 'bC3Nkc')
                 if len(count) == 0: continue
-                kw = keyword.find_element(By.CLASS_NAME, 'uEubGf').text
-                if len(kw) > MAXIMUM_KEYWORD_LENGTH or not keyword_filter(kw): continue
+                kws = keyword_separator(keyword.find_element(By.CLASS_NAME, 'uEubGf').text)
+                kw = ''.join(kws)
+                if not kws or not keyword_filter(kw): continue
                 keywords_dict[kw] = (int(count[0].text), 'DEFAULT')
 
         if not switch_to_order(order_type='最相關'):
@@ -369,7 +368,6 @@ for i in range(max_count):
         # 紀錄爬取評論的等待時間
         start_time = time.time()
         # 滾動評論面板取得所有評論
-        get_comments_type = ''
         current_total_reviews_count = 0
         current_filtered_reviews_count = 0
         while True:
@@ -390,7 +388,7 @@ for i in range(max_count):
             current_total_reviews_count = len(total_reviews)
             current_filtered_reviews_count = len(filtered_reviews)
             current_total_withcomments = len(total_withcomments)
-            if time.time() - start_time > (MAXIMUM_TIMEOUT + (current_total_reviews_count ** 0.5) / 2):
+            if time.time() - start_time > (MAXIMUM_TIMEOUT + (current_total_reviews_count ** 0.5) * 0.8):
                 get_comments_type = 'timeout'
                 break
             # 按下「全文」以展開過長的評論內容
@@ -465,10 +463,12 @@ for i in range(max_count):
                         experience = []
                         for review_tag in line:
                             experience.append(review_tag.find_element(By.TAG_NAME, 'span').text)
-                        if experience[1]: dishes = keyword_filter(experience[1])
-                        if experience[0] in RECOMMEND_DISHES and dishes:
-                            for dish in dishes:
-                                keywords_dict[dish] = (keywords_dict.get(dish)[0]+1, 'recommend') if keywords_dict.get(dish) else (1, 'recommend')
+                        if experience[0] in RECOMMEND_DISHES:
+                            if experience[1]: dishes = keyword_separator(experience[1])
+                            if dishes:
+                                for dish in dishes:
+                                    if not keyword_filter(dish): continue
+                                    keywords_dict[dish] = (keywords_dict.get(dish)[0]+1, 'recommend') if keywords_dict.get(dish) else (1, 'recommend')
 
                 contents_element = total_samples[index].find_elements(By.CLASS_NAME, 'MyEned')
                 contents = contents_element[0].find_element(By.CLASS_NAME, 'wiI7pd').text if contents_element else None
@@ -536,16 +536,22 @@ for i in range(max_count):
             state=state[1]
         ).insert(connection)
     # 關鍵字
-    print(f'\r正在儲存關鍵字結構...', end='')
+    keyword_counter = 0
     for word, value in keywords_dict.items():
-        Keyword.Keyword(
+        keyword_counter += 1
+        print(f'\r正在儲存關鍵字結構({keyword_counter}/{len(keywords_dict.items())})...', end='')
+        keyword_item = Keyword.Keyword(
             store_id=store_id,
             word=word,
             count=value[0],
             source=value[1],
             image_url=None,
             source_url=None
-        ).insert_if_not_exists(connection)
+        )
+        if AUTO_SEARCH_IMAGE and keyword_item.is_recommend():
+            keyword_item.insert_after_search(driver, connection, store_item.get_name())
+        else:
+            keyword_item.insert_if_not_exists(connection)
     # 評論
     for index in range(len(comment_items)):
         print(f'\r正在儲存評論結構(%d/%d)...' % (index + 1, len(comment_items)), end='')

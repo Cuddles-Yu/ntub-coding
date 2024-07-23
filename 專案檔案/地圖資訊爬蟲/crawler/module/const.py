@@ -4,12 +4,14 @@ NAME = 'mapdb'
 USERNAME = 'root'
 PASSWORD = '11236018'
 
+RESET_ASKING = False
+
 ### 檔案儲存設定 ###
 URLS_FILE_NAME = 'urls.txt'
 
 ### 系統常數設定 ###
 SEARCH_CITY = '台北市'
-SEARCH_TYPE = '拉麵'
+SEARCH_TYPE = '中式餐廳'
 SEARCH_KEYWORD = SEARCH_CITY + ' ' + SEARCH_TYPE
 
 REF_LOCATION = False
@@ -17,6 +19,8 @@ REF_LOCATION = False
 REPAIR_DATA = False
 ENABLE_SCROLL_DOWN = True
 HAVE_TO_GET_ALL_RESULTS = False
+
+AUTO_SEARCH_IMAGE = True
 
 STORES_URLS = [
     # 'https://www.google.com.tw/maps/place/+/data=!3m2!4b1!5s0x3442a9660fccec7d:0x8d84c86f1a82e687!4m6!3m5!1s0x3442a966031f5799:0x35822d693796d1a1!8m2!3d25.0519063!4d121.5260228!16s%2Fg%2F1tc_nq74'
