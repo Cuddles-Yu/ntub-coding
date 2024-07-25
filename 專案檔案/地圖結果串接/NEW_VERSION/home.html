@@ -165,12 +165,51 @@
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 
   <!-- 載入JSON資料 data.json -->
-  <script src="API/data.json"></script>
+  <script src="./data.php"></script>
 
   <!-- 載入主程式 osm_map.js -->
-  <script src="API/osm_map.js"></script>
+  <script src="./osm_map.js"></script>
   <script src="scripts/ui-interactions.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- <script>
+    document.addEventListener('load', function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        fetch('popularStores.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('popularResults').innerHTML = data;
+        })
+        .catch(error => console.error('Error:', error));
+    });
+  </script> -->
+
+  <!-- 搜尋跳轉功能
+  <script>
+    document.getElementById('searchForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        fetch('search.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('searchResults').innerHTML = data;
+        })
+        .catch(error => console.error('Error:', error));
+    });
+    function navigateToDetail(element) {
+      var storeName = element.getAttribute('data-name');
+      window.location.href = '/store-detail2.php?name=' + encodeURIComponent(storeName);
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
+
 </body>
 
 </html>
