@@ -36,21 +36,21 @@ def trying(_driver, _store_name, _keyword, modes):
     for mode in modes:
         # 瀏覽器載入指定的連結
         _driver.get(search_url(_store_name, _keyword, mode))
-        random_delay(1, 5, 2)
+        random_delay(3, 10, 2)
         element = wait_for_click_index(By.CLASS_NAME, _driver, 'eA0Zlc', index=1)
-        random_delay(3, 5, 2)
+        random_delay(5, 15, 2)
         if element: return element
     return None
 
 def search(_driver, _store_name, _keyword, _store_id):
     search_result = trying(_driver, _store_name, _keyword, modes=['force', 'medium', 'normal', 'static'])
     if not search_result: return None, None
-    random_delay(1, 5, 2)
+    random_delay(3, 10, 2)
     # 取得來源與圖片連結
     image = wait_for_element(By.CLASS_NAME, _driver, 'YsLeY')
     image_url = image.find_element(By.TAG_NAME, 'img').get_attribute('src')
     source_url = image.get_attribute('href')
-    random_delay(3, 5, 2)
+    random_delay(5, 15, 2)
     if __name__ == "__main__": update(image_url, source_url, _store_id, _keyword)
     return image_url, source_url
 
