@@ -1,5 +1,5 @@
-import 地圖資訊爬蟲.crawler.module.modify_database as mdb
-from 地圖資訊爬蟲.crawler.module.core_database import *
+from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
+
 
 html_content = '''
 <!DOCTYPE html>
@@ -61,15 +61,12 @@ end = '''
 </html>
 '''
 
-connection = connect(use_database=True)
-if connection is None: exit()
-
-result = mdb.fetch(connection, 'all', '''
+database = SqlDatabase('mapdb', 'root', '11236018')
+result = database.fetch('all', '''
     SELECT name, word, image_url, source_url FROM stores AS s, keywords AS k
     WHERE s.id = k.store_id and source = 'recommend' and image_url IS NOT NULL
     ORDER BY count DESC
 ''')
-
 for i in range(len(result)):
     name, word, image_url, source_url = result[i]
     card = f'''
@@ -83,11 +80,8 @@ for i in range(len(result)):
         </div>
     '''
     html_content += card
-
 html_content += end
 
 with open('preview.html', 'w+', encoding='utf-8') as f:
     f.write(html_content)
-
-# 關閉資料庫連線階段
-connection.close()
+database.close()

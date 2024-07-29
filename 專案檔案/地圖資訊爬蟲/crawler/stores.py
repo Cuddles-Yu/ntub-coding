@@ -1,171 +1,85 @@
 ### 匯入模組 ###
-import time
 from datetime import datetime
 
-from module.functions import *
+from 地圖資訊爬蟲.crawler.module.functions.common import *
+from 地圖資訊爬蟲.crawler.module.functions.EdgeDriver import EdgeDriver
+from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
+from 地圖資訊爬蟲.crawler.tables.base import *
+from 地圖資訊爬蟲.crawler.tables import Store, Comment, Keyword, Location, Rate, Service, Tag, OpenHours
 
-# 資料表
-from tables import Administrator, Comment, Favorite, Keyword, Location, Member, Rate, Service, Store, Tag, OpenHours
-from tables.base import *
-
-# 資料庫操作
-from module.delete_database import *
-import module.create_database as db
-import module.modify_database as mdb
-
-# 網頁爬蟲
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as ec
-from selenium.webdriver.support.ui import WebDriverWait
 
-### 結構 ###
-ORDER_TYPE = {
-    '最相關': 0,
-    '最新': 1,
-    '評分最高': 2,
-    '評分最低': 3
-}
 
-def switch_to_order(order_type: str) -> bool:
-    print(f'\r正在切換至{order_type}評論...', end='')
-    # 功能按鈕 - 撰寫/查詢/[排序評論]
-    WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
-        ec.presence_of_element_located((By.CLASS_NAME, 'S9kvJb'))
-    )
-    function_buttons = driver.find_elements(By.CLASS_NAME, 'S9kvJb')
-    function_names = [button.get_attribute('data-value') for button in driver.find_elements(By.CLASS_NAME, 'S9kvJb')]
-    if '排序' not in function_names: return False
-    function_buttons[function_names.index('排序')].click()
-
-    # 排序選單 - 最相關/最新/評分最高/評分最低
-    WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
-        ec.presence_of_element_located((By.CLASS_NAME, 'kA9KIf'))
-    )
-    order_list = driver.find_elements(By.CLASS_NAME, 'fxNQSd')
-    order_list[ORDER_TYPE[order_type]].click()
-    WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
-        ec.presence_of_element_located((By.CLASS_NAME, 'jftiEf'))
-    )
-    return True
-
+### 初始化 ###
+database = SqlDatabase('mapdb', 'root', '11236018')
+driver = EdgeDriver(database, url='https://www.google.com.tw/maps/preview')
 
 ### 主程式 ###
-# 連線資料庫
-connection = db.connect(use_database=True)
-if RESET_ASKING: db.ask_to_reset_database(connection)
-
-# 初始化 Driver
-driver = init_driver('https://www.google.com.tw/maps/preview')
-
-if REPAIR_DATA:
-    urls = mdb.get_urls_from_incomplete_store(connection)
+if CONTINUE_CRAWLER:
+    urls = database.get_urls_from_incomplete_store()
     if not urls:
         print(f'查無需資料修復之商家，程式將自動結束...')
-        crawler_exit(driver, connection)
+        driver.exit()
     print(f'已開啟資料修復模式 -> 共{len(urls)}個')
 else:
     urls = STORES_URLS if STORES_URLS else []
+if urls: urls = to_map_url(urls)
 
-need_to_save_urls = len(urls) == 0
-print(f'資料將儲存至資料庫 -> {NAME}')
+print(f'資料將儲存至資料庫 -> {database.name}')
 
-if len(urls) == 0:
-    while True:
-        # 等待 Driver 瀏覽到指定頁面後，對搜尋框輸入關鍵字搜尋
-        print(f'正在搜尋關鍵字 -> {SEARCH_KEYWORD}\n')
-        search_box = wait_for_element(By.CLASS_NAME, driver, 'searchboxinput')
-        search_box.send_keys(SEARCH_KEYWORD)
-        search_box.send_keys(Keys.ENTER)
+### 查詢關鍵字後儲存查詢結果 ###
+if not urls:
+    print(f'正在搜尋關鍵字 -> {SEARCH_KEYWORD}\n')
+    driver.search_and_scroll(SEARCH_KEYWORD)
 
-        # 取得所有搜尋結果所在的'容器'物件
-        print('\r正在取得搜尋結果...(可能會花費較多時間)', end='')
-        WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
-            ec.presence_of_element_located((By.CLASS_NAME, 'Nv2PK'))
-        )
-        container_search_result = driver.find_element(By.XPATH, '/html/body/div[1]/div[3]/div[8]/div[9]/div/div/div[1]/div[2]/div/div[1]/div/div/div[1]/div[1]')
+### 主爬蟲 ###
+url_count = len(urls)
 
-        # 紀錄爬取評論的等待時間
-        start_time = time.time()
-        current_results = 0
-        finish_scroll = True
-
-        # 向下捲動瀏覽所有搜尋結果
-        if ENABLE_SCROLL_DOWN:
-            while True:
-                if len(driver.find_elements(By.CLASS_NAME, 'HlvSq')) > 0:
-                    break
-                ActionChains(driver).move_to_element(container_search_result.find_elements(By.CLASS_NAME, 'Nv2PK')[-1]).perform()
-                container_search_result.send_keys(Keys.PAGE_DOWN)
-                time.sleep(0.1)
-                # 檢查是否持續一段時間皆未出現新的結果(卡住)
-                results = driver.find_elements(By.CLASS_NAME, 'hfpxzc')
-                if current_results != len(results): start_time = time.time()
-                current_results = len(results)
-                if time.time() - start_time > MAXIMUM_TIMEOUT:
-                    finish_scroll = not HAVE_TO_GET_ALL_RESULTS
-                    break
-
-        if finish_scroll: break
-
-    element_search_title = driver.find_elements(By.CLASS_NAME, 'hfpxzc')
-    # 地圖連結
-    urls = [title.get_attribute('href') for title in element_search_title]
-
-# 主爬蟲
-urls = to_map_url(urls)
-max_count = len(urls)
-
-# 儲存本次查詢瀏覽連結(DEBUG)
-if need_to_save_urls:
-    print(f'\r正在儲存瀏覽連結 -> {URLS_FILE_NAME}', end='')
-    with open(URLS_FILE_NAME, 'w+', encoding='utf-8') as f:
-        contents = ''
-        for i in range(len(urls)):
-            contents += f'{str(i + 1).zfill(len(str(len(urls))))} | {urls[i]}\n'
-        f.write(contents)
-
-for i in range(max_count):
+print(f'\r正在準備爬取所有商家連結資料...\n')
+for i in range(url_count):
+    START_TIME = datetime.now()
     # 瀏覽器載入指定的商家地圖連結
     driver.get(urls[i])
     # 直到商家名稱顯示(無最大等候時間)
     while True:
-        WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
-            ec.presence_of_element_located((By.CLASS_NAME, 'DUwDvf'))
-        )
         # 地點名稱
-        title = driver.find_element(By.CLASS_NAME, 'DUwDvf').text
-        if REPAIR_DATA: reset_store(connection, title)
+        title = driver.wait_for_text(By.CLASS_NAME, 'DUwDvf')
         if title.strip() != '': break
         time.sleep(0.1)
 
-    # 確認是否為特殊商家
-    # if wait_for_element(By.CLASS_NAME, driver, 'J8zHNe') is not None:
-    #     print(f'\r【🌟特殊性】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title}\n', end='')
-    #     continue
-
     store_item = Store.newObject(title, urls[i])
+    store_item._crawler_state = '基本'
+
+    # 讀取標籤按鈕
+    tabs_elem, tabs_name = driver.get_tabs()
+    if tabs_elem is None:
+        print(f'\r【🆖無標籤】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | {title}\n', end='')
+        continue
+
+    # 確認是否為特殊商家
+    if '價格' in tabs_name:
+        print(f'\r【💎特殊性】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | {title}\n', end='')
+        store_item._crawler_state = '特殊'
+        store_item._crawler_description = '結合飯店住宿服務'
+        store_item.update_if_exists(database)
+        continue
+    else:
+        store_item._crawler_state = '基本'
 
     ### 檢查資料庫中是否已經存在指定的商家 ###
     is_repairing = False
-    if store_item.exists(connection):
-        crawler_state, crawler_description = store_item.get_state(connection)
-        match crawler_state:
-            case '成功' | '抽樣' | '超時':
-                print(f'\r【⭐已存在】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title} ({crawler_state})\n', end='')
-                continue
-            case '建立':
-                print(f'\r正在準備重新爬取資料...', end='')
-                reset_store(connection, store_item.name)
-            case _:
-                is_repairing = True
-                print(f'\r正在移除不完整的資料...', end='')
-                reset_store(connection, store_item.name)
-
-            # print(f'\r【🌐參照點】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title}\n', end='')
-
-    START_TIME = datetime.now()
+    if store_item.exists(database):
+        crawler_state, crawler_description = store_item.get_state(database)
+        if crawler_description is None:
+            # '建立' | '基本'
+            print(f'\r正在準備重新爬取資料...', end='')
+            store_item.reset(database)
+        else:
+            # '成功' | '抽樣' | '超時' | '特殊'
+            print(f'\r【⭐已存在】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | {title} ({crawler_state})\n', end='')
+            continue
+        # print(f'\r【🌐參照點】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title}\n', end='')
 
     ### 營業資訊標籤 ###
     print('\r正在取得營業資訊...', end='')
@@ -176,7 +90,7 @@ for i in range(max_count):
     ]
     if filtered_tags: filtered_tags[0].click()
     # 取得營業資訊
-    open_hours_tag = wait_for_element(By.CLASS_NAME, driver, 'OqCZI')
+    open_hours_tag = driver.wait_for_element(By.CLASS_NAME, 'OqCZI')
     open_hours_dict = {}
     if open_hours_tag:
         # 更新時間
@@ -200,17 +114,13 @@ for i in range(max_count):
             if not open_hours_list and open_hour_info:
                 if '24 小時營業' in open_hour_info[0].text: open_hours_list.append({'open': '00:00', 'close': '24:00'})
             open_hours_dict[day_of_week] = open_hours_list if open_hours_list else None
-    if filtered_tags: wait_for_click(By.CLASS_NAME, driver, 'hYBOP')  # 返回
+    if filtered_tags: driver.wait_for_click(By.CLASS_NAME, 'hYBOP')  # 返回
 
-    # 讀取標籤按鈕
-    if wait_for_element(By.CLASS_NAME, driver, 'RWPxGd') is None:
-        print(f'\r【🆖無標籤】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title}\n', end='')
-        continue
-    tabs = driver.find_element(By.CLASS_NAME, 'RWPxGd').find_elements(By.CLASS_NAME, 'hh2c6')
-    tabs_name = [tab.find_element(By.CLASS_NAME, 'Gpq6kf').text for tab in tabs]
+    # 重新讀取標籤按鈕
+    tabs_elem, tabs_name = driver.get_tabs()
 
     # 標籤按鈕 - [總覽]/評論/簡介
-    if '總覽' in tabs_name: tabs[tabs_name.index('總覽')].click()
+    if '總覽' in tabs_name: driver.click_element(tabs_elem[tabs_name.index('總覽')])
 
     rate_item = Rate.newObject()
     location_item = Location.newObject()
@@ -220,11 +130,12 @@ for i in range(max_count):
     if len(store_state) > 0:
         store_item._tag = store_state[0].text
     else:
-        store_tag = wait_for_element(By.CLASS_NAME, driver, 'DkEaL')
+        store_tag = driver.wait_for_element_list(By.CLASS_NAME, ['DkEaL', 'mgr77e'])
         store_item._tag = store_tag.text if store_tag else None
     # 可能為永久歇業/暫時關閉
     if any(pass_tag in store_item.get_tag() for pass_tag in PASS_TAGS):
-        print(f'\r【⛔休業中】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title}\n', end='')
+        print(f'\r【⛔休業中】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | {title}\n', end='')
+        store_item.change_state(database, '休業', '')
         continue
 
     ### 取得標籤資訊 ###
@@ -235,9 +146,6 @@ for i in range(max_count):
         '電話號碼': None,
         'Plus Code': None
     }
-    WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
-        ec.presence_of_element_located((By.CLASS_NAME, 'lfPIob'))
-    )
     tags = driver.find_elements(By.CLASS_NAME, 'RcCsl')
     for tag in tags:
         items = tag.find_elements(By.CLASS_NAME, 'CsEnBe')
@@ -259,7 +167,7 @@ for i in range(max_count):
         location_item._dist = district
         location_item._details = detail
     else:
-        print(f'\r【🗺️無地址】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title}\n', end='')
+        print(f'\r【🗺️無地址】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | {title}\n', end='')
         continue
 
     if labels['Plus Code']:
@@ -267,33 +175,25 @@ for i in range(max_count):
         location_item._vil = village.group() if village else None
 
     if TARGET_CITY != '' and location_item.get_city() == TARGET_CITY:
-        print(f'\r【🌍範圍外】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title}\n', end='')
+        print(f'\r【🌍範圍外】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | {title}\n', end='')
         continue
 
     ### 商家相片 ###
     print('\r正在取得商家相片...', end='')
-    WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
-        ec.presence_of_element_located((By.CLASS_NAME, 'ZKCDEc'))
-    )
-    store_img1 = driver.find_elements(By.CLASS_NAME, 'ZKCDEc')
-    WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
-        ec.presence_of_element_located((By.CLASS_NAME, 'aoRNLd'))
-    )
-    store_img2 = store_img1[0].find_elements(By.CLASS_NAME, 'aoRNLd')
-    WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
-        ec.presence_of_element_located((By.TAG_NAME, 'img'))
-    )
-    store_img3 = store_img2[0].find_element(By.TAG_NAME, 'img')
-    store_item._preview_image = store_img3.get_attribute('src') if len(store_img1) > 0 else None
+    store_img = driver.wait_for_element(By.CLASS_NAME, 'aoRNLd')
+    if store_img: store_item._preview_image = store_img.find_element(By.TAG_NAME, 'img').get_attribute('src')
+    if not store_img:
+        print('沒有商家相片(不可能)')
+        exit()
 
     ### 服務項目 ###
     print('\r正在取得服務項目...', end='')
     service_dict = {}
     if '簡介' in tabs_name:
         # 標籤按鈕 - 總覽/評論/[簡介]
-        tabs[tabs_name.index('簡介')].click()
+        tabs_elem[tabs_name.index('簡介')].click()
         # 商家簡介 (選擇性)
-        description = wait_for_element(By.CLASS_NAME, driver, 'PbZDve')
+        description = driver.wait_for_element(By.CLASS_NAME, 'PbZDve')
         if description: store_item._description = description.find_element(By.CLASS_NAME, 'ZqFyf').find_element(By.TAG_NAME, 'span').text
         # 服務類別
         for category in driver.find_elements(By.CLASS_NAME, 'iP2t7d'):
@@ -309,35 +209,34 @@ for i in range(max_count):
         tag_item = Tag.Tag(
             tag=store_item.get_tag(),
             category=None
-        ).insert_if_not_exists(connection)
+        ).insert_if_not_exists(database)
 
     ### 儲存商家資料，並取得其 store_id ###
     try:
-        store_item.update_if_exists(connection)
+        store_item.update_if_exists(database)
     except Exception as e:
-        print(f'\r【❌已失敗】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {e} - {title}\n', end='')
+        print(f'\r【❌已失敗】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | {e} - {title}\n', end='')
         continue
-    store_id = store_item.get_id(connection)
+    store_id = store_item.get_id(database)
     rate_item._store_id = store_id
     location_item._store_id = store_id
 
     # 標籤按鈕 - 總覽/[評論]/簡介
     print('\r正在取得商家評論...', end='')
     if '評論' in tabs_name:
-        tabs[tabs_name.index('評論')].click()
+        tabs_elem[tabs_name.index('評論')].click()
         # 取得評論星級
-        rating = wait_for_element(By.CLASS_NAME, driver, 'jANrlb')
+        rating = driver.wait_for_element(By.CLASS_NAME, 'jANrlb')
         if rating:
             rate_item._avg_rating = float(rating.find_element(By.CLASS_NAME, 'fontDisplayLarge').text)
             rate_item._total_reviews = int(''.join(re.findall(r'\d+', rating.find_element(By.CLASS_NAME, 'fontBodySmall').text)))
 
     if rate_item.total_reviews == 0:
-        print(f'\r【📝無評論】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title}\n', end='')
-        store_item.change_state(connection, '失敗', '評論總數為零')
-
-    if rate_item.total_reviews < MINIMUM_SAMPLES:
-        print(f'\r【❌已失敗】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | 評論總數低於最低樣本數 - {title}\n', end='')
-        store_item.change_state(connection, '失敗', '評論總數不足')
+        print(f'\r【📝無評論】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | {title}\n', end='')
+        store_item.change_state(database, '失敗', '評論總數為零')
+    elif rate_item.total_reviews < MINIMUM_SAMPLES:
+        print(f'\r【❌已失敗】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | 評論總數低於最低樣本數 - {title}\n', end='')
+        store_item.change_state(database, '失敗', '評論總數不足')
         continue
 
     comment_items = []
@@ -345,12 +244,9 @@ for i in range(max_count):
     get_comments_type = ''
     if rate_item.total_reviews > 0:
         # 評論面板
-        WebDriverWait(driver, MAXIMUM_TIMEOUT).until(
-            ec.presence_of_element_located((By.CLASS_NAME, 'dS8AEf'))
-        )
-        commentContainer = driver.find_element(By.CLASS_NAME, 'dS8AEf')
+        commentContainer = driver.wait_for_element(By.CLASS_NAME, 'dS8AEf')
         # 取得關鍵字
-        keywords_elements = wait_for_element(By.CLASS_NAME, driver, 'e2moi')
+        keywords_elements = driver.wait_for_element(By.CLASS_NAME, 'e2moi')
         if keywords_elements:
             for keyword in commentContainer.find_elements(By.CLASS_NAME, 'e2moi'):
                 count = keyword.find_elements(By.CLASS_NAME, 'bC3Nkc')
@@ -360,9 +256,9 @@ for i in range(max_count):
                 if not kws or not keyword_filter(kw): continue
                 keywords_dict[kw] = (int(count[0].text), 'DEFAULT')
 
-        if not switch_to_order(order_type='最相關'):
-            print(f'\r【❌已失敗】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | 最相關留言切換失敗 - {title}\n', end='')
-            store_item.change_state(connection, '失敗', '最相關留言切換失敗')
+        if not driver.switch_to_order(order_type='最相關'):
+            print(f'\r【❌已失敗】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | 最相關留言切換失敗 - {title}\n', end='')
+            store_item.change_state(database, '失敗', '最相關留言切換失敗')
             continue
 
         # 紀錄爬取評論的等待時間
@@ -371,7 +267,7 @@ for i in range(max_count):
         current_total_reviews_count = 0
         current_filtered_reviews_count = 0
         while True:
-            ActionChains(driver).move_to_element(commentContainer.find_elements(By.CLASS_NAME, 'jftiEf')[-1]).perform()
+            driver.move_to_element(commentContainer.find_elements(By.CLASS_NAME, 'jftiEf')[-1])
             commentContainer.send_keys(Keys.PAGE_DOWN)
             total_reviews = commentContainer.find_elements(By.CLASS_NAME, 'jftiEf')
             filtered_reviews = [
@@ -428,8 +324,8 @@ for i in range(max_count):
         rate_item._additionalcomments_count = len(additional_comments)
 
         if rate_item.total_samples < MINIMUM_SAMPLES:
-            print(f'\r【❌已失敗】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | 評論樣本少於最低需求{MINIMUM_SAMPLES}個 - {title}\n', end='')
-            store_item.change_state(connection, '失敗', '評論樣本不足')
+            print(f'\r【❌已失敗】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | 評論樣本少於最低需求{MINIMUM_SAMPLES}個 - {title}\n', end='')
+            store_item.change_state(database, '失敗', '評論樣本不足')
             continue
 
         # 提取評論內容
@@ -440,13 +336,8 @@ for i in range(max_count):
                 print(f'\r正在提取所有評論內容({index}/{len(total_samples)})...', end='')
                 score = 0
                 comment_time = ''
-                if total_samples[index].find_elements(By.CLASS_NAME, 'kvMYJc'):
-                    score = int(total_samples[index].find_element(By.CLASS_NAME, 'kvMYJc').get_attribute('aria-label').split(' ')[0])
-                    comment_time = total_samples[index].find_element(By.CLASS_NAME, 'rsqaWe').text
-                else:
-                    print('特殊狀況')
-                    score = int(total_samples[index].find_element(By.CLASS_NAME, 'fzvQIb').text.split('/')[0])
-                    comment_time = total_samples[index].find_element(By.CLASS_NAME, 'xRkPPb').text.split('(')[0].strip()
+                score = int(total_samples[index].find_element(By.CLASS_NAME, 'kvMYJc').get_attribute('aria-label').split(' ')[0])
+                comment_time = total_samples[index].find_element(By.CLASS_NAME, 'rsqaWe').text
                 level = re.search(r'ba(?P<level>\d+)', total_samples[index].find_element(By.CLASS_NAME, 'NBa7we').get_attribute('src'))
                 # 取得留言結構
                 user_experiences_dict = {}
@@ -518,14 +409,14 @@ for i in range(max_count):
                     day_of_week=day_of_week,
                     open_time=open_time['open'],
                     close_time=open_time['close']
-                ).insert(connection)
+                ).insert(database)
         else:
             openhours_item = OpenHours.OpenHours(
                 store_id=store_id,
                 day_of_week=day_of_week,
                 open_time=None,
                 close_time=None
-            ).insert(connection)
+            ).insert(database)
     # 服務
     print('\r正在儲存服務項目結構...', end='')
     for properties, state in service_dict.items():
@@ -534,7 +425,7 @@ for i in range(max_count):
             properties=properties,
             category=state[0],
             state=state[1]
-        ).insert(connection)
+        ).insert(database)
     # 關鍵字
     keyword_counter = 0
     for word, value in keywords_dict.items():
@@ -549,19 +440,19 @@ for i in range(max_count):
             source_url=None
         )
         if AUTO_SEARCH_IMAGE and keyword_item.is_recommend():
-            keyword_item.insert_after_search(driver, connection, store_item.get_name())
+            keyword_item.insert_after_search(driver, database, store_item.get_name())
         else:
-            keyword_item.insert_if_not_exists(connection)
+            keyword_item.insert_if_not_exists(database)
     # 評論
     for index in range(len(comment_items)):
         print(f'\r正在儲存評論結構(%d/%d)...' % (index + 1, len(comment_items)), end='')
-        comment_items[index].insert(connection)
+        comment_items[index].insert(database)
     # 評分
     print('\r正在儲存評分資料...', end='')
-    rate_item.insert_if_not_exists(connection)
+    rate_item.insert_if_not_exists(database)
     # 地點
     print('\r正在儲存地點資料...', end='')
-    location_item.insert_if_not_exists(connection)
+    location_item.insert_if_not_exists(database)
 
     # 計算時間差
     TIME_DIFFERENCE = datetime.now() - START_TIME
@@ -571,25 +462,25 @@ for i in range(max_count):
     match get_comments_type:
         case 'all':
             if is_repairing:
-                print(f'\r【🛠️已修復】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | 耗時:{MINUTES_ELAPSE:.2f}分鐘 | {title} ({rate_item.total_reviews})\n', end='')
-                store_item.change_state(connection, '成功', '取得完整資料(修復)')
+                print(f'\r【🛠️已修復】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | 耗時:{MINUTES_ELAPSE:.2f}分鐘 | {title} ({rate_item.total_reviews})\n', end='')
+                store_item.change_state(database, '成功', '取得完整資料(修復)')
             else:
-                print(f'\r【✅已完成】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | 耗時:{MINUTES_ELAPSE:.2f}分鐘 | {title} ({rate_item.total_reviews})\n', end='')
-                store_item.change_state(connection, '成功', '取得完整資料')
+                print(f'\r【✅已完成】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | 耗時:{MINUTES_ELAPSE:.2f}分鐘 | {title} ({rate_item.total_reviews})\n', end='')
+                store_item.change_state(database, '成功', '取得完整資料')
         case 'sample':
             if is_repairing:
-                print(f'\r【🛠️已修復】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | 耗時:{MINUTES_ELAPSE:.2f}分鐘 | {title} ({rate_item.total_reviews})\n', end='')
-                store_item.change_state(connection, '抽樣', '取得樣本資料(修復)')
+                print(f'\r【🛠️已修復】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | 耗時:{MINUTES_ELAPSE:.2f}分鐘 | {title} ({rate_item.total_reviews})\n', end='')
+                store_item.change_state(database, '抽樣', '取得樣本資料(修復)')
             else:
-                print(f'\r【📝已抽樣】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | 耗時:{MINUTES_ELAPSE:.2f}分鐘 | {title} ({rate_item.total_samples}/{rate_item.total_reviews})\n', end='')
-                store_item.change_state(connection, '抽樣', '取得樣本資料')
+                print(f'\r【📝已抽樣】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | 耗時:{MINUTES_ELAPSE:.2f}分鐘 | {title} ({rate_item.total_samples}/{rate_item.total_reviews})\n', end='')
+                store_item.change_state(database, '抽樣', '取得樣本資料')
         case 'timeout':
-            print(f'\r【⏱️已超時】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | 耗時:{MINUTES_ELAPSE:.2f}分鐘 | {title} (留言:{current_total_withcomments}/過濾:{current_filtered_reviews_count}/瀏覽:{current_total_reviews_count}/總共:{rate_item.total_reviews})\n', end='')
-            store_item.change_state(connection, '超時', '超出爬蟲時間限制')
+            print(f'\r【⏱️已超時】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | 耗時:{MINUTES_ELAPSE:.2f}分鐘 | {title} (留言:{current_total_withcomments}/過濾:{current_filtered_reviews_count}/瀏覽:{current_total_reviews_count}/總共:{rate_item.total_reviews})\n', end='')
+            store_item.change_state(database, '超時', '超出爬蟲時間限制')
 
     # driver.close()
     # driver.switch_to.window(driver.window_handles[0])
     driver.refresh()
 
 print('\r已儲存所有搜尋結果的資料！', end='')
-crawler_exit(driver, connection)
+driver.exit()

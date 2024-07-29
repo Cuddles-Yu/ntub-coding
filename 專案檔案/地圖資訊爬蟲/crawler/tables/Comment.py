@@ -1,4 +1,5 @@
 from 地圖資訊爬蟲.crawler.tables.base import *
+from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
 
 class Comment:
     _store_id = 0
@@ -91,5 +92,5 @@ class Comment:
     def to_string(self):
         return f"({self.store_id}, {self.index}, {self.contents}, {self.has_image}, {self.time}, {self.rating}, {self.food_rating}, {self.service_rating}, {self.atmosphere_rating}, {self.contributor_level}, {self.environment_state}, {self.price_state}, {self.product_state}, {self.service_state})"
 
-    def insert(self, connection):
-        mdb.add(connection, 'comments', self.to_string())
+    def insert(self, database: SqlDatabase):
+        database.add('comments', self.to_string())

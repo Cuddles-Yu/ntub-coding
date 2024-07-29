@@ -1,4 +1,5 @@
 from 地圖資訊爬蟲.crawler.tables.base import *
+from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
 
 class Administrator:
     _email = ''
@@ -27,8 +28,8 @@ class Administrator:
     def to_string(self):
         return f"({self.id}, {self.email}, {self.password}, {self.create_time})"
 
-    def exists(self, connection) -> bool:
-        return mdb.is_value_exist(connection, 'administrators', 'email', self.email)
+    def exists(self, database: SqlDatabase) -> bool:
+        return database.is_value_exist('administrators', 'email', self.email)
 
-    def insert_if_not_exists(self, connection):
-        if not self.exists(connection): mdb.add(connection, 'administrators', self.to_string())
+    def insert_if_not_exists(self, database: SqlDatabase):
+        if not self.exists(database): database.add('administrators', self.to_string())

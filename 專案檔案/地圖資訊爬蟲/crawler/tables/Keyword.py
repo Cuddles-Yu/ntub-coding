@@ -1,5 +1,6 @@
 from 地圖資訊爬蟲.crawler.tables.base import *
 import 地圖資訊爬蟲.crawler.keyword_image as ki
+from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
 
 class Keyword:
     _store_id = 0
@@ -44,18 +45,18 @@ class Keyword:
     def to_string(self):
         return f"({self.store_id}, {self.word}, {self.count}, {self.source}, {self.image_url}, {self.source_url})"
 
-    def exists(self, connection) -> bool:
-        return mdb.is_value_exist(connection, 'keywords', 'word', self.word)
+    def exists(self, database: SqlDatabase) -> bool:
+        return database.is_value_exist('keywords', 'word', self.word)
 
     def is_recommend(self):
         return self._source == 'recommend'
 
-    def insert_after_search(self, driver, connection, store_name):
+    def insert_after_search(self, driver, database: SqlDatabase, store_name):
         image_url, source_url = ki.search(driver, store_name, self._word, self._store_id)
         self._image_url = image_url
         self._source_url = source_url
-        self.insert_if_not_exists(connection)
+        self.insert_if_not_exists(database)
 
-    def insert_if_not_exists(self, connection):
+    def insert_if_not_exists(self, database: SqlDatabase):
         if self._word.strip() == '': return
-        if not self.exists(connection): mdb.add(connection, 'keywords', self.to_string())
+        if not self.exists(database): database.add('keywords', self.to_string())

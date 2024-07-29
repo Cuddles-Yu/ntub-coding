@@ -1,4 +1,5 @@
 from 地圖資訊爬蟲.crawler.tables.base import *
+from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
 
 def newObject():
     return Location(
@@ -70,8 +71,8 @@ class Location:
     def get_city(self):
         return self._city
 
-    def exists(self, connection) -> bool:
-        return mdb.is_value_exist(connection, 'locations', 'store_id', self.store_id)
+    def exists(self, database: SqlDatabase) -> bool:
+        return database.is_value_exist('locations', 'store_id', self.store_id)
 
-    def insert_if_not_exists(self, connection):
-        if not self.exists(connection): mdb.add(connection, 'locations', self.to_string())
+    def insert_if_not_exists(self, database: SqlDatabase):
+        if not self.exists(database): database.add('locations', self.to_string())

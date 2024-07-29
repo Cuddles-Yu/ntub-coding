@@ -1,4 +1,5 @@
 from 地圖資訊爬蟲.crawler.tables.base import *
+from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
 
 class Favorite:
     _user_id = 0
@@ -23,5 +24,5 @@ class Favorite:
     def to_string(self):
         return f"({self.user_id}, {self.store_id}, {self.create_time})"
 
-    def insert(self, connection):
-        mdb.add(connection, 'favorites', self.to_string())
+    def insert(self, database: SqlDatabase):
+        database.add('favorites', self.to_string())

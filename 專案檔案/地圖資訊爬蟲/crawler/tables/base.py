@@ -1,5 +1,3 @@
-import 地圖資訊爬蟲.crawler.module.modify_database as mdb
-
 # 常數宣告
 MAP_URL = 'https://www.google.com.tw/maps/place/+/'
 

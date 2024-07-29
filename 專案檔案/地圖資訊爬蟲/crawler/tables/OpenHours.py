@@ -1,4 +1,5 @@
 from 地圖資訊爬蟲.crawler.tables.base import *
+from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
 
 class OpenHours:
     _store_id = 0
@@ -35,5 +36,5 @@ class OpenHours:
     def to_string(self):
         return f"({self.id}, {self.store_id}, {self.day_of_week}, {self.open_time}, {self.close_time})"
 
-    def insert(self, connection):
-        mdb.add(connection, 'openhours', self.to_string())
+    def insert(self, database: SqlDatabase):
+        database.add('openhours', self.to_string())

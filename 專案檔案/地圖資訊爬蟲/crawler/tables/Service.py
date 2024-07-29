@@ -1,4 +1,5 @@
 from 地圖資訊爬蟲.crawler.tables.base import *
+from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
 
 class Service:
     _store_id = 0
@@ -35,5 +36,5 @@ class Service:
     def to_string(self):
         return f"({self.id}, {self.store_id}, {self.properties}, {self.category}, {self.state})"
 
-    def insert(self, connection):
-        mdb.add(connection, 'services', self.to_string())
+    def insert(self, database: SqlDatabase):
+        database.add('services', self.to_string())

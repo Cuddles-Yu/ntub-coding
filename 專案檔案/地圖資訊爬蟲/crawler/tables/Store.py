@@ -1,4 +1,5 @@
 from 地圖資訊爬蟲.crawler.tables.base import *
+from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
 
 def newObject(title, url):
     return Store(
@@ -13,6 +14,63 @@ def newObject(title, url):
         crawler_state='DEFAULT',
         crawler_description=None
     )
+
+def reset(database: SqlDatabase, store_name: str) -> str:
+    cursor = database.connection.cursor()
+    store_item = Reference(name=store_name)
+    sid = store_item.get_id(database)
+    if sid is not None:
+        cursor.execute(f'''
+            DELETE FROM `comments` WHERE `store_id` = '{sid}';
+        ''')
+        cursor.execute(f'''
+            DELETE FROM `services` WHERE `store_id` = '{sid}';
+        ''')
+        cursor.execute(f'''
+            DELETE FROM `keywords` WHERE `store_id` = '{sid}';
+        ''')
+        cursor.execute(f'''
+            DELETE FROM `locations` WHERE `store_id` = '{sid}';
+        ''')
+        cursor.execute(f'''
+            DELETE FROM `rates` WHERE `store_id` = '{sid}';
+        ''')
+        cursor.execute(f'''
+            DELETE FROM `openhours` WHERE `store_id` = '{sid}';
+        ''')
+        database.connection.commit()  # 提交修改
+        store_item.change_state(database, '建立', None)
+    cursor.close()
+    return sid
+
+def delete(database: SqlDatabase, store_name: str) -> str:
+    cursor = database.connection.cursor()
+    sid = Reference(name=store_name).get_id(database)
+    if sid is not None:
+        cursor.execute(f'''
+            DELETE FROM `comments` WHERE `store_id` = '{sid}';
+        ''')
+        cursor.execute(f'''
+            DELETE FROM `services` WHERE `store_id` = '{sid}';
+        ''')
+        cursor.execute(f'''
+            DELETE FROM `keywords` WHERE `store_id` = '{sid}';
+        ''')
+        cursor.execute(f'''
+            DELETE FROM `locations` WHERE `store_id` = '{sid}';
+        ''')
+        cursor.execute(f'''
+            DELETE FROM `rates` WHERE `store_id` = '{sid}';
+        ''')
+        cursor.execute(f'''
+            DELETE FROM `openhours` WHERE `store_id` = '{sid}';
+        ''')
+        cursor.execute(f'''
+            DELETE FROM `stores` WHERE `id` = '{sid}';
+        ''')
+        database.connection.commit()  # 提交修改
+    cursor.close()
+    return sid
 
 class Store:
     _name = ''
@@ -80,7 +138,7 @@ class Store:
 
     @property
     def crawler_description(self):
-        return transform(self._crawler_state)
+        return transform(self._crawler_description)
 
     @property
     def crawler_time(self):
@@ -90,10 +148,10 @@ class Store:
         return f"({self.id}, {self.name}, {self.description}, {self.tag}, {self.preview_image}, {self.link}, {self.website}, {self.phone_number}, {self.last_update}, {self.crawler_state}, {self.crawler_description}, {self.crawler_time})"
 
     def to_value(self):
-        return f"description={self.description}, tag={self.tag}, preview_image={self.preview_image}, link={self.link}, website={self.website}, phone_number={self.phone_number}, last_update={self.last_update}"
+        return f"description={self.description}, tag={self.tag}, preview_image={self.preview_image}, link={self.link}, website={self.website}, phone_number={self.phone_number}, last_update={self.last_update}, crawler_state={self.crawler_state}, crawler_description={self.crawler_description}"
 
-    def get_id(self, connection):
-        return mdb.get_value(connection, 'id', 'stores', 'name', self.name)
+    def get_id(self, database: SqlDatabase):
+        return database.get_value('id', 'stores', 'name', self.name)
 
     def get_tag(self):
         return self._tag
@@ -101,26 +159,34 @@ class Store:
     def get_name(self):
         return self._name
 
-    def change_state(self, connection, state, description) -> bool:
-        if not self.exists(connection): return False
-        mdb.update(connection, 'stores', f'crawler_state={transform(state)}, crawler_description={transform(description)}', f'name={self.name}')
+    def change_state(self, database: SqlDatabase, state, description) -> bool:
+        if not self.exists(database): return False
+        database.update('stores', f'crawler_state={transform(state)}, crawler_description={transform(description)}', f'name={self.name}')
         return True
 
-    def exists(self, connection) -> bool:
-        return mdb.is_value_exist(connection, 'stores', 'name', self.name)
+    def exists(self, database: SqlDatabase) -> bool:
+        return database.is_value_exist('stores', 'name', self.name)
 
-    def get_state(self, connection) -> (str, str):
+    def get_state(self, database: SqlDatabase) -> (str, str):
         return (
-            mdb.get_value(connection, 'crawler_state', 'stores', 'name', self.name),
-            mdb.get_value(connection, 'crawler_description', 'stores', 'name', self.name)
+            database.get_value('crawler_state', 'stores', 'name', self.name),
+            database.get_value('crawler_description', 'stores', 'name', self.name)
         )
 
-    def update_if_exists(self, connection):
-        if not self.exists(connection):
-            mdb.add(connection, 'stores', self.to_string())
-        else:
-            mdb.update(connection, 'stores', self.to_value(), f'name={self.name}')
+    def insert_if_not_exists(self, database: SqlDatabase):
+        if not self.exists(database): database.add('stores', self.to_string())
 
+    def update_if_exists(self, database: SqlDatabase):
+        if not self.exists(database):
+            database.add('stores', self.to_string())
+        else:
+            database.update('stores', self.to_value(), f'name={self.name}')
+
+    def reset(self, database: SqlDatabase):
+        return reset(database, self.name)
+
+    def delete(self, database: SqlDatabase):
+        return delete(database, self.name)
 
 class Reference(Store):
     def __init__(self, name):
