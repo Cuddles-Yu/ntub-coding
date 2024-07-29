@@ -10,21 +10,6 @@ def exists(connection, name) -> bool:
     '''))
     return name in databases
 
-def connect(name, username, password):  # 連接資料庫
-    try:
-        connection = mysql.connector.connect(
-            user=username,
-            password=password,
-            host='localhost',
-            auth_plugin='mysql_native_password'
-        )
-        if not exists(connection, name): create(connection, name)
-        connection.database = name
-        return connection
-    except Error:
-        print('資料庫連線失敗，請確認服務是否啟用後再嘗試一次')
-        exit()
-
 def execute(connection, sql):
     return fetch(connection, 'none', sql)
 
@@ -36,9 +21,11 @@ def fetch(connection, mode: str, sql):
     try:
         cursor.execute(sql)
         if mode.lower() == 'all':
-            return cursor.fetchall()
+            result = cursor.fetchall()
+            return result if result else None
         elif mode.lower() == 'one':
-            return cursor.fetchone()
+            result = cursor.fetchall()
+            return result[0] if result else None
         else:
             return None
     except mysql.connector.Error as error:

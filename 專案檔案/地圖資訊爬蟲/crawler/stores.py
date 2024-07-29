@@ -7,6 +7,8 @@ from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
 from 地圖資訊爬蟲.crawler.tables.base import *
 from 地圖資訊爬蟲.crawler.tables import Store, Comment, Keyword, Location, Rate, Service, Tag, OpenHours
 
+from bs4 import BeautifulSoup
+
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
@@ -21,7 +23,7 @@ if CONTINUE_CRAWLER:
     if not urls:
         print(f'查無需資料修復之商家，程式將自動結束...')
         driver.exit()
-    print(f'已開啟資料修復模式 -> 共{len(urls)}個')
+    print(f'資料完整性修復模式 -> 已開啟')
 else:
     urls = STORES_URLS if STORES_URLS else []
 if urls: urls = to_map_url(urls)
@@ -35,8 +37,9 @@ if not urls:
 
 ### 主爬蟲 ###
 url_count = len(urls)
+if SHUFFLE_URLS: shuffle(urls)
 
-print(f'\r正在準備爬取所有商家連結資料...\n')
+print(f'\r正在準備爬取所有商家連結資料(共{url_count}個)...\n')
 for i in range(url_count):
     START_TIME = datetime.now()
     # 瀏覽器載入指定的商家地圖連結
@@ -272,7 +275,7 @@ for i in range(url_count):
             total_reviews = commentContainer.find_elements(By.CLASS_NAME, 'jftiEf')
             filtered_reviews = [
                 c for c in total_reviews
-                if not ('年' in c.find_element(By.CLASS_NAME, 'rsqaWe').text and int(re.search(r'\d+', c.find_element(By.CLASS_NAME, 'rsqaWe').text).group()) > MAX_COMMENT_YEARS)  # 有文字內容(包含分享按鈕)
+                if not ('年' in c.find_element(By.CLASS_NAME, 'rsqaWe').text and int(re.search(r'\d+', c.find_element(By.CLASS_NAME, 'rsqaWe').text).group()) > MAX_COMMENT_YEARS)
             ]
             total_withcomments = limit_list([
                 c for c in filtered_reviews
@@ -333,7 +336,7 @@ for i in range(url_count):
         sum_responses = 0
         for index in range(len(total_samples)):
             try:
-                print(f'\r正在提取所有評論內容({index}/{len(total_samples)})...', end='')
+                print(f'\r正在提取所有評論內容({index+1}/{len(total_samples)})...\n', end='')
                 score = 0
                 comment_time = ''
                 score = int(total_samples[index].find_element(By.CLASS_NAME, 'kvMYJc').get_attribute('aria-label').split(' ')[0])
@@ -341,9 +344,10 @@ for i in range(url_count):
                 level = re.search(r'ba(?P<level>\d+)', total_samples[index].find_element(By.CLASS_NAME, 'NBa7we').get_attribute('src'))
                 # 取得留言結構
                 user_experiences_dict = {}
-                user_experiences = total_samples[index].find_elements(By.CLASS_NAME, 'PBK6be')
+                user_experiences = total_samples[index].find_elements(By.CLASS_NAME, 'RfDO5c')
                 for ue in user_experiences:
-                    line = ue.find_elements(By.CLASS_NAME, 'RfDO5c')
+                    parent_element = driver.find_parent_element(ue, 2)
+                    line = parent_element.find_elements(By.CLASS_NAME, 'RfDO5c')
                     if len(line) == 1:
                         span = line[0].find_element(By.TAG_NAME, 'span').text.split('：')
                         if span[0] in EXPERIENCE_TARGET and span[1]:
@@ -368,7 +372,7 @@ for i in range(url_count):
                 # 儲存評論物件
                 comment_items.append(Comment.Comment(
                     store_id=store_id,
-                    index=index + 1,
+                    index=index+1,
                     contents=contents,
                     has_image=1 if total_samples[index].find_elements(By.CLASS_NAME, 'KtCyie') else 0,
                     time=comment_time,
@@ -386,7 +390,7 @@ for i in range(url_count):
                 pass
 
         rate_item._store_responses = sum_responses
-        if len(total_withcomments): rate_item._real_ratings = round(sum_score / len(total_withcomments), 1)
+        if len(total_withcomments): rate_item._real_rating = round(sum_score / len(total_withcomments), 1)
 
     # 等待網址列顯示座標位置後取得座標位置
     print('\r正在取得地點座標...', end='')

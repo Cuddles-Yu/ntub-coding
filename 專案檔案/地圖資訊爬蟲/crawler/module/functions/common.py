@@ -10,6 +10,9 @@ def to_bool(s: str) -> bool:
     else:
         return False
 
+def shuffle(target_list: list):
+    random.shuffle(target_list)
+
 def rad2deg(radians):
     degrees = radians * 180 / pi
     return degrees

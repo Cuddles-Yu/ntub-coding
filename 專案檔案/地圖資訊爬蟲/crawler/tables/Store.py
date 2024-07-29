@@ -1,3 +1,5 @@
+from typing import Optional
+
 from 地圖資訊爬蟲.crawler.tables.base import *
 from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
 
@@ -40,6 +42,7 @@ def reset(database: SqlDatabase, store_name: str) -> str:
         ''')
         database.connection.commit()  # 提交修改
         store_item.change_state(database, '建立', None)
+        print(f"已成功重設商家id為 '{sid}' 的所有資料。")
     cursor.close()
     return sid
 
@@ -69,6 +72,7 @@ def delete(database: SqlDatabase, store_name: str) -> str:
             DELETE FROM `stores` WHERE `id` = '{sid}';
         ''')
         database.connection.commit()  # 提交修改
+        print(f"已成功移除商家id為 '{sid}' 的所有資料。")
     cursor.close()
     return sid
 
@@ -160,12 +164,24 @@ class Store:
         return self._name
 
     def change_state(self, database: SqlDatabase, state, description) -> bool:
-        if not self.exists(database): return False
+        if not self.name_exists(database): return False
         database.update('stores', f'crawler_state={transform(state)}, crawler_description={transform(description)}', f'name={self.name}')
         return True
 
-    def exists(self, database: SqlDatabase) -> bool:
+    def name_exists(self, database: SqlDatabase) -> bool:
         return database.is_value_exist('stores', 'name', self.name)
+
+    def exists(self, database: SqlDatabase, check_name: Optional[bool] = False) -> bool:
+        if self.link is None: print("\n這不合理\n")
+        link_exists = database.is_value_exist('stores', 'link', self.link)
+        if not link_exists: return False
+        if check_name:
+            # 若link存在，且不存在名稱與連結相同的連結 -> 商家名字需變更
+            if not database.is_condition_exist('stores', f'name = {self.name} and link = {self.link}'):
+                old_name = transform(database.get_value('name', 'stores', 'link', self.link))
+                database.update('stores', f'name = {self.name}', f'name = {old_name} and link = {self.link}')
+                print(f'\r✏️已成功更新商家名稱 {old_name} -> {self.name}\n', end='')
+        return True
 
     def get_state(self, database: SqlDatabase) -> (str, str):
         return (
@@ -174,13 +190,13 @@ class Store:
         )
 
     def insert_if_not_exists(self, database: SqlDatabase):
-        if not self.exists(database): database.add('stores', self.to_string())
+        if not self.exists(database, check_name=True): database.add('stores', self.to_string())
 
     def update_if_exists(self, database: SqlDatabase):
-        if not self.exists(database):
-            database.add('stores', self.to_string())
-        else:
+        if self.exists(database, check_name=True):
             database.update('stores', self.to_value(), f'name={self.name}')
+        else:
+            database.add('stores', self.to_string())
 
     def reset(self, database: SqlDatabase):
         return reset(database, self.name)

@@ -64,6 +64,11 @@ class EdgeDriver:
     def refresh(self):
         self.driver.refresh()
 
+    @staticmethod
+    def find_parent_element(element, levels):
+        xpath = '../' * levels
+        return element.find_element(By.XPATH, xpath.rstrip('/'))
+
     def move_to_element(self, element):
         if element is None: return
         ActionChains(self.driver).move_to_element(element).perform()

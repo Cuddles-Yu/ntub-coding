@@ -6,6 +6,21 @@ from 地圖資訊爬蟲.crawler.module.functions.database.core import *
 ### 常數參數 ###
 RESET_ASKING = False
 
+def connect(name, username, password):  # 連接資料庫
+    try:
+        connection = mysql.connector.connect(
+            user=username,
+            password=password,
+            host='localhost',
+            auth_plugin='mysql_native_password'
+        )
+        if not exists(connection, name): schema.create(connection, name)
+        connection.database = name
+        return connection
+    except Error:
+        print('資料庫連線失敗，請確認服務是否啟用後再嘗試一次')
+        exit()
+
 class SqlDatabase:
     ### 連線參數 ###
     name = ''
@@ -38,7 +53,7 @@ class SqlDatabase:
     ### 涵式 ###
     def get_urls_from_incomplete_store(self) -> list:
         return from_iterable(0, fetch(self.connection, 'all', f'''
-            SELECT link FROM mapdb.stores
+            SELECT link FROM stores
             WHERE crawler_state IN ('建立', '基本')
             ORDER BY id
         '''))
@@ -153,7 +168,7 @@ class SqlDatabase:
             SELECT {target_column} FROM {table_name}
             WHERE {column_name} = {value}
         ''')
-        return str(result[0]) if result else None
+        return result[0] if result else None
 
     # 取得表格中指定欄位中存在指定值的總數
     def get_value_count(self, table_name, column_name, value) -> int:
@@ -168,6 +183,13 @@ class SqlDatabase:
         result = fetch(self.connection, 'one', f'''
             SELECT COUNT(*) FROM {table_name}
             WHERE {column_name} = {value}
+        ''')
+        return int(result[0]) > 0 if result else False
+
+    def is_condition_exist(self, table_name, condition) -> bool:
+        result = fetch(self.connection, 'one', f'''
+            SELECT COUNT(*) FROM {table_name}
+            WHERE {condition}
         ''')
         return int(result[0]) > 0 if result else False
 
