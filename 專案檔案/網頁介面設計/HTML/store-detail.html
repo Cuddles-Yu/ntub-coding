@@ -71,7 +71,7 @@
     </div>
   </header>
 
-  <section class="primary-content section-conent">
+  <section class="primary-content section-content">
     <h1 class="store-title">巧之味手工水餃 濟南店</h1>
     <div class="love-group">
       <div class="type-rating-status-group">
@@ -89,8 +89,8 @@
     <li class="introduction">明亮的餐酒館供應精選牛排和海鮮，並設有提供各種酒類的酒吧，店內洋溢歡樂氛圍。</li>
   </section>
 
-  <section class="secondary-content section-conent">
-    <div class="map-keyword-group">
+  <section class="secondary-content section-content">
+    <div class="first-row">
       <div id="map" class="map">
         <!-- 使用者定位按鈕 -->
         <button type="button" id="locateButton" onclick="userLocate()">使用您的位置</button>
@@ -100,8 +100,8 @@
           <i class="fi fi-sr-letter-case group-title-img"></i>
           <h5 class="group-title">評論關鍵字</h5>
         </div>
+        <h6 class="title-gb">正面<i class="fi fi-sr-sort-down keyword-arrow"></i></h6>
         <div class="group-gb">
-          <h6 class="title-gb">正面<i class="fi fi-sr-play keyword-arrow"></i></h6>
           <div class="comment-gb">好吃</div>
           <div class="comment-gb">口感很好</div>
           <div class="comment-gb">便宜</div>
@@ -110,8 +110,8 @@
           <div class="comment-gb">效率很高</div>
           <div class="comment-gb">很乾淨</div>
         </div>
+        <h6 class="title-gb">負面<i class="fi fi-sr-sort-down keyword-arrow"></i></h6>
         <div class="group-gb">
-          <h6 class="title-gb">負面<i class="fi fi-sr-play keyword-arrow"></i></h6>
           <div class="comment-gb">很貴</div>
           <div class="comment-gb">吵</div>
           <div class="comment-gb">環境髒亂</div>
@@ -121,32 +121,350 @@
           <div class="comment-gb">煙味</div>
           <div class="comment-gb">等很久</div>
           <div class="comment-gb">交通不方便</div>
-          <div class="comment-gb">停車場難找</div>
-        </div>
-      </div>
-    </div>
-    <div class="anaysis">
-      <div class="title-group">
-        <i class="fi fi-sr-bars-progress group-title-img"></i>
-        <h5 class="group-title">評論關鍵字</h5>
-      </div>
-      <div class="progress-group-text">
-        <div class="progress-text">
-          <div class="progress-text" style="color: #B45F5F;">熱門 10%</div>
-          <div class="progress-text" style="color: #562B08;">環境 40%</div>
-          <div class="progress-text" style="color: #7B8F60;">產品 50%</div>
-          <div class="progress-text" style="color: #5053AF;">服務 70%</div>
-          <div class="progress-text" style="color: #C19237;">售價 75%</div>
-        </div>
-        <div class="progress-group">
           
         </div>
       </div>
     </div>
+    <div class="second-row">
+      <div class="anaysis">
+        <div class="title-group">
+          <i class="fi fi-sr-bars-progress group-title-img"></i>
+          <h5 class="group-title">指標分析</h5>
+        </div>
+        <div class="progress-group-text">
+          <div class="progress-group">
+            <div class="progress-text col-3" style="color: #B45F5F;">熱門 10%</div>
+            <div class="progress col" role="progressbar" aria-label="Default example " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-bar overflow-visible" style="width: 15%; background-color: #B45F5F;"></div><!--填入"熱門指數"width也要跟著改-->
+            </div>
+          </div>
+          <div class="progress-group">
+            <div class="progress-text col-3" style="color: #562B08;">環境 40%</div>
+            <div class="progress col" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-bar overflow-visible" style="width: 25%; background-color: #562B08;"></div>
+            </div>
+          </div>
+          <div class="progress-group">
+            <div class="progress-text col-3" style="color: #7B8F60;">產品 50%</div>
+            <div class="progress col" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-bar overflow-visible" style="width: 50%; background-color: #7B8F60;"></div>
+            </div>
+          </div>
+          <div class="progress-group">
+            <div class="progress-text col-3" style="color: #5053AF;">服務 70%</div>
+            <div class="progress col" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-bar overflow-visible" style="width: 75%; background-color: #5053AF;"></div>
+            </div>
+          </div>
+          <div class="progress-group">
+            <div class="progress-text col-3" style="color: #C19237;">售價 75%</div>
+            <div class="progress col" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-bar overflow-visible" style="width: 100%; background-color: #C19237;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="service">
+        <div class="title-group">
+          <i class="fi fi-sr-following group-title-img"></i>
+          <h5 class="group-title ">服務項目</h5>
+        </div>
+        <div class="service-item-group">
+          <div class="service-group">
+            <h6 class="service-title">服務方式</h6>
+            <div class="item-group">
+              <div class="service-item col">
+                <i class="fi fi-sr-checkbox item-img"></i>
+                <h6 class="item-text">內用</h6>
+              </div>
+              <div class="service-item col">
+                <i class="fi fi-sr-question item-img"></i>
+                <h6 class="item-text">外帶</h6>
+              </div>
+              <div class="service-item col">
+                <i class="fi fi-sr-square-x item-img"></i>
+                <h6 class="item-text">外送</h6>
+              </div>
+            </div>
+          </div>
+          <div class="service-group">
+            <h6 class="service-title">付款方式</h6>
+            <div class="item-group">
+              <div class="service-item col">
+                <i class="fi fi-sr-checkbox item-img"></i>
+                <h6 class="item-text">信用卡</h6>
+              </div>
+              <div class="service-item col">
+                <i class="fi fi-sr-question item-img"></i>
+                <h6 class="item-text">NFC行動支付</h6>
+              </div>
+            </div>
+          </div>
+          <div class="service-group">
+            <h6 class="service-title">定位服務</h6>
+            <div class="item-group">
+              <div class="service-item col">
+                <i class="fi fi-sr-checkbox item-img"></i>
+                <h6 class="item-text">接受訂位</h6>
+              </div>
+            </div>
+          </div>
+          <div class="service-group">
+            <h6 class="service-title">其他</h6>
+            <div class="item-group">
+              <div class="service-item col-6">
+                <i class="fi fi-sr-checkbox item-img"></i>
+                <h6 class="item-text">無障礙入口</h6>
+              </div>
+              <div class="service-item col-6">
+                <i class="fi fi-sr-checkbox item-img"></i>
+                <h6 class="item-text">無障礙洗手間</h6>
+              </div>
+              <div class="service-item col-6">
+                <i class="fi fi-sr-checkbox item-img"></i>
+                <h6 class="item-text">無障礙座位</h6>
+              </div>
+              <div class="service-item col-6">
+                <i class="fi fi-sr-checkbox item-img"></i>
+                <h6 class="item-text">無障礙停車場</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="store-introduction">
+        <div class="title-group">
+          <i class="fi fi-sr-search-alt group-title-img"></i>
+          <h5 class="group-title ">餐廳簡介</h5>
+        </div>
+        <div class="introduction-item-group">
+          <div class="store-introduction-group">
+            <li class="introduction-title">地址</li>
+            <li class="introduction-item">台北市中正區濟南路二段6號</li>
+          </div>
+          <div class="store-introduction-group">
+            <li class="introduction-title">電話</li>
+            <li class="introduction-item">02-2321-4693</li>
+          </div>
+          <div class="store-introduction-group">
+            <li class="introduction-title">相關網站</li>
+            <li class="introduction-item">https://www.facebook.com/1NAMofficial/</li>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
-  
+  <section class="tertiary-content section-content">
+    <div class="title-group comment-title">
+      <i class="fi fi-sr-comment-alt group-title-img"></i>
+      <h5 class="group-title">評論(共1000則)</h5>
+      <div class="btn-group">
+        <button class="btn btn-secondary dropdown-toggle  filter-button" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+          篩選
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">最相關</a></li>
+          <li><a class="dropdown-item" href="#">由高至低</a></li>
+          <li><a class="dropdown-item" href="#">由低至高</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="comment-group">
+      <div class="comment-item">
+        <div class="comment-information">
+          <img class="avatar" src="images/wizard.jpg">
+          <div class="star-group">
+            <img class="star" src="images/star-y.png">
+            <img class="star" src="images/star-y.png">
+            <img class="star" src="images/star-y.png">
+            <img class="star" src="images/star-y.png">
+            <img class="star" src="images/star-y.png">
+          </div>
+          <p class="time">時間：1天前</p>
+        </div>
+        <div class="comment">
+          <p class="comment-text">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐</p>
+        </div>
+      </div>
+      <div class="comment-item">
+        <div class="comment-information">
+          <img class="avatar" src="images/user.jpg">
+          <div class="star-group">
+            <img class="star" src="images/star-y.png">
+            <img class="star" src="images/star-y.png">
+            <img class="star" src="images/star-y.png">
+            <img class="star" src="images/star-y.png">
+            <img class="star" src="images/star-y.png">
+          </div>
+          <p class="time">時間：1天前</p>
+        </div>
+        <div class="comment">
+          <p class="comment-text">假日還沒17:00門口就大排長龍！內用等了約15分鐘～ 干貝水餃可以吃到干貝一絲一絲的口感，很鮮很好吃。韭菜跟高麗菜水餃也不錯，皮不會爛爛的，也好吃。酸辣湯料很足，胡椒辣很夠味，酸也夠明顯。</p>
+        </div>
+      </div>
+      <div class="comment-item">
+        <div class="comment-information">
+          <img class="avatar" src="images/wizard.jpg">
+          <div class="star-group">
+            <img class="star" src="images/star-y.png">
+            <img class="star" src="images/star-y.png">
+            <img class="star" src="images/star-y.png">
+            <img class="star" src="images/star-y.png">
+            <img class="star" src="images/star-y.png">
+          </div>
+          <p class="time">時間：1天前</p>
+        </div>
+        <div class="comment">
+          <p class="comment-text">水餃好吃，一顆份量也足，干貝水餃很特別，是綠藻餃皮，值得一試，中午生意超好，內用外帶人潮不斷，內用位子不多，要有耐心等，店內冰仙草蜜，好喝但有點甜</p>
+        </div>
+      </div>
+      <div class="comment-item">
+        <div class="comment-information">
+          <img class="avatar" src="images/wizard.jpg">
+          <div class="star-group">
+            <img class="star" src="images/star-y.png">
+            <img class="star" src="images/star-y.png">
+            <img class="star" src="images/star-y.png">
+            <img class="star" src="images/star-y.png">
+            <img class="star" src="images/star-y.png">
+          </div>
+          <p class="time">時間：1天前</p>
+        </div>
+        <div class="comment">
+          <p class="comment-text">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐</p>
+        </div>
+      </div>
+      <div class="comment-item">
+        <div class="comment-information">
+          <img class="avatar" src="images/wizard.jpg">
+          <div class="star-group">
+            <img class="star" src="images/star-y.png">
+            <img class="star" src="images/star-y.png">
+            <img class="star" src="images/star-y.png">
+            <img class="star" src="images/star-y.png">
+            <img class="star" src="images/star-y.png">
+          </div>
+          <p class="time">時間：1天前</p>
+        </div>
+        <div class="comment">
+          <p class="comment-text">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐</p>
+        </div>
+      </div>
+      <div class="comment-item">
+        <div class="comment-information">
+          <img class="avatar" src="images/wizard.jpg">
+          <div class="star-group">
+            <img class="star" src="images/star-y.png">
+            <img class="star" src="images/star-y.png">
+            <img class="star" src="images/star-y.png">
+            <img class="star" src="images/star-y.png">
+            <img class="star" src="images/star-y.png">
+          </div>
+          <p class="time">時間：1天前</p>
+        </div>
+        <div class="comment">
+          <p class="comment-text">平價美食，加醋，加乾辣椒粒，加辣油，各有各的口感，再來碗綜合湯，嗯飽足一餐</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!--底部欄
+  <section class="fourth-content section-content">
+    <div class="title-group">
+      <i class="fi fi-sr-hand-holding-heart group-title-img"></i>
+      <h5 class="group-title">吃過都推薦</h5>
+    </div>
+    <div class="group-card">
+      <div class="card" style="width: 13rem;">
+        <div class="card-body">
+          <p class="card-text">水餃(783)</p>
+        </div>
+        <img class="card-img" src="images/水餃.jpg" alt="...">
+      </div>
+      <div class="card" style="width: 13rem;">
+        <div class="card-body">
+          <p class="card-text">水餃(351)</p>
+        </div>
+        <img class="card-img" src="images/水餃.jpg" alt="...">
+      </div>
+      <div class="card" style="width: 13rem;">
+        <div class="card-body">
+          <p class="card-text">水餃(246)</p>
+        </div>
+        <img class="card-img" src="images/水餃.jpg" alt="...">
+      </div>
+      <div class="card" style="width: 13rem;">
+        <div class="card-body">
+          <p class="card-text">水餃(102)</p>
+        </div>
+        <img class="card-img" src="images/水餃.jpg" alt="...">
+      </div>
+      <div class="card" style="width: 13rem;">
+        <div class="card-body">
+          <p class="card-text">水餃(85)</p>
+        </div>
+        <img class="card-img" src="images/水餃.jpg" alt="...">
+      </div>
+      <div class="card" style="width: 13rem;">
+        <div class="card-body">
+          <p class="card-text">水餃(85)</p>
+        </div>
+        <img class="card-img" src="images/水餃.jpg" alt="...">
+      </div>
+      <div class="card" style="width: 13rem;">
+        <div class="card-body">
+          <p class="card-text">水餃(85)</p>
+        </div>
+        <img class="card-img" src="images/水餃.jpg" alt="...">
+      </div>
+    </div>
+  </section>
+
+  <section class="fifth-content section-content">
+    <div class="title-group">
+      <i class="fi fi-sr-interactive group-title-img"></i>
+      <h5 class="group-title ">最多人提到</h5>
+    </div>
+    <div class="tag-group">
+      <div class="tag">
+        <p class="tag-text">台北市 (200)</p>
+      </div>
+      <div class="tag">
+        <i class="fi fi-sr-utensils tag-img"></i>
+        <p class="tag-text">餐廳 (158)</p>
+      </div>
+      <div class="tag">
+        <i class="fi fi-sr-dollar tag-img"></i>
+        <p class="tag-text">1-200 (132)</p>
+      </div>
+      <div class="tag">
+        <p class="tag-text">水餃 (120)</p>
+      </div>
+      <div class="tag">
+        <p class="tag-text">酸辣湯 (113)</p>
+      </div>
+      <div class="tag">
+        <p class="tag-text">小菜 (95)</p>
+      </div>
+      <div class="tag">
+        <p class="tag-text">仙草蜜 (20)</p>
+      </div>
+      <div class="tag">
+        <p class="tag-text">排隊 (15)</p>
+      </div>
+      <div class="tag">
+        <p class="tag-text">店家 (11)</p>
+      </div>
+      <div class="tag">
+        <p class="tag-text">餐點 (11)</p>
+      </div>
+      <div class="tag">
+        <p class="tag-text">筷子 (2)</p>
+      </div>
+    </div>
+  </section>
+
+  <!--底部欄-->
   <footer>
     <div class="bottom">
       台北商業大學 | 資訊管理系<br>
@@ -154,7 +472,7 @@
       成員：鄧惠中、余奕博、邱綺琳、陳彥瑾
       <en style="margin-right: 0.6em; float: right; font-size: 0.6em;">Copyright ©2024 All rights reserved.</en>
     </div>
-  </footer>-->
+  </footer>
 
 
   <!-- 載入地圖框架 leaflet.js -->
