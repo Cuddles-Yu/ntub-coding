@@ -52,9 +52,10 @@ class SqlDatabase:
 
     ### 涵式 ###
     def get_urls_from_incomplete_store(self) -> list:
+        # 建立、基本、重設
         return from_iterable(0, fetch(self.connection, 'all', f'''
             SELECT link FROM stores
-            WHERE crawler_state IN ('建立', '基本')
+            WHERE crawler_state IN ('重設')
             ORDER BY id
         '''))
 
@@ -65,22 +66,6 @@ class SqlDatabase:
             schema.truncate(cursor, self.name, show_hint=False)
             print("清空資料庫成功！")
         cursor.close()
-
-    def ask_to_delete_store(self):
-        store_name = input('刪除哪個商家的所有資料？')
-        store_id = self.delete_store(store_name)
-        if store_id is not None:
-            print(f"已成功移除商家id為 '{store_id}' 的所有資料。")
-        else:
-            print(f"查無名稱為 '{store_name}' 的商家。")
-
-    def ask_to_reset_store(self):
-        store_name = input('重設哪個商家的資料？')
-        store_id = self.reset_store(store_name)
-        if store_id is not None:
-            print(f"已成功重設商家id為 '{store_id}' 的資料。")
-        else:
-            print(f"查無名稱為 '{store_name}' 的商家。")
 
     # 手動新增欄位資料
     def add(self, table_name, values):

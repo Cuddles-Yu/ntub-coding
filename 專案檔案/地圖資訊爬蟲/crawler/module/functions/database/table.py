@@ -142,11 +142,12 @@ def create_comments(cursor):
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS `comments` (
             `store_id` int NOT NULL,
-            `index` int NOT NULL,
+            `index` int NOT NULL, 
+            `data_id` varchar(50) NOT NULL,
             `contents` text DEFAULT NULL,
-            `has_image` TINYINT NOT NULL,
             `time` varchar(20) NOT NULL,
-            `rating` int NOT NULL,
+            `rating` int NOT NULL,       
+            `has_image` TINYINT NOT NULL,    
             `food_rating` int DEFAULT NULL,
             `service_rating` int DEFAULT NULL,
             `atmosphere_rating` int DEFAULT NULL,
@@ -155,6 +156,9 @@ def create_comments(cursor):
             `price_state` VARCHAR(10) DEFAULT NULL,
             `product_state` VARCHAR(10) DEFAULT NULL,
             `service_state` VARCHAR(10) DEFAULT NULL,
+            `sample_of_most_relevant` TINYINT NOT NULL DEFAULT '0',    
+            `sample_of_highest_rating` TINYINT NOT NULL DEFAULT '0',          
+            `sample_of_lowest_rating` TINYINT NOT NULL DEFAULT '0', 
             PRIMARY KEY (`store_id`, `index`),
             KEY `store_id_idx` (`store_id`),
             CONSTRAINT `store_id` FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE

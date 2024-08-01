@@ -1,3 +1,4 @@
+import json
 import random
 import re
 import time
@@ -9,6 +10,21 @@ def to_bool(s: str) -> bool:
         return True
     else:
         return False
+
+def load_json(file_path):
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            data = json.load(file)
+            return data
+    except Exception as e:
+        return None
+
+def write_json(data, file_path):
+    try:
+        with open(file_path, 'w', encoding='utf-8') as file:
+            json.dump(data, file, ensure_ascii=False, indent=4)
+    except Exception as e:
+        pass
 
 def shuffle(target_list: list):
     random.shuffle(target_list)

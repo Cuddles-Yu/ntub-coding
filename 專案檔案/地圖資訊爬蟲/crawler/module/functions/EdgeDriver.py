@@ -1,5 +1,4 @@
 import sys
-import time
 from typing import Optional
 
 from selenium import webdriver
@@ -10,6 +9,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 
+from 地圖資訊爬蟲.crawler.module.functions.common import *
 from 地圖資訊爬蟲.crawler.module.const import *
 from 地圖資訊爬蟲.crawler.module.return_code import *
 from 地圖資訊爬蟲.crawler.tables import Store
@@ -17,6 +17,7 @@ from 地圖資訊爬蟲.crawler.tables.base import *
 from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
 
 ### 結構 ###
+HAS_COMMENT_CLASS = 'MyEned'
 ORDER_TYPE = {
     '最相關': 0,
     '最新': 1,
@@ -140,19 +141,33 @@ class EdgeDriver:
         tabs_name = [tab.find_element(By.CLASS_NAME, 'Gpq6kf').text for tab in tabs_elem]
         return tabs_elem, tabs_name
 
-    def switch_to_order(self, order_type: str) -> bool:
+    def get_keywords_dict(self) -> dict:
+        keywords_dict = {}
+        comment_container = self.wait_for_element(By.CLASS_NAME, 'dS8AEf')  # 評論面板
+        # 取得留言關鍵字
+        keywords_elements = self.wait_for_element(By.CLASS_NAME, 'e2moi')
+        if keywords_elements:
+            for keyword in comment_container.find_elements(By.CLASS_NAME, 'e2moi'):
+                count = keyword.find_elements(By.CLASS_NAME, 'bC3Nkc')
+                if len(count) == 0: continue
+                kws = keyword_separator(keyword.find_element(By.CLASS_NAME, 'uEubGf').text)
+                kw = ''.join(kws)
+                if not kws or not keyword_filter(kw): continue
+                keywords_dict[kw] = (int(count[0].text), 'DEFAULT')
+        return keywords_dict
+
+    def switch_to_order(self, order_type: str):
         print(f'\r正在切換至{order_type}評論...', end='')
         # 功能按鈕 - 撰寫/查詢/[排序評論]
         function_buttons = self.wait_for_elements(By.CLASS_NAME, 'S9kvJb')
         function_names = [button.get_attribute('data-value') for button in self.driver.find_elements(By.CLASS_NAME, 'S9kvJb')]
-        if '排序' not in function_names: return False
+        if '排序' not in function_names: return
         function_buttons[function_names.index('排序')].click()
-
         # 排序選單 - 最相關/最新/評分最高/評分最低
         self.wait_for_click_index(By.CLASS_NAME, 'fxNQSd', index=ORDER_TYPE[order_type])
+        time.sleep(0.5)
         # 等待載入新留言
         self.wait_for_element(By.CLASS_NAME, 'jftiEf')
-        return True
 
     def search(self, keyword):
         # 等待 Driver 瀏覽到指定頁面後，對搜尋框輸入關鍵字搜尋

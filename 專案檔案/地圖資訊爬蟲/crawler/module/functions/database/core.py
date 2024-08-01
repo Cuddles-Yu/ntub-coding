@@ -1,5 +1,4 @@
 import mysql.connector
-from mysql.connector import Error
 
 def from_iterable(index, sql_return) -> list:
     return [result[index] for result in sql_return]
@@ -14,7 +13,13 @@ def execute(connection, sql):
     return fetch(connection, 'none', sql)
 
 def fetch_column(connection, mode: str, index, sql) -> list:
-    return from_iterable(index, fetch(connection, mode, sql))
+    sql_return = fetch(connection, mode, sql)
+    if sql_return:
+        if mode.lower() == 'all':
+            return from_iterable(index, fetch(connection, mode, sql))
+        elif mode.lower() == 'one':
+            return fetch(connection, mode, sql)[index]
+    return None
 
 def fetch(connection, mode: str, sql):
     cursor = connection.cursor()

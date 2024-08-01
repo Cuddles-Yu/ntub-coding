@@ -1,6 +1,7 @@
 from typing import Optional
 
 from 地圖資訊爬蟲.crawler.tables.base import *
+from 地圖資訊爬蟲.crawler.module.functions.database.core import *
 from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
 
 def newObject(title, url):
@@ -17,7 +18,17 @@ def newObject(title, url):
         crawler_description=None
     )
 
-def reset(database: SqlDatabase, store_name: str) -> str:
+def reset_by_id(database: SqlDatabase, store_id: int) -> str:
+    store_name = fetch_column(database.connection, 'one', 0, f'''
+        SELECT name FROM stores
+        WHERE id = {store_id}
+    ''')
+    if store_name is not None:
+        reset_by_name(database, store_name, show_hint=False)
+        print(f"已成功重設商家名稱為 '{store_name}' 的所有資料。")
+    return store_name
+
+def reset_by_name(database: SqlDatabase, store_name: str, show_hint: Optional[bool] = True) -> int:
     cursor = database.connection.cursor()
     store_item = Reference(name=store_name)
     sid = store_item.get_id(database)
@@ -40,9 +51,14 @@ def reset(database: SqlDatabase, store_name: str) -> str:
         cursor.execute(f'''
             DELETE FROM `openhours` WHERE `store_id` = '{sid}';
         ''')
+        cursor.execute(f'''
+            UPDATE `stores`
+            SET `description` = NULL, `tag` = NULL, `preview_image` = NULL, `website` = NULL, `phone_number` = NULL, `last_update` = NULL
+            WHERE `id` = '{sid}';
+        ''')
         database.connection.commit()  # 提交修改
-        store_item.change_state(database, '建立', None)
-        print(f"已成功重設商家id為 '{sid}' 的所有資料。")
+        store_item.change_state(database, '重設', None)
+        if show_hint: print(f"已成功重設商家id為 '{sid}' 的所有資料。")
     cursor.close()
     return sid
 
@@ -149,10 +165,12 @@ class Store:
         return 'DEFAULT'
 
     def to_string(self):
-        return f"({self.id}, {self.name}, {self.description}, {self.tag}, {self.preview_image}, {self.link}, {self.website}, {self.phone_number}, {self.last_update}, {self.crawler_state}, {self.crawler_description}, {self.crawler_time})"
+        return (f"({self.id}, {self.name}, {self.description}, {self.tag}, {self.preview_image}, {self.link}, {self.website}, " +
+                f"{self.phone_number}, {self.last_update}, {self.crawler_state}, {self.crawler_description}, {self.crawler_time})")
 
     def to_value(self):
-        return f"description={self.description}, tag={self.tag}, preview_image={self.preview_image}, link={self.link}, website={self.website}, phone_number={self.phone_number}, last_update={self.last_update}, crawler_state={self.crawler_state}, crawler_description={self.crawler_description}"
+        return (f"description={self.description}, tag={self.tag}, preview_image={self.preview_image}, link={self.link}, website={self.website}, " +
+                f"phone_number={self.phone_number}, last_update={self.last_update}, crawler_state={self.crawler_state}, crawler_description={self.crawler_description}")
 
     def get_id(self, database: SqlDatabase):
         return database.get_value('id', 'stores', 'name', self.name)
@@ -199,7 +217,7 @@ class Store:
             database.add('stores', self.to_string())
 
     def reset(self, database: SqlDatabase):
-        return reset(database, self.name)
+        return reset_by_name(database, self.name)
 
     def delete(self, database: SqlDatabase):
         return delete(database, self.name)

@@ -7,8 +7,6 @@ from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
 from 地圖資訊爬蟲.crawler.tables.base import *
 from 地圖資訊爬蟲.crawler.tables import Store, Comment, Keyword, Location, Rate, Service, Tag, OpenHours
 
-from bs4 import BeautifulSoup
-
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
@@ -20,6 +18,7 @@ driver = EdgeDriver(database, url='https://www.google.com.tw/maps/preview')
 ### 主程式 ###
 if CONTINUE_CRAWLER:
     urls = database.get_urls_from_incomplete_store()
+    if CONTINUE_COUNT > 0: urls = limit_list(urls, CONTINUE_COUNT)
     if not urls:
         print(f'查無需資料修復之商家，程式將自動結束...')
         driver.exit()
@@ -33,7 +32,7 @@ print(f'資料將儲存至資料庫 -> {database.name}')
 ### 查詢關鍵字後儲存查詢結果 ###
 if not urls:
     print(f'正在搜尋關鍵字 -> {SEARCH_KEYWORD}\n')
-    driver.search_and_scroll(SEARCH_KEYWORD)
+    urls = driver.search_and_scroll(SEARCH_KEYWORD)
 
 ### 主爬蟲 ###
 url_count = len(urls)
@@ -41,7 +40,7 @@ if SHUFFLE_URLS: shuffle(urls)
 
 print(f'\r正在準備爬取所有商家連結資料(共{url_count}個)...\n')
 for i in range(url_count):
-    START_TIME = datetime.now()
+    CRAWLER_START_TIME = datetime.now()
     # 瀏覽器載入指定的商家地圖連結
     driver.get(urls[i])
     # 直到商家名稱顯示(無最大等候時間)
@@ -102,6 +101,7 @@ for i in range(url_count):
         if update_info:
             last_update_info = re.search(r'(?P<time>\d+\s*\D+前)', update_info[0].text.strip())
             store_item._last_update = last_update_info.group() if last_update_info else None
+        time.sleep(0.2)
         # 營業時間
         if not to_bool(open_hours_tag.find_element(By.CLASS_NAME, 'OMl5r').get_attribute('aria-expanded')): open_hours_tag.click()  # (沒打開標籤會抓不到元素文字)
         days_of_week = driver.find_element(By.CLASS_NAME, 't39EBf').find_elements(By.CLASS_NAME, 'y0skZc')
@@ -221,7 +221,7 @@ for i in range(url_count):
         print(f'\r【❌已失敗】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | {e} - {title}\n', end='')
         continue
     store_id = store_item.get_id(database)
-    rate_item._store_id = store_id
+    rate_item.store_id = store_id
     location_item._store_id = store_id
 
     # 標籤按鈕 - 總覽/[評論]/簡介
@@ -231,8 +231,8 @@ for i in range(url_count):
         # 取得評論星級
         rating = driver.wait_for_element(By.CLASS_NAME, 'jANrlb')
         if rating:
-            rate_item._avg_rating = float(rating.find_element(By.CLASS_NAME, 'fontDisplayLarge').text)
-            rate_item._total_reviews = int(''.join(re.findall(r'\d+', rating.find_element(By.CLASS_NAME, 'fontBodySmall').text)))
+            rate_item.avg_rating = float(rating.find_element(By.CLASS_NAME, 'fontDisplayLarge').text)
+            rate_item.total_reviews = int(''.join(re.findall(r'\d+', rating.find_element(By.CLASS_NAME, 'fontBodySmall').text)))
 
     if rate_item.total_reviews == 0:
         print(f'\r【📝無評論】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | {title}\n', end='')
@@ -242,155 +242,213 @@ for i in range(url_count):
         store_item.change_state(database, '失敗', '評論總數不足')
         continue
 
-    comment_items = []
+    comments_dict = {}
     keywords_dict = {}
-    get_comments_type = ''
     if rate_item.total_reviews > 0:
-        # 評論面板
-        commentContainer = driver.wait_for_element(By.CLASS_NAME, 'dS8AEf')
-        # 取得關鍵字
-        keywords_elements = driver.wait_for_element(By.CLASS_NAME, 'e2moi')
-        if keywords_elements:
-            for keyword in commentContainer.find_elements(By.CLASS_NAME, 'e2moi'):
-                count = keyword.find_elements(By.CLASS_NAME, 'bC3Nkc')
-                if len(count) == 0: continue
-                kws = keyword_separator(keyword.find_element(By.CLASS_NAME, 'uEubGf').text)
-                kw = ''.join(kws)
-                if not kws or not keyword_filter(kw): continue
-                keywords_dict[kw] = (int(count[0].text), 'DEFAULT')
+        commentContainer = driver.wait_for_element(By.CLASS_NAME, 'dS8AEf')  # 評論面板
+        keywords_dict = driver.get_keywords_dict()  # 取得關鍵字
+        orders = {
+            '最相關': {
+                '最大樣本': MAXIMUM_SAMPLES,
+                '統計物件': rate_item,
+                '類型陣列': [1, 0, 0],
+                '樣本型態': None,
+                '過濾評論': 0
+            },
+            '評分最高': {
+                '最大樣本': REFERENCE_SAMPLES,
+                '統計物件': rate_item.newObject(),
+                '類型陣列': [0, 1, 0],
+                '樣本型態': None
+            },
+            '評分最低': {
+                '最大樣本': REFERENCE_SAMPLES,
+                '統計物件': rate_item.newObject(),
+                '類型陣列': [0, 0, 1],
+                '樣本型態': None
+            }
+        }
+        for order_type, settings in orders.items():
+            if order_type != '最相關' and orders['最相關']['統計物件'].total_browses >= settings['統計物件'].total_reviews: break
+            ### 滾動評論面板取得所有評論 ###
+            driver.switch_to_order(order_type)
+            # 初始變數
+            start_time = time.time()
+            CHECK_INTERVAL = 5  # 每次檢查評論的間隔次數
+            current_total_target = 0
+            current_total_reviews_count = 0
+            current_filtered_reviews_count = 0
+            scroll_count = 0  # 記錄捲動次數
+            while True:
+                driver.move_to_element(commentContainer.find_elements(By.CLASS_NAME, 'jftiEf')[-1])
+                commentContainer.send_keys(Keys.PAGE_DOWN)
+                total_reviews = commentContainer.find_elements(By.CLASS_NAME, 'jftiEf')
+                scroll_count += 1
+                time.sleep(0.5)
+                # 檢查是否出現新的評論
+                if scroll_count % CHECK_INTERVAL == 0:
+                    scroll_count = 0
+                    if current_total_reviews_count != len(total_reviews):
+                        start_time = time.time()
+                        filtered_reviews = [
+                            c for c in total_reviews
+                            if not ('年' in c.find_element(By.CLASS_NAME, 'rsqaWe').text and int(re.search(r'\d+', c.find_element(By.CLASS_NAME, 'rsqaWe').text).group()) > MAX_COMMENT_YEARS)
+                        ]
+                        current_total_reviews_count = len(total_reviews)
+                        current_filtered_reviews_count = len(filtered_reviews)
 
-        if not driver.switch_to_order(order_type='最相關'):
-            print(f'\r【❌已失敗】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | 最相關留言切換失敗 - {title}\n', end='')
-            store_item.change_state(database, '失敗', '最相關留言切換失敗')
-            continue
+                    match order_type:
+                        case '最相關':
+                            total_withcomments = [
+                                c for c in filtered_reviews
+                                if c.find_elements(By.CLASS_NAME, HAS_COMMENT_CLASS)  # 有文字內容
+                            ]
+                            current_total_target = len(total_withcomments)
+                            if current_total_reviews_count >= settings['統計物件'].total_reviews:
+                                settings['樣本型態'] = 'all'
+                                break
+                            if current_total_target >= settings['最大樣本']:
+                                settings['樣本型態'] = 'sample'
+                                break
+                        case '評分最高' | '評分最低':
+                            last_score = int(total_reviews[-1].find_element(By.CLASS_NAME, 'kvMYJc').get_attribute('aria-label').split(' ')[0])
+                            if order_type == '評分最高':
+                                total_highrating_withcomments = [
+                                    c for c in filtered_reviews
+                                    if c.find_elements(By.CLASS_NAME, HAS_COMMENT_CLASS) and int(c.find_element(By.CLASS_NAME, 'kvMYJc').get_attribute('aria-label').split(' ')[0]) >= HIGHRATING_SCORE
+                                ]
+                                current_total_target = len(total_highrating_withcomments)
+                                if current_total_target >= settings['最大樣本']:
+                                    settings['樣本型態'] = 'complete'
+                                    break
+                                if last_score < HIGHRATING_SCORE:
+                                    settings['樣本型態'] = 'all'
+                                    break
+                            elif order_type == '評分最低':
+                                total_lowrating_withcomments = [
+                                    c for c in filtered_reviews
+                                    if c.find_elements(By.CLASS_NAME, HAS_COMMENT_CLASS) and int(c.find_element(By.CLASS_NAME, 'kvMYJc').get_attribute('aria-label').split(' ')[0]) <= LOWRATING_SCORE
+                                ]
+                                current_total_target = len(total_lowrating_withcomments)
+                                if current_total_target >= settings['最大樣本']:
+                                    settings['樣本型態'] = 'complete'
+                                    break
+                                if last_score > LOWRATING_SCORE:
+                                    settings['樣本型態'] = 'all'
+                                    break
 
-        # 紀錄爬取評論的等待時間
-        start_time = time.time()
-        # 滾動評論面板取得所有評論
-        current_total_reviews_count = 0
-        current_filtered_reviews_count = 0
-        while True:
-            driver.move_to_element(commentContainer.find_elements(By.CLASS_NAME, 'jftiEf')[-1])
-            commentContainer.send_keys(Keys.PAGE_DOWN)
-            total_reviews = commentContainer.find_elements(By.CLASS_NAME, 'jftiEf')
-            filtered_reviews = [
-                c for c in total_reviews
-                if not ('年' in c.find_element(By.CLASS_NAME, 'rsqaWe').text and int(re.search(r'\d+', c.find_element(By.CLASS_NAME, 'rsqaWe').text).group()) > MAX_COMMENT_YEARS)
-            ]
-            total_withcomments = limit_list([
-                c for c in filtered_reviews
-                if c.find_elements(By.CLASS_NAME, 'Upo0Ec')  # 有文字內容(包含分享按鈕)
-            ], MAXIMUM_SAMPLES)
-            time.sleep(0.2)
-            # 檢查是否持續一段時間皆未出現新的評論(卡住)
-            if current_total_reviews_count != len(total_reviews): start_time = time.time()
-            current_total_reviews_count = len(total_reviews)
-            current_filtered_reviews_count = len(filtered_reviews)
-            current_total_withcomments = len(total_withcomments)
-            if time.time() - start_time > (MAXIMUM_TIMEOUT + (current_total_reviews_count ** 0.5) * 0.8):
-                get_comments_type = 'timeout'
-                break
-            # 按下「全文」以展開過長的評論內容
-            for comment in filtered_reviews:
-                expand_comment = comment.find_elements(By.CLASS_NAME, 'w8nwRe')
-                if expand_comment: expand_comment[0].send_keys(Keys.ENTER)
-            print(f'\r正在取得所有評論(留言:{current_total_withcomments}/過濾:{current_filtered_reviews_count}/瀏覽:{current_total_reviews_count}/總共:{rate_item.total_reviews}) | {store_item.name}...', end='')
-            if len(total_reviews) >= rate_item.total_reviews:
-                get_comments_type = 'all'
-                break
-            if MAXIMUM_SAMPLES > 0:
-                if len(total_withcomments) >= MAXIMUM_SAMPLES:
-                    get_comments_type = 'sample'
-                    break
+                    if time.time() - start_time > (MAXIMUM_TIMEOUT + (current_total_reviews_count ** 0.5) * 0.8):
+                        settings['樣本型態'] = 'timeout'
+                        break
 
-        # 紀錄並拆分評論元素
-        mixed_reviews = limit_list(filtered_reviews, MAXIMUM_SAMPLES)
-        total_withoutcomments = [
-            c for c in mixed_reviews
-            if not c.find_elements(By.CLASS_NAME, 'Upo0Ec')  # 沒文字內容(不包含分享按鈕)
-        ]
-        # (在混合留言裡面包含文字內容的數量)
-        mix_comments_count = len([
-            c for c in mixed_reviews
-            if c.find_elements(By.CLASS_NAME, 'Upo0Ec')  # 沒文字內容(不包含分享按鈕)
-        ])
-        additional_comments = limit_list([
-            c for c in exclude_list(filtered_reviews, MAXIMUM_SAMPLES)
-            if c.find_elements(By.CLASS_NAME, 'Upo0Ec')  # 有文字內容(包含分享按鈕)
-        ], MAXIMUM_SAMPLES - mix_comments_count)
-        total_samples = mixed_reviews + additional_comments
-        rate_item._total_browses = len(total_reviews)
-        rate_item._total_samples = len(total_samples)
-        rate_item._total_withcomments = len(total_withcomments)
-        rate_item._total_withoutcomments = len(total_withoutcomments)
-        rate_item._mixreviews_count = len(mixed_reviews)
-        rate_item._additionalcomments_count = len(additional_comments)
+                print(f'\r正在取得所有{order_type}評論 | 進度:{current_total_target} | 過濾:{current_filtered_reviews_count}/瀏覽:{current_total_reviews_count}/總數:{settings['統計物件'].total_reviews} | ' +
+                      f'{'▮'*(scroll_count+1)}{'▯'*(CHECK_INTERVAL-scroll_count-1)} | {title}...', end='')
 
-        if rate_item.total_samples < MINIMUM_SAMPLES:
-            print(f'\r【❌已失敗】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | 評論樣本少於最低需求{MINIMUM_SAMPLES}個 - {title}\n', end='')
-            store_item.change_state(database, '失敗', '評論樣本不足')
-            continue
+            ### 拆分評論元素 ###
+            match order_type:
+                case '最相關':
+                    settings['過濾評論'] = current_filtered_reviews_count
+                    mixed_reviews = limit_list(filtered_reviews, settings['最大樣本'])
+                    total_withcomments = limit_list(total_withcomments, settings['最大樣本'])
+                    total_withoutcomments = [
+                        c for c in mixed_reviews
+                        if not c.find_elements(By.CLASS_NAME, HAS_COMMENT_CLASS)  # 沒文字內容
+                    ]
+                    # (在混合留言裡面包含文字內容的數量)
+                    mix_comments_count = len([
+                        c for c in mixed_reviews
+                        if c.find_elements(By.CLASS_NAME, HAS_COMMENT_CLASS)  # 沒文字內容
+                    ])
+                    additional_comments = limit_list([
+                        c for c in exclude_list(filtered_reviews, settings['最大樣本'])
+                        if c.find_elements(By.CLASS_NAME, HAS_COMMENT_CLASS)  # 有文字內容
+                    ], settings['最大樣本'] - mix_comments_count)
+                    total_samples = mixed_reviews + additional_comments
+                    settings['統計物件'].total_browses = len(total_reviews)
+                    settings['統計物件'].total_withcomments = current_total_target
+                    settings['統計物件'].total_withoutcomments = len(total_withoutcomments)
+                    settings['統計物件'].mixreviews_count = len(mixed_reviews)
+                    settings['統計物件'].additionalcomments_count = len(additional_comments)
+                case '評分最高':
+                    total_samples = limit_list(total_highrating_withcomments, settings['最大樣本'])
+                case '評分最低':
+                    total_samples = limit_list(total_lowrating_withcomments, settings['最大樣本'])
 
-        # 提取評論內容
-        sum_score = 0
-        sum_responses = 0
-        for index in range(len(total_samples)):
-            try:
-                print(f'\r正在提取所有評論內容({index+1}/{len(total_samples)})...\n', end='')
-                score = 0
-                comment_time = ''
-                score = int(total_samples[index].find_element(By.CLASS_NAME, 'kvMYJc').get_attribute('aria-label').split(' ')[0])
-                comment_time = total_samples[index].find_element(By.CLASS_NAME, 'rsqaWe').text
-                level = re.search(r'ba(?P<level>\d+)', total_samples[index].find_element(By.CLASS_NAME, 'NBa7we').get_attribute('src'))
-                # 取得留言結構
-                user_experiences_dict = {}
-                user_experiences = total_samples[index].find_elements(By.CLASS_NAME, 'RfDO5c')
-                for ue in user_experiences:
-                    parent_element = driver.find_parent_element(ue, 2)
-                    line = parent_element.find_elements(By.CLASS_NAME, 'RfDO5c')
-                    if len(line) == 1:
-                        span = line[0].find_element(By.TAG_NAME, 'span').text.split('：')
-                        if span[0] in EXPERIENCE_TARGET and span[1]:
-                            numbers = re.search(r'\d+', span[1])
-                            if numbers: user_experiences_dict[span[0]] = int(numbers.group())
-                    else:
-                        dishes = []
-                        experience = []
-                        for review_tag in line:
-                            experience.append(review_tag.find_element(By.TAG_NAME, 'span').text)
-                        if experience[0] in RECOMMEND_DISHES:
-                            if experience[1]: dishes = keyword_separator(experience[1])
-                            if dishes:
-                                for dish in dishes:
-                                    if not keyword_filter(dish): continue
-                                    keywords_dict[dish] = (keywords_dict.get(dish)[0]+1, 'recommend') if keywords_dict.get(dish) else (1, 'recommend')
+            ### 紀錄統計資料 ###
+            settings['統計物件'].total_samples = len(total_samples)
 
+            if order_type == '最相關' and settings['統計物件'].total_samples < MINIMUM_SAMPLES:
+                print(f'\r【❌已失敗】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | 評論樣本少於最低需求{MINIMUM_SAMPLES}個 - {title}\n', end='')
+                store_item.change_state(database, '失敗', f'最相關評論樣本不足')
+                continue
+
+            ### 提取評論內容 ###
+            sum_score = 0
+            sum_responses = 0
+            for index in range(len(total_samples)):
+                print(f'\r正在提取所有{order_type}評論內容({index + 1}/{len(total_samples)})...', end='')
+                data_review_id = total_samples[index].get_attribute('data-review-id')
                 contents_element = total_samples[index].find_elements(By.CLASS_NAME, 'MyEned')
-                contents = contents_element[0].find_element(By.CLASS_NAME, 'wiI7pd').text if contents_element else None
+                score = int(total_samples[index].find_element(By.CLASS_NAME, 'kvMYJc').get_attribute('aria-label').split(' ')[0])
                 sum_score += score if contents_element else 0
                 sum_responses += 1 if total_samples[index].find_elements(By.CLASS_NAME, 'CDe7pd') else 0
-                # 儲存評論物件
-                comment_items.append(Comment.Comment(
-                    store_id=store_id,
-                    index=index+1,
-                    contents=contents,
-                    has_image=1 if total_samples[index].find_elements(By.CLASS_NAME, 'KtCyie') else 0,
-                    time=comment_time,
-                    rating=score,
-                    food_rating=user_experiences_dict.get(EXPERIENCE_TARGET[0]) if user_experiences_dict else None,
-                    service_rating=user_experiences_dict.get(EXPERIENCE_TARGET[1]) if user_experiences_dict else None,
-                    atmosphere_rating=user_experiences_dict.get(EXPERIENCE_TARGET[2]) if user_experiences_dict else None,
-                    contributor_level=int(level.group('level'))+2 if level else 0,
-                    environment_state=None,
-                    price_state=None,
-                    product_state=None,
-                    service_state=None
-                ))
-            finally:
-                pass
+                if data_review_id not in comments_dict:
+                    # 按下「全文」以展開過長的評論內容
+                    expand_comment = total_samples[index].find_elements(By.CLASS_NAME, 'w8nwRe')
+                    if expand_comment: expand_comment[0].send_keys(Keys.ENTER)
+                    # 取得留言內容
+                    contents = contents_element[0].find_element(By.CLASS_NAME, 'wiI7pd').text if contents_element else None
+                    comment_time = total_samples[index].find_element(By.CLASS_NAME, 'rsqaWe').text
+                    level = re.search(r'ba(?P<level>\d+)', total_samples[index].find_element(By.CLASS_NAME, 'NBa7we').get_attribute('src'))
+                    # 取得使用者經驗
+                    user_experiences_dict = {}
+                    user_experiences = total_samples[index].find_elements(By.CLASS_NAME, 'RfDO5c')
+                    for ue in user_experiences:
+                        parent_element = driver.find_parent_element(ue, 2)
+                        line = parent_element.find_elements(By.CLASS_NAME, 'RfDO5c')
+                        if len(line) == 1:
+                            span = line[0].find_element(By.TAG_NAME, 'span').text.split('：')
+                            if span[0] in EXPERIENCE_TARGET and span[1]:
+                                numbers = re.search(r'\d+', span[1])
+                                if numbers: user_experiences_dict[span[0]] = int(numbers.group())
+                        else:
+                            dishes = []
+                            experience = []
+                            for review_tag in line:
+                                experience.append(review_tag.find_element(By.TAG_NAME, 'span').text)
+                            if experience[0] in RECOMMEND_DISHES:
+                                if experience[1]: dishes = keyword_separator(experience[1])
+                                if dishes:
+                                    for dish in dishes:
+                                        if not keyword_filter(dish): continue
+                                        keywords_dict[dish] = (keywords_dict.get(dish)[0] + 1, 'recommend') if keywords_dict.get(dish) else (1, 'recommend')
 
-        rate_item._store_responses = sum_responses
-        if len(total_withcomments): rate_item._real_rating = round(sum_score / len(total_withcomments), 1)
+                # 儲存評論物件
+                if comments_dict.get(data_review_id) is None:
+                    comments_dict[data_review_id] = {
+                        'index': len(comments_dict) + 1,
+                        'contents': contents,
+                        'time': comment_time,
+                        'rating': score,
+                        'has_image': 1 if total_samples[index].find_elements(By.CLASS_NAME, 'KtCyie') else 0,
+                        'food_rating': user_experiences_dict.get(EXPERIENCE_TARGET[0]) if user_experiences_dict else None,
+                        'service_rating': user_experiences_dict.get(EXPERIENCE_TARGET[1]) if user_experiences_dict else None,
+                        'atmosphere_rating': user_experiences_dict.get(EXPERIENCE_TARGET[2]) if user_experiences_dict else None,
+                        'contributor_level': int(level.group('level')) + 2 if level else 0,
+                        'sample_of_most_relevant': settings['類型陣列'][0],
+                        'sample_of_highest_rating': settings['類型陣列'][1],
+                        'sample_of_lowest_rating': settings['類型陣列'][2]
+                    }
+                else:
+                    if settings['類型陣列'][0] == 1:
+                        comments_dict[data_review_id]['sample_of_most_relevant'] = 1
+                    elif settings['類型陣列'][1] == 1:
+                        comments_dict[data_review_id]['sample_of_highest_rating'] = 1
+                    elif settings['類型陣列'][2] == 1:
+                        comments_dict[data_review_id]['sample_of_lowest_rating'] = 1
+
+            settings['統計物件'].store_responses = sum_responses
+            if settings['統計物件'].total_withcomments > 0: settings['統計物件'].real_rating = round(sum_score / settings['統計物件'].total_withcomments, 1)
 
     # 等待網址列顯示座標位置後取得座標位置
     print('\r正在取得地點座標...', end='')
@@ -448,9 +506,31 @@ for i in range(url_count):
         else:
             keyword_item.insert_if_not_exists(database)
     # 評論
-    for index in range(len(comment_items)):
-        print(f'\r正在儲存評論結構(%d/%d)...' % (index + 1, len(comment_items)), end='')
-        comment_items[index].insert(database)
+    comment_counter = 0
+    not_only_samples = orders['評分最高']['樣本型態'] is not None
+    for data_id, value in comments_dict.items():
+        comment_counter += 1
+        print(f'\r正在儲存評論結構({comment_counter}/{len(comments_dict.items())})...', end='')
+        Comment.Comment(
+            store_id=store_id,
+            index=value['index'],
+            data_id=data_id,
+            contents=value['contents'],
+            time=value['time'],
+            rating=value['rating'],
+            has_image=value['has_image'],
+            food_rating=value['food_rating'],
+            service_rating=value['service_rating'],
+            atmosphere_rating=value['atmosphere_rating'],
+            contributor_level=value['contributor_level'],
+            environment_state=None,
+            price_state=None,
+            product_state=None,
+            service_state=None,
+            sample_of_most_relevant=value['sample_of_most_relevant'] if not_only_samples else 1,
+            sample_of_highest_rating=value['sample_of_highest_rating'] if not_only_samples else 1,
+            sample_of_lowest_rating=value['sample_of_lowest_rating'] if not_only_samples else 1
+        ).update_if_exists(database)
     # 評分
     print('\r正在儲存評分資料...', end='')
     rate_item.insert_if_not_exists(database)
@@ -459,11 +539,11 @@ for i in range(url_count):
     location_item.insert_if_not_exists(database)
 
     # 計算時間差
-    TIME_DIFFERENCE = datetime.now() - START_TIME
+    TIME_DIFFERENCE = datetime.now() - CRAWLER_START_TIME
     MINUTES_ELAPSE = TIME_DIFFERENCE.total_seconds() / 60
 
     ### 評估完成狀態 ###
-    match get_comments_type:
+    match orders['最相關']['樣本型態']:
         case 'all':
             if is_repairing:
                 print(f'\r【🛠️已修復】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | 耗時:{MINUTES_ELAPSE:.2f}分鐘 | {title} ({rate_item.total_reviews})\n', end='')
@@ -476,10 +556,13 @@ for i in range(url_count):
                 print(f'\r【🛠️已修復】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | 耗時:{MINUTES_ELAPSE:.2f}分鐘 | {title} ({rate_item.total_reviews})\n', end='')
                 store_item.change_state(database, '抽樣', '取得樣本資料(修復)')
             else:
-                print(f'\r【📝已抽樣】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | 耗時:{MINUTES_ELAPSE:.2f}分鐘 | {title} ({rate_item.total_samples}/{rate_item.total_reviews})\n', end='')
+                print(f'\r【📝已抽樣】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | 耗時:{MINUTES_ELAPSE:.2f}分鐘 | {title} | ' +
+                      f'相關:{rate_item.total_samples}/最高:{orders['評分最高']['統計物件'].total_samples}/最低:{orders['評分最低']['統計物件'].total_samples} | 總數:{rate_item.total_reviews})\n', end='')
                 store_item.change_state(database, '抽樣', '取得樣本資料')
         case 'timeout':
-            print(f'\r【⏱️已超時】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | 耗時:{MINUTES_ELAPSE:.2f}分鐘 | {title} (留言:{current_total_withcomments}/過濾:{current_filtered_reviews_count}/瀏覽:{current_total_reviews_count}/總共:{rate_item.total_reviews})\n', end='')
+            print(f'\r【⏱️已超時】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | 耗時:{MINUTES_ELAPSE:.2f}分鐘 | {title} | ' +
+                  f'相關:{rate_item.total_samples}/最高:{orders['評分最高']['統計物件'].total_samples}/最低:{orders['評分最低']['統計物件'].total_samples} | ' +
+                  f'過濾:{orders['最相關']['過濾評論']}/瀏覽:{rate_item.total_browses}/總數:{rate_item.total_reviews}\n', end='')
             store_item.change_state(database, '超時', '超出爬蟲時間限制')
 
     # driver.close()
