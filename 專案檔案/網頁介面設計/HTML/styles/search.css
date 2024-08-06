@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 html, body {
   margin: 0;
   height: 100%;
@@ -26,7 +32,8 @@ header {
 }
 
 .logo-group {
-  font-size: xx-large;
+  font-size: 35px;
+  margin-left: 10px;
 }
 
 .Logo {
@@ -49,7 +56,7 @@ header {
 .link__text {
   color: #424242;
   text-decoration: none;
-  font-size: large;
+  font-size: 18px;
 }
 
 .link__text:hover {
@@ -57,7 +64,24 @@ header {
   color: black;
 }
 
-@media screen and (min-width: 1000px) {
+.wrapper-hambuger{
+  display: none;
+}
+
+.member {
+  display: flex;
+  align-items: center;
+  width: 162.5px;
+  justify-content: flex-end;
+}
+
+.member-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+@media screen and (min-width: 1037px) {
   .link__text:not(:last-child):after {
     content: "";
     border: 0.2px solid #C5C5C5;
@@ -66,24 +90,26 @@ header {
   }
 }
 
-.member {
-  display: flex;
-  align-items: center;
-  margin-right: 15px;
-}
+@media screen and (max-width: 1037px) {
+  .link__text:not(:last-child):after {
+    content: "";
+    border: 0.2px solid #C5C5C5;
+    height: 1px;
+    margin-left: 41px;
+  }
 
-.member-icon {
-  width: 40px;
-  height: 40px;
-}
-
-@media screen and (max-width: 1000px) {
   .member {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    margin-right: 15px;
+    margin-right: 5px;
     flex: 1;
+  }
+
+  .member-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
   }
 
   .wrapper-hambuger {
@@ -92,6 +118,7 @@ header {
     flex-direction: column;
     justify-content: space-between;
     cursor: pointer;
+    margin-right: 10px;
   }
 
   .cross-button {
@@ -119,7 +146,7 @@ header {
 }
 
 .all-content{
-  max-width: 1600px;
+  max-width: 1540px;
   min-height: calc(100% - 174px);
 }
 
@@ -135,6 +162,18 @@ header {
   width: 200PX;
   position: relative;
   margin-left: 10px;
+  font-size: 16px;
+}
+
+.form-floating>.form-select{
+  padding-top: 26px;
+  padding-bottom: 10px;
+  height: 58px;
+  font-size: 16px;
+}
+
+.city{
+  font-size: 16px;
 }
 
 .search-keyword{
@@ -142,6 +181,12 @@ header {
   position: relative;
   margin-left: 30px;
   overflow-x: hidden;
+  font-size: 16px;
+}
+
+.form-floating>.form-control, .form-floating>.form-control-plaintext{
+  padding: 16px  12px;
+  height: 58px;
 }
 
 .search-button{
@@ -150,6 +195,7 @@ header {
   margin-bottom: 15px;
   color: white;
   white-space: nowrap;
+  font-size: 16px;
 }
 
 #map{
@@ -157,12 +203,14 @@ header {
   height: 65vh;
   border-radius: 10px;
   margin-top: 5px;
+  font-size: 13px;
 }
 
 .tertiary-text{
   text-align: center;
   margin-top: 30px;
   font-weight: bold;
+  font-size: 40px
 }
 
 .title-line{
@@ -181,7 +229,7 @@ header {
   background-color: ghostwhite;
   border-radius: 10px;
   min-height: 140px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .store-img-group{
@@ -207,53 +255,52 @@ header {
 .store-name{
   margin-top: 10px;
   font-weight: bold;
+  font-size: 20px;
 }
 
 .rating{
   color: #AC3535;
   font-weight: bold;
+  font-size: 20px;
 }
 
 .rating-text{
-  font-size: xx-small;
+  font-size: 12px;
 }
 
 .restaurant-style, .address{
-  font-size: 0.8rem;
+  font-size: 12.8px;
   margin-top: 10px;
 }
 
 .progress-group-text{
-  display: flex;
-  align-items: baseline;
-  text-align: left;
+  margin-top: 7px;
+  font-size: 13px;
 }
 
-.progress-text{
-  flex-direction: column;
-  font-size: xx-small;
-  line-height: 1.6;
-  white-space: nowrap;
+.progress-group{
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-end;
 }
 
 .progress{
-  margin-top: 5px;
-  height: 14px;
-  max-width: 130px;
-  margin-left: 2px;
-}
-
-.progress-bar{
-  align-items: baseline;
-  padding-left: 3px;
+  height: 13px;
+  margin-bottom: 5px;
 }
 
 .quick-group{
-  line-height: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100px;
+  margin-top: 5px;
 }
 
 .love-text, .map-link-text, .web-text{
   font-weight: bold;
+  font-size: 16px;
   color: #374957;
   text-decoration: none;
   white-space: nowrap;
@@ -262,6 +309,7 @@ header {
 
 .love-img, .map-link-img, .web-img{
   width: 20px;
+  margin-right: 3px;
 }
 
 .bottom{
@@ -269,7 +317,7 @@ header {
   height: 90px;
   color: white;
   padding: 15px 20px 20px 25px;
-  font-size: small;  
+  font-size: 14px;  
 }
 
 @media screen and (max-width: 1385px) {
@@ -281,7 +329,12 @@ header {
   }
 }
 
-@media screen and (max-width: 1292px) {
+@media screen and (max-width: 1316px) {
+  .all-content{
+    max-width: 1000px;
+    min-height: calc(100% - 174px);
+  }
+
   .search{
     align-items: center;
     padding-top: 30px;
@@ -300,6 +353,22 @@ header {
   .content-row{
     flex-direction: column;
   }
+  
+  .store-img-group{
+    padding-left: 0;
+    width: 200px;
+  }
+  
+  .store-img{
+    width: 100%;
+    min-height: 100%;
+    border-radius: 3px;
+  }
+
+  .progress-group{
+    font-size: 13px;
+    max-width: 250px;
+  }
 }
 
 @media screen and (max-width: 620px) {
@@ -308,7 +377,18 @@ header {
   }
 }
 
-@media screen and (max-width: 560px) {
+@media screen and (max-width: 689px) {
+  .store-img-group{
+    width: 0;
+  }
+
+  .store-img{
+    display: none;
+    width: 0;
+  }
+}
+
+@media screen and (max-width: 644px) {
   .store-img-group{
     width: 0;
   }
@@ -319,24 +399,52 @@ header {
   }
 
   .store-right{
-    margin-left: 10px;
+    margin-left: 5px;
     margin-bottom: 3px;
     padding-left: 0;
   }
-
-  .progress-text{
-    flex-direction: column;
-    font-size: xx-small;
-    line-height: 1.6;
-    white-space: nowrap;
-    margin-right: 5px;
-  }
- 
-
+  
   .progress{
     margin-top: 5px;
     height: 14px;
-    max-width: 90px;
-    margin-left: 2px;
+    margin-left: 5px;
+  }
+  .progress-group-text{
+    margin-top: 7px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  
+  .progress-group{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+  }
+  
+  .progress{
+    height: 13px;
+    margin-bottom: 5px;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .store-img-group{
+    width: 0;
+  }
+
+  .store-img{
+    display: none;
+    width: 0;
+  }
+
+  .progress-text{
+    font-size: 10px;
+    white-space: nowrap;
+  }
+
+  .progress-group{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
   }
 }

@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 html, body {
   margin: 0;
   height: 100%;
@@ -26,7 +32,8 @@ header {
 }
 
 .logo-group {
-  font-size: xx-large;
+  font-size: 35px;
+  margin-left: 10px;
 }
 
 .Logo {
@@ -49,7 +56,7 @@ header {
 .link__text {
   color: #424242;
   text-decoration: none;
-  font-size: large;
+  font-size: 18px;
 }
 
 .link__text:hover {
@@ -57,7 +64,24 @@ header {
   color: black;
 }
 
-@media screen and (min-width: 1000px) {
+.wrapper-hambuger{
+  display: none;
+}
+
+.member {
+  display: flex;
+  align-items: center;
+  width: 162.5px;
+  justify-content: flex-end;
+}
+
+.member-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+@media screen and (min-width: 1037px) {
   .link__text:not(:last-child):after {
     content: "";
     border: 0.2px solid #C5C5C5;
@@ -66,18 +90,7 @@ header {
   }
 }
 
-.member {
-  display: flex;
-  align-items: center;
-  margin-right: 15px;
-}
-
-.member-icon {
-  width: 40px;
-  height: 40px;
-}
-
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1037px) {
   .member {
     display: flex;
     align-items: center;
@@ -86,12 +99,19 @@ header {
     flex: 1;
   }
 
+  .member-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
+  }
+
   .wrapper-hambuger {
     height: 15px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     cursor: pointer;
+    margin-right: 10px;
   }
 
   .cross-button {
@@ -121,7 +141,7 @@ header {
 .section-content{
   box-sizing: border-box;
   width: 100%;
-  max-width: 1350px;
+  max-width: 1540px;
   margin: 0 auto;
 }
 
@@ -132,7 +152,7 @@ header {
 
 .store-title{
   font-weight: bold;
-  font-size: 3rem;
+  font-size: 45px;
 }
 
 .love-group{
@@ -145,7 +165,7 @@ header {
   margin-top: 5px;
   display: flex;
   align-items: center; 
-  gap: 20px; /* 可選：設置元素之間的間距 */
+  gap: 20px; /* 設置元素之間的間距 */
 }
 
 .store-type{
@@ -155,6 +175,7 @@ header {
   padding: 7px 3px 7px 3px;
   color: white;
   border-radius: 10px;
+  font-size: 16px;
 }
 
 .store-type-img{
@@ -164,23 +185,26 @@ header {
 }
 
 .rating{
-  font-size: 2.4rem;
+  font-size: 38.4px;
   color: #AC3535;
   font-weight: bold;
   margin-top: 4px;
+  font-size: 40px;
 }
 
 .rating-text{
-  font-size: large;
+  font-size: 20px;
   color: #AC3535;
-  margin-top: 15px;
+  margin-top: 10px;
   font-weight: bold;
 }
 
 .status{
   color: #2C901B;
-  font-size: large;
+  font-size: 19px;
   font-weight: bold;
+  display: flex;
+  align-items: center;
 }
 
 .status-img{
@@ -191,6 +215,7 @@ header {
 .update{
   margin-top: 7px;
   color: #2E2E2E;
+  font-size: 17px;
 }
 
 .love-img{
@@ -201,36 +226,37 @@ header {
   text-decoration: underline;
   text-underline-offset: 3px;
   color: #343333;
-  font-size: large;
+  font-size: 19px;
   font-weight: bold;
   margin-top: 10px;
 }
 
 .secondary-content{
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 .first-row{
   display: flex;
-  gap: 45px;
+  gap: 16px;
+  justify-content: space-between;
 }
 
 #map{
-  width: 350px;
+  width: 450px;
   height: 215px;
   border-radius: 6.83px;
 }
 
-.legend{
+.legend, .leaflet-right, .leaflet-left, #locateButton{
   display: none;
 }
 
 .comment-keyword{
   background-color: #F9F9F9;
   border: 1px solid #B0B0B0;
-  width: 955px;
+  width: 995px;
   border-radius: 20px;
-  padding: 10px 5px 20px 30px;
+  padding: 10px 5px 15px 30px;
   white-space: nowrap;
 }
 
@@ -242,13 +268,13 @@ header {
 .group-title-img{
   width: 40px;
   height: 35px;
-  font-size: 2rem;
+  font-size: 32px;
   color: #848484;
 }
 
 .group-title{
   font-weight: bold;
-  font-size: x-large;
+  font-size: 25px;
   margin: 0;
 }
 
@@ -261,6 +287,7 @@ header {
 .title-gb{
   margin: 13px 0px 0px 0px;
   font-weight: bold;
+  font-size: 16px;
   display: flex;
 }
 
@@ -268,8 +295,8 @@ header {
   width: 26px;
   height: 26px;
   color: 383838;
-  font-size: large;
-  margin-left: 6px;
+  font-size: 18px;
+  margin-left: 4px;
   margin-right: 10px;
 }
 
@@ -282,11 +309,13 @@ header {
   border-radius: 10px;
   background-color: white;
   margin-right: 10px;
+  margin-bottom: 5px;
+  font-size: 16px;
 }
 
 .second-row{
   display: flex;
-  gap: 15px;
+  gap: 16px;
   flex-wrap: wrap;
   justify-content: space-between;
 }
@@ -295,14 +324,15 @@ header {
   margin-top: 20px;
   background-color: #F9F9F9;
   border: 1px solid #B0B0B0;
-  width: 350px;
+  width: 450px;
   border-radius: 10px;
-  padding: 10px 30px 15px 30px;
+  padding: 10px 35px 15px 30px;
   white-space: nowrap;
 }
 
 .progress-group-text{
   margin-top: 25px;
+  font-size: 16px;
 }
 
 .progress-group{
@@ -344,6 +374,7 @@ header {
 
 .service-title{
   font-weight: bold;
+  font-size: 16px;
   margin-top: 5px;
 }
 
@@ -354,11 +385,13 @@ header {
 .item-img{
   color: #374957;
   margin-right: 5px;
+  font-size: 16px;
 }
 
 .item-text{
   display: inline-block;
   font-weight: bold;
+  font-size: 16px;
 }
 
 .store-introduction{
@@ -378,7 +411,7 @@ header {
 
 .introduction-title{
   font-weight: bold;
-  font-size: large;
+  font-size: 18px;
 }
 
 .introduction-title::before {
@@ -388,13 +421,14 @@ header {
 
 .introduction-item{
   list-style: none;
-  text-indent: 1rem;
+  text-indent: 16px;
   color: #404040;
   white-space: wrap;
+  font-size: 16px;
 }
 
 .tertiary-content{
-  margin-top: 25px;
+  margin-top: 30px;
 }
 
 .comment-title{
@@ -406,14 +440,20 @@ header {
   color: black;
   border-color: #A3A3A3;
   font-weight: bold;
+  font-size: 16px;
   margin-left: 20px;
   align-items: center;
 }
 
+.dropdown-item{
+  font-size: 16px;
+}
+
 .comment-group{
   margin-top: 20px;
-  max-height: 500px;
+  max-height: 530px;
   overflow-y: scroll;
+  padding-right: 5px;
 }
 
 .comment-item{
@@ -441,7 +481,7 @@ header {
 }
 
 .time{
-  font-size: small;
+  font-size: 14px;
   margin-top: 4px;
   margin-left: 10px;
 }
@@ -449,17 +489,18 @@ header {
 .comment-text{
   font-weight: bold;
   margin: 0;
+  font-size: 16px;
 }
 
 .fourth-content{
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .group-card{
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto; 
-  gap: 60px;
+  gap: 55px;
   margin-top: 20px;
   padding-bottom: 10px; /* 防止滾動條覆蓋內容 */
 }
@@ -475,33 +516,33 @@ header {
 }
 
 .card-body{
-  height: 2.3rem;
+  height: 36.8px;
   padding: 5px 0px 5px 0px;
 }
 
 .card-text{
-  font-size: large;
+  font-size: 18px;
   font-weight: bold;
   text-align: center;
 }
 
 .fifth-content{
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .tag-group{
   margin-top: 20px;
   margin-bottom: 50px;
   display: flex;
-  gap: 20px;
+  gap: 23px;
   flex-wrap: nowrap;
   overflow-x: auto;
   padding-bottom: 10px;
 }
 
 .tag{
-  width: 8.2rem;
-  height: 2.4rem;
+  width: 131.2px;
+  height: 38.4px;
   border: 2px solid #D9D9D9;
   border-radius: 10px;
   padding: 5px;
@@ -513,6 +554,7 @@ header {
 .tag-text{
   color: #383838;
   font-weight: bold;
+  font-size: 16px;
   margin: 0;
 }
 
@@ -520,22 +562,13 @@ header {
   margin-top: 2px;
   margin-right: 3px;
   color: #374957;
+  font-size: 16px;
 }
-
-
-
-
-
-
-
-
-
-
 
 .bottom{
   background-color: #485465;
   height: 90px;
   color: white;
   padding: 15px 20px 20px 25px;
-  font-size: small;  
+  font-size: 14px;  
 }
