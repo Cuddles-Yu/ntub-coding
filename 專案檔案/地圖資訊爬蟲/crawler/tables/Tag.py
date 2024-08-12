@@ -21,7 +21,7 @@ class Tag:
         return f"({self.tag}, {self.category})"
 
     def exists(self, database: SqlDatabase) -> bool:
-        return database.is_value_exist('tags', 'tag', self.tag)
+        return database.is_value_exists('tags', tag=self.tag)
 
     def insert_if_not_exists(self, database: SqlDatabase):
         if not self.exists(database): database.add('tags', self.to_string())

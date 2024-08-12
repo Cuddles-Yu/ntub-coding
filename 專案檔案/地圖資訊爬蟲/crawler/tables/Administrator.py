@@ -29,7 +29,7 @@ class Administrator:
         return f"({self.id}, {self.email}, {self.password}, {self.create_time})"
 
     def exists(self, database: SqlDatabase) -> bool:
-        return database.is_value_exist('administrators', 'email', self.email)
+        return database.is_value_exists('administrators', email=self.email)
 
     def insert_if_not_exists(self, database: SqlDatabase):
         if not self.exists(database): database.add('administrators', self.to_string())

@@ -121,7 +121,7 @@ class Comment:
                 f"{self.sample_of_most_relevant}, {self.sample_of_highest_rating}, {self.sample_of_lowest_rating})")
 
     def exists(self, database: SqlDatabase) -> bool:
-        return database.is_value_exist('comments', 'data_id', self.data_id)
+        return database.is_value_exists('comments', store_id=self.store_id, data_id=self.data_id)
 
     def update_if_exists(self, database: SqlDatabase):
         if not self.exists(database):

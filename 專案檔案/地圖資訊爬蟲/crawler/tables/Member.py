@@ -71,7 +71,7 @@ class Member:
         return f"({self.id}, {self.email}, {self.username}, {self.password}, {self.profile_picture}, {self.popular_weight}, {self.environment_weight}, {self.price_weight}, {self.product_weight}, {self.service_weight}, {self.create_time})"
 
     def exists(self, database: SqlDatabase) -> bool:
-        return database.is_value_exist('members', 'email', self.email)
+        return database.is_value_exists('members', email=self.email)
 
     def insert_if_not_exists(self, database: SqlDatabase):
         if not self.exists(database): database.add('members', self.to_string())

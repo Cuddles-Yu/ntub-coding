@@ -164,7 +164,7 @@ class Rate:
         return f"({self.store_id}, {self.avg_rating}, {self.total_reviews}, {self.total_browses}, {self.total_samples}, {self.total_withcomments}, {self.total_withoutcomments}, {self.mixreviews_count}, {self.additionalcomments_count}, {self.real_rating}, {self.environment_rating}, {self.price_rating}, {self.product_rating}, {self.service_rating}, {self.store_responses})"
 
     def exists(self, database: SqlDatabase) -> bool:
-        return database.is_value_exist('rates', 'store_id', self.store_id)
+        return database.is_value_exists('rates', store_id=self.store_id)
 
     def insert_if_not_exists(self, database: SqlDatabase):
         if not self.exists(database): database.add('rates', self.to_string())

@@ -46,7 +46,7 @@ class Keyword:
         return f"({self.store_id}, {self.word}, {self.count}, {self.source}, {self.image_url}, {self.source_url})"
 
     def exists(self, database: SqlDatabase) -> bool:
-        return database.is_value_exist('keywords', 'word', self.word)
+        return database.is_value_exists('keywords', store_id=self.store_id, word=self.word)
 
     def is_recommend(self):
         return self._source == 'recommend'

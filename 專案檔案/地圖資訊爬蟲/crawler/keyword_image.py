@@ -24,22 +24,22 @@ def search_url(name: str, kw: str, mode: str):
             query_url += f'"{kw}" -菜單'
     return query_url.replace(' ', '+')
 
-def trying(_store_name, _keyword, modes):
+def trying(_driver, _store_name, _keyword, modes):
     for mode in modes:
         # 瀏覽器載入指定的連結
         driver.get(search_url(_store_name, _keyword, mode))
         random_delay(3, 5, 2)
-        element = driver.wait_for_click_index(By.CLASS_NAME, 'eA0Zlc', index=0)
+        element = _driver.wait_for_click_index(By.CLASS_NAME, 'eA0Zlc', index=0)
         random_delay(3, 5, 2)
         if element: return element
     return None
 
-def search(_store_name, _keyword, _store_id):
-    search_result = trying(_store_name, _keyword, modes=['force', 'medium', 'normal', 'static'])
+def search(_driver, _store_name, _keyword, _store_id):
+    search_result = trying(_driver, _store_name, _keyword, modes=['force', 'medium', 'normal', 'static'])
     if not search_result: return None, None
     random_delay(3, 5, 2)
     # 取得來源與圖片連結
-    image = driver.wait_for_element(By.CLASS_NAME, 'YsLeY')
+    image = _driver.wait_for_element(By.CLASS_NAME, 'YsLeY')
     image_url = image.find_element(By.TAG_NAME, 'img').get_attribute('src')
     source_url = image.get_attribute('href')
     random_delay(3, 5, 2)
