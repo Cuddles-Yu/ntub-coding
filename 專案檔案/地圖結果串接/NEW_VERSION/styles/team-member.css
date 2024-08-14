@@ -14,14 +14,12 @@ header {
 .wrapper-content{
   box-sizing: border-box;
   width: 100%;
-  max-width: 1600px;
+  max-width: 1540px;
   margin: 0 auto;
 }
 
 .header-content {
   height: 80px;
-  padding-left: 30px;
-  padding-right: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;

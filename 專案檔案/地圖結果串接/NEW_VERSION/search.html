@@ -31,10 +31,10 @@
     <div id="header-content" class="header-content_active header-content wrapper-content">
       <div class="logo-group">
         <img class="Logo" src="images/Logo設計_圖像(藍+).png">
-        <a class="Logo-text" href="#">評星宇宙</a>
+        <a class="Logo-text" href="home.html">評星宇宙</a>
       </div>
       <nav class="header-nav">
-        <a class="link__text" href="#">網站首頁</a>
+        <a class="link__text" href="home.html">網站首頁</a>
         <a class="link__text" href="#">會員專區</a>
         <a class="link__text" href="#">使用說明</a>
         <a class="link__text" href="#">問題回饋</a>
@@ -70,10 +70,11 @@
     </div>
   </header>
   
+  <!-- 搜尋 -->
   <div class="container-fluid all-content">
     <div class="content-row row">
       <div class="secondary-content col">
-        <form id="searchForm"method="POST" action="search.php">
+        <form id="searchForm" method="POST" action="search.php">
           <div class="search">
             <div class="form-floating search-city">
               <select class="form-select" id="location" name="location" aria-label="Floating label select example">
@@ -99,9 +100,11 @@
           <h1 class="tertiary-text">搜尋結果</h1>
           <div class="title-line"></div>
         </div>
-        <div id="searchResults" class="store">
+        <div id="searchResults" class="store" >
+              <!-- 初始內容為空，避免undefined -->
+        </div>
           <!--餐廳-->
-          <div class="container-fluid store-body">
+          <div class="container-fluid store-body" onclick="redirectToDetailPage(storeName, storeId)">
             <!-- 之後填入預設商家們 -->
           </div>
           
@@ -138,130 +141,64 @@
   <script src="./osm_map.js"></script>
   <script src="scripts/ui-interactions.js"></script>
   
-  <!-- 地圖動態顯示地標點???????? -->
-  <script>
-    document.getElementById('searchForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        var formData = new FormData(this);
-        fetch('data.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('searchResults').innerHTML = data.map(store => `
-                <div class="container-fluid store-body">
-                    <div class="row">
-                        <div class="store-img-group col-3">
-                            <img class="store-img" src="${store.preview_image}">
-                        </div>
-                        <div class="store-right col">
-                            <h5 class="store-name">${store.name}</h5>
-                            <div class="store-information row">
-                                <div class="col-5">
-                                    <h5 class="rating">${store.avg_ratings * 20}<small class="rating-text">/(綜合)評分</small></h5>
-                                    <h6 class="restaurant-style">分類: ${store.tag}</h6>
-                                    <h6 class="address">地址: <br>${store.city} ${store.details}</h6>
-                                </div>
-                                <div class="progress-group-text col-5">
-                                    <div class="progress-text col-2">
-                                        <div class="progress-text" style="color: #B45F5F;">熱門</div>
-                                        <div class="progress-text" style="color: #562B08;">環境</div>
-                                        <div class="progress-text" style="color: #7B8F60;">產品</div>
-                                        <div class="progress-text" style="color: #5053AF;">服務</div>
-                                        <div class="progress-text" style="color: #C19237;">售價</div>
-                                    </div>
-                                    <div class="progress-group col">
-                                        <div class="progress" role="progressbar" aria-label="Default example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                            <div class="progress-bar" style="width: ${store.avg_ratings * 20}%; background-color: #B45F5F;">${store.avg_ratings * 20}%</div>
-                                        </div>
-                                        <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                            <div class="progress-bar" style="width: ${store.environment_rating * 20}%; background-color: #562B08;">${store.environment_rating * 20}%</div>
-                                        </div>
-                                        <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                                            <div class="progress-bar" style="width: ${store.product_rating * 20}%; background-color: #7B8F60;">${store.product_rating * 20}%</div>
-                                        </div>
-                                        <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                                            <div class="progress-bar" style="width: ${store.service_rating * 20}%; background-color: #5053AF;">${store.service_rating * 20}%</div>
-                                        </div>
-                                        <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                                            <div class="progress-bar" style="width: ${store.price_rating * 20}%; background-color: #C19237;">${store.price_rating * 20}%</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="quick-group col">
-                                    <a class="love" href="#"><img class="love-img" src="images/love.png"><h6 class="love-text">最愛</h6></a><br>
-                                    <a class="map-link" href="${store.link}"><img class="map-link-img" src="images/map.png"><h6 class="map-link-text">地圖</h6></a><br>
-                                    <a class="web" href="${store.website}"><img class="web-img" src="images/web.png"><h6 class="web-text">官網</h6></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>`).join('');
-
-            updateMap(data);
-        })
-        .catch(error => console.error('Error:', error));
-    });
-
-    function updateMap(stores) {
-        // 清空舊的標記
-        markers.clearLayers();
-
-        stores.forEach(store => {
-            let marker = L.marker([store.latitude, store.longitude], {
-                icon: L.AwesomeMarkers.icon({
-                    icon: 'info-sign',
-                    markerColor: 'blue',
-                    prefix: 'fa'
-                })
-            }).addTo(markers)
-              .bindPopup(`<b>${store.name}</b><br>${store.city} ${store.details}<br>評分: ${store.avg_ratings * 20}`);
-
-            markers.addLayer(marker);
-        });
-
-        map.addLayer(markers);
-    }
-  </script>
-
-  <!-- <script>
-    document.addEventListener('load', function(e) {
-        e.preventDefault();
-        var formData = new FormData(this);
-        fetch('popularStores.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('popularResults').innerHTML = data;
-        })
-        .catch(error => console.error('Error:', error));
-    });
-  </script> -->
 
   <!-- 搜尋跳轉功能 -->
   <script>
     document.getElementById('searchForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        var formData = new FormData(this);
-        fetch('search.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('searchResults').innerHTML = data;
-        })
-        .catch(error => console.error('Error:', error));
+       e.preventDefault();
+       var formData = new FormData(this);
+
+       // 先獲取 HTML 搜索結果
+       fetch('search.php', {
+           method: 'POST',
+           body: formData
+       })
+       .then(response => response.text())
+       .then(data => {
+          if (data && data.trim() !== "") {
+              document.getElementById('searchResults').innerHTML = data;
+          } else {
+            document.getElementById('searchResults').innerHTML = "<p>沒有找到相關結果。</p>";
+          }
+       })
+       .catch(error => console.error('Error:', error));
+       
+       // 獲取 JSON 地標資料並更新地圖標記
+       fetch('search_landmark.php', {
+          method: 'POST',
+          body: formData
+       })
+       .then(response => response.json()) 
+       .then(data => {
+          if (Array.isArray(data) && data.length > 0) {
+              updateMapMarkers(data);
+          } else {
+              console.log('沒有找到地標資料');
+          }
+})
+.catch(error => console.error('Fetch錯誤:', error));
+       
     });
-    function navigateToDetail(element) {
-      var storeName = element.getAttribute('data-name');
-      window.location.href = './store-detail.html?storeName=' + encodeURIComponent(storeName);
+
+   function updateMapMarkers(data) {
+       console.log('更新地圖標記的數據:', data);
+       // 這個函數需要在 osm_map.js 中實現
+       if (typeof processJsonData === 'function') {
+           processJsonData(data);
+       } else {
+           console.error('processJsonData 函數未定義');
+       }
+   }
+
+ </script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+ <script>
+  //跳轉詳細頁面
+    function redirectToDetailPage(storeName, storeId) {
+      window.location.href = `store-detail.html?name=${encodeURIComponent(storeName)}&id=${storeId}`;
     }
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 
 </html>

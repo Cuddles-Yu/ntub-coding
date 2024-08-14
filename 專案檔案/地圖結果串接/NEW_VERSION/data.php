@@ -29,8 +29,6 @@ function getStoreData() {
 
     $result = $conn->query($sql);
 
-    $result = $conn->query($sql);
-
     if ($result === false) {
         echo"SQL Error: " . $conn->error;
         exit();
@@ -43,7 +41,8 @@ function getStoreData() {
             $data[] = array(
                 'name' => $row['store_name'],
                 'preview_image' => $row['store_preview_image'],
-                'Latlng' => array(floatval($row['location_longitude']), floatval($row['location_latitude'])), //經度再緯度
+                'latitude' => floatval($row['location_latitude']), 
+                'longitude' => floatval($row['location_longitude']), //緯度latitude再經度longitude
                 'tag' => $row['tag'], //商家標籤
                 'rating' => floatval($row['avg_ratings']), //這間商家的google評分
                 'sample_ratings' =>intval($row['sample_ratings'] ), //抓取的樣本總數(有留言+沒有留言)
@@ -63,3 +62,4 @@ function getStoreData() {
 header('Content-Type: application/json');
 echo json_encode(getStoreData());
 ?>
+

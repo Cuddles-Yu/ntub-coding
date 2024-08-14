@@ -476,6 +476,65 @@ header {
     </div>
   </div>
 
+  <div class="progress-group-text">
+    <div class="progress-text">
+      <div class="progress-text" style="color: #B45F5F;">熱門 10%</div>
+      <div class="progress-text" style="color: #562B08;">環境 40%</div>
+      <div class="progress-text" style="color: #7B8F60;">產品 50%</div>
+      <div class="progress-text" style="color: #5053AF;">服務 70%</div>
+      <div class="progress-text" style="color: #C19237;">售價 75%</div>
+    </div>
+    <div class="progress-group">
+      <div class="progress" role="progressbar" aria-label="Default example " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar overflow-visible" style="width: 15%; background-color: #B45F5F;"></div><!--填入"熱門指數"width也要跟著改-->
+      </div>
+      <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar overflow-visible" style="width: 25%; background-color: #562B08;"></div><!--填入"環境指數"width也要跟著改-->
+      </div>
+      <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar overflow-visible" style="width: 50%; background-color: #7B8F60;"></div><!--填入"產品指數"width也要跟著改-->
+      </div>
+      <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar overflow-visible" style="width: 75%; background-color: #5053AF;"></div><!--填入"服務指數"width也要跟著改-->
+      </div>
+      <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar overflow-visible" style="width: 100%; background-color: #C19237;"></div><!--填入"售價指數"width也要跟著改-->
+      </div>
+    </div>
+  </div>
+  <!--CSS
+  .progress-group-text{
+    display: flex;
+    text-align: left;
+    margin-top: 10px;
+  }
+  
+  .progress-text{
+    flex-direction: column;
+    font-size: small;
+    line-height: 2.5;
+    white-space: nowrap;
+    padding-top: 4px;
+  }
+  
+  .progress-group{
+    width: 70%;
+  }
+  
+  .progress{
+    margin-top: 14px;
+    height: 20px;
+    margin-left: 5px;
+  }
+  
+  .progress-bar{
+    align-items: baseline;
+    padding-left: 3px;
+  }-->
+
+
+
+
   <footer>
     <div class="bottom">
       台北商業大學 | 資訊管理系<br>
@@ -506,3 +565,4 @@ header {
 </body>
 
 </html>
+
