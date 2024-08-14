@@ -1,0 +1,586 @@
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('../images/background_galaxy.jpg'); /* 背景圖片 */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: auto;
+}
+
+/* 大螢幕（例如桌面電腦） */
+@media (min-width: 1600px){
+    .login-container {
+        width: 70%;
+        height: 70%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .right-side {
+        margin-left: 5vw;
+        position: relative;
+    }
+
+    .title {
+        display: flex;
+        justify-content: center;
+        font-size: 72px;
+        font-weight: bold;
+        margin-bottom: 4vh;
+    }
+
+    #container_logo {
+        width: 25vw;
+        height: auto;
+    }
+
+    #user_icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    #mail_icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    #password_icon1 {
+        width: 60px;
+        height: 60px;
+    }
+
+    #password_icon2 {
+        width: 60px;
+        height: 60px;
+    }
+
+    #hide_password_icon1 {
+        position: relative;
+        width: 48px;
+        height: 48px;
+        cursor: pointer;
+        margin-left: auto;
+    }
+
+    #hide_password_icon2 {
+        position: relative;
+        width: 48px;
+        height: 48px;
+        cursor: pointer;
+        margin-left: auto;
+    }
+
+    #service {
+        width: 32px;
+        height: 32px;
+    }
+
+    #service_text {
+        font-size: 28px;
+        margin-right: 2vw;
+    }
+
+    .service_container {
+        display: flex;
+        align-items: center;
+    }
+
+    button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 15vw;
+        height: 70px;
+        cursor: pointer;
+        background-color: #D9D9D9;
+        border-radius: 40px;
+        box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
+        border: transparent;
+        padding: 20px;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    #sign_up_button {
+        width: 8vw;
+        margin-left: auto;
+    }
+
+    #user_input {
+        background-color: transparent;
+        border-color: transparent;
+        outline: none;
+        font-size: 30px;
+    }
+
+    #email_input {
+        background-color: transparent;
+        border-color: transparent;
+        outline: none;
+        font-size: 30px;
+    }
+
+    #password_input1 {
+        background-color: transparent;
+        border-color: transparent;
+        outline: none;
+        font-size: 30px;
+    }
+
+    #password_input2 {
+        background-color: transparent;
+        border-color: transparent;
+        outline: none;
+        font-size: 30px;
+    }
+
+    .input-group {
+        display: flex;
+        align-items: center;
+        position: relative;
+        background: #D9D9D9;
+        border: 1px solid #000000;
+        border-radius: 5px;
+        padding: 10px;
+        box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
+        margin-bottom: 2.5vh;
+    }
+}
+
+/* 中等螢幕（筆記型電腦） */
+@media (min-width: 1025px) and (max-width: 1599px) {
+    .login-container {
+        width: 60%;
+        height: 70%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .right-side {
+        margin-left: 4vw;
+        position: relative;
+    }
+
+    .title {
+        display: flex;
+        justify-content: center;
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 3vh;
+    }
+
+    #container_logo {
+        width: 20vw;
+        height: auto;
+    }
+
+    #user_icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    #mail_icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    #password_icon1 {
+        width: 30px;
+        height: 30px;
+    }
+
+    #password_icon2 {
+        width: 30px;
+        height: 30px;
+    }
+
+    #hide_password_icon1 {
+        position: relative;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        margin-left: auto;
+    }
+
+    #hide_password_icon2 {
+        position: relative;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        margin-left: auto;
+    }
+
+    .service_container {
+        display: flex;
+        align-items: center;
+    }
+
+    #service {
+        width: 20px;
+        height: 20px;
+    }
+
+    #service_text {
+        font-size: 1rem;
+        margin-right: 1vw;
+    }
+
+    button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 12vw;
+        height: 40px;
+        cursor: pointer;
+        background-color: #D9D9D9;
+        border-radius: 40px;
+        box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
+        border: transparent;
+        padding: 10px;
+        font-size: 1rem;
+        font-weight: bold;
+    }
+
+    #sign_up_button {
+        width: 7vw;
+        margin-left: auto;
+    }
+
+    #user_input {
+        background-color: transparent;
+        border-color: transparent;
+        outline: none;
+        font-size: 1.25rem;
+    }
+
+    #email_input {
+        background-color: transparent;
+        border-color: transparent;
+        outline: none;
+        font-size: 1.25rem;
+    }
+
+    #password_input1 {
+        background-color: transparent;
+        border-color: transparent;
+        outline: none;
+        font-size: 1.25rem;
+    }
+
+    #password_input2 {
+        background-color: transparent;
+        border-color: transparent;
+        outline: none;
+        font-size: 1.25rem;
+    }
+
+    .input-group {
+        display: flex;
+        align-items: center;
+        position: relative;
+        background: #D9D9D9;
+        border: 1px solid #000000;
+        border-radius: 5px;
+        padding: 10px;
+        box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
+        margin-bottom: 1.5vw;
+    }
+}
+
+/* 中等螢幕（平板電腦） */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .login-container {
+        width: 60%;
+        height: auto;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        position: relative;
+    }
+    
+    #container_logo {
+        margin-top: 5%;
+        width: 40%;
+        height: auto;
+    }
+
+    .title {
+        display: flex;
+        justify-content: center;
+        font-size: 48px;
+        font-weight: bold;
+        margin-bottom: 3%;
+    }
+    
+    #user_icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    #mail_icon {
+        width: 36px;
+        height: 36px;
+    }
+    
+    #password_icon1 {
+        width: 36px;
+        height: 36px;
+    }
+    
+    #password_icon2 {
+        width: 36px;
+        height: 36px;
+    }
+
+    #hide_password_icon1 {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        right: 10px;
+        cursor: pointer;
+    }
+    
+    #hide_password_icon2 {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        right: 10px;
+        cursor: pointer;
+    }
+
+    #service {
+        width: 24px;
+        height: 24px;
+    }
+
+    #service_text {
+        font-size: 20px;
+    }
+
+    .service_container {
+        display: flex;
+        align-items: center;
+    }
+    
+    button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 12vw;
+        height: 40px;
+        cursor: pointer;
+        background-color: #D9D9D9;
+        border-radius: 40px;
+        box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
+        border: transparent;
+        padding: 5px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    
+    #sign_up_button {
+        width: 12vw;
+        height: 4.5vh;
+        margin-left: auto;
+    }
+    
+    #user_input {
+        background-color: transparent;
+        border-color: transparent;
+        outline: none;
+        font-size: 20px;
+    }
+
+    #email_input {
+        background-color: transparent;
+        border-color: transparent;
+        outline: none;
+        font-size: 20px;
+    }
+    
+    #password_input1 {
+        background-color: transparent;
+        border-color: transparent;
+        outline: none;
+        font-size: 20px;
+    }
+
+    #password_input2 {
+        background-color: transparent;
+        border-color: transparent;
+        outline: none;
+        font-size: 20px;
+    }
+
+    .input-group {
+        display: flex;
+        align-items: center;
+        position: relative;
+        background: #D9D9D9;
+        border: 1px solid #000000;
+        border-radius: 5px;
+        padding: 12px;
+        box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
+        margin-bottom: 1.5vh;
+    }
+}
+
+/* 小螢幕（手機） */
+@media (max-width: 767px){
+    .login-container {
+        width: 60%;
+        height: auto;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        position: relative;
+    }
+    
+    #container_logo {
+        margin-top: 5%;
+        width: 50%;
+        height: auto;
+    }
+
+    .title {
+        display: flex;
+        justify-content: center;
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 5%;
+    }
+    
+    #user_icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    #mail_icon {
+        width: 24px;
+        height: 24px;
+    }
+    
+    #password_icon1 {
+        width: 24px;
+        height: 24px;
+    }
+
+    #password_icon2 {
+        width: 24px;
+        height: 24px;
+    }
+    
+    #hide_password_icon1 {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        right: 10px;
+        cursor: pointer;
+    }
+
+    #hide_password_icon2 {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        right: 10px;
+        cursor: pointer;
+    }
+    
+    #service {
+        width: 14px;
+        height: 14px;
+    }
+
+    #service_text {
+        font-size: 14px;
+    }
+
+    #service_group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5vh;
+    }
+    
+    button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 12vw;
+        height: 40px;
+        cursor: pointer;
+        background-color: #D9D9D9;
+        border-radius: 40px;
+        box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
+        border: transparent;
+        padding: 5px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    
+    #sign_up_button {
+        width: 18vw;
+        margin-left: auto;
+    }
+
+    #user_input {
+        background-color: transparent;
+        border-color: transparent;
+        outline: none;
+        font-size: 14px;
+    }
+
+    #email_input {
+        background-color: transparent;
+        border-color: transparent;
+        outline: none;
+        font-size: 14px;
+    }
+    
+    #password_input1 {
+        background-color: transparent;
+        border-color: transparent;
+        outline: none;
+        font-size: 14px;
+    }
+
+    #password_input2 {
+        background-color: transparent;
+        border-color: transparent;
+        outline: none;
+        font-size: 14px;
+    }
+    
+    .input-group {
+        display: flex;
+        align-items: center;
+        position: relative;
+        background: #D9D9D9;
+        border: 1px solid #000000;
+        border-radius: 5px;
+        padding: 8px;
+        box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
+        margin-bottom: 1.5vh;
+    }
+}
