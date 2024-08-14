@@ -101,6 +101,11 @@ body {
         align-items: center;
     }
 
+    .service_group {
+        display: flex;
+        align-items: center;
+    }
+
     button {
         display: flex;
         align-items: center;
@@ -245,6 +250,11 @@ body {
         margin-right: 1vw;
     }
 
+    .service_group {
+        display: flex;
+        align-items: center;
+    }
+
     button {
         display: flex;
         align-items: center;
@@ -379,6 +389,11 @@ body {
     }
 
     .service_container {
+        display: flex;
+        align-items: center;
+    }
+
+    .service_group {
         display: flex;
         align-items: center;
     }
@@ -517,7 +532,7 @@ body {
         font-size: 14px;
     }
 
-    #service_group {
+    .service_group {
         display: flex;
         align-items: center;
         margin-bottom: 1.5vh;
