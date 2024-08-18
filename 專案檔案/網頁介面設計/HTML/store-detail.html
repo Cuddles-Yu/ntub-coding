@@ -75,9 +75,10 @@
     <h1 class="store-title">鹿境早午餐 & 餐酒館_西門Arrival Brunch & Bistro (原 滷餐小酒館Zoo Bistro) ｜餐酒 |西門美食｜早午餐</h1>
     <div class="love-group">
       <div class="type-rating-status-group">
-        <div class="store-type"><img class="store-type-img" src="images/restaurant-2.png">餐廳</div>
+        
         <!--綜合評分-->
         <h5 class="rating">85<!--填入綜合評分--></h5><h6 class="rating-text">/綜合評分</h6>
+        <div class="store-type"><img class="store-type-img" src="images/restaurant-2.png">餐廳</div>
         <!--分店綜合評分比較-->       
         <button class="btn btn-outline-secondary other-store-rating" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
           其他分店
@@ -108,7 +109,7 @@
         </div>
       </div>
     </div>
-    <li class="introduction">明亮的餐酒館供應精選牛排和海鮮，並設有提供各種酒類的酒吧，店內洋溢歡樂氛圍。</li>
+    <li id="item" class="introduction"  data-content="明亮的餐酒館供應精選牛排和海鮮，並設有提供各種酒類的酒吧，店內洋溢歡樂氛圍。"></li>
   </section>
 
   <section class="secondary-content section-content">
@@ -167,15 +168,15 @@
           <div class="service-group">
             <h6 class="service-title">服務方式</h6>
             <div class="item-group">
-              <div class="service-item col">
+              <div class="service-item">
                 <i class="fi fi-sr-checkbox item-img"></i>
                 <h6 class="item-text">內用</h6>
               </div>
-              <div class="service-item col">
+              <div class="service-item">
                 <i class="fi fi-sr-question item-img"></i>
                 <h6 class="item-text">外帶</h6>
               </div>
-              <div class="service-item col">
+              <div class="service-item">
                 <i class="fi fi-sr-square-x item-img"></i>
                 <h6 class="item-text">外送</h6>
               </div>
@@ -184,11 +185,11 @@
           <div class="service-group">
             <h6 class="service-title">付款方式</h6>
             <div class="item-group">
-              <div class="service-item col">
+              <div class="service-item">
                 <i class="fi fi-sr-checkbox item-img"></i>
                 <h6 class="item-text">信用卡</h6>
               </div>
-              <div class="service-item col">
+              <div class="service-item">
                 <i class="fi fi-sr-question item-img"></i>
                 <h6 class="item-text">NFC行動支付</h6>
               </div>
@@ -197,7 +198,7 @@
           <div class="service-group">
             <h6 class="service-title">定位服務</h6>
             <div class="item-group">
-              <div class="service-item col">
+              <div class="service-item">
                 <i class="fi fi-sr-checkbox item-img"></i>
                 <h6 class="item-text">接受訂位</h6>
               </div>
@@ -206,19 +207,19 @@
           <div class="service-group">
             <h6 class="service-title">其他</h6>
             <div class="item-group">
-              <div class="service-item col-6">
+              <div class="service-item">
                 <i class="fi fi-sr-checkbox item-img"></i>
                 <h6 class="item-text">無障礙入口</h6>
               </div>
-              <div class="service-item col-6">
+              <div class="service-item">
                 <i class="fi fi-sr-checkbox item-img"></i>
                 <h6 class="item-text">無障礙洗手間</h6>
               </div>
-              <div class="service-item col-6">
+              <div class="service-item">
                 <i class="fi fi-sr-checkbox item-img"></i>
                 <h6 class="item-text">無障礙座位</h6>
               </div>
-              <div class="service-item col-6">
+              <div class="service-item">
                 <i class="fi fi-sr-checkbox item-img"></i>
                 <h6 class="item-text">無障礙停車場</h6>
               </div>
@@ -288,41 +289,40 @@
       <div class="group-gb good-side">
         <h6 class="title-gb">正面<i class="fi fi-sr-caret-right keyword-arrow"></i></h6>
         <div class="group-keyword">
-          <div class="comment-good">好吃</div>
-          <div class="comment-good">口感很好</div>
-          <div class="comment-good">便宜</div>
-          <div class="comment-good">方便</div>
-          <div class="comment-good">服務很好</div>
-          <div class="comment-good">效率很高</div>
-          <div class="comment-good">很乾淨</div>
-          <div class="comment-good">口感很好</div>
-          <div class="comment-good">便宜</div>
-          <div class="comment-good">方便</div>
-          <div class="comment-good">服務很好</div>
-          <div class="comment-good">效率很高</div>
-          <div class="comment-good">很乾淨</div>
-          <!--
-          <div class="comment-good">口感很好</div>
-          <div class="comment-good">便宜</div>
-          <div class="comment-good">方便</div>
-          <div class="comment-good">服務很好</div>
-          <div class="comment-good">效率很高</div>
-          <div class="comment-good">很乾淨</div>-->
+          <div class="comment-good">好吃 (990)</div>
+          <div class="comment-good">口感很好 (830)</div>
+          <div class="comment-good">便宜 (810)</div>
+          <div class="comment-good">方便 (800)</div>
+          <div class="comment-good">服務很好 (750)</div>
+          <div class="comment-good">效率很高 (753)</div>
+          <div class="comment-good">很乾淨 (479)</div>
+          <div class="comment-good">口感很好 (436)</div>
+          <div class="comment-good">便宜 (368)</div>
+          <div class="comment-good">方便 (319)</div>
+          <div class="comment-good">服務很好 (211)</div>
+          <div class="comment-good">效率很高 (168)</div>
+          <div class="comment-good">很乾淨 (150)</div>
+          <div class="comment-good">口感很好 (123)</div>
+          <div class="comment-good">便宜 (110)</div>
+          <div class="comment-good">方便 (58)</div>
+          <div class="comment-good">服務很好 (40)</div>
+          <div class="comment-good">效率很高 (25)</div>
+          <div class="comment-good">很乾淨 (23)</div>
         </div>
       </div>
       <div class="group-gb bad-side">
         <h6 class="title-gb">負面<i class="fi fi-sr-caret-right keyword-arrow"></i></h6>
         <div class="group-keyword">
-          <div class="comment-bad">很貴</div>
-          <div class="comment-bad">吵</div>
-          <div class="comment-bad">環境髒亂</div>
-          <div class="comment-bad">態度不好</div>
-          <div class="comment-bad">難吃</div>
-          <div class="comment-bad">態度差</div>
-          <div class="comment-bad">煙味</div>
-          <div class="comment-bad">等很久</div>
-          <div class="comment-bad">交通不方便</div>
-          <div class="comment-bad">難吃</div>
+          <div class="comment-bad">很貴 (950)</div>
+          <div class="comment-bad">吵 (900)</div>
+          <div class="comment-bad">環境髒亂 (870)</div>
+          <div class="comment-bad">態度不好 (842)</div>
+          <div class="comment-bad">難吃 (812)</div>
+          <div class="comment-bad">態度差 (604)</div>
+          <div class="comment-bad">煙味 (593)</div>
+          <div class="comment-bad">等很久 (483)</div>
+          <div class="comment-bad">交通不方便 (210)</div>
+          <div class="comment-bad">難吃 (198)</div>
           <!--
           <div class="comment-bad">態度差</div>
           <div class="comment-bad">煙味</div>
@@ -442,43 +442,43 @@
       <h5 class="group-title">吃過都推薦</h5>
     </div>
     <div class="group-card">
-      <div class="card" style="width: 208px;">
+      <div class="card">
         <div class="card-body">
           <p class="card-text">水餃(783)</p>
         </div>
         <img class="card-img" src="images/水餃.jpg" alt="...">
       </div>
-      <div class="card" style="width: 208px;">
+      <div class="card">
         <div class="card-body">
           <p class="card-text">水餃(351)</p>
         </div>
         <img class="card-img" src="images/水餃.jpg" alt="...">
       </div>
-      <div class="card" style="width: 208px;">
+      <div class="card">
         <div class="card-body">
           <p class="card-text">水餃(246)</p>
         </div>
         <img class="card-img" src="images/水餃.jpg" alt="...">
       </div>
-      <div class="card" style="width: 208px;">
+      <div class="card">
         <div class="card-body">
           <p class="card-text">水餃(102)</p>
         </div>
         <img class="card-img" src="images/水餃.jpg" alt="...">
       </div>
-      <div class="card" style="width: 208px;">
+      <div class="card">
         <div class="card-body">
           <p class="card-text">水餃(85)</p>
         </div>
         <img class="card-img" src="images/水餃.jpg" alt="...">
       </div>
-      <div class="card" style="width: 208px;">
+      <div class="card">
         <div class="card-body">
           <p class="card-text">水餃(85)</p>
         </div>
         <img class="card-img" src="images/水餃.jpg" alt="...">
       </div>
-      <div class="card" style="width: 208px;">
+      <div class="card">
         <div class="card-body">
           <p class="card-text">水餃(85)</p>
         </div>
@@ -562,16 +562,37 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
   <script src="scripts/ui-interactions.js"></script>
+
+  <!--營業時間展開框-->
   <script>
     const popover2 = new bootstrap.Popover('.status', {
       container: 'body'
     })
   </script>
+
+  <!--其他分店展開框-->
   <script>
     const popover1 = new bootstrap.Popover('.other-store-rating', {
       container: 'body'
     })
   </script>
+  <!--店家資訊簡介顯示-->
+  <script>
+    // 獲取所有有 data-content 屬性的 li 元素
+    var items = document.querySelectorAll('li.introduction');
+
+    // 遍歷每個元素，檢查 data-content 屬性的值
+    items.forEach(function(item) {
+        var content = item.getAttribute('data-content');
+        if (content) {
+            // 如果有内容，設置為 li 的文本內容
+            item.textContent = content;
+        } else {
+            // 如果没有内容，隱藏 li 元素
+            item.style.display = 'none';
+        }
+    });
+</script>
 </body>
 
 </html>
