@@ -1,6 +1,7 @@
 from typing import Optional
 
 from 地圖資訊爬蟲.crawler.tables.base import *
+from 地圖資訊爬蟲.crawler.module.functions.common import *
 from 地圖資訊爬蟲.crawler.module.functions.database.core import *
 from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
 
@@ -20,6 +21,14 @@ def newObject(title, url, branch_title: Optional[str] = None, branch_name: Optio
         crawler_state='DEFAULT',
         crawler_description=None
     )
+
+def refresh_crawler_time(database: SqlDatabase, enabled: bool):
+    sql = f'''
+        ALTER TABLE stores
+        MODIFY COLUMN crawler_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    '''
+    if enabled: sql += ' ON UPDATE CURRENT_TIMESTAMP'
+    database.execute(sql)
 
 
 def reset_by_id(database: SqlDatabase, store_id: int) -> str:
@@ -98,6 +107,17 @@ def delete(database: SqlDatabase, store_name: str) -> str:
     cursor.close()
     return sid
 
+def search(database: SqlDatabase, keyword: str):
+    return database.fetch('all', f'''
+        SELECT s.*, r.*, l.* FROM stores AS s
+        INNER JOIN keywords AS k ON s.id = k.store_id
+        INNER JOIN rates AS r ON s.id = r.store_id
+        INNER JOIN locations AS l ON s.id = l.store_id
+        INNER JOIN tags AS t ON s.tag = t.tag
+        WHERE s.name LIKE '%{keyword}%' or s.description LIKE '%{keyword}%' or t.category LIKE '%{keyword}%' or s.tag LIKE '%{keyword}%' or k.word LIKE '%{keyword}%'
+        GROUP BY s.id
+        ORDER BY r.real_rating DESC, total_reviews DESC
+    ''')
 
 class Store:
     _name = ''
@@ -226,28 +246,46 @@ class Store:
     def get_name(self):
         return self._name
 
+    def get_branch_title(self):
+        return get_store_branch_title(self._name, force_return=True)
+
     def get_code(self, database: SqlDatabase):
         return f'id:{self.get_id(database)}, {self.get_name()}'
+
+    def change_id(self, database: SqlDatabase, sid):
+        if database.is_value_exists('stores', id=sid): return False
+        refresh_crawler_time(database, enabled=False)
+        database.update(
+            'stores',
+            {"id": sid},
+            {"name": self.name}
+        )
+        refresh_crawler_time(database, enabled=True)
+        return True
 
     def change_crawler_state(self, database: SqlDatabase, state, description) -> bool:
         if self._link and not self.exists(database, check_name=True): return False
         self.crawler_state = state
         self.crawler_description = description
+        refresh_crawler_time(database, enabled=False)
         database.update(
             'stores',
             {"crawler_state": transform(state), "crawler_description": transform(description)},
             {"name": self.name}
         )
+        refresh_crawler_time(database, enabled=True)
         return True
 
-    def change_branch(self, database: SqlDatabase, title, name) -> bool:
-        self.branch_title = title
-        self.branch_name = name
+    def change_branch(self, database: SqlDatabase, title, name):
+        self._branch_title = title
+        self._branch_name = name
+        refresh_crawler_time(database, enabled=False)
         database.update(
             'stores',
             {"branch_title": self.branch_title, "branch_name": self.branch_name},
             {"name": self.name}
         )
+        refresh_crawler_time(database, enabled=True)
 
     def name_exists(self, database: SqlDatabase) -> bool:
         return database.is_value_exists('stores', name=self.name)

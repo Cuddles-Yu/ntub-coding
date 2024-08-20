@@ -3,23 +3,25 @@ from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
 
 class Service:
     _store_id = 0
+    _id = 0
     _properties = ''
     _category = ''
     _state = 0
 
-    def __init__(self, store_id, properties, category, state):
+    def __init__(self, store_id, sid, properties, category, state):
         self._store_id = int(store_id) if store_id else None
+        self._id = int(sid) if sid else None
         self._properties = properties
         self._category = category
         self._state = state
 
     @property
-    def id(self):
-        return 'DEFAULT'
-
-    @property
     def store_id(self):
         return self._store_id
+
+    @property
+    def id(self):
+        return self._id
 
     @property
     def properties(self):
@@ -34,7 +36,7 @@ class Service:
         return transform(self._state)
 
     def to_string(self):
-        return f"({self.id}, {self.store_id}, {self.properties}, {self.category}, {self.state})"
+        return f"({self.store_id}, {self.id}, {self.properties}, {self.category}, {self.state})"
 
     def insert(self, database: SqlDatabase):
         database.add('services', self.to_string())

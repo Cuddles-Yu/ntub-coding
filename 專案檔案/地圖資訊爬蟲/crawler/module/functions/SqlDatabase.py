@@ -58,17 +58,17 @@ class SqlDatabase:
     def get_urls_from_incomplete_store(self) -> list:
         # 建立、基本、重設
         if BRANCH_STORE_FIRST:
-            return from_iterable(0, fetch(self.connection, 'all', f'''
+            return fetch_column(self.connection, 'all', 0, f'''
                 SELECT link FROM stores
                 WHERE crawler_description IS NULL and branch_title IS NOT NULL
                 ORDER BY id
-            '''))
+            ''')
         else:
-            return from_iterable(0, fetch(self.connection, 'all', f'''
+            return fetch_column(self.connection, 'all', 0, f'''
                 SELECT link FROM stores
                 WHERE crawler_description IS NULL
                 ORDER BY id
-            '''))
+            ''')
 
     def ask_to_reset_database(self):
         cursor = self.connection.cursor()
@@ -92,6 +92,7 @@ class SqlDatabase:
             SET {dict_to_clause(setter, ', ')}
             WHERE {dict_to_clause(where, ' AND ')}
         ''')
+
 
     # 設定自動遞增欄位值
     def set_increment(self, table_name, value):
@@ -121,7 +122,13 @@ class SqlDatabase:
             ALTER TABLE {table_name} MODIFY COLUMN {column_name} {column_type}
         ''')
 
-    # 刪除整個表格(如果存在)
+    # 清空整個資料表
+    def truncate_table(self, table_name):
+        execute(self.connection, f'''
+            TRUNCATE TABLE {table_name}
+        ''')
+
+    # 刪除整個資料表(如果存在)
     def drop_table(self, table_name):
         execute(self.connection, f'''
             DROP TABLE IF EXISTS {table_name}

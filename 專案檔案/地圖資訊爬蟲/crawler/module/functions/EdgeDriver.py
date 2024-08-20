@@ -176,13 +176,13 @@ class EdgeDriver:
         search_box.clear()
         search_box.send_keys(keyword)
         search_box.send_keys(Keys.ENTER)
-        has_result = self.wait_for_element(By.CLASS_NAME, 'IFMGgb')
-        get_all_results = self.wait_for_element(By.CLASS_NAME, 'HlvSq')
+        has_result = self.wait_for_element(By.CLASS_NAME, 'THOPZb')
+        get_all_results = self.wait_for_element(By.CLASS_NAME, 'eKbjU')
         return has_result or get_all_results
 
     def search_and_save_results(self, keyword) -> bool:
         urls, store_names = self.search_and_scroll(keyword)
-        if not urls or not store_names: return False
+        if not urls or not store_names: return [], []
         print(f'\r正在建立搜尋結果至資料庫...')
         for url, store_name in zip(urls, store_names):
             store = Store.newObject(store_name, url)
@@ -192,12 +192,12 @@ class EdgeDriver:
                 store.insert_if_not_exists(self.database)
                 print(f'✳️已建立搜尋結果【{store_name}】')
         print()
-        return True
+        return urls, store_names
 
     def search_and_scroll(self, keyword, show_hint: Optional[bool] = True):
         while True:
             if not self.search(keyword):
-                print(f'\r⚠️該關鍵字沒有包含搜尋結果...')
+                print(f'\r⚠️該關鍵字沒有包含搜尋結果')
                 return None, None
             # 取得所有搜尋結果所在的'容器'物件
             if show_hint: print('\r正在取得搜尋結果...(可能會花費較多時間)', end='')

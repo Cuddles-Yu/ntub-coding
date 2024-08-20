@@ -3,7 +3,7 @@ from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
 
 class Comment:
     _store_id = 0
-    _index = 0
+    _id = 0
     _data_id = ''
     _contents = ''
     _time = ''
@@ -21,11 +21,11 @@ class Comment:
     _sample_of_highest_rating = 0
     _sample_of_lowest_rating = 0
 
-    def __init__(self, store_id, index, data_id, contents, time, rating, has_image,
+    def __init__(self, store_id, sid, data_id, contents, time, rating, has_image,
                  food_rating, service_rating, atmosphere_rating, contributor_level, environment_state, price_state, product_state, service_state,
                  sample_of_most_relevant, sample_of_highest_rating, sample_of_lowest_rating):
         self._store_id = int(store_id) if store_id else None
-        self._index = int(index)
+        self._id = int(sid) if sid else None
         self._data_id = data_id
         self._contents = contents
         self._time = time
@@ -48,8 +48,8 @@ class Comment:
         return self._store_id
 
     @property
-    def index(self):
-        return self._index
+    def id(self):
+        return self._id
 
     @property
     def data_id(self):
@@ -116,7 +116,7 @@ class Comment:
         return self._sample_of_lowest_rating
 
     def to_string(self):
-        return (f"({self.store_id}, {self.index}, {self.data_id}, {self.contents}, {self.time}, {self.rating}, {self.has_image}, " +
+        return (f"({self.store_id}, {self.id}, {self.data_id}, {self.contents}, {self.time}, {self.rating}, {self.has_image}, " +
                 f"{self.food_rating}, {self.service_rating}, {self.atmosphere_rating}, {self.contributor_level}, {self.environment_state}, {self.price_state}, {self.product_state}, {self.service_state}, " +
                 f"{self.sample_of_most_relevant}, {self.sample_of_highest_rating}, {self.sample_of_lowest_rating})")
 
@@ -124,5 +124,4 @@ class Comment:
         return database.is_value_exists('comments', store_id=self.store_id, data_id=self.data_id)
 
     def update_if_exists(self, database: SqlDatabase):
-        if not self.exists(database):
-            database.add('comments', self.to_string())
+        if not self.exists(database): database.add('comments', self.to_string())
