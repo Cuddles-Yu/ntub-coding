@@ -1,26 +1,45 @@
 import json
-from 地圖資訊爬蟲.crawler.module.color_code import ColorCode
+import re
+from collections import defaultdict
+from datetime import datetime
 
-def load_json(file_path):
-    try:
-        with open(file_path, 'r', encoding='utf-8') as file:
-            data = json.load(file)
-            return data
-    except Exception as e:
-        return {}
+from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
+from ckip_transformers.nlp import CkipWordSegmenter, CkipPosTagger, CkipNerChunker
 
-def write_json(data, file_path):
-    try:
-        with open(file_path, 'w', encoding='utf-8') as file:
-            json.dump(data, file, ensure_ascii=False, indent=4)
-    except Exception as e:
-        pass
+database = SqlDatabase('mapdb', 'root', '11236018')
 
-def pos_color(pos_code: str):
-    if pos_code == 'VH': return f'{ColorCode.YELLOW}{ColorCode.BOLD}'
-    if pos_code == 'Na': return f'{ColorCode.BLUE}{ColorCode.BOLD}'
-    if pos_code == 'Dfa': return f'{ColorCode.RED}{ColorCode.BOLD}'
-    return None
+START_TIME = datetime.now()
+
+RESULT_OUTPUT = 'results/compare_to.json'
+
+# Initialize drivers
+ws_driver = CkipWordSegmenter(model="bert-base", device=0)
+pos_driver = CkipPosTagger(model="bert-base", device=0)
+ner_driver = CkipNerChunker(model="bert-base", device=0)
+
+# Input text
+sentence_list = database.fetch_column('all', 0, f'''
+   SELECT contents FROM comments AS c
+   LEFT JOIN stores AS s ON c.store_id = s.id
+   WHERE contents IS NOT NULL
+   ORDER BY `store_id`, `index`
+   LIMIT 1000
+''')
+# 過濾文本，移除非中文字符並去掉換行符號
+filtered_list = [re.sub(r'[^\u4e00-\u9fff，。；]', '', sentence.replace('\n', '')) for sentence in sentence_list]
+
+# Run pipeline
+ws = ws_driver(filtered_list)
+pos = pos_driver(ws)
+ner = ner_driver(filtered_list)
+
+# Enable sentence segmentation
+ws = ws_driver(filtered_list, use_delim=True)
+ner = ner_driver(filtered_list, use_delim=True)
+pos = pos_driver(ws, delim_set='\n\t')
+
+# 初始化存储标签的字典
+tagged_words = defaultdict(lambda: defaultdict(int))
 
 def to_visualize(pattern: str):
     transform = None
@@ -122,43 +141,35 @@ def to_visualize(pattern: str):
         transform = "外文(FW)"
     return transform
 
-def combine_to_dict(word_list, pos_list) -> dict:
-    return {"斷詞": word_list, "詞性": pos_list}
+total_comments = len(filtered_list)
+for index in range(total_comments):
+    for word, tag in zip(ws[index], pos[index]):
+        tagged_words[to_visualize(tag)][word] += 1
 
-def combine_by_pos(word_list, pos_list, pos):
-    combined_words = []
-    combined_pos = []
-    i = 0
-    while i < len(word_list):
-        if pos_list[i] == pos:
-            temp_word = word_list[i]
-            j = i + 1
-            while j < len(word_list) and pos_list[j] == pos:
-                temp_word += word_list[j]
-                j += 1
-            combined_words.append(temp_word)
-            combined_pos.append(pos)
-            i = j
-        else:
-            combined_words.append(word_list[i])
-            combined_pos.append(pos_list[i])
-            i += 1
-    return combined_words, combined_pos
+sentence_tag_list = {tag: dict(sorted(words.items(), key=lambda item: item[1], reverse=True)) for tag, words in tagged_words.items()}
 
-def combine_by_pattern(word_list, pos_list, pattern):
-    combined_words = []
-    combined_pos = []
-    pattern_length = len(pattern)
-    i = 0
-    while i < len(word_list):
-        if i + pattern_length <= len(word_list) and pos_list[i:i + pattern_length] == pattern:
-            combined_word = ''.join(word_list[i:i + pattern_length])
-            combined_words.append(combined_word)
-            combined_pos.append(pattern[0])
-            i += pattern_length
-        else:
-            combined_words.append(word_list[i])
-            combined_pos.append(pos_list[i])
-            i += 1
-    return combined_words, combined_pos
+with open(RESULT_OUTPUT, 'w', encoding='utf-8') as f:
+    json.dump(sentence_tag_list, f, ensure_ascii=False, indent=4)
+    print(f'\r已將分析結果輸出至 data.json 文件中。')
 
+combine = ''
+for sentence, sentence_ws, sentence_pos, sentence_ner in zip(sentence_list, ws, pos, ner):
+    combine += f'\n"{sentence}"\n'
+    for _word, _pos in zip(sentence_ws, sentence_pos):
+        combine += f'{_word}({_pos})　'
+    combine += '\n'
+    for entity in sorted(sentence_ner):
+        combine += f'{entity}\n'
+
+with open('results/words.txt', 'w', encoding='utf-8') as f:
+    f.write(combine)
+
+# print(json.dumps(sentence_tag_list, ensure_ascii=False, indent=4))
+
+# 計算時間差
+TIME_DIFFERENCE = datetime.now() - START_TIME
+MINUTES_ELAPSE = TIME_DIFFERENCE.total_seconds() / 60
+
+print(f'\n【✅已完成】CKIP Transformer | 耗時:{MINUTES_ELAPSE:.2f}分鐘 | 過濾留言數: {len(filtered_list)}\n')
+
+database.close()
