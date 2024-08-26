@@ -140,7 +140,7 @@ header {
 
 /*大螢幕尺寸*/
 @media (min-width: 833px) {
-    .section-content{
+  .section-content{
     box-sizing: border-box;
     width: 98%;
     max-width: 1540px;
@@ -183,7 +183,8 @@ header {
   }
 
   .store-type-img{
-    width: 15px;
+    color: white;
+    font-size: 16px;
     margin-right: 5px;
     margin-bottom: 3px;
   }
@@ -209,6 +210,12 @@ header {
 
   .popover-body{
     font-size: 14px;
+    text-align: end;
+  }
+  
+  hr{
+    margin-top: 4px;
+    margin-bottom: 4px;
   }
 
   .other-store-rating{
@@ -221,9 +228,10 @@ header {
 
   .other-store{
     max-width: 785px;
+    max-height: 95px;
     border: 1px solid #A3A3A3;
     border-radius: 10px;
-    padding: 15px;
+    padding: 7px 10px 5px 15px;
   }
 
   .other-store-group{
@@ -387,10 +395,9 @@ header {
   }
 
   .item-group{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding-right: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* 自動適應列數 */
+    gap: 5px; 
   }
 
   .service-title{
@@ -446,6 +453,7 @@ header {
     color: #404040;
     white-space: wrap;
     font-size: 16px;
+    text-underline-offset: 3px;
   }
 
   .tertiary-content{
@@ -454,9 +462,14 @@ header {
 
   .comment-title{
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
     gap: 10px;
+  }
+
+  .sample-title{
+    margin: 0;
+    font-size: 15px;
   }
 
   .sample-group{
@@ -469,15 +482,48 @@ header {
     background-color: #F9F9F9;
     color: black;
     border-color: #A3A3A3;
+    font-size: 16px;
   }
 
+  .custom-tooltip1{
+    --bs-tooltip-bg: #A3A3A3;
+    --bs-tooltip-color: white;
+    --bs-tooltip-font-size: 16px;
+  }
+
+  .question{
+    padding: 6px;
+  }
+
+  .question-img{
+    color: #6d6d6d;
+    font-size: 18px;
+  }
+
+  .input-group-text, .form-select{
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
 
   .filter-button{
-    background-color: #F9F9F9;
-    color: black;
-    border-color: #A3A3A3;
     font-size: 16px;
-    align-items: center;
+    width: 170px;
+    height: 45px;
+    margin: 0;
+  }
+
+  .fi-sr-filter-list{
+    padding-top: 5px;
+    color: #6d6d6d;
+  }
+
+  .form-floating>.form-select{
+    padding-top: 26px;
+    padding-bottom: 10px;
+    height: 58px;
+    font-size: 16px;
   }
 
   .dropdown-item{
@@ -486,9 +532,14 @@ header {
 
   .keyword-title{
     margin-top: 25px;
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 5px;
+    gap: 28px;
   }
 
   .keyword-title-text{
+    margin: 0;
     color: #5A5A5A;
     font-weight: bold;
     font-size: 24px;
@@ -502,12 +553,16 @@ header {
   }
 
   .good-side{
-    background-color: #DBF5DE;
+    background-color: #f1fff5;
   }
 
   .bad-side{
-    background-color: #FFDCDC;
+    background-color: #fff3f3;
   }
+
+  .neutral-side{
+    background-color: #fefbf2f5;
+  } 
 
   .title-gb{
     margin-left: 15px;
@@ -535,7 +590,7 @@ header {
     padding: 10px;
   }
 
-  .comment-good, .comment-bad {
+  .comment-good, .comment-bad, .comment-neutral {
     border: 2px solid;
     min-width: 80px;
     height: 35px;
@@ -561,8 +616,25 @@ header {
     color: #BC4763;
   }
 
+  .comment-neutral{
+    border-color: #ad894f;
+    color: #ad894f;
+  }
+
+  .sort-button{
+    font-size: 16px;
+    width: 200px;
+    height: 50px;
+    margin: 0px 0px 8px;
+  }
+
+  .fi-sr-sort-amount-down{
+    padding-top: 5px;
+    color: #6d6d6d;
+  }
+  
   .comment-group{
-    margin-top: 20px;
+    margin-top: 10px;
     max-height: 530px;
     overflow-y: scroll;
     padding-right: 5px;
@@ -608,13 +680,48 @@ header {
     margin-top: 30px;
   }
 
+  .question-2{
+    padding: 8px 6px 0px 6px;
+    margin-left: 3px;
+  }
+
+  .carousel-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
   .group-card{
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto; 
     gap: 55px;
     margin-top: 20px;
-    padding-bottom: 10px; /* 防止滾動條覆蓋內容 */
+    -ms-overflow-style: none;  /* IE和Edge隱藏滾動條 */
+    scrollbar-width: none;  /* Firefox隱藏滾動條 */
+    scroll-behavior: smooth; /* 平滑滾動效果 */
+  }
+
+  .group-card::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari 和 Opera 隱藏滾動條 */
+  }
+
+  .carousel-arrow{
+    font-size: 25px;
+    color: #8b8686;
+    margin-top: 20px;
+  }
+
+  .carousel-arrow.hidden {
+    display: none; 
+  }
+
+  .left-arrow {
+    margin-right: 10px;
+  }
+  
+  .right-arrow {
+    margin-left: 10px;
   }
 
   .card {
@@ -636,11 +743,38 @@ header {
   .card-text{
     font-size: 18px;
     font-weight: bold;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    color: #2E2E2E;
+    text-decoration-line: none;
   }
 
   .fifth-content{
     margin-top: 30px;
+  }
+
+  .carousel-container-tag{
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+  }
+
+  .carousel-arrow-tag{
+    font-size: 20px;
+    color: #8b8686;
+    margin-top: 27px;
+  }
+
+  .carousel-arrow-tag.hidden {
+    display: none; 
+  }
+
+  .left-arrow-2 {
+    margin-right: 10px;
+  }
+  
+  .right-arrow-2 {
+    margin-left: 10px;
   }
 
   .tag-group{
@@ -650,13 +784,20 @@ header {
     gap: 23px;
     flex-wrap: nowrap;
     overflow-x: auto;
-    padding-bottom: 10px;
+    -ms-overflow-style: none;  /* IE和Edge隱藏滾動條 */
+    scrollbar-width: none;  /* Firefox隱藏滾動條 */
+    scroll-behavior: smooth; /* 平滑滾動效果 */
+  }
+
+  .group-tag::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari 和 Opera 隱藏滾動條 */
   }
 
   .tag{
     min-width: 131.2px;
     height: 38.4px;
     border: 2px solid #D9D9D9;
+    background-color: white;
     border-radius: 10px;
     padding: 5px;
     display: flex;
@@ -669,6 +810,7 @@ header {
     font-weight: bold;
     font-size: 16px;
     margin: 0;
+    text-decoration-line: none;
   }
 
   .tag-img{
@@ -758,6 +900,12 @@ header {
   
   .popover-body{
     font-size: 14px;
+    text-align: end;
+  }
+
+  hr{
+    margin-top: 4px;
+    margin-bottom: 4px;
   }
   
   .other-store-rating{
@@ -769,10 +917,10 @@ header {
   }
   
   .other-store{
-    max-width: 785px;
+    max-height: 80px;
     border: 1px solid #A3A3A3;
     border-radius: 10px;
-    padding: 10px;
+    padding: 3px 10px;
     margin-top: 3px;
   }
   
@@ -936,10 +1084,9 @@ header {
   }
   
   .item-group{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding-right: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* 自動適應列數 */
+    gap: 5px; 
   }
   
   .service-title{
@@ -1016,15 +1163,48 @@ header {
     background-color: #F9F9F9;
     color: black;
     border-color: #A3A3A3;
+    font-size: 16px;
   }
   
+  .custom-tooltip1{
+    --bs-tooltip-bg: #A3A3A3;
+    --bs-tooltip-color: white;
+    --bs-tooltip-font-size: 16px;
+  }
+  
+  .question{
+    padding: 6px;
+  }
+
+  .question-img{
+    color: #6d6d6d;
+    font-size: 18px;
+  }
+
+  .input-group-text, .form-select{
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
   
   .filter-button{
-    background-color: #F9F9F9;
-    color: black;
-    border-color: #A3A3A3;
     font-size: 16px;
-    align-items: center;
+    width: 170px;
+    height: 45px;
+    margin: 0;
+  }
+
+  .fi-sr-filter-list{
+    padding-top: 5px;
+    color: #6d6d6d;
+  }
+
+  .form-floating>.form-select{
+    padding-top: 26px;
+    padding-bottom: 10px;
+    height: 58px;
+    font-size: 16px;
   }
   
   .dropdown-item{
@@ -1033,12 +1213,16 @@ header {
   
   .keyword-title{
     margin-top: 25px;
+    display: flex;
+    align-items: baseline;
+    gap: 28px;
   }
   
   .keyword-title-text{
+    margin: 0;
     color: #5A5A5A;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 20px;
   }
   
   .group-gb{
@@ -1049,12 +1233,16 @@ header {
   }
   
   .good-side{
-    background-color: #DBF5DE;
+    background-color: #f1fff5;
   }
   
   .bad-side{
-    background-color: #FFDCDC;
+    background-color: #fff3f3;
   }
+
+  .neutral-side{
+    background-color: #fefbf2f5;
+  } 
   
   .title-gb{
     margin-left: 15px;
@@ -1082,7 +1270,7 @@ header {
     padding: 10px;
   }
   
-  .comment-good, .comment-bad {
+  .comment-good, .comment-bad, .comment-neutral {
     border: 2px solid;
     min-width: 75px;
     height: 33px;
@@ -1108,9 +1296,25 @@ header {
     color: #BC4763;
   }
   
+  .comment-neutral{
+    border-color: #ad894f;
+    color: #ad894f;
+  }
+
+  .sort-button{
+    font-size: 16px;
+    width: 200px;
+    height: 50px;
+    margin: 0px 0px 8px;
+  }
+
+  .fi-sr-sort-amount-down{
+    padding-top: 5px;
+    color: #6d6d6d;
+  }
   
   .comment-group{
-    margin-top: 20px;
+    margin-top: 5px;
     max-height: 530px;
     overflow-y: scroll;
     padding-right: 5px;
@@ -1153,7 +1357,18 @@ header {
   }
   
   .fourth-content{
-    margin-top: 25px;
+    margin-top: 10px;
+  }
+
+  .question-2{
+    padding: 4px 6px 0px 6px;
+    margin-left: 3px;
+  }
+
+  .carousel-container {
+    display: flex;
+    align-items: center;
+    position: relative;
   }
   
   .group-card{
@@ -1162,7 +1377,31 @@ header {
     overflow-x: auto; 
     gap: 30px;
     margin-top: 15px;
-    padding-bottom: 10px; /* 防止滾動條覆蓋內容 */
+    -ms-overflow-style: none;  /* IE和Edge隱藏滾動條 */
+    scrollbar-width: none;  /* Firefox隱藏滾動條 */
+    scroll-behavior: smooth; /* 平滑滾動效果 */
+  }
+
+  .group-card::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari 和 Opera 隱藏滾動條 */
+  }
+
+  .carousel-arrow{
+    font-size: 25px;
+    color: #8b8686;
+    margin-top: 20px;
+  }
+
+  .carousel-arrow.hidden {
+    display: none; 
+  }
+
+  .left-arrow {
+    margin-right: 10px;
+  }
+  
+  .right-arrow {
+    margin-left: 10px;
   }
   
   .card {
@@ -1184,27 +1423,61 @@ header {
   .card-text{
     font-size: 14px;
     font-weight: bold;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    color: #2E2E2E;
+    text-decoration-line: none;
   }
   
   .fifth-content{
-    margin-top: 25px;
+    margin-top: 10px;
+  }
+
+  .carousel-container-tag{
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+  }
+
+  .carousel-arrow-tag{
+    font-size: 18px;
+    color: #8b8686;
+    margin-top: 22px;
+  }
+
+  .carousel-arrow-tag.hidden {
+    display: none; 
+  }
+
+  .left-arrow-2 {
+    margin-right: 10px;
+  }
+  
+  .right-arrow-2 {
+    margin-left: 10px;
   }
   
   .tag-group{
     margin-top: 15px;
-    margin-bottom: 50px;
+    margin-bottom: 35px;
     display: flex;
     gap: 23px;
     flex-wrap: nowrap;
     overflow-x: auto;
-    padding-bottom: 10px;
+    -ms-overflow-style: none;  /* IE和Edge隱藏滾動條 */
+    scrollbar-width: none;  /* Firefox隱藏滾動條 */
+    scroll-behavior: smooth; /* 平滑滾動效果 */
+  }
+
+  .group-tag::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari 和 Opera 隱藏滾動條 */
   }
   
   .tag{
     min-width: 100px;
     height: 34px;
     border: 2px solid #D9D9D9;
+    background-color: white;
     border-radius: 10px;
     padding: 5px;
     display: flex;
@@ -1217,6 +1490,7 @@ header {
     font-weight: bold;
     font-size: 14px;
     margin: 0;
+    text-decoration-line: none;
   }
   
   .tag-img{
@@ -1305,6 +1579,12 @@ header {
   
   .popover-body{
     font-size: 14px;
+    text-align: end;
+  }
+
+  hr{
+    margin-top: 4px;
+    margin-bottom: 4px;
   }
   
   .other-store-rating{
@@ -1317,9 +1597,10 @@ header {
   
   .other-store{
     max-width: 785px;
+    max-height: 80px;
     border: 1px solid #A3A3A3;
     border-radius: 10px;
-    padding: 10px;
+    padding: 3px 10px;
     margin-top: 3px;
   }
   
@@ -1484,10 +1765,9 @@ header {
   }
   
   .item-group{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding-right: 25px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* 自動適應列數 */
+    gap: 5px; 
   }
   
   .service-title{
@@ -1565,15 +1845,48 @@ header {
     background-color: #F9F9F9;
     color: black;
     border-color: #A3A3A3;
+    font-size: 16px;
   }
   
+  .custom-tooltip1{
+    --bs-tooltip-bg: #A3A3A3;
+    --bs-tooltip-color: white;
+    --bs-tooltip-font-size: 16px;
+  }
+
+  .question{
+    padding: 6px;
+  }
+
+  .question-img{
+    color: #6d6d6d;
+    font-size: 18px;
+  }
+
+  .input-group-text, .form-select{
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
   
   .filter-button{
-    background-color: #F9F9F9;
-    color: black;
-    border-color: #A3A3A3;
     font-size: 16px;
-    align-items: center;
+    width: 170px;
+    height: 45px;
+    margin: 0;
+  }
+
+  .fi-sr-filter-list{
+    padding-top: 5px;
+    color: #6d6d6d;
+  }
+
+  .form-floating>.form-select{
+    padding-top: 26px;
+    padding-bottom: 10px;
+    height: 58px;
+    font-size: 16px;
   }
   
   .dropdown-item{
@@ -1582,12 +1895,16 @@ header {
   
   .keyword-title{
     margin-top: 25px;
+    display: flex;
+    align-items: baseline;
+    gap: 28px;
   }
   
   .keyword-title-text{
+    margin: 0;
     color: #5A5A5A;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 20px;
   }
   
   .group-gb{
@@ -1598,12 +1915,16 @@ header {
   }
   
   .good-side{
-    background-color: #DBF5DE;
+    background-color: #f1fff5;
   }
-  
+
   .bad-side{
-    background-color: #FFDCDC;
+    background-color: #fff3f3;
   }
+
+  .neutral-side{
+    background-color: #fefbf2f5;
+  } 
   
   .title-gb{
     margin-left: 15px;
@@ -1657,9 +1978,25 @@ header {
     color: #BC4763;
   }
   
+  .comment-neutral{
+    border-color: #ad894f;
+    color: #ad894f;
+  }
+
+  .sort-button{
+    font-size: 16px;
+    width: 200px;
+    height: 50px;
+    margin: 0px 0px 8px;
+  }
+
+  .fi-sr-sort-amount-down{
+    padding-top: 5px;
+    color: #6d6d6d;
+  }
   
   .comment-group{
-    margin-top: 20px;
+    margin-top: 5px;
     max-height: 530px;
     overflow-y: scroll;
     padding-right: 5px;
@@ -1704,6 +2041,17 @@ header {
   .fourth-content{
     margin-top: 25px;
   }
+
+  .question-2{
+    padding: 4px 6px 0px 6px;
+    margin-left: 3px;
+  }
+
+  .carousel-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
   
   .group-card{
     display: flex;
@@ -1711,7 +2059,31 @@ header {
     overflow-x: auto; 
     gap: 30px;
     margin-top: 15px;
-    padding-bottom: 10px; /* 防止滾動條覆蓋內容 */
+    -ms-overflow-style: none;  /* IE和Edge隱藏滾動條 */
+    scrollbar-width: none;  /* Firefox隱藏滾動條 */
+    scroll-behavior: smooth; /* 平滑滾動效果 */
+  }
+
+  .group-card::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari 和 Opera 隱藏滾動條 */
+  }
+
+  .carousel-arrow{
+    font-size: 25px;
+    color: #8b8686;
+    margin-top: 20px;
+  }
+
+  .carousel-arrow.hidden {
+    display: none; 
+  }
+
+  .left-arrow {
+    margin-right: 10px;
+  }
+  
+  .right-arrow {
+    margin-left: 10px;
   }
   
   .card {
@@ -1733,27 +2105,61 @@ header {
   .card-text{
     font-size: 14px;
     font-weight: bold;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    color: #2E2E2E;
+    text-decoration-line: none;
   }
   
   .fifth-content{
     margin-top: 25px;
   }
+
+  .carousel-container-tag{
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+  }
+
+  .carousel-arrow-tag{
+    font-size: 20px;
+    color: #8b8686;
+    margin-top: 27px;
+  }
+
+  .carousel-arrow-tag.hidden {
+    display: none; 
+  }
+
+  .left-arrow-2 {
+    margin-right: 10px;
+  }
+  
+  .right-arrow-2 {
+    margin-left: 10px;
+  }
   
   .tag-group{
     margin-top: 15px;
-    margin-bottom: 50px;
+    margin-bottom: 35px;
     display: flex;
     gap: 23px;
     flex-wrap: nowrap;
     overflow-x: auto;
-    padding-bottom: 10px;
+    -ms-overflow-style: none;  /* IE和Edge隱藏滾動條 */
+    scrollbar-width: none;  /* Firefox隱藏滾動條 */
+    scroll-behavior: smooth; /* 平滑滾動效果 */
+  }
+
+  .group-tag::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari 和 Opera 隱藏滾動條 */
   }
   
   .tag{
     min-width: 100px;
     height: 34px;
     border: 2px solid #D9D9D9;
+    background-color: white;
     border-radius: 10px;
     padding: 5px;
     display: flex;
@@ -1766,6 +2172,7 @@ header {
     font-weight: bold;
     font-size: 14px;
     margin: 0;
+    text-decoration-line: none;
   }
   
   .tag-img{
@@ -1854,6 +2261,12 @@ header {
   
   .popover-body{
     font-size: 14px;
+    text-align: end;
+  }
+
+  hr{
+    margin-top: 4px;
+    margin-bottom: 4px;
   }
   
   .other-store-rating{
@@ -1866,9 +2279,10 @@ header {
   
   .other-store{
     max-width: 785px;
+    max-height: 80px;
     border: 1px solid #A3A3A3;
     border-radius: 10px;
-    padding: 10px;
+    padding: 3px 10px;
     margin-top: 3px;
   }
   
@@ -2033,10 +2447,8 @@ header {
   }
   
   .item-group{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding-right: 25px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* 自動適應列數 */
   }
   
   .service-title{
@@ -2047,9 +2459,6 @@ header {
   
   .service-item{
     display: flex;
-    flex-wrap: wrap-reverse;
-    justify-content: space-between;
-    padding-right: 38px;
   }
   
   .item-img{
@@ -2104,7 +2513,6 @@ header {
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
-
   }
   
   .sample-group{
@@ -2117,29 +2525,66 @@ header {
     background-color: #F9F9F9;
     color: black;
     border-color: #A3A3A3;
+    font-size: 16px;
   }
   
+  .custom-tooltip1{
+    --bs-tooltip-bg: #A3A3A3;
+    --bs-tooltip-color: white;
+    --bs-tooltip-font-size: 16px;
+  }
+
+  .question{
+    padding: 6px;
+  }
+
+  .question-img{
+    color: #6d6d6d;
+    font-size: 18px;
+  }
+
+  .input-group-text, .form-select{
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
   
   .filter-button{
-    background-color: #F9F9F9;
-    color: black;
-    border-color: #A3A3A3;
     font-size: 16px;
-    align-items: center;
+    width: 170px;
+    height: 45px;
+    margin: 0;
   }
   
+  .fi-sr-filter-list{
+    padding-top: 5px;
+    color: #6d6d6d;
+  }
+
+  .form-floating>.form-select{
+    padding-top: 26px;
+    padding-bottom: 10px;
+    height: 58px;
+    font-size: 16px;
+  }
+
   .dropdown-item{
     font-size: 16px;
   }
   
   .keyword-title{
     margin-top: 25px;
+    display: flex;
+    align-items: baseline;
+    gap: 28px;
   }
   
   .keyword-title-text{
+    margin: 0;
     color: #5A5A5A;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 20px;
   }
   
   .group-gb{
@@ -2150,12 +2595,16 @@ header {
   }
   
   .good-side{
-    background-color: #DBF5DE;
+    background-color: #f1fff5;
   }
-  
+
   .bad-side{
-    background-color: #FFDCDC;
+    background-color: #fff3f3;
   }
+
+  .neutral-side{
+    background-color: #fefbf2f5;
+  } 
   
   .title-gb{
     margin-left: 15px;
@@ -2209,9 +2658,25 @@ header {
     color: #BC4763;
   }
   
+  .comment-neutral{
+    border-color: #ad894f;
+    color: #ad894f;
+  }
+
+  .sort-button{
+    font-size: 16px;
+    width: 200px;
+    height: 50px;
+    margin: 0px 0px 8px;
+  }
+
+  .fi-sr-sort-amount-down{
+    padding-top: 5px;
+    color: #6d6d6d;
+  }
   
   .comment-group{
-    margin-top: 20px;
+    margin-top: 5px;
     max-height: 530px;
     overflow-y: scroll;
     padding-right: 5px;
@@ -2256,6 +2721,17 @@ header {
   .fourth-content{
     margin-top: 25px;
   }
+
+  .question-2{
+    padding: 4px 6px 0px 6px;
+    margin-left: 3px;
+  }
+
+  .carousel-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
   
   .group-card{
     display: flex;
@@ -2263,7 +2739,31 @@ header {
     overflow-x: auto; 
     gap: 30px;
     margin-top: 15px;
-    padding-bottom: 10px; /* 防止滾動條覆蓋內容 */
+    -ms-overflow-style: none;  /* IE和Edge隱藏滾動條 */
+    scrollbar-width: none;  /* Firefox隱藏滾動條 */
+    scroll-behavior: smooth; /* 平滑滾動效果 */
+  }
+
+  .group-card::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari 和 Opera 隱藏滾動條 */
+  }
+
+  .carousel-arrow{
+    font-size: 25px;
+    color: #8b8686;
+    margin-top: 20px;
+  }
+
+  .carousel-arrow.hidden {
+    display: none; 
+  }
+
+  .left-arrow {
+    margin-right: 10px;
+  }
+  
+  .right-arrow {
+    margin-left: 10px;
   }
   
   .card {
@@ -2285,27 +2785,61 @@ header {
   .card-text{
     font-size: 14px;
     font-weight: bold;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    color: #2E2E2E;
+    text-decoration-line: none;
   }
   
   .fifth-content{
     margin-top: 25px;
   }
+
+  .carousel-container-tag{
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+  }
+
+  .carousel-arrow-tag{
+    font-size: 20px;
+    color: #8b8686;
+    margin-top: 27px;
+  }
+
+  .carousel-arrow-tag.hidden {
+    display: none; 
+  }
+
+  .left-arrow-2 {
+    margin-right: 10px;
+  }
+  
+  .right-arrow-2 {
+    margin-left: 10px;
+  }
   
   .tag-group{
     margin-top: 15px;
-    margin-bottom: 50px;
+    margin-bottom: 35px;
     display: flex;
     gap: 23px;
     flex-wrap: nowrap;
     overflow-x: auto;
-    padding-bottom: 10px;
+    -ms-overflow-style: none;  /* IE和Edge隱藏滾動條 */
+    scrollbar-width: none;  /* Firefox隱藏滾動條 */
+    scroll-behavior: smooth; /* 平滑滾動效果 */
+  }
+
+  .group-tag::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari 和 Opera 隱藏滾動條 */
   }
   
   .tag{
     min-width: 100px;
     height: 34px;
     border: 2px solid #D9D9D9;
+    background-color: white;
     border-radius: 10px;
     padding: 5px;
     display: flex;
@@ -2318,6 +2852,7 @@ header {
     font-weight: bold;
     font-size: 14px;
     margin: 0;
+    text-decoration-line: none;
   }
   
   .tag-img{
@@ -2337,7 +2872,7 @@ header {
 }
 
 @media (max-width: 595px) {
-  .comment-good, .comment-bad {
+  .comment-good, .comment-bad, .comment-neutral {
     border: 2px solid;
     min-width: 75px;
     height: 33px;
@@ -2351,14 +2886,4 @@ header {
     align-items: center;
     white-space: nowrap;
   }
-}
-
-@media (max-width: 500px) {
-  .comment-title{
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    flex-wrap: wrap;
-    gap: 10px;
-  } 
 }
