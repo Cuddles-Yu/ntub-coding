@@ -846,7 +846,7 @@ header {
 
   .store-title{
     font-weight: bold;
-    font-size: 20px;
+    font-size: 30px;
   }
 
   .love-group{
@@ -910,7 +910,7 @@ header {
   
   .other-store-rating{
     color: #A3A3A3;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -926,7 +926,7 @@ header {
   
   .other-store-group{
     display: flex;
-    align-items: flex-start;  
+    align-items: baseline;  
   }
   
   .store-name{
@@ -959,7 +959,7 @@ header {
   
   .status{
     color: #2C901B;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     display: flex;
     align-items: flex-end;
@@ -974,7 +974,7 @@ header {
   .update{
     margin-top: 7px;
     color: #2E2E2E;
-    font-size: 14px;
+    font-size: 12px;
     white-space: nowrap;
   }
   
@@ -1525,7 +1525,7 @@ header {
 
   .store-title{
     font-weight: bold;
-    font-size: 20px;
+    font-size: 30px;
   }
 
   .love-group{
@@ -1539,7 +1539,7 @@ header {
     display: flex;
     align-items: center; 
     flex-wrap: wrap;
-    gap: 15px; 
+    gap: 7px; 
   }
 
   .store-type{
@@ -1589,7 +1589,7 @@ header {
   
   .other-store-rating{
     color: #A3A3A3;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -1606,7 +1606,7 @@ header {
   
   .other-store-group{
     display: flex;
-    align-items: flex-start;  
+    align-items: baseline;  
   }
   
   .store-name{
@@ -1639,7 +1639,7 @@ header {
   
   .status{
     color: #2C901B;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     display: flex;
     align-items: flex-end;
@@ -1654,7 +1654,7 @@ header {
   .update{
     margin-top: 7px;
     color: #2E2E2E;
-    font-size: 14px;
+    font-size: 12px;
     white-space: nowrap;
   }
   
@@ -2207,7 +2207,7 @@ header {
 
   .store-title{
     font-weight: bold;
-    font-size: 20px;
+    font-size: 30px;
   }
 
   .love-group{
@@ -2221,7 +2221,7 @@ header {
     display: flex;
     align-items: center; 
     flex-wrap: wrap;
-    gap: 15px; 
+    gap: 7px; 
   }
 
   .store-type{
@@ -2271,7 +2271,7 @@ header {
   
   .other-store-rating{
     color: #A3A3A3;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -2288,7 +2288,7 @@ header {
   
   .other-store-group{
     display: flex;
-    align-items: flex-start;  
+    align-items: baseline;  
   }
   
   .store-name{
@@ -2321,7 +2321,7 @@ header {
   
   .status{
     color: #2C901B;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     display: flex;
     align-items: flex-end;
@@ -2336,7 +2336,7 @@ header {
   .update{
     margin-top: 7px;
     color: #2E2E2E;
-    font-size: 14px;
+    font-size: 12px;
     white-space: nowrap;
   }
   

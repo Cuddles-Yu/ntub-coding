@@ -39,12 +39,12 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 })
 
 //隱藏其他分店滾動條
-const container = document.querySelector('.other-store');
+const commentContainer = document.querySelector('.comment-group');
 
-if (container.scrollHeight > container.clientHeight) {
-  container.style.overflowY = 'scroll'; // 顯示垂直滾動條
+if (commentContainer.scrollHeight > commentContainer.clientHeight) {
+  commentContainer.style.overflowY = 'scroll'; // 顯示垂直滾動條
 } else {
-  container.style.overflowY = 'auto'; // 隱藏垂直滾動條
+  commentContainer.style.overflowY = 'auto'; // 隱藏垂直滾動條
 }
 
 //樣本選擇與排序關係
@@ -152,3 +152,13 @@ document.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('resize', updateArrowVisibility);
   updateArrowVisibility(); // 初次加載時運行
 });
+
+
+//隱藏留言滾動條
+const container = document.querySelector('.other-store');
+
+if (container.scrollHeight > container.clientHeight) {
+  container.style.overflowY = 'scroll'; // 顯示垂直滾動條
+} else {
+  container.style.overflowY = 'auto'; // 隱藏垂直滾動條
+}
