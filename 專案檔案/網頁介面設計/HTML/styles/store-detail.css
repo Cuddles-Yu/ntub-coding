@@ -564,6 +564,10 @@ header {
     background-color: #fefbf2f5;
   } 
 
+  .middle-side{
+    background-color: #f8f8ff;
+  }
+
   .title-gb{
     margin-left: 15px;
     margin-top: 10px;
@@ -590,7 +594,7 @@ header {
     padding: 10px;
   }
 
-  .comment-good, .comment-bad, .comment-neutral {
+  .comment-good, .comment-bad, .comment-neutral, .comment-middle {
     border: 2px solid;
     min-width: 80px;
     height: 35px;
@@ -619,6 +623,11 @@ header {
   .comment-neutral{
     border-color: #ad894f;
     color: #ad894f;
+  }
+
+  .comment-middle{
+    border-color: #51519b;
+    color: #51519b;
   }
 
   .sort-button{
@@ -1243,6 +1252,10 @@ header {
   .neutral-side{
     background-color: #fefbf2f5;
   } 
+
+  .middle-side{
+    background-color: #f8f8ff;
+  }
   
   .title-gb{
     margin-left: 15px;
@@ -1270,7 +1283,7 @@ header {
     padding: 10px;
   }
   
-  .comment-good, .comment-bad, .comment-neutral {
+  .comment-good, .comment-bad, .comment-neutral, .comment-middle {
     border: 2px solid;
     min-width: 75px;
     height: 33px;
@@ -1299,6 +1312,11 @@ header {
   .comment-neutral{
     border-color: #ad894f;
     color: #ad894f;
+  }
+
+  .comment-middle{
+    border-color: #51519b;
+    color: #51519b;
   }
 
   .sort-button{
@@ -1925,6 +1943,10 @@ header {
   .neutral-side{
     background-color: #fefbf2f5;
   } 
+
+  .middle-side{
+    background-color: #f8f8ff;
+  }
   
   .title-gb{
     margin-left: 15px;
@@ -1952,7 +1974,7 @@ header {
     padding: 10px;
   }
   
-  .comment-good, .comment-bad {
+  .comment-good, .comment-bad, .comment-neutral, .comment-middle {
     border: 2px solid;
     min-width: 75px;
     height: 33px;
@@ -1981,6 +2003,11 @@ header {
   .comment-neutral{
     border-color: #ad894f;
     color: #ad894f;
+  }
+
+  .comment-middle{
+    border-color: #51519b;
+    color: #51519b;
   }
 
   .sort-button{
@@ -2605,6 +2632,10 @@ header {
   .neutral-side{
     background-color: #fefbf2f5;
   } 
+
+  .middle-side{
+    background-color: #f8f8ff;
+  }
   
   .title-gb{
     margin-left: 15px;
@@ -2632,7 +2663,7 @@ header {
     padding: 10px;
   }
   
-  .comment-good, .comment-bad {
+  .comment-good, .comment-bad, .comment-neutral, .comment-middle {
     border: 2px solid;
     min-width: 75px;
     height: 33px;
@@ -2661,6 +2692,11 @@ header {
   .comment-neutral{
     border-color: #ad894f;
     color: #ad894f;
+  }
+
+  .comment-middle{
+    border-color: #51519b;
+    color: #51519b;
   }
 
   .sort-button{
@@ -2872,7 +2908,7 @@ header {
 }
 
 @media (max-width: 595px) {
-  .comment-good, .comment-bad, .comment-neutral {
+  .comment-good, .comment-bad, .comment-neutral, .comment-middle {
     border: 2px solid;
     min-width: 75px;
     height: 33px;
