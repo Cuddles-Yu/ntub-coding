@@ -12,7 +12,9 @@ function searchStores($location, $keyword)
         INNER JOIN rates AS r ON s.id = r.store_id
         INNER JOIN locations AS l ON s.id = l.store_id
         INNER JOIN tags AS t ON s.tag = t.tag
-        WHERE l.city = ? AND (s.name LIKE ? OR s.description LIKE ? OR t.category LIKE ? OR s.tag LIKE ? OR k.word LIKE ?)
+        WHERE l.city = ? 
+        AND (s.name LIKE ? OR s.description LIKE ? OR t.category LIKE ? OR s.tag LIKE ? OR k.word LIKE ?)
+        AND s.crawler_state IN ('成功', '完成', '超時')
         ORDER BY r.avg_ratings DESC, r.total_reviews DESC
     ";
     $stmt = $conn->prepare($sql);
@@ -47,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <!-- 動態生成搜尋結果 -->
-<div id="searchResults" class="store" >
+<div id="searchResults" class="store">
     <?php if ($stores) : ?>
         <?php foreach ($stores as $store) : ?>
             <div class="container-fluid store-body" onclick="redirectToDetailPage('<?php echo htmlspecialchars($store['name']); ?>', '<?php echo htmlspecialchars($store['id']); ?>')"> <!--整框商家 可點下進入詳細頁面-->
@@ -63,42 +65,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <h6 class="restaurant-style">分類: <?php echo htmlspecialchars($store['tag']); ?></h6><!--填入餐廳分類-->
                                 <h6 class="address">地址: <?php echo htmlspecialchars($store['city'] . $store['details']); ?></h6><!--填入餐廳地址-->
                             </div>
-                            <div class="progress-group-text col-5">
-                                <div class="progress-text col-2">
-                                    <div class="progress-text" style="color: #B45F5F;">熱門</div>
-                                    <div class="progress-text" style="color: #562B08;">環境</div>
-                                    <div class="progress-text" style="color: #7B8F60;">產品</div>
-                                    <div class="progress-text" style="color: #5053AF;">服務</div>
-                                    <div class="progress-text" style="color: #C19237;">售價</div>
+                            <div class="progress-group-text col">
+                                <div class="progress-group">
+                                    <div class="progress-text col-4" style="color: #B45F5F;">熱門 10%</div>
+                                    <div class="progress col" role="progressbar" aria-label="Default example " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar overflow-visible" style="width: 15%; background-color: #B45F5F;"></div><!--填入"熱門指數"width也要跟著改-->
+                                    </div>
                                 </div>
-                                <div class="progress-group col">
-                                    <div class="progress" role="progressbar" aria-label="Default example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                        <div class="progress-bar overflow-visible" style="width: <?php echo htmlspecialchars($store['avg_ratings']) * 20; ?>%; background-color: #B45F5F;"><?php echo htmlspecialchars($store['avg_ratings']) * 20; ?>%</div><!--填入"熱門指數"width也要跟著改-->
+                                <div class="progress-group">
+                                    <div class="progress-text col-4" style="color: #562B08;">氛圍 40%</div>
+                                    <div class="progress col" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar overflow-visible" style="width: 25%; background-color: #562B08;"></div>
                                     </div>
-                                    <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                        <div class="progress-bar overflow-visible" style="width: <?php echo htmlspecialchars($store['environment_rating']) * 20; ?>%; background-color: #562B08;"><?php echo htmlspecialchars($store['environment_rating']) * 20; ?>%</div><!--填入"環境指數"width也要跟著改-->
+                                </div>
+                                <div class="progress-group">
+                                    <div class="progress-text col-4" style="color: #7B8F60;">產品 50%</div>
+                                    <div class="progress col" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar overflow-visible" style="width: 50%; background-color: #7B8F60;"></div>
                                     </div>
-                                    <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                                        <div class="progress-bar overflow-visible" style="width: <?php echo htmlspecialchars($store['product_rating']) * 20; ?>%; background-color: #7B8F60;"><?php echo htmlspecialchars($store['product_rating']) * 20; ?>%</div><!--填入"產品指數"width也要跟著改-->
+                                </div>
+                                <div class="progress-group">
+                                    <div class="progress-text col-4" style="color: #5053AF;">服務 70%</div>
+                                    <div class="progress col" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar overflow-visible" style="width: 75%; background-color: #5053AF;"></div>
                                     </div>
-                                    <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                                        <div class="progress-bar overflow-visible" style="width: <?php echo htmlspecialchars($store['service_rating']) * 20; ?>%; background-color: #5053AF;"><?php echo htmlspecialchars($store['service_rating']) * 20; ?>%</div><!--填入"服務指數"width也要跟著改-->
-                                    </div>
-                                    <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                                        <div class="progress-bar overflow-visible" style="width: <?php echo htmlspecialchars($store['price_rating']) * 20; ?>%; background-color: #C19237;"><?php echo htmlspecialchars($store['price_rating']) * 20; ?>%</div><!--填入"售價指數"width也要跟著改-->
+                                </div>
+                                <div class="progress-group">
+                                    <div class="progress-text col-4" style="color: #C19237;">售價 75%</div>
+                                    <div class="progress col" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar overflow-visible" style="width: 100%; background-color: #C19237;"></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="quick-group col">
-                                <a class="love" href="#"><img class="love-img" src="images/love.png">
-                                    <h6 class="love-text">最愛</h6>
-                                </a><br>
-                                <a class="map-link" href="<?php echo htmlspecialchars($store['link']); ?>"><img class="map-link-img" src="images/map.png">
-                                    <h6 class="map-link-text">地圖</h6>
-                                </a><br><!--href="#" #換成餐廳地圖-->
-                                <a class="web" href="<?php echo htmlspecialchars($store['website']); ?>"><img class="web-img" src="images/web.png">
-                                    <h6 class="web-text">官網</h6>
-                                </a><!--href="#" #換成餐廳官網-->
+                            <div class="quick-group col-2">
+                                <a class="love" href="#"><img class="love-img" src="images/love.png"><h6 class="love-text">最愛</h6></a>
+                                <a class="map-link" href="<?php echo htmlspecialchars($store['link']); ?>"><img class="map-link-img" src="images/map.png"><h6 class="map-link-text">地圖</h6></a><!--href="#" #換成餐廳地圖-->
+                                <a class="web" href="<?php echo htmlspecialchars($store['website']); ?>"><img class="web-img" src="images/web.png"><h6 class="web-text">官網</h6></a><!--href="#" #換成餐廳官網-->
                             </div>
                         </div>
                     </div>
@@ -109,6 +111,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <p>沒有找到相關結果。</p>
     <?php endif; ?>
 </div>
-
-
-

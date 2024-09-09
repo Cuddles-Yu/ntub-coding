@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 html, body {
   margin: 0;
   height: 100%;
@@ -26,7 +32,8 @@ header {
 }
 
 .logo-group {
-  font-size: xx-large;
+  font-size: 35px;
+  margin-left: 10px;
 }
 
 .Logo {
@@ -49,7 +56,7 @@ header {
 .link__text {
   color: #424242;
   text-decoration: none;
-  font-size: large;
+  font-size: 18px;
 }
 
 .link__text:hover {
@@ -57,7 +64,24 @@ header {
   color: black;
 }
 
-@media screen and (min-width: 1000px) {
+.wrapper-hambuger{
+  display: none;
+}
+
+.member {
+  display: flex;
+  align-items: center;
+  width: 162.5px;
+  justify-content: flex-end;
+}
+
+.member-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+@media screen and (min-width: 1037px) {
   .link__text:not(:last-child):after {
     content: "";
     border: 0.2px solid #C5C5C5;
@@ -66,18 +90,7 @@ header {
   }
 }
 
-.member {
-  display: flex;
-  align-items: center;
-  margin-right: 15px;
-}
-
-.member-icon {
-  width: 40px;
-  height: 40px;
-}
-
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1037px) {
   .member {
     display: flex;
     align-items: center;
@@ -86,12 +99,19 @@ header {
     flex: 1;
   }
 
+  .member-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
+  }
+
   .wrapper-hambuger {
     height: 15px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     cursor: pointer;
+    margin-right: 10px;
   }
 
   .cross-button {
@@ -132,6 +152,7 @@ header {
   margin-right: auto;
   margin-top: 30px;
   font-weight: bold;
+  font-size: 40px;
   text-decoration: 3px solid underline;
   text-decoration-color: #6C6B71;
   text-underline-offset: 7px;
@@ -139,6 +160,9 @@ header {
 }
 
 .member-group{
+  width: 98%;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -147,11 +171,13 @@ header {
 .member-card{
   width: 250px;
   border-bottom: 1px solid #95949b;
+  margin-top: 15px;
 }
 
 .member-title{
   text-align: center;
   color: #888787;
+  font-size: 24px;
 }
 
 .member-picture{
@@ -163,6 +189,7 @@ header {
   text-align: center;
   margin-top: 30px;
   font-weight: bold;
+  font-size: 32px;
   color: #363636;
 }
 
@@ -186,11 +213,11 @@ header {
   color: #3E5363;
   font-weight: bold;
   margin-left: 10px;
-  font-size: large;
+  font-size: 18px;
 }
 
 .email{
-  
+  font-size: 16px;
   margin-left: 5px;
   color: #6A7782;
 }
@@ -200,7 +227,7 @@ header {
   height: 90px;
   color: white;
   padding: 15px 20px 20px 25px;
-  font-size: small;  
+  font-size: 14px;  
 }
 
 @media screen and (max-width: 748px) {

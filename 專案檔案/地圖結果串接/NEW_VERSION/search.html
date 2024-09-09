@@ -101,8 +101,7 @@
           <div class="title-line"></div>
         </div>
         <div id="searchResults" class="store" >
-              <!-- 初始內容為空，避免undefined -->
-        </div>
+        
           <!--餐廳-->
           <div class="container-fluid store-body" onclick="redirectToDetailPage(storeName, storeId)">
             <!-- 之後填入預設商家們 -->
@@ -190,12 +189,59 @@
        }
    }
 
+   // (最多人提到)詳細頁面按鈕按下自動填入搜尋欄位
+   window.onload = function() {
+       const urlParams = new URLSearchParams(window.location.search);
+       const keyword = urlParams.get('keyword');
+       if (keyword) {
+           document.getElementById('keyword').value = keyword;
+           // 提交搜尋表單
+           FormSubmit(keyword);
+       }
+   }
+
+   function FormSubmit(keyword) {
+       const formData = new FormData();
+       formData.append('keyword', keyword);
+
+       // 獲取 HTML 搜索結果
+       fetch('search.php', {
+           method: 'POST',
+           body: formData
+       })
+       .then(response => response.text())
+       .then(data => {
+           if (data && data.trim() !== "") {
+               document.getElementById('searchResults').innerHTML = data;
+           } else {
+               document.getElementById('searchResults').innerHTML = "<p>沒有找到相關結果。</p>";
+           }
+       })
+       .catch(error => console.error('Error:', error));
+
+       // 獲取 JSON 地標資料並更新地圖標記
+       fetch('search_landmark.php', {
+           method: 'POST',
+           body: formData
+       })
+       .then(response => response.json())
+       .then(data => {
+           if (Array.isArray(data) && data.length > 0) {
+               updateMapMarkers(data);
+           } else {
+               console.log('沒有找到地標資料');
+           }
+       })
+       .catch(error => console.error('Fetch錯誤:', error));
+   }
  </script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+ 
+ <!-- 跳轉詳細頁面 --> 
+  <!-- 暫時以測試的檔案 -->
  <script>
-  //跳轉詳細頁面
     function redirectToDetailPage(storeName, storeId) {
-      window.location.href = `store-detail.html?name=${encodeURIComponent(storeName)}&id=${storeId}`;
+      window.location.href = `store-detail-test.php?name=${encodeURIComponent(storeName)}&id=${storeId}`;
     }
   </script>
 </body>

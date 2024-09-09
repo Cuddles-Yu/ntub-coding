@@ -44,7 +44,7 @@
       <div class="member" type="button" data-bs-toggle="offcanvas">
         <img class="member-icon" src="images/user.jpg">
       </div>
-      <div id="hamburger" class="wrapper-hambuger" type="button" data-bs-toggle="offcanvas"
+      <div id="hambuger" class="wrapper-hambuger" type="button" data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
         <div class="cross-button-top cross-button"></div>
         <div class="cross-button-bottom cross-button"></div>
@@ -72,21 +72,44 @@
   </header>
 
   <section class="primary-content section-content">
-    <h1 class="store-title">巧之味手工水餃 濟南店</h1>
+    <h1 class="store-title"></h1>
     <div class="love-group">
       <div class="type-rating-status-group">
-        <div class="store-type"><img class="store-type-img" src="images/restaurant-2.png">餐廳</div>
+        
+        <!--綜合評分-->
         <h5 class="rating">85<!--填入綜合評分--></h5><h6 class="rating-text">/綜合評分</h6>
-        <button type="button" class="btn status" data-bs-container="body" data-bs-toggle="popover" 
+        <div class="store-type"><img class="store-type-img" src="images/restaurant-2.png">餐廳</div>
+        <!--分店綜合評分比較-->       
+        <button class="btn btn-outline-secondary other-store-rating" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          其他分店
+        </button>     
+        <!--營業時間按鈕-->
+        <button type="button" class="btn btn-outline-success status" data-bs-container="body" data-bs-toggle="popover2" 
         data-bs-title="詳細營業時間" data-bs-placement="bottom" data-bs-html="true" 
-        data-bs-content="星期一:10:00-12:00 <br>星期二:10:00-12:00<br>星期三:10:00-12:00 <br>星期四:10:00-12:00 <br>星期五:10:00-12:00">
-          <img class="status-img" src="images/open.jpg">營業中
+        data-bs-content="星期一:10:00-12:00<br>星期二:10:00-12:00<br>星期三:10:00-12:00 <br>星期四:10:00-12:00 <br>星期五:10:00-12:00">
+          <i class="fi fi-sr-clock status-img"></i>營業中
         </button>
-        <h6 class="update">更新時間:2024/07/16</h6>
+        <h6 class="update">資料更新時間:2024/07/16 13:50</h6>
       </div>
       <a class="love" href="#"><img class="love-img" src="images/love.png"></a>
     </div>
-    <li class="introduction">明亮的餐酒館供應精選牛排和海鮮，並設有提供各種酒類的酒吧，店內洋溢歡樂氛圍。</li>
+    <div class="collapse multi-collapse" id="collapseExample">
+      <div class="other-store">
+        <div class="other-store-group">
+          <li class="store-name col-4">信義店</li>
+          <p class="other-rating col-3">80 /綜合評分</p>
+          <p class="other-map col"><a class="address" href="#"><i class="fi fi-sr-map-marker address-img"></i>濟南路二段6號</a></p>
+          <i class="fi fi-sr-bookmark collect" role="button"></i>
+        </div>
+        <div class="other-store-group">
+          <li class="store-name col-4">台北信義威秀店</li>
+          <p class="other-rating col-3">70 /綜合評分</p>
+          <p class="other-map col"><a class="address" href="#"><i class="fi fi-sr-map-marker address-img"></i>敦化南路一段187巷37號B1</a></p>
+          <i class="fi fi-sr-bookmark collect" role="button"></i>
+        </div>
+      </div>
+    </div>
+    <li id="item" class="introduction"  data-content="明亮的餐酒館供應精選牛排和海鮮，並設有提供各種酒類的酒吧，店內洋溢歡樂氛圍。"></li>
   </section>
 
   <section class="secondary-content section-content">
@@ -95,38 +118,10 @@
         <!-- 使用者定位按鈕 -->
         <button type="button" id="locateButton" onclick="userLocate()">使用您的位置</button>
       </div>
-      <div class="comment-keyword">
-        <div class="title-group">
-          <i class="fi fi-sr-letter-case group-title-img"></i>
-          <h5 class="group-title">評論關鍵字</h5>
-        </div>
-        <h6 class="title-gb">正面<i class="fi fi-sr-sort-down keyword-arrow"></i></h6>
-        <div class="group-gb">
-          <div class="comment-gb">好吃</div>
-          <div class="comment-gb">口感很好</div>
-          <div class="comment-gb">便宜</div>
-          <div class="comment-gb">方便</div>
-          <div class="comment-gb">服務很好</div>
-          <div class="comment-gb">效率很高</div>
-          <div class="comment-gb">很乾淨</div>
-        </div>
-        <h6 class="title-gb">負面<i class="fi fi-sr-sort-down keyword-arrow"></i></h6>
-        <div class="group-gb">
-          <div class="comment-gb">很貴</div>
-          <div class="comment-gb">吵</div>
-          <div class="comment-gb">環境髒亂</div>
-          <div class="comment-gb">態度不好</div>
-          <div class="comment-gb">難吃</div>
-          <div class="comment-gb">態度差</div>
-          <div class="comment-gb">煙味</div>
-          <div class="comment-gb">等很久</div>
-          <div class="comment-gb">交通不方便</div>
-          
-        </div>
-      </div>
+      
     </div>
     <div class="second-row">
-      <div class="anaysis">
+      <div class="anaysis col">
         <div class="title-group">
           <i class="fi fi-sr-bars-progress group-title-img"></i>
           <h5 class="group-title">指標分析</h5>
@@ -134,54 +129,54 @@
         <div class="progress-group-text">
           <div class="progress-group">
             <div class="progress-text col-3" style="color: #B45F5F;">熱門 10%</div>
-            <div class="progress col" role="progressbar" aria-label="Default example " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress col-8" role="progressbar" aria-label="Default example " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
               <div class="progress-bar overflow-visible" style="width: 15%; background-color: #B45F5F;"></div><!--填入"熱門指數"width也要跟著改-->
             </div>
           </div>
           <div class="progress-group">
             <div class="progress-text col-3" style="color: #562B08;">環境 40%</div>
-            <div class="progress col" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress col-8" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
               <div class="progress-bar overflow-visible" style="width: 25%; background-color: #562B08;"></div>
             </div>
           </div>
           <div class="progress-group">
             <div class="progress-text col-3" style="color: #7B8F60;">產品 50%</div>
-            <div class="progress col" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress col-8" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
               <div class="progress-bar overflow-visible" style="width: 50%; background-color: #7B8F60;"></div>
             </div>
           </div>
           <div class="progress-group">
             <div class="progress-text col-3" style="color: #5053AF;">服務 70%</div>
-            <div class="progress col" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress col-8" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
               <div class="progress-bar overflow-visible" style="width: 75%; background-color: #5053AF;"></div>
             </div>
           </div>
           <div class="progress-group">
             <div class="progress-text col-3" style="color: #C19237;">售價 75%</div>
-            <div class="progress col" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress col-8" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
               <div class="progress-bar overflow-visible" style="width: 100%; background-color: #C19237;"></div>
             </div>
           </div>
         </div>
       </div>
-      <div class="service">
+      <div class="service col">
         <div class="title-group">
           <i class="fi fi-sr-following group-title-img"></i>
-          <h5 class="group-title ">服務項目</h5>
+          <h5 class="group-title">服務項目</h5>
         </div>
         <div class="service-item-group">
           <div class="service-group">
             <h6 class="service-title">服務方式</h6>
             <div class="item-group">
-              <div class="service-item col">
+              <div class="service-item">
                 <i class="fi fi-sr-checkbox item-img"></i>
                 <h6 class="item-text">內用</h6>
               </div>
-              <div class="service-item col">
+              <div class="service-item">
                 <i class="fi fi-sr-question item-img"></i>
                 <h6 class="item-text">外帶</h6>
               </div>
-              <div class="service-item col">
+              <div class="service-item">
                 <i class="fi fi-sr-square-x item-img"></i>
                 <h6 class="item-text">外送</h6>
               </div>
@@ -190,11 +185,11 @@
           <div class="service-group">
             <h6 class="service-title">付款方式</h6>
             <div class="item-group">
-              <div class="service-item col">
+              <div class="service-item">
                 <i class="fi fi-sr-checkbox item-img"></i>
                 <h6 class="item-text">信用卡</h6>
               </div>
-              <div class="service-item col">
+              <div class="service-item">
                 <i class="fi fi-sr-question item-img"></i>
                 <h6 class="item-text">NFC行動支付</h6>
               </div>
@@ -203,7 +198,7 @@
           <div class="service-group">
             <h6 class="service-title">定位服務</h6>
             <div class="item-group">
-              <div class="service-item col">
+              <div class="service-item">
                 <i class="fi fi-sr-checkbox item-img"></i>
                 <h6 class="item-text">接受訂位</h6>
               </div>
@@ -212,19 +207,19 @@
           <div class="service-group">
             <h6 class="service-title">其他</h6>
             <div class="item-group">
-              <div class="service-item col-6">
+              <div class="service-item">
                 <i class="fi fi-sr-checkbox item-img"></i>
                 <h6 class="item-text">無障礙入口</h6>
               </div>
-              <div class="service-item col-6">
+              <div class="service-item">
                 <i class="fi fi-sr-checkbox item-img"></i>
                 <h6 class="item-text">無障礙洗手間</h6>
               </div>
-              <div class="service-item col-6">
+              <div class="service-item">
                 <i class="fi fi-sr-checkbox item-img"></i>
                 <h6 class="item-text">無障礙座位</h6>
               </div>
-              <div class="service-item col-6">
+              <div class="service-item">
                 <i class="fi fi-sr-checkbox item-img"></i>
                 <h6 class="item-text">無障礙停車場</h6>
               </div>
@@ -232,7 +227,7 @@
           </div>
         </div>
       </div>
-      <div class="store-introduction">
+      <div class="store-introduction col">
         <div class="title-group">
           <i class="fi fi-sr-search-alt group-title-img"></i>
           <h5 class="group-title ">餐廳簡介</h5>
@@ -255,9 +250,27 @@
     </div>
   </section>
   <section class="tertiary-content section-content">
-    <div class="title-group comment-title">
-      <i class="fi fi-sr-comment-alt group-title-img"></i>
-      <h5 class="group-title">評論(共1000則)</h5>
+    <div class="comment-title">
+      <div class="title-group">
+        <i class="fi fi-sr-comment-alt group-title-img"></i>
+        <h5 class="group-title">評論</h5>
+      </div>
+      
+      <!--樣本選擇按鈕-->
+      <div class="btn-group sample-group" role="group" aria-label="Basic radio toggle button group">
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+        <label class="btn btn-outline-secondary sample-button" for="btnradio1">全部</label>
+      
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+        <label class="btn btn-outline-secondary sample-button" for="btnradio2">最相關</label>
+      
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+        <label class="btn btn-outline-secondary sample-button" for="btnradio3">評分最高</label>
+
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+        <label class="btn btn-outline-secondary sample-button" for="btnradio4">評分最低</label>
+      </div>
+      <!--篩選按鈕-->
       <div class="btn-group">
         <button class="btn btn-secondary dropdown-toggle  filter-button" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
           篩選
@@ -269,6 +282,60 @@
         </ul>
       </div>
     </div>
+    <div class="comment-keyword">
+      <div class="keyword-title">
+        <h5 class="keyword-title-text">評論關鍵字</h5>
+      </div>
+      <div class="group-gb good-side">
+        <h6 class="title-gb">正面<i class="fi fi-sr-caret-right keyword-arrow"></i></h6>
+        <div class="group-keyword">
+          <div class="comment-good">好吃 (990)</div>
+          <div class="comment-good">口感很好 (830)</div>
+          <div class="comment-good">便宜 (810)</div>
+          <div class="comment-good">方便 (800)</div>
+          <div class="comment-good">服務很好 (750)</div>
+          <div class="comment-good">效率很高 (753)</div>
+          <div class="comment-good">很乾淨 (479)</div>
+          <div class="comment-good">口感很好 (436)</div>
+          <div class="comment-good">便宜 (368)</div>
+          <div class="comment-good">方便 (319)</div>
+          <div class="comment-good">服務很好 (211)</div>
+          <div class="comment-good">效率很高 (168)</div>
+          <div class="comment-good">很乾淨 (150)</div>
+          <div class="comment-good">口感很好 (123)</div>
+          <div class="comment-good">便宜 (110)</div>
+          <div class="comment-good">方便 (58)</div>
+          <div class="comment-good">服務很好 (40)</div>
+          <div class="comment-good">效率很高 (25)</div>
+          <div class="comment-good">很乾淨 (23)</div>
+        </div>
+      </div>
+      <div class="group-gb bad-side">
+        <h6 class="title-gb">負面<i class="fi fi-sr-caret-right keyword-arrow"></i></h6>
+        <div class="group-keyword">
+          <div class="comment-bad">很貴 (950)</div>
+          <div class="comment-bad">吵 (900)</div>
+          <div class="comment-bad">環境髒亂 (870)</div>
+          <div class="comment-bad">態度不好 (842)</div>
+          <div class="comment-bad">難吃 (812)</div>
+          <div class="comment-bad">態度差 (604)</div>
+          <div class="comment-bad">煙味 (593)</div>
+          <div class="comment-bad">等很久 (483)</div>
+          <div class="comment-bad">交通不方便 (210)</div>
+          <div class="comment-bad">難吃 (198)</div>
+          <!--
+          <div class="comment-bad">態度差</div>
+          <div class="comment-bad">煙味</div>
+          <div class="comment-bad">等很久</div>
+          <div class="comment-bad">交通不方便</div>-->
+        </div>
+      </div>
+    </div>
+    <div class="keyword-title">
+      <h5 class="keyword-title-text">詳細評論 (共1000則)</h5>
+    </div>
+
+
     <div class="comment-group">
       <div class="comment-item">
         <div class="comment-information">
@@ -299,7 +366,7 @@
           <p class="time">時間：1天前</p>
         </div>
         <div class="comment">
-          <p class="comment-text">假日還沒17:00門口就大排長龍！內用等了約15分鐘～ 干貝水餃可以吃到干貝一絲一絲的口感，很鮮很好吃。韭菜跟高麗菜水餃也不錯，皮不會爛爛的，也好吃。酸辣湯料很足，胡椒辣很夠味，酸也夠明顯。</p>
+          <p class="comment-text">假日還沒17:00門口就大排長龍！內用等了約15分鐘～干貝水餃可以吃到干貝一絲一絲的口感，很鮮很好吃。韭菜跟高麗菜水餃也不錯，皮不會爛爛的，也好吃。酸辣湯料很足，胡椒辣很夠味，酸也夠明顯。</p>
         </div>
       </div>
       <div class="comment-item">
@@ -375,43 +442,43 @@
       <h5 class="group-title">吃過都推薦</h5>
     </div>
     <div class="group-card">
-      <div class="card" style="width: 13rem;">
+      <div class="card">
         <div class="card-body">
           <p class="card-text">水餃(783)</p>
         </div>
         <img class="card-img" src="images/水餃.jpg" alt="...">
       </div>
-      <div class="card" style="width: 13rem;">
+      <div class="card">
         <div class="card-body">
           <p class="card-text">水餃(351)</p>
         </div>
         <img class="card-img" src="images/水餃.jpg" alt="...">
       </div>
-      <div class="card" style="width: 13rem;">
+      <div class="card">
         <div class="card-body">
           <p class="card-text">水餃(246)</p>
         </div>
         <img class="card-img" src="images/水餃.jpg" alt="...">
       </div>
-      <div class="card" style="width: 13rem;">
+      <div class="card">
         <div class="card-body">
           <p class="card-text">水餃(102)</p>
         </div>
         <img class="card-img" src="images/水餃.jpg" alt="...">
       </div>
-      <div class="card" style="width: 13rem;">
+      <div class="card">
         <div class="card-body">
           <p class="card-text">水餃(85)</p>
         </div>
         <img class="card-img" src="images/水餃.jpg" alt="...">
       </div>
-      <div class="card" style="width: 13rem;">
+      <div class="card">
         <div class="card-body">
           <p class="card-text">水餃(85)</p>
         </div>
         <img class="card-img" src="images/水餃.jpg" alt="...">
       </div>
-      <div class="card" style="width: 13rem;">
+      <div class="card">
         <div class="card-body">
           <p class="card-text">水餃(85)</p>
         </div>
@@ -470,7 +537,7 @@
       台北商業大學 | 資訊管理系<br>
       北商資管專題 113206 小組<br>
       成員：鄧惠中、余奕博、邱綺琳、陳彥瑾
-      <en style="margin-right: 0.6em; float: right; font-size: 0.6em;">Copyright ©2024 All rights reserved.</en>
+      <en style="margin-right: 9.6px; float: right; font-size: 9.6px;">Copyright ©2024 All rights reserved.</en>
     </div>
   </footer>
 
@@ -487,39 +554,91 @@
   <!-- 載入 Markercluster.js -->
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 
-  <!-- 載入JSON資料 data.php -->
-  <script src="./data.php"></script>
+  <!-- 載入JSON資料 data.json -->
+  <script src="API/data.json"></script>
 
   <!-- 載入主程式 osm_map.js -->
-  <script src="./osm_map.js"></script>
+  <script src="API/osm_map.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
   <script src="scripts/ui-interactions.js"></script>
+
+  <!--營業時間展開框-->
   <script>
-    const popover = new bootstrap.Popover('.status', {
+    const popover2 = new bootstrap.Popover('.status', {
       container: 'body'
     })
   </script>
 
-  <!-- 從搜尋跳到商家 -->
-  <script>
-    function getQueryParam(param) {
-      let urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(param);
+<!-- 從搜尋跳到商家 -->
+<script>
+  function getQueryParam(param) {
+    let urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  }
+
+  document.addEventListener('DOMContentLoaded', (event) => {
+    let storeName = getQueryParam('name');
+    let storeId = getQueryParam('id');
+    
+    // 使用 storeName 和 storeId 來動態生成詳細頁面
+    if (storeName) {
+      document.querySelector('.store-title').textContent = storeName;
     }
-  
-    document.addEventListener('DOMContentLoaded', (event) => {
-      let storeName = getQueryParam('name');
-      let storeId = getQueryParam('id');
-      
-      // 使用 storeName 和 storeId 來動態生成詳細頁面
-      if (storeName) {
-        document.querySelector('.store-title').textContent = storeName;
+    
+  });
+</script>
+<!-- 動態生成詳細資料 -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const params = new URLSearchParams(window.location.search);
+      const storeId = params.get('id');
+      const storeName = params.get('name');
+
+      if (storeId || storeName) {
+        fetch(`store-detail.php?id=${storeId}&name=${encodeURIComponent(storeName)}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.error) {
+              alert(data.error);
+            } else {
+              document.querySelector('.store-title').textContent = data.name;
+              document.querySelector('.rating').textContent = data.avg_ratings;
+              document.querySelector('.introduction').textContent = data.description;
+              document.querySelector('.btn.status').setAttribute('data-bs-content', data.opening_hours);
+              // 继续更新其他部分，如地址、服务项目等
+            }
+          })
+          .catch(error => console.error('Error fetching store data:', error));
+      } else {
+        alert('无效的商家信息');
       }
-      
     });
   </script>
-  
+
+  <!--其他分店展開框-->
+  <script>
+    const popover1 = new bootstrap.Popover('.other-store-rating', {
+      container: 'body'
+    })
+  </script>
+  <!--店家資訊簡介顯示-->
+  <script>
+    // 獲取所有有 data-content 屬性的 li 元素
+    var items = document.querySelectorAll('li.introduction');
+
+    // 遍歷每個元素，檢查 data-content 屬性的值
+    items.forEach(function(item) {
+        var content = item.getAttribute('data-content');
+        if (content) {
+            // 如果有内容，設置為 li 的文本內容
+            item.textContent = content;
+        } else {
+            // 如果没有内容，隱藏 li 元素
+            item.style.display = 'none';
+        }
+    });
+</script>
 </body>
 
 </html>

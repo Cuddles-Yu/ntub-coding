@@ -24,7 +24,9 @@ function getStoreData() {
         JOIN 
             locations ON stores.id = locations.store_id
         JOIN 
-            rates ON stores.id = rates.store_id;
+            rates ON stores.id = rates.store_id
+            
+        WHERE crawler_state IN ('成功', '完成', '超時');
     ";
 
     $result = $conn->query($sql);

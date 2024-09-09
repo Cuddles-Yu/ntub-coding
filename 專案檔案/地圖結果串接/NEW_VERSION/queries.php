@@ -4,7 +4,7 @@ require_once 'DB.php';
 // 商家資料表得到(商家名稱)
 function getStoreInfo($storeName) {
     global $conn;
-    $sql = "SELECT * FROM stores WHERE name = ?";
+    $sql = "SELECT * FROM stores WHERE name = ? AND crawler_state IN ('成功', '完成', '超時')";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $storeName);
     $stmt->execute();
@@ -16,7 +16,7 @@ function getStoreInfo($storeName) {
 // 留言(依商家查詢)
 function getComments($storeId) {
     global $conn;
-    $sql = "SELECT * FROM comments WHERE store_id = ? ORDER BY sort `index`";
+    $sql = "SELECT * FROM comments WHERE store_id = ? ORDER BY  `id` DESC";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $storeId);
     $stmt->execute();
@@ -58,7 +58,17 @@ function getService($storeId) {
     $stmt->bind_param("i", $storeId);
     $stmt->execute();
     $result = $stmt->get_result();
-    return $result->fetch_assoc();
+    $services = [];
+    while ($row = $result->fetch_assoc()) {
+        // 檢查 category 並進行分類
+        if (in_array($row['category'], ['服務項目', '付款方式', '規劃', '無障礙程度','停車場','設施'])) {
+            $services[$row['category']][] = $row;
+        } else {
+            $services['其他'][] = $row;
+        }
+    }
+    $stmt->close();
+    return $services;
 }
 
 // 關鍵字(依商家查詢)
@@ -83,24 +93,48 @@ function getAllKeywords($storeId) {
 
     $keywords = [];
     while ($row = $result->fetch_assoc()) {
-        if (count($keywords) < 5) {
             $keywords[] = $row;
-        }
     }
     $stmt->close();
     return $keywords;
 }
 
-// 評論者(依商家查詢)?
-// function getContributors($storeId) {
-//     global $conn;
-//     $sql = "SELECT * FROM contributors WHERE id = ?";
-//     $stmt = $conn->prepare($sql);
-//     $stmt->bind_param("i", $storeId);
-//     $stmt->execute();
-//     $result = $stmt->get_result();
-//     return $result->fetch_assoc();
-// }
+//營業時間(依商家查詢)
+function getOpeningHours($storeId) {
+    global $conn;
+    $sql = "SELECT * FROM openhours WHERE store_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $storeId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
 
+// 其他分店
+function getOtherBranches($branchTitle, $storeId) {
+    global $conn;
+    $sql = "SELECT s.*, t.tag, r.avg_ratings, l.dist, l.vil, l.details 
+            FROM stores AS s 
+            LEFT JOIN tags AS t ON s.tag = t.tag 
+            LEFT JOIN rates AS r ON s.id = r.store_id
+            LEFT JOIN locations AS l ON s.id = l.store_id
+            WHERE s.crawler_state IN ('成功', '完成', '超時') 
+            AND s.branch_title = ? 
+            AND s.id != ?";  // 排除當前分店
 
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        die("Prepare failed: (" . $conn->errno . ") " . $conn->error);
+    }
+    $stmt->bind_param("si", $branchTitle, $storeId);
+    $stmt->execute();
+    
+    $result = $stmt->get_result();
+    $branches = [];
+    while ($row = $result->fetch_assoc()) {
+        $branches[] = $row;
+    }
+    $stmt->close();
+    return $branches;
+}
 ?>
