@@ -97,7 +97,7 @@ def combine(str_array: list, separator: str) -> str:
 
 SEPARATOR_PATTERN = r'\s*[\s\-—–_（）(){}]+\s*'
 SYMBOL_PATTERN = r'[【】（）()｜{}]*'
-IGNORE_PATTERN = r'(?<!專門|專賣|小吃|大飯|涼麵|點心|精肉|司總|料理|骨總|利麵|美食|1號|固定|餐館|星來|海產|拉麵|海鮮|快餐|披薩)店'
+IGNORE_PATTERN = r'(?<!專門|專賣|小吃|大飯|涼麵|點心|精肉|司總|料理|骨總|利麵|美食|1號|固定|餐館|星來|海產|拉麵|海鮮|快餐|披薩|分分)店'
 def get_store_branch_title(store_name, force_return: Optional[bool] = False):
     _title, _name = None, None
     if not re.findall(r'[^酒的關飯]店', store_name):

@@ -18,7 +18,7 @@ def connect(name, username, password):  # 連接資料庫
         if not exists(connection, name): schema.create(connection, name)
         connection.database = name
         return connection
-    except Error:
+    except Exception:
         print('資料庫連線失敗，請確認服務是否啟用後再嘗試一次')
         exit()
 
@@ -92,7 +92,6 @@ class SqlDatabase:
             SET {dict_to_clause(setter, ', ')}
             WHERE {dict_to_clause(where, ' AND ')}
         ''')
-
 
     # 設定自動遞增欄位值
     def set_increment(self, table_name, value):

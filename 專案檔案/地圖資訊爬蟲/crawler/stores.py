@@ -101,6 +101,7 @@ for i in range(url_count):
     open_hours_tag = driver.wait_for_element(By.CLASS_NAME, 'OqCZI')
     open_hours_dict = {}
     if open_hours_tag:
+        time.sleep(0.2)
         # 更新時間
         if to_bool(open_hours_tag.find_element(By.CLASS_NAME, 'OMl5r').get_attribute('aria-expanded')): open_hours_tag.click()  # (確保標籤關閉以取得更新時間)
         update_info = driver.find_elements(By.CLASS_NAME, 'zaf2le')

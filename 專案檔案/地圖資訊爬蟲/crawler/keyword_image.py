@@ -27,22 +27,22 @@ def search_url(name: str, kw: str, mode: str):
 def trying(_driver, _store_name, _keyword, modes):
     for mode in modes:
         # 瀏覽器載入指定的連結
-        driver.get(search_url(_store_name, _keyword, mode))
-        random_delay(3, 5, 2)
+        _driver.get(search_url(_store_name, _keyword, mode))
+        random_delay(1, 3, 2)
         element = _driver.wait_for_click_index(By.CLASS_NAME, 'eA0Zlc', index=0)
-        random_delay(3, 5, 2)
+        random_delay(1, 3, 2)
         if element: return element
     return None
 
 def search(_driver, _store_name, _keyword, _store_id):
     search_result = trying(_driver, _store_name, _keyword, modes=['force', 'medium', 'normal', 'static'])
     if not search_result: return None, None
-    random_delay(3, 5, 2)
+    random_delay(1, 3, 2)
     # 取得來源與圖片連結
     image = _driver.wait_for_element(By.CLASS_NAME, 'YsLeY')
     image_url = image.find_element(By.TAG_NAME, 'img').get_attribute('src')
     source_url = image.get_attribute('href')
-    random_delay(3, 5, 2)
+    random_delay(1, 3, 2)
     if __name__ == "__main__": update(image_url, source_url, _store_id, _keyword)
     return image_url, source_url
 
@@ -69,7 +69,7 @@ if __name__ == '__main__':
         for i in range(len(result)):
             print(f'\r正在儲存縮圖與來源連結({i+1}/{len(result)})...', end='')
             store_name, keyword, store_id = result[i][0], result[i][1], result[i][2]
-            search(store_name, keyword, store_id)
+            search(driver, store_name, keyword, store_id)
         # 計算時間差
         TIME_DIFFERENCE = datetime.now() - START_TIME
         MINUTES_ELAPSE = TIME_DIFFERENCE.total_seconds() / 60
