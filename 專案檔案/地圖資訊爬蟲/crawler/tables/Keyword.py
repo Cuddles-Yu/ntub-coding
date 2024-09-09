@@ -5,16 +5,16 @@ from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
 class Keyword:
     _store_id = 0
     _word = ''
-    _count = 0
     _source = ''
+    _count = 0
     _image_url = ''
     _source_url = ''
 
-    def __init__(self, store_id, word, count, source, image_url, source_url):
+    def __init__(self, store_id, word, source, count, image_url, source_url):
         self._store_id = int(store_id) if store_id else None
         self._word = word
-        self._count = int(count)
         self._source = source
+        self._count = int(count)
         self._image_url = image_url
         self._source_url = source_url
 
@@ -27,12 +27,12 @@ class Keyword:
         return transform(self._word)
 
     @property
-    def count(self):
-        return self._count
-
-    @property
     def source(self):
         return transform(self._source)
+
+    @property
+    def count(self):
+        return self._count
 
     @property
     def image_url(self):
@@ -43,7 +43,7 @@ class Keyword:
         return transform(self._source_url)
 
     def to_string(self):
-        return f"({self.store_id}, {self.word}, {self.count}, {self.source}, {self.image_url}, {self.source_url})"
+        return f"({self.store_id}, {self.word}, {self.source}, {self.count}, {self.image_url}, {self.source_url})"
 
     def exists(self, database: SqlDatabase) -> bool:
         return database.is_value_exists('keywords', store_id=self.store_id, word=self.word)

@@ -185,12 +185,12 @@ def create_keywords(cursor):
         CREATE TABLE IF NOT EXISTS `keywords` (
             `store_id` int NOT NULL,
             `word` varchar(50) NOT NULL,
-            `count` int NOT NULL,
             `source` enum('google','comment','recommend') NOT NULL DEFAULT 'google',
+            `count` int NOT NULL,
             `image_url` varchar(2000) DEFAULT NULL,
             `source_url` varchar(2000) DEFAULT NULL,
-            PRIMARY KEY (`store_id`,`word`),
-            KEY `fk_store_id_k` (`store_id`),
+            PRIMARY KEY (`store_id`,`word`,`source`),
+            KEY `fk_store_id_k` (`store_id`,`word`,`source`),
             CONSTRAINT `fk_store_id_k` FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
         )
     ''')
@@ -204,7 +204,6 @@ def create_marks(cursor):
             `contents` varchar(255) NOT NULL,
             `target` enum('環境','產品','服務','售價') NOT NULL,
             `state` enum('正面','負面','喜好') NOT NULL,
-            `count` int NOT NULL DEFAULT '1',
             PRIMARY KEY (`store_id`,`comment_id`,`id`),
             KEY `fk_comment_id_m_idx` (`comment_id`),
             CONSTRAINT `fk_store_id_m` FOREIGN KEY (`store_id`, `comment_id`) REFERENCES `comments` (`store_id`, `id`) ON DELETE CASCADE ON UPDATE CASCADE

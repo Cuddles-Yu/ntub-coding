@@ -79,7 +79,7 @@ class Location:
 
     @property
     def details(self):
-        return transform(self._details)
+        return transform(escape_quotes(self._details))
 
     @details.setter
     def details(self, value):
