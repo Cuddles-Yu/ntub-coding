@@ -100,7 +100,7 @@
         <!--綜合評分-->
         <h5 class="rating"><?php echo htmlspecialchars($rating['avg_ratings']); ?><!--填入綜合評分--></h5>
         <h6 class="rating-text">/綜合評分</h6>
-        <div class="store-type" type="button"><i class="fi fi-sr-utensils store-type-img"></i><?php echo htmlspecialchars($storeInfo['tag']); ?></div>
+        <div class="store-type" type="button"><?php echo htmlspecialchars($storeInfo['tag']); ?></div>
         <!--營業時間按鈕-->
         <button type="button" class="btn btn-outline-success status" data-bs-container="body" data-bs-toggle="popover2"
           data-bs-title="詳細營業時間" data-bs-placement="bottom" data-bs-html="true"
@@ -116,15 +116,17 @@
           </button>
           <h6 class="update">資料更新時間：2024/07/16 13:50<!--填入資料更新時間--></h6>
       </div>
-      <div class="collapse multi-collapse" id="collapseExample">
-        <div class="other-store">
+      <a class="love" href="#"><img class="love-img" src="images/love.png"></a>
+    </div>
+    <div class="collapse multi-collapse" id="collapseExample">
+      <div class="other-store">
 
-          <?php
+      <?php
           // 顯示每個分店的資訊
           foreach ($otherBranches as $branch) {
             $branchName = htmlspecialchars($branch['branch_name']);
             $avgRating = htmlspecialchars($branch['avg_ratings']);
-            $address = htmlspecialchars(($branch['dist'] ?? '') . ' ' . ($branch['vil'] ?? '') . ' ' . ($branch['details'] ?? ''));
+            $address = htmlspecialchars(($branch['city'] ?? '') . ($branch['dist'] ?? '')  . ($branch['vil'] ?? '') . ($branch['details'] ?? ''));
             $storeName = urlencode($branch['branch_name']); // 使用分店名稱作為查詢條件
 
             echo '<div class="other-store-group">';
@@ -134,11 +136,11 @@
             echo '<i class="fi fi-sr-bookmark collect" role="button"></i>';
             echo '</div>';
           }
-          }?>
+        } ?>
 
-        </div>
       </div>
-      
+    </div>
+    </div>
     <!-- 商家介紹 -->
     <li id="item" class="introduction" data-content=<?php echo htmlspecialchars($storeInfo['description']); ?>></li>
   </section>
@@ -294,21 +296,130 @@
         <h6 class="title-gb">正面<i class="fi fi-sr-caret-right keyword-arrow"></i></h6>
         <div class="group-keyword">
           <!--動態生成 正面標籤-->
-          <div class="comment-good">好吃 (990)<!--填入正面標籤--></div>
+          <!-- 動態生成關鍵字 -->
+          <div class="keywords">
+            <!-- 按鈕 -->
+            <button type="button" class="btn comment-good" data-bs-toggle="modal" data-bs-target="#goodModal1"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
+              好吃 (990)
+            </button>
+            <!-- 展開內容 -->
+            <div class="modal fade" id="goodModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">關鍵字</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <!--動態生成 關鍵字點出來的東西-->
+                    <li>雞排很好吃</li>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
+
       <div class="group-gb bad-side">
         <h6 class="title-gb">負面<i class="fi fi-sr-caret-right keyword-arrow"></i></h6>
         <div class="group-keyword">
           <!--動態生成 負面標籤-->
-          <div class="comment-bad">很貴 (950)<!--填入負面標籤--></div>
+          <!-- 動態生成關鍵字 -->
+          <div class="keywords">
+            <!-- 按鈕 -->
+            <button type="button" class="btn comment-bad" data-bs-toggle="modal" data-bs-target="#badModal1"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
+              很貴 (950)
+            </button>
+            <!-- 展開內容 -->
+            <div class="modal fade" id="badModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">關鍵字</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <!--動態生成 關鍵字點出來的東西-->
+                    <li>雞排很好吃</li>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
+
       <div class="group-gb neutral-side">
         <h6 class="title-gb">主觀<i class="fi fi-sr-caret-right keyword-arrow"></i></h6>
         <div class="group-keyword">
           <!--動態生成 客觀標籤-->
-          <div class="comment-neutral">口味適中 (300)<!--填入客觀標籤--></div>
+          <!-- 動態生成關鍵字 -->
+          <div class="keywords">
+            <!-- 按鈕 -->
+            <button type="button" class="btn comment-neutral" data-bs-toggle="modal" data-bs-target="#neutralModal1"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
+              口味還行 (300)
+            </button>
+            <!-- 展開內容 -->
+            <div class="modal fade" id="neutralModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">關鍵字</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <!--動態生成 關鍵字點出來的東西-->
+                    <li>雞排很好吃</li>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="group-gb middle-side">
+        <h6 class="title-gb">中立<i class="fi fi-sr-caret-right keyword-arrow"></i></h6>
+        <div class="group-keyword">
+
+          <!-- 動態生成關鍵字 -->
+          <div class="keywords">
+            <!-- 按鈕 -->
+            <button type="button" class="btn comment-middle" data-bs-toggle="modal" data-bs-target="#middleModal1"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
+              口味還行 (300)
+            </button>
+            <!-- 展開內容 -->
+            <div class="modal fade" id="middleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">關鍵字</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <!--動態生成 關鍵字點出來的東西-->
+                    <li>雞排很好吃</li>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

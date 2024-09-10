@@ -85,7 +85,7 @@ function getKeyword($storeId) {
 // 所有的關鍵字(依商家查詢從多到少)
 function getAllKeywords($storeId) {
     global $conn;
-    $sql = "SELECT word, count FROM keywords WHERE store_id = ? ORDER BY count DESC";
+    $sql = "SELECT word, count FROM keywords WHERE store_id = ? and source = 'google' ORDER BY count DESC";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $storeId);
     $stmt->execute();
@@ -113,7 +113,7 @@ function getOpeningHours($storeId) {
 // 其他分店
 function getOtherBranches($branchTitle, $storeId) {
     global $conn;
-    $sql = "SELECT s.*, t.tag, r.avg_ratings, l.dist, l.vil, l.details 
+    $sql = "SELECT s.*, t.tag, r.avg_ratings, l.city, l.dist, l.vil, l.details 
             FROM stores AS s 
             LEFT JOIN tags AS t ON s.tag = t.tag 
             LEFT JOIN rates AS r ON s.id = r.store_id
