@@ -2,7 +2,7 @@ from enum import Enum
 from 地圖資訊爬蟲.ckip.module.functions import *
 
 JSON_FILE = 'doc/pos_target.json'
-OUTPUT_FILE = 'doc/pos_target1.json'
+OUTPUT_FILE = 'doc/pos_target.json'
 ALL_POS_FILE = 'tagger/results/all_pos.json'
 
 class Classification(Enum):
@@ -16,6 +16,7 @@ class Classification(Enum):
     ignore = '忽略'
     check = '觀察'
     nothing = '無'
+    foreign = '外文'
     # 屬性-形容詞
     positive = '正面'
     negative = '負面'
@@ -30,9 +31,9 @@ class Classification(Enum):
 def to_adjective_class(code):
     match code:
         case '9':  # 喜好
-            return Classification.prefer.value, True
+            return Classification.prefer.value, False
         case '0':  # 中立
-            return Classification.neutral.value, True
+            return Classification.neutral.value, False
         case '-':  # 負面
             return Classification.negative.value, True
         case '=':  # 正面
@@ -45,19 +46,18 @@ def to_adjective_class(code):
             return None, None
 
 def to_object_class(code):
-    class_list = []
-    if '0' in code:
-        class_list.append(Classification.nothing.value)
-    if '1' in code:
-        class_list.append(Classification.environment.value)
-    if '2' in code:
-        class_list.append(Classification.product.value)
-    if '3' in code:
-        class_list.append(Classification.service.value)
-    if '4' in code:
-        class_list.append(Classification.price.value)
-
-    return class_list if class_list else None
+    match code:
+        case '0':
+            return Classification.nothing.value
+        case '1':
+            return Classification.environment.value
+        case '2':
+            return Classification.product.value
+        case '3':
+            return Classification.service.value
+        case '4':
+            return Classification.price.value
+    return None
 
 if __name__ == '__main__':
     ### 讀取詞性檔案 ###
@@ -75,41 +75,20 @@ if __name__ == '__main__':
             POS_TYPE = Classification.category_adj.value
         case '2':
             POS_TYPE = Classification.category_obj.value
-        case '3':
-            POS_TYPE = Classification.ignore.value
+        case 'admin':
+            POS_TYPE = '測試'
         case _:
             print(f'不包含指定的類別代碼。')
             exit()
 
     counter = 0
     match POS_TYPE:
-        case Classification.ignore.value:
-            positive_list = adj_dict.get(Classification.positive.value, {}).copy()
-            negative_list = adj_dict.get(Classification.negative.value, {}).copy()
-            neutral_list = adj_dict.get(Classification.neutral.value, {}).copy()
-            prefer_list = adj_dict.get(Classification.prefer.value, {}).copy()
-            print(f"進行'{POS_TYPE}'監督式詞性屬性劃分 *結束;9喜好;0中立;-負面;=正面;o忽略;p觀察 ", end='')
-            pos_class, need_state_classification = to_adjective_class(input())
-            pos_target[Classification.category_adj.value][pos_class] = {
-                "環境": [],
-                "產品": [],
-                "服務": [],
-                "售價": [],
-                "無": []
-            }
-            for adj in positive_list.get('暫存', []):
-                print(f"【{pos_class}形容詞】{adj} | 指標劃分 [*結束;0無;1環境;2產品;3服務;4售價] ", end='')
-                states = to_object_class(input())
-                if not states: break
-                for state in states:
-                    pos_target[Classification.category_adj.value][pos_class][state].append(adj)
-
-            print(pos_target[Classification.category_adj.value][pos_class])
-
+        case '測試':
+            pass
         case Classification.category_adj.value:
             print(f"進行'{POS_TYPE}'監督式詞性屬性劃分 [*結束;9喜好;0中立;-負面;=正面;o忽略;p觀察]\n")
-            positive_list = adj_dict.get(Classification.positive.value, [])
-            negative_list = adj_dict.get(Classification.negative.value, [])
+            positive_list = adj_dict.get(Classification.positive.value, {})
+            negative_list = adj_dict.get(Classification.negative.value, {})
             neutral_list = adj_dict.get(Classification.neutral.value, [])
             prefer_list = adj_dict.get(Classification.prefer.value, [])
             ignore_list = adj_dict.get(Classification.ignore.value, [])
@@ -117,26 +96,24 @@ if __name__ == '__main__':
             for adj, count in adjective_dict.items():
                 counter += 1
                 if (
-                    adj in positive_list.keys() or
-                    adj in negative_list.keys() or
-                    adj in neutral_list.keys() or
-                    adj in prefer_list.keys() or
-                    adj in ignore_list.keys() or
-                    adj in check_list.keys()
+                    is_keyword_in_pos(positive_list, adj) or
+                    is_keyword_in_pos(negative_list, adj) or
+                    adj in neutral_list or
+                    adj in prefer_list or
+                    adj in ignore_list or
+                    adj in check_list
                 ): continue
 
                 print(f'進度[{counter}/{len(adjective_dict)}] {adj}({count}) ', end='')
                 pos_class, need_state_classification = to_adjective_class(input())
                 if not pos_class: break
-                adj_set = {}
                 if need_state_classification:
-                    print(f"【{pos_class}形容詞】{adj} | 指標劃分 [*結束;0忽略;1環境;2產品;3服務;4售價] ", end='')
-                    state_class, end_of_classification = to_object_class(input())
-                    if not end_of_classification: break
-                    adj_set = {adj: state_class}
+                    print(f"【{pos_class}形容詞】{adj} | 指標劃分 [*結束;0無;1環境;2產品;3服務;4售價] ", end='')
+                    state_class = to_object_class(input())
+                    if not state_class: break
+                    pos_target[Classification.category_adj.value][pos_class][state_class].append(adj)
                 else:
-                    adj_set = {adj: None}
-                pos_target[Classification.category_adj.value][pos_class].append(adj_set)
+                    pos_target[Classification.category_adj.value][pos_class].append(adj)
 
         case Classification.category_obj.value:
             print(f"進行'{POS_TYPE}'監督式詞性屬性劃分 [*結束;0忽略;1環境;2產品;3服務;4售價;\\觀察]\n")
@@ -176,7 +153,6 @@ if __name__ == '__main__':
                     filed = True
                     pos_target[Classification.category_obj.value][Classification.check.value].append(obj)
                     print(f"[✏️已紀錄] 將'{obj}'劃分至「觀察」")
-
                 if not filed: break
 
     print(f"\n已將劃分結果輸出至 -> {OUTPUT_FILE}")

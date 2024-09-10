@@ -22,6 +22,11 @@ def pos_color(pos_code: str):
     if pos_code == 'Dfa': return f'{ColorCode.RED}{ColorCode.BOLD}'
     return None
 
+def is_keyword_in_pos(data, keyword):
+    for key, sub in data.items():
+        if keyword in sub: return True
+    return False
+
 def to_visualize(pattern: str):
     transform = None
     if pattern == "VA":

@@ -47,5 +47,5 @@ if __name__ == '__main__':
             for analysis in target_analysis:
                 s = analysis.get('斷詞', [])
                 p = analysis.get('詞性', [])
-                i = s.id(target)
+                i = s.index(target)
                 print(s[i-RANGE:i+RANGE+1], p[i-RANGE:i+RANGE+1])
