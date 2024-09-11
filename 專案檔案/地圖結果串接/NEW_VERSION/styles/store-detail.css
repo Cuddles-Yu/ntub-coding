@@ -173,6 +173,7 @@ header {
 
   .store-type{
     background-color: #A3A3A3;
+    min-width: 90.6px;
     height: 42.1px;
     text-align: center;
     padding: 7px 7px 7px 7px;
@@ -226,20 +227,27 @@ header {
   }
 
   .other-store{
-    max-width: 785px;
+    max-width: 792.5px;
     max-height: 95px;
     border: 1px solid #A3A3A3;
     border-radius: 10px;
     padding: 7px 10px 5px 15px;
   }
 
+  .other-store-display{
+    display: flex;
+    flex-direction: row;
+  }
+
   .other-store-group{
     display: flex;
     align-items: flex-start;  
+    text-decoration-line: none;
   }
 
   .store-name{
     font-size: 16px;
+    color: #374957;
   }
 
   .other-rating{
@@ -263,7 +271,8 @@ header {
   .collect{
     color: #374957;
     font-size: 16px;
-    flex-wrap: nowrap;
+    text-align: right;
+    width: 40px;
   }
 
   .status{
@@ -873,9 +882,9 @@ header {
 
   .store-type{
     background-color: #A3A3A3;
-    width: 80px;
+    min-width: 90.6px;
     text-align: center;
-    padding: 7px 1px 7px 1px;
+    padding: 7px 7px 7px 7px;
     color: white;
     border-radius: 10px;
     font-size: 14px;
@@ -928,29 +937,35 @@ header {
     max-height: 80px;
     border: 1px solid #A3A3A3;
     border-radius: 10px;
-    padding: 3px 10px;
-    margin-top: 3px;
+    padding: 7px 10px 5px 15px;
   }
-  
+
+  .other-store-display{
+    display: flex;
+    flex-direction: row;
+  }
+
   .other-store-group{
     display: flex;
     align-items: baseline;  
+    text-decoration-line: none;
   }
-  
+
   .store-name{
     font-size: 14px;
+    color: #374957;
   }
-  
+
   .other-rating{
     color: #AC3535;
     font-size: 14px;
     margin-bottom: 5px;
   }
-  
+
   .other-map{
     margin: 0;
   }
-  
+
   .address, .address-img{
     color: #374957;
     font-size: 14px;
@@ -958,11 +973,12 @@ header {
     margin-right: 3px;
     margin-bottom: 0;
   }
-  
+
   .collect{
     color: #374957;
     font-size: 14px;
-    flex-wrap: nowrap;
+    text-align: right;
+    width: 40px;
   }
   
   .status{
@@ -1561,9 +1577,9 @@ header {
 
   .store-type{
     background-color: #A3A3A3;
-    
+    min-width: 90.6px;
     text-align: center;
-    padding: 7px 5px 7px 5px;
+    padding: 7px 1px 7px 1px;
     color: white;
     border-radius: 10px;
     font-size: 14px;
@@ -1613,33 +1629,39 @@ header {
   }
   
   .other-store{
-    max-width: 785px;
+    max-width: 792.5px;
     max-height: 80px;
     border: 1px solid #A3A3A3;
     border-radius: 10px;
-    padding: 3px 10px;
-    margin-top: 3px;
+    padding: 7px 10px 5px 15px;
   }
-  
+
+  .other-store-display{
+    display: flex;
+    flex-direction: row;
+  }
+
   .other-store-group{
     display: flex;
     align-items: baseline;  
+    text-decoration-line: none;
   }
-  
+
   .store-name{
     font-size: 14px;
+    color: #374957;
   }
-  
+
   .other-rating{
     color: #AC3535;
     font-size: 14px;
     margin-bottom: 5px;
   }
-  
+
   .other-map{
     margin: 0;
   }
-  
+
   .address, .address-img{
     color: #374957;
     font-size: 14px;
@@ -1647,11 +1669,12 @@ header {
     margin-right: 3px;
     margin-bottom: 0;
   }
-  
+
   .collect{
     color: #374957;
     font-size: 14px;
-    flex-wrap: nowrap;
+    text-align: right;
+    width: 40px;
   }
   
   .status{
@@ -2252,7 +2275,7 @@ header {
 
   .store-type{
     background-color: #A3A3A3;
-    width: 80px;
+    min-width: 90.6px;
     text-align: center;
     padding: 7px 1px 7px 1px;
     color: white;
@@ -2304,33 +2327,39 @@ header {
   }
   
   .other-store{
-    max-width: 785px;
+    max-width: 792.5px;
     max-height: 80px;
     border: 1px solid #A3A3A3;
-    border-radius: 10px;
-    padding: 3px 10px;
-    margin-top: 3px;
+    border-radius: 3px 10px;
+    padding: 7px 10px 5px 15px;
   }
-  
+
+  .other-store-display{
+    display: flex;
+    flex-direction: row;
+  }
+
   .other-store-group{
     display: flex;
     align-items: baseline;  
+    text-decoration-line: none;
   }
-  
+
   .store-name{
     font-size: 14px;
+    color: #374957;
   }
-  
+
   .other-rating{
     color: #AC3535;
     font-size: 14px;
     margin-bottom: 5px;
   }
-  
+
   .other-map{
     margin: 0;
   }
-  
+
   .address, .address-img{
     color: #374957;
     font-size: 14px;
@@ -2338,11 +2367,12 @@ header {
     margin-right: 3px;
     margin-bottom: 0;
   }
-  
+
   .collect{
     color: #374957;
     font-size: 14px;
-    flex-wrap: nowrap;
+    text-align: right;
+    width: 40px;
   }
   
   .status{

@@ -104,7 +104,7 @@
         <!--營業時間按鈕-->
         <button type="button" class="btn btn-outline-success status" data-bs-container="body" data-bs-toggle="popover2"
           data-bs-title="詳細營業時間" data-bs-placement="bottom" data-bs-html="true"
-          data-bs-content="星期一:<?php echo htmlspecialchars($openingHours['open_time']); ?> - <?php echo htmlspecialchars($openingHours['close_time']); ?><br>星期二:10:00-12:00<br>星期三:10:00-12:00 <br>星期四:10:00-12:00 <br>星期五:10:00-12:00">
+          data-bs-content="星期一:<?php echo htmlspecialchars($openingHours['open_time']); ?> - <?php echo htmlspecialchars($openingHours['close_time']); ?><br>星期二：10:00-12:00<br>17:00-20:00<hr>星期三：10:00-12:00<br>17:00-20:00<hr>星期四：10:00-12:00 <br>17:00-20:00 <hr>星期五：10:00-12:00<br>19:00-23:00<hr>星期六：10:00-12:00<br>19:00-23:00<hr>星期日：10:00-12:00<br>19:00-23:00">
           <i class="fi fi-sr-clock status-img"></i>營業中
         </button>
 
@@ -129,17 +129,18 @@
             $address = htmlspecialchars(($branch['city'] ?? '') . ($branch['dist'] ?? '')  . ($branch['vil'] ?? '') . ($branch['details'] ?? ''));
             $storeName = urlencode($branch['branch_name']); // 使用分店名稱作為查詢條件
 
-            echo '<div class="other-store-group">';
-            echo '<li class="store-name col-4"><a href="#">' . $branchName . '</a></li>';
+            echo '<div class="other-store-display">';
+            echo '<a class="other-store-group col-11" href="#">';
+            echo '<li class="store-name col-4">' . $branchName . '</li>';
             echo '<p class="other-rating col-3">' . $avgRating . ' /綜合評分</p>';
-            echo '<p class="other-map col"><a class="address" href="#"><i class="fi fi-sr-map-marker address-img"></i>' . $address . '</a></p>';
+            echo '<p class="other-map address col"><i class="fi fi-sr-map-marker address-img"></i>' . $address . '</p>';
+            echo '</a>'
             echo '<i class="fi fi-sr-bookmark collect" role="button"></i>';
             echo '</div>';
           }
         } ?>
 
       </div>
-    </div>
     </div>
     <!-- 商家介紹 -->
     <li id="item" class="introduction" data-content=<?php echo htmlspecialchars($storeInfo['description']); ?>></li>
