@@ -32,18 +32,35 @@
   // 引入資料庫連接和查詢函數
   require 'queries.php';
 
-  // 獲取商家名稱
+
+  // 優先使用 GET 參數，否則使用 session 中的值
   $storeId = $_GET['id'] ?? null;
   $storeName = $_GET['name'] ?? null;
 
 
   // 獲取店家資訊
   $storeInfo = getStoreInfo($storeName);
-  $comments = getComments($storeId);
+  $sampleType = $_GET['sample'] ?? 'all';
+  switch ($sampleType) {
+    case 'relevant':
+      $comments = getRelevantComments($storeId);
+      break;
+    case 'highest':
+      $comments = getHighestComments($storeId);
+      break;
+    case 'lowest':
+      $comments = getLowestComments($storeId);
+      break;
+    case 'all':
+    default:
+      $comments = getComments($storeId);
+      break;
+  }
   $location = getLocation($storeId);
   $rating = getRating($storeId);
   $service = getService($storeId);
   $keywords = getAllKeywords($storeId);
+  $foodKeyword = getFoodKeyword($storeId);
   $openingHours = getOpeningHours($storeId);
   $otherBranches = getOtherBranches($storeInfo['branch_title'], $storeId);
 
@@ -94,7 +111,12 @@
   </header>
 
   <section class="primary-content section-content">
-    <h1 class="store-title"><?php echo htmlspecialchars($storeInfo['name']); ?></h1>
+    <h1 class="store-title"><?php if (isset($storeInfo['name'])) {
+                              echo htmlspecialchars($storeInfo['name']);
+                            } else {
+                              echo "商店名稱不存在";
+                            }
+                            ?></h1>
     <div class="love-group">
       <div class="type-rating-status-group">
         <!--綜合評分-->
@@ -104,7 +126,25 @@
         <!--營業時間按鈕-->
         <button type="button" class="btn btn-outline-success status" data-bs-container="body" data-bs-toggle="popover2"
           data-bs-title="詳細營業時間" data-bs-placement="bottom" data-bs-html="true"
-          data-bs-content="星期一:<?php echo htmlspecialchars($openingHours['open_time']); ?> - <?php echo htmlspecialchars($openingHours['close_time']); ?><br>星期二：10:00-12:00<br>17:00-20:00<hr>星期三：10:00-12:00<br>17:00-20:00<hr>星期四：10:00-12:00 <br>17:00-20:00 <hr>星期五：10:00-12:00<br>19:00-23:00<hr>星期六：10:00-12:00<br>19:00-23:00<hr>星期日：10:00-12:00<br>19:00-23:00">
+          data-bs-content="<?php
+                            foreach ($openingHours as $day => $hours) {
+                              echo htmlspecialchars($day) . ':<br>';
+                              if (empty($hours)) {
+                                echo '&nbsp;&nbsp;休息<br>';
+                              } else {
+                                foreach ($hours as $hour) {
+                                  if ($hour['open_time'] === null || $hour['close_time'] === null) {
+                                    echo '&nbsp;&nbsp;休息<br>';
+                                  } else {
+                                    $openTime = date('H:i', strtotime($hour['open_time']));
+                                    $closeTime = date('H:i', strtotime($hour['close_time']));
+                                    echo '&nbsp;&nbsp;' . htmlspecialchars($openTime) . ' - ' . htmlspecialchars($closeTime) . '<br>';
+                                  }
+                                }
+                              }
+                              echo '<hr>';
+                            }
+                            ?>">
           <i class="fi fi-sr-clock status-img"></i>營業中
         </button>
 
@@ -125,16 +165,16 @@
           // 顯示每個分店的資訊
           foreach ($otherBranches as $branch) {
             $branchName = htmlspecialchars($branch['branch_name']);
+            $branchId = htmlspecialchars($branch['id']); // 取得分店的 ID
             $avgRating = htmlspecialchars($branch['avg_ratings']);
             $address = htmlspecialchars(($branch['city'] ?? '') . ($branch['dist'] ?? '')  . ($branch['vil'] ?? '') . ($branch['details'] ?? ''));
-            $storeName = urlencode($branch['branch_name']); // 使用分店名稱作為查詢條件
 
             echo '<div class="other-store-display">';
-            echo '<a class="other-store-group col-11" href="#">';
+            echo '<a class="other-store-group col-11" href="store-detail-test.php?name=">'; 
             echo '<li class="store-name col-4">' . $branchName . '</li>';
             echo '<p class="other-rating col-3">' . $avgRating . ' /綜合評分</p>';
             echo '<p class="other-map address col"><i class="fi fi-sr-map-marker address-img"></i>' . $address . '</p>';
-            echo '</a>'
+            echo '</a>';
             echo '<i class="fi fi-sr-bookmark collect" role="button"></i>';
             echo '</div>';
           }
@@ -143,7 +183,7 @@
       </div>
     </div>
     <!-- 商家介紹 -->
-    <li id="item" class="introduction" data-content=<?php echo htmlspecialchars($storeInfo['description']); ?>></li>
+    <li id="item" class="introduction" data-content="<?php echo htmlspecialchars($storeInfo['description']); ?>"></li>
   </section>
 
   <section class="secondary-content section-content">
@@ -439,22 +479,22 @@
 
 
     <div class="comment-group">
-      <div class="comment-item">
-        <div class="comment-information">
-          <img class="avatar" src="images/wizard.jpg"><!--若留言為嚮導 則src為images/wizard.jpg 若不是嚮導則src為images/user.jpg-->
-          <div class="star-group">
-            <img class="star" src="images/star-y.png">
-            <img class="star" src="images/star-y.png">
-            <img class="star" src="images/star-y.png">
-            <img class="star" src="images/star-y.png">
-            <img class="star" src="images/star-y.png"><!--滿星src為images/star-y.png 空星src為images/star-w.png-->
+      <?php foreach ($comments as $comment): ?>
+        <div class="comment-item">
+          <div class="comment-information">
+            <img class="avatar" src="images/<?php echo $comment['contributor_level'] == 0 ? 'user.jpg' : 'wizard.jpg'; ?>"><!--若留言為嚮導 則src為images/wizard.jpg 若不是嚮導則src為images/user.jpg-->
+            <div class="star-group">
+              <?php for ($i = 0; $i < 5; $i++): ?>
+                <img class="star" src="images/<?php echo $i < $comment['rating'] ? 'star-y.png' : 'star-w.png'; ?>">
+              <?php endfor; ?><!--滿星src為images/star-y.png 空星src為images/star-w.png-->
+            </div>
+            <p class="time">時間：<?php echo htmlspecialchars($comment['time']); ?></p>
           </div>
-          <p class="time">時間：<?php echo $comment['time']; ?></p>
+          <div class="comment">
+            <p class="comment-text"><?php echo htmlspecialchars($comment['contents']); ?></p>
+          </div>
         </div>
-        <div class="comment">
-          <p class="comment-text"><?php echo htmlspecialchars($comment['contents']); ?></p>
-        </div>
-      </div>
+      <?php endforeach; ?>
     </div>
   </section>
 
@@ -470,13 +510,23 @@
       <div class="carousel-arrow left-arrow" type="button"><i class="fi fi-sr-angle-left"></i></div>
       <div class="group-card">
         <!--推薦食物-->
-        <div class="card">
-          <div class="card-body">
-            <a class="card-text" href="#" target="_blank">水餃(783)</a><!--填入推薦食物名稱 href填入此食物的評星宇宙搜尋結果網址-->
+        <?php if ($foodKeyword): ?>
+          <?php foreach ($foodKeyword as $foodKeyword): ?>
+            <div class="card">
+              <div class="card-body">
+                <a class="card-text" href="search.html?keyword=<?php echo urlencode($foodKeyword['word']); ?>" target="_blank"><?php echo htmlspecialchars($foodKeyword['word']); ?>(<?php echo htmlspecialchars($foodKeyword['count']); ?>)</a><!--填入推薦食物名稱 href填入此食物的評星宇宙搜尋結果網址-->
+              </div>
+              <a href="#" target="_blank"><img class="card-img" src="images/水餃.jpg"><!--src填入推薦食物照片連結 href填入搜尋此食物的google連結--></a>
+            </div>
+          <?php endforeach; ?>
+        <?php else: ?>
+          <div class="card">
+            <div class="card-body">
+              <a class="card-text" target="_blank">暫無推薦餐點</a>
+            </div>
+            <a target="_blank"><img class="card-img" src="images/水餃.jpg"><!--src填入推薦食物照片連結 href填入搜尋此食物的google連結--></a><!--暫無推薦餐點照片 先放水餃照片代替-->
           </div>
-          <a href="#" target="_blank"><img class="card-img" src="images/水餃.jpg"><!--src填入推薦食物照片連結 href填入搜尋此食物的google連結--></a>
-        </div>
-
+        <?php endif; ?>
       </div>
       <div class="carousel-arrow right-arrow" type="button"><i class="fi fi-sr-angle-right"></i></div>
     </div>

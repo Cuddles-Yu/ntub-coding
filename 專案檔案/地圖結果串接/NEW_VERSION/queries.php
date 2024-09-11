@@ -13,10 +13,56 @@ function getStoreInfo($storeName) {
 }
 
 
-// 留言(依商家查詢)
+// 留言(依商家查詢) 所有有文字留言的商家
 function getComments($storeId) {
     global $conn;
-    $sql = "SELECT * FROM comments WHERE store_id = ? ORDER BY  `id` DESC";
+    $sql = "SELECT * FROM comments WHERE store_id = ? AND contents IS NOT NULL ORDER BY  rating DESC, id ASC";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $storeId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $comments = [];
+    while ($row = $result->fetch_assoc()) {
+        $comments[] = $row;
+    }
+    return $comments;
+}
+
+// 留言(依商家查詢) 樣本為「最相關」有文字留言的商家
+function getRelevantComments($storeId) {
+    global $conn;
+    $sql = "SELECT * FROM comments WHERE store_id = ? AND contents IS NOT NULL AND sample_of_most_relevant = '1' ORDER BY  rating DESC, id ASC";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $storeId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $comments = [];
+    while ($row = $result->fetch_assoc()) {
+        $comments[] = $row;
+    }
+    return $comments;
+}
+
+// 留言(依商家查詢) 樣本為「評分最高」有文字留言的商家
+function getHighestComments($storeId) {
+    global $conn;
+    $sql = "SELECT * FROM comments WHERE store_id = ? AND contents IS NOT NULL AND sample_of_highest_rating = '1' ORDER BY  rating DESC, id ASC";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $storeId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $comments = [];
+    while ($row = $result->fetch_assoc()) {
+        $comments[] = $row;
+    }
+    return $comments;
+}
+
+// 留言(依商家查詢) 樣本為「評分最低」有文字留言的商家
+function getLowestComments($storeId) {
+    global $conn;
+    $sql = "SELECT * FROM comments WHERE store_id = ? AND contents IS NOT NULL AND sample_of_lowest_rating = '1' ORDER BY rating DESC, id ASC";
+
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $storeId);
     $stmt->execute();
@@ -71,15 +117,20 @@ function getService($storeId) {
     return $services;
 }
 
-// 關鍵字(依商家查詢)
-function getKeyword($storeId) {
+// 推薦餐點關鍵字(依商家查詢)
+function getFoodKeyword($storeId) {
     global $conn;
-    $sql = "SELECT * FROM keywords WHERE store_id = ?";
+    $sql = "SELECT * FROM keywords WHERE store_id = ? AND source = 'recommend' ORDER BY count DESC ";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $storeId);
     $stmt->execute();
     $result = $stmt->get_result();
-    return $result->fetch_assoc();
+    $keywords = [];
+    while ($row = $result->fetch_assoc()) {
+            $keywords[] = $row;
+    }
+    $stmt->close();
+    return $keywords;
 }
 
 // 所有的關鍵字(依商家查詢從多到少)
@@ -107,7 +158,16 @@ function getOpeningHours($storeId) {
     $stmt->bind_param("i", $storeId);
     $stmt->execute();
     $result = $stmt->get_result();
-    return $result->fetch_assoc();
+    // 構建營業時間
+    $hours = [];
+    while ($row = $result->fetch_assoc()) {
+        $openingHours[$row['day_of_week']][] = [
+            'open_time' => $row['open_time'],
+            'close_time' => $row['close_time']
+        ];
+    }
+    $stmt->close();
+    return $openingHours;
 }
 
 // 其他分店
