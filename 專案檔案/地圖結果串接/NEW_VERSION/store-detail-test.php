@@ -63,6 +63,9 @@
   $foodKeyword = getFoodKeyword($storeId);
   $openingHours = getOpeningHours($storeId);
   $otherBranches = getOtherBranches($storeInfo['branch_title'], $storeId);
+  $positive = getPositiveKeywords($storeId);
+  $negative = getNegativeKeywords($storeId);
+  // $positiveAdj = getPositiveAdjs($storeId);
 
 
 
@@ -338,13 +341,14 @@
         <div class="group-keyword">
           <!--動態生成 正面標籤-->
           <!-- 動態生成關鍵字 -->
+          <?php foreach ($positive as $index => $keyword): ?>
           <div class="keywords">
             <!-- 按鈕 -->
-            <button type="button" class="btn comment-good" data-bs-toggle="modal" data-bs-target="#goodModal1"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
-              好吃 (990)
+            <button type="button" class="btn comment-good" data-bs-toggle="modal" data-bs-target="#goodModal<?php echo $index; ?>"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
+            <?php echo htmlspecialchars($keyword['object']); ?> (<?php echo htmlspecialchars($keyword['count']); ?>)
             </button>
             <!-- 展開內容 -->
-            <div class="modal fade" id="goodModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="goodModal<?php echo $index; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -362,7 +366,7 @@
               </div>
             </div>
           </div>
-
+          <?php endforeach; ?>
         </div>
       </div>
 
@@ -371,13 +375,14 @@
         <div class="group-keyword">
           <!--動態生成 負面標籤-->
           <!-- 動態生成關鍵字 -->
+          <?php foreach ($negative as $index => $keyword): ?>
           <div class="keywords">
             <!-- 按鈕 -->
-            <button type="button" class="btn comment-bad" data-bs-toggle="modal" data-bs-target="#badModal1"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
-              很貴 (950)
+            <button type="button" class="btn comment-bad" data-bs-toggle="modal" data-bs-target="#badModal<?php echo $index; ?>"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
+            <?php echo htmlspecialchars($keyword['object']); ?> (<?php echo htmlspecialchars($keyword['count']); ?>)
             </button>
             <!-- 展開內容 -->
-            <div class="modal fade" id="badModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="badModal<?php echo $index; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -395,7 +400,7 @@
               </div>
             </div>
           </div>
-
+          <?php endforeach; ?>
         </div>
       </div>
 
