@@ -170,7 +170,7 @@
             $address = htmlspecialchars(($branch['city'] ?? '') . ($branch['dist'] ?? '')  . ($branch['vil'] ?? '') . ($branch['details'] ?? ''));
 
             echo '<div class="other-store-display">';
-            echo '<a class="other-store-group col-11" href="store-detail-test.php?name=">'; 
+            echo '<a class="other-store-group col-11" href="store-detail-test.php?name=">'; // 沒解決(怒)
             echo '<li class="store-name col-4">' . $branchName . '</li>';
             echo '<p class="other-rating col-3">' . $avgRating . ' /綜合評分</p>';
             echo '<p class="other-map address col"><i class="fi fi-sr-map-marker address-img"></i>' . $address . '</p>';
@@ -516,7 +516,7 @@
               <div class="card-body">
                 <a class="card-text" href="search.html?keyword=<?php echo urlencode($foodKeyword['word']); ?>" target="_blank"><?php echo htmlspecialchars($foodKeyword['word']); ?>(<?php echo htmlspecialchars($foodKeyword['count']); ?>)</a><!--填入推薦食物名稱 href填入此食物的評星宇宙搜尋結果網址-->
               </div>
-              <a href="#" target="_blank"><img class="card-img" src="images/水餃.jpg"><!--src填入推薦食物照片連結 href填入搜尋此食物的google連結--></a>
+              <a href="https://www.google.com/search?udm=2&q=<?php echo urlencode($storeInfo['name'] . ' ' . $foodKeyword['word']); ?> "target="_blank"><img class="card-img" src="<?php echo $foodKeyword['image_url']?>"><!--src填入推薦食物照片連結 href填入搜尋此食物的google連結--></a>
             </div>
           <?php endforeach; ?>
         <?php else: ?>
@@ -524,7 +524,7 @@
             <div class="card-body">
               <a class="card-text" target="_blank">暫無推薦餐點</a>
             </div>
-            <a target="_blank"><img class="card-img" src="images/水餃.jpg"><!--src填入推薦食物照片連結 href填入搜尋此食物的google連結--></a><!--暫無推薦餐點照片 先放水餃照片代替-->
+            <a target="_blank"><img class="card-img" src="images/預設.jpg"><!--src填入推薦食物照片連結 href填入搜尋此食物的google連結--></a><!--暫無推薦餐點照片 先放水餃照片代替-->
           </div>
         <?php endif; ?>
       </div>
