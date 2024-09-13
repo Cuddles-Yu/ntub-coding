@@ -40,22 +40,11 @@
 
   // 獲取店家資訊
   $storeInfo = getStoreInfo($storeName);
-  $sampleType = $_GET['sample'] ?? 'all';
-  switch ($sampleType) {
-    case 'relevant':
-      $comments = getRelevantComments($storeId);
-      break;
-    case 'highest':
-      $comments = getHighestComments($storeId);
-      break;
-    case 'lowest':
-      $comments = getLowestComments($storeId);
-      break;
-    case 'all':
-    default:
-      $comments = getComments($storeId);
-      break;
-  }
+  $relevants = getRelevantComments($storeId);
+  $Highests = getHighestComments($storeId);
+  $Lowests = getLowestComments($storeId);
+  $comments = getComments($storeId);
+
   $location = getLocation($storeId);
   $rating = getRating($storeId);
   $service = getService($storeId);
@@ -65,7 +54,9 @@
   $otherBranches = getOtherBranches($storeInfo['branch_title'], $storeId);
   $positive = getPositiveKeywords($storeId);
   $negative = getNegativeKeywords($storeId);
-  // $positiveAdj = getPositiveAdjs($storeId);
+  $subjective = getSubjectiveKeywords($storeId);
+  $neutral = getNeutralKeywords($storeId);
+
 
 
 
@@ -74,14 +65,14 @@
     <div id="header-content" class="header-content_active header-content wrapper-content">
       <div class="logo-group">
         <img class="Logo" src="images/Logo設計_圖像(藍+).png">
-        <a class="Logo-text" href="#">評星宇宙</a>
+        <a class="Logo-text" href="home.html">評星宇宙</a>
       </div>
       <nav class="header-nav">
-        <a class="link__text" href="#">網站首頁</a>
-        <a class="link__text" href="#">會員專區</a>
+        <a class="link__text" href="home.html">網站首頁</a>
+        <a class="link__text" href="new_information_page_3.html">會員專區</a>
         <a class="link__text" href="#">使用說明</a>
         <a class="link__text" href="#">問題回饋</a>
-        <a class="link__text" href="#">成員介紹</a>
+        <a class="link__text" href="team-member.html">成員介紹</a>
       </nav>
       <div class="member" type="button" data-bs-toggle="offcanvas">
         <img class="member-icon" src="images/user.jpg">
@@ -96,17 +87,17 @@
         <div class="offcanvas-header">
           <h5 class="offcanvas-title " id="offcanvasExampleLabel">
             <img class="Logo" src="images/Logo設計_圖像(藍+).png">
-            <a class="Logo-text" href="#">評星宇宙</a>
+            <a class="Logo-text" href="home.html">評星宇宙</a>
           </h5>
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
           <ul class="offcanvas-ul">
-            <li><a class="offcanvas__text" href="#">網站首頁</a></li>
+            <li><a class="offcanvas__text" href="home.html">網站首頁</a></li>
             <li><a class="offcanvas__text" href="https://commentspace.ascdc.tw/member/information.html">會員專區</a></li>
             <li><a class="offcanvas__text" href="#">使用說明</a></li>
             <li><a class="offcanvas__text" href="#">問題回饋</a></li>
-            <li><a class="offcanvas__text" href="#">成員介紹</a></li>
+            <li><a class="offcanvas__text" href="team-member.html">成員介紹</a></li>
           </ul>
         </div>
       </div>
@@ -326,13 +317,13 @@
         <!--篩選按鈕-->
         <div class="input-group mb-3 filter-button">
           <span class="input-group-text" id="basic-addon1"><i class="fi fi-sr-filter-list"></i></i>篩選</span>
-          <select class="form-select" aria-label="Default select example">
-            <option selected>全部</option>
-            <option value="熱門">熱門</option>
-            <option value="氛圍">氛圍</option>
-            <option value="產品">產品</option>
-            <option value="服務">服務</option>
-            <option value="售價">售價</option>
+          <select class="form-select" aria-label="Default select example" id="filterSelect">
+          <option value="all" selected>全部</option>
+    <option value="熱門">熱門</option>
+    <option value="氛圍">氛圍</option>
+    <option value="產品">產品</option>
+    <option value="服務">服務</option>
+    <option value="售價">售價</option>
           </select>
         </div>
       </div>
@@ -347,24 +338,6 @@
             <button type="button" class="btn comment-good" data-bs-toggle="modal" data-bs-target="#goodModal<?php echo $index; ?>"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
             <?php echo htmlspecialchars($keyword['object']); ?> (<?php echo htmlspecialchars($keyword['count']); ?>)
             </button>
-            <!-- 展開內容 -->
-            <div class="modal fade" id="goodModal<?php echo $index; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">關鍵字</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <!--動態生成 關鍵字點出來的東西-->
-                    <li>雞排很好吃</li>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
           <?php endforeach; ?>
         </div>
@@ -381,24 +354,6 @@
             <button type="button" class="btn comment-bad" data-bs-toggle="modal" data-bs-target="#badModal<?php echo $index; ?>"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
             <?php echo htmlspecialchars($keyword['object']); ?> (<?php echo htmlspecialchars($keyword['count']); ?>)
             </button>
-            <!-- 展開內容 -->
-            <div class="modal fade" id="badModal<?php echo $index; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">關鍵字</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <!--動態生成 關鍵字點出來的東西-->
-                    <li>雞排很好吃</li>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
           <?php endforeach; ?>
         </div>
@@ -407,33 +362,16 @@
       <div class="group-gb neutral-side">
         <h6 class="title-gb">主觀<i class="fi fi-sr-caret-right keyword-arrow"></i></h6>
         <div class="group-keyword">
-          <!--動態生成 客觀標籤-->
+          <!--動態生成 主觀標籤-->
           <!-- 動態生成關鍵字 -->
+          <?php foreach ($subjective as $index => $keyword): ?>
           <div class="keywords">
             <!-- 按鈕 -->
-            <button type="button" class="btn comment-neutral" data-bs-toggle="modal" data-bs-target="#neutralModal1"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
-              口味還行 (300)
+            <button type="button" class="btn comment-neutral" data-bs-toggle="modal" data-bs-target="#neutralModal<?php echo $index; ?>"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
+            <?php echo htmlspecialchars($keyword['object']); ?> (<?php echo htmlspecialchars($keyword['count']); ?>)
             </button>
-            <!-- 展開內容 -->
-            <div class="modal fade" id="neutralModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">關鍵字</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <!--動態生成 關鍵字點出來的東西-->
-                    <li>雞排很好吃</li>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
-
+          <?php endforeach; ?>
         </div>
       </div>
       <div class="group-gb middle-side">
@@ -441,51 +379,34 @@
         <div class="group-keyword">
 
           <!-- 動態生成關鍵字 -->
+          <?php foreach ($neutral as $index => $keyword): ?>
           <div class="keywords">
             <!-- 按鈕 -->
-            <button type="button" class="btn comment-middle" data-bs-toggle="modal" data-bs-target="#middleModal1"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
-              口味還行 (300)
+            <button type="button" class="btn comment-middle" data-bs-toggle="modal" data-bs-target="#middleModal<?php echo $index; ?>"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
+            <?php echo htmlspecialchars($keyword['object']); ?> (<?php echo htmlspecialchars($keyword['count']); ?>)
             </button>
-            <!-- 展開內容 -->
-            <div class="modal fade" id="middleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">關鍵字</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <!--動態生成 關鍵字點出來的東西-->
-                    <li>雞排很好吃</li>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
-
+          <?php endforeach; ?>
         </div>
       </div>
     </div>
+
     <div class="keyword-title">
-      <h5 class="keyword-title-text">留言 (共1000則)</h5><!--括號填入留言數量-->
+      <h5 class="keyword-title-text">留言 (共<?php echo count($comments); ?>則)</h5><!--括號填入留言數量-->
       <!--排序按鈕-->
       <div class="input-group mb-3 sort-button">
         <span class="input-group-text" id="basic-addon1"><i class="fi fi-sr-sort-amount-down"></i>排序</span>
-        <select class="form-select" aria-label="Default select example">
-          <option selected>相關性</option>
+        <select class="form-select" aria-label="Default select example" id="sortSelect">
+          <option value="相關性" selected>相關性</option>
           <option value="由高至低">由高至低</option>
           <option value="由低至高">由低至高</option>
         </select>
       </div>
     </div>
 
-
-    <div class="comment-group">
-      <?php foreach ($comments as $comment): ?>
-        <div class="comment-item">
+    <div class="comment-group" id="commentGroup">
+      <?php foreach ($comments as $index => $comment): ?>
+        <div class="comment-item"data-rating="<?php echo $comment['rating']; ?>" data-index="<?php echo $index; ?>">
           <div class="comment-information">
             <img class="avatar" src="images/<?php echo $comment['contributor_level'] == 0 ? 'user.jpg' : 'wizard.jpg'; ?>"><!--若留言為嚮導 則src為images/wizard.jpg 若不是嚮導則src為images/user.jpg-->
             <div class="star-group">
@@ -573,7 +494,30 @@
       <en style="margin-right: 9.6px; float: right; font-size: 9.6px;">Copyright ©2024 All rights reserved.</en>
     </div>
   </footer>
+  <script>
+  document.getElementById('sortSelect').addEventListener('change', function() {
+    const sortValue = this.value;
+    const commentGroup = document.getElementById('commentGroup');
+    const comments = Array.from(commentGroup.getElementsByClassName('comment-item'));
 
+    comments.sort((a, b) => {
+      const ratingA = parseInt(a.getAttribute('data-rating'));
+      const ratingB = parseInt(b.getAttribute('data-rating'));
+      const indexA = parseInt(a.getAttribute('data-index'));
+      const indexB = parseInt(b.getAttribute('data-index'));
+
+      if (sortValue === '由高至低') {
+        return ratingB - ratingA;
+      } else if (sortValue === '由低至高') {
+        return ratingA - ratingB;
+      } else {
+        return  indexA - indexB; // 相關性排序，根據原始順序
+      }
+    });
+
+    comments.forEach(comment => commentGroup.appendChild(comment));
+  });
+</script>
 
   <!-- 載入地圖框架 leaflet.js -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>

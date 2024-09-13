@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會員資訊頁面 Part III</title>
+    <link rel="stylesheet" href="styles/new_information_page_3.css">
+</head>
+<body>
+    <!-- 頂欄 -->
+    <header>
+        <div id="title">
+            <img src="images/Logo設計_圖像(藍+).png" id="title_logo">
+            <p>評星宇宙</p>
+        </div>
+
+        <p class="web_name" herf = "home.html">網站首頁</p>
+        <div class="vertical-line"></div>
+        <p class="web_name" herf = "new_information_page_3.html">會員專區</p>
+        <div class="vertical-line"></div>
+        <p class="web_name">使用說明</p>
+        <div class="vertical-line"></div>
+        <p class="web_name">問題回饋</p>
+        <div class="vertical-line"></div>
+        <p class="web_name" herf = "team-member.html">成員介紹</p>
+
+        <div id="user_icon">
+            <img src="images/user_icon.png" id="user_icon_logo">
+        </div>
+    </header>
+
+    <hr>
+    
+    <div class="whole">
+        <!-- 側欄 -->
+        <div class="side_area">
+            <div class="page_button">
+                <img src="images/info.png" class="logo">
+                <p>基本資料</p>
+            </div>
+            <div class="page_button">
+                <img src="images/preference.png" class="logo">
+                <p>偏好設定</p>
+            </div>
+            <div class="page_button">
+                <img src="images/weight.png" class="logo">
+                <p>權重設定</p>
+            </div>
+            <div class="page_button">
+                <img src="images/heart.png" class="logo">
+                <p>收藏地點</p>
+            </div>
+        </div>
+    
+        <!-- 主要內容 -->
+        <div class="main_area">
+            <div id="title2">
+                <img src="images/weight.png" id="title_logo2">
+                <p>權重設定</p>
+            </div>
+            
+            <div>請依據您對該項目的重視程度，填寫適當的指標權重，以找尋更符合您需求的商家。</div>
+            
+            <div class="slider-container">
+                <label for="atmosphere">氛圍</label>
+                <input type="range" id="atmosphere" name="atmosphere" min="0" max="100" value="50" oninput="updateValue('atmosphere')">
+                <span id="atmosphere_value">50%</span>
+            </div>
+            
+            <div class="slider-container">
+                <label for="product">產品</label>
+                <input type="range" id="product" name="product" min="0" max="100" value="50" oninput="updateValue('product')">
+                <span id="product_value">50%</span>
+            </div>
+            
+            <div class="slider-container">
+                <label for="service">服務</label>
+                <input type="range" id="service" name="service" min="0" max="100" value="50" oninput="updateValue('service')">
+                <span id="service_value">50%</span>
+            </div>
+            
+            <div class="slider-container">
+                <label for="price">售價</label>
+                <input type="range" id="price" name="price" min="0" max="100" value="50" oninput="updateValue('price')">
+                <span id="price_value">50%</span>
+            </div>
+            
+            <div class="slider-container">
+                <label for="popularity">熱門度</label>
+                <input type="range" id="popularity" name="popularity" min="0" max="100" value="50" oninput="updateValue('popularity')">
+                <span id="popularity_value">50%</span>
+            </div>
+    
+            <div class="button_area">
+                <button id="edit_button" type="submit">
+                    <span>編輯</span>
+                </button>
+                <button id="finish_button" type="button"> <!-- submit 改成 button -->
+                    <span>完成</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/new_information_page_3.js"></script>
+    <!-- 按下完成後跳轉回原本待的頁面 -->
+    <script>
+        document.getElementById('finish_button').addEventListener('click', function() {
+            history.back();
+        });
+    </script>
+</body>
+</html>

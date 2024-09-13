@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>會員登入頁面</title>
     <link rel="stylesheet" href="styles/new_login_page.css"> <!-- 載入 login_page.css -->
 </head>
+
 <body>
     <div class="login-container">
         <div class="left-side">
@@ -45,17 +47,32 @@
                         <img src="images/google_icon.png" alt="google_icon" id="google_icon">
                         <span>Google登入</span>
                     </button>
-                    <button id="sign_up_button" type="submit">
+                    <button id="sign_up_button" type="button"><!-- 將 type 改為 button -->
                         <span>註冊新帳號</span>
                     </button>
-                </div>       
+                </div>
 
                 <div class="agree">ⓘ 登入即表示您同意我們的服務條款與隱私政策</div>
             </form>
         </div>
-        
+
     </div>
 
     <script src="scripts/new_login_page.js"></script> <!-- 載入 login_page.js -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const signUpButton = document.getElementById('sign_up_button');
+            signUpButton.addEventListener('click', function () {
+                window.location.href = 'new_signup_page_1.html'; // 跳轉到新的註冊頁面
+            });
+
+            const loginForm = document.querySelector('.login-form');
+            loginForm.addEventListener('submit', function (event) {
+                event.preventDefault(); // 防止表單提交
+                window.location.href = 'home.html'; // 跳轉到首頁
+            });
+        });
+    </script>
 </body>
+
 </html>

@@ -16,7 +16,7 @@ function getStoreInfo($storeName) {
 // 留言(依商家查詢) 所有有文字留言的商家
 function getComments($storeId) {
     global $conn;
-    $sql = "SELECT * FROM comments WHERE store_id = ? AND contents IS NOT NULL ORDER BY  rating DESC, id ASC";
+    $sql = "SELECT * FROM comments WHERE store_id = ? AND contents IS NOT NULL ";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $storeId);
     $stmt->execute();
@@ -31,7 +31,7 @@ function getComments($storeId) {
 // 留言(依商家查詢) 樣本為「最相關」有文字留言的商家
 function getRelevantComments($storeId) {
     global $conn;
-    $sql = "SELECT * FROM comments WHERE store_id = ? AND contents IS NOT NULL AND sample_of_most_relevant = '1' ORDER BY  rating DESC, id ASC";
+    $sql = "SELECT * FROM comments WHERE store_id = ? AND contents IS NOT NULL AND sample_of_most_relevant = '1' ";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $storeId);
     $stmt->execute();
@@ -197,4 +197,109 @@ function getOtherBranches($branchTitle, $storeId) {
     $stmt->close();
     return $branches;
 }
+
+// 正面關鍵字
+function getPositiveKeywords($storeId) {
+    global $conn;
+    $sql = "SELECT object, COUNT(*) AS count FROM marks
+            WHERE object !='' AND store_id = ? AND state = '正面'
+            GROUP BY object
+            ORDER BY count DESC
+            LIMIT 20";
+    $stmt = $conn->prepare($sql);
+    if ($stmt === false) {
+        die('Prepare failed: ' . $conn->error);
+    }
+    $stmt->bind_param("i", $storeId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result === false) {
+        die('Execute failed: ' . $stmt->error);
+    }
+    $marks = [];
+    while ($row = $result->fetch_assoc()) {
+        $marks[] = $row;
+    }
+    $stmt->close();
+    return $marks;
+}
+
+// 負面關鍵字
+function getNegativeKeywords($storeId) {
+    global $conn;
+    $sql = "SELECT object, COUNT(*) AS count FROM marks
+            WHERE object !='' AND store_id = ? AND state = '負面'
+            GROUP BY object
+            ORDER BY count DESC
+            LIMIT 20";
+    $stmt = $conn->prepare($sql);
+    if ($stmt === false) {
+        die('Prepare failed: ' . $conn->error);
+    }
+    $stmt->bind_param("i", $storeId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result === false) {
+        die('Execute failed: ' . $stmt->error);
+    }
+    $marks = [];
+    while ($row = $result->fetch_assoc()) {
+        $marks[] = $row;
+    }
+    $stmt->close();
+    return $marks;
+}
+
+// 主觀關鍵字(資料庫顯示為'喜好')
+function getSubjectiveKeywords($storeId) {
+    global $conn;
+    $sql = "SELECT object, COUNT(*) AS count FROM marks
+            WHERE object !='' AND store_id = ? AND state = '喜好'
+            GROUP BY object
+            ORDER BY count DESC
+            LIMIT 20";
+    $stmt = $conn->prepare($sql);
+    if ($stmt === false) {
+        die('Prepare failed: ' . $conn->error);
+    }
+    $stmt->bind_param("i", $storeId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result === false) {
+        die('Execute failed: ' . $stmt->error);
+    }
+    $marks = [];
+    while ($row = $result->fetch_assoc()) {
+        $marks[] = $row;
+    }
+    $stmt->close();
+    return $marks;
+}
+
+// 中立關鍵字
+function getNeutralKeywords($storeId) {
+    global $conn;
+    $sql = "SELECT object, COUNT(*) AS count FROM marks
+            WHERE object !='' AND store_id = ? AND state = '中立'
+            GROUP BY object
+            ORDER BY count DESC
+            LIMIT 20";
+    $stmt = $conn->prepare($sql);
+    if ($stmt === false) {
+        die('Prepare failed: ' . $conn->error);
+    }
+    $stmt->bind_param("i", $storeId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result === false) {
+        die('Execute failed: ' . $stmt->error);
+    }
+    $marks = [];
+    while ($row = $result->fetch_assoc()) {
+        $marks[] = $row;
+    }
+    $stmt->close();
+    return $marks;
+}
 ?>
+
