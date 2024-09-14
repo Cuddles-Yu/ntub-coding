@@ -1,0 +1,783 @@
+html, body {
+    font-family: Arial, sans-serif;
+    background-color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+/* 預設顯示 基本資料 頁面 */
+#info_main_area {
+    display: block; 
+}
+
+/* 預設 基本資料標籤 顏色 */
+#info {
+    color: #6100FF; 
+}
+
+/* 預設隱藏 偏好設定、權重設定、收藏地點 頁面 */
+#preference_main_area {
+    display: none; 
+}
+
+#weight_main_area {
+    display: none;
+}
+
+#place_main_area {
+    display: none;
+}
+
+/* 底欄相關設定 */
+.page_bottom {
+    background-color: #485465;
+    height: 8.5%;
+    color: white;
+    padding: 15px 25px 15px 25px; /* 上、右、下、左 */
+    font-size: 14px;  
+}
+
+/* 大螢幕（例如桌面電腦） */
+@media (min-width: 1600px){
+    /* header 相關 */
+    header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        height: 8.5%;
+        width: 100%;
+        z-index: 9999; /* 確保 header 在最上層 */
+    }
+
+    .link_text {
+        text-decoration: none; /* 移除底線 */
+        color: black;
+        font-size: 20px;
+    }
+
+    .vertical-line {
+        width: 2px; /* 設置寬度 */
+        height: 30px; /* 設置高度 */
+        background-color: #C5C5C5; /* 設置顏色 */
+        margin: 0 40px; /* 設置上下為0，左右為20px的間距 */
+    }
+
+    #user_icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        right: 10vw;
+        height: 80px;
+    }
+    
+    #user_icon_logo {
+        width: 40px;
+        height: 40px;
+        margin-left: auto;
+        cursor: pointer;
+    }
+
+    #web_name {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        left: 10vw;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    #web_name a {
+        text-decoration: none; /* 移除底線 */
+        color: black;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        margin-left: 5px;
+    }
+
+    #web_logo {
+        width: auto;
+        height: 50px;
+    }
+
+    hr {
+        width: 100%;
+        height: 4px; /* 粗細 */
+        background-color: #9D9ABD;
+        border: none;
+        position: fixed;
+        top: 8.5%;
+        margin: 0;
+    }
+    
+    /* 漢堡圖示相關 */
+    #nav_menu1 {
+        display: flex;
+    }
+
+    #nav_menu2 {
+        display: none; /* 隱藏導航菜單 */
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        right: 0;
+        background-color: white;
+        width: 100%;
+    }
+
+    #nav_menu2 a {
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .hamburger {
+        display: none; /* 隱藏漢堡圖標 */
+        font-size: 30px;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .whole {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+    }
+    
+    /* 側欄 */
+    .side_area {
+        position: fixed; /* 固定位置 */
+        align-items: center; /* 垂直置中 */
+        left: 10vw; /* 與左邊界距離 10vw */
+    }
+
+    .page_button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+    }
+
+    .page_button p {
+        margin-left: 0.2vw;
+    }
+
+    .logo {
+        width: 40px;
+        height: 40px;
+    }
+
+    /* 基本資料 */
+    #info_main_area {
+        margin-left: 8vw;
+    }
+
+    #info_title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 64px;
+        font-weight: bold;
+        margin-top: 4vh;
+        margin-bottom: 4vh;
+    }
+
+    #info_title p {
+        margin-left: 0.5vw;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    #info_title_logo {
+        width: 64px;
+        height: 64px;
+    }
+
+    #user_icon_logo2_container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        margin-bottom: 4vh;
+    }
+
+    #user_icon_logo2 {
+        width: 240px;
+        height: 240px;
+    }
+
+    .item_name {
+        display: flex;
+        align-items: center;
+        margin-top: 4vh;
+        margin-bottom: 4vh;
+    }
+
+    .item_text {
+        display: inline-block;
+        width: 10vw;
+        font-size: 28px;
+        font-weight: bold;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .item_text2 {
+        background: #D9D9D9;
+        border: 1px solid #000000;
+        border-radius: 5px;
+        padding: 10px;
+        box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    .edit_info1 {
+        display: inline-block;
+        font-size: 20px;
+        color: #5053AF;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .edit_info1:hover {
+        text-decoration: underline;
+    }
+
+    .edit_info2 {
+        display: inline-block;
+        font-size: 20px;
+        color: #5053AF;
+        font-weight: bold;
+        margin-left: 0.5vw;
+        cursor: pointer;
+    }
+
+    .edit_info2:hover {
+        text-decoration: underline;
+    }
+
+    /* 密碼小視窗背景 */
+    .modal {
+        display: none; /* 初始狀態隱藏 */
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4); /* 黑色背景透明度 */
+    }
+
+    /* 密碼小視窗內容 */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% 從頂部和自動居中 */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* 寬度 */
+        max-width: 500px; /* 最大寬度 */
+        border-radius: 10px;
+    }
+
+    /* 密碼小視窗關閉按鈕 */
+    .close-button {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close-button:hover,
+    .close-button:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* 修改密碼成功訊息 */
+    .success-message {
+        color: green;
+        display: none; /* 初始狀態隱藏 */
+    }
+
+    /* 偏好設定 */
+    #preference_main_area {
+        margin-left: 8vw;
+    }
+    
+    #preference_title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 64px;
+        font-weight: bold;
+        margin-top: 4vh;
+        margin-bottom: 4vh;
+    }
+
+    #preference_title p {
+        margin-left: 0.5vw;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    #preference_title_logo {
+        width: 64px;
+        height: 64px;
+    }
+
+    .preference_item_container {
+        margin-left: 18vw;
+        margin-bottom: 1vh;
+    }
+
+    .type_title {
+        justify-content: center;
+        margin-bottom: 0.5vh;
+    }
+
+    .preference_title2 {
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .preference_title3 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-right: 0.5vw;
+    }
+
+    .checkbox_container {
+        display: flex;
+        flex-wrap: wrap; /* 超出範圍自動換行 */
+        margin-bottom: 1vh;
+    }
+    
+    .checkbox_item {
+        box-sizing: border-box; /* margin, padding 不會增加元素的寬度 */
+        align-items: center;
+        font-size: 24px;
+        margin-right: 0.5vw;
+    }
+
+    /* 餐廳類型的 checkbox */
+    .checkbox_item input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        margin-right: 0.1vw;
+    }
+
+    /* 權重設定 */
+    #weight_main_area {
+        margin-left: 8vw;
+    }
+
+    #weight_title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 64px;
+        font-weight: bold;
+        margin-top: 4vh;
+        margin-bottom: 4vh;
+    }
+
+    #weight_title_logo {
+        width: 64px;
+        height: 64px;
+    }
+
+    #weight_title p {
+        margin-left: 0.5vw;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .description_text {
+        font-size: 24px;
+    }
+
+    /* 按鈕 */
+    .button_area {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 6vh;
+    }
+
+    #edit_button{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 6vw;
+        height: 6vh;
+        cursor: pointer;
+        background-color: #D9D9D9;
+        border-radius: 40px;
+        box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
+        border: transparent;
+        padding: 10px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    /* 滑動條 */
+    .slider-container {
+        display: flex;
+        align-items: center;
+        font-size: 28px;
+        font-weight: bold;
+        margin-top: 4vh;
+        margin-bottom: 4vh;
+    }
+
+    .slider-container label {
+        width: 7vw;
+    }
+    
+    .slider-container span {
+        margin-left: 1vw;
+    }
+
+    .slider-container input[type="range"] {
+        width: 25vw;
+        height: 3.5vh; /* 軌道高度 */
+        -webkit-appearance: none; /* 移除滑動條預設樣式 */
+        appearance: none; /* 移除滑動條預設樣式 */
+        outline: none; /* 移除滑動條預設藍色外框 */
+        background: #D9D9D9; /* 軌道底色 */
+        border-radius: 50px; /* 軌道圓角 */
+    }
+
+    /* Chrome, Safari, Edge, Opera */
+    .slider-container input[type="range"]::-webkit-slider-thumb {
+        width: 30px;
+        height: 30px;
+        -webkit-appearance: none; /* 移除預設樣式(Chrome, Safari) */
+        appearance: none; /* 移除預設樣式(Edge, Opera) */
+        background: #000466; /* 滑塊顏色 */ 
+        border-radius: 50%; /* 圓形滑塊 */
+        cursor: pointer;
+    }
+    
+    /* Firefox */
+    .slider-container input[type="range"]::-moz-range-thumb {
+        width: 30px;
+        height: 30px;
+        background: #000466; /* 滑塊顏色 */
+        border-radius: 50%; /* 圓形滑塊 */
+        cursor: pointer;
+    }
+    
+    /* IE, Edge */
+    .slider-container input[type="range"]::-ms-thumb {
+        width: 30px;
+        height: 30px;
+        background: #000466; /* 滑塊顏色 */
+        border-radius: 50%; /* 圓形滑塊 */
+        cursor: pointer;
+    }
+}
+
+/* 中等螢幕（筆記型電腦） */
+@media (min-width: 1025px) and (max-width: 1599px) {
+    /* header 相關 */
+    header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        height: 80px;
+        width: 100%;
+    }
+
+    .vertical-line {
+        width: 2px; /* 設置寬度 */
+        height: 30px; /* 設置高度 */
+        background-color: #C5C5C5; /* 設置顏色 */
+        margin: 0 40px; /* 設置上下為0，左右為20px的間距 */
+    }
+
+    #user_icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        right: 40px;
+        height: 80px;
+    }
+    
+    #user_icon_logo {
+        width: 40px;
+        height: 40px;
+        margin-left: auto;
+    }
+
+    #web_name {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        left: 100px;
+        font-size: 36px;
+        font-weight: bold;
+    }
+
+    #web_name a {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        margin-left: 5px;
+    }
+
+    #web_logo {
+        width: auto;
+        height: 50px;
+    }
+
+    hr {
+        width: 100%;
+        height: 4px; /* 粗細 */
+        background-color: #9D9ABD;
+        border: none;
+        position: fixed;
+        top: 80px;
+        margin: 0;
+    }
+
+    /* 漢堡圖示相關 */
+    #nav_menu1 {
+        display: flex;
+    }
+
+    #nav_menu2 {
+        display: none; /* 隱藏導航菜單 */
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        right: 0;
+        background-color: white;
+        width: 100%;
+    }
+
+    #nav_menu2 a {
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .hamburger {
+        display: none; /* 隱藏漢堡圖標 */
+        font-size: 30px;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+}
+
+/* 中等螢幕（平板電腦） */
+@media (min-width: 768px) and (max-width: 1024px) {
+   /* header 相關 */
+    header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        height: 80px;
+        width: 100%;
+    }
+
+    .vertical-line {
+        width: 2px; /* 設置寬度 */
+        height: 30px; /* 設置高度 */
+        background-color: #C5C5C5; /* 設置顏色 */
+        margin: 0 40px; /* 設置上下為0，左右為20px的間距 */
+    }
+
+    .web_name {
+        font-size: 20px;
+    }
+
+    #user_icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        right: 40px;
+        height: 80px;
+    }
+
+    #user_icon_logo {
+        width: 40px;
+        height: 40px;
+        margin-left: auto;
+    }
+
+    #web_name {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        left: 100px;
+        font-size: 36px;
+        font-weight: bold;
+    }
+
+    #web_name a {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        margin-left: 5px;
+    }
+
+    #web_logo {
+        width: auto;
+        height: 50px;
+    }
+
+    hr {
+        width: 100%;
+        height: 4px; /* 粗細 */
+        background-color: #9D9ABD;
+        border: none;
+        position: fixed;
+        top: 80px;
+        margin: 0;
+    }
+
+    /* 漢堡圖示相關 */
+    #nav_menu1 {
+        display: none; /* 隱藏導航菜單 */
+    }
+
+    #nav_menu2 {
+        display: none; /* 隱藏導航菜單 */
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        right: 0;
+        background-color: white;
+        width: 100%;
+    }
+
+    #nav_menu2 a {
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .hamburger {
+        display: block; /* 顯示漢堡圖標 */
+        font-size: 30px;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+}
+
+/* 小螢幕（手機） */
+@media (max-width: 767px){
+    /* header 相關 */
+    header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        height: 80px;
+        width: 100%;
+    }
+
+    .vertical-line {
+        width: 2px; /* 設置寬度 */
+        height: 30px; /* 設置高度 */
+        background-color: #C5C5C5; /* 設置顏色 */
+        margin: 0 40px; /* 設置上下為0，左右為20px的間距 */
+    }
+
+    .web_name {
+        font-size: 20px;
+    }
+
+    #user_icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        right: 40px;
+        height: 80px;
+    }
+    
+    #user_icon_logo {
+        width: 40px;
+        height: 40px;
+        margin-left: auto;
+    }
+
+    #web_name {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        left: 100px;
+        font-size: 36px;
+        font-weight: bold;
+    }
+
+    #web_name a {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        margin-left: 5px;
+    }
+
+    #web_logo {
+        width: auto;
+        height: 50px;
+    }
+
+    hr {
+        width: 100%;
+        height: 4px; /* 粗細 */
+        background-color: #9D9ABD;
+        border: none;
+        position: fixed;
+        top: 80px;
+        margin: 0;
+    }
+
+    /* 漢堡圖示相關 */
+    #nav_menu1 {
+        display: none; /* 隱藏導航菜單 */
+    }
+
+    #nav_menu2 {
+        display: none; /* 隱藏導航菜單 */
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        right: 0;
+        background-color: white;
+        width: 100%;
+    }
+
+    #nav_menu2 a {
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .hamburger {
+        display: block; /* 顯示漢堡圖標 */
+        font-size: 30px;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+}
