@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>評星宇宙</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <meta name="keywords" content="評價, google map" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+
+  <!-- 載入 leaflet.css -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""/> 
+
+  <!-- 載入 leaflet.awesome-markers.css -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers/dist/leaflet.awesome-markers.css" />
+
+  <!-- 載入 MarkerCluster.css -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    
+  <!-- 載入 osm_map.css -->
+  <link rel="stylesheet" type="text/css" href="osm_map.css">
+
+  <link rel="stylesheet" href="styles/home.css" />
+</head>
+
+<body>
+  <header>
+    <div id="header-content" class="header-content_active header-content wrapper-content">
+      <div class="logo-group">
+        <img class="Logo" src="images/Logo設計_圖像(藍+).png">
+        <a class="Logo-text" href="home.html">評星宇宙</a>
+      </div>
+      <nav class="header-nav">
+        <a class="link__text" href="home.html">網站首頁</a>
+        <a class="link__text" href="member.html">會員專區</a>
+        <a class="link__text" href="#">使用說明</a>
+        <a class="link__text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a>
+        <a class="link__text" href="develop-team.html">成員介紹</a>
+      </nav>
+      <div class="member" type="button" data-bs-toggle="offcanvas">
+        <img class="member-icon" src="images/user.jpg">
+      </div>
+      <div id="hambuger" class="wrapper-hambuger" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+        <div class="cross-button-top cross-button"></div>
+        <div class="cross-button-bottom cross-button"></div>
+      </div>
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+        aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title " id="offcanvasExampleLabel">
+            <img class="Logo" src="images/Logo設計_圖像(藍+).png">
+            <a class="Logo-text" href="home.html">評星宇宙</a>
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="offcanvas-ul">
+            <li><a class="offcanvas__text" href="home.html">網站首頁</a></li>
+            <li><a class="offcanvas__text" href="member.html">會員專區</a></li>
+            <li><a class="offcanvas__text" href="#">使用說明</a></li>
+            <li><a class="offcanvas__text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a></li>
+            <li><a class="offcanvas__text" href="develop-team.html">成員介紹</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="secondary-content">
+    <h2 class="title-text">美食餐廳搜尋</h2>
+    <form id="searchForm" method="POST" action="search.html">
+        <div class="search">
+        <div class="form-floating search-city">
+            <select class="form-select" id="location" name="location" aria-label="Floating label select example">
+            <option class="city" selected value="台北市">台北市</option>
+            </select>
+            <label for="location">地點</label>
+        </div>
+        <div class="form-floating search-keyword">
+            <input type="text" class="form-control" id="keyword" name="keyword" placeholder="關鍵字">
+            <label for="keyword">請輸入查詢關鍵字</label>
+        </div>
+        <button type="submit" class="btn btn-secondary mt-3 search-button">搜尋</button>
+        </div>
+    </form>
+    <div id="map" class="map">
+        <!-- 使用者定位按鈕 -->
+        <button type="button" id="locateButton" onclick="userLocate()">使用您的位置</button>
+    </div>
+  </section>
+
+  <section class="tertiary-content">
+    <h2 class="title-text">熱門餐廳推薦</h2>
+    <div class="restaurant-group">
+      <!--餐廳-->
+      <div class="card restaurant">
+        <img src="images/store-map.JPG" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">雙月食品社 濟南店</h5><!--填入商家名稱-->
+          <div class="quick-group">
+            <a class="love" href="#"><img class="love-img" src="images/love.png"><h6 class="love-text">最愛</h6></a><br>
+            <a class="map-link" href="#"><img class="map-link-img" src="images/map.png"><h6 class="map-link-text">地圖</h6></a><br><!--href="#" #換成餐廳地圖-->
+            <a class="web" href="#"><img class="web-img" src="images/web.png"><h6 class="web-text">官網</h6></a><!--href="#" #換成餐廳官網-->
+          </div>
+          <h5 class="rating">85<!--填入綜合評分--><small class="rating-text">/綜合評分</small></h5>
+          <div class="progress-group-text">
+            <div class="progress-group">
+              <div class="progress-text col-3" style="color: #B45F5F;">熱門 10%</div>
+              <div class="progress col-6" role="progressbar" aria-label="Default example " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar overflow-visible" style="width: 15%; background-color: #B45F5F;"></div><!--填入"熱門指數"width也要跟著改-->
+              </div>
+            </div>
+            <div class="progress-group">
+              <div class="progress-text col-3" style="color: #562B08;">氛圍 40%</div>
+              <div class="progress col-6" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar overflow-visible" style="width: 25%; background-color: #562B08;"></div>
+              </div>
+            </div>
+            <div class="progress-group">
+              <div class="progress-text col-3" style="color: #7B8F60;">產品 50%</div>
+              <div class="progress col-6" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar overflow-visible" style="width: 50%; background-color: #7B8F60;"></div>
+              </div>
+            </div>
+            <div class="progress-group">
+              <div class="progress-text col-3" style="color: #5053AF;">服務 70%</div>
+              <div class="progress col-6" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar overflow-visible" style="width: 75%; background-color: #5053AF;"></div>
+              </div>
+            </div>
+            <div class="progress-group">
+              <div class="progress-text col-3" style="color: #C19237;">售價 75%</div>
+              <div class="progress col-6" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar overflow-visible" style="width: 100%; background-color: #C19237;"></div>
+              </div>
+            </div>
+          </div>
+          <h6 class="restaurant-style">分類: 餃子</h6><!--填入餐廳分類-->
+          <h6 class="address">地址: 台北市 南京東路五段66巷12弄1號</h6><!--填入餐廳地址-->
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+<!-- 添加 JavaScript 來處理表單提交 -->
+<script>
+  document.getElementById('searchForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // 防止表單提交
+    const keyword = document.getElementById('keyword').value;
+    const location = document.getElementById('location').value;
+    window.location.href = `search.html?keyword=${encodeURIComponent(keyword)}&location=${encodeURIComponent(location)}`;
+  });
+</script>
+
+  <footer>
+    <div class="bottom">
+      台北商業大學 | 資訊管理系<br>
+      北商資管專題 113206 小組<br>
+      成員：鄧惠中、余奕博、邱綺琳、陳彥瑾
+      <en style="margin-right: 0.6em; float: right; font-size: 0.6em;">Copyright ©2024 All rights reserved.</en>
+    </div>
+  </footer>
+
+  <!-- 載入地圖框架 leaflet.js -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- 載入 leaflet.awesome-markers.min.js -->
+  <script src="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers/dist/leaflet.awesome-markers.min.js"></script>
+
+  <!-- 載入 Font Awesome Kit -->
+  <script src="https://kit.fontawesome.com/876a36192d.js" crossorigin="anonymous"></script>
+
+  <!-- 載入 Markercluster.js -->
+  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+
+  <!-- 載入主程式 osm_map.js -->
+  <script src="./osm-map.js"></script>
+  <script src="scripts/ui-interactions.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
