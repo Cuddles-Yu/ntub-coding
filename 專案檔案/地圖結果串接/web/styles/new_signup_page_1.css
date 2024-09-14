@@ -21,9 +21,14 @@ body {
 
 /* 大螢幕（例如桌面電腦） */
 @media (min-width: 1600px){
+    .alert {
+        position: absolute; 
+        z-index: 9999;
+        width: 100%;
+    }
+
     .login-container {
         width: 70%;
-        height: 70%;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -106,11 +111,10 @@ body {
         align-items: center;
     }
 
-    button {
+    #sign_up_button {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 15vw;
         height: 70px;
         cursor: pointer;
         background-color: #D9D9D9;
@@ -120,9 +124,6 @@ body {
         padding: 20px;
         font-size: 30px;
         font-weight: bold;
-    }
-
-    #sign_up_button {
         width: 8vw;
         margin-left: auto;
     }
@@ -170,6 +171,12 @@ body {
 
 /* 中等螢幕（筆記型電腦） */
 @media (min-width: 1025px) and (max-width: 1599px) {
+    .alert{
+        position: absolute; 
+        width: 100%; 
+        z-index: 9999;
+    }
+
     .login-container {
         width: 60%;
         height: 70%;
@@ -319,6 +326,12 @@ body {
 
 /* 中等螢幕（平板電腦） */
 @media (min-width: 768px) and (max-width: 1024px) {
+    .alert{
+        position: absolute; 
+        width: 100%; 
+        z-index: 9999;
+    }
+
     .login-container {
         width: 60%;
         height: auto;
@@ -463,6 +476,12 @@ body {
 
 /* 小螢幕（手機） */
 @media (max-width: 767px){
+    .alert{
+        position: absolute; 
+        width: 100%; 
+        z-index: 9999;
+    }
+
     .login-container {
         width: 60%;
         height: auto;

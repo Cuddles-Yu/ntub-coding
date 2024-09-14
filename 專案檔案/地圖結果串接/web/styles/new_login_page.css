@@ -21,9 +21,15 @@ body {
 
 /* 大螢幕（例如桌面電腦） */
 @media (min-width: 1600px){
+    .alert{
+        position: absolute; 
+        width: 100%; 
+        z-index: 9999;
+    }
+
     .login-container {
         width: 80%;
-        height: 70%;
+        height: auto;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -99,6 +105,7 @@ body {
 
     #sign_up_button {
         margin-left: auto;
+        text-decoration-line: none;
     }
 
     .agree {
@@ -124,6 +131,7 @@ body {
         padding: 20px;
         font-size: 30px;
         font-weight: bold;
+        text-decoration-line: none;
     }
 
     #log_in_button {
@@ -199,9 +207,15 @@ body {
 
 /* 中等螢幕（筆記型電腦） */
 @media (min-width: 1025px) and (max-width: 1599px) {
+    .alert{
+        position: absolute; 
+        width: 100%; 
+        z-index: 9999;
+    }
+
     .login-container {
         width: 60%;
-        height: 70%;
+        height: auto;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -269,6 +283,7 @@ body {
 
     #sign_up_button {
         margin-left: auto;
+        text-decoration: none;
     }
 
     #remember {
@@ -293,6 +308,7 @@ body {
         height: 40px;
         cursor: pointer;
         background-color: #D9D9D9;
+        
         border-radius: 40px;
         box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
         border: transparent;
@@ -372,6 +388,12 @@ body {
 
 /* 中等螢幕（平板電腦） */
 @media (min-width: 768px) and (max-width: 1024px) {
+    .alert{
+        position: absolute; 
+        width: 100%; 
+        z-index: 9999;
+    }
+
     .login-container {
         width: 60%;
         height: auto;
@@ -449,6 +471,7 @@ body {
     #sign_up_button {
         width: 100%;
         margin-top: 3%;
+        text-decoration: none;
     }
     
     .agree {
@@ -549,6 +572,12 @@ body {
 
 /* 小螢幕（手機） */
 @media (max-width: 767px){
+    .alert{
+        position: absolute; 
+        width: 100%; 
+        z-index: 9999;
+    }
+
     .login-container {
         width: 60%;
         height: auto;
@@ -616,6 +645,7 @@ body {
     
     #sign_up_button {
         width: 100%;
+        text-decoration: none;
     }
     
     .agree {
