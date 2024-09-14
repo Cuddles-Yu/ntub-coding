@@ -9,74 +9,26 @@ if (map) {
     console.log('地圖建構成功！');
 }
 
-// 建構不同地圖圖層，載入地圖資料
-var OpenStreetMap_Mapnik = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
-
-// Stadia 衛星
-var Stadia_AlidadeSatellite = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.{ext}', {
-    minZoom: 0,
-    maxZoom: 20,
-    attribution: '&copy; CNES, Distribution Airbus DS, © Airbus DS, © PlanetObserver (Contains Copernicus Data) | &copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    ext: 'jpg'
-});
-
-// Stadia 明亮
-var Stadia_OSMBright = L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.{ext}', {
-    minZoom: 0,
-    maxZoom: 20,
-    attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    ext: 'png'
-});
-
 // Stadia 戶外
 var Stadia_Outdoors = L.tileLayer('https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.{ext}', {
     minZoom: 0,
     maxZoom: 20,
     attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     ext: 'png'
-});
-
-// 建構控制面板
-var baseMaps = {
-    "OpenStreetMap 預設": OpenStreetMap_Mapnik,
-    "Stadia 衛星": Stadia_AlidadeSatellite,
-    "Stadia 明亮": Stadia_OSMBright,
-    "Stadia 戶外": Stadia_Outdoors,
-};
-
-// 添加圖層控制面板到地圖
-L.control.layers(baseMaps).addTo(map);
+}).addTo(map);
 
 // 添加比例尺
 L.control.scale({
-    position: 'bottomright', // 比例尺位置(可選項目：'topright', 'topleft', 'bottomright', 'bottomleft')
+    position: 'bottomleft', // 比例尺位置(可選項目：'topright', 'topleft', 'bottomright', 'bottomleft')
     imperial: false // 不顯示英制單位
 }).addTo(map);
 
-// 添加圖例說明
-var legend = L.control({position: 'bottomleft'});
-
-legend.onAdd = function (map) {
-    var div = L.DomUtil.create('div', 'legend');
-    div.style.textAlign = 'left';
-    div.innerHTML += '<div style="text-align: center; font-size: 20px; font-weight: bold">標記顏色說明</div>';
-    div.innerHTML += '<span style="background-color: #008000; display: inline-block; width: 15px; height: 15px;"></span> <span>評分 90-100</span><br>';
-    div.innerHTML += '<span style="background-color: #3388ff; display: inline-block; width: 15px; height: 15px;"></span> <span>評分 80-89</span><br>';
-    div.innerHTML += '<span style="background-color: #9370DB; display: inline-block; width: 15px; height: 15px;"></span> <span>評分 70-79</span><br>';
-    div.innerHTML += '<span style="background-color: #FFA500; display: inline-block; width: 15px; height: 15px;"></span> <span>評分 60-69</span><br>';
-    div.innerHTML += '<span style="background-color: #f03; display: inline-block; width: 15px; height: 15px;"></span> <span>評分 0-59</span><br>';
-    return div;
-};
-legend.addTo(map);
-
-// 創建每個類別的圖標並設置顏色
-var chineseMarker = createCustomMarker('bowl-rice', 'red');
-var americaMarker = createCustomMarker('burger', 'red');
-var japaneseMarker = createCustomMarker('fish-fins', 'red');
-var sweetMarker = createCustomMarker('cheese', 'red');
-var beverageMarker = createCustomMarker('mug-hot', 'red');
+// 創建logo圖標
+var mapIcon = L.icon({
+    iconUrl: './images/mapIcon.png',
+    iconSize: [30, 40],
+    popupAnchor: [0, -20] // 彈出框的位置(圖標頂部中心點)
+})
 
 // 引入資料庫資料(JSON格式)
 // 使用Fetch API取得JSON資料
@@ -113,44 +65,6 @@ function processJsonData(data) {
 
     // 建構marker，加入地圖物件:map中
     for (let i = 0; i < data.length; i++) {
-        let tag = data[i].tag;
-        let icon;
-
-        // 根據 tag 設置圖標
-        switch (tag) {
-            case "餐廳":
-                icon = chineseMarker;
-                break;
-            case "火鍋":
-                icon = americaMarker;
-                break;
-            // 其他標籤...
-            default:
-                icon = createCustomMarker('info-sign', 'darkblue'); // 預設圖標
-                break;
-        }
-
-        // 將評分轉換為0到100範圍
-        let rating = data[i].rating * 20;
-
-        // 根據評分設置 marker 的顏色
-        let markerColor = 'red'; // 默認顏色
-        if (rating >= 90) {
-            markerColor = 'green'; // 真實評分90以上為綠色
-        }
-        else if (rating >= 80) {
-            markerColor = 'blue'; // 真實評分80以上為藍色
-        }
-        else if (rating >= 70) {
-            markerColor = 'purple'; // 真實評分70以上為紫色
-        }
-        else if (rating >= 60) {
-            markerColor = 'orange'; // 真實評分60以上為橘色
-        }
-
-        // 使用AwesomeMarkers的圖示，並設置顏色
-        icon = createCustomMarker(icon.options.icon, markerColor);
-
         // 檢查是否有有效的 Latlng
         if (data[i].latitude && data[i].longitude) {
             var latlng = [parseFloat(data[i].latitude), parseFloat(data[i].longitude)];
@@ -160,7 +74,7 @@ function processJsonData(data) {
                 latlngs.push(latlng);
 
                 // 建立 L.Marker，確保經緯度順序正確（緯度在前latitude，經度在後longtitude）
-                var marker = L.marker(latlng, { icon: icon })
+                var marker = L.marker(latlng, { icon: mapIcon })
                     .bindPopup(
                         `
                         <img src="${data[i].preview_image}" style="width: 200px; height: 112.5px; object-fit: cover; object-position: center;"/>
@@ -168,6 +82,7 @@ function processJsonData(data) {
                         <div style="font-size: 14px; margin-bottom: 5px;">評分：${rating}</div> <!-- 乘以20 -->
                         <div style="font-size: 14px; margin-bottom: 5px;">評論數：${data[i].total_withcomments}/${data[i].sample_ratings}</div>
                         <div style="font-size: 14px; margin-bottom: 5px;">標籤：${data[i].tag}</div>
+                        <button style="font-size:12px; right:0; cursor: pointer;">詳細資訊</button>
                         `
                     );
 
@@ -215,15 +130,6 @@ function setPlaceCenter(latlngs) {
     }
 }
 
-// 建構客製化icon函數
-function createCustomMarker(iconName, color) {
-    return L.AwesomeMarkers.icon({
-        icon: iconName,
-        markerColor: color,
-        prefix: 'fa',
-    });
-}
-
 // 定位使用者所在位置
 function userLocate() {
     map.locate({ setView: true, maxZoom: 16 });
@@ -239,3 +145,23 @@ map.on('locationerror', function (e) {
     console.error("定位失敗：", e.message);
     alert("定位失敗，請確認您是否已開啟定位。");
 });
+
+// 使用者滑動後取得目前地圖中心經緯度
+function moveGetCenter() {
+    map.on('moveend', function() {
+        var moveCenter = map.getCenter(); // 取得地圖中心點的經緯度
+        return moveCenter; // 回傳 L.LatLng 物件
+    });
+}
+
+// 取得地圖中心經緯度
+function getCenter() {
+    var mapCenter = map.getCenter(); // 取得地圖中心點的經緯度
+    return mapCenter; // 回傳 L.LatLng 物件
+}
+
+// 取得經緯度後，設置地圖中心
+function setCenter(lat, lng) {
+    var zoomLevel = map.getZoom(); // 取得地圖縮放等級
+    map.setView([lat, lng], zoomLevel); // 設置地圖中心 // 緯度 經度 縮放等級
+}
