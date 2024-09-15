@@ -1,6 +1,7 @@
 from typing import Optional
 
 from 地圖資訊爬蟲.crawler.module.const import *
+from 地圖資訊爬蟲.crawler.tables.base import *
 from 地圖資訊爬蟲.crawler.module.functions.database import schema
 from 地圖資訊爬蟲.crawler.module.functions.database.core import *
 
@@ -23,7 +24,7 @@ def connect(name, username, password):  # 連接資料庫
         exit()
 
 def dict_to_clause(conditions: dict, connector: str) -> str:
-    return connector.join([f'{k} = {v}' for k, v in conditions.items()])
+    return connector.join([f'{k} = {transform(v)}' for k, v in conditions.items()])
 
 class SqlDatabase:
     ### 連線參數 ###

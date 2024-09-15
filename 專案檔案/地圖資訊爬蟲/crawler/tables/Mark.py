@@ -31,6 +31,10 @@ class Mark:
     def id(self):
         return self._id
 
+    @id.setter
+    def id(self, value):
+        self._id = value
+
     @property
     def object(self):
         return transform(self._object)
@@ -52,3 +56,9 @@ class Mark:
 
     def insert(self, database: SqlDatabase):
         database.add('marks', self.to_string())
+
+    def get_target(self):
+        return self._target
+
+    def get_state(self):
+        return self._state
