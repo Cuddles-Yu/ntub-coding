@@ -24,7 +24,7 @@ def connect(name, username, password):  # 連接資料庫
         exit()
 
 def dict_to_clause(conditions: dict, connector: str) -> str:
-    return connector.join([f'{k} = {transform(v)}' for k, v in conditions.items()])
+    return connector.join([f'{k} = {transform(escape_quotes(v))}' for k, v in conditions.items()])
 
 class SqlDatabase:
     ### 連線參數 ###
@@ -86,6 +86,13 @@ class SqlDatabase:
             VALUES {values}
         ''')
 
+    # 刪除整筆資料
+    def delete(self, table_name, **where):
+        execute(self.connection, f'''
+            DELETE FROM {table_name}
+            WHERE {dict_to_clause(where, ' AND ')}
+        ''')
+
     # 手動修改欄位資料
     def update(self, table_name: str, setter: dict, where: dict):
         execute(self.connection, f'''
@@ -139,13 +146,6 @@ class SqlDatabase:
         execute(self.connection, f'''
             ALTER TABLE {table_name} 
             DROP COLUMN {column_name}
-        ''')
-
-    # 刪除整筆資料
-    def delete_value(self, table_name, **where):
-        execute(self.connection, f'''
-            DELETE FROM {table_name}
-            WHERE {dict_to_clause(where, ' AND ')}
         ''')
 
     # 取得表格中的所有資料

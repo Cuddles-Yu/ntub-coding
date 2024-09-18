@@ -11,7 +11,7 @@ def refresh_all_tags(database: SqlDatabase):
     ''')
     # 移除不存在於stores的標籤
     for tag in tags:
-        if tag not in store_tags: database.delete_value('tags', tag=transform(tag))
+        if tag not in store_tags: database.delete('tags', tag=transform(tag))
     # 建立不存在於tags的標籤
     for store_tag in store_tags:
         if not database.is_value_exists('tags', tag=transform(store_tag)): database.add('tags', f"({transform(store_tag)}, NULL)")

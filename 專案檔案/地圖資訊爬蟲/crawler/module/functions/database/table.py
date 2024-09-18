@@ -185,7 +185,7 @@ def create_keywords(cursor):
         CREATE TABLE IF NOT EXISTS `keywords` (
             `store_id` int NOT NULL,
             `word` varchar(50) NOT NULL,
-            `source` enum('google','comment','recommend') NOT NULL DEFAULT 'google',
+            `source` enum('google','comment','recommend','recommend-ignore') NOT NULL DEFAULT 'google',
             `count` int NOT NULL,
             `image_url` varchar(2000) DEFAULT NULL,
             `source_url` varchar(2000) DEFAULT NULL,

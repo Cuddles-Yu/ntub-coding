@@ -3,6 +3,7 @@ from datetime import datetime
 
 from 地圖資訊爬蟲.crawler.tables.base import *
 from 地圖資訊爬蟲.crawler.module.functions.common import *
+from 地圖資訊爬蟲.crawler.module.functions.common import *
 from 地圖資訊爬蟲.crawler.module.functions.EdgeDriver import EdgeDriver
 from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
 
@@ -11,7 +12,7 @@ from selenium.webdriver.common.by import By
 
 def search_url(name: str, kw: str, mode: str):
     #  cr=countryTW imgtype=photo
-    query_url = 'https://www.google.com/search?udm=2&imgtype=photo&cr=countryTW&q='
+    query_url = 'https://www.google.com/search?udm=2&imgtype=photo&q='
     name = name.replace('-', ' ')
     match mode:
         case 'force':
@@ -35,7 +36,7 @@ def trying(_driver, _store_name, _keyword, modes):
     return None
 
 def search(_driver, _store_name, _keyword, _store_id):
-    search_result = trying(_driver, _store_name, _keyword, modes=['force', 'medium', 'normal', 'static'])
+    search_result = trying(_driver, _store_name, _keyword, modes=['medium', 'normal', 'static'])
     if not search_result: return None, None
     random_delay(1, 3, 2)
     # 取得來源與圖片連結

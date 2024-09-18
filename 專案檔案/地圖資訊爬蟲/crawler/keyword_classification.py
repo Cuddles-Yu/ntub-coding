@@ -13,6 +13,7 @@ class Classification(Enum):
     ignore = '忽略'
     adjective = '形容詞'
     foreign = '外文'
+    transform = '轉換'
 
 JSON_FILE = f'doc/KEYWORDS.json'
 

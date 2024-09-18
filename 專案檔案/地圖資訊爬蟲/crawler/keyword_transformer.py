@@ -52,8 +52,7 @@ if __name__ == '__main__':
                     if trans not in check_list: data[Classification.check.value].append(trans)
                 case _:
                     raise BreakLoopException
-
-            database.update('keywords', {'word': transform(escape_quotes(trans))}, {'word': transform(escape_quotes(target))})
+            database.update('keywords', {'word': trans}, {'word': target})
             for target_list in [keywords_list, dishes_list, check_list, ignore_list, foreign_list, adjective_list]:
                 if target in target_list:
                     target_list.remove(target)
