@@ -1,4 +1,4 @@
-<?php 
+<?php //網站首頁
 require_once 'db.php';
 
 function searchStores($location, $keyword)

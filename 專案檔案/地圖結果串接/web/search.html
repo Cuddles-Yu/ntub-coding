@@ -147,6 +147,8 @@
        e.preventDefault();
        var formData = new FormData(this);
 
+
+       
        // 先獲取 HTML 搜索結果
        fetch('search.php', {
            method: 'POST',
@@ -188,6 +190,8 @@
            console.error('processJsonData 函數未定義');
        }
    }
+
+
 
    // (最多人提到)詳細頁面按鈕按下自動填入搜尋欄位
    window.onload = function() {

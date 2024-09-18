@@ -1,5 +1,5 @@
+<?php //抓取資料庫所有商家的資料，將資料轉為json格式
 
-<?php
 require_once 'DB.php';
 require_once 'queries.php';
 

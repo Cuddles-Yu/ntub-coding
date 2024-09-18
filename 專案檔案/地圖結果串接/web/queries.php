@@ -1,4 +1,4 @@
-<?php
+<?php //抓取資料庫商家的資料定義函式
 require_once 'DB.php';
 
 // 商家資料表得到(商家名稱)
@@ -12,6 +12,16 @@ function getStoreInfo($storeName) {
     return $result->fetch_assoc();
 }
 
+// 根據商家ID獲取商家資訊
+function getStoreInfoById($storeId) {
+    global $conn;
+    $sql = "SELECT * FROM stores WHERE id = ? AND crawler_state IN ('成功', '完成', '超時')";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $storeId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
 
 // 留言(依商家查詢) 所有有文字留言的商家
 function getComments($storeId) {

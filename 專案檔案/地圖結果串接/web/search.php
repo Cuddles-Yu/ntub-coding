@@ -1,5 +1,6 @@
 <?php
 require_once 'db.php';
+require_once 'queries.php';
 
 function searchStores($location, $keyword)
 {
@@ -43,14 +44,14 @@ $location = "台北市";
 $keyword = $_POST["keyword"] ?? "";
 
 $stores = [];
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST"&& !empty($keyword)) {
     $stores = searchStores($location, $keyword);
 }
 ?>
 
 <!-- 動態生成搜尋結果 -->
 <div id="searchResults" class="store">
-    <?php if ($stores) : ?>
+    <?php if (!empty($stores)) : ?>
         <?php foreach ($stores as $store) : ?>
             <div class="container-fluid store-body" onclick="redirectToDetailPage('<?php echo htmlspecialchars($store['name']); ?>', '<?php echo htmlspecialchars($store['id']); ?>')"> <!--整框商家 可點下進入詳細頁面-->
                 <div class="row">
@@ -99,8 +100,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                             <div class="quick-group col-2">
                                 <a class="love" href="#"><img class="love-img" src="images/love.png"><h6 class="love-text">最愛</h6></a>
-                                <a class="map-link" href="<?php echo htmlspecialchars($store['link']); ?>"><img class="map-link-img" src="images/map.png"><h6 class="map-link-text">地圖</h6></a><!--href="#" #換成餐廳地圖-->
-                                <a class="web" href="<?php echo htmlspecialchars($store['website']); ?>"><img class="web-img" src="images/web.png"><h6 class="web-text">官網</h6></a><!--href="#" #換成餐廳官網-->
+                                <a class="map-link" href="<?php echo htmlspecialchars($store['link']); ?>" target="_blank"><img class="map-link-img" src="images/map.png"><h6 class="map-link-text">地圖</h6></a><!--href="#" #換成餐廳地圖-->
+                                <a class="web" href="<?php echo htmlspecialchars($store['website']); ?>" target="_blank"><img class="web-img" src="images/web.png"><h6 class="web-text">官網</h6></a><!--href="#" #換成餐廳官網-->
                             </div>
                         </div>
                     </div>

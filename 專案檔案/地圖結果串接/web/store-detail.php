@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html> <!-- 網頁詳細頁面 -->
 
 <head>
   <meta charset="utf-8" />
@@ -37,6 +37,22 @@
   $storeId = $_GET['id'] ?? null;
   $storeName = $_GET['name'] ?? null;
 
+  // 如果只有 storeName，根據 storeName 獲取 storeId
+  if ($storeName && !$storeId) {
+    $storeInfo = getStoreInfo($storeName);
+    $storeId = $storeInfo['id'] ?? null;
+  }
+
+  // 如果只有 storeId，根據 storeId 獲取 storeName
+  if ($storeId && !$storeName) {
+    $storeInfo = getStoreInfoById($storeId);
+    $storeName = $storeInfo['name'] ?? null;
+  }
+  // 如果 storeName 和 storeId 都不存在，則輸出錯誤訊息
+  if (empty($storeName) || empty($storeId)) {
+    echo "無效的分店資訊";
+    exit;
+}
 
   // 獲取店家資訊
   $storeInfo = getStoreInfo($storeName);
@@ -158,13 +174,14 @@
       <?php
           // 顯示每個分店的資訊
           foreach ($otherBranches as $branch) {
+            $storeName = htmlspecialchars($branch['name']);
             $branchName = htmlspecialchars($branch['branch_name']);
             $branchId = htmlspecialchars($branch['id']); // 取得分店的 ID
             $avgRating = htmlspecialchars($branch['avg_ratings']);
             $address = htmlspecialchars(($branch['city'] ?? '') . ($branch['dist'] ?? '')  . ($branch['vil'] ?? '') . ($branch['details'] ?? ''));
 
             echo '<div class="other-store-display">';
-            echo '<a class="other-store-group col-11" href="store-detail-test.php?name=">'; // 沒解決(怒)
+            echo '<a class="other-store-group col-11" href="store-detail.php?name='  . urlencode($storeName) . '&id=' . $branchId . '">'; // 連結到分店詳細頁面
             echo '<li class="store-name col-4">' . $branchName . '</li>';
             echo '<p class="other-rating col-3">' . $avgRating . ' /綜合評分</p>';
             echo '<p class="other-map address col"><i class="fi fi-sr-map-marker address-img"></i>' . $address . '</p>';
@@ -176,8 +193,8 @@
 
       </div>
     </div>
-    <!-- 商家介紹 -->
-    <li id="item" class="introduction" data-content="<?php echo htmlspecialchars($storeInfo['description']); ?>"></li>
+    <!-- 商家介紹 (根據使用者需求而產生的介紹(每個人看到的不一樣))-->
+    <!-- <li id="item" class="introduction" data-content="<?php //echo htmlspecialchars($storeInfo['description']); ?>"></li> -->
   </section>
 
   <section class="secondary-content section-content">
@@ -270,7 +287,7 @@
         <div class="introduction-item-group">
           <div class="store-introduction-group">
             <li class="introduction-title">地址</li>
-            <li class="introduction-item"><a class="introduction-item" href="https://maps.google.com/?q=<?php echo urlencode($storeInfo['name']); ?>">
+            <li class="introduction-item"><a class="introduction-item" href="https://maps.google.com/?q=<?php echo urlencode($storeInfo['name']); ?>" target="_blank">
                 <?php echo htmlspecialchars($location['city'] . '' . $location['dist'] . '' . $location['vil'] . '' . $location['city'] . '' . $location['details']); ?></a></li>
           </div>
           <div class="store-introduction-group">
@@ -279,7 +296,7 @@
           </div>
           <div class="store-introduction-group">
             <li class="introduction-title">相關網站</li>
-            <li class="introduction-item"><a class="introduction-item" href="<?php echo htmlspecialchars($storeInfo['website']); ?>">
+            <li class="introduction-item"><a class="introduction-item" href="<?php echo htmlspecialchars($storeInfo['website']); ?>" target="_blank">
                 <?php echo htmlspecialchars($storeInfo['website']); ?></a></li>
           </div>
         </div>
@@ -318,12 +335,12 @@
         <div class="input-group mb-3 filter-button">
           <span class="input-group-text" id="basic-addon1"><i class="fi fi-sr-filter-list"></i></i>篩選</span>
           <select class="form-select" aria-label="Default select example" id="filterSelect">
-          <option value="all" selected>全部</option>
-    <option value="熱門">熱門</option>
-    <option value="氛圍">氛圍</option>
-    <option value="產品">產品</option>
-    <option value="服務">服務</option>
-    <option value="售價">售價</option>
+            <option value="all" selected>全部</option>
+            <option value="熱門">熱門</option>
+            <option value="氛圍">氛圍</option>
+            <option value="產品">產品</option>
+            <option value="服務">服務</option>
+            <option value="售價">售價</option>
           </select>
         </div>
       </div>
@@ -333,12 +350,12 @@
           <!--動態生成 正面標籤-->
           <!-- 動態生成關鍵字 -->
           <?php foreach ($positive as $index => $keyword): ?>
-          <div class="keywords">
-            <!-- 按鈕 -->
-            <button type="button" class="btn comment-good" data-bs-toggle="modal" data-bs-target="#goodModal<?php echo $index; ?>"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
-            <?php echo htmlspecialchars($keyword['object']); ?> (<?php echo htmlspecialchars($keyword['count']); ?>)
-            </button>
-          </div>
+            <div class="keywords">
+              <!-- 按鈕 -->
+              <button type="button" class="btn comment-good" data-bs-toggle="modal" data-bs-target="#goodModal<?php echo $index; ?>"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
+                <?php echo htmlspecialchars($keyword['object']); ?> (<?php echo htmlspecialchars($keyword['count']); ?>)
+              </button>
+            </div>
           <?php endforeach; ?>
         </div>
       </div>
@@ -349,12 +366,12 @@
           <!--動態生成 負面標籤-->
           <!-- 動態生成關鍵字 -->
           <?php foreach ($negative as $index => $keyword): ?>
-          <div class="keywords">
-            <!-- 按鈕 -->
-            <button type="button" class="btn comment-bad" data-bs-toggle="modal" data-bs-target="#badModal<?php echo $index; ?>"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
-            <?php echo htmlspecialchars($keyword['object']); ?> (<?php echo htmlspecialchars($keyword['count']); ?>)
-            </button>
-          </div>
+            <div class="keywords">
+              <!-- 按鈕 -->
+              <button type="button" class="btn comment-bad" data-bs-toggle="modal" data-bs-target="#badModal<?php echo $index; ?>"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
+                <?php echo htmlspecialchars($keyword['object']); ?> (<?php echo htmlspecialchars($keyword['count']); ?>)
+              </button>
+            </div>
           <?php endforeach; ?>
         </div>
       </div>
@@ -365,12 +382,12 @@
           <!--動態生成 主觀標籤-->
           <!-- 動態生成關鍵字 -->
           <?php foreach ($subjective as $index => $keyword): ?>
-          <div class="keywords">
-            <!-- 按鈕 -->
-            <button type="button" class="btn comment-neutral" data-bs-toggle="modal" data-bs-target="#neutralModal<?php echo $index; ?>"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
-            <?php echo htmlspecialchars($keyword['object']); ?> (<?php echo htmlspecialchars($keyword['count']); ?>)
-            </button>
-          </div>
+            <div class="keywords">
+              <!-- 按鈕 -->
+              <button type="button" class="btn comment-neutral" data-bs-toggle="modal" data-bs-target="#neutralModal<?php echo $index; ?>"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
+                <?php echo htmlspecialchars($keyword['object']); ?> (<?php echo htmlspecialchars($keyword['count']); ?>)
+              </button>
+            </div>
           <?php endforeach; ?>
         </div>
       </div>
@@ -380,12 +397,12 @@
 
           <!-- 動態生成關鍵字 -->
           <?php foreach ($neutral as $index => $keyword): ?>
-          <div class="keywords">
-            <!-- 按鈕 -->
-            <button type="button" class="btn comment-middle" data-bs-toggle="modal" data-bs-target="#middleModal<?php echo $index; ?>"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
-            <?php echo htmlspecialchars($keyword['object']); ?> (<?php echo htmlspecialchars($keyword['count']); ?>)
-            </button>
-          </div>
+            <div class="keywords">
+              <!-- 按鈕 -->
+              <button type="button" class="btn comment-middle" data-bs-toggle="modal" data-bs-target="#middleModal<?php echo $index; ?>"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
+                <?php echo htmlspecialchars($keyword['object']); ?> (<?php echo htmlspecialchars($keyword['count']); ?>)
+              </button>
+            </div>
           <?php endforeach; ?>
         </div>
       </div>
@@ -406,7 +423,7 @@
 
     <div class="comment-group" id="commentGroup">
       <?php foreach ($comments as $index => $comment): ?>
-        <div class="comment-item"data-rating="<?php echo $comment['rating']; ?>" data-index="<?php echo $index; ?>">
+        <div class="comment-item" data-rating="<?php echo $comment['rating']; ?>" data-index="<?php echo $index; ?>">
           <div class="comment-information">
             <img class="avatar" src="images/<?php echo $comment['contributor_level'] == 0 ? 'user.jpg' : 'wizard.jpg'; ?>"><!--若留言為嚮導 則src為images/wizard.jpg 若不是嚮導則src為images/user.jpg-->
             <div class="star-group">
@@ -442,7 +459,7 @@
               <div class="card-body">
                 <a class="card-text" href="search.html?keyword=<?php echo urlencode($foodKeyword['word']); ?>" target="_blank"><?php echo htmlspecialchars($foodKeyword['word']); ?>(<?php echo htmlspecialchars($foodKeyword['count']); ?>)</a><!--填入推薦食物名稱 href填入此食物的評星宇宙搜尋結果網址-->
               </div>
-              <a href="https://www.google.com/search?udm=2&q=<?php echo urlencode($storeInfo['name'] . ' ' . $foodKeyword['word']); ?> "target="_blank"><img class="card-img" src="<?php echo $foodKeyword['image_url']?>"><!--src填入推薦食物照片連結 href填入搜尋此食物的google連結--></a>
+              <a href="https://www.google.com/search?udm=2&q=<?php echo urlencode($storeInfo['name'] . ' ' . $foodKeyword['word']); ?> " target="_blank"><img class="card-img" src="<?php echo $foodKeyword['image_url'] ?>"><!--src填入推薦食物照片連結 href填入搜尋此食物的google連結--></a>
             </div>
           <?php endforeach; ?>
         <?php else: ?>
@@ -495,29 +512,29 @@
     </div>
   </footer>
   <script>
-  document.getElementById('sortSelect').addEventListener('change', function() {
-    const sortValue = this.value;
-    const commentGroup = document.getElementById('commentGroup');
-    const comments = Array.from(commentGroup.getElementsByClassName('comment-item'));
+    document.getElementById('sortSelect').addEventListener('change', function() {
+      const sortValue = this.value;
+      const commentGroup = document.getElementById('commentGroup');
+      const comments = Array.from(commentGroup.getElementsByClassName('comment-item'));
 
-    comments.sort((a, b) => {
-      const ratingA = parseInt(a.getAttribute('data-rating'));
-      const ratingB = parseInt(b.getAttribute('data-rating'));
-      const indexA = parseInt(a.getAttribute('data-index'));
-      const indexB = parseInt(b.getAttribute('data-index'));
+      comments.sort((a, b) => {
+        const ratingA = parseInt(a.getAttribute('data-rating'));
+        const ratingB = parseInt(b.getAttribute('data-rating'));
+        const indexA = parseInt(a.getAttribute('data-index'));
+        const indexB = parseInt(b.getAttribute('data-index'));
 
-      if (sortValue === '由高至低') {
-        return ratingB - ratingA;
-      } else if (sortValue === '由低至高') {
-        return ratingA - ratingB;
-      } else {
-        return  indexA - indexB; // 相關性排序，根據原始順序
-      }
+        if (sortValue === '由高至低') {
+          return ratingB - ratingA;
+        } else if (sortValue === '由低至高') {
+          return ratingA - ratingB;
+        } else {
+          return indexA - indexB; // 相關性排序，根據原始順序
+        }
+      });
+
+      comments.forEach(comment => commentGroup.appendChild(comment));
     });
-
-    comments.forEach(comment => commentGroup.appendChild(comment));
-  });
-</script>
+  </script>
 
   <!-- 載入地圖框架 leaflet.js -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>

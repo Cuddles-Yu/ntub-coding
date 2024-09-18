@@ -1,5 +1,5 @@
 <?php 
-// 動態生成搜尋結果的地標
+// 動態生成搜尋結果的地標(就是按下搜尋後，地圖上才會出現的標記)
 require_once 'db.php';
 
 function searchStores($location, $keyword)
