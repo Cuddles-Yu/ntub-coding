@@ -7,6 +7,9 @@
 html, body {
   margin: 0;
   height: 100%;
+  user-select:none; /* 禁止選取standard syntax */
+  -webkit-user-select:none; /* 禁止for Chrome、Safari */
+  -moz-user-select:none;  /* 禁止for Mozilla、Firefox */
 }
 
 header {
@@ -145,199 +148,1109 @@ header {
   }
 }
 
-.secondary-content{
-  max-width: 1400px;
-  margin-left: auto;
-  margin-right: auto;
-}
+@media (min-width: 711px){
+  .secondary-content{
+    max-width: 1400px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 80px;
+  }
 
-.title-text{
-  margin-top: 30px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 30px;
-}
+  .title-text{
+    margin-top: 95px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 75px;
+    background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+    background-clip: text;
+    color: transparent;
+  }
 
-.search{
-  align-items: center;
-  justify-content: center;
-  display: flex;
-}
-
-.search-city{
-  width: 200PX;
-  position: relative;
-  font-size: 16px;
-}
-
-.city{
-  font-size: 16px;
-}
-
-.form-floating>.form-select{
-  padding-top: 26px;
-  padding-bottom: 10px;
-  height: 58px;
-  font-size: 16px;
-}
-
-.search-keyword{
-  width: 350px;
-  position: relative;
-  margin-left: 30px;
-  overflow-x: hidden;
-  font-size: 16px;
-}
-
-.form-floating>.form-control, .form-floating>.form-control-plaintext{
-  padding: 16px  12px;
-  height: 58px;
-}
-
-.search-button{
-  position: relative;
-  margin-left: 30px;
-  margin-bottom: 15px;
-  color: white;
-  white-space: nowrap;
-  font-size: 16px;
-}
-
-#map{
-  width: 100%;
-  height: 30vh;
-  border-radius: 10px;
-  margin-top: 10px;
-}
-
-.legend{
-  font-size: 12px;
-}
-
-#locateButton{
-  font-size: 12px;
-}
-
-.tertiary-content{
-  max-width: 1400px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 15px;
-}
-
-.restaurant-group{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  height: 60vh;
-  gap: 60px;
-  overflow-y: hidden;
-  overflow: scroll;
-  overflow-x: hidden;
-}
-
-.restaurant{
-  margin-top: 20px;
-  width: 288px;
-  height: 517px;
-}
-
-.card-title{
-  font-weight: bold;
-  font-size: 20px;
-}
-
-.quick-group{
-  display: flex;
-}
-
-.love-text, .map-link-text, .web-text{
-  font-weight: bold;
-  font-size: 16px;
-  color: #374957;
-  text-decoration: none;
-  white-space: nowrap;
-  display: inline-block;
-  margin-right: 15px;
-}
-
-.love-img, .map-link-img, .web-img{
-  width: 20px;
-  margin-right: 3px;
-}
-
-.rating{
-  color: #AC3535;
-  font-weight: bold;
-  font-size: 25px;
-}
-
-.rating-text{
-  margin-left: 5px;
-  font-size: 12px;
-}
-
-.progress-group-text{
-  margin-top: 7px;
-  font-size: 13px;
-}
-
-.progress-group{
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: flex-end;
-}
-
-.progress{
-  height: 13px;
-  margin-bottom: 5px;
-}
-
-.restaurant-style, .address{
-  font-size: 12.8px;
-  margin-top: 10px;
-}
-
-.bottom{
-  background-color: #485465;
-  height: 90px;
-  color: white;
-  padding: 15px 20px 20px 25px;
-  font-size: 14px;  
-}
-
-@media (max-width: 1406px) {
   .search{
     align-items: center;
     justify-content: center;
     display: flex;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-top: 15px;
+    gap: 10px;
+  }
+
+  .search-city{
+    display: none;
+  }
+
+  .search-keyword{
+    width: 600px;
+    position: relative;
+    overflow-x: hidden;
+    font-size: 16px;
+  }
+
+  .form-floating>.form-control, .form-floating>.form-control-plaintext{
+    padding: 16px  12px;
+    height: 65px;
+  }
+
+  .filter-button{
+    position: relative;
+    margin-bottom: 15px;
+    color: white;
+    white-space: nowrap;
+    font-size: 16px;
+    background-color: #919ca5;
+    border: 1px solid #919ca5;
+  }
+
+  .modal {
+    z-index: 10510; /* 确保比 header 更高 */
+  }
+
+  .modal-backdrop {
+    z-index: 10500; /* backdrop 也要设置更高 */
+  }
+
+  .checkbox-title{
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-right: 15px;
+  }
+
+  .checkbox-title:not(:first-child){
+    margin-top: 5px;
+  }
+
+  .input-group{
+    width: 200px;
+  }
+
+
+  .checkbox-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); /* 自動適應列數 */
+  }
+
+  .search-button{
+    position: relative;
+    margin-bottom: 15px;
+    color: white;
+    white-space: nowrap;
+    font-size: 16px;
+  }
+
+  .filter-container{
+    width: 725px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    background-color: #d9dfe4;
+    border-radius: 5px;
+    display: flex;
+    display: none;
+  }
+
+  .filter-result{
+    max-width: 100%;
+    display: flex;
+    white-space: nowrap;
+    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .filter-title{
+    white-space: nowrap;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    margin: 0;
+    color: rgb(109, 139, 219);
+  }
+
+  .condition{
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid #b0c4d6;
+    background-color: white;
+    border-radius: 10px;
+    font-size: 16px;
   }
 
   #map{
-    width: 98%;
-    height: 30vh;
+    max-width: 770px;
+    height: 400px;
     border-radius: 10px;
-    margin-top: 10px;
+    margin-top: 40px;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .legend{
+    font-size: 12px;
+  }
+
+  #locateButton{
+    font-size: 12px;
+  }
+
+  .tip-line{
+    border: 1px solid #374957;
+    margin-top: 45px;
+  }
+
+  .tip{
+    color: #68737a;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+
+  .tertiary-content{
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    height: auto;
+  }
+
+  #tab {
+    width: 100%;
+    background: white;
+  }
+
+  /* 頁籤ul */
+  #tab > ul {
+    display: flex;             
+    justify-content: center;   
+    margin: 0;
+    padding: 20px 20px 0 20px;
+    gap: 30px;
+  }
+
+  #tab > ul > li {
+    list-style-type: none;
+  }
+
+  /* 頁籤上的文字 */
+  #tab > ul > li > a { 
+    text-decoration: none;
+    font-size: 30px;
+    color: #333;
+    float: left;
+    padding: 10px;
+    margin-left: 5px;
+    white-space: nowrap;
+  }
+
+  /*頁籤div內容*/
+  #tab > div {
+    clear: both;
+    padding: 0 15px;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+  }
+
+  /*第一筆的底色*/
+  #tab > ul li:first-child a {
+    background: #7e8b9c;
+    color: white;
+    border-radius: 5px;
+  }
+
+  span:target ~ #tab > div:first-of-type {
+    visibility: hidden;
+    height: 0;
+    padding: 0 15px;
+  }
+
+  /*頁籤變換&第一筆*/
+  #tab-1:target ~ #tab > ul li a[href$="#tab-1"],
+  #tab-2:target ~ #tab > ul li a[href$="#tab-2"],
+  #tab-3:target ~ #tab > ul li a[href$="#tab-3"] {
+    background: #7e8b9c;
+    color: white;
+    border-radius: 5px;
+  }
+
+  /* 重置未選中的標籤顏色為白色 */
+  #tab-2:target ~ #tab > ul li a[href$="#tab-1"],
+  #tab-3:target ~ #tab > ul li a[href$="#tab-1"],
+  #tab-1:target ~ #tab > ul li a[href$="#tab-2"],
+  #tab-3:target ~ #tab > ul li a[href$="#tab-2"],
+  #tab-1:target ~ #tab > ul li a[href$="#tab-3"],
+  #tab-2:target ~ #tab > ul li a[href$="#tab-3"] {
+    background: white;
+    color: black;
+  }
+
+  /*頁籤內容顯示&第一筆*/
+  span ~ #tab > div:first-of-type,
+  #tab-1:target ~ #tab > div.tab-content-1,
+  #tab-2:target ~ #tab > div.tab-content-2,
+  #tab-3:target ~ #tab > div.tab-content-3{
+    visibility: visible;
+    height: 100%;
+  }
+
+  span {
+    display: none;
+  }
+
+  .title-text-2{
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+  }
+
+  .carousel-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .carousel-arrow{
+    font-size: 25px;
+    color: #8b8686;
+    margin-top: 20px;
+  }
+
+  .carousel-arrow.hidden {
+    display: none; 
+  }
+
+  .left-arrow {
+    margin-right: 10px;
+  }
+  
+  .right-arrow {
+    margin-left: 10px;
   }
 
   .restaurant-group{
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: flex-start;
+    height: 600px;
     gap: 60px;
-    margin-left: 15px;
-    margin-right: 15px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    margin-top: 20px;
+    padding-top: 5px;
+    cursor: grab;
   }
 
   .restaurant{
-    margin-top: 20px;
+    margin-top: 5px;
     width: 288px;
     height: 517px;
+    flex: 0 0 auto;
+  }
+
+  .card-title{
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  .quick-group{
+    display: flex;
+  }
+
+  .love-text, .map-link-text, .web-text{
+    font-weight: bold;
+    font-size: 16px;
+    color: #374957;
+    text-decoration: none;
+    white-space: nowrap;
+    display: inline-block;
+    margin-right: 15px;
+  }
+
+  .love-img, .map-link-img, .web-img{
+    width: 20px;
+    margin-right: 3px;
+  }
+
+  .rating{
+    color: #AC3535;
+    font-weight: bold;
+    font-size: 25px;
+  }
+
+  .rating-text{
+    margin-left: 5px;
+    font-size: 12px;
+  }
+
+  .progress-group-text{
+    margin-top: 7px;
+    font-size: 13px;
+  }
+
+  .progress-group{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+  }
+
+  .progress{
+    height: 13px;
+    margin-bottom: 5px;
+  }
+
+  .restaurant-style, .address{
+    font-size: 12.8px;
+    margin-top: 10px;
+  }
+
+  .bottom{
+    background-color: #485465;
+    height: 90px;
+    color: white;
+    padding: 15px 20px 20px 25px;
+    font-size: 14px;  
+  }
+}
+
+
+@media (min-width: 551px) and (max-width: 710px){
+  .secondary-content{
+    max-width: 1400px;
+    min-height: auto;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 80px;
+  }
+
+  .title-text{
+    margin-top: 60px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 65px;
+    background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+    background-clip: text;
+    color: transparent;
+  }
+
+  .search{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-top: 15px;
+  }
+
+  .search-city{
+    display: none;
+  }
+
+  .search-keyword{
+    width: 470px;
+    position: relative;
+    margin-left: 10px;
+    overflow-x: hidden;
+    font-size: 16px;
+  }
+
+  .form-floating>.form-control, .form-floating>.form-control-plaintext{
+    padding: 16px  12px;
+    height: 65px;
+  }
+
+  .filter-button{
+    position: relative;
+    margin-left: 20px;
+    margin-bottom: 15px;
+    color: white;
+    white-space: nowrap;
+    font-size: 16px;
+    background-color: #919ca5;
+    border: 1px solid #919ca5;
+  }
+
+  .modal {
+    z-index: 10510; /* 确保比 header 更高 */
+  }
+
+  .modal-backdrop {
+    z-index: 10500; /* backdrop 也要设置更高 */
+  }
+
+  .checkbox-title{
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-right: 15px;
+  }
+
+  .checkbox-title:not(:first-child){
+    margin-top: 5px;
+  }
+
+  .input-group{
+    width: 200px;
+  }
+
+  .checkbox-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); /* 自動適應列數 */
+  }
+
+  .search-button{
+    position: relative;
+    margin-left: 20px;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    color: white;
+    white-space: nowrap;
+    font-size: 16px;
+  }
+
+  .filter-container{
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    background-color: #d9dfe4;
+    border-radius: 5px;
+    display: flex;
+    display: none;
+  }
+
+  .filter-result{
+    max-width: 100%;
+    display: flex;
+    white-space: nowrap;
+    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .filter-title{
+    white-space: nowrap;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    margin: 0;
+    color: rgb(109, 139, 219);
+  }
+
+  .condition{
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid #b0c4d6;
+    background-color: white;
+    border-radius: 10px;
+    font-size: 14px;
+  }
+
+  #map{
+    max-width: 770px;
+    height: 400px;
+    border-radius: 10px;
+    margin-top: 40px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .legend{
+    font-size: 12px;
+  }
+
+  #locateButton{
+    font-size: 12px;
+  }
+
+  .tip-line{
+    border: 1px solid #374957;
+    margin-top: 45px;
+  }
+
+  .tip{
+    color: #68737a;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+
+  .tertiary-content{
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    height: auto;
+  }
+
+  #tab {
+    width: 100%;
+    background: white;
+  }
+
+  /* 頁籤ul */
+  #tab > ul {
+    display: flex;             
+    justify-content: center;   
+    margin: 0;
+    padding: 20px 20px 0 20px;
+    gap: 30px;
+  }
+
+  #tab > ul > li {
+    list-style-type: none;
+  }
+
+  /* 頁籤上的文字 */
+  #tab > ul > li > a { 
+    text-decoration: none;
+    font-size: 25px;
+    color: #333;
+    float: left;
+    padding: 10px;
+    margin-left: 5px;
+    white-space: nowrap;
+  }
+
+  /*頁籤div內容*/
+  #tab > div {
+    clear: both;
+    padding: 0 15px;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+  }
+
+  /*第一筆的底色*/
+  #tab > ul li:first-child a {
+    background: #7e8b9c;
+    color: white;
+    border-radius: 5px;
+  }
+
+  span:target ~ #tab > div:first-of-type {
+    visibility: hidden;
+    height: 0;
+    padding: 0 15px;
+  }
+
+  /*頁籤變換&第一筆*/
+  #tab-1:target ~ #tab > ul li a[href$="#tab-1"],
+  #tab-2:target ~ #tab > ul li a[href$="#tab-2"],
+  #tab-3:target ~ #tab > ul li a[href$="#tab-3"] {
+    background: #7e8b9c;
+    color: white;
+    border-radius: 5px;
+  }
+
+  /* 重置未選中的標籤顏色為白色 */
+  #tab-2:target ~ #tab > ul li a[href$="#tab-1"],
+  #tab-3:target ~ #tab > ul li a[href$="#tab-1"],
+  #tab-1:target ~ #tab > ul li a[href$="#tab-2"],
+  #tab-3:target ~ #tab > ul li a[href$="#tab-2"],
+  #tab-1:target ~ #tab > ul li a[href$="#tab-3"],
+  #tab-2:target ~ #tab > ul li a[href$="#tab-3"] {
+    background: white;
+    color: black;
+  }
+
+  /*頁籤內容顯示&第一筆*/
+  span ~ #tab > div:first-of-type,
+  #tab-1:target ~ #tab > div.tab-content-1,
+  #tab-2:target ~ #tab > div.tab-content-2,
+  #tab-3:target ~ #tab > div.tab-content-3{
+    visibility: visible;
+    height: 100%;
+  }
+
+  span {
+    display: none;
+  }
+
+  .title-text-2{
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+  }
+
+  .carousel-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .carousel-arrow{
+    font-size: 25px;
+    color: #8b8686;
+    margin-top: 20px;
+  }
+
+  .carousel-arrow.hidden {
+    display: none; 
+  }
+
+  .left-arrow {
+    margin-right: 10px;
+  }
+  
+  .right-arrow {
+    margin-left: 10px;
+  }
+
+  .restaurant-group{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    height: 600px;
+    gap: 30px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    margin-top: 20px;
+    padding-top: 5px;
+    cursor: grab;
+  }
+
+  .restaurant{
+    margin-top: 5px;
+    width: 288px;
+    height: 517px;
+    flex: 0 0 auto;
+  }
+
+  .card-title{
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  .quick-group{
+    display: flex;
+  }
+
+  .love-text, .map-link-text, .web-text{
+    font-weight: bold;
+    font-size: 16px;
+    color: #374957;
+    text-decoration: none;
+    white-space: nowrap;
+    display: inline-block;
+    margin-right: 15px;
+  }
+
+  .love-img, .map-link-img, .web-img{
+    width: 20px;
+    margin-right: 3px;
+  }
+
+  .rating{
+    color: #AC3535;
+    font-weight: bold;
+    font-size: 23px;
+  }
+
+  .rating-text{
+    margin-left: 5px;
+    font-size: 12px;
+  }
+
+  .progress-group-text{
+    margin-top: 7px;
+    font-size: 13px;
+  }
+
+  .progress-group{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+  }
+
+  .progress{
+    height: 13px;
+    margin-bottom: 5px;
+  }
+
+  .restaurant-style, .address{
+    font-size: 12.8px;
+    margin-top: 10px;
+  }
+
+  .bottom{
+    background-color: #485465;
+    height: 90px;
+    color: white;
+    padding: 15px 20px 20px 25px;
+    font-size: 14px;  
+  }
+}
+
+@media (max-width: 550px){
+  .secondary-content{
+    max-width: 1400px;
+    min-height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 80px;
+  }
+
+  .title-text{
+    margin-top: 25px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 50px;
+    background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+    background-clip: text;
+    color: transparent;
+  }
+
+  .search{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-top: 15px;
+  }
+
+  .search-city{
+    display: none;
+  }
+
+  .search-keyword{
+    width: 470px;
+    position: relative;    
+    margin-left: 10px;
+    overflow-x: hidden;
+    font-size: 16px;
+  }
+
+  .form-floating>.form-control, .form-floating>.form-control-plaintext{
+    padding: 16px  12px;
+    height: 38px;
+  }
+
+  .filter-button{
+    position: relative;
+    margin-left: 20px;
+    margin-bottom: 15px;
+    color: white;
+    white-space: nowrap;
+    font-size: 16px;
+    background-color: #919ca5;
+    border: 1px solid #919ca5;
+  }
+
+  .modal {
+    z-index: 10510; /* 确保比 header 更高 */
+  }
+
+  .modal-backdrop {
+    z-index: 10500; /* backdrop 也要设置更高 */
+  }
+
+  .checkbox-title{
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-right: 15px;
+  }
+
+  .checkbox-title:not(:first-child){
+    margin-top: 5px;
+  }
+
+  .input-group{
+    width: 200px;
+  }
+  
+  .checkbox-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); /* 自動適應列數 */
+  }
+
+  .search-button{
+    position: relative;
+    margin-left: 20px;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    color: white;
+    white-space: nowrap;
+    font-size: 16px;
+  }
+
+  .filter-container{
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    background-color: #d9dfe4;
+    border-radius: 5px;
+    display: flex;
+    display: none;
+  }
+
+  .filter-result{
+    max-width: 100%;
+    display: flex;
+    white-space: nowrap;
+    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .filter-title{
+    white-space: nowrap;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    margin: 0;
+    color: rgb(109, 139, 219);
+  }
+
+  .condition{
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid #b0c4d6;
+    background-color: white;
+    border-radius: 10px;
+    font-size: 14px;
+  }
+
+  #map{
+    max-width: 770px;
+    height: 400px;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .legend{
+    font-size: 12px;
+  }
+
+  #locateButton{
+    font-size: 12px;
+  }
+
+  .tip-line{
+    border: 1px solid #374957;
+    margin-top: 45px;
+  }
+
+  .tip{
+    color: #68737a;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+
+  .tertiary-content{
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    height: auto;
+  }
+
+  #tab {
+    width: 100%;
+    background: white;
+  }
+
+  /* 頁籤ul */
+  #tab > ul {
+    display: flex;             
+    justify-content: center;   
+    margin: 0;
+    padding: 20px 20px 0 20px;
+    gap: 30px;
+  }
+
+  #tab > ul > li {
+    list-style-type: none;
+  }
+
+  /* 頁籤上的文字 */
+  #tab > ul > li > a { 
+    text-decoration: none;
+    font-size: 20px;
+    color: #333;
+    float: left;
+    padding: 10px;
+    margin-left: 5px;
+    white-space: nowrap;
+  }
+
+  /*頁籤div內容*/
+  #tab > div {
+    clear: both;
+    padding: 0 15px;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+  }
+
+  /*第一筆的底色*/
+  #tab > ul li:first-child a {
+    background: #7e8b9c;
+    color: white;
+    border-radius: 5px;
+  }
+
+  span:target ~ #tab > div:first-of-type {
+    visibility: hidden;
+    height: 0;
+    padding: 0 15px;
+  }
+
+  /*頁籤變換&第一筆*/
+  #tab-1:target ~ #tab > ul li a[href$="#tab-1"],
+  #tab-2:target ~ #tab > ul li a[href$="#tab-2"],
+  #tab-3:target ~ #tab > ul li a[href$="#tab-3"] {
+    background: #7e8b9c;
+    color: white;
+    border-radius: 5px;
+  }
+
+  /* 重置未選中的標籤顏色為白色 */
+  #tab-2:target ~ #tab > ul li a[href$="#tab-1"],
+  #tab-3:target ~ #tab > ul li a[href$="#tab-1"],
+  #tab-1:target ~ #tab > ul li a[href$="#tab-2"],
+  #tab-3:target ~ #tab > ul li a[href$="#tab-2"],
+  #tab-1:target ~ #tab > ul li a[href$="#tab-3"],
+  #tab-2:target ~ #tab > ul li a[href$="#tab-3"] {
+    background: white;
+    color: black;
+  }
+
+  /*頁籤內容顯示&第一筆*/
+  span ~ #tab > div:first-of-type,
+  #tab-1:target ~ #tab > div.tab-content-1,
+  #tab-2:target ~ #tab > div.tab-content-2,
+  #tab-3:target ~ #tab > div.tab-content-3{
+    visibility: visible;
+    height: 100%;
+  }
+
+  span {
+    display: none;
+  }
+
+  .title-text-2{
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+  }
+
+  .carousel-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .carousel-arrow{
+    font-size: 25px;
+    color: #8b8686;
+    margin-top: 20px;
+  }
+
+  .carousel-arrow.hidden {
+    display: none; 
+  }
+
+  .left-arrow {
+    margin-right: 10px;
+  }
+  
+  .right-arrow {
+    margin-left: 10px;
+  }
+
+  .restaurant-group{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    height: 600px;
+    gap: 15px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    margin-top: 20px;
+    padding-top: 5px;
+    cursor: grab;
+  }
+
+  .restaurant{
+    margin-top: 5px;
+    width: 288px;
+    height: 517px;
+    flex: 0 0 auto;
+  }
+
+  .card-title{
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  .quick-group{
+    display: flex;
+  }
+
+  .love-text, .map-link-text, .web-text{
+    font-weight: bold;
+    font-size: 16px;
+    color: #374957;
+    text-decoration: none;
+    white-space: nowrap;
+    display: inline-block;
+    margin-right: 15px;
+  }
+
+  .love-img, .map-link-img, .web-img{
+    width: 20px;
+    margin-right: 3px;
+  }
+
+  .rating{
+    color: #AC3535;
+    font-weight: bold;
+    font-size: 23px;
+  }
+
+  .rating-text{
+    margin-left: 5px;
+    font-size: 12px;
+  }
+
+  .progress-group-text{
+    margin-top: 7px;
+    font-size: 13px;
+  }
+
+  .progress-group{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+  }
+
+  .progress{
+    height: 13px;
+    margin-bottom: 5px;
+  }
+
+  .restaurant-style, .address{
+    font-size: 12.8px;
+    margin-top: 10px;
+  }
+
+  .bottom{
+    background-color: #485465;
+    height: 90px;
+    color: white;
+    padding: 15px 20px 20px 25px;
+    font-size: 14px;  
   }
 }

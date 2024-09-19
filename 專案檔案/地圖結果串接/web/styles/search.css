@@ -7,6 +7,9 @@
 html, body {
   margin: 0;
   height: 100%;
+  user-select:none; /* 禁止選取standard syntax */
+  -webkit-user-select:none; /* 禁止for Chrome、Safari */
+  -moz-user-select:none;  /* 禁止for Mozilla、Firefox */
 }
 
 header {
@@ -146,8 +149,9 @@ header {
 }
 
 .all-content{
-  max-width: 1540px;
-  min-height: calc(100% - 174px);
+  max-width: 1600px;
+  min-height: calc(100% - 184px);
+  margin-bottom: 10px;
 }
 
 .search{
@@ -159,10 +163,11 @@ header {
 }
 
 .search-city{
-  width: 200PX;
+  width: 200px;
   position: relative;
   margin-left: 10px;
   font-size: 16px;
+  display: none;
 }
 
 .form-floating>.form-select{
@@ -176,8 +181,27 @@ header {
   font-size: 16px;
 }
 
+.filter-button{
+  position: relative;
+  margin-left: 30px;
+  margin-bottom: 15px;
+  color: white;
+  white-space: nowrap;
+  font-size: 16px;
+  background-color: #919ca5;
+  border: 1px solid #919ca5;
+}
+
+.modal {
+  z-index: 10510; /* 确保比 header 更高 */
+}
+
+.modal-backdrop {
+  z-index: 10500; /* backdrop 也要设置更高 */
+}
+
 .search-keyword{
-  width: 300px;
+  width: 400px;
   position: relative;
   margin-left: 30px;
   overflow-x: hidden;
@@ -224,6 +248,10 @@ header {
 }
 .store{
   margin-top: 10px;
+  height: 65vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding-right: 5px;
 }
 
 .store-body{
@@ -246,7 +274,8 @@ header {
 
 .store-img{
   width: 100%;
-  min-height: 100%;
+  height: 152px;
+  object-fit: cover;
   border-radius: 3px;
 }
 
@@ -264,6 +293,10 @@ header {
   margin-top: 10px;
   font-weight: bold;
   font-size: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* 限制為1行 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .rating{
@@ -369,7 +402,8 @@ header {
   
   .store-img{
     width: 100%;
-    min-height: 100%;
+    height: 152px;
+    object-fit: cover;
     border-radius: 3px;
   }
 
