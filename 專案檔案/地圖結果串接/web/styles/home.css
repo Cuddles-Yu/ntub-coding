@@ -447,8 +447,9 @@ header {
   .restaurant{
     margin-top: 5px;
     width: 288px;
-    height: 517px;
+    height: 500px;
     flex: 0 0 auto;
+    cursor: pointer;
   }
 
   .card-title{
@@ -495,6 +496,7 @@ header {
     display: flex;
     flex-wrap: nowrap;
     align-items: flex-end;
+    margin-bottom: 3px;
   }
 
   .progress{
@@ -817,8 +819,9 @@ header {
   .restaurant{
     margin-top: 5px;
     width: 288px;
-    height: 517px;
+    height: 500px;
     flex: 0 0 auto;
+    cursor: pointer;
   }
 
   .card-title{
@@ -865,6 +868,7 @@ header {
     display: flex;
     flex-wrap: nowrap;
     align-items: flex-end;
+    margin-bottom: 3px;
   }
 
   .progress{
@@ -1186,8 +1190,9 @@ header {
   .restaurant{
     margin-top: 5px;
     width: 288px;
-    height: 517px;
+    height: 500px;
     flex: 0 0 auto;
+    cursor: pointer;
   }
 
   .card-title{
@@ -1234,6 +1239,7 @@ header {
     display: flex;
     flex-wrap: nowrap;
     align-items: flex-end;
+    margin-bottom: 3px;
   }
 
   .progress{

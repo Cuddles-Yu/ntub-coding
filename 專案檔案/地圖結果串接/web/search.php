@@ -44,7 +44,7 @@ $location = "台北市";
 $keyword = $_POST["keyword"] ?? "";
 
 $stores = [];
-if ($_SERVER["REQUEST_METHOD"] == "POST"&& !empty($keyword)) {
+if ($_SERVER["REQUEST_METHOD"] ==  "POST"&& !empty($keyword)) {
     $stores = searchStores($location, $keyword);
 }
 ?>
@@ -66,33 +66,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"&& !empty($keyword)) {
                                 <h6 class="restaurant-style">分類: <?php echo htmlspecialchars($store['tag']); ?></h6><!--填入餐廳分類-->
                                 <h6 class="address">地址: <?php echo htmlspecialchars($store['city'] . $store['details']); ?></h6><!--填入餐廳地址-->
                             </div>
-                            <div class="progress-group-text col">
+                            <div class="progress-group-text col">                                
                                 <div class="progress-group">
-                                    <div class="progress-text col-4" style="color: #B45F5F;">熱門 10%</div>
-                                    <div class="progress col" role="progressbar" aria-label="Default example " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                        <div class="progress-bar overflow-visible" style="width: 15%; background-color: #B45F5F;"></div><!--填入"熱門指數"width也要跟著改-->
-                                    </div>
-                                </div>
-                                <div class="progress-group">
-                                    <div class="progress-text col-4" style="color: #562B08;">氛圍 40%</div>
+                                    <div class="progress-text" style="color: #562B08;">氛圍 40%</div>
                                     <div class="progress col" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                                         <div class="progress-bar overflow-visible" style="width: 25%; background-color: #562B08;"></div>
                                     </div>
                                 </div>
                                 <div class="progress-group">
-                                    <div class="progress-text col-4" style="color: #7B8F60;">產品 50%</div>
+                                    <div class="progress-text" style="color: #7B8F60;">產品 50%</div>
                                     <div class="progress col" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
                                         <div class="progress-bar overflow-visible" style="width: 50%; background-color: #7B8F60;"></div>
                                     </div>
                                 </div>
                                 <div class="progress-group">
-                                    <div class="progress-text col-4" style="color: #5053AF;">服務 70%</div>
+                                    <div class="progress-text" style="color: #5053AF;">服務 70%</div>
                                     <div class="progress col" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
                                         <div class="progress-bar overflow-visible" style="width: 75%; background-color: #5053AF;"></div>
                                     </div>
                                 </div>
                                 <div class="progress-group">
-                                    <div class="progress-text col-4" style="color: #C19237;">售價 75%</div>
+                                    <div class="progress-text" style="color: #C19237;">售價 75%</div>
                                     <div class="progress col" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
                                         <div class="progress-bar overflow-visible" style="width: 100%; background-color: #C19237;"></div>
                                     </div>
@@ -100,8 +94,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"&& !empty($keyword)) {
                             </div>
                             <div class="quick-group col-2">
                                 <a class="love" href="#"><img class="love-img" src="images/love.png"><h6 class="love-text">最愛</h6></a>
-                                <a class="map-link" href="<?php echo htmlspecialchars($store['link']); ?>" target="_blank"><img class="map-link-img" src="images/map.png"><h6 class="map-link-text">地圖</h6></a><!--href="#" #換成餐廳地圖-->
-                                <a class="web" href="<?php echo htmlspecialchars($store['website']); ?>" target="_blank"><img class="web-img" src="images/web.png"><h6 class="web-text">官網</h6></a><!--href="#" #換成餐廳官網-->
+                                <a class="map-link" href="<?php echo htmlspecialchars($store['link']); ?>" target="_blank" onclick="event.stopPropagation();"><img class="map-link-img" src="images/map.png"><h6 class="map-link-text">地圖</h6></a><!--href="#" #換成餐廳地圖-->
+                                <a class="web" href="<?php echo htmlspecialchars($store['website']); ?>" target="_blank" onclick="event.stopPropagation();"><img class="web-img" src="images/web.png"><h6 class="web-text">官網</h6></a><!--href="#" #換成餐廳官網-->
                             </div>
                         </div>
                     </div>
