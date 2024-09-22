@@ -72,13 +72,13 @@ document.addEventListener('DOMContentLoaded', function () {
   // 可選: 如果需要再選擇"全部"或"最相關"時重製排序，可以這樣做
   btnRadio1.addEventListener('change', function () {
     if (btnRadio1.checked) {
-      sortSelect.value = "最相關"; // 重製排序為"最相關"
+      sortSelect.value = "相關性"; // 重製排序為"最相關"
     }
   });
 
   btnRadio2.addEventListener('change', function () {
     if (btnRadio2.checked) {
-      sortSelect.value = "最相關"; // 重製排序為"最相關
+      sortSelect.value = "相關性"; // 重製排序為"最相關
     }
   });
 });
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const leftArrow = document.querySelector('.left-arrow');
   const rightArrow = document.querySelector('.right-arrow');
 
-  const scrollAmount = 400; // 每次滾動的像素量，可以根據需要調整
+  const scrollAmount = 500; // 每次滾動的像素量，可以根據需要調整
 
   function updateArrowVisibility() {
     // 檢查卡片的總寬度是否超過容器寬度
@@ -116,6 +116,42 @@ document.addEventListener('DOMContentLoaded', function () {
   // 在頁面加載和窗口調整大小時更新箭頭可行性
   window.addEventListener('resize', updateArrowVisibility);
   updateArrowVisibility(); // 初次加載時運行
+});
+
+//手動滑鼠滾動(推薦餐點)
+document.addEventListener('DOMContentLoaded', function() {
+  const CardGroups = document.querySelectorAll('.group-card');
+  
+  CardGroups.forEach(function(CardGroups) {
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    CardGroups.addEventListener('mousedown', function(e) {
+      isDown = true;
+      CardGroups.classList.add('active');
+      startX = e.pageX - CardGroups.offsetLeft;
+      scrollLeft = CardGroups.scrollLeft;
+    });
+
+    CardGroups.addEventListener('mouseleave', function() {
+      isDown = false;
+      CardGroups.classList.remove('active');
+    });
+
+    CardGroups.addEventListener('mouseup', function() {
+      isDown = false;
+      CardGroups.classList.remove('active');
+    });
+
+    CardGroups.addEventListener('mousemove', function(e) {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - CardGroups.offsetLeft;
+      const walk = (x - startX) * 5; // 滑動速度調整
+      CardGroups.scrollLeft = scrollLeft - walk;
+    });
+  });
 });
 
 //水平滾動箭頭控制(最多人提到)
@@ -162,3 +198,16 @@ if (container.scrollHeight > container.clientHeight) {
 } else {
   container.style.overflowY = 'auto'; // 隱藏垂直滾動條
 }
+
+//留言按鈕文字狀態
+document.getElementById('toggleButton').addEventListener('click', function () {
+  const button = this;
+  const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+  // 根據 aria-expanded 的狀態來改變文字
+  if (isExpanded) {
+    button.textContent = '收起';
+  } else {
+    button.textContent = '展開';
+  }
+});

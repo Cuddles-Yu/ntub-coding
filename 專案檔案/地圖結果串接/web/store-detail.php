@@ -37,22 +37,22 @@
   $storeId = $_GET['id'] ?? null;
   $storeName = $_GET['name'] ?? null;
 
-  // 如果只有 storeName，根據 storeName 獲取 storeId
-  if ($storeName && !$storeId) {
-    $storeInfo = getStoreInfo($storeName);
-    $storeId = $storeInfo['id'] ?? null;
+  // 如果 storeId 或 storeName 不存在，根據現有的值獲取缺失的資訊
+  if ($storeName || $storeId) {
+    if ($storeName && !$storeId) {
+      $storeInfo = getStoreInfo($storeName);
+      $storeId = $storeInfo['id'] ?? null;
+    } elseif ($storeId && !$storeName) {
+      $storeInfo = getStoreInfoById($storeId);
+      $storeName = $storeInfo['name'] ?? null;
+    }
   }
 
-  // 如果只有 storeId，根據 storeId 獲取 storeName
-  if ($storeId && !$storeName) {
-    $storeInfo = getStoreInfoById($storeId);
-    $storeName = $storeInfo['name'] ?? null;
-  }
   // 如果 storeName 和 storeId 都不存在，則輸出錯誤訊息
   if (empty($storeName) || empty($storeId)) {
     echo "無效的分店資訊";
     exit;
-}
+  }
 
   // 獲取店家資訊
   $storeInfo = getStoreInfo($storeName);
@@ -181,7 +181,7 @@
             $address = htmlspecialchars(($branch['city'] ?? '') . ($branch['dist'] ?? '')  . ($branch['vil'] ?? '') . ($branch['details'] ?? ''));
 
             echo '<div class="other-store-display">';
-            echo '<a class="other-store-group col-11" href="store-detail.php?name='  . urlencode($storeName) . '&id=' . $branchId . '">'; // 連結到分店詳細頁面
+            echo '<a class="other-store-group col-11" href="store-detail.php?id='  . $storeId . '&name=' . urlencode($storeName) . '">'; // 連結到分店詳細頁面
             echo '<li class="store-name col-4">' . $branchName . '</li>';
             echo '<p class="other-rating col-3">' . $avgRating . ' /綜合評分</p>';
             echo '<p class="other-map address col"><i class="fi fi-sr-map-marker address-img"></i>' . $address . '</p>';
@@ -194,56 +194,86 @@
       </div>
     </div>
     <!-- 商家介紹 (根據使用者需求而產生的介紹(每個人看到的不一樣))-->
-    <!-- <li id="item" class="introduction" data-content="<?php //echo htmlspecialchars($storeInfo['description']); ?>"></li> -->
+    <li id="item" class="introduction" data-content="這是一間熱門度高、環境中等、服務很好的店家"></li> 
   </section>
 
   <section class="secondary-content section-content">
     <div class="first-row">
-      <div id="map" class="map">
-        <!-- 使用者定位按鈕 -->
-        <button type="button" id="locateButton" onclick="userLocate()">使用您的位置</button>
-      </div>
-
-    </div>
-    <div class="second-row">
       <div class="anaysis col">
         <div class="title-group">
           <i class="fi fi-sr-bars-progress group-title-img"></i>
           <h5 class="group-title">指標分析</h5>
         </div>
-        <div class="progress-group-text">
-          <div class="progress-group">
-            <div class="progress-text col-3" style="color: #B45F5F;">熱門 10%</div>
-            <div class="progress col-8" role="progressbar" aria-label="Default example " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-              <div class="progress-bar overflow-visible" style="width: 15%; background-color: #B45F5F;"></div><!--填入"熱門指數"width也要跟著改-->
-            </div>
-          </div>
-          <div class="progress-group">
-            <div class="progress-text col-3" style="color: #562B08;">氛圍 40%</div>
-            <div class="progress col-8" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-              <div class="progress-bar overflow-visible" style="width: 25%; background-color: #562B08;"></div>
-            </div>
-          </div>
-          <div class="progress-group">
-            <div class="progress-text col-3" style="color: #7B8F60;">產品 50%</div>
-            <div class="progress col-8" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-              <div class="progress-bar overflow-visible" style="width: 50%; background-color: #7B8F60;"></div>
-            </div>
-          </div>
-          <div class="progress-group">
-            <div class="progress-text col-3" style="color: #5053AF;">服務 70%</div>
-            <div class="progress col-8" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-              <div class="progress-bar overflow-visible" style="width: 75%; background-color: #5053AF;"></div>
-            </div>
-          </div>
-          <div class="progress-group">
-            <div class="progress-text col-3" style="color: #C19237;">售價 75%</div>
-            <div class="progress col-8" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-              <div class="progress-bar overflow-visible" style="width: 100%; background-color: #C19237;"></div>
-            </div>
-          </div>
-        </div>
-      </div>
+        <table class="table table-borderless">
+          <thead>
+            <tr class="row1">
+              <th scope="col" class="col1"></th>
+              <th scope="col" class="col2">正面評價數</th>
+              <th scope="col" class="col3">負面評價數</th>
+              <th scope="col" class="col4">評價總數</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row2">
+              <td>
+                <div class="progress-group">                  
+                  <h6 class="progress-text" style="color: #562B08;">氛圍</h6>
+                  <h6 class="progress-percent" style="color: #562B08;">40分</h6>
+                </div>
+                <div class="progress col" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                  <div class="progress-bar overflow-visible" style="width: 25%; background-color: #562B08;"></div>
+                </div>
+              </td>
+              <td class="evaluate-good">110</td>
+              <td class="evaluate-bad">90</td>
+              <td class="evaluate-all">200</td>
+            </tr>
+            <tr class="row3">
+              <td>
+                <div class="progress-group">                  
+                  <h6 class="progress-text" style="color: #7B8F60;">產品</h6>
+                  <h6 class="progress-percent" style="color: #7B8F60;">50分</h6>
+                </div>
+                <div class="progress col" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                  <div class="progress-bar overflow-visible" style="width: 50%; background-color: #7B8F60;"></div>
+                </div>                
+              </td>
+              <td class="evaluate-good">225</td>
+              <td class="evaluate-bad">80</td>
+              <td class="evaluate-all">305</td>
+            </tr>
+            <tr class="row4">
+              <td>
+                <div class="progress-group">                  
+                  <h6 class="progress-text" style="color: #5053AF;">服務</h6>
+                  <h6 class="progress-percent" style="color: #5053AF;">70分</h6>
+                </div>
+                <div class="progress col" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                  <div class="progress-bar overflow-visible" style="width: 75%; background-color: #5053AF;"></div>
+                </div>                 
+              </td>
+              <td class="evaluate-good">25</td>
+              <td class="evaluate-bad">25</td>
+              <td class="evaluate-all">50</td>
+            </tr>
+            <tr class="row5">
+              <td>
+                <div class="progress-group">                  
+                  <h6 class="progress-text" style="color: #C19237;">售價</h6>
+                  <h6 class="progress-percent" style="color: #C19237;">75分</h6>
+                </div>
+                <div class="progress col" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                  <div class="progress-bar overflow-visible" style="width: 100%; background-color: #C19237;"></div>
+                </div>                 
+              </td>
+              <td class="evaluate-good">15</td>
+              <td class="evaluate-bad">80</td>
+              <td class="evaluate-all">95</td>
+            </tr>
+          </tbody>
+        </table>
+      </div> 
+      <hr class="divider-line">
       <div class="service col">
         <div class="title-group">
           <i class="fi fi-sr-following group-title-img"></i>
@@ -279,30 +309,9 @@
           } ?>
         </div>
       </div>
-      <div class="store-introduction col">
-        <div class="title-group">
-          <i class="fi fi-sr-search-alt group-title-img"></i>
-          <h5 class="group-title ">餐廳簡介</h5>
-        </div>
-        <div class="introduction-item-group">
-          <div class="store-introduction-group">
-            <li class="introduction-title">地址</li>
-            <li class="introduction-item"><a class="introduction-item" href="https://maps.google.com/?q=<?php echo urlencode($storeInfo['name']); ?>" target="_blank">
-                <?php echo htmlspecialchars($location['city'] . '' . $location['dist'] . '' . $location['vil'] . '' . $location['city'] . '' . $location['details']); ?></a></li>
-          </div>
-          <div class="store-introduction-group">
-            <li class="introduction-title">電話</li>
-            <li class="introduction-item"><?php echo htmlspecialchars($storeInfo['phone_number']); ?></li>
-          </div>
-          <div class="store-introduction-group">
-            <li class="introduction-title">相關網站</li>
-            <li class="introduction-item"><a class="introduction-item" href="<?php echo htmlspecialchars($storeInfo['website']); ?>" target="_blank">
-                <?php echo htmlspecialchars($storeInfo['website']); ?></a></li>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
+
   <section class="tertiary-content section-content">
     <div class="comment-title">
       <div class="title-group">
@@ -336,7 +345,6 @@
           <span class="input-group-text" id="basic-addon1"><i class="fi fi-sr-filter-list"></i></i>篩選</span>
           <select class="form-select" aria-label="Default select example" id="filterSelect">
             <option value="all" selected>全部</option>
-            <option value="熱門">熱門</option>
             <option value="氛圍">氛圍</option>
             <option value="產品">產品</option>
             <option value="服務">服務</option>
@@ -418,8 +426,12 @@
           <option value="由高至低">由高至低</option>
           <option value="由低至高">由低至高</option>
         </select>
+        <span class="input-group-text" id="inputGroup-sizing-default">篩選</span>
+        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2">搜尋</button>
       </div>
     </div>
+
 
     <div class="comment-group" id="commentGroup">
       <?php foreach ($comments as $index => $comment): ?>
@@ -439,6 +451,7 @@
         </div>
       <?php endforeach; ?>
     </div>
+    
   </section>
 
   <section class="fourth-content section-content">
@@ -474,8 +487,39 @@
       <div class="carousel-arrow right-arrow" type="button"><i class="fi fi-sr-angle-right"></i></div>
     </div>
   </section>
-
   <section class="fifth-content section-content">
+    <div class="introduction-display">
+      <div class="store-introduction">
+        <div class="title-group">
+          <i class="fi fi-sr-search-alt group-title-img"></i>
+          <h5 class="group-title ">餐廳資訊</h5>
+        </div>
+        <div class="introduction-item-group">
+          <div class="store-introduction-group">
+            <li class="introduction-title">地址</li>
+            <li class="introduction-item"><a class="introduction-item" href="https://maps.google.com/?q=<?php echo urlencode($storeInfo['name']); ?>" target="_blank">
+                <?php echo htmlspecialchars($location['city'] . '' . $location['dist'] . '' . $location['vil'] . '' . $location['city'] . '' . $location['details']); ?></a></li>
+          </div>
+          <div class="store-introduction-group">
+            <li class="introduction-title">電話</li>
+            <li class="introduction-item"><?php echo htmlspecialchars($storeInfo['phone_number']); ?></li>
+          </div>
+          <div class="store-introduction-group">
+            <li class="introduction-title">相關網站</li>
+            <li class="introduction-item"><a class="introduction-item" href="<?php echo htmlspecialchars($storeInfo['website']); ?>" target="_blank">
+                <?php echo htmlspecialchars($storeInfo['website']); ?></a></li>
+          </div>
+        </div>
+      </div>
+      <div id="map" class="map">
+        <!-- 使用者定位按鈕 -->
+        <button type="button" id="locateButton" onclick="userLocate()">使用您的位置</button>
+      </div>
+    </div>
+    
+  </section>
+
+  <section class="sixth-content section-content">
     <div class="title-group">
       <i class="fi fi-sr-interactive group-title-img"></i>
       <h5 class="group-title ">最多人提到</h5>
