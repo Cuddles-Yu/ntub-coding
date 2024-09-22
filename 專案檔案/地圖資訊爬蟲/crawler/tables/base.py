@@ -1,6 +1,9 @@
 # 常數宣告
 MAP_URL = 'https://www.google.com.tw/maps/place/+/'
 
+def get(param) -> str:
+    return transform(escape_quotes(param))
+
 def transform(param) -> str:
     if param is None: return 'NULL'
     if not isinstance(param, str): return param

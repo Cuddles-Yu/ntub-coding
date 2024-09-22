@@ -50,7 +50,6 @@ def create_stores(cursor):
             `name` varchar(255) NOT NULL,
             `branch_title` varchar(255) DEFAULT NULL,
             `branch_name` varchar(255) DEFAULT NULL,
-            `description` varchar(255) DEFAULT NULL,
             `tag` varchar(20) DEFAULT NULL,
             `preview_image` varchar(255) DEFAULT NULL,
             `link` varchar(2000) NOT NULL,
@@ -125,10 +124,6 @@ def create_rates(cursor):
             `mixreviews_count` int DEFAULT NULL,
             `additionalcomments_count` int DEFAULT NULL,
             `real_rating` decimal(2,1) DEFAULT NULL,
-            `environment_rating` decimal(4,1) DEFAULT NULL,
-            `price_rating` decimal(4,1) DEFAULT NULL,
-            `product_rating` decimal(4,1) DEFAULT NULL,
-            `service_rating` decimal(4,1) DEFAULT NULL,
             `store_responses` int DEFAULT NULL,
             PRIMARY KEY (`store_id`),
             CONSTRAINT `fk_store_id_r` FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE

@@ -1,5 +1,3 @@
-from typing import Optional
-
 from 地圖資訊爬蟲.crawler.tables.base import *
 from 地圖資訊爬蟲.crawler.module.functions.common import *
 from 地圖資訊爬蟲.crawler.module.functions.database.core import *
@@ -11,7 +9,6 @@ def newObject(title, url, branch_title: Optional[str] = None, branch_name: Optio
         name=title,
         branch_title=branch_title,
         branch_name=branch_name,
-        description=None,
         tag=None,
         preview_image=None,
         link=url,
@@ -67,7 +64,7 @@ def reset_by_name(database: SqlDatabase, store_name: str, show_hint: Optional[bo
         ''')
         cursor.execute(f'''
             UPDATE `stores`
-            SET `description` = NULL, `tag` = NULL, `preview_image` = NULL, `website` = NULL, `phone_number` = NULL, `last_update` = NULL
+            SET `tag` = NULL, `preview_image` = NULL, `website` = NULL, `phone_number` = NULL, `last_update` = NULL
             WHERE `id` = '{sid}';
         ''')
         database.connection.commit()  # 提交修改
@@ -114,7 +111,7 @@ def search(database: SqlDatabase, keyword: str):
         INNER JOIN rates AS r ON s.id = r.store_id
         INNER JOIN locations AS l ON s.id = l.store_id
         INNER JOIN tags AS t ON s.tag = t.tag
-        WHERE s.name LIKE '%{keyword}%' or s.description LIKE '%{keyword}%' or t.category LIKE '%{keyword}%' or s.tag LIKE '%{keyword}%' or k.word LIKE '%{keyword}%'
+        WHERE s.name LIKE '%{keyword}%' or t.category LIKE '%{keyword}%' or s.tag LIKE '%{keyword}%' or k.word LIKE '%{keyword}%'
         GROUP BY s.id
         ORDER BY r.real_rating DESC, total_reviews DESC
     ''')
@@ -123,7 +120,6 @@ class Store:
     _name = ''
     _branch_title = ''
     _branch_name = ''
-    _description = ''
     _tag = ''
     _preview_image = ''
     _link = ''
@@ -133,12 +129,10 @@ class Store:
     _crawler_state = ''
     _crawler_description = ''
 
-    def __init__(self, name, branch_title, branch_name, description, tag, preview_image, link, website, phone_number, last_update, crawler_state,
-                 crawler_description):
+    def __init__(self, name, branch_title, branch_name, tag, preview_image, link, website, phone_number, last_update, crawler_state, crawler_description):
         self._name = name
         self._branch_title = branch_title
         self._branch_name = branch_name
-        self._description = description
         self._tag = tag
         self._preview_image = preview_image
         self._link = link
@@ -152,65 +146,70 @@ class Store:
     def id(self):
         return 'DEFAULT'
 
-    @property
-    def name(self):
-        return transform(escape_quotes(self._name))
+    def get_id(self, database: SqlDatabase):
+        return database.get_value('id', 'stores', name=self.name)
 
     @property
-    def branch_title(self):
-        return transform(escape_quotes(self._branch_title))
+    def name(self, trans: Optional[bool] = False):
+        return get(self._name) if trans else self._name
+
+    @property
+    def branch_title(self, trans: Optional[bool] = False):
+        return get(self._branch_title) if trans else self._branch_title
+
+    def get_branch_title(self):
+        return get_store_branch_title(self.name, force_return=True)
+
+    def get_code(self, database: SqlDatabase):
+        return f'id:{self.get_id(database)}, {self.name}'
 
     @branch_title.setter
     def branch_title(self, value):
         self._branch_title = value
 
     @property
-    def branch_name(self):
-        return transform(escape_quotes(self._branch_name))
+    def branch_name(self, trans: Optional[bool] = False):
+        return get(self._branch_name) if trans else self._branch_name
 
     @branch_name.setter
     def branch_name(self, value):
         self._branch_name = value
 
     @property
-    def description(self):
-        return transform(self._description)
+    def tag(self, trans: Optional[bool] = False):
+        return get(self._tag) if trans else self._tag
 
     @property
-    def tag(self):
-        return transform(self._tag)
+    def preview_image(self, trans: Optional[bool] = False):
+        return get(self._preview_image) if trans else self._preview_image
 
     @property
-    def preview_image(self):
-        return transform(self._preview_image)
+    def link(self, trans: Optional[bool] = False):
+        return get(self._link) if trans else self._link
 
     @property
-    def link(self):
-        return transform(self._link)
+    def website(self, trans: Optional[bool] = False):
+        return get(self._website) if trans else self._website
 
     @property
-    def website(self):
-        return transform(self._website)
+    def phone_number(self, trans: Optional[bool] = False):
+        return get(self._phone_number) if trans else self._phone_number
 
     @property
-    def phone_number(self):
-        return transform(self._phone_number)
+    def last_update(self, trans: Optional[bool] = False):
+        return get(self._last_update) if trans else self._last_update
 
     @property
-    def last_update(self):
-        return transform(self._last_update)
-
-    @property
-    def crawler_state(self):
-        return transform(self._crawler_state)
+    def crawler_state(self, trans: Optional[bool] = False):
+        return get(self._crawler_state) if trans else self._crawler_state
 
     @crawler_state.setter
     def crawler_state(self, value):
         self._crawler_state = value
 
     @property
-    def crawler_description(self):
-        return transform(self._crawler_description)
+    def crawler_description(self, trans: Optional[bool] = False):
+        return get(self._crawler_description) if trans else self._crawler_description
 
     @crawler_description.setter
     def crawler_description(self, value):
@@ -221,12 +220,11 @@ class Store:
         return 'DEFAULT'
 
     def to_string(self):
-        return (f"({self.id}, {self.name}, {self.branch_title}, {self.branch_name}, {self.description}, {self.tag}, {self.preview_image}, {self.link}, {self.website}, " +
-                f"{self.phone_number}, {self.last_update}, {self.crawler_state}, {self.crawler_description}, {self.crawler_time})")
+        return (f"({self.id}, {self.name(True)}, {self.branch_title(True)}, {self.branch_name(True)}, {self.tag(True)}, {self.preview_image(True)}, {self.link(True)}, {self.website(True)}, " +
+                f"{self.phone_number(True)}, {self.last_update(True)}, {self.crawler_state(True)}, {self.crawler_description(True)}, {self.crawler_time})")
 
     def to_dict(self) -> dict:
         return {
-            "description": self.description,
             "tag": self.tag,
             "preview_image": self.preview_image,
             "link": self.link,
@@ -236,21 +234,6 @@ class Store:
             "crawler_state": self.crawler_state,
             "crawler_description": self.crawler_description
         }
-
-    def get_id(self, database: SqlDatabase):
-        return database.get_value('id', 'stores', name=self.name)
-
-    def get_tag(self):
-        return self._tag
-
-    def get_name(self):
-        return self._name
-
-    def get_branch_title(self):
-        return get_store_branch_title(self._name, force_return=True)
-
-    def get_code(self, database: SqlDatabase):
-        return f'id:{self.get_id(database)}, {self.get_name()}'
 
     def change_id(self, database: SqlDatabase, sid):
         if database.is_value_exists('stores', id=sid): return False
@@ -270,7 +253,7 @@ class Store:
         refresh_crawler_time(database, enabled=False)
         database.update(
             'stores',
-            {"crawler_state": transform(state), "crawler_description": transform(description)},
+            {"crawler_state": state, "crawler_description": description},
             {"name": self.name}
         )
         refresh_crawler_time(database, enabled=True)
@@ -329,4 +312,4 @@ class Store:
 class Reference(Store):
 
     def __init__(self, name):
-        super().__init__(name, None, None, None, None, None, None, None, None, None, None, None)
+        super().__init__(name, None, None, None, None, None, None, None, None, None, None)

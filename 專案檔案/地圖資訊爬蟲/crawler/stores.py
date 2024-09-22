@@ -147,7 +147,7 @@ for i in range(url_count):
             store_item._tag = store_tag[0].text if store_tag else None
 
     # 可能為永久歇業/暫時關閉
-    if store_item.get_tag() and any(pass_tag in store_item.get_tag() for pass_tag in PASS_TAGS):
+    if store_item.tag and any(pass_tag in store_item.tag for pass_tag in PASS_TAGS):
         print(f'\r【⛔休業中】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | {title}\n', end='')
         store_item.change_crawler_state(database, '休業', '商家已永久停業')
         continue
@@ -216,9 +216,9 @@ for i in range(url_count):
         # 標籤按鈕 - 總覽/評論/[簡介]
         tabs_elem[tabs_name.index('簡介')].click()
         time.sleep(0.2)
-        # 商家簡介 (選擇性)
-        description = driver.wait_for_element(By.CLASS_NAME, 'PbZDve')
-        if description: store_item._description = description.find_element(By.CLASS_NAME, 'ZqFyf').find_element(By.TAG_NAME, 'span').text
+        # 商家簡介 (已停用)
+        # description = driver.wait_for_element(By.CLASS_NAME, 'PbZDve')
+        # if description: store_item._description = description.find_element(By.CLASS_NAME, 'ZqFyf').find_element(By.TAG_NAME, 'span').text
         # 服務類別
         for category in driver.find_elements(By.CLASS_NAME, 'iP2t7d'):
             category_name = category.find_element(By.CLASS_NAME, 'iL3Qke').text
@@ -229,9 +229,9 @@ for i in range(url_count):
                 if service_dict.get(service.find_element(By.TAG_NAME, 'span').text) is None: service_dict[service.find_element(By.TAG_NAME, 'span').text] = (category_name, 1)
 
     ### 儲存至'關鍵字'資料表
-    if store_item.get_tag():
+    if store_item.tag:
         tag_item = Tag.Tag(
-            tag=store_item.get_tag(),
+            tag=store_item.tag,
             category=None
         ).insert_if_not_exists(database)
 
