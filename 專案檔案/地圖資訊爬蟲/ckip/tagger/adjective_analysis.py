@@ -47,11 +47,11 @@ def get_adjective_type(word):
     for sentiment in ["正面", "負面"]:
         for category, words in pos_target_data["形容詞"][sentiment].items():
             if word in words:
-                return sentiment
+                return sentiment, category
     for sentiment in ["中立", "喜好", "忽略"]:
         if word in pos_target_data["形容詞"][sentiment]:
-            return sentiment
-    return None
+            return sentiment, category
+    return None, None
 
 def advanced_search_for_noun(words, pos_tags, start_idx, used_nouns_positions):
     """
@@ -89,10 +89,10 @@ def analyze_sentence(sentence_splits):
 
         for i, (word, pos) in enumerate(zip(words, pos_tags)):
             if pos == "VH":
-                adjective_type = get_adjective_type(word)
+                adjective_type, default_category = get_adjective_type(word)
 
                 if adjective_type == "忽略":
-                    print(f'{ColorCode.DARK_GRAY}忽略形容詞: {word}{ColorCode.DEFAULT}')
+                    # print(f'{ColorCode.DARK_GRAY}忽略形容詞: {word}{ColorCode.DEFAULT}')
                     continue
 
                 adverb = None
@@ -123,19 +123,28 @@ def analyze_sentence(sentence_splits):
                 if noun:
                     full_noun_phrase = expand_noun_phrase(noun_idx, noun, words, pos_tags, current_sentence_idx, used_nouns_positions)
                     inferred_category, color_code = infer_category_from_noun(noun)
+                    if default_category == '無' and inferred_category == '售價':
+                        if adjective_type == '正面':
+                            adjective_type = '負面'
+                        elif adjective_type == '負面':
+                            adjective_type = '正面'
+                    if inferred_category == '價值': inferred_category = '售價'
+
                     obj = full_noun_phrase
                     adj = f'{adverb or ""}{word}'
                     phrase = f'{full_noun_phrase}{adverb or ""}{word}' if noun_idx < i else f'{adverb or ""}{word}{full_noun_phrase}'
                     used_nouns_positions.add((current_sentence_idx, noun_idx))
                 else:
                     inferred_category, color_code = infer_category_from_adjective(word, adjective_type)
+                    if inferred_category == '價值': inferred_category = '售價'
                     obj = ''
                     adj = f'{adverb or ""}{word}'
                     phrase = f'{adverb or ""}{word}'
 
-                print(f'{color_code}{phrase} -> {inferred_category} ({adjective_type}){ColorCode.DEFAULT}')
+                # print(f'{color_code}{phrase} -> {inferred_category} ({adjective_type}){ColorCode.DEFAULT}')
                 save_mark(store_id, comment_id, obj, adj, inferred_category, adjective_type)
-                update_score(inferred_category, adjective_type)
+                update_score(inferred_category, adjective_type, default_category)
+
 
 def find_noun_with_index(words, pos_tags, index, adjective_type, used_nouns_positions, sentence_splits, current_sentence_idx):
     """
@@ -259,20 +268,22 @@ def infer_category_from_adjective(adj, adj_type):
             if adj in words: return category, get_color_code(category)
     return "無", ''
 
-def update_score(category, adjective_type):
+
+def update_score(category, adjective_type, default_category):
     """
-    更新形容詞的數量，包含正面、負面、中立和喜好。
+    更新形容詞的數量，包含正面、負面、中立和喜好。並根據 default_category 判斷是否反轉正負面。
 
     Parameters:
         category (str): 名詞的類別。
         adjective_type (str): 形容詞的類型。
+        default_category (str): 形容詞的原始類型。
 
     Returns:
         None
     """
-    if category in scores:
-        if adjective_type in scores[category]:
-            scores[category][adjective_type] += 1
+    if category in scores and adjective_type in scores[category]:
+        scores[category][adjective_type] += 1
+
 
 def save_mark(store, comment, obj, adjective, target, state):
     """

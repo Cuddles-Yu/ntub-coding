@@ -29,12 +29,16 @@ keywords = load_json(r'D:\ntub\project\repository\ntub-coding\專案檔案\地�
 aa.pos_target_data['受詞']['產品'] = list(set(aa.pos_target_data['受詞']['產品']+keywords.get('餐點', [])))
 dishes = keywords.get('餐點', []) + keywords.get('關鍵字', []) + keywords.get('定義', [])
 
-### 留言分析 ###
-for sid in database.fetch_column('all', 0, '''
+sids = database.fetch_column('all', 0, '''
     SELECT r.store_id FROM rates AS r
     LEFT JOIN marks AS m ON r.store_id = m.store_id
     WHERE m.store_id IS NULL
-'''):
+''')
+
+### 留言分析 ###
+print()
+
+for e_sid, sid in enumerate(sids):
     settings = {'store_id': sid, 'limit': None}
     setting_store_id = f'AND store_id = {settings.get("store_id")}' if settings.get('store_id') else ''
     setting_limit = f'LIMIT {settings.get("limit")}' if settings.get('limit') else ''
@@ -53,7 +57,8 @@ for sid in database.fetch_column('all', 0, '''
     # 統計數量
     tagged_words = defaultdict(lambda: defaultdict(int))
 
-    for store_id, comment_id, sentence in comments:
+    for e_comment, (store_id, comment_id, sentence) in enumerate(comments):
+        print(f"\r評論斷句標記提取 | 商家id:{sid} | 進度:{e_sid+1}/{len(sids)} | 留言:{e_comment+1}/{len(comments)}", end='')
         filtered_sentences = [f.strip() for f in [re.sub(r'[^\u4e00-\u9fffA-Za-z，。；、\s]', '', s) for s in re.split(r'[，；。\n]+', sentence) if s] if f]
         # 斷詞
         word_sentence_list = ws(
@@ -75,7 +80,7 @@ for sid in database.fetch_column('all', 0, '''
 
         sentence_splits = []
 
-        print(sentence)
+        # print(sentence)
         #### 斷詞分析 ###
         for i, filter_sentence in enumerate(filtered_sentences):
             analysis = {
@@ -102,14 +107,14 @@ for sid in database.fetch_column('all', 0, '''
             # if is_sublist([['Na', 'D', 'VH'], ['VA', 'D', 'VH'], ['Na', 'Dfa', 'VH'], ['VA', 'Dfa', 'VH']], pos_list):
             # combine_word_na, combine_pos_na =
             # word_list, pos_list = combine_by_pattern(*combine_by_pattern(*combine_by_pattern(*combine_by_pos(word_list, pos_list, 'Na'), ["Na", "DE", "Na"]),  ["VH", "VB", "DE"]), ["VH", "Na"])
-            print(f'{{"斷句": {analysis.get("斷句")}, "斷詞": [{", ".join(analysis.get("斷詞", []))}], "詞性": [{", ".join(analysis.get("詞性", []))}]}}')
+            # print(f"{{'斷句': {analysis.get('斷句')}, '斷詞': [{', '.join(analysis.get('斷詞', []))}], '詞性': [{', '.join(analysis.get('詞性', []))}]}}")
             sentence_splits.append({"商家": sid, "留言": comment_id, "斷句": filter_sentence, "斷詞": word_list, "詞性": pos_list})
 
         aa.analyze_sentence(sentence_splits)
-        print()
+        # print()
 
     # 輸出最終得分
-    print("\n最終得分:", aa.scores)
+    # print("\n最終得分:", aa.scores)
 
     # database.execute(f'''
     #     TRUNCATE `marks`

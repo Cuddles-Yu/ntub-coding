@@ -27,6 +27,7 @@ class Classification(Enum):
     product = '產品'
     service = '服務'
     price = '售價'
+    value = '價值'
 
 def to_adjective_class(code):
     match code:
@@ -57,6 +58,8 @@ def to_object_class(code):
             return Classification.service.value
         case '4':
             return Classification.price.value
+        case '5':
+            return Classification.value.value
     return None
 
 if __name__ == '__main__':
@@ -116,17 +119,18 @@ if __name__ == '__main__':
                     pos_target[Classification.category_adj.value][pos_class].append(adj)
 
         case Classification.category_obj.value:
-            print(f"進行'{POS_TYPE}'監督式詞性屬性劃分 [*結束;0忽略;1環境;2產品;3服務;4售價;\\觀察]\n")
+            print(f"進行'{POS_TYPE}'監督式詞性屬性劃分 [*結束;0忽略;1環境;2產品;3服務;4售價;5價值;\\觀察]\n")
             environment_list = obj_dict.get(Classification.environment.value, [])
             product_list = obj_dict.get(Classification.product.value, [])
             service_list = obj_dict.get(Classification.service.value, [])
             price_list = obj_dict.get(Classification.price.value, [])
+            value_list = obj_dict.get(Classification.value.value, [])
             ignore_list = obj_dict.get(Classification.ignore.value, [])
             check_list = obj_dict.get(Classification.check.value, [])
             for obj, count in object_dict.items():
                 counter += 1
                 filed = False
-                if obj in environment_list or obj in product_list or obj in service_list or obj in price_list or obj in ignore_list or obj in check_list: continue
+                if obj in environment_list or obj in product_list or obj in service_list or obj in price_list or obj in value_list or obj in ignore_list or obj in check_list: continue
                 print(f'進度[{counter}/{len(adjective_dict)}] {obj}({count}) ', end='')
                 control = input()
                 if '1' in control:
@@ -145,6 +149,10 @@ if __name__ == '__main__':
                     filed = True
                     pos_target[Classification.category_obj.value][Classification.price.value].append(obj)
                     print(f"[✏️已紀錄] 將'{obj}'劃分至「售價」指標")
+                if '5' in control:
+                    filed = True
+                    pos_target[Classification.category_obj.value][Classification.value.value].append(obj)
+                    print(f"[✏️已紀錄] 將'{obj}'劃分至「價值」指標")
                 if '0' in control:
                     filed = True
                     pos_target[Classification.category_obj.value][Classification.ignore.value].append(obj)
