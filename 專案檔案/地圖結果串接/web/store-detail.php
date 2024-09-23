@@ -31,6 +31,7 @@
   <?php
   // 引入資料庫連接和查詢函數
   require 'queries.php';
+  require 'analysis.php';
 
 
   // 優先使用 GET 參數
@@ -62,8 +63,7 @@
   $subjective = getSubjectiveKeywords($storeId);
   $neutral = getNeutralKeywords($storeId);
 
-
-
+  $targetsInfo = getTargets($storeId);
 
   ?>
   <!-- 頂欄 -->
@@ -117,7 +117,7 @@
     <div class="love-group">
       <div class="type-rating-status-group">
         <!--綜合評分-->
-        <h5 class="rating"><?php echo htmlspecialchars($rating['avg_ratings']); ?><!--填入綜合評分--></h5>
+        <h5 class="rating"><?php echo getBayesianScore($userId, $storeId, $conn); ?></h5>
         <h6 class="rating-text">/綜合評分</h6>
         <div class="store-type" type="button"><?php echo htmlspecialchars($storeInfo['tag']); ?></div>
         <!--營業時間按鈕-->
@@ -204,70 +204,42 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="row2">
-              <td>
-                <div class="progress-group">                  
-                  <h6 class="progress-text" style="color: #562B08;">氛圍</h6>
-                  <h6 class="progress-percent" style="color: #562B08;">40分</h6>
-                </div>
-                <div class="progress col" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                  <div class="progress-bar overflow-visible" style="width: 25%; background-color: #562B08;"></div>
-                </div>
-              </td>
-              <td class="evaluate-good">110</td>
-              <td class="evaluate-bad">90</td>
-              <td class="evaluate-neutral">999</td>
-              <td class="evaluate-middle">80</td>
-              <td class="evaluate-all">200</td>
-            </tr>
-            <tr class="row3">
-              <td>
-                <div class="progress-group">                  
-                  <h6 class="progress-text" style="color: #7B8F60;">產品</h6>
-                  <h6 class="progress-percent" style="color: #7B8F60;">50分</h6>
-                </div>
-                <div class="progress col" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                  <div class="progress-bar overflow-visible" style="width: 50%; background-color: #7B8F60;"></div>
-                </div>                
-              </td>
-              <td class="evaluate-good">225</td>
-              <td class="evaluate-bad">80</td>
-              <td class="evaluate-neutral">80</td>
-              <td class="evaluate-middle">999</td>
-              <td class="evaluate-all">305</td>
-            </tr>
-            <tr class="row4">
-              <td>
-                <div class="progress-group">                  
-                  <h6 class="progress-text" style="color: #5053AF;">服務</h6>
-                  <h6 class="progress-percent" style="color: #5053AF;">70分</h6>
-                </div>
-                <div class="progress col" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                  <div class="progress-bar overflow-visible" style="width: 75%; background-color: #5053AF;"></div>
-                </div>                 
-              </td>
-              <td class="evaluate-good">25</td>
-              <td class="evaluate-bad">25</td>
-              <td class="evaluate-neutral">80</td>
-              <td class="evaluate-middle">999</td>
-              <td class="evaluate-all">50</td>
-            </tr>
-            <tr class="row5">
-              <td>
-                <div class="progress-group">                  
-                  <h6 class="progress-text" style="color: #C19237;">售價</h6>
-                  <h6 class="progress-percent" style="color: #C19237;">75分</h6>
-                </div>
-                <div class="progress col" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                  <div class="progress-bar overflow-visible" style="width: 100%; background-color: #C19237;"></div>
-                </div>                 
-              </td>
-              <td class="evaluate-good">15</td>
-              <td class="evaluate-bad">80</td>
-              <td class="evaluate-neutral">80</td>
-              <td class="evaluate-middle">80</td>
-              <td class="evaluate-all">95</td>
-            </tr>
+            <?php 
+              $categories = [
+                  $_ENVIRONMENT => ['weight' => '30', 'color' => '#562B08'], 
+                  $_PRODUCT => ['weight' => '30', 'color' => '#7B8F60'],
+                  $_SERVICE => ['weight' => '30', 'color' => '#5053AF'],
+                  $_PRICE => ['weight' => '30', 'color' => '#C19237'],
+              ];
+              uasort($categories, function($a, $b) {
+                return $b['weight'] <=> $a['weight'];
+              });
+              $rowIndex = 1;
+            ?>
+            <?php foreach ($categories as $category => $data): ?>
+              <?php 
+                $result = getProportionScore($category);
+                $proportion = $result['proportion'];
+                $score = $result['score'];
+              ?>
+              <tr class="row<?= $rowIndex ?>">
+                  <td>
+                      <div class="progress-group">
+                          <h6 class="progress-text" style="color: <?= $data['color'] ?>;"><?= $category ?></h6>
+                          <h6 class="progress-percent" style="color: <?= $data['color'] ?>;"><?= $score ?></h6>
+                      </div>
+                      <div class="progress col" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                          <div class="progress-bar overflow-visible" style="width: <?= $proportion.'%' ?>; background-color: <?= $data['color'] ?>;"></div>
+                      </div>
+                  </td>
+                  <td class="evaluate-good"><?= $targetsInfo[$_POSITIVE][$category] ?? 'NULL' ?></td>
+                  <td class="evaluate-bad"><?= $targetsInfo[$_NEGATIVE][$category] ?? 'NULL' ?></td>
+                  <td class="evaluate-prefer"><?= $targetsInfo[$_PREFER][$category] ?? 'NULL' ?></td>
+                  <td class="evaluate-neutral"><?= $targetsInfo[$_NEUTRAL][$category] ?? 'NULL' ?></td>
+                  <td class="evaluate-all"><?= $targetsInfo[$_TOTAL][$category] ?? 'NULL' ?></td>
+              </tr>
+              <?php $rowIndex++; ?>
+            <?php endforeach; ?>
           </tbody>
         </table>
       </div> 

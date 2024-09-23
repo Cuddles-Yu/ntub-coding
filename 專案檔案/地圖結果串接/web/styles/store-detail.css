@@ -698,13 +698,13 @@ body{
     text-align: right;
   }
 
-  .evaluate-neutral{
+  .evaluate-prefer{
     font-weight: bold;
     color: #ad894f !important;
     text-align: right;
   }
 
-  .evaluate-middle{
+  .evaluate-neutral{
     font-weight: bold;
     color: #51519b !important;
     text-align: right;
@@ -1466,13 +1466,13 @@ body{
     text-align: right;
   }
 
-  .evaluate-neutral{
+  .evaluate-prefer{
     font-weight: bold;
     color: #ad894f !important;
     text-align: right;
   }
 
-  .evaluate-middle{
+  .evaluate-neutral{
     font-weight: bold;
     color: #51519b !important;
     text-align: right;
@@ -2238,13 +2238,13 @@ body{
     text-align: right;
   }
 
-  .evaluate-neutral{
+  .evaluate-prefer{
     font-weight: bold;
     color: #ad894f !important;
     text-align: right;
   }
 
-  .evaluate-middle{
+  .evaluate-neutral{
     font-weight: bold;
     color: #51519b !important;
     text-align: right;
@@ -2994,18 +2994,18 @@ body{
     text-align: right;
   }
 
-  .evaluate-neutral{
+  .evaluate-prefer{
     font-weight: bold;
     color: #ad894f !important;
     text-align: right;
   }
 
-  .evaluate-middle{
+  .evaluate-neutral{
     font-weight: bold;
     color: #51519b !important;
     text-align: right;
   }
-
+  
   .evaluate-all{
     font-weight: bold;
     color: #454545 !important;

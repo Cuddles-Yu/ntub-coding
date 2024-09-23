@@ -46,6 +46,10 @@ def normalize_weights(weights_dict):
     normalized_weights = {key: value / total_weight for key, value in weights_dict.items()}
     return normalized_weights
 
+def safe_divide(numerator, denominator):
+    # 如果分母為 0，則回傳 None，否則進行除法
+    return numerator / denominator if denominator != 0 else None
+
 # 定義四個指標的權重
 TARGET_WEIGHTS = normalize_weights({
     'Environment': 30,
@@ -74,10 +78,10 @@ def calculate_comment_proportions(comments_df):
     }))
 
     # 計算每個指標的正面比例
-    proportions['environment_pos_ratio'] = proportions['environment_pos'] / proportions['environment_total'].replace(0, 1)
-    proportions['price_pos_ratio'] = proportions['price_pos'] / proportions['price_total'].replace(0, 1)
-    proportions['product_pos_ratio'] = proportions['product_pos'] / proportions['product_total'].replace(0, 1)
-    proportions['service_pos_ratio'] = proportions['service_pos'] / proportions['service_total'].replace(0, 1)
+    proportions['environment_pos_ratio'] = proportions.apply(lambda row: safe_divide(row['environment_pos'], row['environment_total']), axis=1)
+    proportions['price_pos_ratio'] = proportions.apply(lambda row: safe_divide(row['price_pos'], row['price_total']), axis=1)
+    proportions['product_pos_ratio'] = proportions.apply(lambda row: safe_divide(row['product_pos'], row['product_total']), axis=1)
+    proportions['service_pos_ratio'] = proportions.apply(lambda row: safe_divide(row['service_pos'], row['service_total']), axis=1)
 
     return proportions[['environment_pos_ratio', 'price_pos_ratio', 'product_pos_ratio', 'service_pos_ratio']]
 
@@ -94,21 +98,22 @@ def calculate_indicator_scores_from_comments(comments_proportions):
 # 計算每個商家的綜合分數（基於權重）
 def calculate_store_scores_from_comments(indicator_scores):
     # 使用 .loc 明確修改資料框，避免警告
+    _indicator_scores = indicator_scores.copy().fillna(0)
     indicator_scores.loc[:, 'score'] = (
-        indicator_scores['Environment'] * TARGET_WEIGHTS['Environment'] +
-        indicator_scores['Product'] * TARGET_WEIGHTS['Product'] +
-        indicator_scores['Service'] * TARGET_WEIGHTS['Service'] +
-        indicator_scores['Price'] * TARGET_WEIGHTS['Price']
+        _indicator_scores['Environment']*TARGET_WEIGHTS['Environment'] +
+        _indicator_scores['Product']*TARGET_WEIGHTS['Product'] +
+        _indicator_scores['Service']*TARGET_WEIGHTS['Service'] +
+        _indicator_scores['Price']*TARGET_WEIGHTS['Price']
     )
     return indicator_scores.loc[:, ['Environment', 'Product', 'Service', 'Price', 'score']]
 
-
-# 計算 Bayesian average 的方法，降低 C 值的影響
+# 計算 Bayesian average 的方法，保持原有的 C 值影響
 def calculate_bayesian_average(store_scores, rates_df):
-    store_scores = store_scores.merge(rates_df[['store_id', 'total_withcomments']], on='store_id')
+    # 將 total_reviews 和 total_withcomments 合併到 store_scores 中
+    store_scores = store_scores.merge(rates_df[['store_id', 'total_withcomments', 'total_reviews']], on='store_id')
     overall_mean_score = store_scores['score'].mean()
 
-    # 減少 C 值對貝氏平均的影響，使用中位數評論數
+    # C 值基於 total_withcomments 的中位數
     C = rates_df['total_withcomments'].median()
 
     # 計算 Bayes 平均分數
@@ -135,13 +140,22 @@ def main():
     # 按照 bayesian_score 進行排序
     final_scores = final_scores.sort_values(by='bayesian_score', ascending=False)
 
-    # 顯示最終結果，包含原始分數和加權後的分數
+    # 顯示最終結果，包含原始分數、加權後的分數以及 multiplier
     print(F"\n{ColorCode.DARK_BLUE}{ColorCode.BOLD}分數結果:{ColorCode.DEFAULT}")
-    print(final_scores.to_string(index=False))
+    print(final_scores[['store_id', 'Environment', 'Product', 'Service', 'Price', 'score', 'bayesian_score']].to_string(index=False))
 
     # 顯示貝氏平均和 C 值
     print(f"\n{ColorCode.DARK_BLUE}{ColorCode.BOLD}貝氏平均:{ColorCode.DEFAULT} {bayesian_average}")
     print(f"{ColorCode.DARK_BLUE}{ColorCode.BOLD}C值基準:{ColorCode.DEFAULT} {C_value}")
+
+    for index, row in final_scores.iterrows():
+        database.update('rates', {
+            "comments_analysis": 1,
+            "environment_rating": row['Environment'] if not pd.isna(row['Environment']) else None,
+            "price_rating": row['Price'] if not pd.isna(row['Price']) else None,
+            "product_rating": row['Product'] if not pd.isna(row['Product']) else None,
+            "service_rating": row['Service'] if not pd.isna(row['Service']) else None,
+        }, {"store_id": row['store_id']})
 
 if __name__ == "__main__":
     main()

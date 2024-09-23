@@ -124,6 +124,11 @@ def create_rates(cursor):
             `mixreviews_count` int DEFAULT NULL,
             `additionalcomments_count` int DEFAULT NULL,
             `real_rating` decimal(2,1) DEFAULT NULL,
+            `comments_analysis` TINYINT NULL DEFAULT 0,
+            `environment_rating` decimal(6,3) DEFAULT NULL,
+            `price_rating` decimal(6,3) DEFAULT NULL,
+            `product_rating` decimal(6,3) DEFAULT NULL,
+            `service_rating` decimal(6,3) DEFAULT NULL,
             `store_responses` int DEFAULT NULL,
             PRIMARY KEY (`store_id`),
             CONSTRAINT `fk_store_id_r` FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE

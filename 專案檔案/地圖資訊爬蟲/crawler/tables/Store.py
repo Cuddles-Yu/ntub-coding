@@ -116,7 +116,7 @@ def search(database: SqlDatabase, keyword: str):
         ORDER BY r.real_rating DESC, total_reviews DESC
     ''')
 
-class Store:
+class Store:    
     _name = ''
     _branch_title = ''
     _branch_name = ''
@@ -150,12 +150,12 @@ class Store:
         return database.get_value('id', 'stores', name=self.name)
 
     @property
-    def name(self, trans: Optional[bool] = False):
-        return get(self._name) if trans else self._name
+    def name(self):
+        return self._name
 
     @property
-    def branch_title(self, trans: Optional[bool] = False):
-        return get(self._branch_title) if trans else self._branch_title
+    def branch_title(self):
+        return self._branch_title
 
     def get_branch_title(self):
         return get_store_branch_title(self.name, force_return=True)
@@ -168,48 +168,48 @@ class Store:
         self._branch_title = value
 
     @property
-    def branch_name(self, trans: Optional[bool] = False):
-        return get(self._branch_name) if trans else self._branch_name
+    def branch_name(self):
+        return self._branch_name
 
     @branch_name.setter
     def branch_name(self, value):
         self._branch_name = value
 
     @property
-    def tag(self, trans: Optional[bool] = False):
-        return get(self._tag) if trans else self._tag
+    def tag(self):
+        return self._tag
 
     @property
-    def preview_image(self, trans: Optional[bool] = False):
-        return get(self._preview_image) if trans else self._preview_image
+    def preview_image(self):
+        return self._preview_image
 
     @property
-    def link(self, trans: Optional[bool] = False):
-        return get(self._link) if trans else self._link
+    def link(self):
+        return self._link
 
     @property
-    def website(self, trans: Optional[bool] = False):
-        return get(self._website) if trans else self._website
+    def website(self):
+        return self._website
 
     @property
-    def phone_number(self, trans: Optional[bool] = False):
-        return get(self._phone_number) if trans else self._phone_number
+    def phone_number(self):
+        return self._phone_number
 
     @property
-    def last_update(self, trans: Optional[bool] = False):
-        return get(self._last_update) if trans else self._last_update
+    def last_update(self):
+        return self._last_update
 
     @property
-    def crawler_state(self, trans: Optional[bool] = False):
-        return get(self._crawler_state) if trans else self._crawler_state
+    def crawler_state(self):
+        return self._crawler_state
 
     @crawler_state.setter
     def crawler_state(self, value):
         self._crawler_state = value
 
     @property
-    def crawler_description(self, trans: Optional[bool] = False):
-        return get(self._crawler_description) if trans else self._crawler_description
+    def crawler_description(self):
+        return self._crawler_description
 
     @crawler_description.setter
     def crawler_description(self, value):
@@ -220,8 +220,10 @@ class Store:
         return 'DEFAULT'
 
     def to_string(self):
-        return (f"({self.id}, {self.name(True)}, {self.branch_title(True)}, {self.branch_name(True)}, {self.tag(True)}, {self.preview_image(True)}, {self.link(True)}, {self.website(True)}, " +
-                f"{self.phone_number(True)}, {self.last_update(True)}, {self.crawler_state(True)}, {self.crawler_description(True)}, {self.crawler_time})")
+        return (
+            f"({get(self.id)}, {get(self.name)}, {get(self.branch_title)}, {get(self.branch_name)}, {get(self.tag)}, {get(self.preview_image)}, {get(self.link)}, {get(self.website)}, "
+            f"{get(self.phone_number)}, {get(self.last_update)}, {get(self.crawler_state)}, {get(self.crawler_description)}, {get(self.crawler_time)}"
+        )
 
     def to_dict(self) -> dict:
         return {

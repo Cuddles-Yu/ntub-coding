@@ -30,7 +30,7 @@ function searchStores($keyword, $userLat, $userLng)
             INNER JOIN rates AS r ON s.id = r.store_id
             INNER JOIN locations AS l ON s.id = l.store_id
             INNER JOIN tags AS t ON s.tag = t.tag
-            WHERE (s.name LIKE ? OR s.description LIKE ? OR t.category LIKE ? OR s.tag LIKE ? OR k.word LIKE ?)
+            WHERE (s.name LIKE ? OR t.category LIKE ? OR s.tag LIKE ? OR k.word LIKE ?)
             AND s.crawler_state IN ('成功', '完成', '超時')";
 
     // 若有經緯度條件，則加上範圍過濾
@@ -43,9 +43,9 @@ function searchStores($keyword, $userLat, $userLng)
 
     $stmt = $conn->prepare($sql);
     if ($userLat && $userLng) {
-        $stmt->bind_param("dddsssss", $userLat, $userLng, $userLat, $keyword, $keyword, $keyword, $keyword, $keyword);
+        $stmt->bind_param("dddssss", $userLat, $userLng, $userLat, $keyword, $keyword, $keyword, $keyword);
     } else {
-        $stmt->bind_param("sssss", $keyword, $keyword, $keyword, $keyword, $keyword);
+        $stmt->bind_param("ssss", $keyword, $keyword, $keyword, $keyword);
     }
     $stmt->execute();
     $result = $stmt->get_result();
