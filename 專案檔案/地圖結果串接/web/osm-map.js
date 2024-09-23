@@ -1,7 +1,7 @@
 // 建構地圖，經緯度座標中心、縮放等級
 var map = L.map('map', {
-    center: [25.03746, 121.564558],
-    zoom: 11,
+    center: [25.0418963, 121.5230431], //改成北商座標
+    zoom: 16,
 });
 
 // 檢查地圖是否建構成功
@@ -41,8 +41,11 @@ fetch('./data.php')
     })
     .then(data => {
         console.log('JSON資料引入成功！');
-        processJsonData(data);
-        document.getElementById('searchResults').innerHTML = search.html; // 更新HTML
+        if (Array.isArray(data) && data.length > 0) {
+            processJsonData(data);
+        } else {
+            console.log('沒有資料顯示在地圖上');
+        }
     })
     .catch(error => {
         console.error('引入JSON資料時發生了一些問題：', error);
@@ -50,6 +53,7 @@ fetch('./data.php')
 
 var markers = new L.MarkerClusterGroup();
 
+// 處理JSON資料，建立地標
 function processJsonData(data) {
     // 清除先前的標記
     markers.clearLayers();
@@ -70,21 +74,27 @@ function processJsonData(data) {
             var latlng = [parseFloat(data[i].latitude), parseFloat(data[i].longitude)];
             // 檢查經緯度數據的有效性
             if (isFinite(latlng[0]) && isFinite(latlng[1])) {
-                console.log(`Latitude: ${data[i].latitude}, Longitude: ${data[i].longitude}`);
                 latlngs.push(latlng);
 
                 // 建立 L.Marker，確保經緯度順序正確（緯度在前latitude，經度在後longtitude）
                 var marker = L.marker(latlng, { icon: mapIcon })
                     .bindPopup(
                         `
+                        <div class="popup-content" style="cursor: pointer;">
                         <img src="${data[i].preview_image}" style="width: 200px; height: 112.5px; object-fit: cover; object-position: center;"/>
                         <div style="font-weight: bold; font-size: 16px; margin-top: 10px; margin-bottom: 10px;">${data[i].name}</div>
-                        <div style="font-size: 14px; margin-bottom: 5px;">評分：${rating}</div> <!-- 乘以20 -->
+                        <div style="font-size: 14px; margin-bottom: 5px;">評分：${data[i].rating}</div> <!-- 乘以20 -->
                         <div style="font-size: 14px; margin-bottom: 5px;">評論數：${data[i].total_withcomments}/${data[i].sample_ratings}</div>
                         <div style="font-size: 14px; margin-bottom: 5px;">標籤：${data[i].tag}</div>
-                        <button style="font-size:12px; right:0; cursor: pointer;">詳細資訊</button>
+                        <button style="font-size:12px; right:0; cursor: pointer;" onclick="redirectToDetailPage('${data[i].id}')">詳細資訊</button>
+                        </div>
                         `
-                    );
+                    )
+                    .on('popupopen', function () {
+                        document.querySelector('.popup-content').addEventListener('click', function () {
+                            scrollToStore(data[i].id, data[i].name);
+                        });
+                    });
 
                 // 將 marker 加入到 markers 群組中
                 markers.addLayer(marker);
@@ -98,13 +108,6 @@ function processJsonData(data) {
 
     // 將 markers 加入到 map 的圖層上
     map.addLayer(markers);
-
-    // 設置地圖中心
-    if (latlngs.length > 0) {
-        setPlaceCenter(latlngs);
-    } else {
-        console.log("地點數量為0，無法計算中心");
-    }
 }
 
 // 設置地圖中心函式
@@ -148,7 +151,7 @@ map.on('locationerror', function (e) {
 
 // 使用者滑動後取得目前地圖中心經緯度
 function moveGetCenter() {
-    map.on('moveend', function() {
+    map.on('moveend', function () {
         var moveCenter = map.getCenter(); // 取得地圖中心點的經緯度，回傳 L.LatLng 物件
         document.getElementById('latitude').innerText = moveCenter.lat;
         document.getElementById('longitude').innerText = moveCenter.lng;

@@ -1,7 +1,7 @@
 <?php //網站首頁
 require_once 'db.php';
 
-function searchStores($location, $keyword)
+function searchStores($keyword)
 {
     global $conn;
     $keyword = "%" . $keyword . "%";
@@ -12,15 +12,13 @@ function searchStores($location, $keyword)
         INNER JOIN rates AS r ON s.id = r.store_id
         INNER JOIN locations AS l ON s.id = l.store_id
         INNER JOIN tags AS t ON s.tag = t.tag
-        WHERE l.city = ? 
-        AND (s.name LIKE ? OR s.description LIKE ? OR t.category LIKE ? OR s.tag LIKE ? OR k.word LIKE ?)
+        WHERE (s.name LIKE ? OR s.description LIKE ? OR t.category LIKE ? OR s.tag LIKE ? OR k.word LIKE ?)
         AND s.crawler_state IN ('成功', '完成', '超時')
         ORDER BY r.avg_ratings DESC, r.total_reviews DESC
     ";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param(
-        "ssssss",
-        $location,
+        "sssss",
         $keyword,
         $keyword,
         $keyword,
@@ -39,12 +37,11 @@ function searchStores($location, $keyword)
     return $stores;
 }
 
-$location = "台北市";
 $keyword = $_POST["keyword"] ?? "";
 
 $stores = [];
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $stores = searchStores($location, $keyword);
+if ($_SERVER["REQUEST_METHOD"] == "POST"&& !empty($keyword)) {
+    $stores = searchStores($keyword);
 }
 
 ?>

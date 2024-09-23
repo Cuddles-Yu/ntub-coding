@@ -33,29 +33,18 @@
   require 'queries.php';
 
 
-  // 優先使用 GET 參數，否則使用 session 中的值
+  // 優先使用 GET 參數
+  $userId = $_GET['uid'] ?? null;
   $storeId = $_GET['id'] ?? null;
-  $storeName = $_GET['name'] ?? null;
 
-  // 如果 storeId 或 storeName 不存在，根據現有的值獲取缺失的資訊
-  if ($storeName || $storeId) {
-    if ($storeName && !$storeId) {
-      $storeInfo = getStoreInfo($storeName);
-      $storeId = $storeInfo['id'] ?? null;
-    } elseif ($storeId && !$storeName) {
-      $storeInfo = getStoreInfoById($storeId);
-      $storeName = $storeInfo['name'] ?? null;
-    }
-  }
-
-  // 如果 storeName 和 storeId 都不存在，則輸出錯誤訊息
-  if (empty($storeName) || empty($storeId)) {
-    echo "無效的分店資訊";
-    exit;
-  }
+ // 如果 storeId 或 storeName 不存在，根據現有的值獲取缺失的資訊
+ if (empty($storeId)) {
+  Header("Location: home.html");
+  exit;
+}
 
   // 獲取店家資訊
-  $storeInfo = getStoreInfo($storeName);
+  $storeInfo = getStoreInfoById($storeId);
   $relevants = getRelevantComments($storeId);
   $Highests = getHighestComments($storeId);
   $Lowests = getLowestComments($storeId);
@@ -172,6 +161,7 @@
       <?php
           // 顯示每個分店的資訊
           foreach ($otherBranches as $branch) {
+            $storeId = htmlspecialchars($branch['id']);
             $storeName = htmlspecialchars($branch['name']);
             $branchName = htmlspecialchars($branch['branch_name']);
             $branchId = htmlspecialchars($branch['id']); // 取得分店的 ID
@@ -179,7 +169,7 @@
             $address = htmlspecialchars(($branch['city'] ?? '') . ($branch['dist'] ?? '')  . ($branch['vil'] ?? '') . ($branch['details'] ?? ''));
 
             echo '<div class="other-store-display">';
-            echo '<a class="other-store-group col-11" href="store-detail.php?id='  . $storeId . '&name=' . urlencode($storeName) . '">'; // 連結到分店詳細頁面
+            echo '<a class="other-store-group col-11" href="store-detail.php?id='  . $storeId . '">'; // 連結到分店詳細頁面
             echo '<li class="store-name col-4">' . $branchName . '</li>';
             echo '<p class="other-rating col-3">' . $avgRating . ' /綜合評分</p>';
             echo '<p class="other-map address col"><i class="fi fi-sr-map-marker address-img"></i>' . $address . '</p>';
@@ -395,7 +385,7 @@
       <div class="group-gb neutral-side">
         <h6 class="title-gb">喜好<i class="fi fi-sr-caret-right keyword-arrow"></i></h6>
         <div class="group-keyword">
-          <!--動態生成 主觀標籤-->
+          <!--動態生成 喜好標籤-->
           <!-- 動態生成關鍵字 -->
           <?php foreach ($subjective as $index => $keyword): ?>
             <div class="keywords">
@@ -505,7 +495,7 @@
         <div class="introduction-item-group">
           <div class="store-introduction-group">
             <li class="introduction-title">地址</li>
-            <li class="introduction-item"><a class="introduction-item" href="https://maps.google.com/?q=<?php echo urlencode($storeInfo['name']); ?>" target="_blank">
+            <li class="introduction-item"><a class="introduction-item" onclick="navigateToStore(<?php echo htmlspecialchars(json_encode($location['latitude'])); ?>, <?php echo htmlspecialchars(json_encode($location['longitude'])); ?>)">
                 <?php echo htmlspecialchars($location['city'] . '' . $location['dist'] . '' . $location['vil'] . '' . $location['city'] . '' . $location['details']); ?></a></li>
           </div>
           <div class="store-introduction-group">
@@ -520,9 +510,6 @@
         </div>
       </div>
       <div id="map" class="map">
-        <!-- 使用者定位按鈕 -->
-        <button type="button" id="locateButton" onclick="userLocate()">使用您的位置</button>
-      </div>
     </div>
     
   </section>
@@ -588,6 +575,27 @@
     });
   </script>
 
+<script>
+    var storeId = <?php echo json_encode($storeId); ?>;
+  </script>
+
+<script>
+function navigateToStore(storeLat, storeLng) {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var userLat = position.coords.latitude;
+            var userLng = position.coords.longitude;
+            var googleMapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${storeLat},${storeLng}`;
+            window.open(googleMapsUrl, '_blank');
+        }, function(error) {
+            alert('無法取得您的位置: ' + error.message);
+        });
+    } else {
+        alert('您的瀏覽器不支援地理定位功能。');
+    }
+}
+</script>
+
   <!-- 載入地圖框架 leaflet.js -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
@@ -600,11 +608,8 @@
   <!-- 載入 Markercluster.js -->
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 
-  <!-- 載入JSON資料 data.json -->
-  <script src="data.php"></script>
-
   <!-- 載入主程式 osm_map.js -->
-  <script src="./osm-map.js"></script>
+  <script src="./storedetail-landmark.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
   <script src="scripts/ui-interactions.js"></script>
