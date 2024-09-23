@@ -77,47 +77,45 @@
 
 
   ?>
+  <!-- 頂欄 -->
   <header>
-    <div id="header-content" class="header-content_active header-content wrapper-content">
-      <div class="logo-group">
-        <img class="Logo" src="images/Logo設計_圖像(藍+).png">
-        <a class="Logo-text" href="home.html">評星宇宙</a>
-      </div>
-      <nav class="header-nav">
-        <a class="link__text" href="home.html">網站首頁</a>
-        <a class="link__text" href="member.html">會員專區</a>
-        <a class="link__text" href="#">使用說明</a>
-        <a class="link__text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a>
-        <a class="link__text" href="develop-team.html">成員介紹</a>
-      </nav>
-      <div class="member" type="button" data-bs-toggle="offcanvas">
-        <img class="member-icon" src="images/user.jpg">
-      </div>
-      <div id="hambuger" class="wrapper-hambuger" type="button" data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-        <div class="cross-button-top cross-button"></div>
-        <div class="cross-button-bottom cross-button"></div>
-      </div>
-      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
-        aria-labelledby="offcanvasExampleLabel">
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title " id="offcanvasExampleLabel">
-            <img class="Logo" src="images/Logo設計_圖像(藍+).png">
-            <a class="Logo-text" href="home.html">評星宇宙</a>
-          </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-          <ul class="offcanvas-ul">
-            <li><a class="offcanvas__text" href="home.html">網站首頁</a></li>
-            <li><a class="offcanvas__text" href="member.html">會員專區</a></li>
-            <li><a class="offcanvas__text" href="#">使用說明</a></li>
-            <li><a class="offcanvas__text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a></li>
-            <li><a class="offcanvas__text" href="develop-team.html">成員介紹</a></li>
-          </ul>
-        </div>
-      </div>
+    <!-- 基本項目 -->
+    <div id="web_name">
+        <img src="images/Logo設計_圖像(藍+).png" id="web_logo">
+        <a href="home.html">評星宇宙</a>
     </div>
+
+    <div id="nav_menu1">
+        <a class="link_text" href="home.html">網站首頁</a>
+        <div class="vertical-line"></div>
+        <a class="link_text" href="#">使用說明</a>
+        <div class="vertical-line"></div>
+        <a class="link_text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a>
+        <div class="vertical-line"></div>
+        <a class="link_text" href="develop-team.html">成員介紹</a>
+    </div>
+
+    <div id="user_icon" type="button">
+        <img src="images/user.jpg" id="user_icon_logo">
+    </div>
+
+    <div id="login_button">
+        <button id="login" href="#">登入</button>
+        <button id="signup" href="#">註冊</button>
+    </div>
+
+    <!-- 漢堡圖示 -->
+    <button id="hamburger_btn" class="hamburger">&#9776;</button>
+    <div id="overlay"></div>
+    <nav id="nav_menu2">
+        <a class="link_text" href="home.html">網站首頁</a>
+        <a class="link_text" href="#">使用說明</a>
+        <a class="link_text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a>
+        <a class="link_text" href="develop-team.html">成員介紹</a>
+        <button id="login2" href="#">登入</button>
+        <button id="signup2" href="#">註冊</button>
+    </nav>
+    <hr>
   </header>
 
   <section class="primary-content section-content">
@@ -208,9 +206,11 @@
           <thead>
             <tr class="row1">
               <th scope="col" class="col1"></th>
-              <th scope="col" class="col2">正面評價數</th>
-              <th scope="col" class="col3">負面評價數</th>
-              <th scope="col" class="col4">評價總數</th>
+              <th scope="col" class="col2">正面</th>
+              <th scope="col" class="col3">負面</th>
+              <th scope="col" class="col4">喜好</th>
+              <th scope="col" class="col5">中性</th>
+              <th scope="col" class="col6">評價總數</th>
             </tr>
           </thead>
           <tbody>
@@ -226,6 +226,8 @@
               </td>
               <td class="evaluate-good">110</td>
               <td class="evaluate-bad">90</td>
+              <td class="evaluate-neutral">999</td>
+              <td class="evaluate-middle">80</td>
               <td class="evaluate-all">200</td>
             </tr>
             <tr class="row3">
@@ -240,6 +242,8 @@
               </td>
               <td class="evaluate-good">225</td>
               <td class="evaluate-bad">80</td>
+              <td class="evaluate-neutral">80</td>
+              <td class="evaluate-middle">999</td>
               <td class="evaluate-all">305</td>
             </tr>
             <tr class="row4">
@@ -254,6 +258,8 @@
               </td>
               <td class="evaluate-good">25</td>
               <td class="evaluate-bad">25</td>
+              <td class="evaluate-neutral">80</td>
+              <td class="evaluate-middle">999</td>
               <td class="evaluate-all">50</td>
             </tr>
             <tr class="row5">
@@ -268,12 +274,14 @@
               </td>
               <td class="evaluate-good">15</td>
               <td class="evaluate-bad">80</td>
+              <td class="evaluate-neutral">80</td>
+              <td class="evaluate-middle">80</td>
               <td class="evaluate-all">95</td>
             </tr>
           </tbody>
         </table>
       </div> 
-      <hr class="divider-line">
+      <div class="divider-line"></div>
       <div class="service col">
         <div class="title-group">
           <i class="fi fi-sr-following group-title-img"></i>
@@ -385,7 +393,7 @@
       </div>
 
       <div class="group-gb neutral-side">
-        <h6 class="title-gb">主觀<i class="fi fi-sr-caret-right keyword-arrow"></i></h6>
+        <h6 class="title-gb">喜好<i class="fi fi-sr-caret-right keyword-arrow"></i></h6>
         <div class="group-keyword">
           <!--動態生成 主觀標籤-->
           <!-- 動態生成關鍵字 -->
@@ -400,7 +408,7 @@
         </div>
       </div>
       <div class="group-gb middle-side">
-        <h6 class="title-gb">中立<i class="fi fi-sr-caret-right keyword-arrow"></i></h6>
+        <h6 class="title-gb">中性<i class="fi fi-sr-caret-right keyword-arrow"></i></h6>
         <div class="group-keyword">
 
           <!-- 動態生成關鍵字 -->
@@ -417,7 +425,7 @@
     </div>
 
     <div class="keyword-title">
-      <h5 class="keyword-title-text">留言 (共<?php echo count($comments); ?>則)</h5><!--括號填入留言數量-->
+      <h5 class="keyword-title-text">留言 <?php echo count($comments); ?>則</h5><!--括號填入留言數量-->
       <!--排序按鈕-->
       <div class="input-group mb-3 sort-button">
         <span class="input-group-text" id="basic-addon1"><i class="fi fi-sr-sort-amount-down"></i>排序</span>

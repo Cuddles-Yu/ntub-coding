@@ -12,139 +12,478 @@ html, body {
   -moz-user-select:none;  /* 禁止for Mozilla、Firefox */
 }
 
-header {
-  border-bottom: 4px solid #838199;
-  position: sticky;
-  top: 0;
-  background-color: white;
-  z-index: 9999;
+body{
+  padding-top: 90px;
 }
 
-.wrapper-content{
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 1540px;
-  margin: 0 auto;
-}
+/* header */
+@media (min-width: 1200px){
+  header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      height: 80px;
+      width: 100%;
+      background-color: #FFFFFF;
+      z-index: 9999;
+  }
 
-.header-content {
-  height: 80px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+  .link_text {
+      text-decoration: none; /* 移除底線 */
+      color: black;
+      font-size: 20px;
+  }
 
-.logo-group {
-  font-size: 35px;
-  margin-left: 10px;
-}
+  .vertical-line {
+      width: 2px; /* 設置寬度 */
+      height: 30px; /* 設置高度 */
+      background-color: #C5C5C5; /* 設置顏色 */
+      margin: 0 40px; /* 設置上下為0，左右為20px的間距 */
+  }
 
-.Logo {
-  width: 35px;
-  height: 50px;
-}
+  #user_icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      right: 10vw;
+      height: 80px;
+  }
+  
+  #user_icon_logo {
+      display: none;
+      width: 40px;
+      height: 40px;
+      right: 10vw;
+      cursor: pointer;
+  }
 
-.Logo-text {
-  color: black;
-  text-decoration: none;
-  font-weight: bold;
-}
+  #web_name {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      left: 10vw;
+      font-size: 30px;
+      font-weight: bold;
+  }
 
-.header-nav {
-  width: 680px;
-  display: flex;
-  justify-content: space-between;
-}
+  #web_name a {
+      text-decoration: none; /* 移除底線 */
+      color: black;
+      margin-top: 0px;
+      margin-bottom: 0px;
+      margin-left: 5px;
+  }
 
-.link__text {
-  color: #424242;
-  text-decoration: none;
-  font-size: 18px;
-}
+  #web_logo {
+      width: auto;
+      height: 50px;
+  }
 
-.link__text:hover {
-  transition: all 0.2s;
-  color: black;
-}
+  #login_button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      height: 80px;
+      right: 10vw;
+  }
 
-.wrapper-hambuger{
-  display: none;
-}
+  #login {
+      border: none;
+      background-color: transparent;
+      text-decoration: underline;
+      text-underline-offset: 5px;
+      color: #247cff;
+  }
 
-.member {
-  display: flex;
-  align-items: center;
-  width: 162.5px;
-  justify-content: flex-end;
-}
+  #signup {
+      border: none;
+      background-color: transparent;
+      text-decoration: underline;
+      text-underline-offset: 5px;
+      color: #247cff;
+      margin-left: 10px;
+  }
 
-.member-icon {
-  width: 40px;
-  height: 40px;
-  margin-right: 10px;
-}
+  hr {
+      width: 100%;
+      height: 4px; /* 粗細 */
+      background-color: #9D9ABD;
+      border: none;
+      position: fixed;
+      top: 80px;
+      margin: 0;
+  }
+  
+  /* 漢堡圖示 */
+  #nav_menu1 {
+      display: flex;
+  }
 
-@media screen and (min-width: 1037px) {
-  .link__text:not(:last-child):after {
-    content: "";
-    border: 0.2px solid #C5C5C5;
-    height: 1px;
-    margin-left: 41px;
+  #nav_menu2 {
+      display: none; /* 隱藏導航菜單 */
+      flex-direction: column;
+      position: absolute;
+      top: 80px;
+      background-color: white;
+      width: 100%;
+  }
+
+  #nav_menu2 a {
+      padding: 10px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+  }
+
+  .hamburger {
+      display: none; /* 隱藏漢堡圖標 */
+      font-size: 30px;
+      background: none;
+      border: none;
+      cursor: pointer;
   }
 }
 
-@media screen and (max-width: 1037px) {
-  .link__text:not(:last-child):after {
-    content: "";
-    border: 0.2px solid #C5C5C5;
-    height: 1px;
-    margin-left: 41px;
+@media (min-width: 700px) and (max-width: 1199px){
+  header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      height: 80px;
+      width: 100%;
+      background-color: #FFFFFF;
+      z-index: 9999;
   }
 
-  .member {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin-right: 15px;
-    flex: 1;
+  .link_text {
+      text-decoration: none; /* 移除底線 */
+      color: black;
+      font-size: 20px;
   }
 
-  .member-icon {
-    width: 40px;
-    height: 40px;
-    margin-right: 5px;
+  .vertical-line {
+      width: 2px; /* 設置寬度 */
+      height: 30px; /* 設置高度 */
+      background-color: #C5C5C5; /* 設置顏色 */
+      margin: 0 40px; /* 設置上下為0，左右為20px的間距 */
   }
 
-  .wrapper-hambuger {
-    height: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    cursor: pointer;
-    margin-right: 10px;
+  #user_icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      right: 10vw;
+      height: 80px;
   }
 
-  .cross-button {
-    width: 30px;
-    height: 3px;
-    background-color: #424242;
+  #user_icon_logo {
+      display: block;
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      right: 10vw;
+      cursor: pointer;
   }
 
-  .header-nav {
-    display: none;
+  #web_name {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      left: 5vw;
+      font-size: 30px;
+      font-weight: bold;
   }
 
-  .offcanvas-ul {
-    list-style: none;
-    text-align: center;
+  #web_name a {
+      text-decoration: none; /* 移除底線 */
+      color: black;
+      margin-top: 0px;
+      margin-bottom: 0px;
+      margin-left: 5px;
   }
 
-  .offcanvas__text {
-    font-size: large;
-    color: #424242;
-    text-decoration: none;
-    list-style: none;
-    line-height: 4;
+  #web_logo {
+      width: auto;
+      height: 50px;
+  }
+
+  #login_button {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      height: 80px;
+      right: 15vw;
+  }
+
+  #login {
+      border: none;
+      background-color: transparent;
+      text-decoration: underline;
+      text-underline-offset: 5px;
+      color: #247cff;
+  }
+
+  #signup {
+      border: none;
+      background-color: transparent;
+      text-decoration: underline;
+      text-underline-offset: 5px;
+      color: #247cff;
+      margin-left: 10px;
+  }
+
+  hr {
+      width: 100%;
+      height: 4px; /* 粗細 */
+      background-color: #9D9ABD;
+      border: none;
+      position: fixed;
+      top: 80px;
+      margin: 0;
+  }
+
+  /* 漢堡圖示相關 */
+  #nav_menu1 {
+      display: none; /* 隱藏完整的頂欄 */
+  }
+
+  #nav_menu2 {
+      display: none; /* 隱藏導航菜單 */
+      flex-direction: column;
+      position: fixed;
+      top: 80px;
+      left: 0;
+      background-color: white;
+      width: 40vh;
+      height: 100vh;
+      transform: translateX(-100%); /* 水平移動 */
+      transition: transform 10s ease-out; /* 平滑過渡 */;
+      z-index: 1;
+  }
+
+  #nav_menu2 a {
+      padding: 30px;
+      text-align: center;
+      font-size: 28px;
+  }
+
+  #nav_menu2.show {
+      display: flex; /* 顯示導航菜單 */
+      transform: translateX(0); /* 水平移動 */
+  }
+
+  #overlay {
+      display: none; /* 隱藏遮罩 */
+      position: fixed;
+      top: 80px;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色 */
+  }
+
+  #overlay.show {
+      display: block; /* 顯示遮罩 */
+  }
+
+  #login2 {
+      border: none;
+      background-color: transparent;
+      text-underline-offset: 5px;
+      color: #247cff;
+      text-align: center;
+      font-size: 28px;
+      padding: 30px;
+  }
+
+  #signup2 {
+      border: none;
+      background-color: transparent;
+      text-underline-offset: 5px;
+      color: #247cff;
+      text-align: center;
+      font-size: 28px;
+      padding: 30px;
+  }
+
+  .hamburger {
+      display: block; /* 顯示漢堡圖標 */
+      font-size: 30px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      position: fixed;
+      right: 5vw;
+  }
+}
+
+@media (max-width: 699px) {
+  header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      height: 80px;
+      width: 100%;
+      background-color: #FFFFFF;
+      z-index: 9999;
+  }
+
+  .link_text {
+      text-decoration: none; /* 移除底線 */
+      color: black;
+      font-size: 20px;
+  }
+
+  .vertical-line {
+      width: 2px; /* 設置寬度 */
+      height: 30px; /* 設置高度 */
+      background-color: #C5C5C5; /* 設置顏色 */
+      margin: 0 40px; /* 設置上下為0，左右為20px的間距 */
+  }
+
+  #user_icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      right: 10vw;
+      height: 80px;
+  }
+
+  #user_icon_logo {
+      display: block;
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      right: 14vw;
+      cursor: pointer;
+  }
+
+  #web_name {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      left: 5vw;
+      font-size: 30px;
+      font-weight: bold;
+  }
+
+  #web_name a {
+      text-decoration: none; /* 移除底線 */
+      color: black;
+      margin-top: 0px;
+      margin-bottom: 0px;
+      margin-left: 5px;
+  }
+
+  #web_logo {
+      width: auto;
+      height: 50px;
+  }
+
+  #login_button {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      height: 80px;
+      right: 15vw;
+  }
+
+  hr {
+      width: 100%;
+      height: 4px; /* 粗細 */
+      background-color: #9D9ABD;
+      border: none;
+      position: fixed;
+      top: 80px;
+      margin: 0;
+  }
+
+  /* 漢堡圖示相關 */
+  #nav_menu1 {
+      display: none; /* 隱藏完整的頂欄 */
+  }
+
+  #nav_menu2 {
+      display: none; /* 隱藏導航菜單 */
+      flex-direction: column;
+      position: fixed;
+      top: 80px;
+      left: 0;
+      background-color: white;
+      width: 40vh;
+      height: 100vh;
+      transform: translateX(-100%); /* 水平移動 */
+      transition: transform 10s ease-out; /* 平滑過渡 */;
+      z-index: 1;
+  }
+
+  #overlay {
+      display: none; /* 隱藏遮罩 */
+      position: fixed;
+      top: 80px;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色 */
+  }
+
+  #overlay.show {
+      display: block; /* 顯示遮罩 */
+  }
+
+  #nav_menu2.show {
+      display: flex; /* 顯示導航菜單 */
+      transform: translateX(0); /* 水平移動 */
+  }
+
+  #nav_menu2 a {
+      padding: 30px;
+      text-align: center;
+      font-size: 28px;
+  }
+
+  #login2 {
+      border: none;
+      background-color: transparent;
+      text-underline-offset: 5px;
+      color: #247cff;
+      text-align: center;
+      font-size: 28px;
+      padding: 30px;
+  }
+
+  #signup2 {
+      border: none;
+      background-color: transparent;
+      text-underline-offset: 5px;
+      color: #247cff;
+      text-align: center;
+      font-size: 28px;
+      padding: 30px;
+  }
+
+  .hamburger {
+      display: block; /* 顯示漢堡圖標 */
+      font-size: 30px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      position: fixed;
+      right: 5vw;
   }
 }
 
@@ -158,7 +497,7 @@ header {
   }
 
   .title-text{
-    margin-top: 95px;
+    margin-top: 90px;
     text-align: center;
     font-weight: bold;
     font-size: 75px;
@@ -294,8 +633,10 @@ header {
   }
 
   .tip-line{
-    border: 1px solid #374957;
+    border: 1px solid #68737a;
     margin-top: 45px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .tip{
@@ -666,8 +1007,10 @@ header {
   }
 
   .tip-line{
-    border: 1px solid #374957;
+    border: 1px solid #68737a;
     margin-top: 45px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .tip{
@@ -1037,8 +1380,10 @@ header {
   }
 
   .tip-line{
-    border: 1px solid #374957;
+    border: 1px solid #68737a;
     margin-top: 45px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .tip{

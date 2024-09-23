@@ -200,14 +200,29 @@ if (container.scrollHeight > container.clientHeight) {
 }
 
 //留言按鈕文字狀態
-document.getElementById('toggleButton').addEventListener('click', function () {
-  const button = this;
-  const isExpanded = button.getAttribute('aria-expanded') === 'true';
-
+//document.getElementById('toggleButton').addEventListener('click', function () {
+//  const button = this;
+//  const isExpanded = button.getAttribute('aria-expanded') === 'true';
+//
   // 根據 aria-expanded 的狀態來改變文字
-  if (isExpanded) {
-    button.textContent = '收起';
-  } else {
-    button.textContent = '展開';
-  }
+//  if (isExpanded) {
+//    button.textContent = '收起';
+//  } else {
+//    button.textContent = '展開';
+//  }
+//});
+
+/* 點擊漢堡圖示時，顯示/隱藏選單 */
+document.getElementById('hamburger_btn').addEventListener('click', function() {
+  var navMenu = document.getElementById('nav_menu2');
+  var overlay = document.getElementById('overlay');
+  navMenu.classList.toggle('show');  // 切換顯示與隱藏
+  overlay.classList.toggle('show');
+});
+
+document.getElementById('overlay').addEventListener('click', function() {
+  var navMenu = document.getElementById('nav_menu2');
+  var overlay = document.getElementById('overlay');
+  navMenu.classList.remove('show');
+  overlay.classList.remove('show');
 });
