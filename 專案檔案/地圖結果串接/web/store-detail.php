@@ -30,8 +30,8 @@
 <body>
   <?php
   // 引入資料庫連接和查詢函數
-  require 'queries.php';
-  require 'analysis.php';
+  require_once 'queries.php';
+  require_once 'analysis.php';
 
 
   // 優先使用 GET 參數
@@ -55,13 +55,13 @@
   $rating = getRating($storeId);
   $service = getService($storeId);
   $keywords = getAllKeywords($storeId);
-  $foodKeyword = getFoodKeyword($storeId);
+  $foodKeywords = getFoodKeyword($storeId);
   $openingHours = getOpeningHours($storeId);
   $otherBranches = getOtherBranches($storeInfo['branch_title'], $storeId);
-  $positive = getPositiveKeywords($storeId);
-  $negative = getNegativeKeywords($storeId);
-  $subjective = getSubjectiveKeywords($storeId);
-  $neutral = getNeutralKeywords($storeId);
+
+  $positiveMarks = getMarks($storeId, $_POSITIVE);
+  $negativeMarks = getMarks($storeId, $_NEGATIVE);
+  $neutralMarks = getMarks($storeId, [$_PREFER, $_NEUTRAL]);
 
   $targetsInfo = getTargets($storeId);
 
@@ -196,11 +196,10 @@
           <thead>
             <tr class="row1">
               <th scope="col" class="col1"></th>
-              <th scope="col" class="col2">正面</th>
-              <th scope="col" class="col3">負面</th>
-              <th scope="col" class="col4">喜好</th>
-              <th scope="col" class="col5">中性</th>
-              <th scope="col" class="col6">評價總數</th>
+              <th scope="col" class="col2"><?php echo $_POSITIVE ?></th>
+              <th scope="col" class="col3"><?php echo $_NEGATIVE ?></th>
+              <th scope="col" class="col5"><?php echo $_NEUTRAL ?></th>
+              <th scope="col" class="col6"><?php echo $_TOTAL ?></th>
             </tr>
           </thead>
           <tbody>
@@ -234,7 +233,6 @@
                   </td>
                   <td class="evaluate-good"><?= $targetsInfo[$_POSITIVE][$category] ?? 'NULL' ?></td>
                   <td class="evaluate-bad"><?= $targetsInfo[$_NEGATIVE][$category] ?? 'NULL' ?></td>
-                  <td class="evaluate-prefer"><?= $targetsInfo[$_PREFER][$category] ?? 'NULL' ?></td>
                   <td class="evaluate-neutral"><?= $targetsInfo[$_NEUTRAL][$category] ?? 'NULL' ?></td>
                   <td class="evaluate-all"><?= $targetsInfo[$_TOTAL][$category] ?? 'NULL' ?></td>
               </tr>
@@ -322,86 +320,45 @@
           </select>
         </div>
       </div>
-      <div class="group-gb good-side">
-        <h6 class="title-gb">正面<i class="fi fi-sr-caret-right keyword-arrow"></i></h6>
-        <div class="group-keyword">
-          <!--動態生成 正面標籤-->
-          <!-- 動態生成關鍵字 -->
-          <?php foreach ($positive as $index => $keyword): ?>
-            <div class="keywords">
-              <!-- 按鈕 -->
-              <button type="button" class="btn comment-good" data-bs-toggle="modal" data-bs-target="#goodModal<?php echo $index; ?>"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
-                <?php echo htmlspecialchars($keyword['object']); ?> (<?php echo htmlspecialchars($keyword['count']); ?>)
-              </button>
-            </div>
-          <?php endforeach; ?>
+      <!--### 生成Mark統計標籤 ###-->
+      <?php 
+        $categories = [
+            $_POSITIVE => ['name' => 'good', 'marks' => $positiveMarks], 
+            $_NEGATIVE => ['name' => 'bad', 'marks' => $negativeMarks],
+            $_NEUTRAL => ['name' => 'middle', 'marks' => $neutralMarks],
+        ];
+      ?>
+      <?php foreach ($categories as $category => $data): ?>
+        <div class="group-gb <?php echo $data['name'] ?>-side">
+          <h6 class="title-gb"><?php echo $category ?><i class="fi fi-sr-caret-right keyword-arrow"></i></h6>
+          <div class="group-keyword">
+            <?php foreach ($data['marks'] as $index => $keyword): ?>
+              <div class="keywords">
+                <button type="button" class="btn comment-<?php echo $data['name'] ?>" onclick="setCommentKeyword(this)" data-bs-toggle="modal" data-bs-target="#<?php echo $data['name'] ?>Modal<?php echo $index; ?>">
+                  <w class="object"><?php echo htmlspecialchars($keyword['object']); ?></w> <w class="count">(<?php echo htmlspecialchars($keyword['count']); ?>)</w>
+                </button>
+              </div>
+            <?php endforeach; ?>
+          </div>
         </div>
-      </div>
-
-      <div class="group-gb bad-side">
-        <h6 class="title-gb">負面<i class="fi fi-sr-caret-right keyword-arrow"></i></h6>
-        <div class="group-keyword">
-          <!--動態生成 負面標籤-->
-          <!-- 動態生成關鍵字 -->
-          <?php foreach ($negative as $index => $keyword): ?>
-            <div class="keywords">
-              <!-- 按鈕 -->
-              <button type="button" class="btn comment-bad" data-bs-toggle="modal" data-bs-target="#badModal<?php echo $index; ?>"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
-                <?php echo htmlspecialchars($keyword['object']); ?> (<?php echo htmlspecialchars($keyword['count']); ?>)
-              </button>
-            </div>
-          <?php endforeach; ?>
-        </div>
-      </div>
-
-      <div class="group-gb neutral-side">
-        <h6 class="title-gb">喜好<i class="fi fi-sr-caret-right keyword-arrow"></i></h6>
-        <div class="group-keyword">
-          <!--動態生成 喜好標籤-->
-          <!-- 動態生成關鍵字 -->
-          <?php foreach ($subjective as $index => $keyword): ?>
-            <div class="keywords">
-              <!-- 按鈕 -->
-              <button type="button" class="btn comment-neutral" data-bs-toggle="modal" data-bs-target="#neutralModal<?php echo $index; ?>"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
-                <?php echo htmlspecialchars($keyword['object']); ?> (<?php echo htmlspecialchars($keyword['count']); ?>)
-              </button>
-            </div>
-          <?php endforeach; ?>
-        </div>
-      </div>
-      <div class="group-gb middle-side">
-        <h6 class="title-gb">中性<i class="fi fi-sr-caret-right keyword-arrow"></i></h6>
-        <div class="group-keyword">
-
-          <!-- 動態生成關鍵字 -->
-          <?php foreach ($neutral as $index => $keyword): ?>
-            <div class="keywords">
-              <!-- 按鈕 -->
-              <button type="button" class="btn comment-middle" data-bs-toggle="modal" data-bs-target="#middleModal<?php echo $index; ?>"><!--依據動態生成的順序修改data-bs-target與展開內容的id數字-->
-                <?php echo htmlspecialchars($keyword['object']); ?> (<?php echo htmlspecialchars($keyword['count']); ?>)
-              </button>
-            </div>
-          <?php endforeach; ?>
-        </div>
-      </div>
+      <?php endforeach; ?>
     </div>
 
     <div class="keyword-title">
-      <h5 class="keyword-title-text">留言 <?php echo count($comments); ?>則</h5><!--括號填入留言數量-->
+      <h5 class="keyword-title-text">留言 <?php echo count($comments); ?> 則</h5><!--括號填入留言數量-->
       <!--排序按鈕-->
       <div class="input-group mb-3 sort-button">
         <span class="input-group-text" id="basic-addon1"><i class="fi fi-sr-sort-amount-down"></i>排序</span>
-        <select class="form-select" aria-label="Default select example" id="sortSelect">
+        <select class="form-select comment-sort-select" aria-label="Default select example" id="sortSelect">
           <option value="相關性" selected>相關性</option>
           <option value="由高至低">由高至低</option>
           <option value="由低至高">由低至高</option>
         </select>
         <span class="input-group-text" id="inputGroup-sizing-default">篩選</span>
-        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-        <button class="btn btn-outline-secondary" type="button" id="button-addon2">搜尋</button>
+        <input type="text" class="form-control comment-keyword-input" id="commentKeyword" name="commentKeyword" placeholder="評論關鍵字" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        <button class="btn btn-outline-secondary" onclick="searchComments()" id="button-addon2">搜尋</button>
       </div>
     </div>
-
 
     <div class="comment-group" id="commentGroup">
       <?php foreach ($comments as $index => $comment): ?>
@@ -436,8 +393,8 @@
       <div class="carousel-arrow left-arrow" type="button"><i class="fi fi-sr-angle-left"></i></div>
       <div class="group-card">
         <!--推薦食物-->
-        <?php if ($foodKeyword): ?>
-          <?php foreach ($foodKeyword as $foodKeyword): ?>
+        <?php if ($foodKeywords): ?>
+          <?php foreach ($foodKeywords as $foodKeyword): ?>
             <div class="card">
               <div class="card-body">
                 <a class="card-text" href="search.html?keyword=<?php echo urlencode($foodKeyword['word']); ?>" target="_blank"><?php echo htmlspecialchars($foodKeyword['word']); ?>(<?php echo htmlspecialchars($foodKeyword['count']); ?>)</a><!--填入推薦食物名稱 href填入此食物的評星宇宙搜尋結果網址-->
@@ -513,80 +470,117 @@
   </section>
 
 
-  <!--底部欄-->
-  <footer>
-    <div class="bottom">
-      台北商業大學 | 資訊管理系<br>
-      北商資管專題 113206 小組<br>
-      成員：鄧惠中、余奕博、邱綺琳、陳彥瑾
-      <en style="margin-right: 9.6px; float: right; font-size: 9.6px;">Copyright ©2024 All rights reserved.</en>
-    </div>
-  </footer>
-  <script>
-    document.getElementById('sortSelect').addEventListener('change', function() {
-      const sortValue = this.value;
-      const commentGroup = document.getElementById('commentGroup');
-      const comments = Array.from(commentGroup.getElementsByClassName('comment-item'));
+    <!--底部欄-->
+    <footer>
+        <div class="bottom">
+        台北商業大學 | 資訊管理系<br>
+        北商資管專題 113206 小組<br>
+        成員：余奕博、鄧惠中、邱綺琳、陳彥瑾
+        <en style="margin-right: 9.6px; float: right; font-size: 9.6px;">Copyright ©2024 All rights reserved.</en>
+        </div>
+    </footer>
 
-      comments.sort((a, b) => {
-        const ratingA = parseInt(a.getAttribute('data-rating'));
-        const ratingB = parseInt(b.getAttribute('data-rating'));
-        const indexA = parseInt(a.getAttribute('data-index'));
-        const indexB = parseInt(b.getAttribute('data-index'));
-
-        if (sortValue === '由高至低') {
-          return ratingB - ratingA;
-        } else if (sortValue === '由低至高') {
-          return ratingA - ratingB;
-        } else {
-          return indexA - indexB; // 相關性排序，根據原始順序
+    <script>
+        function setCommentKeyword(button) {
+            const objectValue = button.querySelector('.object').textContent;
+            const searchInput = document.getElementById('commentKeyword');
+            searchInput.value = objectValue;
+            document.getElementById('button-addon2').click();
         }
-      });
+    </script>
 
-      comments.forEach(comment => commentGroup.appendChild(comment));
-    });
-  </script>
-
-<script>
-    var storeId = <?php echo json_encode($storeId); ?>;
-  </script>
-
-<script>
-function navigateToStore(storeLat, storeLng) {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var userLat = position.coords.latitude;
-            var userLng = position.coords.longitude;
-            var googleMapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${storeLat},${storeLng}`;
-            window.open(googleMapsUrl, '_blank');
-        }, function(error) {
-            alert('無法取得您的位置: ' + error.message);
+    <script>
+        function searchComments() {
+            const searchTerm = document.getElementById('commentKeyword').value;
+            const commentGroup = document.getElementById('commentGroup');
+            commentGroup.innerHTML = '';
+            /// 發送 AJAX 請求 ///
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', './struc/comment_keyword.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                if (this.status === 200) {
+                    console.log("後端返回的資料：", this.responseText); // 檢查返回的資料
+                    commentGroup.innerHTML = this.responseText;
+                }
+            };
+            xhr.onerror = function() {
+                console.error("發送 AJAX 請求時發生錯誤");
+            };
+            xhr.send('id=' + encodeURIComponent(<?php echo $storeId; ?>) + '&q=' + encodeURIComponent(searchTerm));
+        };
+        document.getElementById('commentKeyword').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();  // 防止表單的預設提交行為
+                document.getElementById('button-addon2').click();  // 觸發按鈕點擊事件
+            }
         });
-    } else {
-        alert('您的瀏覽器不支援地理定位功能。');
-    }
-}
-</script>
+    </script>
 
-  <!-- 載入地圖框架 leaflet.js -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script>
+        document.getElementById('sortSelect').addEventListener('change', function() {
+            const sortValue = this.value;
+            const commentGroup = document.getElementById('commentGroup');
+            const comments = Array.from(commentGroup.getElementsByClassName('comment-item'));
+            comments.sort((a, b) => {
+                const ratingA = parseInt(a.getAttribute('data-rating'));
+                const ratingB = parseInt(b.getAttribute('data-rating'));
+                const indexA = parseInt(a.getAttribute('data-index'));
+                const indexB = parseInt(b.getAttribute('data-index'));
 
-  <!-- 載入 leaflet.awesome-markers.min.js -->
-  <script src="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers/dist/leaflet.awesome-markers.min.js"></script>
+                if (sortValue === '由高至低') {
+                return ratingB - ratingA;
+                } else if (sortValue === '由低至高') {
+                return ratingA - ratingB;
+                } else {
+                return indexA - indexB; // 相關性排序，根據原始順序
+                }
+            });
+            comments.forEach(comment => commentGroup.appendChild(comment));
+        });
+    </script>
 
-  <!-- 載入 Font Awesome Kit -->
-  <script src="https://kit.fontawesome.com/876a36192d.js" crossorigin="anonymous"></script>
+    <script>
+        var storeId = <?php echo json_encode($storeId); ?>;
+    </script>
 
-  <!-- 載入 Markercluster.js -->
-  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <script>
+        function navigateToStore(storeLat, storeLng) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var userLat = position.coords.latitude;
+                    var userLng = position.coords.longitude;
+                    var googleMapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${storeLat},${storeLng}`;
+                    window.open(googleMapsUrl, '_blank');
+                }, function(error) {
+                    alert('無法取得您的位置: ' + error.message);
+                });
+            } else {
+                alert('您的瀏覽器不支援地理定位功能。');
+            }
+        }
+    </script>
 
-  <!-- 載入主程式 osm_map.js -->
-  <script src="./storedetail-landmark.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-  <script src="scripts/ui-interactions.js"></script>
+    <!-- 載入地圖框架 leaflet.js -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
-  <script src="scripts/store-detail.js"></script>
-</body>
+    <!-- 載入 leaflet.awesome-markers.min.js -->
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers/dist/leaflet.awesome-markers.min.js"></script>
+
+    <!-- 載入 Font Awesome Kit -->
+    <script src="https://kit.fontawesome.com/876a36192d.js" crossorigin="anonymous"></script>
+
+    <!-- 載入 Markercluster.js -->
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+
+    <!-- 載入主程式 osm_map.js -->
+    <script src="./storedetail-landmark.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="scripts/ui-interactions.js"></script>
+
+    <script src="scripts/store-detail.js"></script>
+    
+    </body>
 
 </html>

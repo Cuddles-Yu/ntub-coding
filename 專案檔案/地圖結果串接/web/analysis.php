@@ -11,7 +11,7 @@ $_SERVICE = '服務';
 $_POSITIVE = '正面';
 $_NEGATIVE = '負面';
 $_PREFER = '喜好';
-$_NEUTRAL = '中性';
+$_NEUTRAL = '中立';
 $_TOTAL = '總計';
 
 function getTargets($store_id) {
@@ -77,9 +77,7 @@ function getTargets($store_id) {
                 $positive_count[$constant]++;
             } elseif ($row[$state] === $_NEGATIVE) {
                 $negative_count[$constant]++;
-            } elseif ($row[$state] === $_PREFER) {
-                $prefer_count[$constant]++;
-            } elseif ($row[$state] === $_NEUTRAL) {
+            } elseif ($row[$state] === $_NEUTRAL || $row[$state] === $_PREFER) {
                 $neutral_count[$constant]++;
             }
             if (!is_null($row[$state])) {
@@ -92,7 +90,6 @@ function getTargets($store_id) {
     return [
         $_POSITIVE => $positive_count,
         $_NEGATIVE => $negative_count,
-        $_PREFER => $prefer_count,
         $_NEUTRAL => $neutral_count,
         $_TOTAL => $total_count
     ];

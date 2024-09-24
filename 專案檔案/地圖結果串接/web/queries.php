@@ -163,9 +163,8 @@ function getAllKeywords($storeId) {
 //營業時間(依商家查詢)
 function getOpeningHours($storeId) {
     global $conn;
-    $sql = "SELECT * FROM openhours WHERE store_id = ?";
+    $sql = "SELECT * FROM openhours WHERE store_id = $storeId";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $storeId);
     $stmt->execute();
     $result = $stmt->get_result();
     // 構建營業時間
@@ -183,22 +182,18 @@ function getOpeningHours($storeId) {
 // 其他分店
 function getOtherBranches($branchTitle, $storeId) {
     global $conn;
-    $sql = "SELECT s.*, t.tag, r.avg_ratings, l.city, l.dist, l.vil, l.details 
-            FROM stores AS s 
-            LEFT JOIN tags AS t ON s.tag = t.tag 
-            LEFT JOIN rates AS r ON s.id = r.store_id
-            LEFT JOIN locations AS l ON s.id = l.store_id
-            WHERE s.crawler_state IN ('成功', '完成', '超時') 
-            AND s.branch_title = ? 
-            AND s.id != ?";  // 排除當前分店
-
+    $sql = 
+    "   SELECT s.*, t.tag, r.avg_ratings, l.city, l.dist, l.vil, l.details 
+        FROM stores AS s 
+        LEFT JOIN tags AS t ON s.tag = t.tag 
+        LEFT JOIN rates AS r ON s.id = r.store_id
+        LEFT JOIN locations AS l ON s.id = l.store_id
+        WHERE s.crawler_state IN ('成功', '完成', '超時') 
+        AND s.branch_title = '$branchTitle' 
+        AND s.id != $storeId
+    ";
     $stmt = $conn->prepare($sql);
-    if (!$stmt) {
-        die("Prepare failed: (" . $conn->errno . ") " . $conn->error);
-    }
-    $stmt->bind_param("si", $branchTitle, $storeId);
-    $stmt->execute();
-    
+    $stmt->execute();    
     $result = $stmt->get_result();
     $branches = [];
     while ($row = $result->fetch_assoc()) {
@@ -206,26 +201,24 @@ function getOtherBranches($branchTitle, $storeId) {
     }
     $stmt->close();
     return $branches;
-}
+};
 
-// 正面關鍵字
-function getPositiveKeywords($storeId) {
+function getMarks($storeId, $states) {
     global $conn;
-    $sql = "SELECT object, COUNT(*) AS count FROM marks
-            WHERE object !='' AND store_id = ? AND state = '正面'
-            GROUP BY object
-            ORDER BY count DESC
-            LIMIT 20";
+    if (!is_array($states)) $states = [$states];
+    $allStates = implode(',', array_map(function($state) use ($conn) {
+        return "'" . $conn->real_escape_string($state) . "'";
+    }, $states));
+    $sql = 
+    "   SELECT object, COUNT(*) AS count FROM marks
+        WHERE object !='' AND store_id = $storeId AND state IN ($allStates)
+        GROUP BY object
+        ORDER BY count DESC
+        LIMIT 20
+    ";
     $stmt = $conn->prepare($sql);
-    if ($stmt === false) {
-        die('Prepare failed: ' . $conn->error);
-    }
-    $stmt->bind_param("i", $storeId);
     $stmt->execute();
     $result = $stmt->get_result();
-    if ($result === false) {
-        die('Execute failed: ' . $stmt->error);
-    }
     $marks = [];
     while ($row = $result->fetch_assoc()) {
         $marks[] = $row;
@@ -233,83 +226,3 @@ function getPositiveKeywords($storeId) {
     $stmt->close();
     return $marks;
 }
-
-// 負面關鍵字
-function getNegativeKeywords($storeId) {
-    global $conn;
-    $sql = "SELECT object, COUNT(*) AS count FROM marks
-            WHERE object !='' AND store_id = ? AND state = '負面'
-            GROUP BY object
-            ORDER BY count DESC
-            LIMIT 20";
-    $stmt = $conn->prepare($sql);
-    if ($stmt === false) {
-        die('Prepare failed: ' . $conn->error);
-    }
-    $stmt->bind_param("i", $storeId);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result === false) {
-        die('Execute failed: ' . $stmt->error);
-    }
-    $marks = [];
-    while ($row = $result->fetch_assoc()) {
-        $marks[] = $row;
-    }
-    $stmt->close();
-    return $marks;
-}
-
-// 主觀關鍵字(資料庫顯示為'喜好')
-function getSubjectiveKeywords($storeId) {
-    global $conn;
-    $sql = "SELECT object, COUNT(*) AS count FROM marks
-            WHERE object !='' AND store_id = ? AND state = '喜好'
-            GROUP BY object
-            ORDER BY count DESC
-            LIMIT 20";
-    $stmt = $conn->prepare($sql);
-    if ($stmt === false) {
-        die('Prepare failed: ' . $conn->error);
-    }
-    $stmt->bind_param("i", $storeId);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result === false) {
-        die('Execute failed: ' . $stmt->error);
-    }
-    $marks = [];
-    while ($row = $result->fetch_assoc()) {
-        $marks[] = $row;
-    }
-    $stmt->close();
-    return $marks;
-}
-
-// 中立關鍵字
-function getNeutralKeywords($storeId) {
-    global $conn;
-    $sql = "SELECT object, COUNT(*) AS count FROM marks
-            WHERE object !='' AND store_id = ? AND state = '中立'
-            GROUP BY object
-            ORDER BY count DESC
-            LIMIT 20";
-    $stmt = $conn->prepare($sql);
-    if ($stmt === false) {
-        die('Prepare failed: ' . $conn->error);
-    }
-    $stmt->bind_param("i", $storeId);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result === false) {
-        die('Execute failed: ' . $stmt->error);
-    }
-    $marks = [];
-    while ($row = $result->fetch_assoc()) {
-        $marks[] = $row;
-    }
-    $stmt->close();
-    return $marks;
-}
-?>
-

@@ -40,7 +40,7 @@ function searchStores($keyword)
 $keyword = $_POST["keyword"] ?? "";
 
 $stores = [];
-if ($_SERVER["REQUEST_METHOD"] == "POST"&& !empty($keyword)) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($keyword)) {
     $stores = searchStores($keyword);
 }
 
