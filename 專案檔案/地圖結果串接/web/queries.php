@@ -203,6 +203,7 @@ function getOtherBranches($branchTitle, $storeId) {
     return $branches;
 };
 
+//標籤
 function getMarks($storeId, $states) {
     global $conn;
     if (!is_array($states)) $states = [$states];
@@ -226,3 +227,5 @@ function getMarks($storeId, $states) {
     $stmt->close();
     return $marks;
 }
+?>
+

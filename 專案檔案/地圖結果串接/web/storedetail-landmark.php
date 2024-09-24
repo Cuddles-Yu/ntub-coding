@@ -20,6 +20,7 @@ function getStoreData($storeId) {
         SELECT 
             stores.id AS store_id,
             stores.name AS store_name,
+            stores.link AS store_link,
             stores.preview_image AS store_preview_image,
             locations.latitude AS location_latitude,
             locations.longitude AS location_longitude, 
@@ -57,6 +58,7 @@ function getStoreData($storeId) {
             $data[] = array(
                 'id' => $row['store_id'],
                 'name' => $row['store_name'],
+                'link' => $row['store_link'],
                 'preview_image' => $row['store_preview_image'],
                 'latitude' => floatval($row['location_latitude']), 
                 'longitude' => floatval($row['location_longitude']), //緯度latitude再經度longitude

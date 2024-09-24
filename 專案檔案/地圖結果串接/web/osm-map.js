@@ -25,7 +25,7 @@ L.control.scale({
 
 // 創建logo圖標
 var mapIcon = L.icon({
-    iconUrl: './images/mapIcon.png',
+    iconUrl: './images/location_mark1.png',
     iconSize: [30, 40],
     popupAnchor: [0, -20] // 彈出框的位置(圖標頂部中心點)
 })

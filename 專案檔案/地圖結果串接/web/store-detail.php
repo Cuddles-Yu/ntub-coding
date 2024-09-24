@@ -38,11 +38,11 @@
   $userId = $_GET['uid'] ?? null;
   $storeId = $_GET['id'] ?? null;
 
- // 如果 storeId 或 storeName 不存在，根據現有的值獲取缺失的資訊
- if (empty($storeId)) {
-  Header("Location: home.html");
-  exit;
-}
+  // 如果 storeId 或 storeName 不存在，根據現有的值獲取缺失的資訊
+  if (empty($storeId)) {
+    Header("Location: home.html");
+    exit;
+  }
 
   // 獲取店家資訊
   $storeInfo = getStoreInfoById($storeId);
@@ -70,39 +70,39 @@
   <header>
     <!-- 基本項目 -->
     <div id="web_name">
-        <img src="images/Logo設計_圖像(藍+).png" id="web_logo">
-        <a href="home.html">評星宇宙</a>
+      <img src="images/Logo設計_圖像(藍+).png" id="web_logo">
+      <a href="home.html">評星宇宙</a>
     </div>
 
     <div id="nav_menu1">
-        <a class="link_text" href="home.html">網站首頁</a>
-        <div class="vertical-line"></div>
-        <a class="link_text" href="#">使用說明</a>
-        <div class="vertical-line"></div>
-        <a class="link_text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a>
-        <div class="vertical-line"></div>
-        <a class="link_text" href="develop-team.html">成員介紹</a>
+      <a class="link_text" href="home.html">網站首頁</a>
+      <div class="vertical-line"></div>
+      <a class="link_text" href="#">使用說明</a>
+      <div class="vertical-line"></div>
+      <a class="link_text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a>
+      <div class="vertical-line"></div>
+      <a class="link_text" href="develop-team.html">成員介紹</a>
     </div>
 
     <div id="user_icon" type="button">
-        <img src="images/user.jpg" id="user_icon_logo">
+      <img src="images/user.jpg" id="user_icon_logo">
     </div>
 
     <div id="login_button">
-        <button id="login" href="#">登入</button>
-        <button id="signup" href="#">註冊</button>
+      <button id="login" href="#">登入</button>
+      <button id="signup" href="#">註冊</button>
     </div>
 
     <!-- 漢堡圖示 -->
     <button id="hamburger_btn" class="hamburger">&#9776;</button>
     <div id="overlay"></div>
     <nav id="nav_menu2">
-        <a class="link_text" href="home.html">網站首頁</a>
-        <a class="link_text" href="#">使用說明</a>
-        <a class="link_text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a>
-        <a class="link_text" href="develop-team.html">成員介紹</a>
-        <button id="login2" href="#">登入</button>
-        <button id="signup2" href="#">註冊</button>
+      <a class="link_text" href="home.html">網站首頁</a>
+      <a class="link_text" href="#">使用說明</a>
+      <a class="link_text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a>
+      <a class="link_text" href="develop-team.html">成員介紹</a>
+      <button id="login2" href="#">登入</button>
+      <button id="signup2" href="#">註冊</button>
     </nav>
     <hr>
   </header>
@@ -119,7 +119,7 @@
         <!--綜合評分-->
         <h5 class="rating"><?php echo getBayesianScore($userId, $storeId, $conn); ?></h5>
         <h6 class="rating-text">/綜合評分</h6>
-        <div class="store-type" type="button"><?php echo htmlspecialchars($storeInfo['tag']); ?></div>
+        <a class="store-type" type="button" href="search.html?keyword=<?php echo htmlspecialchars($storeInfo['tag']); ?>" target="_blank"> <?php echo htmlspecialchars($storeInfo['tag']); ?></a>
         <!--營業時間按鈕-->
         <button type="button" class="btn btn-outline-success status" data-bs-container="body" data-bs-toggle="popover2"
           data-bs-title="詳細營業時間" data-bs-placement="bottom" data-bs-html="true"
@@ -182,7 +182,7 @@
       </div>
     </div>
     <!-- 商家介紹 (根據使用者需求而產生的介紹(每個人看到的不一樣))-->
-    <li id="item" class="introduction" data-content="這是一間熱門度高、環境中等、服務很好的店家"></li> 
+    <li id="item" class="introduction" data-content="這是一間熱門度高、環境中等、服務很好的店家"></li>
   </section>
 
   <section class="secondary-content section-content">
@@ -203,44 +203,44 @@
             </tr>
           </thead>
           <tbody>
-            <?php 
-              $categories = [
-                  $_ENVIRONMENT => ['weight' => '30', 'color' => '#562B08'], 
-                  $_PRODUCT => ['weight' => '30', 'color' => '#7B8F60'],
-                  $_SERVICE => ['weight' => '30', 'color' => '#5053AF'],
-                  $_PRICE => ['weight' => '30', 'color' => '#C19237'],
-              ];
-              uasort($categories, function($a, $b) {
-                return $b['weight'] <=> $a['weight'];
-              });
-              $rowIndex = 1;
+            <?php
+            $categories = [
+              $_ENVIRONMENT => ['weight' => '30', 'color' => '#562B08'],
+              $_PRODUCT => ['weight' => '30', 'color' => '#7B8F60'],
+              $_SERVICE => ['weight' => '30', 'color' => '#5053AF'],
+              $_PRICE => ['weight' => '30', 'color' => '#C19237'],
+            ];
+            uasort($categories, function ($a, $b) {
+              return $b['weight'] <=> $a['weight'];
+            });
+            $rowIndex = 1;
             ?>
             <?php foreach ($categories as $category => $data): ?>
-              <?php 
-                $result = getProportionScore($category);
-                $proportion = $result['proportion'];
-                $score = $result['score'];
+              <?php
+              $result = getProportionScore($category);
+              $proportion = $result['proportion'];
+              $score = $result['score'];
               ?>
               <tr class="row<?= $rowIndex ?>">
-                  <td>
-                      <div class="progress-group">
-                          <h6 class="progress-text" style="color: <?= $data['color'] ?>;"><?= $category ?></h6>
-                          <h6 class="progress-percent" style="color: <?= $data['color'] ?>;"><?= $score ?></h6>
-                      </div>
-                      <div class="progress col" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                          <div class="progress-bar overflow-visible" style="width: <?= $proportion.'%' ?>; background-color: <?= $data['color'] ?>;"></div>
-                      </div>
-                  </td>
-                  <td class="evaluate-good"><?= $targetsInfo[$_POSITIVE][$category] ?? 'NULL' ?></td>
-                  <td class="evaluate-bad"><?= $targetsInfo[$_NEGATIVE][$category] ?? 'NULL' ?></td>
-                  <td class="evaluate-neutral"><?= $targetsInfo[$_NEUTRAL][$category] ?? 'NULL' ?></td>
-                  <td class="evaluate-all"><?= $targetsInfo[$_TOTAL][$category] ?? 'NULL' ?></td>
+                <td>
+                  <div class="progress-group">
+                    <h6 class="progress-text" style="color: <?= $data['color'] ?>;"><?= $category ?></h6>
+                    <h6 class="progress-percent" style="color: <?= $data['color'] ?>;"><?= $score ?></h6>
+                  </div>
+                  <div class="progress col" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar overflow-visible" style="width: <?= $proportion . '%' ?>; background-color: <?= $data['color'] ?>;"></div>
+                  </div>
+                </td>
+                <td class="evaluate-good"><?= $targetsInfo[$_POSITIVE][$category] ?? 'NULL' ?></td>
+                <td class="evaluate-bad"><?= $targetsInfo[$_NEGATIVE][$category] ?? 'NULL' ?></td>
+                <td class="evaluate-neutral"><?= $targetsInfo[$_NEUTRAL][$category] ?? 'NULL' ?></td>
+                <td class="evaluate-all"><?= $targetsInfo[$_TOTAL][$category] ?? 'NULL' ?></td>
               </tr>
               <?php $rowIndex++; ?>
             <?php endforeach; ?>
           </tbody>
         </table>
-      </div> 
+      </div>
       <div class="divider-line"></div>
       <div class="service col">
         <div class="title-group">
@@ -321,12 +321,12 @@
         </div>
       </div>
       <!--### 生成Mark統計標籤 ###-->
-      <?php 
-        $categories = [
-            $_POSITIVE => ['name' => 'good', 'marks' => $positiveMarks], 
-            $_NEGATIVE => ['name' => 'bad', 'marks' => $negativeMarks],
-            $_NEUTRAL => ['name' => 'middle', 'marks' => $neutralMarks],
-        ];
+      <?php
+      $categories = [
+        $_POSITIVE => ['name' => 'good', 'marks' => $positiveMarks],
+        $_NEGATIVE => ['name' => 'bad', 'marks' => $negativeMarks],
+        $_NEUTRAL => ['name' => 'middle', 'marks' => $neutralMarks],
+      ];
       ?>
       <?php foreach ($categories as $category => $data): ?>
         <div class="group-gb <?php echo $data['name'] ?>-side">
@@ -335,7 +335,8 @@
             <?php foreach ($data['marks'] as $index => $keyword): ?>
               <div class="keywords">
                 <button type="button" class="btn comment-<?php echo $data['name'] ?>" onclick="setCommentKeyword(this)" data-bs-toggle="modal" data-bs-target="#<?php echo $data['name'] ?>Modal<?php echo $index; ?>">
-                  <w class="object"><?php echo htmlspecialchars($keyword['object']); ?></w> <w class="count">(<?php echo htmlspecialchars($keyword['count']); ?>)</w>
+                  <w class="object"><?php echo htmlspecialchars($keyword['object']); ?></w>
+                  <w class="count">(<?php echo htmlspecialchars($keyword['count']); ?>)</w>
                 </button>
               </div>
             <?php endforeach; ?>
@@ -360,6 +361,7 @@
       </div>
     </div>
 
+
     <div class="comment-group" id="commentGroup">
       <?php foreach ($comments as $index => $comment): ?>
         <div class="comment-item" data-rating="<?php echo $comment['rating']; ?>" data-index="<?php echo $index; ?>">
@@ -378,7 +380,7 @@
         </div>
       <?php endforeach; ?>
     </div>
-    
+
   </section>
 
   <section class="fourth-content section-content">
@@ -439,8 +441,11 @@
         </div>
       </div>
       <div id="map" class="map">
+        <!-- 使用者定位按鈕 -->
+        <button type="button" id="locateButton" onclick="userLocate()">使用您的位置</button>
+      </div>
     </div>
-    
+
   </section>
 
   <section class="sixth-content section-content">
@@ -470,117 +475,117 @@
   </section>
 
 
-    <!--底部欄-->
-    <footer>
-        <div class="bottom">
-        台北商業大學 | 資訊管理系<br>
-        北商資管專題 113206 小組<br>
-        成員：余奕博、鄧惠中、邱綺琳、陳彥瑾
-        <en style="margin-right: 9.6px; float: right; font-size: 9.6px;">Copyright ©2024 All rights reserved.</en>
-        </div>
-    </footer>
+  <!--底部欄-->
+  <footer>
+    <div class="bottom">
+      台北商業大學 | 資訊管理系<br>
+      北商資管專題 113206 小組<br>
+      成員：余奕博、鄧惠中、邱綺琳、陳彥瑾
+      <en style="margin-right: 9.6px; float: right; font-size: 9.6px;">Copyright ©2024 All rights reserved.</en>
+    </div>
+  </footer>
 
-    <script>
-        function setCommentKeyword(button) {
-            const objectValue = button.querySelector('.object').textContent;
-            const searchInput = document.getElementById('commentKeyword');
-            searchInput.value = objectValue;
-            document.getElementById('button-addon2').click();
+  <script>
+    function setCommentKeyword(button) {
+      const objectValue = button.querySelector('.object').textContent;
+      const searchInput = document.getElementById('commentKeyword');
+      searchInput.value = objectValue;
+      document.getElementById('button-addon2').click();
+    }
+  </script>
+
+  <script>
+    function searchComments() {
+      const searchTerm = document.getElementById('commentKeyword').value;
+      const commentGroup = document.getElementById('commentGroup');
+      commentGroup.innerHTML = '';
+      /// 發送 AJAX 請求 ///
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', './struc/comment_keyword.php', true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.onload = function() {
+        if (this.status === 200) {
+          console.log("後端返回的資料：", this.responseText); // 檢查返回的資料
+          commentGroup.innerHTML = this.responseText;
         }
-    </script>
+      };
+      xhr.onerror = function() {
+        console.error("發送 AJAX 請求時發生錯誤");
+      };
+      xhr.send('id=' + encodeURIComponent(<?php echo $storeId; ?>) + '&q=' + encodeURIComponent(searchTerm));
+    };
+    document.getElementById('commentKeyword').addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault(); // 防止表單的預設提交行為
+        document.getElementById('button-addon2').click(); // 觸發按鈕點擊事件
+      }
+    });
+  </script>
 
-    <script>
-        function searchComments() {
-            const searchTerm = document.getElementById('commentKeyword').value;
-            const commentGroup = document.getElementById('commentGroup');
-            commentGroup.innerHTML = '';
-            /// 發送 AJAX 請求 ///
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', './struc/comment_keyword.php', true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.onload = function() {
-                if (this.status === 200) {
-                    console.log("後端返回的資料：", this.responseText); // 檢查返回的資料
-                    commentGroup.innerHTML = this.responseText;
-                }
-            };
-            xhr.onerror = function() {
-                console.error("發送 AJAX 請求時發生錯誤");
-            };
-            xhr.send('id=' + encodeURIComponent(<?php echo $storeId; ?>) + '&q=' + encodeURIComponent(searchTerm));
-        };
-        document.getElementById('commentKeyword').addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();  // 防止表單的預設提交行為
-                document.getElementById('button-addon2').click();  // 觸發按鈕點擊事件
-            }
-        });
-    </script>
+  <script>
+    document.getElementById('sortSelect').addEventListener('change', function() {
+      const sortValue = this.value;
+      const commentGroup = document.getElementById('commentGroup');
+      const comments = Array.from(commentGroup.getElementsByClassName('comment-item'));
+      comments.sort((a, b) => {
+        const ratingA = parseInt(a.getAttribute('data-rating'));
+        const ratingB = parseInt(b.getAttribute('data-rating'));
+        const indexA = parseInt(a.getAttribute('data-index'));
+        const indexB = parseInt(b.getAttribute('data-index'));
 
-    <script>
-        document.getElementById('sortSelect').addEventListener('change', function() {
-            const sortValue = this.value;
-            const commentGroup = document.getElementById('commentGroup');
-            const comments = Array.from(commentGroup.getElementsByClassName('comment-item'));
-            comments.sort((a, b) => {
-                const ratingA = parseInt(a.getAttribute('data-rating'));
-                const ratingB = parseInt(b.getAttribute('data-rating'));
-                const indexA = parseInt(a.getAttribute('data-index'));
-                const indexB = parseInt(b.getAttribute('data-index'));
-
-                if (sortValue === '由高至低') {
-                return ratingB - ratingA;
-                } else if (sortValue === '由低至高') {
-                return ratingA - ratingB;
-                } else {
-                return indexA - indexB; // 相關性排序，根據原始順序
-                }
-            });
-            comments.forEach(comment => commentGroup.appendChild(comment));
-        });
-    </script>
-
-    <script>
-        var storeId = <?php echo json_encode($storeId); ?>;
-    </script>
-
-    <script>
-        function navigateToStore(storeLat, storeLng) {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var userLat = position.coords.latitude;
-                    var userLng = position.coords.longitude;
-                    var googleMapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${storeLat},${storeLng}`;
-                    window.open(googleMapsUrl, '_blank');
-                }, function(error) {
-                    alert('無法取得您的位置: ' + error.message);
-                });
-            } else {
-                alert('您的瀏覽器不支援地理定位功能。');
-            }
+        if (sortValue === '由高至低') {
+          return ratingB - ratingA;
+        } else if (sortValue === '由低至高') {
+          return ratingA - ratingB;
+        } else {
+          return indexA - indexB; // 相關性排序，根據原始順序
         }
-    </script>
+      });
+      comments.forEach(comment => commentGroup.appendChild(comment));
+    });
+  </script>
 
-    <!-- 載入地圖框架 leaflet.js -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script>
+    var storeId = <?php echo json_encode($storeId); ?>;
+  </script>
 
-    <!-- 載入 leaflet.awesome-markers.min.js -->
-    <script src="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers/dist/leaflet.awesome-markers.min.js"></script>
+  <script>
+    function navigateToStore(storeLat, storeLng) {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var userLat = position.coords.latitude;
+          var userLng = position.coords.longitude;
+          var googleMapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${storeLat},${storeLng}`;
+          window.open(googleMapsUrl, '_blank');
+        }, function(error) {
+          alert('無法取得您的位置: ' + error.message);
+        });
+      } else {
+        alert('您的瀏覽器不支援地理定位功能。');
+      }
+    }
+  </script>
 
-    <!-- 載入 Font Awesome Kit -->
-    <script src="https://kit.fontawesome.com/876a36192d.js" crossorigin="anonymous"></script>
+  <!-- 載入地圖框架 leaflet.js -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
-    <!-- 載入 Markercluster.js -->
-    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+  <!-- 載入 leaflet.awesome-markers.min.js -->
+  <script src="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers/dist/leaflet.awesome-markers.min.js"></script>
 
-    <!-- 載入主程式 osm_map.js -->
-    <script src="./storedetail-landmark.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-    <script src="scripts/ui-interactions.js"></script>
+  <!-- 載入 Font Awesome Kit -->
+  <script src="https://kit.fontawesome.com/876a36192d.js" crossorigin="anonymous"></script>
 
-    <script src="scripts/store-detail.js"></script>
-    
-    </body>
+  <!-- 載入 Markercluster.js -->
+  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+
+  <!-- 載入主程式 osm_map.js -->
+  <script src="./storedetail-landmark.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+  <script src="scripts/ui-interactions.js"></script>
+
+  <script src="scripts/store-detail.js"></script>
+
+</body>
 
 </html>
