@@ -108,12 +108,15 @@
   </header>
 
   <section class="primary-content section-content">
-    <h1 class="store-title"><?php if (isset($storeInfo['name'])) {
-                              echo htmlspecialchars($storeInfo['name']);
-                            } else {
-                              echo "商店名稱不存在";
-                            }
-                            ?></h1>
+    <h1 class="store-title">
+      <?php 
+        if (isset($storeInfo['name'])) {
+          echo htmlspecialchars($storeInfo['name']);
+        } else {
+          echo "商店名稱不存在";
+        }
+      ?>
+    </h1>
     <div class="love-group">
       <div class="type-rating-status-group">
         <!--綜合評分-->
@@ -346,7 +349,7 @@
     </div>
 
     <div class="keyword-title">
-      <h5 class="keyword-title-text">留言 <?php echo count($comments); ?> 則</h5><!--括號填入留言數量-->
+      <h5 class="keyword-title-text" id="comment-count-title">留言 <?php echo count($comments); ?> 則</h5><!--括號填入留言數量-->
       <!--排序按鈕-->
       <div class="input-group mb-3 sort-button">
         <span class="input-group-text" id="basic-addon1"><i class="fi fi-sr-sort-amount-down"></i>排序</span>
@@ -360,25 +363,7 @@
         <button class="btn btn-outline-secondary" onclick="searchComments()" id="button-addon2">搜尋</button>
       </div>
     </div>
-
-
-    <div class="comment-group" id="commentGroup">
-      <?php foreach ($comments as $index => $comment): ?>
-        <div class="comment-item" data-rating="<?php echo $comment['rating']; ?>" data-index="<?php echo $index; ?>">
-          <div class="comment-information">
-            <img class="avatar" src="images/<?php echo $comment['contributor_level'] == 0 ? 'user.jpg' : 'wizard.jpg'; ?>"><!--若留言為嚮導 則src為images/wizard.jpg 若不是嚮導則src為images/user.jpg-->
-            <div class="star-group">
-              <?php for ($i = 0; $i < 5; $i++): ?>
-                <img class="star" src="images/<?php echo $i < $comment['rating'] ? 'star-y.png' : 'star-w.png'; ?>">
-              <?php endfor; ?><!--滿星src為images/star-y.png 空星src為images/star-w.png-->
-            </div>
-            <p class="time">時間：<?php echo htmlspecialchars($comment['time']); ?></p>
-          </div>
-          <div class="comment">
-            <p class="comment-text"><?php echo htmlspecialchars($comment['contents']); ?></p>
-          </div>
-        </div>
-      <?php endforeach; ?>
+    <div class="comment-group" id="commentGroup" keyword=-1>
     </div>
 
   </section>
@@ -495,18 +480,29 @@
   </script>
 
   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      searchComments();
+    });
     function searchComments() {
-      const searchTerm = document.getElementById('commentKeyword').value;
+      const searchTerm = document.getElementById('commentKeyword').value.trim();
       const commentGroup = document.getElementById('commentGroup');
+      const keywordTitleText = document.getElementById('comment-count-title');
+      if (commentGroup.getAttribute('keyword') === searchTerm) return;
       commentGroup.innerHTML = '';
       /// 發送 AJAX 請求 ///
       const xhr = new XMLHttpRequest();
       xhr.open('POST', './struc/comment_keyword.php', true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       xhr.onload = function() {
-        if (this.status === 200) {
-          console.log("後端返回的資料：", this.responseText); // 檢查返回的資料
-          commentGroup.innerHTML = this.responseText;
+        if (this.status === 200) {          
+          const response = JSON.parse(this.responseText);
+          commentGroup.setAttribute('keyword', searchTerm);
+          commentGroup.innerHTML = response['html'];
+          if (searchTerm === '') {
+            keywordTitleText.textContent = '留言 ' + response['count'] + ' 則';
+          } else {
+            keywordTitleText.textContent = '留言搜尋結果 ' + response['count'] + ' 則';
+          }
         }
       };
       xhr.onerror = function() {
@@ -542,6 +538,7 @@
         }
       });
       comments.forEach(comment => commentGroup.appendChild(comment));
+      commentGroup.scrollTo(0, 0);
     });
   </script>
 

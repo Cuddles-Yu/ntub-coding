@@ -13,9 +13,14 @@ var Stadia_Outdoors = L.tileLayer('https://tiles.stadiamaps.com/tiles/outdoors/{
 }).addTo(map);
 
 var mapIcon = L.icon({
-    iconUrl: './images/location_mark2.png',
-    iconSize: [30, 40],
-    popupAnchor: [0, -20]
+  iconUrl: './images/location_mark2.png',
+  iconSize: [30, 30],
+  popupAnchor: [0, -20]
+});
+var userIcon = L.icon({
+  iconUrl: './images/location_mark3.png',
+  iconSize: [20, 20],
+  popupAnchor: [0, -20]
 });
 
 // 在頁面加載時自動抓取使用者的位置並顯示在地圖上
@@ -35,7 +40,9 @@ window.onload = function () {
             if (data && !data.error) {
                 var latlng = [parseFloat(data[0].latitude), parseFloat(data[0].longitude)];
                 storeLatLng = latlng; // 存儲商家位置的經緯度
-                var marker = L.marker(latlng, { icon: mapIcon })
+                var marker = L.marker(latlng, { 
+                  icon: mapIcon 
+                })
                     .on('click', function () {
                         window.open(`${data[0].link}`, '_blank'); // 點擊地標後開啟該店家Google Maps的連結
                     });
@@ -56,11 +63,7 @@ window.onload = function () {
 
                     // 建立使用者的標點
                     var userMarker = L.marker([userLat, userLng], {
-                        icon: L.icon({
-                            iconUrl: './images/location_mark3.png',  // 替換為你想要的使用者標點圖示
-                            iconSize: [30, 40],
-                            popupAnchor: [0, -20]
-                        })
+                        icon: userIcon
                     }).bindPopup('您的位置').openPopup();
 
                     // 將使用者標點加入地圖

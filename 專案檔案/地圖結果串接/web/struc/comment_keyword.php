@@ -9,21 +9,28 @@
         $stmt = $conn->prepare($sql);        
         $stmt->execute();
         $result = $stmt->get_result();
+        $comments = [];
         $output = '';
         while ($comment = $result->fetch_assoc()) {
-            $output .= '<div class="comment-item" data-rating="' . htmlspecialchars($comment['rating']) . '">';
-            $output .= '<div class="comment-information">';
-            $output .= '<img class="avatar" src="images/' . ($comment['contributor_level'] == 0 ? 'user.jpg' : 'wizard.jpg') . '">';
-            $output .= '<div class="star-group">';
-            for ($i = 0; $i < 5; $i++) {
-                $output .= '<img class="star" src="images/' . ($i < $comment['rating'] ? 'star-y.png' : 'star-w.png') . '">';
-            }
-            $output .= '</div>';
-            $output .= '<p class="time">時間：' . htmlspecialchars($comment['time']) . '</p>';
-            $output .= '</div>';
-            $output .= '<div class="comment">';
-            $output .= '<p class="comment-text">' . str_replace($searchTerm, '<em class="comment-highlight">' . htmlspecialchars($searchTerm) . '</em>', htmlspecialchars($comment['contents'])) . '</p>';
-            $output .= '</div></div>';
+          $comments[] = $comment;
+          $output .= '<div class="comment-item" data-rating="' . htmlspecialchars($comment['rating']) . '">';
+          $output .= '<div class="comment-information">';
+          $output .= '<img class="avatar" src="images/' . ($comment['contributor_level'] == 0 ? 'user.jpg' : 'wizard.jpg') . '">';
+          $output .= '<div class="star-group">';
+          for ($i = 0; $i < 5; $i++) {
+              $output .= '<img class="star" src="images/' . ($i < $comment['rating'] ? 'star-y.png' : 'star-w.png') . '">';
+          }
+          $output .= '</div>';
+          $output .= '<p class="time">時間：' . htmlspecialchars($comment['time']) . '</p>';
+          $output .= '</div>';
+          $output .= '<div class="comment">';
+          $output .= '<p class="comment-text">' . str_replace($searchTerm, '<em class="comment-highlight">' . htmlspecialchars($searchTerm) . '</em>', htmlspecialchars($comment['contents'])) . '</p>';
+          $output .= '</div></div>';
         }
-        echo $output;
+  
+      echo json_encode([
+        'html' => $output,
+        'count' => count($comments)
+      ]);
+
     }
