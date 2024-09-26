@@ -8,9 +8,9 @@ def git_pull(repo_path):
         subprocess.run(['git', 'config', '--global', '--add', 'safe.directory', repo_path], check=True)
         result = subprocess.run(['git', 'pull', 'origin', 'main'], capture_output=True, text=True)        
         if result.returncode != 0:
-            colored_echo('red', 'FAILED', result.stderr)
+            colored_echo('red', 'FAILED', result.stderr.strip().split('\n')[0])
         else:
-            colored_echo('green', 'SUCCESS', result.stdout)         
+            colored_echo('green', 'SUCCESS', result.stdout.strip().split('\n')[0])   
     except subprocess.CalledProcessError as e:
         colored_echo('red', 'ERROR', e)
 

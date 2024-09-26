@@ -44,24 +44,26 @@
 
   // 獲取店家資訊
   $storeInfo = getStoreInfoById($storeId);
-  $relevants = getRelevantComments($storeId);
-  $Highests = getHighestComments($storeId);
-  $Lowests = getLowestComments($storeId);
-  $comments = getComments($storeId);
+  if (!empty($storeInfo)) {
+    $relevants = getRelevantComments($storeId);
+    $Highests = getHighestComments($storeId);
+    $Lowests = getLowestComments($storeId);
+    $comments = getComments($storeId);
 
-  $location = getLocation($storeId);
-  $rating = getRating($storeId);
-  $service = getService($storeId);
-  $keywords = getAllKeywords($storeId);
-  $foodKeywords = getFoodKeyword($storeId);
-  $openingHours = getOpeningHours($storeId);
-  $otherBranches = getOtherBranches($storeInfo['branch_title'], $storeId);
+    $location = getLocation($storeId);
+    $rating = getRating($storeId);
+    $service = getService($storeId);
+    $keywords = getAllKeywords($storeId);
+    $foodKeywords = getFoodKeyword($storeId);
+    $openingHours = getOpeningHours($storeId);
+    $otherBranches = getOtherBranches($storeInfo['branch_title'], $storeId);
 
-  $positiveMarks = getMarks($storeId, $_POSITIVE);
-  $negativeMarks = getMarks($storeId, $_NEGATIVE);
-  $neutralMarks = getMarks($storeId, [$_PREFER, $_NEUTRAL]);
+    $positiveMarks = getMarks($storeId, $_POSITIVE);
+    $negativeMarks = getMarks($storeId, $_NEGATIVE);
+    $neutralMarks = getMarks($storeId, [$_PREFER, $_NEUTRAL]);
 
-  $targetsInfo = getTargets($storeId);
+    $targetsInfo = getTargets($storeId);
+  }  
 
 ?>
 
@@ -107,22 +109,17 @@
 </header>
 
 <body>
+<?php if (isset($storeInfo['name'])) : ?>
   <section class="primary-content section-content">
     <h1 class="store-title">
-      <?php 
-        if (isset($storeInfo['name'])) {
-          echo htmlspecialchars($storeInfo['name']);
-        } else {
-          echo "商店名稱不存在";
-        }
-      ?>
+      <?php echo htmlspecialchars($storeInfo['name']); ?>
     </h1>
     <div class="love-group">
       <div class="type-rating-status-group">
         <!--綜合評分-->
         <h5 class="rating"><?php echo getBayesianScore($userId, $storeId, $conn); ?></h5>
         <h6 class="rating-text">/ 綜合評分</h6>
-        <a class="store-type" type="button" href="search.html?keyword=<?php echo htmlspecialchars($storeInfo['tag']); ?>" target="_blank"> <?php echo htmlspecialchars($storeInfo['tag']); ?></a>
+        <a class="store-type" type="button" href="search.html?q=<?php echo htmlspecialchars($storeInfo['tag']); ?>" target="_blank"> <?php echo htmlspecialchars($storeInfo['tag']); ?></a>
         <!--營業時間按鈕-->
         <button type="button" class="btn btn-outline-success status" data-bs-container="body" data-bs-toggle="popover2"
           data-bs-title="詳細營業時間" data-bs-placement="bottom" data-bs-html="true"
@@ -184,7 +181,10 @@
       </div>
     </div>
     <!-- 商家介紹 (根據使用者需求而產生的介紹(每個人看到的不一樣))-->
-    <li id="item" class="introduction" data-content="這是一間熱門度高、環境中等、服務很好的店家"></li>
+    <?php if (isset($intro)) : ?>
+        <li id="item" class="introduction" data-content="<?php echo $intro; ?>"></li>
+    <?php else : ?>
+    <?php endif; ?>     
   </section>
 
   <section class="secondary-content section-content">
@@ -359,7 +359,7 @@
         </select>
         <span class="input-group-text" id="inputGroup-sizing-default">篩選</span>
         <input type="text" class="form-control comment-keyword-input" id="commentKeyword" name="commentKeyword" placeholder="評論關鍵字" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-        <button class="btn btn-outline-secondary" onclick="searchComments()" id="button-addon2">搜尋</button>
+        <button class="btn btn-outline-secondary" onclick="searchComments()" id="search-button">搜尋</button>
       </div>
     </div>
     <div class="comment-group" id="commentGroup" keyword=-1>
@@ -384,7 +384,7 @@
           <?php foreach ($foodKeywords as $foodKeyword): ?>
             <div class="card">
               <div class="card-body">
-                <a class="card-text" href="search.html?keyword=<?php echo urlencode($foodKeyword['word']); ?>" target="_blank"><?php echo htmlspecialchars($foodKeyword['word']); ?>(<?php echo htmlspecialchars($foodKeyword['count']); ?>)</a><!--填入推薦食物名稱 href填入此食物的評星宇宙搜尋結果網址-->
+                <a class="card-text" href="search.html?q=<?php echo urlencode($foodKeyword['word']); ?>" target="_blank"><?php echo htmlspecialchars($foodKeyword['word']); ?>(<?php echo htmlspecialchars($foodKeyword['count']); ?>)</a><!--填入推薦食物名稱 href填入此食物的評星宇宙搜尋結果網址-->
               </div>
               <a href="https://www.google.com/search?udm=2&q=<?php echo urlencode($storeInfo['name'] . ' ' . $foodKeyword['word']); ?> " target="_blank"><img class="card-img" src="<?php echo $foodKeyword['image_url'] ?>"><!--src填入推薦食物照片連結 href填入搜尋此食物的google連結--></a>
             </div>
@@ -446,7 +446,7 @@
           foreach ($keywords as $keyword) {
             if ($keyword['count'] > 1) { // 檢查 count 的數量是否大於 1
               echo '<button class="tag btn-outline-secondary btn" type="button">';
-              echo '<a class="tag-text" href="search.html?keyword=' . urlencode($keyword['word']) . '" target="_blank">' . htmlspecialchars($keyword['word']) . ' (' . htmlspecialchars($keyword['count']) . ')</a>'; //<!--填入關鍵字 href填入此的評星宇宙搜尋結果網址-->
+              echo '<a class="tag-text" href="search.html?q=' . urlencode($keyword['word']) . '" target="_blank">' . htmlspecialchars($keyword['word']) . ' (' . htmlspecialchars($keyword['count']) . ')</a>'; //<!--填入關鍵字 href填入此的評星宇宙搜尋結果網址-->
               echo '</button>';
             }
           }
@@ -461,6 +461,10 @@
   <section class="section-content">
     <!--資料爬蟲時間--><h6 class="update">資料更新時間：<?php echo $storeInfo['crawler_time'] ?></h6>
   </section>
+
+  <?php else : ?>
+    <p>指定的商家id不存在。</p>
+  <?php endif; ?>
 
   <!--底部欄-->
   <footer>
@@ -477,7 +481,7 @@
       const objectValue = button.querySelector('.object').textContent;
       const searchInput = document.getElementById('commentKeyword');
       searchInput.value = objectValue;
-      document.getElementById('button-addon2').click();
+      document.getElementById('search-button').click();
     }
   </script>
 
@@ -515,7 +519,7 @@
     document.getElementById('commentKeyword').addEventListener('keydown', function(event) {
       if (event.key === 'Enter') {
         event.preventDefault(); // 防止表單的預設提交行為
-        document.getElementById('button-addon2').click(); // 觸發按鈕點擊事件
+        document.getElementById('search-button').click(); // 觸發按鈕點擊事件
       }
     });
   </script>

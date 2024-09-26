@@ -168,7 +168,7 @@ function getOpeningHours($storeId) {
     $stmt->execute();
     $result = $stmt->get_result();
     // 構建營業時間
-    $hours = [];
+    $openingHours = [];
     while ($row = $result->fetch_assoc()) {
         $openingHours[$row['day_of_week']][] = [
             'open_time' => $row['open_time'],

@@ -240,7 +240,7 @@
                 </div>
               </div>
             </div>
-            <button type="button" class="btn btn-secondary mt-3 search-button" onclick="searchKeyword()">搜尋</button>
+            <button type="button" class="btn btn-secondary mt-3 search-button" id="search-button" onclick="searchKeyword()">搜尋</button>
           </div>
         <!--已選擇篩選條件-->
         <div class="filter-container">
@@ -300,74 +300,30 @@
   <!-- 搜尋跳轉功能 -->
 
   <script>
-    document.getElementById('searchForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      var formData = new FormData(this);
-
-      // 先獲取 HTML 搜索結果
-      fetch('search.php', {
-        method: 'POST',
-        body: formData
-      })
-        .then(response => response.text())
-        .then(html => {
-          if (html && html.trim() !== "") {
-            document.getElementById('searchResults').innerHTML = html;
-          } else {
-            document.getElementById('searchResults').innerHTML = "<p>沒有找到相關結果。</p>";
-          }
-        })
-        .catch(error => console.error('Error:', error));
-
-      // 獲取 JSON 地標資料並更新地圖標記
-      fetch('./data.php', {
-        method: 'POST',
-        body: formData
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (Array.isArray(data) && data.length > 0) {
-            updateMapMarkers(data); // 更新地圖標記
-          } else {
-            console.log('沒有找到地標資料');
-          }
-        })
-        .catch(error => console.error('Fetch錯誤:', error));
-
-    });
 
     function updateMapMarkers(data) {
       console.log('更新地圖標記的數據:', data);
-      // 這個函數需要在 osm-map.js 中實現
-      if (typeof processJsonData === 'function') {
-        processJsonData(data);
-      } else {
-        console.error('processJsonData 函數未定義');
-      }
+      clearMarkers();
+      processJsonData(data);      
     }
 
     function updateKeywordURL(keyword) {
-      if (keyword.trim() === "") {
-        document.title = "搜尋結果";
-        window.history.replaceState({}, '', `${location.protocol}//${location.host}${location.pathname}`);
-      } else {
-        document.title = `搜尋結果 - ${keyword}`;
-        window.history.replaceState({}, '', `${location.protocol}//${location.host}${location.pathname}?q=${keyword}`);  //history.pushState():保留紀錄、history.replaceState():不保留紀錄
-      }      
+      document.title = keyword.trim() === "" ? "搜尋結果" : `搜尋結果 - ${keyword}`;
+      //history.pushState():保留紀錄、history.replaceState():不保留紀錄
+      window.history.pushState({}, '', `${location.protocol}//${location.host}${location.pathname}?q=${keyword}`);
     }
 
     function searchKeyword() {
       var keyword = document.getElementById('keyword').value;
       var searchResults = document.getElementById('searchResults');
       var center = getCenter();
-      if (keyword.trim() === "") return;  
       updateKeywordURL(keyword);
       const formData = new FormData();
       formData.set('q', keyword);      
-      formData.set('userLat', center.lat);
-      formData.set('userLng', center.lng);
+      formData.set('mapCenterLat', center.lat);
+      formData.set('mapCenterLng', center.lng);
 
-      searchResults.innerHTML = "<p>正在為您搜尋符合條件的商家...</p>";      
+      searchResults.innerHTML = '<div class="rotating"><img src="/images/loading2.png" width="30" height="30"></div><p>正在為您搜尋符合條件的商家...</p>';
       // 獲取 HTML 搜索結果
       fetch('search.php', {
         method: 'POST',
@@ -437,9 +393,9 @@
     window.onload = function () {
       const urlParams = new URLSearchParams(window.location.search);
       const keyword = urlParams.get('q');
-      if (keyword) {
+      if (keyword != null) {
         document.getElementById('keyword').value = keyword;
-        searchKeyword(keyword);
+        searchKeyword();
       }
     }
   </script>

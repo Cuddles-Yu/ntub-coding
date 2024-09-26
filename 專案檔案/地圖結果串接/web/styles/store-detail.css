@@ -545,6 +545,7 @@ hr {
     color: white;
     border-radius: 10px;
     font-size: 19px;
+    text-decoration: none;
 }
 
 .store-type-img{

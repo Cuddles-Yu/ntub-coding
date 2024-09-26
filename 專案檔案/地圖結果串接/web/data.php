@@ -4,12 +4,12 @@ require_once 'DB.php';
 require_once 'queries.php';
 
 // 接收 POST 中的經緯度資料
-$userLat = isset($_POST['userLat']) ? floatval($_POST['userLat']) : 25.0418963; // 預設經度
-$userLng = isset($_POST['userLng']) ? floatval($_POST['userLng']): 121.5230431; // 預設緯度
+$mapCenterLat = isset($_POST['userLat']) ? floatval($_POST['userLat']) : 25.0418963; // 預設經度
+$mapCenterLng = isset($_POST['userLng']) ? floatval($_POST['userLng']): 121.5230431; // 預設緯度
 $radius = isset($_POST['radius']) ? intval($_POST['radius']) : 1500;  // 預設半徑 1500 公尺
 
 // 確保使用者提供了經緯度
-if (!$userLat || !$userLng) {
+if (!$mapCenterLat || !$mapCenterLng) {
     echo json_encode([]);
     exit();
 }
@@ -85,4 +85,4 @@ function getStoreData($userLat, $userLng, $radius)
 
 // 將數據轉換為 JSON 格式並輸出
 header('Content-Type: application/json');
-echo json_encode(getStoreData($userLat, $userLng, $radius));
+echo json_encode(getStoreData($mapCenterLat, $mapCenterLng, $radius));

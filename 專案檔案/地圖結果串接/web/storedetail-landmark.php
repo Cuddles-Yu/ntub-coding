@@ -1,13 +1,10 @@
-<?php //單商家的地圖地點位置的資料，將資料轉為json格式
-
+<?php
 require_once 'DB.php';
 require_once 'queries.php';
 
-
-// 獲取商家 ID
 $storeId = $_GET['storeId'] ?? null;
 
-if (!$storeId) {
+if (is_null($storeId)) {
     echo json_encode(['error' => '無效的店家 ID']);
     exit;
 }
@@ -15,44 +12,29 @@ if (!$storeId) {
 // 查詢資料
 function getStoreData($storeId) {
     global $conn;
-
-    $sql = "
-        SELECT 
-            stores.id AS store_id,
-            stores.name AS store_name,
-            stores.link AS store_link,
-            stores.preview_image AS store_preview_image,
-            locations.latitude AS location_latitude,
-            locations.longitude AS location_longitude, 
-            stores.tag AS tag,
-            rates.real_rating AS rate_real_rating,      
-            rates.total_samples AS sample_ratings,      
-            rates.total_withcomments AS total_withcomments,
-            rates.avg_ratings AS avg_ratings    
-
-        FROM 
-            stores
-        JOIN 
-            locations ON stores.id = locations.store_id
-        JOIN 
-            rates ON stores.id = rates.store_id
-            
-        WHERE 
-            stores.id = ? AND crawler_state IN ('成功', '完成', '超時');
+    $sql = 
+    " SELECT 
+        s.id AS store_id,
+        s.name AS store_name,
+        s.link AS store_link,
+        s.preview_image AS store_preview_image,
+        l.latitude AS location_latitude,
+        l.longitude AS location_longitude, 
+        s.tag AS tag,
+        r.real_rating AS rate_real_rating,      
+        r.total_samples AS sample_ratings,      
+        r.total_withcomments AS total_withcomments,
+        r.avg_ratings AS avg_ratings
+      FROM stores AS s
+      JOIN locations AS l ON s.id = l.store_id
+      JOIN rates AS r ON s.id = r.store_id
+      WHERE s.id = $storeId AND crawler_state IN ('成功', '完成', '超時');
     ";
-
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $storeId);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    if ($result === false) {
-        echo "SQL Error: " . $conn->error;
-        exit();
-    }
-
     $data = array();
-
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             $data[] = array(
@@ -70,9 +52,8 @@ function getStoreData($storeId) {
         }
     } else {
         echo json_encode(['error' => '找不到店家資訊']);
-        exit();
+        exit;
     }
-
     $conn->close();
     return $data;
 }
@@ -80,5 +61,3 @@ function getStoreData($storeId) {
 // 將數據轉換為 JSON 格式並輸出
 header('Content-Type: application/json');
 echo json_encode(getStoreData($storeId));
-?>
-

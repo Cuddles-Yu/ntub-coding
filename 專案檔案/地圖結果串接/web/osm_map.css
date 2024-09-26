@@ -4,8 +4,6 @@ html,body{
     height:100%;
 }
 
-
-
 #locateButton {
     position: absolute;
     background-color: white;
@@ -23,7 +21,6 @@ html,body{
 }
 
 .legend span {
-
     margin-left: 8px; /* 與其左側的元素之間有 8px 的空間 */
     vertical-align: middle; /* 垂直置中 */
     text-align: left; /* 水平置中 */

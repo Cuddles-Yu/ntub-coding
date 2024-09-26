@@ -31,37 +31,63 @@ function searchStores($keyword, $userLat, $userLng)
     }
     return $stores;
 }
+
 function getAddress($store) {
     return $store['city'].$store['dist'].$store['details'];
 }
 
 global $conn;
 $userId = '';
-$keyword = isset($_POST['q']) ? $_POST['q'] : '';
-$userLat = isset($_POST['userLat']) ? floatval($_POST['userLat']) : null;
-$userLng = isset($_POST['userLng']) ? floatval($_POST['userLng']) : null;
+$keyword = array_key_exists('q', $_POST) ? htmlspecialchars($_POST['q']) : null;
+$mapCenterLat = isset($_POST['mapCenterLat']) ? floatval($_POST['mapCenterLat']) : null;
+$mapCenterLng = isset($_POST['mapCenterLng']) ? floatval($_POST['mapCenterLng']) : null;
 
-$stores = [];
-if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($keyword)) {
-    $stores = searchStores($keyword, $userLat, $userLng);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (is_null($keyword)) return;
+    $stores = searchStores($keyword, $mapCenterLat, $mapCenterLng);
+    $storeData = [];
+    foreach ($stores as $store) {
+        $storeId = $store['id'];
+        $bayesianScore = getBayesianScore($userId, $storeId, $conn); // 計算Bayesian Score
+        $storeData[] = [
+            'store' => $store,
+            'bayesianScore' => $bayesianScore
+        ];
+    }
+    // 根據Bayesian Score從高到低進行排序
+    usort($storeData, function ($a, $b) {
+        return $b['bayesianScore'] <=> $a['bayesianScore'];
+    });
 }
 ?>
 
-<?php if (!empty($stores)) : ?>
-  <?php foreach ($stores as $store) : ?>      
-    <?php 
+<?php if (!empty($storeData)) : ?>
+  <?php foreach ($storeData as $storeItem) : ?>      
+    <?php
+      $store = $storeItem['store'];
       $storeId = $store['id'];
       $storeName = htmlspecialchars($store['name']);
       $preview_image = htmlspecialchars($store['preview_image']);
       $tag = htmlspecialchars($store['tag']);
       $location = htmlspecialchars(getAddress($store));
-      $bayesianScore = getBayesianScore($userId, $storeId, $conn);
+      $bayesianScore = $storeItem['bayesianScore']; // 從排序結果中獲取Bayesian Score
       $targetsInfo = getTargets($storeId);
+
+      $categories = [
+        $_ENVIRONMENT => ['weight' => '30', 'color' => '#562B08'],
+        $_PRODUCT => ['weight' => '30', 'color' => '#7B8F60'],
+        $_SERVICE => ['weight' => '30', 'color' => '#5053AF'],
+        $_PRICE => ['weight' => '30', 'color' => '#C19237'],
+      ];
+      uasort($categories, function ($a, $b) {
+        return $b['weight'] <=> $a['weight'];
+      });
+      $rowIndex = 1;
     ?>
     <div class="container-fluid store-body" onclick="redirectToDetailPage('<?php echo htmlspecialchars($store['id']); ?>')">
         <div class="row">
             <div class="store-img-group col-3">
-                <!--商家照片--><img class="store-img" src="<?php echo $preview_image; ?>">
+              <img class="store-img" src="<?php echo $preview_image; ?>">
             </div>
             <div class="store-right col">
                 <!--商家名稱--><h5 class="store-name"><?php echo $storeName; ?></h5>
@@ -70,37 +96,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($keyword)) {
                         <!--綜合評分--><h5 class="rating"><?php echo $bayesianScore; ?><small class="rating-text">/ 綜合評分</small></h5>
                         <!--餐廳分類--><h6 class="restaurant-style">類別：<?php echo $tag; ?></h6>
                         <!--餐廳地址--><h6 class="address">地址：<?php echo $location; ?></h6>
-                    </div>
+                    </div>                    
                     <div class="progress-group-text col">
-                        <div class="progress-group">
-                            <div class="progress-text " style="color: #562B08;">氛圍 40%</div>
+                      <?php foreach ($categories as $category => $data): ?>
+                        <?php
+                          $result = getProportionScore($category);
+                          $proportion = $result['proportion'];
+                          $score = $result['score'];
+                        ?>
+                        <tr class="row<?=$rowIndex?>"></tr>
+                          <div class="progress-group">
+                            <div class="progress-text" style="color: <?=$data['color']?>;"><?=$category?></div>
                             <div class="progress col" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress-bar overflow-visible" style="width: 25%; background-color: #562B08;"></div>
+                                <div class="progress-bar overflow-visible" style="width: <?=$proportion.'%'?>; background-color: <?=$data['color']?>;"></div>
                             </div>
-                        </div>
-                        <div class="progress-group">
-                            <div class="progress-text " style="color: #7B8F60;">產品 50%</div>
-                            <div class="progress col" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress-bar overflow-visible" style="width: 50%; background-color: #7B8F60;"></div>
-                            </div>
-                        </div>
-                        <div class="progress-group">
-                            <div class="progress-text " style="color: #5053AF;">服務 70%</div>
-                            <div class="progress col" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress-bar overflow-visible" style="width: 75%; background-color: #5053AF;"></div>
-                            </div>
-                        </div>
-                        <div class="progress-group">
-                            <div class="progress-text " style="color: #C19237;">售價 75%</div>
-                            <div class="progress col" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress-bar overflow-visible" style="width: 100%; background-color: #C19237;"></div>
-                            </div>
-                        </div>
+                          </div>
+                        </tr>
+                        <?php $rowIndex++; ?>
+                      <?php endforeach; ?>
                     </div>
                     <div class="quick-group col-2">
                         <a class="love" href="#"><img class="love-img" src="images/love.png"><h6 class="love-text">最愛</h6></a>
-                        <a class="map-link" href="<?php echo htmlspecialchars($store['link']); ?>" target="_blank" onclick="event.stopPropagation();"><img class="map-link-img" src="images/map.png"><h6 class="map-link-text">地圖</h6></a><!--href="#" #換成餐廳地圖-->
-                        <a class="web" href="<?php echo htmlspecialchars($store['website']); ?>" target="_blank" onclick="event.stopPropagation();"><img class="web-img" src="images/web.png"><h6 class="web-text">官網</h6></a><!--href="#" #換成餐廳官網-->
+                        <a class="map-link" href="<?php echo htmlspecialchars($store['link']); ?>" target="_blank" onclick="event.stopPropagation();"><img class="map-link-img" src="images/map.png"><h6 class="map-link-text">地圖</h6></a>
+                        <a class="web" href="<?php echo htmlspecialchars($store['website']); ?>" target="_blank" onclick="event.stopPropagation();"><img class="web-img" src="images/web.png"><h6 class="web-text">官網</h6></a>
                     </div>
                 </div>
             </div>
