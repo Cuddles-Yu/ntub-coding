@@ -651,9 +651,12 @@ hr {
 
 .update{
     margin-top: 7px;
-    color: #2E2E2E;
+    color: gray;
     font-size: 17px;
-    white-space: nowrap;
+    white-space: nowrap;      
+    margin-right: 10px;
+    margin-bottom: 30px;
+    text-align: right;
 }
 
 .love-img{
@@ -1224,7 +1227,7 @@ hr {
 
 .tag-group{
     margin-top: 20px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     display: flex;
     gap: 23px;
     flex-wrap: nowrap;
@@ -2951,7 +2954,7 @@ hr {
     margin-top: 7px;
     color: #2E2E2E;
     font-size: 12px;
-    white-space: nowrap;
+    white-space: nowrap; 
   }
   
   .love-img{

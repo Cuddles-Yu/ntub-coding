@@ -161,6 +161,7 @@ function moveGetCenter() {
 // 取得地圖中心經緯度
 function getCenter() {
     var mapCenter = map.getCenter(); // 取得地圖中心點的經緯度
+    console.log("地圖中心經緯度：", mapCenter);
     return mapCenter; // 回傳 L.LatLng 物件
 }
 

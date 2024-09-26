@@ -25,28 +25,31 @@
         if (isset($_POST['pull'])) {
             $command = escapeshellcmd($pythonPath.' '.$pythonFile.' 2>&1');
             $output = shell_exec($command);
+            date_default_timezone_set("Asia/Taipei");
             $current_time = date('Y-m-d H:i:s');
 
             if ($output !== null) {
                 $gitLog = shell_exec('git log -1 --pretty=format:"%h|%s|%b|%ci|%an" 2>&1');
                 list($commitHash, $title, $body, $date, $author) = explode('|', $gitLog);
+                $dateObject = DateTime::createFromFormat('Y-m-d H:i:s O', trim($date));
+                $formattedDate = $dateObject->format('Y-m-d H:i:s');
                 $output = preg_replace('/\n\s*\n/', "\n", trim($output));
 
                 $logEntry = "
                 <div class='log-entry'>
-                    <p><strong>更新時間：</strong> $current_time</p>
-                    <p><strong>管理者：</strong> $adminName</p>
-                    <p><strong>Git Pull 輸出</strong></p>
-                    <pre class='git-log'>$output</pre>         
-                    <hr>        
-                    <p><strong>上傳時間：</strong> $date</p>
-                    <p><strong>提交人員：</strong> $author</p>
-                    <p><strong>提交標題</strong></p>
-                    <pre class='git-log'>($commitHash) $title</pre>
-                    <p><strong>提交說明</strong></p>
-                    <pre class='git-log'>$body</pre>                              
-                </div>
-                <hr>";
+                    <h3>Git Pull 資訊</h3>                    
+                    <p><strong>輸出</strong></p>
+                    <pre class='git-log'>$output</pre>        
+                    <p><strong>同步時間：</strong> $current_time</p>
+                    <p><strong>管理者：</strong> $adminName</p>                     
+                    <h3>Commit 資訊</h3>
+                    <p><strong>標題</strong></p>
+                    <pre class='git-log'><em>($commitHash) $title</em></pre>
+                    <p><strong>說明</strong></p>
+                    <pre class='git-log'><em>$body</em></pre>            
+                    <p><strong>提交時間：</strong> $formattedDate</p>
+                    <p><strong>開發者：</strong> $author</p>                  
+                </div>";
 
                 $existingContent = file_get_contents($logFile);
                 file_put_contents($logFile, $logEntry . $existingContent);
@@ -59,9 +62,9 @@
         <span class='success'><strong>已驗證的授權</strong> -> $adminName</span>
         <form method='POST' style='display: inline; margin-left: 10px;'>
             <input type='hidden' name='auth' value='$authKey'>
-            <button class='btn-modern' type='submit' name='pull'>執行Git Pull更新</button>
+            <button class='btn-modern' type='submit' name='pull'>Git Pull</button>
         </form>";
-        echo "<h2>Git 更新紀錄</h2>";
+        echo "<h2>Git 同步紀錄</h2>";
         echo "<div id='git-history'>";
 
         $logContent = file_get_contents($logFile);
@@ -71,4 +74,3 @@
     } else {
         colored_echo('red', 'INVALID', '錯誤的授權金鑰，無法執行 Git Pull 程式');
     }
-?>

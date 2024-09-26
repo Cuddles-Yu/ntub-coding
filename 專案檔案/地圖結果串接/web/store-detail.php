@@ -27,12 +27,10 @@
   <link rel="stylesheet" href="styles/store-detail.css" />
 </head>
 
-<body>
-  <?php
+<?php
   // 引入資料庫連接和查詢函數
   require_once 'queries.php';
   require_once 'analysis.php';
-
 
   // 優先使用 GET 參數
   $userId = $_GET['uid'] ?? null;
@@ -65,48 +63,50 @@
 
   $targetsInfo = getTargets($storeId);
 
-  ?>
+?>
+
   <!-- 頂欄 -->
-  <header>
-    <!-- 基本項目 -->
-    <div id="web_name">
-      <img src="images/Logo設計_圖像(藍+).png" id="web_logo">
-      <a href="home.html">評星宇宙</a>
-    </div>
+<header>
+  <!-- 基本項目 -->
+  <div id="web_name">
+    <img src="images/Logo設計_圖像(藍+).png" id="web_logo">
+    <a href="home.html">評星宇宙</a>
+  </div>
 
-    <div id="nav_menu1">
-      <a class="link_text" href="home.html">網站首頁</a>
-      <div class="vertical-line"></div>
-      <a class="link_text" href="#">使用說明</a>
-      <div class="vertical-line"></div>
-      <a class="link_text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a>
-      <div class="vertical-line"></div>
-      <a class="link_text" href="develop-team.html">成員介紹</a>
-    </div>
+  <div id="nav_menu1">
+    <a class="link_text" href="home.html">網站首頁</a>
+    <div class="vertical-line"></div>
+    <a class="link_text" href="#">使用說明</a>
+    <div class="vertical-line"></div>
+    <a class="link_text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a>
+    <div class="vertical-line"></div>
+    <a class="link_text" href="develop-team.html">成員介紹</a>
+  </div>
 
-    <div id="user_icon" type="button">
-      <img src="images/user.jpg" id="user_icon_logo">
-    </div>
+  <div id="user_icon" type="button">
+    <img src="images/user.jpg" id="user_icon_logo">
+  </div>
 
-    <div id="login_button">
-      <button id="login" href="#">登入</button>
-      <button id="signup" href="#">註冊</button>
-    </div>
+  <div id="login_button">
+    <button id="login" href="#">登入</button>
+    <button id="signup" href="#">註冊</button>
+  </div>
 
-    <!-- 漢堡圖示 -->
-    <button id="hamburger_btn" class="hamburger">&#9776;</button>
-    <div id="overlay"></div>
-    <nav id="nav_menu2">
-      <a class="link_text" href="home.html">網站首頁</a>
-      <a class="link_text" href="#">使用說明</a>
-      <a class="link_text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a>
-      <a class="link_text" href="develop-team.html">成員介紹</a>
-      <button id="login2" href="#">登入</button>
-      <button id="signup2" href="#">註冊</button>
-    </nav>
-    <hr>
-  </header>
+  <!-- 漢堡圖示 -->
+  <button id="hamburger_btn" class="hamburger">&#9776;</button>
+  <div id="overlay"></div>
+  <nav id="nav_menu2">
+    <a class="link_text" href="home.html">網站首頁</a>
+    <a class="link_text" href="#">使用說明</a>
+    <a class="link_text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a>
+    <a class="link_text" href="develop-team.html">成員介紹</a>
+    <button id="login2" href="#">登入</button>
+    <button id="signup2" href="#">註冊</button>
+  </nav>
+  <hr>
+</header>
 
+<body>
   <section class="primary-content section-content">
     <h1 class="store-title">
       <?php 
@@ -121,7 +121,7 @@
       <div class="type-rating-status-group">
         <!--綜合評分-->
         <h5 class="rating"><?php echo getBayesianScore($userId, $storeId, $conn); ?></h5>
-        <h6 class="rating-text">/綜合評分</h6>
+        <h6 class="rating-text">/ 綜合評分</h6>
         <a class="store-type" type="button" href="search.html?keyword=<?php echo htmlspecialchars($storeInfo['tag']); ?>" target="_blank"> <?php echo htmlspecialchars($storeInfo['tag']); ?></a>
         <!--營業時間按鈕-->
         <button type="button" class="btn btn-outline-success status" data-bs-container="body" data-bs-toggle="popover2"
@@ -146,15 +146,14 @@
                             }
                             ?>">
           <i class="fi fi-sr-clock status-img"></i>營業中
-        </button>
+        </button>       
 
         <!--分店綜合評分比較-->
         <?php if (!empty($otherBranches)) { ?>
           <!-- 顯示 "其他分店" 按鈕 -->
           <button class="btn btn-outline-secondary other-store-rating" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
             其他分店
-          </button>
-          <h6 class="update">資料更新時間：2024/07/16 13:50<!--填入資料更新時間--></h6>
+          </button>          
       </div>
       <a class="love" href="#"><img class="love-img" src="images/love.png"></a>
     </div>
@@ -349,7 +348,7 @@
     </div>
 
     <div class="keyword-title">
-      <h5 class="keyword-title-text" id="comment-count-title">留言 <?php echo count($comments); ?> 則</h5><!--括號填入留言數量-->
+      <h5 class="keyword-title-text" id="comment-count-title"><!--動態生成留言數量--></h5> 
       <!--排序按鈕-->
       <div class="input-group mb-3 sort-button">
         <span class="input-group-text" id="basic-addon1"><i class="fi fi-sr-sort-amount-down"></i>排序</span>
@@ -364,6 +363,7 @@
       </div>
     </div>
     <div class="comment-group" id="commentGroup" keyword=-1>
+      <!-- 動態生成留言 -->
     </div>
 
   </section>
@@ -458,7 +458,9 @@
       </div>
       <div class="carousel-arrow-tag right-arrow-2" type="button"><i class="fi fi-sr-angle-right"></i></div>
   </section>
-
+  <section class="section-content">
+    <!--資料爬蟲時間--><h6 class="update">資料更新時間：<?php echo $storeInfo['crawler_time'] ?></h6>
+  </section>
 
   <!--底部欄-->
   <footer>

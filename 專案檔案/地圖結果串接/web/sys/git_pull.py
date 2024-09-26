@@ -1,7 +1,7 @@
 import subprocess
 
 def colored_echo(color, title, text):
-  print(f"<em style='color:{color};'>[{title}] </em>{text}")
+  print(f"<em style='color:{color};'>[{title}] </em><em>{text}</em>")
         
 def git_pull(repo_path):
     try:
