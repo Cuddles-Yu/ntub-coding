@@ -92,10 +92,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="store-right col">
                 <!--商家名稱--><h5 class="store-name"><?php echo $storeName; ?></h5>
                 <div class="store-information row">
-                    <div class="col-5">
-                        <!--綜合評分--><h5 class="rating"><?php echo $bayesianScore; ?><small class="rating-text">/ 綜合評分</small></h5>
-                        <!--餐廳分類--><h6 class="restaurant-style">類別：<?php echo $tag; ?></h6>
-                        <!--餐廳地址--><h6 class="address">地址：<?php echo $location; ?></h6>
+                    <div class="col-6">
+                      <div class="rating-distance">
+                      <!--綜合評分--><h5 class="rating"><?php echo $bayesianScore; ?><small class="rating-text">/ 綜合評分</small></h5>
+                      <!--距離公尺--><div class="distance">3210公尺</div>
+                      </div>
+                      <!--餐廳分類--><h6 class="restaurant-style">類別：<?php echo $tag; ?></h6>
+                      <!--餐廳地址--><h6 class="address">地址：<?php echo $location; ?></h6>
                     </div>                    
                     <div class="progress-group-text col">
                       <?php foreach ($categories as $category => $data): ?>
@@ -107,9 +110,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <tr class="row<?=$rowIndex?>"></tr>
                           <div class="progress-group">
                             <div class="progress-text" style="color: <?=$data['color']?>;"><?=$category?></div>
-                            <div class="progress col" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress col-6" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                                 <div class="progress-bar overflow-visible" style="width: <?=$proportion.'%'?>; background-color: <?=$data['color']?>;"></div>
                             </div>
+                            <div class="progress-score" style="color: <?=$data['color']?>;">100.0分</div>
                           </div>
                         </tr>
                         <?php $rowIndex++; ?>

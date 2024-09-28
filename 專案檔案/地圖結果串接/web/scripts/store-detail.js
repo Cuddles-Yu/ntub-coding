@@ -1,19 +1,50 @@
+/* 點擊漢堡圖示時，顯示/隱藏選單 */
+document.getElementById('hamburger_btn').addEventListener('click', function() {
+  var navMenu = document.getElementById('nav_menu2');
+  var overlay = document.getElementById('overlay');
+  navMenu.classList.toggle('show');  // 切換顯示與隱藏
+  overlay.classList.toggle('show');
+});
+
+document.getElementById('overlay').addEventListener('click', function() {
+  var navMenu = document.getElementById('nav_menu2');
+  var overlay = document.getElementById('overlay');
+  navMenu.classList.remove('show');
+  overlay.classList.remove('show');
+});
+
+
 //營業時間展開框
 //初始化 Popover
-var popoverTriggerEl = document.querySelector('.status');
-var popover = new bootstrap.Popover(popoverTriggerEl);
+document.addEventListener('DOMContentLoaded', function () {
+  // 初始化所有擁有 'status' class 的 popover
+  var popovers = [].slice.call(document.querySelectorAll('.status'));
+  
+  popovers.forEach(function (popoverEl) {
+    var popover = new bootstrap.Popover(popoverEl, {
+      placement: 'bottom', // 固定為底部顯示
+      fallbackPlacements: [] // 禁止根據空間自動調整方向
+    });
 
-// 點擊空白處隱藏 Popover
-document.addEventListener('click', function (e) {
-  if (!popoverTriggerEl.contains(e.target) && !document.querySelector('.popover')?.contains(e.target)) {
-    popover.hide(); // 手動隱藏 Popover
-  }
+    // 點擊空白處隱藏 Popover
+    document.addEventListener('click', function (e) {
+      if (!popoverEl.contains(e.target) && !document.querySelector('.popover')?.contains(e.target)) {
+        popover.hide(); // 手動隱藏 Popover
+      }
+    });
+  });
+  
+  console.log('store-detail.js資料引入成功！');
 });
 
 //其他分店展開框
-const popover1 = new bootstrap.Popover('.other-store-rating', {
-  container: 'body'
-})
+const popoverTriggerList = [].slice.call(document.querySelectorAll('.other-store-rating'));
+
+popoverTriggerList.forEach(function (popoverTriggerEl) {
+  new bootstrap.Popover(popoverTriggerEl, {
+    container: 'body'
+  });
+});
 
 //店家資訊簡介顯示
 // 獲取所有有 data-content 屬性的 li 元素
@@ -191,38 +222,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 //隱藏留言滾動條
-const container = document.querySelector('.other-store');
+document.addEventListener('DOMContentLoaded', function () {
+  const containers = document.querySelectorAll('.other-store');
 
-if (container.scrollHeight > container.clientHeight) {
-  container.style.overflowY = 'scroll'; // 顯示垂直滾動條
-} else {
-  container.style.overflowY = 'auto'; // 隱藏垂直滾動條
-}
-
-//留言按鈕文字狀態
-// document.getElementById('toggleButton').addEventListener('click', function () {
-//   const button = this;
-//   const isExpanded = button.getAttribute('aria-expanded') === 'true';
-
-//   // 根據 aria-expanded 的狀態來改變文字
-//   if (isExpanded) {
-//     button.textContent = '收起';
-//   } else {
-//     button.textContent = '展開';
-//   }
-// });
-
-/* 點擊漢堡圖示時，顯示/隱藏選單 */
-document.getElementById('hamburger_btn').addEventListener('click', function() {
-  var navMenu = document.getElementById('nav_menu2');
-  var overlay = document.getElementById('overlay');
-  navMenu.classList.toggle('show');  // 切換顯示與隱藏
-  overlay.classList.toggle('show');
+  containers.forEach(container => {
+    if (container.scrollHeight > container.clientHeight) {
+      container.style.overflowY = 'scroll'; // 顯示垂直滾動條
+    } else {
+      container.style.overflowY = 'auto'; // 隱藏垂直滾動條
+    }
+  });
 });
 
-document.getElementById('overlay').addEventListener('click', function() {
-  var navMenu = document.getElementById('nav_menu2');
-  var overlay = document.getElementById('overlay');
-  navMenu.classList.remove('show');
-  overlay.classList.remove('show');
-});
+/*留言按鈕文字狀態
+ document.getElementById('toggleButton').addEventListener('click', function () {
+   const button = this;
+   const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+   // 根據 aria-expanded 的狀態來改變文字
+   if (isExpanded) {
+     button.textContent = '收起';
+   } else {
+     button.textContent = '展開';
+   }
+ });*/

@@ -700,6 +700,22 @@ body{
     margin-top: 10px;
   }
 
+  .rating-distance{
+    display: flex;
+    gap: 10px;
+  }
+
+  .distance{
+    padding: 7px;
+    margin: 0;
+    color: black;
+    border-radius: 5px;
+    font-size: 12.8px;
+    text-align: center;
+    border: 1px solid #8394a1;
+    white-space: nowrap;
+  }
+
   .store-name{
     margin-top: 10px;
     font-weight: bold;
@@ -714,6 +730,8 @@ body{
     color: #AC3535;
     font-weight: bold;
     font-size: 20px;
+    white-space: nowrap;
+    margin-top: 3px;
   }
 
   .rating-text{
@@ -728,12 +746,20 @@ body{
   .progress-group-text{
     margin-top: 7px;
     font-size: 13px;
+    white-space: nowrap;
+  }
+  
+  .progress-score{
+    font-size: 13px;
+    text-align: right;
+    white-space: nowrap;
   }
 
   .progress-group{
     display: flex;
     flex-wrap: nowrap;
     align-items: flex-end;
+    justify-content: flex-end;
     gap: 5px;
     margin-bottom: 3px;
   }
@@ -967,6 +993,22 @@ body{
     padding-left: 0;
   }
 
+  .rating-distance{
+    display: flex;
+    gap: 10px;
+  }
+
+  .distance{
+    padding: 7px;
+    margin: 0;
+    color: black;
+    border-radius: 5px;
+    font-size: 12.8px;
+    text-align: center;
+    border: 1px solid #8394a1;
+    white-space: nowrap;
+  }
+
   .store-name{
     margin-top: 10px;
     font-weight: bold;
@@ -981,6 +1023,8 @@ body{
     color: #AC3535;
     font-weight: bold;
     font-size: 20px;
+    white-space: nowrap;
+    margin-top: 3px;
   }
 
   .rating-text{
@@ -995,12 +1039,20 @@ body{
   .progress-group-text{
     margin-top: 7px;
     font-size: 13px;
+    white-space: nowrap;
+  }
+  
+  .progress-score{
+    font-size: 13px;
+    text-align: right;
+    white-space: nowrap;
   }
 
   .progress-group{
     display: flex;
     flex-wrap: nowrap;
     align-items: flex-end;
+    justify-content: flex-end;
     gap: 5px;
     margin-bottom: 3px;
   }
@@ -1230,6 +1282,22 @@ body{
     padding-left: 0;
   }
 
+  .rating-distance{
+    display: flex;
+    gap: 10px;
+  }
+
+  .distance{
+    padding: 7px;
+    margin: 0;
+    color: black;
+    border-radius: 5px;
+    font-size: 12.8px;
+    text-align: center;
+    border: 1px solid #8394a1;
+    white-space: nowrap;
+  }
+
   .store-name{
     margin-top: 10px;
     font-weight: bold;
@@ -1244,6 +1312,8 @@ body{
     color: #AC3535;
     font-weight: bold;
     font-size: 20px;
+    white-space: nowrap;
+    margin-top: 3px;
   }
 
   .rating-text{
@@ -1260,11 +1330,18 @@ body{
     font-size: 13px;
     white-space: nowrap;
   }
+  
+  .progress-score{
+    font-size: 13px;
+    text-align: right;
+    white-space: nowrap;
+  }
 
   .progress-group{
     display: flex;
     flex-wrap: nowrap;
     align-items: flex-end;
+    justify-content: flex-end;
     gap: 5px;
     margin-bottom: 3px;
   }

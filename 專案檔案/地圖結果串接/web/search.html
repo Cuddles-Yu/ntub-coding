@@ -296,15 +296,13 @@
   <!-- 載入主程式 osm_map.js -->  
   <script src="scripts/ui-interactions.js"></script>
 
-
   <!-- 搜尋跳轉功能 -->
-
   <script>
-
+    
     function updateMapMarkers(data) {
       console.log('更新地圖標記的數據:', data);
       clearMarkers();
-      processJsonData(data);      
+      processJsonData(data);  
     }
 
     function updateKeywordURL(keyword) {
@@ -318,12 +316,13 @@
       var searchResults = document.getElementById('searchResults');
       var center = getCenter();
       updateKeywordURL(keyword);
+
       const formData = new FormData();
       formData.set('q', keyword);      
       formData.set('mapCenterLat', center.lat);
       formData.set('mapCenterLng', center.lng);
 
-      searchResults.innerHTML = '<div class="rotating"><img src="/images/loading2.png" width="30" height="30"></div><p>正在為您搜尋符合條件的商家...</p>';
+      searchResults.innerHTML = '<div class="rotating"><img src="./images/loading2.png" width="30" height="30"></div><p>正在為您搜尋符合條件的商家...</p>';
       // 獲取 HTML 搜索結果
       fetch('search.php', {
         method: 'POST',
@@ -338,6 +337,8 @@
           }
         })
         .catch(error => console.error('Error:', error));
+        
+
       // 獲取 JSON 地標資料並更新地圖標記
       fetch('search_landmark.php', {
         method: 'POST',
@@ -367,7 +368,7 @@
     }
   </script>
 
-  <script>    
+  <script>
     // 獲取使用者的經緯度
     function getUserLocation() {
       if (navigator.geolocation) {

@@ -737,7 +737,7 @@ body{
     height: 100%;
   }
 
-  span {
+  .tab-1, .tab-2, .tab-3 {
     display: none;
   }
 
@@ -1111,7 +1111,7 @@ body{
     height: 100%;
   }
 
-  span {
+  .tab-1, .tab-2, .tab-3{
     display: none;
   }
 
@@ -1484,7 +1484,7 @@ body{
     height: 100%;
   }
 
-  span {
+  .tab-1, .tab-2, .tab-3 {
     display: none;
   }
 

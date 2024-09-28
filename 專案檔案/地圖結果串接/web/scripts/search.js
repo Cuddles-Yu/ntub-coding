@@ -1,3 +1,18 @@
+/* 點擊漢堡圖示時，顯示/隱藏選單 */
+document.getElementById('hamburger_btn').addEventListener('click', function() {
+  var navMenu = document.getElementById('nav_menu2');
+  var overlay = document.getElementById('overlay');
+  navMenu.classList.toggle('show');  // 切換顯示與隱藏
+  overlay.classList.toggle('show');
+});
+
+document.getElementById('overlay').addEventListener('click', function() {
+  var navMenu = document.getElementById('nav_menu2');
+  var overlay = document.getElementById('overlay');
+  navMenu.classList.remove('show');
+  overlay.classList.remove('show');
+});
+
 //搜尋結果滾動條隱藏
 const storeContainer = document.querySelector('.store');
 

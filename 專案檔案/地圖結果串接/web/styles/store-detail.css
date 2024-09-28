@@ -109,7 +109,7 @@ body{
     margin-left: 10px;
 }
 
-hr {
+.header-bar {
     width: 100%;
     height: 4px; /* 粗細 */
     background-color: #9D9ABD;
@@ -241,7 +241,7 @@ hr {
       margin-left: 10px;
   }
 
-  hr {
+  .header-bar {
       width: 100%;
       height: 4px; /* 粗細 */
       background-color: #9D9ABD;
@@ -402,7 +402,7 @@ hr {
       right: 15vw;
   }
 
-  hr {
+  .header-bar {
       width: 100%;
       height: 4px; /* 粗細 */
       background-color: #9D9ABD;
@@ -576,7 +576,7 @@ hr {
 
 .popover-body{
     font-size: 14px;
-    text-align: end;
+    text-align: left;
 }
 
 .other-store-rating{
@@ -739,10 +739,6 @@ hr {
     border: 1px solid #716d6d; /* 添加外框，寬度為1px */
 }
 
-.legend, .leaflet-right, .leaflet-left, #locateButton{
-    display: none;
-}
-
 .title-group{
     display: flex;
     align-items: flex-end;
@@ -830,6 +826,9 @@ hr {
 
 .service-item{
     display: flex;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .item-img{
@@ -1042,6 +1041,10 @@ hr {
     white-space: nowrap;
 }
 
+.comment-good:hover, .comment-bad:hover, .comment-neutral:hover, .comment-middle:hover {
+  color: black;
+}
+
 .comment-good {
     border-color: #5FA74D;
     color: #5FA74D;
@@ -1172,6 +1175,7 @@ hr {
     flex: 0 0 auto; /* 確保卡片不縮放 */
     min-width: 208px;
     height: 170px;
+    cursor: pointer;
 }
 
 .card-img{
@@ -1323,6 +1327,7 @@ hr {
     color: white;
     border-radius: 10px;
     font-size: 14px;
+    text-decoration: none;
   }
 
   .store-type-img{
@@ -1352,7 +1357,7 @@ hr {
   
   .popover-body{
     font-size: 14px;
-    text-align: end;
+    text-align: left;
   }
   
   .other-store-rating{
@@ -1505,10 +1510,6 @@ hr {
     width: 60%;
     border-radius: 6.83px;
     border: 1px solid #716d6d; /* 添加外框，寬度為1px */
-  }
-  
-  .legend, .leaflet-right, .leaflet-left, #locateButton{
-    display: none;
   }
   
   .title-group{
@@ -1803,6 +1804,10 @@ hr {
     justify-content: center; 
     white-space: nowrap;
   }
+
+  .comment-good:hover, .comment-bad:hover, .comment-neutral:hover, .comment-middle:hover {
+    color: black;
+  }
   
   .comment-good {
     border-color: #5FA74D;
@@ -2086,6 +2091,7 @@ hr {
     color: white;
     border-radius: 10px;
     font-size: 14px;
+    text-decoration: none;
   }
 
   .store-type-img{
@@ -2115,7 +2121,7 @@ hr {
   
   .popover-body{
     font-size: 14px;
-    text-align: end;
+    text-align: left;
   }
 
   hr{
@@ -2278,10 +2284,6 @@ hr {
     width: 50%;
     border-radius: 6.83px;
     border: 1px solid #716d6d; /* 添加外框，寬度為1px */
-  }
-  
-  .legend, .leaflet-right, .leaflet-left, #locateButton{
-    display: none;
   }
   
   .title-group{
@@ -2559,6 +2561,10 @@ hr {
     align-items: center;
     justify-content: center; 
     white-space: nowrap;
+  }
+
+  .comment-good:hover, .comment-bad:hover, .comment-neutral:hover, .comment-middle:hover {
+    color: black;
   }
   
   .comment-good {
@@ -2843,6 +2849,7 @@ hr {
     color: white;
     border-radius: 10px;
     font-size: 14px;
+    text-decoration: none;
   }
 
   .store-type-img{
@@ -2872,7 +2879,7 @@ hr {
   
   .popover-body{
     font-size: 14px;
-    text-align: end;
+    text-align: left;
   }
 
   hr{
@@ -3035,10 +3042,6 @@ hr {
     width: 50%;
     border-radius: 6.83px;
     border: 1px solid #716d6d; /* 添加外框，寬度為1px */
-  }
-  
-  .legend, .leaflet-right, .leaflet-left, #locateButton{
-    display: none;
   }
   
   .title-group{
@@ -3319,6 +3322,10 @@ hr {
     justify-content: center; 
     white-space: nowrap;
   }
+
+  .comment-good:hover, .comment-bad:hover, .comment-neutral:hover, .comment-middle:hover {
+    color: black;
+  }
   
   .comment-good {
     border-color: #5FA74D;
@@ -3572,5 +3579,9 @@ hr {
     display: flex;
     align-items: center;
     white-space: nowrap;
+  }
+
+  .comment-good:hover, .comment-bad:hover, .comment-neutral:hover, .comment-middle:hover {
+    color: black;
   }
 }

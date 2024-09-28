@@ -105,7 +105,7 @@
     <button id="login2" href="#">登入</button>
     <button id="signup2" href="#">註冊</button>
   </nav>
-  <hr>
+  <hr class="header-bar">
 </header>
 
 <body>
@@ -122,20 +122,20 @@
         <a class="store-type" type="button" href="search.html?q=<?php echo htmlspecialchars($storeInfo['tag']); ?>" target="_blank"> <?php echo htmlspecialchars($storeInfo['tag']); ?></a>
         <!--營業時間按鈕-->
         <button type="button" class="btn btn-outline-success status" data-bs-container="body" data-bs-toggle="popover2"
-          data-bs-title="詳細營業時間" data-bs-placement="bottom" data-bs-html="true"
+          data-bs-title="詳細營業時間" data-bs-placement="top" data-bs-html="true"
           data-bs-content="<?php
                             foreach ($openingHours as $day => $hours) {
                               echo htmlspecialchars($day) . ':<br>';
                               if (empty($hours)) {
-                                echo '&nbsp;&nbsp;休息<br>';
+                                echo '休息<br>';
                               } else {
                                 foreach ($hours as $hour) {
                                   if ($hour['open_time'] === null || $hour['close_time'] === null) {
-                                    echo '&nbsp;&nbsp;休息<br>';
+                                    echo '休息<br>';
                                   } else {
                                     $openTime = date('H:i', strtotime($hour['open_time']));
                                     $closeTime = date('H:i', strtotime($hour['close_time']));
-                                    echo '&nbsp;&nbsp;' . htmlspecialchars($openTime) . ' - ' . htmlspecialchars($closeTime) . '<br>';
+                                    echo htmlspecialchars($openTime) . ' - ' . htmlspecialchars($closeTime) . '<br>';
                                   }
                                 }
                               }
@@ -143,14 +143,14 @@
                             }
                             ?>">
           <i class="fi fi-sr-clock status-img"></i>營業中
-        </button>       
+        </button>
 
         <!--分店綜合評分比較-->
         <?php if (!empty($otherBranches)) { ?>
           <!-- 顯示 "其他分店" 按鈕 -->
           <button class="btn btn-outline-secondary other-store-rating" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
             其他分店
-          </button>          
+          </button>
       </div>
       <a class="love" href="#"><img class="love-img" src="images/love.png"></a>
     </div>
@@ -184,7 +184,7 @@
     <?php if (isset($intro)) : ?>
         <li id="item" class="introduction" data-content="<?php echo $intro; ?>"></li>
     <?php else : ?>
-    <?php endif; ?>     
+    <?php endif; ?>   
   </section>
 
   <section class="secondary-content section-content">
@@ -336,7 +336,7 @@
           <div class="group-keyword">
             <?php foreach ($data['marks'] as $index => $keyword): ?>
               <div class="keywords">
-                <button type="button" class="btn comment-<?php echo $data['name'] ?>" onclick="setCommentKeyword(this)" data-bs-toggle="modal" data-bs-target="#<?php echo $data['name'] ?>Modal<?php echo $index; ?>">
+                <button type="button" class="comment-<?php echo $data['name'] ?>" onclick="setCommentKeyword(this)" data-bs-toggle="modal" data-bs-target="#<?php echo $data['name'] ?>Modal<?php echo $index; ?>">
                   <w class="object"><?php echo htmlspecialchars($keyword['object']); ?></w>
                   <w class="count">(<?php echo htmlspecialchars($keyword['count']); ?>)</w>
                 </button>
