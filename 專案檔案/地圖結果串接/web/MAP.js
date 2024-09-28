@@ -1,3 +1,5 @@
+//整合地圖通用邏輯功能
+
 // 建構地圖，經緯度座標中心、縮放等級
 var map = L.map('map', {
     center: [25.0418963, 121.5230431], //改成北商座標
@@ -11,16 +13,8 @@ if (map) {
 
 // OpenStreetMap 預設
 var OpenStreetMap_Mapnik = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
-
-// Stadia 戶外(需要授權碼已停用)
-// var Stadia_Outdoors = L.tileLayer('https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.{ext}', {
-//     minZoom: 0,
-//     maxZoom: 20,
-//     attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-//     ext: 'png'
-// }).addTo(map);
 
 // 添加比例尺
 L.control.scale({
@@ -28,13 +22,21 @@ L.control.scale({
     imperial: false // 不顯示英制單位
 }).addTo(map);
 
-// 創建logo圖標
+// 創建商家的位置圖標
 var mapIcon = L.icon({
     iconUrl: './images/location_mark1.png',
     iconSize: [30, 30],
     popupAnchor: [0, -20] // 彈出框的位置(圖標頂部中心點)
 })
 
+// 創建單一該商家的位置圖標
+var mapIcon = L.icon({
+    iconUrl: './images/location_mark2.png',
+    iconSize: [30, 30],
+    popupAnchor: [0, -20]
+});
+
+// 創建使用者的位置圖標  
 var userIcon = L.icon({
     iconUrl: './images/location_mark3.png',
     iconSize: [20, 20], // 圖標大小
@@ -48,14 +50,15 @@ window.onload = function () {
 
 // 定位使用者所在位置的函數
 function userLocate() {
-    // 先定義一個空的經緯度範圍數組，稍後會將商家和使用者的經緯度都加入
-    var bounds = [];
 
     // 嘗試獲取使用者位置
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
             var userLat = position.coords.latitude;
             var userLng = position.coords.longitude;
+
+            // 從使用者偏好中獲取半徑(縮放等級)
+            var zoomLevel = getZoomLevel();
 
             // 建立使用者的標點
             var userMarker = L.marker([userLat, userLng], {
@@ -65,33 +68,8 @@ function userLocate() {
             // 將使用者標點加入地圖
             map.addLayer(userMarker);
 
-            // 把使用者的經緯度加到範圍數組中
-            bounds.push([userLat, userLng]);
-
             // 設置地圖中心為使用者位置
-            map.setView([userLat, userLng], 16); 
-
-            // 引入資料庫資料(JSON格式)
-            // 使用Fetch API取得JSON資料
-            fetch('./data.php')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    //console.log('JSON資料引入成功！');
-                    if (Array.isArray(data) && data.length > 0) {
-                        processJsonData(data, bounds);
-                    } else {
-                        //console.log('沒有資料顯示在地圖上');
-                    }
-                })
-                .catch(error => {
-                    //console.error('引入JSON資料時發生了一些問題：', error);
-                });
-
+            map.setView([userLat, userLng], zoomLevel); 
         }, function (error) {
             alert('無法取得您的位置: ' + error.message);
         });
@@ -100,42 +78,14 @@ function userLocate() {
     }
 }
 
+//根據使用者偏好的半徑距離(縮放等級)設置地圖
+function getZoomLevel() {
+    // 獲取使用者偏好的縮放等級(的函數)
 
-
-// 設置地圖中心函式
-function setPlaceCenter(latlngs) {
-    if (latlngs.length === 0) {
-        //console.log("地點數量為0，無法計算中心");
-        return;
-    }
-
-    //console.log("計算地圖中心的 LatLngs: ", latlngs);
-
-    var bounds = L.latLngBounds(latlngs);
-    //console.log("計算地圖範圍: ", bounds);
-
-    if (bounds.isValid() && latlngs.length > 1) {
-        map.fitBounds(bounds);
-        //console.log("設置地圖範圍到: ", bounds);
-    } else if (latlngs.length === 1) {
-        map.setView(latlngs[0], 16);
-        //console.log("設置地圖視圖到: ", latlngs[0]);
-    } else {
-        //console.error("Bounds are not valid.");
-    }
+    //縮放等級 11 剛好是台北市、新北市範圍(縮放等級越大，地圖就被放的越大)
+    // 這裡返回一個預設值
+    return 11;
 }
-
-
-// 定位成功時的處理
-map.on('locationfound', function (e) {
-    //console.log("成功定位使用者所在位置！");
-});
-
-// 定位失敗時的處理
-map.on('locationerror', function (e) {
-    //console.error("定位失敗：", e.message);
-    alert("定位失敗，請確認您是否已開啟定位。");
-});
 
 // 使用者滑動後取得目前地圖中心經緯度
 function moveGetCenter() {

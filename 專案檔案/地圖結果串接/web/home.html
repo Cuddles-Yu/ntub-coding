@@ -50,7 +50,7 @@
     </div>
 
     <div id="login_button">
-        <button id="login" href="#" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">登入</button>
+      <button id="login" href="#" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">登入</button>
         <button id="signup" href="#">註冊</button>
     </div>
 
@@ -302,7 +302,7 @@
     <!-- osm 地圖 -->
     <div id="map" class="map">
         <!-- 使用者定位按鈕 -->
-        <button type="button" id="locateButton" onclick="userLocate()">使用您的位置</button>
+        <button type="button" id="locateButton" onclick="userLocate()">返回所在位置</button>
     </div>
 
 
@@ -501,18 +501,17 @@
   <!-- 載入 Markercluster.js -->
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 
-  <!-- 載入JSON資料 data.__ -->
-  <script src="./data.php"></script>
-
   <!-- 載入主程式 osm_map.js -->
-  <script src="./osm-map.js"></script>
+  <script src="./MAP.js"></script>
   <script src="scripts/ui-interactions.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="scripts/home.js"></script>
 
-  <script src="scripts/new_login_page.js"></script> <!-- 載入 login_page.js -->
   
+
+
+  <script src="scripts/new_login_page.js"></script> <!-- 載入 login_page.js -->
 </body>
 
 </html>

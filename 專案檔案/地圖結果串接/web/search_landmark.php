@@ -1,5 +1,5 @@
 <?php 
-// 動態生成搜尋結果的地標(就是按下搜尋後，地圖上才會出現的標記)
+// 動態生成符合關鍵字的搜尋結果的地標(按下或自動搜尋後，地圖上出現的標記)
 require_once 'db.php';
 
 function searchStores($keyword)
@@ -37,13 +37,16 @@ function searchStores($keyword)
     return $stores;
 }
 
-$keyword = $_POST["keyword"] ?? "";  // 接收搜尋關鍵字
+$keyword = array_key_exists('q', $_POST) ? htmlspecialchars($_POST['q']) : null;  // 接收搜尋關鍵字
+$mapCenterLat = isset($_POST['mapCenterLat']) ? floatval($_POST['mapCenterLat']) : null;
+$mapCenterLng = isset($_POST['mapCenterLng']) ? floatval($_POST['mapCenterLng']) : null;
 
 
 
 $stores = [];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $stores = searchStores($keyword);
+    if (is_null($keyword)) return;
+    $stores = searchStores($keyword, $mapCenterLat, $mapCenterLng);
 }
 
 $data = [];
