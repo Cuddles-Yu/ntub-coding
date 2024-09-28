@@ -30,7 +30,7 @@ aa.pos_target_data['受詞']['產品'] = list(set(aa.pos_target_data['受詞']['
 dishes = keywords.get('餐點', []) + keywords.get('關鍵字', []) + keywords.get('定義', [])
 
 sids = database.fetch_column('all', 0, '''
-    SELECT r.store_id FROM rates AS r
+    SELECT DISTINCT r.store_id FROM rates AS r
     LEFT JOIN marks AS m ON r.store_id = m.store_id
     WHERE m.store_id IS NULL
 ''')

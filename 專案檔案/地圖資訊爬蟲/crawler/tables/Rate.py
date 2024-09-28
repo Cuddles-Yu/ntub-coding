@@ -181,7 +181,7 @@ class Rate:
         return database.is_value_exists('rates', store_id=self.store_id)
 
     def insert_if_not_exists(self, database: SqlDatabase):
-        if not self.exists(database): database.add('rates', self.to_string)
+        if not self.exists(database): database.add('rates', self.to_string())
 
     def newObject(self):
         return Rate(

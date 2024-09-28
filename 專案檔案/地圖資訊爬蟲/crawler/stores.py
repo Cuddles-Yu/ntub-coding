@@ -78,7 +78,7 @@ for i in range(url_count):
     else:
         if not set(SWITCH_TABS).issubset(set(tabs_name)):
             print(f'\r【🆖缺頁籤】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | {title}\n', end='')
-            store_item.change_crawler_state(database, '頁籤', f'缺少{''.join(set(SWITCH_TABS)-set(tabs_name))}頁籤')
+            store_item.change_crawler_state(database, '頁籤', f'缺少{''.join(set(SWITCH_TABS) - set(tabs_name))}頁籤')
             continue
 
     # 確認是否為特殊商家
@@ -88,6 +88,28 @@ for i in range(url_count):
         continue
     else:
         store_item._crawler_state = '基本'
+
+    ### 商家欄位資料 ###
+    store_state = driver.find_elements(By.CLASS_NAME, 'fCEvvc')
+    if len(store_state) > 0:
+        store_item.change_tag(database, store_state[0].text)
+    else:
+        information_bar = driver.wait_for_element(By.CLASS_NAME, 'tAiQdd')
+        if information_bar:
+            store_tag = information_bar.find_elements(By.CLASS_NAME, 'DkEaL')
+            if not store_tag: store_tag = information_bar.find_elements(By.CLASS_NAME, 'mgr77e')
+            store_item.change_tag(database, store_tag[0].text if store_tag else None)
+
+    # 可能為永久歇業/暫時關閉
+    if store_item.tag:
+        if any(pass_tag in store_item.tag for pass_tag in PASS_TAGS):
+            print(f'\r【⛔休業中】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | {title}\n', end='')
+            store_item.change_crawler_state(database, '休業', '商家已永久停業')
+            continue
+        elif any(remove_tag in store_item.tag for remove_tag in REMOVE_TAGS):
+            print(f'\r【🤡類別外】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | {title}\n', end='')
+            store_item.change_crawler_state(database, '無效', '不屬於餐廳類別')
+            continue
 
     ### 營業資訊標籤 ###
     print('\r正在取得營業資訊...', end='')
@@ -134,23 +156,6 @@ for i in range(url_count):
 
     rate_item = Rate.newObject()
     location_item = Location.newObject()
-
-    ### 商家欄位資料 ###
-    store_state = driver.find_elements(By.CLASS_NAME, 'fCEvvc')
-    if len(store_state) > 0:
-        store_item._tag = store_state[0].text
-    else:
-        information_bar = driver.wait_for_element(By.CLASS_NAME, 'tAiQdd')
-        if information_bar:
-            store_tag = information_bar.find_elements(By.CLASS_NAME, 'DkEaL')
-            if not store_tag: store_tag = information_bar.find_elements(By.CLASS_NAME, 'mgr77e')
-            store_item._tag = store_tag[0].text if store_tag else None
-
-    # 可能為永久歇業/暫時關閉
-    if store_item.tag and any(pass_tag in store_item.tag for pass_tag in PASS_TAGS):
-        print(f'\r【⛔休業中】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | {title}\n', end='')
-        store_item.change_crawler_state(database, '休業', '商家已永久停業')
-        continue
 
     ### 取得標籤資訊 ###
     print('\r正在取得地點資訊...', end='')

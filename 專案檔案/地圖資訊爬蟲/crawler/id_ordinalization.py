@@ -17,6 +17,7 @@ for i, (sid, name, link) in enumerate(all_stores):
 
 for repair_id in repair_ids:
     sid, name, link = all_stores.pop(-1)
+    if sid <= total_store_count: continue
     Store.newObject(name, link).change_id(db, repair_id)
     print(f"✏️已成功更新商家id'{name}' ({sid} -> {repair_id})")
 

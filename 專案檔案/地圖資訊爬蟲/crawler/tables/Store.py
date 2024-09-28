@@ -179,6 +179,10 @@ class Store:
     def tag(self):
         return self._tag
 
+    @tag.setter
+    def tag(self, value):
+        self._tag = value
+
     @property
     def preview_image(self):
         return self._preview_image
@@ -222,7 +226,7 @@ class Store:
     def to_string(self):
         return (
             f"({get(self.id)}, {get(self.name)}, {get(self.branch_title)}, {get(self.branch_name)}, {get(self.tag)}, {get(self.preview_image)}, {get(self.link)}, {get(self.website)}, "
-            f"{get(self.phone_number)}, {get(self.last_update)}, {get(self.crawler_state)}, {get(self.crawler_description)}, {get(self.crawler_time)}"
+            f"{get(self.phone_number)}, {get(self.last_update)}, {get(self.crawler_state)}, {get(self.crawler_description)}, {get(self.crawler_time)})"
         )
 
     def to_dict(self) -> dict:
@@ -260,6 +264,16 @@ class Store:
         )
         refresh_crawler_time(database, enabled=True)
         return True
+
+    def change_tag(self, database: SqlDatabase, tag):
+        self.tag = tag
+        refresh_crawler_time(database, enabled=False)
+        database.update(
+            'stores',
+            {"tag": self.tag},
+            {"name": self.name}
+        )
+        refresh_crawler_time(database, enabled=True)
 
     def change_branch(self, database: SqlDatabase, title, name):
         self._branch_title = title

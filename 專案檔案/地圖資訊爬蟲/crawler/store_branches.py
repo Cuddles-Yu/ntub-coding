@@ -13,11 +13,12 @@ class Mode(Enum):
     remove_branches = {'名稱': '移除分店', '瀏覽': False}
 
 INDEX_FILE = 'doc/BRANCHES_INDEX.json'
-CURRENT_MODE = Mode.remove_branches
+CURRENT_MODE = Mode.refresh_branches
 
 PERMITTED_STATE = "crawler_state IN ('成功', '完成', '超時', '基本', '建立')"
 QUALIFIED_STATE = "crawler_state IN ('成功', '完成', '超時', '基本')"
 
+ALLOWED_NAME = ['店', '餐廳']
 EXCEPTED_STORE = ['義樂麵屋']
 
 if __name__ == '__main__':
@@ -87,11 +88,11 @@ if __name__ == '__main__':
             has_branches = False
             stores = database.fetch('all', f'''
                 SELECT name, link FROM stores
-                WHERE branch_title IS NULL and name NOT LIKE '%店%' AND {QUALIFIED_STATE}
+                WHERE branch_title IS NULL and (name NOT LIKE '%店%' and name NOT LIKE '%餐廳%') AND {QUALIFIED_STATE}
             ''')
             branch_stores = database.fetch('all', f'''
                 SELECT name, link FROM stores
-                WHERE branch_title IS NULL AND name LIKE '%店%' AND {QUALIFIED_STATE}
+                WHERE branch_title IS NULL AND (name LIKE '%店%' or name LIKE '%餐廳%') AND {QUALIFIED_STATE}
             ''')
             branch_titles = database.fetch_column('all', 0, f'''
                 SELECT DISTINCT branch_title FROM stores
