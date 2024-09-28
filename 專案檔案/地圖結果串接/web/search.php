@@ -1,7 +1,7 @@
 <?php
-require_once 'db.php';
-require_once 'queries.php';
-require_once 'analysis.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/db.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/queries.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/analysis.php';
 
 function searchStores($keyword, $userLat, $userLng)
 {
@@ -66,11 +66,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php
       $store = $storeItem['store'];
       $storeId = $store['id'];
+      $bayesianScore = $storeItem['bayesianScore'];
+      $distance = normalizeDistance($store['distance']);
       $storeName = htmlspecialchars($store['name']);
       $preview_image = htmlspecialchars($store['preview_image']);
       $tag = htmlspecialchars($store['tag']);
       $location = htmlspecialchars(getAddress($store));
-      $bayesianScore = $storeItem['bayesianScore']; // 從排序結果中獲取Bayesian Score
       $targetsInfo = getTargets($storeId);
 
       $categories = [
@@ -84,21 +85,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       });
       $rowIndex = 1;
     ?>
-    <div class="container-fluid store-body" onclick="redirectToDetailPage('<?php echo htmlspecialchars($store['id']); ?>')">
+    <div class="container-fluid store-body" onclick="redirectToDetailPage('<?=$storeId?>')">
         <div class="row">
             <div class="store-img-group col-3">
-              <img class="store-img" src="<?php echo $preview_image; ?>">
+              <img class="store-img" src="<?=$preview_image?>">
             </div>
             <div class="store-right col">
-              <div class="distance-name-display">
-                <!--距離公尺--><div class="distance">3210公尺</div>
-                <!--商家名稱--><h5 class="store-name"><?php echo $storeName; ?></h5>
+            <div class="distance-name-display">
+                <!--距離--><div class="distance"><?=$distance?></div>
+                <!--名稱--><h5 class="store-name"><?=$storeName?></h5>
               </div>                
                 <div class="store-information row">
                     <div class="col-6">                      
-                      <!--綜合評分--><h5 class="rating"><?php echo $bayesianScore; ?><small class="rating-text">/ 綜合評分</small></h5>                                            
-                      <!--餐廳分類--><h6 class="restaurant-style">類別：<?php echo $tag; ?></h6>
-                      <!--餐廳地址--><h6 class="address">地址：<?php echo $location; ?></h6>
+                      <!--綜合評分--><h5 class="rating"><?=$bayesianScore?><small class="rating-text"> / 綜合評分</small></h5>                                            
+                      <!--餐廳分類--><h6 class="restaurant-style">類別：<?=$tag?></h6>
+                      <!--餐廳地址--><h6 class="address">地址：<?=$location?></h6>
                     </div>                    
                     <div class="progress-group-text col">
                       <?php foreach ($categories as $category => $data): ?>
@@ -113,22 +114,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                                 <div class="progress-bar overflow-visible" style="width: <?=$proportion.'%'?>; background-color: <?=$data['color']?>;"></div>
                             </div>
-                            <div class="progress-score" style="color: <?=$data['color']?>;">100.0分</div>
+                            <div class="progress-score" style="color: <?=$data['color']?>;"><?=number_format($proportion,1).'分'?></div>
                           </div>
                         </tr>
-                        <?php $rowIndex++; ?>
-                      <?php endforeach; ?>
+                        <?php $rowIndex++?>
+                      <?php endforeach?>
                     </div>
                     <div class="quick-group col-2">
                         <a class="love" href="#"><img class="love-img" src="images/love.png"><h6 class="love-text">最愛</h6></a>
-                        <a class="map-link" href="<?php echo htmlspecialchars($store['link']); ?>" target="_blank" onclick="event.stopPropagation();"><img class="map-link-img" src="images/map.png"><h6 class="map-link-text">地圖</h6></a>
-                        <a class="web" href="<?php echo htmlspecialchars($store['website']); ?>" target="_blank" onclick="event.stopPropagation();"><img class="web-img" src="images/web.png"><h6 class="web-text">官網</h6></a>
+                        <a class="map-link" href="<?=htmlspecialchars($store['link'])?>" target="_blank" onclick="event.stopPropagation();"><img class="map-link-img" src="images/map.png"><h6 class="map-link-text">地圖</h6></a>
+                        <a class="web" href="<?=htmlspecialchars($store['website'])?>" target="_blank" onclick="event.stopPropagation();"><img class="web-img" src="images/web.png"><h6 class="web-text">官網</h6></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-  <?php endforeach; ?>
+  <?php endforeach?>
 <?php else : ?>
     <p>沒有找到相關結果。</p>
-<?php endif; ?>
+<?php endif?>

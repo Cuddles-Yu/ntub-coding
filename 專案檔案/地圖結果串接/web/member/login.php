@@ -24,7 +24,7 @@
         </div>
 
         <div class="right-side">
-            <form class="login-form" method="post" action="./mem_login_check.php">
+            <form class="login-form" method="post" action="./member/login_check.php">
                 <div class="title">登入您的帳號</div>
                 
                 <div class="input-group">

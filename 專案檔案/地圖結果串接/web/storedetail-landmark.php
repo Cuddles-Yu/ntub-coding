@@ -1,6 +1,6 @@
 <?php
-require_once 'DB.php';
-require_once 'queries.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/db.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/queries.php';
 
 $storeId = $_GET['storeId'] ?? null;
 

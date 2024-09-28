@@ -1,5 +1,5 @@
 <?php
-    require_once '../db.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'/db.php';
     global $conn;
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $searchTerm = isset($_POST['q']) ? $_POST['q'] : '';

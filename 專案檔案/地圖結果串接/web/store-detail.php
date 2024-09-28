@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>店家詳細內容</title>
+  <title>詳細資訊 - 評星宇宙</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
   <meta name="keywords" content="評價, google map" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
@@ -29,8 +29,8 @@
 
 <?php
   // 引入資料庫連接和查詢函數
-  require_once 'queries.php';
-  require_once 'analysis.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/queries.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/analysis.php';
 
   // 優先使用 GET 參數
   $userId = $_GET['uid'] ?? null;
@@ -38,13 +38,15 @@
 
   // 如果 storeId 或 storeName 不存在，根據現有的值獲取缺失的資訊
   if (empty($storeId)) {
-    Header("Location: home.html");
+    Header("Location: home");
     exit;
   }
 
   // 獲取店家資訊
   $storeInfo = getStoreInfoById($storeId);
   if (!empty($storeInfo)) {
+    $storeName = htmlspecialchars($storeInfo['name']);
+
     $relevants = getRelevantComments($storeId);
     $Highests = getHighestComments($storeId);
     $Lowests = getLowestComments($storeId);
@@ -63,7 +65,10 @@
     $neutralMarks = getMarks($storeId, [$_PREFER, $_NEUTRAL]);
 
     $targetsInfo = getTargets($storeId);
-  }  
+  } else {
+    Header("Location: home");
+    exit;
+  }
 
 ?>
 
@@ -72,17 +77,17 @@
   <!-- 基本項目 -->
   <div id="web_name">
     <img src="images/Logo設計_圖像(藍+).png" id="web_logo">
-    <a href="home.html">評星宇宙</a>
+    <a href="home">評星宇宙</a>
   </div>
 
   <div id="nav_menu1">
-    <a class="link_text" href="home.html">網站首頁</a>
+    <a class="link_text" href="home">網站首頁</a>
     <div class="vertical-line"></div>
     <a class="link_text" href="#">使用說明</a>
     <div class="vertical-line"></div>
     <a class="link_text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a>
     <div class="vertical-line"></div>
-    <a class="link_text" href="develop-team.html">成員介紹</a>
+    <a class="link_text" href="team">成員介紹</a>
   </div>
 
   <div id="user_icon" type="button">
@@ -98,10 +103,10 @@
   <button id="hamburger_btn" class="hamburger">&#9776;</button>
   <div id="overlay"></div>
   <nav id="nav_menu2">
-    <a class="link_text" href="home.html">網站首頁</a>
+    <a class="link_text" href="home">網站首頁</a>
     <a class="link_text" href="#">使用說明</a>
     <a class="link_text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a>
-    <a class="link_text" href="develop-team.html">成員介紹</a>
+    <a class="link_text" href="team">成員介紹</a>
     <button id="login2" href="#">登入</button>
     <button id="signup2" href="#">註冊</button>
   </nav>
@@ -111,15 +116,13 @@
 <body>
 <?php if (isset($storeInfo['name'])) : ?>
   <section class="primary-content section-content">
-    <h1 class="store-title">
-      <?php echo htmlspecialchars($storeInfo['name']); ?>
-    </h1>
+    <h1 class="store-title" id="store-title"><?=$storeName?></h1>
     <div class="love-group">
       <div class="type-rating-status-group">
         <!--綜合評分-->
         <h5 class="rating"><?php echo getBayesianScore($userId, $storeId, $conn); ?></h5>
         <h6 class="rating-text">/ 綜合評分</h6>
-        <a class="store-type" type="button" href="search.html?q=<?php echo htmlspecialchars($storeInfo['tag']); ?>" target="_blank"> <?php echo htmlspecialchars($storeInfo['tag']); ?></a>
+        <a class="store-type" type="button" href="search?q=<?php echo htmlspecialchars($storeInfo['tag']); ?>" target="_blank"> <?php echo htmlspecialchars($storeInfo['tag']); ?></a>
         <!--營業時間按鈕-->
         <button type="button" class="btn btn-outline-success status" data-bs-container="body" data-bs-toggle="popover2"
           data-bs-title="詳細營業時間" data-bs-placement="top" data-bs-html="true"
@@ -165,13 +168,13 @@
             $branchName = htmlspecialchars($branch['branch_name']);
             $branchId = htmlspecialchars($branch['id']); // 取得分店的 ID
             $avgRating = htmlspecialchars($branch['avg_ratings']);
-            $address = htmlspecialchars(($branch['city'] ?? '') . ($branch['dist'] ?? '')  . ($branch['vil'] ?? '') . ($branch['details'] ?? ''));
+            $address = htmlspecialchars(($branch['city'] ?? '').($branch['dist'] ?? '').($branch['vil'] ?? '').($branch['details'] ?? ''));
 
             echo '<div class="other-store-display">';
-            echo '<a class="other-store-group col-11" href="store-detail.php?id='  . $storeId . '">'; // 連結到分店詳細頁面
-            echo '<li class="store-name col-4">' . $branchName . '</li>';
-            echo '<p class="other-rating col-3">' . $avgRating . ' /綜合評分</p>';
-            echo '<p class="other-map address col"><i class="fi fi-sr-map-marker address-img"></i>' . $address . '</p>';
+            echo '<a class="other-store-group col-11" href="detail?id='.$storeId.'">'; // 連結到分店詳細頁面
+            echo '<li class="store-name col-4">'.$branchName.'</li>';
+            echo '<p class="other-rating col-3">'.$avgRating.' /綜合評分</p>';
+            echo '<p class="other-map address col"><i class="fi fi-sr-map-marker address-img"></i>'.$address.'</p>';
             echo '</a>';
             echo '<i class="fi fi-sr-bookmark collect" role="button"></i>';
             echo '</div>';
@@ -384,7 +387,7 @@
           <?php foreach ($foodKeywords as $foodKeyword): ?>
             <div class="card">
               <div class="card-body">
-                <a class="card-text" href="search.html?q=<?php echo urlencode($foodKeyword['word']); ?>" target="_blank"><?php echo htmlspecialchars($foodKeyword['word']); ?>(<?php echo htmlspecialchars($foodKeyword['count']); ?>)</a><!--填入推薦食物名稱 href填入此食物的評星宇宙搜尋結果網址-->
+                <a class="card-text" href="search?q=<?php echo urlencode($foodKeyword['word']); ?>" target="_blank"><?php echo htmlspecialchars($foodKeyword['word']); ?>(<?php echo htmlspecialchars($foodKeyword['count']); ?>)</a><!--填入推薦食物名稱 href填入此食物的評星宇宙搜尋結果網址-->
               </div>
               <a href="https://www.google.com/search?udm=2&q=<?php echo urlencode($storeInfo['name'] . ' ' . $foodKeyword['word']); ?> " target="_blank"><img class="card-img" src="<?php echo $foodKeyword['image_url'] ?>"><!--src填入推薦食物照片連結 href填入搜尋此食物的google連結--></a>
             </div>
@@ -446,7 +449,7 @@
           foreach ($keywords as $keyword) {
             if ($keyword['count'] > 1) { // 檢查 count 的數量是否大於 1
               echo '<button class="tag btn-outline-secondary btn" type="button">';
-              echo '<a class="tag-text" href="search.html?q=' . urlencode($keyword['word']) . '" target="_blank">' . htmlspecialchars($keyword['word']) . ' (' . htmlspecialchars($keyword['count']) . ')</a>'; //<!--填入關鍵字 href填入此的評星宇宙搜尋結果網址-->
+              echo '<a class="tag-text" href="search?q=' . urlencode($keyword['word']) . '" target="_blank">' . htmlspecialchars($keyword['word']) . ' (' . htmlspecialchars($keyword['count']) . ')</a>'; //<!--填入關鍵字 href填入此的評星宇宙搜尋結果網址-->
               echo '</button>';
             }
           }
@@ -471,7 +474,6 @@
     <div class="bottom">
       台北商業大學 | 資訊管理系<br>
       北商資管專題 113206 小組<br>
-      成員：余奕博、鄧惠中、邱綺琳、陳彥瑾
       <en style="margin-right: 9.6px; float: right; font-size: 9.6px;">Copyright ©2024 All rights reserved.</en>
     </div>
   </footer>
@@ -487,6 +489,7 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      document.title = `${document.getElementById('store-title').textContent.trim()}詳細資訊 - 評星宇宙`;
       searchComments();
     });
     function searchComments() {

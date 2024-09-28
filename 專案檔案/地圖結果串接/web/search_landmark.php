@@ -1,11 +1,11 @@
 <?php 
 // 動態生成符合關鍵字的搜尋結果的地標(按下或自動搜尋後，地圖上出現的標記)
-require_once 'db.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/db.php';
 
 function searchStores($keyword)
 {
     global $conn;
-    $keyword = "%" . $keyword . "%";
+    $keyword = "'%".$keyword."%'";
     $sql =
         "   SELECT DISTINCT s.id,s.name,s.preview_image,s.link, s.website, r.avg_ratings, r.total_reviews, l.city, l.details, s.tag, r.environment_rating, r.product_rating, r.service_rating, r.price_rating, r.total_samples AS sample_ratings, r.total_withcomments, l.latitude, l.longitude 
         FROM stores AS s
@@ -13,18 +13,10 @@ function searchStores($keyword)
         INNER JOIN rates AS r ON s.id = r.store_id
         INNER JOIN locations AS l ON s.id = l.store_id
         INNER JOIN tags AS t ON s.tag = t.tag
-        WHERE (s.name LIKE ? OR s.description LIKE ? OR t.category LIKE ? OR s.tag LIKE ? OR k.word LIKE ?)
+        WHERE (s.name LIKE $keyword OR t.category LIKE $keyword OR s.tag LIKE $keyword OR k.word LIKE $keyword)
         ORDER BY r.avg_ratings DESC, r.total_reviews DESC
     ";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param(
-        "sssss",
-        $keyword,
-        $keyword,
-        $keyword,
-        $keyword,
-        $keyword
-    );
     $stmt->execute();
     $result = $stmt->get_result();
     $stores = [];
@@ -40,8 +32,6 @@ function searchStores($keyword)
 $keyword = array_key_exists('q', $_POST) ? htmlspecialchars($_POST['q']) : null;  // 接收搜尋關鍵字
 $mapCenterLat = isset($_POST['mapCenterLat']) ? floatval($_POST['mapCenterLat']) : null;
 $mapCenterLng = isset($_POST['mapCenterLng']) ? floatval($_POST['mapCenterLng']) : null;
-
-
 
 $stores = [];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

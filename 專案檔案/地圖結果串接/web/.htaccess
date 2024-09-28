@@ -1,7 +1,24 @@
-DirectoryIndex home.html
-
 RewriteEngine On
 
-RewriteCond %{HTTP_HOST} ^(www\.)?commentspace\.ascdc\.tw$
+#規則導向
+RewriteRule ^detail$ /store-detail.php [L]
+RewriteRule ^search$ /search.html [L]
+RewriteRule ^team$ /develop-team.html [L]
+RewriteRule ^home$ /home.html [L]
+RewriteRule ^admin/handler/register$ /admin/handler/register.php [L]
+RewriteRule ^admin/register$ /admin/register.php [L]
+RewriteRule ^admin/pull$ /admin/git.php [L]
+
+
+#例外導向
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /404.html [L]
+
+#禁止訪問
+RewriteRule ^admin(/)?$ /404.html [L]
+
+# 全域導向
+RewriteCond %{HTTP_HOST} ^(www\.)?(commentspace\.ascdc\.tw|localhost)$
 RewriteCond %{REQUEST_URI} ^/$
-RewriteRule ^$ /home.html [R=301,L]
+RewriteRule ^$ /home [R=301,L]

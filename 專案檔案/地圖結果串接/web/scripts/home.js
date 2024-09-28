@@ -1,5 +1,5 @@
 function toSearchPage() {
-  window.location.href = `search.html?q=${encodeURIComponent(document.getElementById('keyword').value)}`;
+  window.location.href = `search?q=${encodeURIComponent(document.getElementById('keyword').value)}`;
 };
 
 /* 點擊漢堡圖示時，顯示/隱藏選單 */

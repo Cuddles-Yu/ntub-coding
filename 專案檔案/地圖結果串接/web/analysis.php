@@ -1,5 +1,5 @@
 <?php
-require_once 'db.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/db.php';
 
 $_ROUND = 1;
 
@@ -210,7 +210,7 @@ function getBayesianScore($user_id, $store_id, $conn) {
 
     // 取得指定 store_id 的數據
     if (!isset($stores[$store_id])) {
-        return "無法找到該商店的數據";
+        return "???";
     }
 
     $store_data = $stores[$store_id];

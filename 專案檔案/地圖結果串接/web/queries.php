@@ -1,5 +1,5 @@
 <?php //抓取資料庫商家的資料定義函式
-require_once 'DB.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/db.php';
 
 // 商家資料表得到(商家名稱)
 function getStoreInfo($storeName) {
@@ -181,26 +181,26 @@ function getOpeningHours($storeId) {
 
 // 其他分店
 function getOtherBranches($branchTitle, $storeId) {
-    global $conn;
-    $sql = 
-    "   SELECT s.*, t.tag, r.avg_ratings, l.city, l.dist, l.vil, l.details 
-        FROM stores AS s 
-        LEFT JOIN tags AS t ON s.tag = t.tag 
-        LEFT JOIN rates AS r ON s.id = r.store_id
-        LEFT JOIN locations AS l ON s.id = l.store_id
-        WHERE s.crawler_state IN ('成功', '完成', '超時') 
-        AND s.branch_title = '$branchTitle' 
-        AND s.id != $storeId
-    ";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();    
-    $result = $stmt->get_result();
-    $branches = [];
-    while ($row = $result->fetch_assoc()) {
-        $branches[] = $row;
-    }
-    $stmt->close();
-    return $branches;
+  if (!isset($branchTitle)) return;
+  global $conn;
+  $sql = 
+  "   SELECT s.*, r.avg_ratings, l.city, l.dist, l.vil, l.details 
+      FROM stores AS s 
+      LEFT JOIN rates AS r ON s.id = r.store_id
+      LEFT JOIN locations AS l ON s.id = l.store_id
+      WHERE s.crawler_state IN ('成功', '完成', '超時') 
+      AND s.branch_title = '$branchTitle' 
+      AND s.id != $storeId
+  ";
+  $stmt = $conn->prepare($sql);
+  $stmt->execute();    
+  $result = $stmt->get_result();
+  $branches = [];
+  while ($row = $result->fetch_assoc()) {
+      $branches[] = $row;
+  }
+  $stmt->close();
+  return $branches;
 };
 
 //標籤
