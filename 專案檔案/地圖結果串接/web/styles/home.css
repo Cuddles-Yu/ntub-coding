@@ -16,6 +16,108 @@ body{
   padding-top: 90px;
 }
 
+.login-modal{
+  width: 390px;
+}
+
+.login-modal-body{
+  padding: 20px;
+}
+
+.input-group-login{
+  display: flex;
+  margin-top: 5px;
+}
+
+#email_input{
+  width: 100%;
+}
+
+#password_input{
+  width: 100%;
+}
+
+.sign_up_text{
+  color: rgb(139, 139, 139);
+  font-size: 16px;
+  left: auto;
+  display: flex;
+  justify-content: flex-end;
+  text-decoration: none;
+}
+
+.forget_pwd {
+  color: rgb(119, 119, 119);
+  margin-left: auto;
+  align-self: flex-end;
+  cursor: pointer;
+  text-align: right;
+}
+
+#hide_password_icon {
+  position: absolute;
+  right: 25px;
+  top: 89px;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+.remember_container {
+  display: flex;
+  font-size: 16px;
+  justify-content: flex-end;
+}
+
+#remember_text {
+  cursor: pointer;
+  padding-left: 5px;
+}
+
+.divider_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 15px 0;
+}
+
+.divider {
+  flex-grow: 1;
+  height: 1px;
+  background-color: black;
+  margin-top: 3px;
+}
+
+.divider_text {
+  padding: 0 10px;
+  font-weight: bold;
+  font-size: 16px;
+  margin: 0;
+}
+
+#google_icon {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+.login_area {
+  display: flex;
+  justify-content: space-around;
+}
+
+.google_button{
+  width: 300px;
+}
+
+.agree {
+  position: relative;
+  margin-top: 15px;
+  font-size: 16px;
+  text-align: center;
+}
+
 /* header */
 @media (min-width: 1200px){
   header {

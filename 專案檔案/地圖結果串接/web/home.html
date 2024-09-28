@@ -50,7 +50,7 @@
     </div>
 
     <div id="login_button">
-        <button id="login" href="#">登入</button>
+        <button id="login" href="#" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">登入</button>
         <button id="signup" href="#">註冊</button>
     </div>
 
@@ -67,6 +67,58 @@
     </nav>
     <hr>
   </header>
+
+  <!-- 登入Modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered login-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="loginModalLabel">會員登入</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body login-modal-body">
+          <!-- 會員登入內容 -->
+          <div class="login-container">        
+            <div class="right-side">
+                <form class="login-form" method="post" action="./mem_login_check.php">
+                    <div class="input-group-login">                                          
+                      <input type="email" id="email_input" name="mem_mail" placeholder="電子郵件地址" aria-label="Username" aria-describedby="addon-wrapping" required>
+                    </div>
+
+                    <a class="sign_up_text" href='./signup-page1.php'>還沒註冊帳號?</a>
+    
+                    <div class="input-group-login">                
+                      <input type="password" id="password_input" name="mem_pwd" placeholder="密碼" aria-label="Username" aria-describedby="addon-wrapping" required>
+                      <img src="images/hide_pwd.png" alt="password" id="hide_password_icon">
+                    </div>
+                    
+                    <div class="remember_container">
+                      <input type="checkbox" id="remember" name="remember">
+                      <label for="remember" id="remember_text">記住我</label>
+                      <div class="forget_pwd">忘記密碼？</div>
+                    </div>
+                </form>
+
+                <div class="divider_container">
+                  <div class="divider"></div>
+                  <p class="divider_text">or</p>
+                  <div class="divider"></div>
+                </div>
+  
+                <div class="login_area">
+                  <button type="button" class="btn btn-outline-secondary google_button"><img src="images/google_icon.png" alt="google_icon" id="google_icon">Google登入</button>                  
+                </div>  
+                <div class="agree">ⓘ 登入即表示您同意我們的服務條款與隱私政策</div>          
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+          <button id="log_in_button" type="submit" value="" class="btn btn-primary">登入</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <section class="secondary-content">
     <h2 class="title-text">美食餐廳搜尋</h2>
@@ -459,6 +511,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="scripts/home.js"></script>
 
+  <script src="scripts/new_login_page.js"></script> <!-- 載入 login_page.js -->
   
 </body>
 

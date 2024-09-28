@@ -1,3 +1,7 @@
+function toSearchPage() {
+  window.location.href = `search.html?q=${encodeURIComponent(document.getElementById('keyword').value)}`;
+};
+
 /* 點擊漢堡圖示時，顯示/隱藏選單 */
 document.getElementById('hamburger_btn').addEventListener('click', function() {
   var navMenu = document.getElementById('nav_menu2');
@@ -11,6 +15,13 @@ document.getElementById('hamburger_btn').addEventListener('click', function() {
   }
 });
 
+document.getElementById('keyword').addEventListener('keydown', function(event) {
+  if (event.key === 'Enter') {
+    event.preventDefault(); // 防止表單的預設提交行為
+    document.getElementById('search-button').click(); // 觸發按鈕點擊事件
+  }
+});
+
 document.getElementById('overlay').addEventListener('click', function() {
   var navMenu = document.getElementById('nav_menu2');
   var overlay = document.getElementById('overlay');
@@ -18,25 +29,16 @@ document.getElementById('overlay').addEventListener('click', function() {
   overlay.classList.remove('show');
 });
 
-// 搜尋表單提交時，導向搜尋結果頁面!
-document.getElementById('searchForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // 防止表單提交
-    const keyword = document.getElementById('keyword').value;
-    window.location.href = `search.html?keyword=${encodeURIComponent(keyword)}`;
-});
-
 //隱藏推薦滾動條
 function handleScroll(container) {
-    if (container.scrollHeight > container.clientHeight) {
-      container.style.overflowY = 'scroll'; // 顯示滾動條
-    } else {
-      container.style.overflowY = 'auto'; // 隱藏滾動條
-    }
+  if (container.scrollHeight > container.clientHeight) {
+    container.style.overflowY = 'scroll'; // 顯示滾動條
+  } else {
+    container.style.overflowY = 'auto'; // 隱藏滾動條
   }
-  
-const containers = document.querySelectorAll('.restaurant-group, .restaurant-group-2, .restaurant-group-3');
-containers.forEach(container => {
-    handleScroll(container);
+};
+document.querySelectorAll('.restaurant-group, .restaurant-group-2, .restaurant-group-3').forEach(container => {
+  handleScroll(container);
 });
 
 
