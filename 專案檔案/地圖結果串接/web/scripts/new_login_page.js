@@ -6,11 +6,11 @@ document.getElementById('hide_password_icon').addEventListener('click', function
     if (passwordInput.type === 'password') {
         // 如果當前是隱藏密碼，則顯示密碼並更新圖片
         passwordInput.type = 'text';
-        passwordIcon.src = 'images/show_pwd.png';
+        passwordIcon.src = 'images/password-show.png';
     } else {
         // 如果當前是顯示密碼，則隱藏密碼並更新圖片
         passwordInput.type = 'password';
-        passwordIcon.src = 'images/hide_pwd.png';
+        passwordIcon.src = 'images/password-hide.png';
     }
 });
 

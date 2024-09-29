@@ -59,29 +59,29 @@
 
     <div class="login-container">
         <div class="left-side">
-            <img src="images/Logo設計_文字(藍+).png" alt="評星宇宙logo" id="container_logo">
+            <img src="images/logo-text-blue+.png" alt="評星宇宙logo" id="container_logo">
         </div>
 
         <div class="right-side">
             <form class="login-form mem-addmem-area" action="signup-page1.php" method="post" onsubmit="return validateForm()">
                 <div class="title">註冊新帳號</div>
                 <div class="input-group">
-                    <img src="images/user.png" alt="user" id="user_icon">
+                    <img src="images/icon-user1.png" alt="user" id="user_icon">
                     <input type="text" id="user_input" name="mem_name" placeholder="使用者名稱" required>
                 </div>
                 <div class="input-group">
-                    <img src="images/mail2.png" alt="mail" id="mail_icon">
+                    <img src="images/icon-email.png" alt="mail" id="mail_icon">
                     <input class="mem_mail" type="email" id="email_input" name="mem_mail" placeholder="電子郵件地址" required>
                 </div>
                 <div class="input-group">
-                    <img src="images/key.png" alt="password" id="password_icon1">
+                    <img src="images/icon-key.png" alt="password" id="password_icon1">
                     <input class="mem_pwd" type="password" id="password_input1" name="mem_pwd" placeholder="密碼" required>
-                    <img src="images/hide_pwd.png" alt="password" id="hide_password_icon1">
+                    <img src="images/password-hide.png" alt="password" id="hide_password_icon1">
                 </div>
                 <div class="input-group">
-                    <img src="images/key.png" alt="password" id="password_icon2">
+                    <img src="images/icon-key.png" alt="password" id="password_icon2">
                     <input class="confirm_pwd" type="password" id="password_input2" name="confirm_pwd" placeholder="確認密碼" required>
-                    <img src="images/hide_pwd.png" alt="password" id="hide_password_icon2">
+                    <img src="images/password-hide.png" alt="password" id="hide_password_icon2">
                 </div>
 
                 <div class="service_container">

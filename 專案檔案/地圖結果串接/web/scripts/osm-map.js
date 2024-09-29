@@ -30,13 +30,13 @@ L.control.scale({
 
 // 創建logo圖標
 var mapIcon = L.icon({
-    iconUrl: './images/location_mark1.png',
+    iconUrl: './images/location-mark1.png',
     iconSize: [30, 30],
     popupAnchor: [0, -20] // 彈出框的位置(圖標頂部中心點)
 })
 
 var userIcon = L.icon({
-    iconUrl: './images/location_mark3.png',
+    iconUrl: './images/location-mark3.png',
     iconSize: [20, 20], // 圖標大小
     popupAnchor: [0, -20] // 彈出窗口錨點
 });
@@ -73,7 +73,7 @@ function userLocate() {
 
             // 引入資料庫資料(JSON格式)
             // 使用Fetch API取得JSON資料
-            fetch('./data.php')
+            fetch('./base/data.php')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');

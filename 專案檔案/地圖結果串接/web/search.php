@@ -1,7 +1,8 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'/db.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/queries.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/analysis.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/base/queries.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/base/analysis.php';
 
 function searchStores($keyword, $userLat, $userLng)
 {
@@ -121,9 +122,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                       <?php endforeach?>
                     </div>
                     <div class="quick-group col-2">
-                        <a class="love" href="#"><img class="love-img" src="images/love.png"><h6 class="love-text">最愛</h6></a>
-                        <a class="map-link" href="<?=htmlspecialchars($store['link'])?>" target="_blank" onclick="event.stopPropagation();"><img class="map-link-img" src="images/map.png"><h6 class="map-link-text">地圖</h6></a>
-                        <a class="web" href="<?=htmlspecialchars($store['website'])?>" target="_blank" onclick="event.stopPropagation();"><img class="web-img" src="images/web.png"><h6 class="web-text">官網</h6></a>
+                        <a class="love" href="#"><img class="love-img" src="images/button-favorite.png"><h6 class="love-text">最愛</h6></a>
+                        <a class="map-link" href="<?=htmlspecialchars($store['link'])?>" target="_blank" onclick="event.stopPropagation();"><img class="map-link-img" src="images/button-map.png"><h6 class="map-link-text">地圖</h6></a>
+                        <a class="web" href="<?=htmlspecialchars($store['website'])?>" target="_blank" onclick="event.stopPropagation();"><img class="web-img" src="images/button-browse.png"><h6 class="web-text">官網</h6></a>
                     </div>
                 </div>
             </div>

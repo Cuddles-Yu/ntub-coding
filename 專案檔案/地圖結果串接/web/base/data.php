@@ -1,7 +1,8 @@
 <?php //抓取資料庫商家資料，將資料轉為json格式
 
-require_once $_SERVER['DOCUMENT_ROOT'].'/db.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/queries.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/base/queries.php';
 
 
 // 查詢資料

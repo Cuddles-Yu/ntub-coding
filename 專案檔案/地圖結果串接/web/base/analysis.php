@@ -1,5 +1,6 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'/db.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
 
 $_ROUND = 1;
 

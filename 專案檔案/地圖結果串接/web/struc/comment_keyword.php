@@ -1,5 +1,6 @@
 <?php
-    require_once $_SERVER['DOCUMENT_ROOT'].'/db.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
     global $conn;
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $searchTerm = isset($_POST['q']) ? $_POST['q'] : '';
@@ -15,10 +16,10 @@
           $comments[] = $comment;
           $output .= '<div class="comment-item" data-rating="' . htmlspecialchars($comment['rating']) . '">';
           $output .= '<div class="comment-information">';
-          $output .= '<img class="avatar" src="images/' . ($comment['contributor_level'] == 0 ? 'user.jpg' : 'wizard.jpg') . '">';
+          $output .= '<img class="avatar" src="images/' . ($comment['contributor_level'] == 0 ? 'icon-member.jpg' : 'icon-contributor.jpg') . '">';
           $output .= '<div class="star-group">';
           for ($i = 0; $i < 5; $i++) {
-              $output .= '<img class="star" src="images/' . ($i < $comment['rating'] ? 'star-y.png' : 'star-w.png') . '">';
+              $output .= '<img class="star" src="images/' . ($i < $comment['rating'] ? 'icon-star-yellow.png' : 'icon-star-white.png') . '">';
           }
           $output .= '</div>';
           $output .= '<p class="time">時間：' . htmlspecialchars($comment['time']) . '</p>';

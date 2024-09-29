@@ -21,16 +21,16 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
 
-  <!-- 載入 osm_map.css -->
-  <link rel="stylesheet" type="text/css" href="./osm_map.css">
+  <!-- 載入 /styles/osm-map.css -->
+  <link rel="stylesheet" type="text/css" href="./styles/osm-map.css">
 
   <link rel="stylesheet" href="styles/store-detail.css" />
 </head>
 
 <?php
   // 引入資料庫連接和查詢函數
-  require_once $_SERVER['DOCUMENT_ROOT'].'/queries.php';
-  require_once $_SERVER['DOCUMENT_ROOT'].'/analysis.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/base/queries.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/base/analysis.php';
 
   // 優先使用 GET 參數
   $userId = $_GET['uid'] ?? null;
@@ -76,7 +76,7 @@
 <header>
   <!-- 基本項目 -->
   <div id="web_name">
-    <img src="images/Logo設計_圖像(藍+).png" id="web_logo">
+    <img src="images/logo-blue+.png" id="web_logo">
     <a href="home">評星宇宙</a>
   </div>
 
@@ -91,7 +91,7 @@
   </div>
 
   <div id="user_icon" type="button">
-    <img src="images/user.jpg" id="user_icon_logo">
+    <img src="images/icon-member.jpg" id="user_icon_logo">
   </div>
 
   <div id="login_button">
@@ -155,7 +155,7 @@
             其他分店
           </button>
       </div>
-      <a class="love" href="#"><img class="love-img" src="images/love.png"></a>
+      <a class="love" href="#"><img class="love-img" src="images/button-favorite.png"></a>
     </div>
     <div class="collapse multi-collapse" id="collapseExample">
       <div class="other-store">
@@ -584,8 +584,8 @@
   <!-- 載入 Markercluster.js -->
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 
-  <!-- 載入主程式 osm_map.js -->
-  <script src="./storedetail-landmark.js"></script>
+  <!-- 載入主程式 osm-map.js -->
+  <script src="./scripts/storedetail-landmark.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
   <script src="scripts/ui-interactions.js"></script>

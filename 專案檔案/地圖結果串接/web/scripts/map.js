@@ -24,21 +24,21 @@ L.control.scale({
 
 // 創建商家的位置圖標
 var mapIcon = L.icon({
-    iconUrl: './images/location_mark1.png',
+    iconUrl: './images/location-mark1.png',
     iconSize: [30, 30],
     popupAnchor: [0, -20] // 彈出框的位置(圖標頂部中心點)
 })
 
 // 創建單一該商家的位置圖標
 var mapIcon = L.icon({
-    iconUrl: './images/location_mark2.png',
+    iconUrl: './images/location-mark2.png',
     iconSize: [30, 30],
     popupAnchor: [0, -20]
 });
 
 // 創建使用者的位置圖標  
 var userIcon = L.icon({
-    iconUrl: './images/location_mark3.png',
+    iconUrl: './images/location-mark3.png',
     iconSize: [20, 20], // 圖標大小
     popupAnchor: [0, -20] // 彈出窗口錨點
 });

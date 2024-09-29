@@ -8,7 +8,8 @@
 </head>
 <body>
   <?php
-    require_once $_SERVER['DOCUMENT_ROOT'].'/db.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
     global $conn;
 
     #取得所有授權的auth_key

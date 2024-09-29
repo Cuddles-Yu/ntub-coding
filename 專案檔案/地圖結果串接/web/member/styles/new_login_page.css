@@ -6,7 +6,7 @@ html {
 
 body {
     font-family: Arial, sans-serif;
-    background-image: url('../images/background_galaxy.jpg'); /* 背景圖片 */
+    /* background-image: url('../images/background-galaxy.jpg'); 背景圖片 */
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -21,14 +21,15 @@ body {
 
 /* 大螢幕（例如桌面電腦） */
 @media (min-width: 1600px){
-    .alert {
+    .alert{
         position: absolute; 
+        width: 100%; 
         z-index: 9999;
-        width: 100%;
     }
 
     .login-container {
-        width: 70%;
+        width: 80%;
+        height: auto;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -47,7 +48,7 @@ body {
         justify-content: center;
         font-size: 72px;
         font-weight: bold;
-        margin-bottom: 4vh;
+        margin-bottom: 40px;
     }
 
     #container_logo {
@@ -55,66 +56,72 @@ body {
         height: auto;
     }
 
-    #user_icon {
-        width: 60px;
-        height: 60px;
-    }
-
     #mail_icon {
         width: 60px;
         height: 60px;
     }
 
-    #password_icon1 {
+    #password_icon {
         width: 60px;
         height: 60px;
     }
 
-    #password_icon2 {
-        width: 60px;
-        height: 60px;
-    }
-
-    #hide_password_icon1 {
-        position: relative;
+    #hide_password_icon {
+        position: absolute;
+        right: 20px;
         width: 48px;
         height: 48px;
         cursor: pointer;
-        margin-left: auto;
     }
 
-    #hide_password_icon2 {
-        position: relative;
+    #remember {
+        width: 36px;
+        height: 36px;
+        margin-right: 15px;
+    }
+
+    .remember_container {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+        font-size: 30px;
+    }
+
+    .login_area {
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+    }
+
+    .google_button {
+        margin-right: auto;
+    }
+
+    #google_icon {
         width: 48px;
         height: 48px;
-        cursor: pointer;
-        margin-left: auto;
-    }
-
-    #service {
-        width: 32px;
-        height: 32px;
-    }
-
-    #service_text {
-        font-size: 28px;
-        margin-right: 2vw;
-    }
-
-    .service_container {
-        display: flex;
-        align-items: center;
-    }
-
-    .service_group {
-        display: flex;
-        align-items: center;
+        margin-right: 15px;
     }
 
     #sign_up_button {
+        margin-left: auto;
+        text-decoration-line: none;
+    }
+
+    .agree {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
+        font-weight: bold;
+        margin-top: 30px;
+    }
+
+    button {
         display: flex;
         align-items: center;
         justify-content: center;
+        width: 15vw;
         height: 70px;
         cursor: pointer;
         background-color: #D9D9D9;
@@ -124,15 +131,22 @@ body {
         padding: 20px;
         font-size: 30px;
         font-weight: bold;
-        width: 8vw;
+        text-decoration-line: none;
+    }
+
+    #log_in_button {
+        width: 10vw;
+        margin-top: 5px;
         margin-left: auto;
     }
 
-    #user_input {
-        background-color: transparent;
-        border-color: transparent;
-        outline: none;
-        font-size: 30px;
+    .forget_pwd {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        display: flex;
+        justify-content: flex-end;
+        position: relative;
+        font-size: 28px;
     }
 
     #email_input {
@@ -142,14 +156,7 @@ body {
         font-size: 30px;
     }
 
-    #password_input1 {
-        background-color: transparent;
-        border-color: transparent;
-        outline: none;
-        font-size: 30px;
-    }
-
-    #password_input2 {
+    #password_input {
         background-color: transparent;
         border-color: transparent;
         outline: none;
@@ -165,7 +172,36 @@ body {
         border-radius: 5px;
         padding: 10px;
         box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
-        margin-bottom: 2.5vh;
+    }
+
+    /* 分隔線 */
+    .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: #000; /* 文字顏色 */
+        margin-top: 15px;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    .divider::before,
+    .divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid #000; /* 橫線顏色和粗細 */
+    }
+
+    .divider::before {
+        margin-right: .5em;
+    }
+
+    .divider::after {
+        margin-left: .5em;
+    }
+
+    .divider span {
+        white-space: nowrap; /* 確保文字不會換行 */
     }
 }
 
@@ -179,7 +215,7 @@ body {
 
     .login-container {
         width: 60%;
-        height: 70%;
+        height: auto;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -189,7 +225,7 @@ body {
     }
 
     .right-side {
-        margin-left: 4vw;
+        margin-left: 5vw;
         position: relative;
     }
 
@@ -198,7 +234,7 @@ body {
         justify-content: center;
         font-size: 2.5rem;
         font-weight: bold;
-        margin-bottom: 3vh;
+        margin-bottom: 20px;
     }
 
     #container_logo {
@@ -206,60 +242,62 @@ body {
         height: auto;
     }
 
-    #user_icon {
-        width: 30px;
-        height: 30px;
-    }
-
     #mail_icon {
         width: 30px;
         height: 30px;
     }
 
-    #password_icon1 {
+    #password_icon {
         width: 30px;
         height: 30px;
     }
 
-    #password_icon2 {
-        width: 30px;
-        height: 30px;
-    }
-
-    #hide_password_icon1 {
+    #hide_password_icon {
         position: relative;
         width: 30px;
         height: 30px;
         cursor: pointer;
-        margin-left: auto;
     }
 
-    #hide_password_icon2 {
-        position: relative;
-        width: 30px;
-        height: 30px;
-        cursor: pointer;
-        margin-left: auto;
-    }
-
-    .service_container {
+    .remember_container {
         display: flex;
         align-items: center;
+        margin-top: 20px;
     }
 
-    #service {
+    .login_area {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .google_button {
+        margin-right: auto;
+    }
+
+    #google_icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 5px;
+    }
+
+    #sign_up_button {
+        margin-left: auto;
+        text-decoration: none;
+    }
+
+    #remember {
         width: 20px;
         height: 20px;
+        margin-right: 5px;
     }
 
-    #service_text {
-        font-size: 1rem;
-        margin-right: 1vw;
-    }
-
-    .service_group {
+    .agree {
         display: flex;
+        justify-content: center;
         align-items: center;
+        font-weight: bold;
+        margin-top: 15px;
     }
 
     button {
@@ -270,6 +308,7 @@ body {
         height: 40px;
         cursor: pointer;
         background-color: #D9D9D9;
+        
         border-radius: 40px;
         box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
         border: transparent;
@@ -278,16 +317,17 @@ body {
         font-weight: bold;
     }
 
-    #sign_up_button {
+    #log_in_button {
         width: 7vw;
         margin-left: auto;
     }
 
-    #user_input {
-        background-color: transparent;
-        border-color: transparent;
-        outline: none;
-        font-size: 1.25rem;
+    .forget_pwd {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        display: flex;
+        justify-content: flex-end;
+        position: relative;
     }
 
     #email_input {
@@ -297,14 +337,7 @@ body {
         font-size: 1.25rem;
     }
 
-    #password_input1 {
-        background-color: transparent;
-        border-color: transparent;
-        outline: none;
-        font-size: 1.25rem;
-    }
-
-    #password_input2 {
+    #password_input {
         background-color: transparent;
         border-color: transparent;
         outline: none;
@@ -320,7 +353,36 @@ body {
         border-radius: 5px;
         padding: 10px;
         box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
-        margin-bottom: 1.5vw;
+    }
+
+    /* 分隔線 */
+    .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: #000; /* 文字顏色 */
+        margin-bottom: 10px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .divider::before,
+    .divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid #000; /* 橫線顏色和粗細 */
+    }
+
+    .divider::before {
+        margin-right: .5em;
+    }
+
+    .divider::after {
+        margin-left: .5em;
+    }
+
+    .divider span {
+        white-space: nowrap; /* 確保文字不會換行 */
     }
 }
 
@@ -351,32 +413,22 @@ body {
     .title {
         display: flex;
         justify-content: center;
-        font-size: 48px;
+        font-size: 40px;
         font-weight: bold;
         margin-bottom: 3%;
     }
     
-    #user_icon {
-        width: 36px;
-        height: 36px;
-    }
-
     #mail_icon {
         width: 36px;
         height: 36px;
     }
     
-    #password_icon1 {
+    #password_icon {
         width: 36px;
         height: 36px;
     }
     
-    #password_icon2 {
-        width: 36px;
-        height: 36px;
-    }
-
-    #hide_password_icon1 {
+    #hide_password_icon {
         position: absolute;
         width: 30px;
         height: 30px;
@@ -384,31 +436,51 @@ body {
         cursor: pointer;
     }
     
-    #hide_password_icon2 {
-        position: absolute;
-        width: 30px;
-        height: 30px;
-        right: 10px;
-        cursor: pointer;
-    }
-
-    #service {
+    #remember {
         width: 24px;
         height: 24px;
+        margin-right: 8px;
     }
 
-    #service_text {
+    #remember_text {
         font-size: 20px;
     }
 
-    .service_container {
+    .remember_container {
         display: flex;
         align-items: center;
+        margin-top: 1%;
     }
-
-    .service_group {
+    
+    .login_area {
+        margin-top: 5px;
+        position: relative;
+    }
+    
+    .google_button {
+        width: 100%;
+        margin-top: 1%;
+    }
+    
+    #google_icon {
+        width: 36px;
+        height: 36px;
+        margin-right: 5px;
+    }
+    
+    #sign_up_button {
+        width: 100%;
+        margin-top: 3%;
+        text-decoration: none;
+    }
+    
+    .agree {
         display: flex;
+        justify-content: center;
         align-items: center;
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 3%;
     }
     
     button {
@@ -427,19 +499,21 @@ body {
         font-weight: bold;
     }
     
-    #sign_up_button {
-        width: 12vw;
-        height: 4.5vh;
+    #log_in_button {
+        width: 40%;
+        margin-top: 2%;
         margin-left: auto;
     }
     
-    #user_input {
-        background-color: transparent;
-        border-color: transparent;
-        outline: none;
+    .forget_pwd {
+        margin-top: 1%;
+        margin-bottom: 1%;
+        display: flex;
+        justify-content: flex-end;
+        position: relative;
         font-size: 20px;
     }
-
+    
     #email_input {
         background-color: transparent;
         border-color: transparent;
@@ -447,20 +521,13 @@ body {
         font-size: 20px;
     }
     
-    #password_input1 {
+    #password_input {
         background-color: transparent;
         border-color: transparent;
         outline: none;
         font-size: 20px;
     }
-
-    #password_input2 {
-        background-color: transparent;
-        border-color: transparent;
-        outline: none;
-        font-size: 20px;
-    }
-
+    
     .input-group {
         display: flex;
         align-items: center;
@@ -470,7 +537,36 @@ body {
         border-radius: 5px;
         padding: 12px;
         box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
-        margin-bottom: 1.5vh;
+    }
+    
+    /* 分隔線 */
+    .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: #000; /* 文字顏色 */
+        margin-top: 3%;
+        margin-bottom: 3%;
+        font-weight: bold;
+    }
+    
+    .divider::before,
+    .divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid #000; /* 橫線顏色和粗細 */
+    }
+    
+    .divider::before {
+        margin-right: .5em;
+    }
+    
+    .divider::after {
+        margin-left: .5em;
+    }
+    
+    .divider span {
+        white-space: nowrap; /* 確保文字不會換行 */
     }
 }
 
@@ -503,38 +599,20 @@ body {
         justify-content: center;
         font-size: 28px;
         font-weight: bold;
-        margin-bottom: 5%;
+        margin-bottom: 20px;
     }
     
-    #user_icon {
-        width: 24px;
-        height: 24px;
-    }
-
     #mail_icon {
         width: 24px;
         height: 24px;
     }
     
-    #password_icon1 {
-        width: 24px;
-        height: 24px;
-    }
-
-    #password_icon2 {
+    #password_icon {
         width: 24px;
         height: 24px;
     }
     
-    #hide_password_icon1 {
-        position: absolute;
-        width: 24px;
-        height: 24px;
-        right: 10px;
-        cursor: pointer;
-    }
-
-    #hide_password_icon2 {
+    #hide_password_icon {
         position: absolute;
         width: 24px;
         height: 24px;
@@ -542,19 +620,40 @@ body {
         cursor: pointer;
     }
     
-    #service {
-        width: 14px;
-        height: 14px;
-    }
-
-    #service_text {
-        font-size: 14px;
-    }
-
-    .service_group {
+    .remember_container {
         display: flex;
         align-items: center;
-        margin-bottom: 1.5vh;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    
+    .login_area {
+        margin-bottom: 15px;
+        position: relative;
+    }
+    
+    .google_button {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    
+    #google_icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 5px;
+    }
+    
+    #sign_up_button {
+        width: 100%;
+        text-decoration: none;
+    }
+    
+    .agree {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 10px;
+        font-weight: bold;
     }
     
     button {
@@ -573,18 +672,20 @@ body {
         font-weight: bold;
     }
     
-    #sign_up_button {
-        width: 18vw;
+    #log_in_button {
+        width: 40%;
         margin-left: auto;
     }
-
-    #user_input {
-        background-color: transparent;
-        border-color: transparent;
-        outline: none;
+    
+    .forget_pwd {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        display: flex;
+        justify-content: flex-end;
+        position: relative;
         font-size: 14px;
     }
-
+    
     #email_input {
         background-color: transparent;
         border-color: transparent;
@@ -592,14 +693,7 @@ body {
         font-size: 14px;
     }
     
-    #password_input1 {
-        background-color: transparent;
-        border-color: transparent;
-        outline: none;
-        font-size: 14px;
-    }
-
-    #password_input2 {
+    #password_input {
         background-color: transparent;
         border-color: transparent;
         outline: none;
@@ -615,6 +709,34 @@ body {
         border-radius: 5px;
         padding: 8px;
         box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
-        margin-bottom: 1.5vh;
+    }
+    
+    /* 分隔線 */
+    .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: #000; /* 文字顏色 */
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+    
+    .divider::before,
+    .divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid #000; /* 橫線顏色和粗細 */
+    }
+    
+    .divider::before {
+        margin-right: .5em;
+    }
+    
+    .divider::after {
+        margin-left: .5em;
+    }
+    
+    .divider span {
+        white-space: nowrap; /* 確保文字不會換行 */
     }
 }

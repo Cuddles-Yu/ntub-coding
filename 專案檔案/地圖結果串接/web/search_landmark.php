@@ -1,6 +1,7 @@
 <?php 
 // 動態生成符合關鍵字的搜尋結果的地標(按下或自動搜尋後，地圖上出現的標記)
-require_once $_SERVER['DOCUMENT_ROOT'].'/db.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
 
 function searchStores($keyword)
 {

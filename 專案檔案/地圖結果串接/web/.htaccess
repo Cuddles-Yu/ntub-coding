@@ -1,6 +1,12 @@
+DirectorySlash Off
 RewriteEngine On
 
-#規則導向
+# 全域導向
+RewriteCond %{HTTP_HOST} ^(www\.)?(commentspace\.ascdc\.tw|localhost)$
+RewriteCond %{REQUEST_URI} ^/$
+RewriteRule ^$ /home [R=301,L]
+
+# 規則導向
 RewriteRule ^detail$ /store-detail.php [L]
 RewriteRule ^search$ /search.html [L]
 RewriteRule ^team$ /develop-team.html [L]
@@ -9,16 +15,17 @@ RewriteRule ^admin/handler/register$ /admin/handler/register.php [L]
 RewriteRule ^admin/register$ /admin/register.php [L]
 RewriteRule ^admin/pull$ /admin/git.php [L]
 
+# 禁止訪問(所有)
+RewriteRule ^base(/)?(.*)$ /404.html [L]
+RewriteRule ^struc(/)?(.*)$ /404.html [L]
 
-#例外導向
+# 禁止訪問(目錄)
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^admin(/)?$ /404.html [L]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^member(/)?$ /404.html [L]
+
+# 例外導向（需要在匹配所有路徑之前運行）
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ /404.html [L]
-
-#禁止訪問
-RewriteRule ^admin(/)?$ /404.html [L]
-
-# 全域導向
-RewriteCond %{HTTP_HOST} ^(www\.)?(commentspace\.ascdc\.tw|localhost)$
-RewriteCond %{REQUEST_URI} ^/$
-RewriteRule ^$ /home [R=301,L]

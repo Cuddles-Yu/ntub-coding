@@ -20,7 +20,7 @@
 
     <div class="login-container">
         <div class="left-side">
-            <img src="images/Logo設計_文字(藍+).png" alt="評星宇宙logo" id="container_logo">
+            <img src="images/logo-text-blue+.png" alt="評星宇宙logo" id="container_logo">
         </div>
 
         <div class="right-side">
@@ -28,16 +28,16 @@
                 <div class="title">登入您的帳號</div>
                 
                 <div class="input-group">
-                    <img src="images/mail2.png" alt="mail" id="mail_icon">
+                    <img src="images/icon-email.png" alt="mail" id="mail_icon">
                     <input type="email" id="email_input" name="mem_mail" placeholder="電子郵件地址" required>
                 </div>
 
                 <div class="forget_pwd">忘記密碼？</div>
 
                 <div class="input-group">
-                    <img src="images/key.png" alt="password" id="password_icon">
+                    <img src="images/icon-key.png" alt="password" id="password_icon">
                     <input type="password" id="password_input" name="mem_pwd" placeholder="密碼" required>
-                    <img src="images/hide_pwd.png" alt="password" id="hide_password_icon">
+                    <img src="images/password-hide.png" alt="password" id="hide_password_icon">
                 </div>
 
                 <div class="remember_container">
@@ -54,7 +54,7 @@
 
             <div class="login_area">
                 <button class="google_button">
-                    <img src="images/google_icon.png" alt="google_icon" id="google_icon">
+                    <img src="images/icon-google.png" alt="google_icon" id="google_icon">
                     <span>Google登入</span>
                 </button>
                 <a type="button" href='./signup-page1.php'>

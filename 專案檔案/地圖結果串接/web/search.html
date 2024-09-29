@@ -19,8 +19,8 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
 
-  <!-- 載入 osm_map.css -->
-  <link rel="stylesheet" type="text/css" href="./osm_map.css">
+  <!-- 載入 /styles/osm-map.css -->
+  <link rel="stylesheet" type="text/css" href="./styles/osm-map.css">
 
   <link rel="stylesheet" href="styles/search.css" />
 </head>
@@ -30,7 +30,7 @@
   <header>
     <!-- 基本項目 -->
     <div id="web_name">
-        <img src="images/Logo設計_圖像(藍+).png" id="web_logo">
+        <img src="images/logo-blue+.png" id="web_logo">
         <a href="home">評星宇宙</a>
     </div>
 
@@ -45,7 +45,7 @@
     </div>
 
     <div id="user_icon" type="button">
-        <img src="images/user.jpg" id="user_icon_logo">
+        <img src="images/icon-member.jpg" id="user_icon_logo">
     </div>
 
     <div id="login_button">
@@ -290,9 +290,9 @@
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 
   <!-- 載入JSON資料 data.__ -->
-  <script src="./data.php"></script>
+  <script src="./base/data.php"></script>
 
-  <!-- 載入主程式 osm_map.js -->  
+  <!-- 載入主程式 osm-map.js -->  
   <script src="scripts/ui-interactions.js"></script>
 
   <!-- 搜尋跳轉功能 -->
@@ -321,7 +321,7 @@
       formData.set('mapCenterLat', center.lat);
       formData.set('mapCenterLng', center.lng);
 
-      searchResults.innerHTML = '<div class="rotating"><img src="./images/loading2.png" width="30" height="30"></div><p>正在為您搜尋符合條件的商家...</p>';
+      searchResults.innerHTML = '<div class="rotating"><img src="./images/icon-loading.png" width="30" height="30"></div><p>正在為您搜尋符合條件的商家...</p>';
       // 獲取 HTML 搜索結果
       fetch('search.php', {
         method: 'POST',
@@ -355,7 +355,7 @@
     }
   </script>
 
-  <script src="./osm-map.js"></script>
+  <script src="./scripts/osm-map.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="scripts/search.js"></script>

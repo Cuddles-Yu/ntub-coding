@@ -1,5 +1,6 @@
 <?php //抓取資料庫商家的資料定義函式
-require_once $_SERVER['DOCUMENT_ROOT'].'/db.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
 
 // 商家資料表得到(商家名稱)
 function getStoreInfo($storeName) {
