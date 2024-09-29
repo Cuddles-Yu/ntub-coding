@@ -7,6 +7,8 @@ html, body {
     user-select:none; /* 禁止選取standard syntax */
     -webkit-user-select:none; /* 禁止for Chrome、Safari */
     -moz-user-select:none;  /* 禁止for Mozilla、Firefox */
+    z-index: 1;
+    flex-direction: column;
 }
 
 button {
@@ -27,11 +29,15 @@ button {
 
 /* 底欄相關設定 */
 footer {
+    position: fixed;
     background-color: #485465;
     height: 60px;
+    width: 100%;
     color: white;
-    padding: 15px 25px 15px 25px; /* 上、右、下、左 */
+    padding: 10px 25px 15px 25px; /* 上、右、下、左 */
     font-size: 14px; 
+    bottom: 0;
+    box-sizing: border-box; /* 確保padding不影響大小 */
 }
 
 /* header */
@@ -45,6 +51,7 @@ footer {
         height: 80px;
         width: 100%;
         background-color: #FFFFFF;
+        z-index: 1000;
     }
 
     .link_text {
@@ -133,7 +140,7 @@ footer {
         border: none;
         position: fixed;
         top: 80px;
-        margin: 0;
+        margin: 0 !important;
     }
     
     /* 漢堡圖示 */
@@ -144,10 +151,11 @@ footer {
     #nav_menu2 {
         display: none; /* 隱藏導航菜單 */
         flex-direction: column;
-        position: absolute;
+        position: fixed;
         top: 80px;
         background-color: white;
         width: 100%;
+        z-index: 10000;
     }
 
     #nav_menu2 a {
@@ -175,6 +183,7 @@ footer {
         height: 80px;
         width: 100%;
         background-color: #FFFFFF;
+        z-index: 1000;
     }
 
     .link_text {
@@ -264,7 +273,7 @@ footer {
         border: none;
         position: fixed;
         top: 80px;
-        margin: 0;
+        margin: 0 !important;
     }
 
     /* 漢堡圖示相關 */
@@ -283,7 +292,7 @@ footer {
         height: 100vh;
         transform: translateX(-100%); /* 水平移動 */
         transition: transform 10s ease-out; /* 平滑過渡 */;
-        z-index: 1;
+        z-index: 10000;
     }
 
     #nav_menu2 a {
@@ -295,6 +304,7 @@ footer {
     #nav_menu2.show {
         display: flex; /* 顯示導航菜單 */
         transform: translateX(0); /* 水平移動 */
+        z-index: 9999;
     }
 
     #overlay {
@@ -305,6 +315,7 @@ footer {
         width: 100%;
         height: 100vh;
         background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色 */
+        z-index: 9998;
     }
 
     #overlay.show {
@@ -352,6 +363,7 @@ footer {
         height: 80px;
         width: 100%;
         background-color: #FFFFFF;
+        z-index: 1000;
     }
 
     .link_text {
@@ -424,7 +436,7 @@ footer {
         border: none;
         position: fixed;
         top: 80px;
-        margin: 0;
+        margin: 0 !important;
     }
 
     /* 漢堡圖示相關 */
@@ -443,7 +455,7 @@ footer {
         height: 100vh;
         transform: translateX(-100%); /* 水平移動 */
         transition: transform 10s ease-out; /* 平滑過渡 */;
-        z-index: 1;
+        z-index: 10000;
     }
 
     #overlay {
@@ -454,6 +466,7 @@ footer {
         width: 100%;
         height: 100vh;
         background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色 */
+        z-index: 9998;
     }
 
     #overlay.show {
@@ -463,6 +476,7 @@ footer {
     #nav_menu2.show {
         display: flex; /* 顯示導航菜單 */
         transform: translateX(0); /* 水平移動 */
+        z-index: 9999;
     }
 
     #nav_menu2 a {
@@ -509,6 +523,7 @@ footer {
         position: fixed; /* 固定位置 */
         align-items: center; /* 垂直置中 */
         left: 10vw; /* 與左邊界距離 10vw */
+        z-index: 999;
     }
 
     .page_button {
@@ -530,12 +545,15 @@ footer {
         color: #5e5e5e;
     }
 
-    .content {
+    main {
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: calc(100vh - 90px); /* 內容高度 - 底欄高度 */
+        min-height: calc(100vh - 60px); /* 內容高度 - 底欄高度 */
         width: 100%;
+        z-index: 0;
+        flex: 1;
+        overflow: hidden;
     }
 
     /* 基本資料 */
@@ -617,6 +635,7 @@ footer {
         overflow: auto;
         background-color: rgb(0, 0, 0);
         background-color: rgba(0, 0, 0, 0.4); /* 黑色背景透明度 */
+        z-index: 10000;
     }
 
     /* 密碼小視窗內容 */
@@ -631,10 +650,33 @@ footer {
         font-size: 24px;
     }
 
+    #password_title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 1vh;
+    }
+    
     #password_form label {
         display: inline-block;
-        width: 7vw;
+        width: 6vw;
         font-size: 20px;
+        margin-top: 2vh;
+        margin-bottom: 1vh;
+    }
+
+    #password_form input {
+        width: 50%;
+        height: 35px;
+        font-size: 14px;
+        padding: 5px;
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+    }
+
+    #password_form button {
+        width: 3vw;
+        font-size: 16px;
+        padding: 5px;
         margin-top: 1vh;
         margin-bottom: 1vh;
     }
@@ -917,6 +959,138 @@ footer {
     /* 收藏地點 */
     #place_main_area {
         margin-left: 8vw;
+    }
+
+    .form-floating>.form-select{
+        padding-top: 26px;
+        padding-bottom: 10px;
+        height: 58px;
+        font-size: 16px;
+    }
+    
+    .form-floating>.form-control, .form-floating>.form-control-plaintext{
+        padding: 16px  12px;
+        height: 58px;
+    }
+    
+    .search-keyword{
+        width: 350px;
+        position: relative;
+        margin-left: 30px;
+        overflow-x: hidden;
+        font-size: 16px;
+    }
+    
+    .search-button{
+        position: relative;
+        margin-left: 30px;
+        margin-bottom: 15px;
+        color: white;
+        white-space: nowrap;
+        font-size: 16px;
+    }
+
+    .search{
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .first_line, .content_row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 1200px;
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+    }
+    
+    .mark_number {
+        display: flex;
+        align-items: center;
+        flex-grow: 0.5; /* 讓每個項目可以擴展 */
+        flex-basis: 10px; /* 初始寬度 */
+        margin-right: 10px;
+        font-size: 20px;
+    }
+
+    .mark_img img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover; /* 保持圖片比例 */
+        object-position: center; /* 圖片置中 */
+        border-radius: 3px;
+        overflow: hidden;
+        margin-right: 10px;
+    }
+
+    .mark_store {
+        display: flex;
+        align-items: center;
+        flex-grow: 2; /* 讓每個項目可以擴展 */
+        flex-basis: 320px; /* 初始寬度 */
+        margin-right: 10px;
+        font-size: 20px;
+    }
+
+    .store_name {
+        font-size: 20px;
+        font-weight: bold;
+        display: -webkit-box;
+        -webkit-line-clamp: 1; /* 限制為1行 */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    .mark_score {
+        display: flex;
+        align-items: center;
+        flex-grow: 1; /* 讓每個項目可以擴展 */
+        flex-basis: 60px; /* 初始寬度 */
+        font-size: 20px;
+    }
+
+    .mark_category {
+        display: flex;
+        align-items: center;
+        flex-grow: 1; /* 讓每個項目可以擴展 */
+        flex-basis: 60px; /* 初始寬度 */
+        font-size: 20px;
+    }
+
+    .mark_distance {
+        display: flex;
+        align-items: center;
+        flex-grow: 1; /* 讓每個項目可以擴展 */
+        flex-basis: 60px; /* 初始寬度 */
+        font-size: 20px;
+    }
+    
+    .mark_time {
+        display: flex;
+        align-items: center;
+        flex-grow: 1; /* 讓每個項目可以擴展 */
+        flex-basis: 80px; /* 初始寬度 */
+        font-size: 20px;
+    }
+    
+    .mark_button {
+        display: flex;
+        align-items: center;
+        flex-grow: 1; /* 讓每個項目可以擴展 */
+        flex-basis: 60px; /* 初始寬度 */
+        font-size: 20px;
+    }
+    
+    .mark_button2 {
+        display: flex;
+        align-items: center;
+    }
+    
+    .sort_button {
+        margin-right: 7px;
     }
 }
 
@@ -927,13 +1101,14 @@ footer {
         position: fixed; /* 固定位置 */
         align-items: center; /* 垂直置中 */
         left: 10vw; /* 與左邊界距離 10vw */
+        z-index: 999;
     }
 
     .page_button {
         display: flex;
         justify-content: center;
         align-items: baseline;
-        font-size: 28px;
+        font-size: 24px;
         font-weight: bold;
         color: #5e5e5e;
     }
@@ -948,17 +1123,20 @@ footer {
         color: #5e5e5e;
     }
 
-    .content {
+    main {
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: calc(100vh - 90px); /* 內容高度 - 底欄高度 */
+        min-height: calc(100vh - 60px); /* 內容高度 - 底欄高度 */
         width: 100%;
+        z-index: 0;
+        flex: 1;
+        overflow: hidden;
     }
 
     /* 基本資料 */
     #info_main_area {
-        margin-top: 4vh;
+        margin-top: 10vh;
         margin-left: 8vw;
     }
 
@@ -970,8 +1148,8 @@ footer {
     }
 
     #user_icon_logo2 {
-        width: 240px;
-        height: 240px;
+        width: 180px;
+        height: 180px;
     }
 
     .item_name {
@@ -984,7 +1162,7 @@ footer {
     .item_text {
         display: inline-block;
         width: 10vw;
-        font-size: 24px;
+        font-size: 20px;
         font-weight: bold;
         margin-top: 0;
         margin-bottom: 0;
@@ -994,13 +1172,13 @@ footer {
         background: #FFFFFF;
         border: 1px solid #2b2b2b;
         border-radius: 5px;
-        padding: 10px;
+        padding: 7px;
         box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
     }
 
     .edit_info1 {
         display: inline-block;
-        font-size: 16px;
+        font-size: 14px;
         color: #5053AF;
         font-weight: bold;
         cursor: pointer;
@@ -1012,7 +1190,7 @@ footer {
 
     .edit_info2 {
         display: inline-block;
-        font-size: 16px;
+        font-size: 14px;
         color: #5053AF;
         font-weight: bold;
         margin-left: 0.5vw;
@@ -1035,6 +1213,7 @@ footer {
         overflow: auto;
         background-color: rgb(0, 0, 0);
         background-color: rgba(0, 0, 0, 0.4); /* 黑色背景透明度 */
+        z-index: 10000;
     }
 
     /* 密碼小視窗內容 */
@@ -1049,10 +1228,33 @@ footer {
         font-size: 24px;
     }
 
+    #password_title {
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 1vh;
+    }
+    
     #password_form label {
         display: inline-block;
-        width: 7vw;
-        font-size: 20px;
+        width: 8vw;
+        font-size: 18px;
+        margin-top: 2vh;
+        margin-bottom: 1vh;
+    }
+
+    #password_form input {
+        width: 50%;
+        height: 30px;
+        font-size: 14px;
+        padding: 5px;
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+    }
+
+    #password_form button {
+        width: 4vw;
+        font-size: 14px;
+        padding: 5px;
         margin-top: 1vh;
         margin-bottom: 1vh;
     }
@@ -1081,13 +1283,13 @@ footer {
 
     /* 偏好設定 */
     #preference_main_area {
-        margin-top: 10vh;
+        margin-top: 12vh;
         margin-left: 8vw;
     }
 
     .preference_item_container {
         margin-bottom: 1vh;
-        height: 580px;
+        height: 380px;
         overflow: scroll;
         overflow-x: hidden;
         padding-right: 80px;
@@ -1097,9 +1299,9 @@ footer {
         background: #FFFFFF;
         border: 1px solid #2b2b2b;
         border-radius: 5px;
-        padding: 5px;
+        padding: 3px;
         box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
-        width: 4.5vw;
+        width: 7vw;
         margin-right: 5px;
     }
 
@@ -1109,9 +1311,9 @@ footer {
         background: #FFFFFF;
         border: 1px solid #2b2b2b;
         border-radius: 5px;
-        padding: 5px;
+        padding: 3px;
         box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
-        width: 3vw;
+        width: 4vw;
         margin-right: 5px;
     }
 
@@ -1120,7 +1322,7 @@ footer {
     }
 
     .type_title {
-        font-size: 22px;
+        font-size: 18px;
         font-weight: bold;
         margin-right: 20px;
         margin-top: 5px;
@@ -1166,7 +1368,7 @@ footer {
     .checkbox_item {
         box-sizing: border-box; /* margin, padding 不會增加元素的寬度 */
         align-items: center;
-        font-size: 20px;
+        font-size: 16px;
     }
 
     .radio_item {
@@ -1179,15 +1381,15 @@ footer {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 90px;
-        height: 50px;
+        width: 80px;
+        height: 45px;
         cursor: pointer;
         background-color: #848484;
         border-radius: 10px;
         box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
         border: transparent;
-        padding: 7px;
-        font-size: 22px;
+        padding: 5px;
+        font-size: 18px;
         color: white;
     }
 
@@ -1195,15 +1397,15 @@ footer {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 90px;
-        height: 50px;
+        width: 80px;
+        height: 45px;
         cursor: pointer;
         background-color: #848484;
         border-radius: 10px;
         box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
         border: transparent;
-        padding: 7px;
-        font-size: 22px;
+        padding: 5px;
+        font-size: 18px;
         color: white;
         margin-right: 15px;
     }
@@ -1212,15 +1414,15 @@ footer {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 90px;
-        height: 50px;
+        width: 80px;
+        height: 45px;
         cursor: pointer;
         background-color: #848484;
         border-radius: 10px;
         box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
         border: transparent;
-        padding: 7px;
-        font-size: 22px;
+        padding: 5px;
+        font-size: 18px;
         color: white;
     }
 
@@ -1231,7 +1433,7 @@ footer {
     }
 
     .description_text {
-        font-size: 20px;
+        font-size: 16px;
     }
 
     /* 按鈕 */
@@ -1246,15 +1448,15 @@ footer {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 90px;
-        height: 50px;
+        width: 80px;
+        height: 45px;
         cursor: pointer;
         background-color: #848484;
         border-radius: 10px;
         box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
         border: transparent;
-        padding: 7px;
-        font-size: 22px;
+        padding: 5px;
+        font-size: 18px;
         color: white;
     }
 
@@ -1262,15 +1464,15 @@ footer {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 90px;
-        height: 50px;
+        width: 80px;
+        height: 45px;
         cursor: pointer;
         background-color: #848484;
         border-radius: 10px;
         box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
         border: transparent;
-        padding: 7px;
-        font-size: 22px;
+        padding: 5px;
+        font-size: 18px;
         color: white;
         margin-left: 15px;
     }
@@ -1279,7 +1481,7 @@ footer {
     .slider-container {
         display: flex;
         align-items: center;
-        font-size: 24px;
+        font-size: 20px;
         font-weight: bold;
         margin-top: 4vh;
         margin-bottom: 4vh;
@@ -1334,7 +1536,133 @@ footer {
 
     /* 收藏地點 */
     #place_main_area {
-        margin-left: 8vw;
+        margin-top: 12vh;
+        margin-left: 18vw;
+    }
+
+    .form-floating>.form-select{
+        padding-top: 26px;
+        padding-bottom: 10px;
+        height: 58px;
+        font-size: 16px;
+    }
+    
+    .form-floating>.form-control, .form-floating>.form-control-plaintext{
+        padding: 16px  12px;
+        height: 58px;
+    }
+    
+    .search-keyword{
+        width: 350px;
+        position: relative;
+        margin-left: 30px;
+        overflow-x: hidden;
+        font-size: 16px;
+    }
+    
+    .search-button{
+        position: relative;
+        margin-left: 30px;
+        margin-bottom: 15px;
+        color: white;
+        white-space: nowrap;
+        font-size: 16px;
+    }
+
+    .search{
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .first_line, .content_row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 900px;
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+    }
+    
+    .mark_number {
+        display: flex;
+        align-items: center;
+        flex-grow: 0.5; /* 讓每個項目可以擴展 */
+        flex-basis: 10px; /* 初始寬度 */
+        margin-right: 10px;
+    }
+
+    .mark_img img {
+        width: 90px;
+        height: 90px;
+        object-fit: cover; /* 保持圖片比例 */
+        object-position: center; /* 圖片置中 */
+        border-radius: 3px;
+        overflow: hidden;
+        margin-right: 5px;
+    }
+
+    .mark_store {
+        display: flex;
+        align-items: center;
+        flex-grow: 2; /* 讓每個項目可以擴展 */
+        flex-basis: 320px; /* 初始寬度 */
+        margin-right: 5px;
+    }
+
+    .store_name {
+        font-size: 16px;
+        font-weight: bold;
+        display: -webkit-box;
+        -webkit-line-clamp: 1; /* 限制為1行 */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    .mark_score {
+        display: flex;
+        align-items: center;
+        flex-grow: 1; /* 讓每個項目可以擴展 */
+        flex-basis: 60px; /* 初始寬度 */
+    }
+
+    .mark_category {
+        display: flex;
+        align-items: center;
+        flex-grow: 1; /* 讓每個項目可以擴展 */
+        flex-basis: 60px; /* 初始寬度 */
+    }
+
+    .mark_distance {
+        display: flex;
+        align-items: center;
+        flex-grow: 1; /* 讓每個項目可以擴展 */
+        flex-basis: 60px; /* 初始寬度 */
+    }
+    
+    .mark_time {
+        display: flex;
+        align-items: center;
+        flex-grow: 1; /* 讓每個項目可以擴展 */
+        flex-basis: 80px; /* 初始寬度 */
+    }
+    
+    .mark_button {
+        display: flex;
+        align-items: center;
+        flex-grow: 1; /* 讓每個項目可以擴展 */
+        flex-basis: 60px; /* 初始寬度 */
+    }
+    
+    .mark_button2 {
+        display: flex;
+        align-items: center;
+    }
+    
+    .sort_button {
+        margin-right: 7px;
     }
 }
 
@@ -1342,18 +1670,25 @@ footer {
 @media (min-width: 768px) and (max-width: 1024px) {
    /* 側欄 */
    .side_area {
-        position: fixed; /* 固定位置 */
-        align-items: center; /* 垂直置中 */
-        left: 10vw; /* 與左邊界距離 10vw */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 140px;
+        left: 50%;
+        transform: translateX(-50%); /* 水平置中 */
+        z-index: 999;
     }
 
     .page_button {
         display: flex;
         justify-content: center;
         align-items: baseline;
-        font-size: 28px;
+        width: 120px;
+        font-size: 20px;
         font-weight: bold;
         color: #5e5e5e;
+        margin-right: 20px;
     }
 
     .page_button p {
@@ -1366,19 +1701,20 @@ footer {
         color: #5e5e5e;
     }
 
-    .content {
+    main {
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: calc(100vh - 90px); /* 內容高度 - 底欄高度 */
+        min-height: calc(100vh - 60px); /* 內容高度 - 底欄高度 */
         width: 100%;
         z-index: 0;
+        flex: 1;
+        overflow: hidden;
     }
 
     /* 基本資料 */
     #info_main_area {
-        margin-top: 4vh;
-        margin-left: 8vw;
+        display: flex;
     }
 
     #user_icon_logo2_container {
@@ -1401,19 +1737,20 @@ footer {
     }
 
     .item_text {
-        display: inline-block;
-        width: 10vw;
-        font-size: 24px;
+        width: 12vw;
+        font-size: 16px;
         font-weight: bold;
         margin-top: 0;
         margin-bottom: 0;
+        margin-right: 10px;
     }
 
     .item_text2 {
         background: #FFFFFF;
+        width: 30vw;
         border: 1px solid #2b2b2b;
         border-radius: 5px;
-        padding: 10px;
+        padding: 5px;
         box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
     }
 
@@ -1454,6 +1791,7 @@ footer {
         overflow: auto;
         background-color: rgb(0, 0, 0);
         background-color: rgba(0, 0, 0, 0.4); /* 黑色背景透明度 */
+        z-index: 10000;
     }
 
     /* 密碼小視窗內容 */
@@ -1468,10 +1806,33 @@ footer {
         font-size: 24px;
     }
 
+    #password_title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 1vh;
+    }
+    
     #password_form label {
         display: inline-block;
+        width: 13vw;
+        font-size: 18px;
+        margin-top: 2vh;
+        margin-bottom: 1vh;
+    }
+
+    #password_form input {
+        width: 55%;
+        height: 30px;
+        font-size: 14px;
+        padding: 5px;
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+    }
+
+    #password_form button {
         width: 7vw;
-        font-size: 20px;
+        font-size: 14px;
+        padding: 5px;
         margin-top: 1vh;
         margin-bottom: 1vh;
     }
@@ -1500,16 +1861,16 @@ footer {
 
     /* 偏好設定 */
     #preference_main_area {
-        margin-top: 10vh;
+        margin-top: 18vh;
         margin-left: 8vw;
     }
 
     .preference_item_container {
         margin-bottom: 1vh;
-        height: 580px;
+        height: 700px;
         overflow: scroll;
         overflow-x: hidden;
-        padding-right: 80px;
+        padding-right: 10px;
     }
 
     #search_radius {
@@ -1518,8 +1879,8 @@ footer {
         border-radius: 5px;
         padding: 5px;
         box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
-        width: 4.5vw;
-        margin-right: 5px;
+        width: 12vw;
+        margin-right: 3px;
     }
 
     #lower_score {
@@ -1530,8 +1891,8 @@ footer {
         border-radius: 5px;
         padding: 5px;
         box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
-        width: 3vw;
-        margin-right: 5px;
+        width: 7vw;
+        margin-right: 3px;
     }
 
     .title_text {
@@ -1541,12 +1902,12 @@ footer {
     .type_title {
         font-size: 22px;
         font-weight: bold;
-        margin-right: 20px;
+        margin-right: 3px;
         margin-top: 5px;
     }
 
     #meter {
-        margin-right: 50px;
+        margin-right: 40px;
     }
 
     .select_all_button {
@@ -1608,6 +1969,7 @@ footer {
         padding: 7px;
         font-size: 22px;
         color: white;
+        margin-right: 20px;
     }
 
     #preference_save_button {
@@ -1641,14 +2003,10 @@ footer {
         padding: 7px;
         font-size: 22px;
         color: white;
+        margin-right: 20px;
     }
 
     /* 權重設定 */
-    #weight_main_area {
-        margin-top: 6vh;
-        margin-left: 8vw;
-    }
-
     .description_text {
         font-size: 20px;
     }
@@ -1658,7 +2016,7 @@ footer {
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        margin-top: 2vh;
+        margin-top: 1vh;
     }
 
     #weight_edit_button{
@@ -1675,6 +2033,7 @@ footer {
         padding: 7px;
         font-size: 22px;
         color: white;
+        margin-right: 15px;
     }
 
     #weight_cancel_button{
@@ -1691,7 +2050,7 @@ footer {
         padding: 7px;
         font-size: 22px;
         color: white;
-        margin-left: 15px;
+        margin-right: 20px;
     }
 
     /* 滑動條 */
@@ -1702,10 +2061,11 @@ footer {
         font-weight: bold;
         margin-top: 4vh;
         margin-bottom: 4vh;
+        margin-left: 5vw;
     }
 
     .slider-container label {
-        width: 7vw;
+        width: 12vw;
     }
 
     .slider-container span {
@@ -1713,7 +2073,7 @@ footer {
     }
 
     .slider-container input[type="range"] {
-        width: 25vw;
+        width: 45vw;
         height: 3.5vh; /* 軌道高度 */
         -webkit-appearance: none; /* 移除滑動條預設樣式 */
         appearance: none; /* 移除滑動條預設樣式 */
@@ -1753,7 +2113,133 @@ footer {
 
     /* 收藏地點 */
     #place_main_area {
-        margin-left: 8vw;
+        margin-top: 20vh;
+        margin-left: 18vw;
+    }
+
+    .form-floating>.form-select{
+        padding-top: 26px;
+        padding-bottom: 10px;
+        height: 58px;
+        font-size: 16px;
+    }
+    
+    .form-floating>.form-control, .form-floating>.form-control-plaintext{
+        padding: 16px  12px;
+        height: 58px;
+    }
+    
+    .search-keyword{
+        width: 350px;
+        position: relative;
+        margin-left: 30px;
+        overflow-x: hidden;
+        font-size: 16px;
+    }
+    
+    .search-button{
+        position: relative;
+        margin-left: 30px;
+        margin-bottom: 15px;
+        color: white;
+        white-space: nowrap;
+        font-size: 16px;
+    }
+
+    .search{
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .first_line, .content_row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 900px;
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+    }
+    
+    .mark_number {
+        display: flex;
+        align-items: center;
+        flex-grow: 0.5; /* 讓每個項目可以擴展 */
+        flex-basis: 10px; /* 初始寬度 */
+        margin-right: 10px;
+    }
+
+    .mark_img img {
+        width: 90px;
+        height: 90px;
+        object-fit: cover; /* 保持圖片比例 */
+        object-position: center; /* 圖片置中 */
+        border-radius: 3px;
+        overflow: hidden;
+        margin-right: 5px;
+    }
+
+    .mark_store {
+        display: flex;
+        align-items: center;
+        flex-grow: 2; /* 讓每個項目可以擴展 */
+        flex-basis: 320px; /* 初始寬度 */
+        margin-right: 5px;
+    }
+
+    .store_name {
+        font-size: 16px;
+        font-weight: bold;
+        display: -webkit-box;
+        -webkit-line-clamp: 1; /* 限制為1行 */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    .mark_score {
+        display: flex;
+        align-items: center;
+        flex-grow: 1; /* 讓每個項目可以擴展 */
+        flex-basis: 60px; /* 初始寬度 */
+    }
+
+    .mark_category {
+        display: flex;
+        align-items: center;
+        flex-grow: 1; /* 讓每個項目可以擴展 */
+        flex-basis: 60px; /* 初始寬度 */
+    }
+
+    .mark_distance {
+        display: flex;
+        align-items: center;
+        flex-grow: 1; /* 讓每個項目可以擴展 */
+        flex-basis: 60px; /* 初始寬度 */
+    }
+    
+    .mark_time {
+        display: flex;
+        align-items: center;
+        flex-grow: 1; /* 讓每個項目可以擴展 */
+        flex-basis: 80px; /* 初始寬度 */
+    }
+    
+    .mark_button {
+        display: flex;
+        align-items: center;
+        flex-grow: 1; /* 讓每個項目可以擴展 */
+        flex-basis: 60px; /* 初始寬度 */
+    }
+    
+    .mark_button2 {
+        display: flex;
+        align-items: center;
+    }
+    
+    .sort_button {
+        margin-right: 7px;
     }
 }
 
@@ -1761,23 +2247,28 @@ footer {
 @media (max-width: 767px){
     /* 側欄 */
     .side_area {
-        position: fixed; /* 固定位置 */
-        align-items: center; /* 垂直置中 */
-        left: 10vw; /* 與左邊界距離 10vw */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 85px;
+        left: 50%;
+        transform: translateX(-50%); /* 水平置中 */
+        z-index: 999;
     }
 
     .page_button {
         display: flex;
         justify-content: center;
-        align-items: baseline;
-        font-size: 28px;
+        align-items: center;
+        font-size: 20px;
         font-weight: bold;
         color: #5e5e5e;
+        padding: 15px;
     }
 
     .page_button p {
-        margin-left: 0.2vw;
-        cursor: pointer;
+        display: none;
     }
 
     .logo {
@@ -1785,30 +2276,30 @@ footer {
         color: #5e5e5e;
     }
 
-    .content {
+    main {
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: calc(100vh - 90px); /* 內容高度 - 底欄高度 */
+        min-height: calc(100vh - 60px); /* 內容高度 - 底欄高度 */
         width: 100%;
+        z-index: 0;
+        flex: 1;
+        overflow: hidden;
     }
 
     /* 基本資料 */
-    #info_main_area {
-        margin-top: 4vh;
-        margin-left: 8vw;
-    }
-
     #user_icon_logo2_container {
         display: flex;
         justify-content: center;
         align-items: flex-end;
+        margin-top: 12vh;
         margin-bottom: 4vh;
+        margin-left: 12vw;
     }
 
     #user_icon_logo2 {
-        width: 240px;
-        height: 240px;
+        width: 160px;
+        height: 160px;
     }
 
     .item_name {
@@ -1816,28 +2307,30 @@ footer {
         align-items: center;
         margin-top: 4vh;
         margin-bottom: 4vh;
+        margin-left: 12vw;
     }
 
     .item_text {
-        display: inline-block;
-        width: 10vw;
-        font-size: 24px;
+        width: 24vw;
+        font-size: 18px;
         font-weight: bold;
         margin-top: 0;
         margin-bottom: 0;
+        margin-right: 7px;
     }
 
     .item_text2 {
         background: #FFFFFF;
+        width: 45vw;
         border: 1px solid #2b2b2b;
         border-radius: 5px;
-        padding: 10px;
+        padding: 5px;
         box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
     }
 
     .edit_info1 {
         display: inline-block;
-        font-size: 16px;
+        font-size: 14px;
         color: #5053AF;
         font-weight: bold;
         cursor: pointer;
@@ -1849,7 +2342,7 @@ footer {
 
     .edit_info2 {
         display: inline-block;
-        font-size: 16px;
+        font-size: 14px;
         color: #5053AF;
         font-weight: bold;
         margin-left: 0.5vw;
@@ -1864,21 +2357,20 @@ footer {
     .modal {
         display: none; /* 初始狀態隱藏 */
         position: fixed;
-        z-index: 1;
         left: 0;
         top: 0;
         width: 100%;
         height: 100%;
         overflow: auto;
-        background-color: rgb(0, 0, 0);
         background-color: rgba(0, 0, 0, 0.4); /* 黑色背景透明度 */
+        z-index: 10000;
     }
 
     /* 密碼小視窗內容 */
     .modal-content {
         background-color: #fefefe;
         margin: 15% auto; /* 15% 從頂部和自動居中 */
-        padding: 20px;
+        padding: 10px;
         border: 1px solid #888;
         width: 80%; /* 寬度 */
         max-width: 500px; /* 最大寬度 */
@@ -1886,10 +2378,33 @@ footer {
         font-size: 24px;
     }
 
+    #password_title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 2vh;
+    }
+
     #password_form label {
         display: inline-block;
-        width: 7vw;
-        font-size: 20px;
+        width: 20vw;
+        font-size: 14px;
+        margin-top: 2vh;
+        margin-bottom: 1vh;
+    }
+
+    #password_form input {
+        width: 55%;
+        height: 25px;
+        font-size: 14px;
+        padding: 5px;
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+    }
+
+    #password_form button {
+        width: 12vw;
+        font-size: 12px;
+        padding: 5px;
         margin-top: 1vh;
         margin-bottom: 1vh;
     }
@@ -1900,6 +2415,7 @@ footer {
         float: right;
         font-size: 28px;
         font-weight: bold;
+        margin-left: auto;
     }
 
     .close-button:hover,
@@ -1913,21 +2429,21 @@ footer {
     .success-message {
         color: green;
         display: none; /* 初始狀態隱藏 */
-        font-size: 16px;
+        font-size: 14px;
     }
 
     /* 偏好設定 */
     #preference_main_area {
-        margin-top: 10vh;
+        margin-top: 18vh;
         margin-left: 8vw;
     }
 
     .preference_item_container {
         margin-bottom: 1vh;
-        height: 580px;
+        height: 380px;
         overflow: scroll;
         overflow-x: hidden;
-        padding-right: 80px;
+        padding-right: 10px;
     }
 
     #search_radius {
@@ -1936,7 +2452,7 @@ footer {
         border-radius: 5px;
         padding: 5px;
         box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
-        width: 4.5vw;
+        width: 20vw;
         margin-right: 5px;
     }
 
@@ -1948,7 +2464,7 @@ footer {
         border-radius: 5px;
         padding: 5px;
         box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
-        width: 3vw;
+        width: 12vw;
         margin-right: 5px;
     }
 
@@ -1957,14 +2473,14 @@ footer {
     }
 
     .type_title {
-        font-size: 22px;
+        font-size: 18px;
         font-weight: bold;
-        margin-right: 20px;
-        margin-top: 5px;
+        margin-right: 5px;
+        margin-top: 3px;
     }
 
     #meter {
-        margin-right: 50px;
+        margin-right: 40px;
     }
 
     .select_all_button {
@@ -1989,7 +2505,7 @@ footer {
         flex-wrap: wrap; /* 超出範圍自動換行 */
         margin-top: 1vh;
         margin-bottom: 1vh;
-        gap: 20px;
+        gap: 10px;
     }
 
     .checkbox_container2 {
@@ -1999,48 +2515,49 @@ footer {
         margin-bottom: 1vh;
         align-items: baseline;
     }
-    
+
     .checkbox_item {
         box-sizing: border-box; /* margin, padding 不會增加元素的寬度 */
         align-items: center;
-        font-size: 20px;
+        font-size: 16px;
     }
 
     .radio_item {
         box-sizing: border-box; /* margin, padding 不會增加元素的寬度 */
         align-items: center;
-        font-size: 20px;
+        font-size: 16px;
     }
 
     #preference_edit_button {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 90px;
-        height: 50px;
+        width: 70px;
+        height: 40px;
         cursor: pointer;
         background-color: #848484;
         border-radius: 10px;
         box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
         border: transparent;
         padding: 7px;
-        font-size: 22px;
+        font-size: 16px;
         color: white;
+        margin-right: 20px;
     }
 
     #preference_save_button {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 90px;
-        height: 50px;
+        width: 70px;
+        height: 40px;
         cursor: pointer;
         background-color: #848484;
         border-radius: 10px;
         box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
         border: transparent;
         padding: 7px;
-        font-size: 22px;
+        font-size: 16px;
         color: white;
         margin-right: 15px;
     }
@@ -2049,26 +2566,28 @@ footer {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 90px;
-        height: 50px;
+        width: 70px;
+        height: 40px;
         cursor: pointer;
         background-color: #848484;
         border-radius: 10px;
         box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
         border: transparent;
         padding: 7px;
-        font-size: 22px;
+        font-size: 16px;
         color: white;
+        margin-right: 20px;
     }
 
     /* 權重設定 */
     #weight_main_area {
-        margin-top: 6vh;
-        margin-left: 8vw;
+        
     }
 
     .description_text {
-        font-size: 20px;
+        font-size: 16px;
+        margin-top: 22vh;
+        margin-left: 8vw;
     }
 
     /* 按鈕 */
@@ -2076,62 +2595,64 @@ footer {
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        margin-top: 2vh;
+        margin-top: 1vh;
     }
 
     #weight_edit_button{
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 90px;
-        height: 50px;
+        width: 70px;
+        height: 40px;
         cursor: pointer;
         background-color: #848484;
         border-radius: 10px;
         box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
         border: transparent;
         padding: 7px;
-        font-size: 22px;
+        font-size: 16px;
         color: white;
+        margin-right: 15px;
     }
 
     #weight_cancel_button{
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 90px;
-        height: 50px;
+        width: 70px;
+        height: 40px;
         cursor: pointer;
         background-color: #848484;
         border-radius: 10px;
         box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2);
         border: transparent;
         padding: 7px;
-        font-size: 22px;
+        font-size: 16px;
         color: white;
-        margin-left: 15px;
+        margin-right: 20px;
     }
 
     /* 滑動條 */
     .slider-container {
         display: flex;
         align-items: center;
-        font-size: 24px;
+        font-size: 18px;
         font-weight: bold;
         margin-top: 4vh;
         margin-bottom: 4vh;
+        margin-left: 5vw;
     }
 
     .slider-container label {
-        width: 7vw;
+        width: 24vw;
     }
-    
+
     .slider-container span {
-        margin-left: 1vw;
+        margin-left: 3vw;
     }
 
     .slider-container input[type="range"] {
-        width: 25vw;
+        width: 45vw;
         height: 3.5vh; /* 軌道高度 */
         -webkit-appearance: none; /* 移除滑動條預設樣式 */
         appearance: none; /* 移除滑動條預設樣式 */
@@ -2150,7 +2671,7 @@ footer {
         border-radius: 50%; /* 圓形滑塊 */
         cursor: pointer;
     }
-    
+
     /* Firefox */
     .slider-container input[type="range"]::-moz-range-thumb {
         width: 30px;
@@ -2159,7 +2680,7 @@ footer {
         border-radius: 50%; /* 圓形滑塊 */
         cursor: pointer;
     }
-    
+
     /* IE, Edge */
     .slider-container input[type="range"]::-ms-thumb {
         width: 30px;
@@ -2170,7 +2691,4 @@ footer {
     }
 
     /* 收藏地點 */
-    #place_main_area {
-        margin-left: 8vw;
-    }
 }
