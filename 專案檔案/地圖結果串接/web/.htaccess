@@ -17,13 +17,14 @@ RewriteRule ^admin/pull$ /admin/git.php [L]
 
 # 禁止訪問(所有)
 RewriteRule ^base(/)?(.*)$ /404.html [L]
-RewriteRule ^struc(/)?(.*)$ /404.html [L]
 
 # 禁止訪問(目錄)
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^admin(/)?$ /404.html [L]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^member(/)?$ /404.html [L]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^struc(/)?$ /404.html [L]
 
 # 例外導向（需要在匹配所有路徑之前運行）
 RewriteCond %{REQUEST_FILENAME} !-f
