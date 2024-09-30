@@ -400,3 +400,30 @@ function switchToPlace() {
     weightDiv.style.color = "#5e5e5e";
     placeDiv.style.color = "#8234FF";
 }
+
+/* 箭頭圖示切換 */
+document.addEventListener('DOMContentLoaded', function() {
+    // 獲取所有向下箭頭和向上箭頭的元素
+    var downArrows = document.querySelectorAll('.fi-sr-arrow-down');
+    var upArrows = document.querySelectorAll('.fi-sr-arrow-up');
+
+    // 為每個向下箭頭添加點擊事件
+    downArrows.forEach(function(downArrow) {
+        downArrow.addEventListener('click', function() {
+            var id = downArrow.id.replace('down', 'up');
+            var upArrow = document.getElementById(id);
+            downArrow.style.display = 'none';
+            upArrow.style.display = 'inline';
+        });
+    });
+
+    // 為每個向上箭頭添加點擊事件
+    upArrows.forEach(function(upArrow) {
+        upArrow.addEventListener('click', function() {
+            var id = upArrow.id.replace('up', 'down');
+            var downArrow = document.getElementById(id);
+            upArrow.style.display = 'none';
+            downArrow.style.display = 'inline';
+        });
+    });
+});

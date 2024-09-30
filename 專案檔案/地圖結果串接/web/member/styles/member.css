@@ -1089,8 +1089,13 @@ footer {
         align-items: center;
     }
     
-    .sort_button {
+    .fi-sr-bookmark {
+        font-size: 22px;
         margin-right: 7px;
+    }
+
+    .fi-sr-share {
+        font-size: 22px;
     }
 }
 
@@ -1661,8 +1666,13 @@ footer {
         align-items: center;
     }
     
-    .sort_button {
+    .fi-sr-bookmark {
+        font-size: 18px;
         margin-right: 7px;
+    }
+
+    .fi-sr-share {
+        font-size: 18px;
     }
 }
 
@@ -2112,11 +2122,6 @@ footer {
     }
 
     /* 收藏地點 */
-    #place_main_area {
-        margin-top: 20vh;
-        margin-left: 18vw;
-    }
-
     .form-floating>.form-select{
         padding-top: 26px;
         padding-bottom: 10px;
@@ -2158,17 +2163,18 @@ footer {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 900px;
+        width: 700px;
         margin-top: 2vh;
         margin-bottom: 2vh;
+        font-size: 18px;
     }
     
     .mark_number {
         display: flex;
         align-items: center;
         flex-grow: 0.5; /* 讓每個項目可以擴展 */
-        flex-basis: 10px; /* 初始寬度 */
-        margin-right: 10px;
+        flex-basis: 5px; /* 初始寬度 */
+        margin-right: 5px;
     }
 
     .mark_img img {
@@ -2184,8 +2190,8 @@ footer {
     .mark_store {
         display: flex;
         align-items: center;
-        flex-grow: 2; /* 讓每個項目可以擴展 */
-        flex-basis: 320px; /* 初始寬度 */
+        flex-grow: 1; /* 讓每個項目可以擴展 */
+        flex-basis: 200px; /* 初始寬度 */
         margin-right: 5px;
     }
 
@@ -2201,35 +2207,37 @@ footer {
     .mark_score {
         display: flex;
         align-items: center;
-        flex-grow: 1; /* 讓每個項目可以擴展 */
-        flex-basis: 60px; /* 初始寬度 */
+        flex-grow: 0.5; /* 讓每個項目可以擴展 */
+        flex-basis: 50px; /* 初始寬度 */
     }
 
     .mark_category {
         display: flex;
+        /* display: none; */
         align-items: center;
-        flex-grow: 1; /* 讓每個項目可以擴展 */
-        flex-basis: 60px; /* 初始寬度 */
+        flex-grow: 0.5; /* 讓每個項目可以擴展 */
+        flex-basis: 50px; /* 初始寬度 */
     }
 
     .mark_distance {
         display: flex;
         align-items: center;
-        flex-grow: 1; /* 讓每個項目可以擴展 */
-        flex-basis: 60px; /* 初始寬度 */
+        flex-grow: 0.5; /* 讓每個項目可以擴展 */
+        flex-basis: 50px; /* 初始寬度 */
     }
     
     .mark_time {
-        display: flex;
+        /* display: flex; */
+        display: none;
         align-items: center;
-        flex-grow: 1; /* 讓每個項目可以擴展 */
-        flex-basis: 80px; /* 初始寬度 */
+        flex-grow: 0.5; /* 讓每個項目可以擴展 */
+        flex-basis: 50px; /* 初始寬度 */
     }
     
     .mark_button {
         display: flex;
         align-items: center;
-        flex-grow: 1; /* 讓每個項目可以擴展 */
+        flex-grow: 0.5; /* 讓每個項目可以擴展 */
         flex-basis: 60px; /* 初始寬度 */
     }
     
@@ -2238,8 +2246,13 @@ footer {
         align-items: center;
     }
     
-    .sort_button {
+    .fi-sr-bookmark {
+        font-size: 20px;
         margin-right: 7px;
+    }
+
+    .fi-sr-share {
+        font-size: 20px;
     }
 }
 
@@ -2580,10 +2593,6 @@ footer {
     }
 
     /* 權重設定 */
-    #weight_main_area {
-        
-    }
-
     .description_text {
         font-size: 16px;
         margin-top: 22vh;
@@ -2691,4 +2700,163 @@ footer {
     }
 
     /* 收藏地點 */
+    #place_main_area {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 150px;
+    }
+
+    .form-floating>.form-select{
+        padding-top: 26px;
+        padding-bottom: 10px;
+        height: 50px;
+        font-size: 14px;
+    }
+    
+    .form-floating>.form-control, .form-floating>.form-control-plaintext{
+        padding: 16px  12px;
+        height: 50px;
+    }
+    
+    .search-keyword{
+        width: 140px;
+        position: relative;
+        margin-left: 10px;
+        overflow-x: hidden;
+        font-size: 14px;
+    }
+    
+    .search-button{
+        position: relative;
+        margin-left: 10px;
+        margin-bottom: 15px;
+        color: white;
+        white-space: nowrap;
+        font-size: 14px;
+    }
+
+    .search{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .first_line {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 350px;
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+        font-size: 14px;
+    }
+
+    .content_row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 350px;
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+        font-size: 14px;
+    }
+    
+    .mark_number {
+        display: flex;
+        align-items: center;
+        flex-grow: 0.5; /* 讓每個項目可以擴展 */
+        flex-basis: 5px; /* 初始寬度 */
+        margin-right: 7px;
+    }
+
+    .mark_img img {
+        width: 90px;
+        height: 90px;
+        object-fit: cover; /* 保持圖片比例 */
+        object-position: center; /* 圖片置中 */
+        border-radius: 3px;
+        overflow: hidden;
+        margin-right: 5px;
+    }
+
+    .mark_store {
+        display: flex;
+        align-items: center;
+        flex-grow: 1; /* 讓每個項目可以擴展 */
+        flex-basis: 200px; /* 初始寬度 */
+        margin-right: 5px;
+    }
+
+    .mark_store span {
+        margin-right: 2px !important;
+    }
+
+    .store_name {
+        font-size: 16px;
+        font-weight: bold;
+        display: -webkit-box;
+        -webkit-line-clamp: 1; /* 限制為1行 */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    .mark_score {
+        display: flex;
+        align-items: center;
+        flex-grow: 0.5; /* 讓每個項目可以擴展 */
+        flex-basis: 50px; /* 初始寬度 */
+    }
+
+    .mark_score span {
+        margin-right: 2px !important;
+    }
+
+    .mark_category {
+        /* display: flex; */
+        display: none;
+        align-items: center;
+        flex-grow: 0.5; /* 讓每個項目可以擴展 */
+        flex-basis: 50px; /* 初始寬度 */
+    }
+
+    .mark_distance {
+        display: flex;
+        align-items: center;
+        flex-grow: 0.5; /* 讓每個項目可以擴展 */
+        flex-basis: 50px; /* 初始寬度 */
+    }
+
+    .mark_distance span {
+        margin-right: 2px !important;
+    }
+    
+    .mark_time {
+        /* display: flex; */
+        display: none;
+        align-items: center;
+        flex-grow: 0.5; /* 讓每個項目可以擴展 */
+        flex-basis: 50px; /* 初始寬度 */
+    }
+    
+    .mark_button {
+        display: flex;
+        align-items: center;
+        flex-grow: 0.5; /* 讓每個項目可以擴展 */
+        flex-basis: 40px; /* 初始寬度 */
+    }
+    
+    .mark_button2 {
+        display: flex;
+        align-items: center;
+    }
+    
+    .fi-sr-bookmark {
+        font-size: 16px;
+        margin-right: 5px;
+    }
+
+    .fi-sr-share {
+        font-size: 16px;
+    }
 }
