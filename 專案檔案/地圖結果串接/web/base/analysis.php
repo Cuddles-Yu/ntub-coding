@@ -96,6 +96,58 @@ function getTargets($store_id) {
     ];
 }
 
+function getAddress($storeItem) {
+  return $storeItem['city'].$storeItem['dist'].$storeItem['details'];
+}
+
+function searchByKeyword($keyword)
+{
+    global $conn;
+    $keyword = "'%" . $keyword  . "%'";
+    $sql = "SELECT DISTINCT s.id, s.name, s.preview_image, s.link, s.website, r.avg_ratings, r.total_reviews, 
+            l.city, l.dist, l.details, s.tag, r.environment_rating, r.product_rating, r.service_rating, r.price_rating, l.latitude, l.longitude
+            FROM stores AS s
+            INNER JOIN keywords AS k ON s.id = k.store_id
+            INNER JOIN rates AS r ON s.id = r.store_id
+            INNER JOIN locations AS l ON s.id = l.store_id
+            WHERE (s.name LIKE $keyword OR s.tag LIKE $keyword OR k.word LIKE $keyword) AND s.crawler_state IN ('成功', '完成', '超時')
+            ORDER BY r.avg_ratings DESC, r.total_reviews DESC";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stores = [];
+    while ($row = $result->fetch_assoc()) {
+        if (is_numeric($row['latitude']) && is_numeric($row['longitude'])) $stores[] = $row;
+    }
+    return $stores;
+}
+
+function searchByLocation($keyword, $userLat, $userLng)
+{
+    global $conn;
+    $keyword = "'%" . $keyword  . "%'";
+    $sql = "SELECT DISTINCT s.id, s.name, s.preview_image, s.link, s.website, r.avg_ratings, r.total_reviews, 
+            l.city, l.dist, l.details, s.tag, r.environment_rating, r.product_rating, r.service_rating, r.price_rating, l.latitude, l.longitude, 
+            (6371000*acos(cos(radians($userLat)) * cos(radians(l.latitude)) * cos(radians(l.longitude)-radians($userLng)) + sin(radians($userLat)) * sin(radians(l.latitude)))) AS distance
+            FROM stores AS s
+            INNER JOIN keywords AS k ON s.id = k.store_id
+            INNER JOIN rates AS r ON s.id = r.store_id
+            INNER JOIN locations AS l ON s.id = l.store_id
+            WHERE (s.name LIKE $keyword OR s.tag LIKE $keyword OR k.word LIKE $keyword) AND s.crawler_state IN ('成功', '完成', '超時')
+            HAVING distance <= 1500
+            ORDER BY distance, r.avg_ratings DESC, r.total_reviews DESC";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stores = [];
+    while ($row = $result->fetch_assoc()) {
+        if (is_numeric($row['latitude']) && is_numeric($row['longitude'])) $stores[] = $row;
+    }
+    return $stores;
+}
+
 function normalizeWeights($weights) {
     $total_weight = array_sum($weights);
     if ($total_weight == 0) {
@@ -126,20 +178,19 @@ function getProportionScore($category) {
 // 計算並回傳指定商店的貝氏平均分數
 function getBayesianScore($user_id, $store_id, $conn) {
     global $_ROUND, $_ENVIRONMENT, $_PRICE, $_PRODUCT, $_SERVICE;
-    // 取得使用者的權重設定
-    $member_sql = "
+    if ($user_id) {
+      $member_sql = "
         SELECT environment_weight, price_weight, product_weight, service_weight
         FROM members
         WHERE id = ?
-    ";
-    $stmt = $conn->prepare($member_sql);
-    $stmt->bind_param("i", $user_id);
-    $stmt->execute();
-    $member_result = $stmt->get_result();
-    $weights = $member_result->fetch_assoc();
-
-    // 檢查是否獲取到權重，如果無法獲取，設置預設權重為1
-    if (!$weights) {
+      ";
+      $stmt = $conn->prepare($member_sql);
+      $stmt->bind_param("i", $user_id);
+      $stmt->execute();
+      $member_result = $stmt->get_result();
+      $weights = $member_result->fetch_assoc();
+    }    
+    if (!isset($weights)) {
         $weights = [
             'environment_weight' => 1,
             'price_weight' => 1,
@@ -147,19 +198,13 @@ function getBayesianScore($user_id, $store_id, $conn) {
             'service_weight' => 1
         ];
     }
-
-    // 定義從資料庫取得的權重或預設權重
-    $target_weights = [
+    $normalized_weights = normalizeWeights([
         $_ENVIRONMENT => $weights['environment_weight'],
         $_PRICE => $weights['price_weight'],
         $_PRODUCT => $weights['product_weight'],
         $_SERVICE => $weights['service_weight']
-    ];
+    ]);
 
-    // 正規化權重
-    $normalized_weights = normalizeWeights($target_weights);
-
-    // 取得所有商店的四大指標 rating 數據
     $all_stores_sql = 
     "   SELECT store_id, environment_rating, product_rating, service_rating, price_rating, total_withcomments, total_reviews 
         FROM rates
@@ -168,7 +213,7 @@ function getBayesianScore($user_id, $store_id, $conn) {
     $all_result = $conn->query($all_stores_sql);
 
     $stores = [];
-    $store_scores = [];  // 用來存儲所有商店的分數
+    $store_scores = [];
     $total_stores = 0;
 
     // 計算所有商店的基礎分數

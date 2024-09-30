@@ -6,7 +6,7 @@ def create_administrators(cursor):
             `id` int NOT NULL AUTO_INCREMENT,
             `email` varchar(255) NOT NULL,
             `password` varchar(255) NOT NULL,
-            `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+            `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (`id`),
             UNIQUE KEY `email_UNIQUE` (`email`)
         )
@@ -15,20 +15,12 @@ def create_administrators(cursor):
 # '會員'資料表
 def create_members(cursor):
     cursor.execute('''
-        CREATE TABLE IF NOT EXISTS `members` (
-            `id` int NOT NULL AUTO_INCREMENT,
-            `email` varchar(255) NOT NULL,
-            `username` varchar(255) NOT NULL,
-            `password` varchar(255) DEFAULT NULL,
-            `profile_picture` varchar(255) DEFAULT NULL,
-            `popular_weight` int DEFAULT '1',
-            `environment_weight` int DEFAULT '1',
-            `price_weight` int DEFAULT '1',
-            `product_weight` int DEFAULT '1',
-            `service_weight` int DEFAULT '1',
-            `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            PRIMARY KEY (`id`),
-            UNIQUE KEY `email_UNIQUE` (`email`)
+        CREATE TABLE members (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            email VARCHAR(255) NOT NULL UNIQUE,
+            username VARCHAR(255) NOT NULL,
+            password VARCHAR(255) NOT NULL,
+            create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         )
     ''')
 
@@ -58,7 +50,7 @@ def create_stores(cursor):
             `last_update` varchar(20) DEFAULT NULL,
             `crawler_state` varchar(10) DEFAULT '建立',
             `crawler_description` varchar(100) DEFAULT NULL,
-            `crawler_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            `crawler_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             PRIMARY KEY (`id`),
             UNIQUE KEY `name_UNIQUE` (`name`),
             KEY `fk_tag_s_idx` (`tag`),
@@ -171,12 +163,76 @@ def create_favorites(cursor):
         CREATE TABLE IF NOT EXISTS `favorites` (
             `user_id` int NOT NULL,
             `store_id` int NOT NULL,
-            `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+            `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (`user_id`,`store_id`),
             KEY `fk_store_id` (`store_id`),
             CONSTRAINT `fk_store_id` FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
             CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `members` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
         )
+    ''')
+
+# '收藏'資料表
+def create_histories(cursor):
+    cursor.execute('''
+        CREATE TABLE histories (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            member_id INT,
+            action VARCHAR(30),
+            target VARCHAR(255),
+            operation_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (member_id) REFERENCES members(id) ON DELETE CASCADE ON UPDATE CASCADE
+        )
+    ''')
+
+# '偏好'資料表
+def create_preferences(cursor):
+    cursor.execute('''
+        CREATE TABLE preferences (
+            member_id INT,
+            atmosphere_weight INT DEFAULT 50,
+            price_weight INT DEFAULT 50,
+            product_weight INT DEFAULT 50,
+            service_weight INT DEFAULT 50,
+            open_now BOOLEAN DEFAULT FALSE,
+            wheelchair_accessible BOOLEAN DEFAULT FALSE,
+            vegetarian BOOLEAN DEFAULT FALSE,
+            healthy BOOLEAN DEFAULT FALSE,
+            kids_friendly BOOLEAN DEFAULT FALSE,
+            pets_friendly BOOLEAN DEFAULT FALSE,
+            family_friendly BOOLEAN DEFAULT FALSE,
+            group_friendly BOOLEAN DEFAULT FALSE,
+            parking BOOLEAN DEFAULT FALSE,
+            delivery BOOLEAN DEFAULT FALSE,
+            takeaway BOOLEAN DEFAULT FALSE,
+            dine_in BOOLEAN DEFAULT FALSE,
+            breakfast BOOLEAN DEFAULT FALSE,
+            brunch BOOLEAN DEFAULT FALSE,
+            lunch BOOLEAN DEFAULT FALSE,
+            dinner BOOLEAN DEFAULT FALSE,
+            casual BOOLEAN DEFAULT FALSE,
+            cosy BOOLEAN DEFAULT FALSE,
+            reservation BOOLEAN DEFAULT FALSE,
+            toilet BOOLEAN DEFAULT FALSE,
+            wifi BOOLEAN DEFAULT FALSE,
+            cash BOOLEAN DEFAULT FALSE,
+            credit_card BOOLEAN DEFAULT FALSE,
+            debit_card BOOLEAN DEFAULT FALSE,
+            mobile_payment BOOLEAN DEFAULT FALSE,
+            FOREIGN KEY (member_id) REFERENCES members(id) ON DELETE CASCADE ON UPDATE CASCADE
+        );
+    ''')
+
+# '金鑰'資料表
+def create_tokens(cursor):
+    cursor.execute('''
+        CREATE TABLE tokens (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            member_id INT,
+            token VARCHAR(255) NOT NULL,
+            create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            expiration_time TIMESTAMP NOT NULL,
+            FOREIGN KEY (member_id) REFERENCES members(id) ON DELETE CASCADE
+        );
     ''')
 
 # '關鍵字'資料表

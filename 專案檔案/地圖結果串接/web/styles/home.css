@@ -29,12 +29,17 @@ body{
   margin-top: 5px;
 }
 
-#email_input{
-  width: 100%;
+.text-icon {
+  position: relative;
+  top: -2px;
 }
 
-#password_input{
-  width: 100%;
+.tab-content-1, .tab-content-2, .tab-content-3 {
+  display: none;
+}
+
+.tab-content-1.active, .tab-content-2.active, .tab-content-3.active {
+  display: block;
 }
 
 .sign_up_text{
@@ -54,10 +59,10 @@ body{
   text-align: right;
 }
 
-#hide_password_icon {
+#toggle-password {
   position: absolute;
-  right: 25px;
-  top: 89px;
+  right: 33px;
+  top: 141px;
   cursor: pointer;
   width: 20px;
   height: 20px;
@@ -107,8 +112,9 @@ body{
   justify-content: space-around;
 }
 
-.google_button{
+.register-button{
   width: 300px;
+  margin-top: 10px;
 }
 
 .agree {
@@ -150,20 +156,19 @@ body.modal-open {
   }
 
   #user_icon {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: fixed;
-      right: 10vw;
-      height: 80px;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    right: 10vw;
+    height: 80px;
+    display: none;
   }
   
   #user_icon_logo {
-      display: none;
-      width: 40px;
-      height: 40px;
-      right: 10vw;
-      cursor: pointer;
+    width: 40px;
+    height: 40px;
+    right: 10vw;
+    cursor: pointer;
   }
 
   #web_name {
@@ -281,21 +286,21 @@ body.modal-open {
   }
 
   #user_icon {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: fixed;
-      right: 10vw;
-      height: 80px;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    right: 10vw;
+    height: 80px;
+    display: none;
   }
 
   #user_icon_logo {
-      display: block;
-      position: fixed;
-      width: 40px;
-      height: 40px;
-      right: 10vw;
-      cursor: pointer;
+    display: block;
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    right: 10vw;
+    cursor: pointer;
   }
 
   #web_name {
@@ -327,7 +332,7 @@ body.modal-open {
       align-items: center;
       position: fixed;
       height: 80px;
-      right: 15vw;
+      right: 100px;
   }
 
   #login {
@@ -459,21 +464,21 @@ body.modal-open {
   }
 
   #user_icon {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: fixed;
-      right: 10vw;
-      height: 80px;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    right: 10vw;
+    height: 80px;
+    display: none;
   }
 
   #user_icon_logo {
-      display: block;
-      position: fixed;
-      width: 40px;
-      height: 40px;
-      right: 14vw;
-      cursor: pointer;
+    display: block;
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    right: 14vw;
+    cursor: pointer;
   }
 
   #web_name {
@@ -851,6 +856,7 @@ body.modal-open {
     text-align: center;
     font-weight: bold;
     font-size: 40px;
+    cursor: pointer;
   }
 
   .carousel-container {
@@ -889,6 +895,12 @@ body.modal-open {
     margin-top: 20px;
     padding-top: 5px;
     cursor: grab;
+  }
+
+  .card-img-top{
+    width: 100%;
+    height: 214px;
+    object-fit: cover;
   }
 
   .restaurant{
@@ -1278,6 +1290,12 @@ body.modal-open {
     cursor: grab;
   }
 
+  .card-img-top{
+    width: 100%;
+    height: 214px;
+    object-fit: cover;
+  }
+
   .restaurant{
     margin-top: 5px;
     width: 288px;
@@ -1662,6 +1680,12 @@ body.modal-open {
     margin-top: 20px;
     padding-top: 5px;
     cursor: grab;
+  }
+
+  .card-img-top{
+    width: 100%;
+    height: 214px;
+    object-fit: cover;
   }
 
   .restaurant{

@@ -1,65 +1,32 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/base/queries.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/base/analysis.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/base/queries.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/base/analysis.php';
 
-function searchStores($keyword, $userLat, $userLng)
-{
-    global $conn;
-    $keyword = "'%" . $keyword  . "%'";
-    $sql = "SELECT DISTINCT s.id, s.name, s.preview_image, s.link, s.website, r.avg_ratings, r.total_reviews, 
-            l.city, l.dist, l.details, s.tag, r.environment_rating, r.product_rating, r.service_rating, r.price_rating, l.latitude, l.longitude, 
-            (6371000*acos(cos(radians($userLat)) * cos(radians(l.latitude)) * cos(radians(l.longitude)-radians($userLng)) + sin(radians($userLat)) * sin(radians(l.latitude)))) AS distance
-            FROM stores AS s
-            INNER JOIN keywords AS k ON s.id = k.store_id
-            INNER JOIN rates AS r ON s.id = r.store_id
-            INNER JOIN locations AS l ON s.id = l.store_id
-            INNER JOIN tags AS t ON s.tag = t.tag
-            WHERE (s.name LIKE $keyword OR t.category LIKE $keyword OR s.tag LIKE $keyword OR k.word LIKE $keyword) AND s.crawler_state IN ('成功', '完成', '超時')
-            HAVING distance <= 1500
-            ORDER BY distance, r.avg_ratings DESC, r.total_reviews DESC";
+  global $conn;
+  $userId = null;
+  $keyword = array_key_exists('q', $_POST) ? htmlspecialchars($_POST['q']) : null;
+  $mapCenterLat = isset($_POST['mapCenterLat']) ? floatval($_POST['mapCenterLat']) : null;
+  $mapCenterLng = isset($_POST['mapCenterLng']) ? floatval($_POST['mapCenterLng']) : null;
 
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $stores = [];
-    while ($row = $result->fetch_assoc()) {
-        // 確保經緯度數據有效
-        if (is_numeric($row['latitude']) && is_numeric($row['longitude'])) {
-            $stores[] = $row;
-        }
-    }
-    return $stores;
-}
-
-function getAddress($store) {
-    return $store['city'].$store['dist'].$store['details'];
-}
-
-global $conn;
-$userId = '';
-$keyword = array_key_exists('q', $_POST) ? htmlspecialchars($_POST['q']) : null;
-$mapCenterLat = isset($_POST['mapCenterLat']) ? floatval($_POST['mapCenterLat']) : null;
-$mapCenterLng = isset($_POST['mapCenterLng']) ? floatval($_POST['mapCenterLng']) : null;
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (is_null($keyword)) return;
-    $stores = searchStores($keyword, $mapCenterLat, $mapCenterLng);
-    $storeData = [];
-    foreach ($stores as $store) {
-        $storeId = $store['id'];
-        $bayesianScore = getBayesianScore($userId, $storeId, $conn); // 計算Bayesian Score
-        $storeData[] = [
-            'store' => $store,
-            'bayesianScore' => $bayesianScore
-        ];
-    }
-    // 根據Bayesian Score從高到低進行排序
-    usort($storeData, function ($a, $b) {
-        return $b['bayesianScore'] <=> $a['bayesianScore'];
-    });
-}
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      if (is_null($keyword)) return;
+      $stores = searchByLocation($keyword, $mapCenterLat, $mapCenterLng);
+      $storeData = [];
+      foreach ($stores as $store) {
+          $storeId = $store['id'];
+          $bayesianScore = getBayesianScore($userId, $storeId, $conn);
+          $storeData[] = [
+              'store' => $store,
+              'bayesianScore' => $bayesianScore
+          ];
+      }
+      // 根據Bayesian Score從高到低進行排序
+      usort($storeData, function ($a, $b) {
+          return $b['bayesianScore'] <=> $a['bayesianScore'];
+      });
+  }
 ?>
 
 <?php if (!empty($storeData)) : ?>

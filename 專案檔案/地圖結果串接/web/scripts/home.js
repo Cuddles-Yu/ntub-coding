@@ -35,6 +35,43 @@ document.getElementById('hamburger_btn').addEventListener('click', function() {
   }
 });
 
+document.querySelectorAll('.title-text-2').forEach(tab => {
+  tab.addEventListener('click', function() {
+      const targetTab = this.getAttribute('data-tab');
+      document.querySelectorAll('[class^="tab-content"]').forEach(content => {
+          content.classList.remove('active');
+      });
+      document.querySelector(`.${targetTab}`).classList.add('active');
+      generateStoreSuggestion(targetTab);
+  });
+});
+
+function generateStoreSuggestion(content) {
+  var searchResults = document.getElementById(content);
+  const formData = new FormData();
+  formData.set('q', '蛋塔');      
+  fetch('../struc/store_suggestion.php', {
+    method: 'POST',
+    body: formData
+  })
+    .then(response => response.text())
+    .then(data => {
+      if (data && data.trim() !== "") {
+        searchResults.innerHTML = data;
+      } else {
+        searchResults.innerHTML = "<p>沒有找到相關結果。</p>";
+      }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+document.getElementById('scroll-to-tertiary').addEventListener('click', function() {
+  document.getElementById('tertiary-content').scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+  });
+});
+
 document.getElementById('keyword').addEventListener('keydown', function(event) {
   if (event.key === 'Enter') {
     event.preventDefault(); // 防止表單的預設提交行為
@@ -60,8 +97,6 @@ function handleScroll(container) {
 document.querySelectorAll('.restaurant-group, .restaurant-group-2, .restaurant-group-3').forEach(container => {
   handleScroll(container);
 });
-
-
 
 //card滾動
 document.addEventListener('DOMContentLoaded', function () {
@@ -107,8 +142,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-
-
 //篩選條件滾動條隱藏
 const filterContainer = document.querySelector('.filter-result');
 
@@ -117,6 +150,18 @@ if (filterContainer.scrollWidth > filterContainer.clientWidth) {
 } else {
   filterContainer.style.overflowX = 'auto'; // 隱藏垂直滾動條
 }
+
+document.getElementById('toggle-password').addEventListener('click', function() {
+  var passwordInput = document.getElementById('password');
+  var passwordIcon = document.getElementById('toggle-password');
+  if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+      passwordIcon.setAttribute('src', 'images/password-show.png');
+  } else {
+      passwordInput.type = 'password';
+      passwordIcon.setAttribute('src', 'images/password-hide.png');
+  }
+});
 
 //card手動滑鼠滾動
 document.addEventListener('DOMContentLoaded', function() {

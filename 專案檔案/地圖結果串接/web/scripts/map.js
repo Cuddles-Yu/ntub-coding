@@ -45,7 +45,7 @@ var userIcon = L.icon({
 
 // 創建中心位置的圖標    
 var centerIcon = L.icon({
-    iconUrl: './images/location.png',                          //圖放這裡~~~~~
+    iconUrl: './images/location-target.png',                          //圖放這裡~~~~~
     iconSize: [30, 30],
     popupAnchor: [0, -20]
 });

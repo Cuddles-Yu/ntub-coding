@@ -1,50 +1,35 @@
 <?php  
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
   global $conn;
-  
-  function generateAuthKey($length) {
-    #排除容易混淆的字元
-    $characters = 'abcdefghjkmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ23456789';
-    $charactersLength = strlen($characters);
-    $randomString = '';
-    for ($i = 0; $i < $length; $i++) {
-        $randomString .= $characters[rand(0, $charactersLength - 1)];
-    }
-    return $randomString;
-  }
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
-    $hashedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $authKey = generateAuthKey(40);
-    $sql = 
-    " INSERT INTO administrators
-      VALUE ('$name', '$hashedPassword', '$authKey', DEFAULT)
-    ";
-    $stmt = $conn->prepare($sql);
-    if ($stmt->execute()) {
-        echo "<p>管理員註冊成功</p>";
-        echo "<div><button onclick='returnToRegister()'>繼續註冊帳號</button></div>";
-        echo "<div><button onclick='copyAuthKey()'>複製 AUTH KEY</button></div>";
-    } else {
-        echo "註冊失敗: " . $conn->error;
-    }
+
+    ### 檢查帳號是否已存在 ###
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM administrators WHERE name = ?");
+    $stmt->bind_param("s", $name);
+    $stmt->execute();
+    $stmt->bind_result($count);
+    $stmt->fetch();
     $stmt->close();
-}
-?>
-  
-<script>
-  function returnToRegister() {
-    window.location.href = '../register?auth=<?=$authKey?>';
+    
+    if ($count > 0) {
+      echo json_encode(['success' => false, 'message' => '已存在相同名稱的管理員帳號']);
+    } else {
+      ### 創建新管理者帳號 ###
+      $hashedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
+      $authKey = generateToken(40);
+      $stmt = $conn->prepare(query: 
+      " INSERT INTO administrators 
+        VALUE ('$name','$hashedPassword','$authKey',DEFAULT)
+      ");
+      $stmt->bind_param("ss", $name, $hashedPassword);
+      if ($stmt->execute()) {
+        echo json_encode(['success' => true, 'token' => $authKey]);
+      } else {
+        echo json_encode(['success' => false, 'message' => $conn->error]);
+      }
+      $stmt->close();
+    }    
   }
-  function copyAuthKey() {
-    var tempInput = document.createElement("textarea");
-    tempInput.value = '<?=$authKey?>';
-    document.body.appendChild(tempInput);
-    tempInput.select();
-    tempInput.setSelectionRange(0, 99999);  // 適應移動裝置
-    document.execCommand("copy");
-    document.body.removeChild(tempInput);
-  }
-</script>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>會員登入頁面</title>
-    <link rel="stylesheet" href="styles/new_login_page.css"> <!-- 載入 login_page.css -->
+    <link rel="stylesheet" href="./styles/new_login_page.css"> <!-- 載入 login_page.css -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -29,15 +29,15 @@
                 
                 <div class="input-group">
                     <img src="images/icon-email.png" alt="mail" id="mail_icon">
-                    <input type="email" id="email_input" name="mem_mail" placeholder="電子郵件地址" required>
+                    <input type="email" id="email" name="mem_mail" placeholder="電子郵件地址" required>
                 </div>
 
                 <div class="forget_pwd">忘記密碼？</div>
 
                 <div class="input-group">
                     <img src="images/icon-key.png" alt="password" id="password_icon">
-                    <input type="password" id="password_input" name="mem_pwd" placeholder="密碼" required>
-                    <img src="images/password-hide.png" alt="password" id="hide_password_icon">
+                    <input type="password" id="password" name="mem_pwd" placeholder="密碼" required>
+                    <img src="images/password-hide.png" alt="password" id="toggle-password">
                 </div>
 
                 <div class="remember_container">
@@ -69,8 +69,6 @@
         
     </div>
 
-
-    
     <script src="scripts/new_login_page.js"></script> <!-- 載入 login_page.js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

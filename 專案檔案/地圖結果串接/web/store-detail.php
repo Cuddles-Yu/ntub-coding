@@ -232,8 +232,8 @@
                     <h6 class="progress-text" style="color: <?= $data['color'] ?>;"><?= $category ?></h6>
                     <h6 class="progress-percent" style="color: <?= $data['color'] ?>;"><?= $score ?></h6>
                   </div>
-                  <div class="progress col" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                    <div class="progress-bar overflow-visible" style="width: <?= $proportion . '%' ?>; background-color: <?= $data['color'] ?>;"></div>
+                  <div class="progress col" role="progressbar" aria-label="Success example" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar overflow-visible" style="width: <?=$proportion?>%; background-color: <?= $data['color'] ?>;"></div>
                   </div>
                 </td>
                 <td class="evaluate-good"><?= $targetsInfo[$_POSITIVE][$category] ?? 'NULL' ?></td>
@@ -361,7 +361,7 @@
           <option value="由低至高">由低至高</option>
         </select>
         <span class="input-group-text" id="inputGroup-sizing-default">篩選</span>
-        <input type="text" class="form-control comment-keyword-input" id="commentKeyword" name="commentKeyword" placeholder="評論關鍵字" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        <input type="text" class="form-control form-input comment-keyword-input" id="commentKeyword" name="commentKeyword" placeholder="評論關鍵字">
         <button class="btn btn-outline-secondary" onclick="searchComments()" id="search-button">搜尋</button>
       </div>
     </div>
@@ -584,7 +584,7 @@
   <!-- 載入 Markercluster.js -->
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 
-  <!-- 載入主程式 map.js -->
+  <!-- 載入主程式 -->
   <script src="./scripts/map.js"></script>
   <script src="./scripts/storedetail-landmark.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
