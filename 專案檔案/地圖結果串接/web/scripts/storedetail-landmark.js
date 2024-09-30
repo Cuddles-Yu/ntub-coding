@@ -109,14 +109,14 @@ function calculateDistance(lat1, lng1, lat2, lng2) {
 // 根據距離設置縮放級別
 function getZoomLevel(distance) {
     if (distance < 1500) {
-        return 18; // 小於500公尺，設置較高的縮放級別
+        return 18; // 小於1500公尺，設置較高的縮放級別
     } else if (distance < 5000) {
-        return 16; // 小於1500公尺，設置中等縮放級別
+        return 16; // 小於5000公尺，設置中等縮放級別
     } else if (distance < 10000) {
-        return 14; // 小於5000公尺，設置較低的縮放級別
+        return 14; // 小於10000公尺，設置較低的縮放級別
     } else if (distance < 15000) {
-        return 12; // 小於10000公尺，設置更低的縮放級別
+        return 12; // 小於15000公尺，設置更低的縮放級別
     }
-    // 大於10000公尺，設置最低的縮放級別
+    // 大於15000公尺，設置最低的縮放級別
     return 11;
 }

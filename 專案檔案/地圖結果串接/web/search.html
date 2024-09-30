@@ -30,39 +30,39 @@
   <header>
     <!-- 基本項目 -->
     <div id="web_name">
-        <img src="images/logo-blue+.png" id="web_logo">
-        <a href="home">評星宇宙</a>
+      <img src="images/logo-blue+.png" id="web_logo">
+      <a href="home">評星宇宙</a>
     </div>
 
     <div id="nav_menu1">
-        <a class="link_text" href="home">網站首頁</a>
-        <div class="vertical-line"></div>
-        <a class="link_text" href="#">使用說明</a>
-        <div class="vertical-line"></div>
-        <a class="link_text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a>
-        <div class="vertical-line"></div>
-        <a class="link_text" href="team">成員介紹</a>
+      <a class="link_text" href="home">網站首頁</a>
+      <div class="vertical-line"></div>
+      <a class="link_text" href="#">使用說明</a>
+      <div class="vertical-line"></div>
+      <a class="link_text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a>
+      <div class="vertical-line"></div>
+      <a class="link_text" href="team">成員介紹</a>
     </div>
 
     <div id="user_icon" type="button">
-        <img src="images/icon-member.jpg" id="user_icon_logo">
+      <img src="images/icon-member.jpg" id="user_icon_logo">
     </div>
 
     <div id="login_button">
-        <button id="login" href="#">登入</button>
-        <button id="signup" href="#">註冊</button>
+      <button id="login" href="#">登入</button>
+      <button id="signup" href="#">註冊</button>
     </div>
 
     <!-- 漢堡圖示 -->
     <button id="hamburger_btn" class="hamburger">&#9776;</button>
     <div id="overlay"></div>
     <nav id="nav_menu2">
-        <a class="link_text" href="home">網站首頁</a>
-        <a class="link_text" href="#">使用說明</a>
-        <a class="link_text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a>
-        <a class="link_text" href="team">成員介紹</a>
-        <button id="login2" href="#">登入</button>
-        <button id="signup2" href="#">註冊</button>
+      <a class="link_text" href="home">網站首頁</a>
+      <a class="link_text" href="#">使用說明</a>
+      <a class="link_text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a>
+      <a class="link_text" href="team">成員介紹</a>
+      <button id="login2" href="#">登入</button>
+      <button id="signup2" href="#">註冊</button>
     </nav>
     <hr>
   </header>
@@ -71,177 +71,178 @@
   <div class="container-fluid all-content">
     <div class="content-row row">
       <div class="secondary-content col">
-          <!-- 抓取使用者座標 -->
-          <input type="hidden" id="userLat" name="userLat">
-          <input type="hidden" id="userLng" name="userLng">
-          <div class="search">
-            <div class="form-floating search-keyword">
-              <input type="text" class="form-control" id="keyword" name="keyword" placeholder="關鍵字">
-              <label for="keyword">請輸入查詢關鍵字</label>
-            </div>
-            <button type="button" class="btn btn-secondary mt-3 filter-button" data-bs-toggle="modal"
-              data-bs-target="#exampleModal">
-              <i class="fi fi-sr-filter filter-img"></i>篩選條件
-            </button>
+        <!-- 抓取使用者座標 -->
+        <input type="hidden" id="userLat" name="userLat">
+        <input type="hidden" id="userLng" name="userLng">
+        <div class="search">
+          <div class="form-floating search-keyword">
+            <input type="text" class="form-control" id="keyword" name="keyword" placeholder="關鍵字">
+            <label for="keyword">請輸入查詢關鍵字</label>
+          </div>
+          <button type="button" class="btn btn-secondary mt-3 filter-button" data-bs-toggle="modal"
+            data-bs-target="#exampleModal">
+            <i class="fi fi-sr-filter filter-img"></i>篩選條件
+          </button>
 
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-              aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">篩選條件</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">篩選條件</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <!-- 篩選選項 -->
+                  <div class="input-group input-group-sm mb-3">
+                    <p class="checkbox-title">搜尋半徑</p>
+                    <input type="text" class="form-control" aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-sm">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">公尺</span>
                   </div>
-                  <div class="modal-body">
-                    <!-- 篩選選項 -->
-                    <div class="input-group input-group-sm mb-3">
-                      <p class="checkbox-title">搜尋半徑</p>
-                      <input type="text" class="form-control" aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-sm">
-                      <span class="input-group-text" id="inputGroup-sizing-sm">公尺</span>
+                  <p class="checkbox-title">個人需求</p>
+                  <div class="checkbox-container">
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="parking" value="">
+                      <label for="parking">停車場</label>
                     </div>
-                    <p class="checkbox-title">個人需求</p>
-                    <div class="checkbox-container">
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="parking" value="">
-                        <label for="parking">停車場</label>
-                      </div>
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="wheelchair-accessible" value="">
-                        <label for="wheelchair-accessible">無障礙</label>
-                      </div>
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="vegetarian" value="">
-                        <label for="vegetarian">素食料理</label>
-                      </div>
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="healthy" value="">
-                        <label for="healthy">健康料理</label>
-                      </div>
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="kids_friendly" value="">
-                        <label for="kids_friendly">兒童友善</label>
-                      </div>
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="pets_friendly" value="">
-                        <label for="pets_friendly">寵物友善</label>
-                      </div>
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="personal7" value="">
-                        <label for="personal7">性別友善</label>
-                      </div>
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="wheelchair-accessible" value="">
+                      <label for="wheelchair-accessible">無障礙</label>
                     </div>
-                    <p class="checkbox-title">用餐方式</p>
-                    <div class="checkbox-container">
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="delivery" value="">
-                        <label for="delivery">外送</label>
-                      </div>
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="takeaway" value="">
-                        <label for="takeaway">外帶</label>
-                      </div>
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="dine-in" value="">
-                        <label for="dine-in">內用</label>
-                      </div>
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="vegetarian" value="">
+                      <label for="vegetarian">素食料理</label>
                     </div>
-                    <p class="checkbox-title">用餐時段</p>
-                    <div class="checkbox-container">
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="breakfast" value="">
-                        <label for="breakfast">早餐</label>
-                      </div>
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="brunch" value="">
-                        <label for="brunch">早午餐</label>
-                      </div>
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="lunch" value="">
-                        <label for="lunch">午餐</label>
-                      </div>
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="dinner" value="">
-                        <label for="dinner">晚餐</label>
-                      </div>
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="healthy" value="">
+                      <label for="healthy">健康料理</label>
                     </div>
-                    <p class="checkbox-title">營業時間</p>
-                    <div class="checkbox-container">
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="BusinessHours" value="">
-                        <label for="BusinessHours">營業中</label>
-                      </div>
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="kids_friendly" value="">
+                      <label for="kids_friendly">兒童友善</label>
                     </div>
-                    <p class="checkbox-title">用餐氛圍</p>
-                    <div class="checkbox-container">
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="casual" value="">
-                        <label for="casual">氣氛悠閒</label>
-                      </div>
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="cosy" value="">
-                        <label for="cosy">環境舒適</label>
-                      </div>
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="ambiance3" value="">
-                        <label for="ambiance3">音樂演奏</label>
-                      </div>
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="pets_friendly" value="">
+                      <label for="pets_friendly">寵物友善</label>
                     </div>
-                    <p class="checkbox-title">用餐規劃</p>
-                    <div class="checkbox-container">
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="reservation" value="">
-                        <label for="reservation">接受訂位</label>
-                      </div>
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="group_friendly" value="">
-                        <label for="group_friendly">適合團體</label>
-                      </div>
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="family_friendly" value="">
-                        <label for="family_friendly">適合家庭聚餐</label>
-                      </div>
-                    </div>
-                    <p class="checkbox-title">基礎設施</p>
-                    <div class="checkbox-container">
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="toilet" value="">
-                        <label for="toilet">洗手間</label>
-                      </div>
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="wi-fi" value="">
-                        <label for="wi-fi">無線網路</label>
-                      </div>
-                    </div>
-                    <p class="checkbox-title">付款方式</p>
-                    <div class="checkbox-container">
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="cash" value="">
-                        <label for="cash">現金</label>
-                      </div>
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="credit_card" value="">
-                        <label for="credit_card">信用卡</label>
-                      </div>
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="debit_card" value="">
-                        <label for="debit_card">簽帳金融卡</label>
-                      </div>
-                      <div class="checkbox-item">
-                        <input type="checkbox" id="mobile_payment" value="">
-                        <label for="mobile_payment">行動支付</label>
-                      </div>
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="personal7" value="">
+                      <label for="personal7">性別友善</label>
                     </div>
                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                    <button type="button" class="btn btn-primary">儲存</button>
+                  <p class="checkbox-title">用餐方式</p>
+                  <div class="checkbox-container">
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="delivery" value="">
+                      <label for="delivery">外送</label>
+                    </div>
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="takeaway" value="">
+                      <label for="takeaway">外帶</label>
+                    </div>
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="dine-in" value="">
+                      <label for="dine-in">內用</label>
+                    </div>
                   </div>
+                  <p class="checkbox-title">用餐時段</p>
+                  <div class="checkbox-container">
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="breakfast" value="">
+                      <label for="breakfast">早餐</label>
+                    </div>
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="brunch" value="">
+                      <label for="brunch">早午餐</label>
+                    </div>
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="lunch" value="">
+                      <label for="lunch">午餐</label>
+                    </div>
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="dinner" value="">
+                      <label for="dinner">晚餐</label>
+                    </div>
+                  </div>
+                  <p class="checkbox-title">營業時間</p>
+                  <div class="checkbox-container">
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="BusinessHours" value="">
+                      <label for="BusinessHours">營業中</label>
+                    </div>
+                  </div>
+                  <p class="checkbox-title">用餐氛圍</p>
+                  <div class="checkbox-container">
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="casual" value="">
+                      <label for="casual">氣氛悠閒</label>
+                    </div>
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="cosy" value="">
+                      <label for="cosy">環境舒適</label>
+                    </div>
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="ambiance3" value="">
+                      <label for="ambiance3">音樂演奏</label>
+                    </div>
+                  </div>
+                  <p class="checkbox-title">用餐規劃</p>
+                  <div class="checkbox-container">
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="reservation" value="">
+                      <label for="reservation">接受訂位</label>
+                    </div>
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="group_friendly" value="">
+                      <label for="group_friendly">適合團體</label>
+                    </div>
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="family_friendly" value="">
+                      <label for="family_friendly">適合家庭聚餐</label>
+                    </div>
+                  </div>
+                  <p class="checkbox-title">基礎設施</p>
+                  <div class="checkbox-container">
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="toilet" value="">
+                      <label for="toilet">洗手間</label>
+                    </div>
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="wi-fi" value="">
+                      <label for="wi-fi">無線網路</label>
+                    </div>
+                  </div>
+                  <p class="checkbox-title">付款方式</p>
+                  <div class="checkbox-container">
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="cash" value="">
+                      <label for="cash">現金</label>
+                    </div>
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="credit_card" value="">
+                      <label for="credit_card">信用卡</label>
+                    </div>
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="debit_card" value="">
+                      <label for="debit_card">簽帳金融卡</label>
+                    </div>
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="mobile_payment" value="">
+                      <label for="mobile_payment">行動支付</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                  <button type="button" class="btn btn-primary">儲存</button>
                 </div>
               </div>
             </div>
-            <button type="button" class="btn btn-secondary mt-3 search-button" id="search-button" onclick="searchKeyword()">搜尋</button>
           </div>
+          <button type="button" class="btn btn-secondary mt-3 search-button" id="search-button"
+            onclick="searchKeyword()">搜尋</button>
+        </div>
         <!--已選擇篩選條件-->
         <div class="filter-container">
           <p class="filter-title"><i class="fi fi-sr-filter"></i>已篩選條件：</p>
@@ -290,20 +291,18 @@
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 
   <!-- 載入JSON資料 data.__ -->
-  <script src="./base/data.php"></script>
+  <script src="./search_landmark.php"></script>
 
-  <!-- 載入主程式 osm-map.js -->  
+  <!-- 載入主程式 osm-map.js -->
+  <script src="./scripts/map.js"></script>
+  <!-- <script src="./scripts/search-landmark.js"></script> -->
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="scripts/search.js"></script>
   <script src="scripts/ui-interactions.js"></script>
 
   <!-- 搜尋跳轉功能 -->
   <script>
-    
-    function updateMapMarkers(data) {
-      console.log('更新地圖標記的數據:', data);
-      clearMarkers();
-      processJsonData(data);  
-    }
-
     function updateKeywordURL(keyword) {
       document.title = keyword.trim() === "" ? "搜尋結果 - 評星宇宙" : `${keyword}搜尋結果 - 評星宇宙`;
       //history.pushState():保留紀錄、history.replaceState():不保留紀錄
@@ -317,7 +316,7 @@
       updateKeywordURL(keyword);
 
       const formData = new FormData();
-      formData.set('q', keyword);      
+      formData.set('q', keyword);
       formData.set('mapCenterLat', center.lat);
       formData.set('mapCenterLng', center.lng);
 
@@ -336,9 +335,10 @@
           }
         })
         .catch(error => console.error('Error:', error));
-        
+
 
       // 獲取 JSON 地標資料並更新地圖標記
+      // 更新地圖標記區域（JSON）
       fetch('search_landmark.php', {
         method: 'POST',
         body: formData
@@ -346,19 +346,71 @@
         .then(response => response.json())
         .then(data => {
           if (Array.isArray(data) && data.length > 0) {
-            updateMapMarkers(data);
+            processJsonData(data); // 清除舊地標並加入新地標
           } else {
-            console.log('沒有找到地標資料');
+            markers.clearLayers(); // 確保清除所有舊地標
+            console.log('沒有找到符合條件的地標');
           }
         })
-        .catch(error => console.error('Fetch錯誤:', error));
+        .catch(error => console.error('地標獲取錯誤:', error));
+    }
+
+    // 清除舊地標並處理新的地標資料
+    function processJsonData(data) {
+      markers.clearLayers(); // 清除先前的地標!
+      console.log("清除現有地標");
+
+      var latlngs = [];
+
+      // 設定搜尋中心（確保不會自動依據地標範圍縮放）
+    var center = getCenter();
+    map.setView([center.lat, center.lng], 15);
+    
+      // 如果有新地標資料，處理並添加到地圖
+      if (data.length > 0) {
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].latitude && data[i].longitude) {
+            var latlng = [parseFloat(data[i].latitude), parseFloat(data[i].longitude)];
+            if (isFinite(latlng[0]) && isFinite(latlng[1])) {
+              latlngs.push(latlng);
+
+              var marker = L.marker(latlng, { icon: storeIcon })
+                .bindPopup(
+                  `<div class="popup-content" style="cursor: pointer;">
+                              <img src="${data[i].preview_image}" style="width: 200px; height: 112.5px; object-fit: cover; object-position: center;"/>
+                              <div style="font-weight: bold; font-size: 16px; margin-top: 10px; margin-bottom: 10px;">${data[i].name}</div>
+                              <div style="font-size: 14px; margin-bottom: 5px;">評分：${data[i].rating}</div>
+                              <div style="font-size: 14px; margin-bottom: 5px;">評論數：${data[i].total_withcomments}/${data[i].sample_ratings}</div>
+                              <div style="font-size: 14px; margin-bottom: 5px;">標籤：${data[i].tag}</div>
+                              <button style="font-size:12px; right:0; cursor: pointer;" onclick="redirectToDetailPage('${data[i].id}')">詳細資訊</button>
+                              </div>`
+                );
+              markers.addLayer(marker);
+            }
+          }
+        }
+
+        // 將新的地標加回地圖
+        map.addLayer(markers);
+
+        // 如果有多個地標，調整地圖的範圍
+        if (latlngs.length > 1) {
+          setPlaceCenter(latlngs);
+        } else if (latlngs.length === 1) {
+          map.setView(latlngs[0], 16); // 如果只有一個標記，放大地圖並設置中心點
+        }
+      } else {
+        // 如果沒有新資料，則清除所有舊地標並顯示提示
+        console.log('沒有找到符合條件的地標');
+        markers.clearLayers(markers); // 確保清除所有舊地標
+      }
+    }
+    function updateMapMarkers(data) {
+      console.log('更新地圖標記的數據:', data);
+      processJsonData(data);
     }
   </script>
 
-  <script src="./scripts/osm-map.js"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="scripts/search.js"></script>
 
   <!-- 跳轉詳細頁面 -->
   <script>
@@ -397,6 +449,8 @@
         document.getElementById('keyword').value = keyword;
         document.getElementById('search-button').click();
       }
+      // 在頁面加載時自動抓取使用者的位置並顯示在地圖上
+      userLocate();
     }
   </script>
 
