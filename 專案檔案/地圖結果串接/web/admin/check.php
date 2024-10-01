@@ -9,11 +9,10 @@
     $authKey = '';
     $hashedPassword = '';
     ### 驗證帳號密碼 ###
-    $stmt = $conn->prepare(query: 
+    $stmt = bindPrepare($conn,
     " SELECT password, auth_key FROM administrators 
       WHERE name = ?
-    ");
-    $stmt->bind_param("s", $name);  // 綁定使用者的名稱
+    ", "s", $name);
     $stmt->execute();
     $stmt->bind_result($hashedPassword, $authKey);
     $stmt->fetch();

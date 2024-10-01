@@ -1,25 +1,22 @@
 function toSearchPage() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      var userLat = position.coords.latitude;
-      var userLng = position.coords.longitude;
-      localStorage.setItem('userLat', userLat);
-      localStorage.setItem('userLng', userLng);
-
-      // 在成功獲取位置後跳轉到 search 頁面
-      window.location.href = `search?q=${encodeURIComponent(document.getElementById('keyword').value)}`;
-    }, function (error) {
-      console.error('無法取得您的位置: ' + error.message);
-
-      // 即使無法獲取位置也跳轉到 search 頁面
-      window.location.href = `search?q=${encodeURIComponent(document.getElementById('keyword').value)}`;
-    });
-  } else {
-    console.error('您的瀏覽器不支援地理定位功能。');
-
-    // 如果瀏覽器不支援地理定位，直接跳轉到 search 頁面
-    window.location.href = `search?q=${encodeURIComponent(document.getElementById('keyword').value)}`;
-  }
+  const keyword = encodeURIComponent(document.getElementById('keyword').value);
+  const lat = document.getElementById('map').getAttribute('data-lat');
+  const lng = document.getElementById('map').getAttribute('data-lng');
+  window.location.href = `search?q=${keyword}&lat=${lat}&lng=${lng}`;
+  // if (navigator.geolocation) {
+  //   navigator.geolocation.getCurrentPosition(function (position) {
+  //     var userLat = position.coords.latitude;
+  //     var userLng = position.coords.longitude;
+  //     localStorage.setItem('userLat', userLat);
+  //     localStorage.setItem('userLng', userLng);
+  //   }, function (error) {
+  //     console.error('無法取得您的位置: ' + error.message);
+  //     window.location.href = `search?q=${encodeURIComponent(document.getElementById('keyword').value)}`;
+  //   });
+  // } else {
+  //   console.error('您的瀏覽器不支援地理定位功能。');
+  //   window.location.href = `search?q=${encodeURIComponent(document.getElementById('keyword').value)}`;
+  // }
 }
 
 /* 點擊漢堡圖示時，顯示/隱藏選單 */

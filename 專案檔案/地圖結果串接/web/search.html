@@ -71,9 +71,6 @@
   <div class="container-fluid all-content">
     <div class="content-row row">
       <div class="secondary-content col">
-          <!-- 抓取使用者座標 -->
-        <input type="hidden" id="userLat" name="userLat">
-        <input type="hidden" id="userLng" name="userLng">
         <div class="search">
           <div class="form-floating search-keyword">
             <input type="text" class="form-control" id="keyword" name="keyword" placeholder="關鍵字">
@@ -304,19 +301,21 @@
     function updateKeywordURL(keyword) {
       document.title = keyword.trim() === "" ? "搜尋結果 - 評星宇宙" : `${keyword}搜尋結果 - 評星宇宙`;
       //history.pushState():保留紀錄、history.replaceState():不保留紀錄
-      window.history.pushState({}, '', `${location.protocol}//${location.host}${location.pathname}?q=${keyword}`);
+      window.history.replaceState({}, '', `${location.protocol}//${location.host}${location.pathname}?q=${keyword}`);
     }
 
     function searchKeyword() {
       var keyword = document.getElementById('keyword').value;
       var searchResults = document.getElementById('searchResults');
-      var center = getCenter();
+      getCenter();
+      var lat = document.getElementById('map').getAttribute('data-lat');
+      var lng = document.getElementById('map').getAttribute('data-lng');
       updateKeywordURL(keyword);
 
       const formData = new FormData();
       formData.set('q', keyword);      
-      formData.set('mapCenterLat', center.lat);
-      formData.set('mapCenterLng', center.lng);
+      formData.set('mapCenterLat', lat);
+      formData.set('mapCenterLng', lng);
 
       searchResults.innerHTML = '<div class="rotating"><img src="./images/icon-loading.png" width="30" height="30"></div><p>正在為您搜尋符合條件的商家...</p>';
       // 獲取 HTML 搜索結果
@@ -346,7 +345,7 @@
             processJsonData(data); // 清除舊地標並加入新地標
           } else {
             markers.clearLayers(); // 確保清除所有舊地標
-            console.log('沒有找到符合條件的地標');
+            // console.log('沒有找到符合條件的地標');
           }
         })
         .catch(error => console.error('地標獲取錯誤:', error));
@@ -355,13 +354,13 @@
     // 清除舊地標並處理新的地標資料
     function processJsonData(data) {
       markers.clearLayers(); // 清除先前的地標!
-      console.log("清除現有地標");
+      // console.log("清除現有地標");
 
       var latlngs = [];
 
       // 設定搜尋中心（確保不會自動依據地標範圍縮放）
-    var center = getCenter();
-    map.setView([center.lat, center.lng], 15);
+      var center = map.getCenter();
+      setView([center.lat, center.lng], 15);
     
       // 如果有新地標資料，處理並添加到地圖
       if (data.length > 0) {
@@ -374,13 +373,13 @@
               var marker = L.marker(latlng, { icon: storeIcon })
                 .bindPopup(
                   `<div class="popup-content" style="cursor: pointer;">
-                              <img src="${data[i].preview_image}" style="width: 200px; height: 112.5px; object-fit: cover; object-position: center;"/>
-                              <div style="font-weight: bold; font-size: 16px; margin-top: 10px; margin-bottom: 10px;">${data[i].name}</div>
-                              <div style="font-size: 14px; margin-bottom: 5px;">評分：${data[i].rating}</div>
-                              <div style="font-size: 14px; margin-bottom: 5px;">評論數：${data[i].total_withcomments}/${data[i].sample_ratings}</div>
-                              <div style="font-size: 14px; margin-bottom: 5px;">標籤：${data[i].tag}</div>
-                              <button style="font-size:12px; right:0; cursor: pointer;" onclick="redirectToDetailPage('${data[i].id}')">詳細資訊</button>
-                              </div>`
+                  <img src="${data[i].preview_image}" style="width: 200px; height: 112.5px; object-fit: cover; object-position: center;"/>
+                  <div style="font-weight: bold; font-size: 16px; margin-top: 10px; margin-bottom: 10px;">${data[i].name}</div>
+                  <div style="font-size: 14px; margin-bottom: 5px;">評分：${data[i].rating}</div>
+                  <div style="font-size: 14px; margin-bottom: 5px;">評論數：${data[i].total_withcomments}/${data[i].sample_ratings}</div>
+                  <div style="font-size: 14px; margin-bottom: 5px;">標籤：${data[i].tag}</div>
+                  <button style="font-size:12px; right:0; cursor: pointer;" onclick="redirectToDetailPage('${data[i].id}')">詳細資訊</button>
+                  </div>`
                 );
               markers.addLayer(marker);
             }
@@ -394,16 +393,16 @@
         if (latlngs.length > 1) {
           setPlaceCenter(latlngs);
         } else if (latlngs.length === 1) {
-          map.setView(latlngs[0], 16); // 如果只有一個標記，放大地圖並設置中心點
+          setView(latlngs[0], 16); // 如果只有一個標記，放大地圖並設置中心點
         }
       } else {
         // 如果沒有新資料，則清除所有舊地標並顯示提示
-        console.log('沒有找到符合條件的地標');
+        // console.log('沒有找到符合條件的地標');
         markers.clearLayers(markers); // 確保清除所有舊地標
       }
     }
     function updateMapMarkers(data) {
-      console.log('更新地圖標記的數據:', data);
+      // console.log('更新地圖標記的數據:', data);
       processJsonData(data);
     }
   </script>
@@ -423,7 +422,7 @@
           var userLat = position.coords.latitude;
           var userLng = position.coords.longitude;
           return { latitude: userLat, longitude: userLng };
-          console.log('使用者位置:', userLat, userLng);
+          // console.log('使用者位置:', userLat, userLng);
         }, function (error) {
           alert('無法取得您的位置: ' + error.message);
         });
@@ -441,12 +440,18 @@
     window.onload = function () {
       const urlParams = new URLSearchParams(window.location.search);
       const keyword = urlParams.get('q');
-      if (keyword != null) {
-        document.getElementById('keyword').value = keyword;
+      const lat = urlParams.get('lat');
+      const lng = urlParams.get('lng');
+      if (lat&&lng) {
+        setView([lat, lng], 16); 
+        if (keyword) document.getElementById('keyword').value = keyword;
         document.getElementById('search-button').click();
-      }
-      // 在頁面加載時自動抓取使用者的位置並顯示在地圖上
-      userLocate();
+      } else {
+        if (keyword) {
+          document.getElementById('keyword').value = keyword;
+          document.getElementById('search-button').click();
+        }
+      }   
     }
   </script>
 

@@ -4,6 +4,18 @@
   box-sizing: border-box;
 }
 
+.invisible {
+  display: none;
+}
+
+.comment-highlight{
+  padding: 2px;
+  font-weight: bold;
+  background-color: darkgoldenrod;
+  color:white;
+  font-style: normal;
+}
+
 html, body {
   margin: 0;
   height: 100%;
@@ -489,18 +501,6 @@ body{
 
 /*大螢幕尺寸*/
 @media (min-width: 833px) {
-  
-  .invisible {
-      display: none;
-  }
-
-  .comment-highlight{
-    padding: 2px;
-    font-weight: bold;
-    background-color: darkgoldenrod;
-    color:white;
-    font-style: normal;
-}
 
 .section-content{
     box-sizing: border-box;

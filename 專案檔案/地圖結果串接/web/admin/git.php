@@ -28,10 +28,10 @@
 
     function get_admin_by_auth_key($authKey, $conn) {
       $adminName = '';
-      $stmt = $conn->prepare(
-        " SELECT name FROM administrators 
-          WHERE auth_key = '$authKey'
-      ");
+      $stmt = bindPrepare($conn,
+      " SELECT name FROM administrators 
+        WHERE auth_key = ?
+      ", "s", $authKey);
       $stmt->execute();
       $stmt->bind_result($adminName);
       $stmt->fetch();

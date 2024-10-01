@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
   
-  console.log('store-detail.js資料引入成功！');
+  // console.log('store-detail.js資料引入成功！');
 });
 
 //其他分店展開框

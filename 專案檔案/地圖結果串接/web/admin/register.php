@@ -11,9 +11,10 @@
     require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
     require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
     global $conn;
-
-    #取得所有授權的auth_key
-    $stmt = $conn->prepare('SELECT auth_key FROM administrators');
+    $stmt = $conn->prepare(query: 
+    " SELECT auth_key FROM administrators
+    ");
+    #無注入
     $stmt->execute();
     $results = $stmt->get_result();
     $authKeys = [];
@@ -111,9 +112,8 @@
           }
         })
         .catch(error => {
-          console.error('Error:', error);
           document.getElementById('copy-button').style.display = 'none';
-          document.getElementById('loginError').innerText = '伺服器發生錯誤，請稍後再試。';
+          document.getElementById('loginError').innerText = '發生非預期的錯誤，請稍後再試。';
           document.getElementById('loginError').style.color = 'red';
         });
     }

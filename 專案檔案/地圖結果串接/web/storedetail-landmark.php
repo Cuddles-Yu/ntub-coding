@@ -13,7 +13,7 @@ if (is_null($storeId)) {
 // 查詢資料
 function getStoreData($storeId) {
     global $conn;
-    $sql = 
+    $stmt = bindPrepare($conn, 
     " SELECT 
         s.id AS store_id,
         s.name AS store_name,
@@ -29,9 +29,8 @@ function getStoreData($storeId) {
       FROM stores AS s
       JOIN locations AS l ON s.id = l.store_id
       JOIN rates AS r ON s.id = r.store_id
-      WHERE s.id = $storeId AND crawler_state IN ('成功', '完成', '超時');
-    ";
-    $stmt = $conn->prepare($sql);
+      WHERE s.id = ? AND crawler_state IN ('成功', '完成', '超時');
+    ", "i", $storeId);
     $stmt->execute();
     $result = $stmt->get_result();
 

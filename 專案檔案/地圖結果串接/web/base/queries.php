@@ -5,9 +5,10 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
 // 商家資料表得到(商家名稱)
 function getStoreInfo($storeName) {
     global $conn;
-    $sql = "SELECT * FROM stores WHERE name = ? AND crawler_state IN ('成功', '完成', '超時')";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $storeName);
+    $stmt = bindPrepare($conn,
+    " SELECT * FROM stores 
+      WHERE name = ? AND crawler_state IN ('成功', '完成', '超時')
+    ", "s", $storeName);
     $stmt->execute();
     $result = $stmt->get_result();
     return $result->fetch_assoc();
@@ -16,9 +17,10 @@ function getStoreInfo($storeName) {
 // 根據商家ID獲取商家資訊
 function getStoreInfoById($storeId) {
     global $conn;
-    $sql = "SELECT * FROM stores WHERE id = ? AND crawler_state IN ('成功', '完成', '超時')";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $storeId);
+    $stmt = bindPrepare($conn,
+    " SELECT * FROM stores 
+      WHERE id = ? AND crawler_state IN ('成功', '完成', '超時')
+    ", "i", $storeId);
     $stmt->execute();
     $result = $stmt->get_result();
     return $result->fetch_assoc();
@@ -27,9 +29,9 @@ function getStoreInfoById($storeId) {
 // 留言(依商家查詢) 所有有文字留言的商家
 function getComments($storeId) {
     global $conn;
-    $sql = "SELECT * FROM comments WHERE store_id = ? AND contents IS NOT NULL ";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $storeId);
+    $stmt = bindPrepare($conn,
+    " SELECT * FROM comments WHERE store_id = ? AND contents IS NOT NULL
+    ", "i", $storeId);
     $stmt->execute();
     $result = $stmt->get_result();
     $comments = [];
@@ -42,9 +44,10 @@ function getComments($storeId) {
 // 留言(依商家查詢) 樣本為「最相關」有文字留言的商家
 function getRelevantComments($storeId) {
     global $conn;
-    $sql = "SELECT * FROM comments WHERE store_id = ? AND contents IS NOT NULL AND sample_of_most_relevant = '1' ";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $storeId);
+    $stmt = bindPrepare($conn,
+    " SELECT * FROM comments 
+      WHERE store_id = ? AND contents IS NOT NULL AND sample_of_most_relevant = '1' 
+    ", "i", $storeId);
     $stmt->execute();
     $result = $stmt->get_result();
     $comments = [];
@@ -57,9 +60,11 @@ function getRelevantComments($storeId) {
 // 留言(依商家查詢) 樣本為「評分最高」有文字留言的商家
 function getHighestComments($storeId) {
     global $conn;
-    $sql = "SELECT * FROM comments WHERE store_id = ? AND contents IS NOT NULL AND sample_of_highest_rating = '1' ORDER BY  rating DESC, id ASC";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $storeId);
+    $stmt = bindPrepare($conn,
+    " SELECT * FROM comments 
+      WHERE store_id = ? AND contents IS NOT NULL AND sample_of_highest_rating = '1'
+      ORDER BY rating DESC, id ASC
+    ", "i", $storeId);
     $stmt->execute();
     $result = $stmt->get_result();
     $comments = [];
@@ -72,10 +77,11 @@ function getHighestComments($storeId) {
 // 留言(依商家查詢) 樣本為「評分最低」有文字留言的商家
 function getLowestComments($storeId) {
     global $conn;
-    $sql = "SELECT * FROM comments WHERE store_id = ? AND contents IS NOT NULL AND sample_of_lowest_rating = '1' ORDER BY rating DESC, id ASC";
-
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $storeId);
+    $stmt = bindPrepare($conn, 
+    " SELECT * FROM comments
+      WHERE store_id = ? AND contents IS NOT NULL AND sample_of_lowest_rating = '1'
+      ORDER BY rating DESC, id ASC
+    ", "i", $storeId);
     $stmt->execute();
     $result = $stmt->get_result();
     $comments = [];
@@ -88,9 +94,9 @@ function getLowestComments($storeId) {
 // 地址(依商家查詢)
 function getLocation($storeId) {
     global $conn;
-    $sql = "SELECT * FROM locations WHERE store_id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $storeId);
+    $stmt = bindPrepare($conn, 
+    " SELECT * FROM locations WHERE store_id = ?
+    ", "i", $storeId);
     $stmt->execute();
     $result = $stmt->get_result();
     return $result->fetch_assoc();
@@ -99,9 +105,9 @@ function getLocation($storeId) {
 // 評價(依商家查詢)
 function getRating($storeId) {
     global $conn;
-    $sql = "SELECT * FROM rates WHERE store_id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $storeId);
+    $stmt = bindPrepare($conn,
+    " SELECT * FROM rates WHERE store_id = ?
+    ", "i", $storeId);
     $stmt->execute();
     $result = $stmt->get_result();
     return $result->fetch_assoc();
@@ -110,9 +116,9 @@ function getRating($storeId) {
 // 服務(依商家查詢)
 function getService($storeId) {
     global $conn;
-    $sql = "SELECT * FROM services WHERE store_id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $storeId);
+    $stmt = bindPrepare($conn,
+    " SELECT * FROM services WHERE store_id = ?
+    ", "i", $storeId);
     $stmt->execute();
     $result = $stmt->get_result();
     $services = [];
@@ -131,9 +137,11 @@ function getService($storeId) {
 // 推薦餐點關鍵字(依商家查詢)
 function getFoodKeyword($storeId) {
     global $conn;
-    $sql = "SELECT * FROM keywords WHERE store_id = ? AND source = 'recommend' ORDER BY count DESC ";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $storeId);
+    $stmt = bindPrepare($conn,
+    " SELECT * FROM keywords
+      WHERE store_id = ? AND source = 'recommend'
+      ORDER BY count DESC 
+    ", "i", $storeId);
     $stmt->execute();
     $result = $stmt->get_result();
     $keywords = [];
@@ -147,9 +155,11 @@ function getFoodKeyword($storeId) {
 // 所有的關鍵字(依商家查詢從多到少)
 function getAllKeywords($storeId) {
     global $conn;
-    $sql = "SELECT word, count FROM keywords WHERE store_id = ? and source = 'google' ORDER BY count DESC";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $storeId);
+    $stmt = bindPrepare($conn,
+    " SELECT word, count FROM keywords
+      WHERE store_id = ? and source = 'google'
+      ORDER BY count DESC
+    ", "i", $storeId);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -164,11 +174,13 @@ function getAllKeywords($storeId) {
 //營業時間(依商家查詢)
 function getOpeningHours($storeId) {
     global $conn;
-    $sql = "SELECT * FROM openhours WHERE store_id = $storeId";
-    $stmt = $conn->prepare($sql);
+    $stmt = bindPrepare($conn,
+    " SELECT * FROM openhours
+      WHERE store_id = ?
+    ", "i", $storeId);
     $stmt->execute();
     $result = $stmt->get_result();
-    // 構建營業時間
+    //構建營業時間
     $openingHours = [];
     while ($row = $result->fetch_assoc()) {
         $openingHours[$row['day_of_week']][] = [
@@ -184,16 +196,13 @@ function getOpeningHours($storeId) {
 function getOtherBranches($branchTitle, $storeId) {
   if (!isset($branchTitle)) return;
   global $conn;
-  $sql = 
-  "   SELECT s.*, r.avg_ratings, l.city, l.dist, l.vil, l.details 
-      FROM stores AS s 
-      LEFT JOIN rates AS r ON s.id = r.store_id
-      LEFT JOIN locations AS l ON s.id = l.store_id
-      WHERE s.crawler_state IN ('成功', '完成', '超時') 
-      AND s.branch_title = '$branchTitle' 
-      AND s.id != $storeId
-  ";
-  $stmt = $conn->prepare($sql);
+  $stmt = bindPrepare($conn,
+  " SELECT s.*, r.avg_ratings, l.city, l.dist, l.vil, l.details 
+    FROM stores AS s 
+    LEFT JOIN rates AS r ON s.id = r.store_id
+    LEFT JOIN locations AS l ON s.id = l.store_id
+    WHERE s.crawler_state IN ('成功', '完成', '超時') AND s.branch_title = ? AND s.id != ?
+  ", "sd", $branchTitle, $storeId);
   $stmt->execute();    
   $result = $stmt->get_result();
   $branches = [];
@@ -211,14 +220,13 @@ function getMarks($storeId, $states) {
     $allStates = implode(',', array_map(function($state) use ($conn) {
         return "'" . $conn->real_escape_string($state) . "'";
     }, $states));
-    $sql = 
-    "   SELECT object, COUNT(*) AS count FROM marks
-        WHERE object !='' AND store_id = $storeId AND state IN ($allStates)
-        GROUP BY object
-        ORDER BY count DESC
-        LIMIT 20
-    ";
-    $stmt = $conn->prepare($sql);
+    $stmt = bindPrepare($conn,
+    " SELECT object, COUNT(*) AS count FROM marks
+      WHERE object !='' AND store_id = ? AND state IN ($allStates)
+      GROUP BY object
+      ORDER BY count DESC
+      LIMIT 20
+    ", "i", $storeId);
     $stmt->execute();
     $result = $stmt->get_result();
     $marks = [];

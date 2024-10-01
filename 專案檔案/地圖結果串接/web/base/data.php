@@ -7,7 +7,7 @@
   // 查詢資料
   function getStoreData() {
       global $conn;
-      $sql = 
+      $stmt = $conn->prepare(query:
       " SELECT 
           s.id AS store_id,
           s.name AS store_name,
@@ -24,8 +24,8 @@
         JOIN locations AS l ON s.id = l.store_id
         JOIN rates AS r ON s.id = r.store_id
         WHERE crawler_state IN ('成功', '完成', '超時');
-      ";
-      $stmt = $conn->prepare($sql);
+      ");
+      #無注入
       $stmt->execute();
       $result = $stmt->get_result();
 

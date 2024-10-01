@@ -11,9 +11,9 @@ window.onload = function () {
     fetch(`storedetail-landmark.php?storeId=${storeId}`)
         .then(response => response.json())
         .then(data => {
-            console.log('JSON資料引入成功！');
+            // console.log('JSON資料引入成功！');
             // 在地圖上顯示商家地標
-            console.log(data);
+            // console.log(data);
 
             if (data && !data.error) {
                 var latlng = [parseFloat(data[0].latitude), parseFloat(data[0].longitude)];
@@ -51,12 +51,12 @@ window.onload = function () {
                     bounds.push([userLat, userLng]);
 
                     // 設置地圖中心為使用者位置
-                    map.setView([userLat, userLng], 11);
+                    setView([userLat, userLng], 11);
 
                     // 計算距離（公尺）
                     if (storeLatLng) {
                         var distance = calculateDistance(userLat, userLng, storeLatLng[0], storeLatLng[1]);
-                        console.log(`距離：${distance} 公尺`);
+                        // console.log(`距離：${distance} 公尺`);
 
 
                         // 根據距離設置縮放級別

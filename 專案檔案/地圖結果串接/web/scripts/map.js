@@ -1,10 +1,8 @@
 //整合地圖通用邏輯功能
 
+
 // 建構地圖，經緯度座標中心、縮放等級
-var map = L.map('map', {
-    center: [25.0418963, 121.5230431], //改成北商座標
-    zoom: 16,
-});
+var map = L.map('map');
 
 // 檢查地圖是否建構成功
 if (map) {
@@ -45,47 +43,59 @@ var userIcon = L.icon({
 
 // 創建中心位置的圖標    
 var centerIcon = L.icon({
-    iconUrl: './images/location-target.png',                          //圖放這裡~~~~~
+    iconUrl: './images/location-target.png',
     iconSize: [30, 30],
     popupAnchor: [0, -20]
 });
 
 // 在頁面加載時自動抓取使用者的位置並顯示在地圖上
 window.onload = function () {
-    userLocate();
-    moveGetCenter(); // 開始監聽地圖移動事件
+  defaultLocate();
+  moveGetCenter();
 };
 
 // 定位使用者所在位置的函數
-function userLocate() {
+function defaultLocate() {  
+  var userLat = 25.0418963;
+  var userLng = 121.5230431;
+  if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+          var userLat = position.coords.latitude;
+          var userLng = position.coords.longitude;
+          var userMarker = L.marker([userLat, userLng], {
+            icon: userIcon
+          }) // .bindPopup('您的位置').openPopup();
+          map.addLayer(userMarker);
+      }, function (error) {
+          alert('無法取得您的位置: ' + error.message);
+      });
+  } else {
+      alert('您的瀏覽器不支援地理定位功能。');
+  }    
+  setView([userLat, userLng], 16);
+}
 
-    // 嘗試獲取使用者位置
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            var userLat = position.coords.latitude;
-            var userLng = position.coords.longitude;
-
-            // 建立使用者的標點
-            var userMarker = L.marker([userLat, userLng], {
-                icon: userIcon
-            }).bindPopup('您的位置').openPopup();
-
-            // 將使用者標點加入地圖
-            map.addLayer(userMarker);
-
-            // 設置地圖中心為使用者位置
-            map.setView([userLat, userLng], 16);
-        }, function (error) {
-            alert('無法取得您的位置: ' + error.message);
-        });
-    } else {
-        alert('您的瀏覽器不支援地理定位功能。');
-    }
+// 定位使用者所在位置的函數
+function userLocate() {  
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      var userLat = position.coords.latitude;
+      var userLng = position.coords.longitude;
+      var userMarker = L.marker([userLat, userLng], {
+        icon: userIcon
+      }) // .bindPopup('您的位置').openPopup();
+      map.addLayer(userMarker);     
+      setView([userLat, userLng], 16);       
+    }, function (error) {
+        alert('無法取得您的位置: ' + error.message);
+    });
+  } else {
+      alert('您的瀏覽器不支援地理定位功能。');
+  }    
 }
 
 var distance = 1500; // 假設距離為3000公尺
-var zoomLevel = getZoomLevel(distance);
-map.setZoom(zoomLevel);
+map.setZoom(getZoomLevel(distance));
 
 // 根據使用者偏好的半徑距離(縮放等級)設置地圖
 function getZoomLevel(distance) {
@@ -115,12 +125,7 @@ function getZoomLevel(distance) {
 // 使用者滑動後取得目前地圖中心經緯度
 function moveGetCenter() {
     map.on('moveend', function () {
-        var moveCenter = map.getCenter(); // 取得地圖中心點的經緯度，回傳 L.LatLng 物件
-        document.getElementById('latitude').innerText = moveCenter.lat;
-        document.getElementById('longitude').innerText = moveCenter.lng;
-        // 更新中心圖標的位置
         getCenter();
-
     });
 }
 
@@ -132,42 +137,40 @@ function getCenter() {
     if (window.centerMarker) {
         map.removeLayer(window.centerMarker);
     }
-
     // 創建新的中心標記並添加到地圖上
     window.centerMarker = L.marker([mapCenter.lat, mapCenter.lng], {
         icon: centerIcon
     }).addTo(map);
-
+    document.getElementById('map').setAttribute('data-lat', mapCenter.lat);
+    document.getElementById('map').setAttribute('data-lng', mapCenter.lng);
     return mapCenter; // 回傳 L.LatLng 物件
 }
 
 // 設置地圖中心經緯度
-function setCenter(lat, lng) {
-    var zoomLevel = map.getZoom(); // 取得地圖縮放等級
-    map.setView([lat, lng], zoomLevel); // 設置地圖中心點的經緯度 // 緯度 經度 縮放等級
-    //console.log("設置地圖中心到：", [lat, lng]);
+function setView([lat, lng], zoomLevel) {
+    map.setView([lat, lng], zoomLevel);
+    getCenter()
 }
 
-// 引入資料庫資料(JSON格式)
-// 使用Fetch API取得JSON資料
-fetch('./data.php')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('JSON資料引入成功！');
-        if (Array.isArray(data) && data.length > 0) {
-            processJsonData(data);
-        } else {
-            console.log('沒有資料顯示在地圖上');
-        }
-    })
-    .catch(error => {
-        console.error('引入JSON資料時發生了一些問題：', error);
-    });
+// 引入資料庫資料(JSON格式) [已停用，改為使用PHP引入]
+// fetch('./data.php')
+//     .then(response => {
+//         if (!response.ok) {
+//             throw new Error('Network response was not ok');
+//         }
+//         return response.json();
+//     })
+//     .then(data => {
+//         console.log('JSON資料引入成功！');
+//         if (Array.isArray(data) && data.length > 0) {
+//             processJsonData(data);
+//         } else {
+//             console.log('沒有資料顯示在地圖上');
+//         }
+//     })
+//     .catch(error => {
+//         console.error('引入JSON資料時發生了一些問題：', error);
+//     });
 
 var markers = new L.MarkerClusterGroup({
     maxClusterRadius: function (zoom) {
@@ -180,11 +183,11 @@ var markers = new L.MarkerClusterGroup({
 function processJsonData(data) {
     // 清除先前的標記
     markers.clearLayers();
-    console.log("清除現有地標");
+    // console.log("清除現有地標");
 
     // 檢查數據是否存在
     if (data.length === 0) {
-        console.log("沒有資料顯示在地圖上");
+        // console.log("沒有資料顯示在地圖上");
         return;
     }
 
@@ -238,11 +241,11 @@ function processJsonData(data) {
         if (latlngs.length > 1) {
             setPlaceCenter(latlngs); // 自動調整地圖範圍
         } else if (latlngs.length === 1) {
-            map.setView(latlngs[0], 16); // 如果只有一個標記，放大地圖並設置中心點
+            setView(latlngs[0], 16); // 如果只有一個標記，放大地圖並設置中心點
         }
     } else {
         // 如果沒有新資料，則清除所有舊地標並顯示提示
-        console.log('沒有找到符合條件的地標');
+        // console.log('沒有找到符合條件的地標');
         markers.clearLayers(markers); // 確保清除所有舊地標
     }
 }
@@ -264,25 +267,13 @@ function setPlaceCenter(latlngs) {
         map.setZoomAround(currentCenter, zoomLevel); //地圖會以當前中心點為基準進行縮放
         //console.log("設置地圖範圍到: ", bounds);
     } else if (latlngs.length === 1) {
-        map.setView(latlngs[0], 16);
+        setView(latlngs[0], 16);
         //console.log("設置地圖視圖到: ", latlngs[0]);
     } else {
         //console.error("Bounds are not valid.");
     }
 
-    // 保留搜尋中心
-    var searchCenter = map.getCenter();
-
-    // 移除舊的中心標記（如果存在）
-    if (window.centerMarker) {
-        map.removeLayer(window.centerMarker);
-    }
-
-    // 創建新的中心標記並添加到地圖上
-    window.centerMarker = L.marker([searchCenter.lat, searchCenter.lng], {
-        icon: centerIcon
-    }).addTo(map);
-
+    getCenter();
 }
 
 
