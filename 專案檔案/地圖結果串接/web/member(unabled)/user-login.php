@@ -43,7 +43,7 @@
                 <div class="remember_container">
                     <input type="checkbox" id="remember" name="remember">
                     <label for="remember" id="remember_text">記住我</label>
-                    <button id="log_in_button" type="submit" value="">
+                    <button id="login-button" type="submit" value="">
                         <span>登入</span>
                     </button>
                 </div>

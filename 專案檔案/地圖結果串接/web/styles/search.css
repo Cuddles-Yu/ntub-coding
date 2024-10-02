@@ -57,7 +57,7 @@ p {
   }
   
   #user_icon_logo {
-      display: none;
+      /* display: none; */
       width: 40px;
       height: 40px;
       right: 10vw;

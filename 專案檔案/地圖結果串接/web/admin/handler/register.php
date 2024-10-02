@@ -4,6 +4,7 @@
   global $conn;
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $count = null;
     $name = $_POST['name'];
 
     ### 檢查帳號是否已存在 ###

@@ -20,6 +20,10 @@ function toSearchPage() {
   // }
 }
 
+function toMemberPage() {
+  window.location.href = 'member/info';
+}
+
 /* 點擊漢堡圖示時，顯示/隱藏選單 */
 document.getElementById('hamburger_btn').addEventListener('click', function() {
   var navMenu = document.getElementById('nav_menu2');
@@ -32,6 +36,16 @@ document.getElementById('hamburger_btn').addEventListener('click', function() {
       overlay.classList.add('show');
   }
 });
+
+document.querySelectorAll('.close-menu').forEach(tab => {
+  tab.addEventListener('click', function() {
+    var navMenu = document.getElementById('nav_menu2');
+    var overlay = document.getElementById('overlay');
+    navMenu.classList.remove('show');
+    overlay.classList.remove('show');
+  });
+});
+
 
 document.querySelectorAll('.title-text-2').forEach(tab => {
   tab.addEventListener('click', function() {
@@ -98,6 +112,13 @@ document.querySelectorAll('.restaurant-group, .restaurant-group-2, .restaurant-g
 
 //card滾動
 document.addEventListener('DOMContentLoaded', function () {
+  document.getElementById('search-radius-input').value = 1500;
+  document.getElementById('wheelchair-accessible').checked = true;
+  document.getElementById('kids_friendly').checked = true;
+  document.getElementById('casual').checked = true;
+
+  document.getElementById('tab-button-1').click();
+
   const restaurantGroups = document.querySelectorAll('.restaurant-group');
   const leftArrows = document.querySelectorAll('.left-arrow');
   const rightArrows = document.querySelectorAll('.right-arrow');

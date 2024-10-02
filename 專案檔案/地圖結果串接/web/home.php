@@ -28,16 +28,19 @@
 </head>
 
 <body>
-  <!-- 頂欄 -->
+  <?php
+    require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'/member/session.php';
+    global $conn;
+  ?>
   <header>
-    <!-- 基本項目 -->
-    <div id="web_name">
+    <div id="web_name">      
         <img src="images/logo-blue+.png" id="web_logo">
-        <a href="home">評星宇宙</a>
+        <a href="/home">評星宇宙</a>
     </div>
-
     <div id="nav_menu1">
-        <a class="link_text" href="home">網站首頁</a>
+        <a class="link_text" href="/home">網站首頁</a>
         <div class="vertical-line"></div>
         <a class="link_text" href="#">使用說明</a>
         <div class="vertical-line"></div>
@@ -45,26 +48,22 @@
         <div class="vertical-line"></div>
         <a class="link_text" href="team">成員介紹</a>
     </div>
-
-    <div id="user_icon" type="button">
-        <img src="images/icon-member.jpg" id="user_icon_logo">
+    <div id="user_icon" onclick="toMemberPage()" >
+        <img src="/images/icon-member.jpg" id="user_icon_logo">
     </div>
-
     <div id="login_button">
-        <button id="login" href="#" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">登入</button>
-        <button id="signup" href="#">註冊</button>
+        <button id="login" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">登入</button>
+        <button id="signup">註冊</button>
     </div>
-
-    <!-- 漢堡圖示 -->
     <button id="hamburger_btn" class="hamburger">&#9776;</button>
     <div id="overlay"></div>
     <nav id="nav_menu2">
-        <a class="link_text" href="home">網站首頁</a>
-        <a class="link_text" href="#">使用說明</a>
+        <a class="link_text" href="/home">網站首頁</a>
+        <a class="link_text">使用說明</a>
         <a class="link_text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a>
         <a class="link_text" href="team">成員介紹</a>
-        <button id="login2" href="#">登入</button>
-        <button id="signup2" href="#">註冊</button>
+        <a class="link_text close-menu" id="login-nav">登入</a>
+        <a class="link_text close-menu" id="signup-nav">註冊</a>
     </nav>
     <hr>
   </header>
@@ -75,40 +74,41 @@
       <div class="modal-content">
         <div class="modal-body login-modal-body">
           <h2 class="form-h2">會員登入</h2>
-          <div>
-            <input type='text' id='email' class='form-input-popup' placeholder='帳號（電子郵件）' required>
-            <span id='nameError' class='form-error-message'>帳號欄位不能為空</span>
+          <div class='form-message-popup' id="message" style="display:none">
+            <div id="loginError" class="form-error-message-popup" style="display:block; text-align:center"></div>
           </div>
-          <div>
-            <input type='password' id='password' class='form-input-popup' placeholder='密碼' required>
-            <img src="images/password-hide.png" alt="password" id="toggle-password">
-            <span id='passwordError' class='form-error-message'>密碼欄位不能為空</span>
-          </div> 
-          <div class="remember_container">
-            <input type="checkbox" id="remember" name="remember">
-            <label for="remember" id="remember_text">記住我</label>
-            <div class="forget_pwd">忘記密碼？</div>
-          </div>
-
-          <div class="divider_container">
-            <div class="divider"></div><p class="divider_text">or</p><div class="divider"></div>
-          </div>
-
-          <div class="login_area">
-            <button type="button" class="btn btn-outline-secondary register-button">
-              <img src="images/icon-google.png" class="text-icon" alt="google_icon" id="google_icon"> Google登入
-            </button>                  
-          </div>  
-          <div class="login_area">
-            <button type="button" class="btn btn-outline-secondary register-button" href='./signup/page1.php'>
-              <img src="images/logo-blue+.png" class="text-icon" alt="logo_icon" id="logo_icon" width="20px" height="20px"> 註冊新會員
-            </button>                  
-          </div>  
-          <div class="agree">ⓘ登入即表示您同意我們的服務條款</div>
+          <form id="login-form">
+            <div>
+              <input type='email' id='email' class='form-input-popup' placeholder='帳號（電子郵件）' autocomplete="email" required>
+            </div>
+            <div style="margin-bottom: -25px">
+              <input type='password' id='password' class='form-input-popup' placeholder='密碼' autocomplete="current-password" required>
+              <img src="images/password-hide.png" alt="password" id="toggle-password">
+            </div> 
+            <div class="remember_container" style="margin-top: 10px">
+              <input type="checkbox" id="remember" name="remember">
+              <label for="remember" id="remember_text">記住我</label>
+              <div class="forget_pwd">忘記密碼？</div>
+            </div>
+            <div class="divider_container">
+              <div class="divider"></div><p class="divider_text">or</p><div class="divider"></div>
+            </div>
+            <div class="login_area">
+              <button type="button" class="btn btn-outline-secondary register-button">
+                <img src="images/icon-google.png" class="text-icon" alt="google_icon" id="google_icon"> Google登入
+              </button>                  
+            </div>  
+            <div class="login_area">
+              <button type="button" class="btn btn-outline-secondary register-button" href='./signup/page1.php'>
+                <img src="images/logo-blue+.png" class="text-icon" alt="logo_icon" id="logo_icon" width="20px" height="20px"> 註冊新會員
+              </button>                  
+            </div>  
+            <div class="agree">ⓘ登入即表示您同意我們的服務條款</div>
+          </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-          <button id="log_in_button" type="submit" value="" class="btn btn-primary">登入</button>
+          <button type="button" class="btn btn-secondary" id="form-cancel-button" data-bs-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary" id="form-submit-button" onclick="loginRequest()">登入</button>
         </div>
       </div>
     </div>
@@ -133,12 +133,12 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">篩選條件</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <form method="post" action="home">
+              <form method="post" action="/home">
                 <div class="modal-body">
                   <!-- 篩選選項 -->
                   <div class="input-group input-group-sm mb-3">
                     <p class="checkbox-title">搜尋半徑</p>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    <input id="search-radius-input" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
                     <span class="input-group-text" id="inputGroup-sizing-sm">公尺</span>
                   </div>
                   <p class="checkbox-title">個人需求</p>
@@ -311,9 +311,9 @@
     <span id="tab-3" class="tab-3">隨機推薦</span>
     <div id="tab">
       <ul>
-        <li><a class="title-text-2" data-tab="tab-content-1">熱門推薦</a></li>
-        <li><a class="title-text-2" data-tab="tab-content-2">偏好推薦</a></li>
-        <li><a class="title-text-2" data-tab="tab-content-3">隨機推薦</a></li>
+        <li><a id="tab-button-1" class="title-text-2" data-tab="tab-content-1">熱門推薦</a></li>
+        <li><a id="tab-button-2" class="title-text-2" data-tab="tab-content-2">偏好推薦</a></li>
+        <li><a id="tab-button-3" class="title-text-2" data-tab="tab-content-3">隨機推薦</a></li>
       </ul>
       <div class="tab-content-1 active" id="tab-content-1">
       </div>
@@ -345,7 +345,7 @@
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 
   <!-- 載入JSON資料 data.__ -->
-  <script src="./base/data.php"></script>
+  <!-- <script src="./base/data.php"></script> -->
 
   <!-- 載入主程式 -->
   <script src="./scripts/map.js"></script>
@@ -353,6 +353,14 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="scripts/home.js"></script>
+
+  <script src="member/login.js"></script>
+
+  <script src="scripts/function.js"></script>
+  <script>
+    copyAttributesByElement(document.getElementById('login'),document.getElementById('login-nav'));
+    copyAttributesByElement(document.getElementById('signup'),document.getElementById('signup-nav'));
+  </script>
   
 </body>
 

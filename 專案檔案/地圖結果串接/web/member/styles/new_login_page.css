@@ -134,7 +134,7 @@ body {
         text-decoration-line: none;
     }
 
-    #log_in_button {
+    #login-button {
         width: 10vw;
         margin-top: 5px;
         margin-left: auto;
@@ -317,7 +317,7 @@ body {
         font-weight: bold;
     }
 
-    #log_in_button {
+    #login-button {
         width: 7vw;
         margin-left: auto;
     }
@@ -499,7 +499,7 @@ body {
         font-weight: bold;
     }
     
-    #log_in_button {
+    #login-button {
         width: 40%;
         margin-top: 2%;
         margin-left: auto;
@@ -672,7 +672,7 @@ body {
         font-weight: bold;
     }
     
-    #log_in_button {
+    #login-button {
         width: 40%;
         margin-left: auto;
     }

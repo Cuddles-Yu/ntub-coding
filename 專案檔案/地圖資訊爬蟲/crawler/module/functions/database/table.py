@@ -18,7 +18,7 @@ def create_members(cursor):
         CREATE TABLE members (
             id INT AUTO_INCREMENT PRIMARY KEY,
             email VARCHAR(255) NOT NULL UNIQUE,
-            username VARCHAR(255) NOT NULL,
+            name VARCHAR(255) NOT NULL,
             password VARCHAR(255) NOT NULL,
             create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         )
@@ -231,7 +231,7 @@ def create_tokens(cursor):
             token VARCHAR(255) NOT NULL,
             create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             expiration_time TIMESTAMP NOT NULL,
-            FOREIGN KEY (member_id) REFERENCES members(id) ON DELETE CASCADE
+            FOREIGN KEY (member_id) REFERENCES members(id) ON DELETE CASCADE ON UPDATE CASCADE
         );
     ''')
 

@@ -38,7 +38,7 @@
 
   // 如果 storeId 或 storeName 不存在，根據現有的值獲取缺失的資訊
   if (empty($storeId)) {
-    Header("Location: home");
+    Header("Location: /home");
     exit;
   }
 
@@ -66,7 +66,7 @@
 
     $targetsInfo = getTargets($storeId);
   } else {
-    Header("Location: home");
+    Header("Location: /home");
     exit;
   }
 
@@ -77,11 +77,11 @@
   <!-- 基本項目 -->
   <div id="web_name">
     <img src="images/logo-blue+.png" id="web_logo">
-    <a href="home">評星宇宙</a>
+    <a href="/home">評星宇宙</a>
   </div>
 
   <div id="nav_menu1">
-    <a class="link_text" href="home">網站首頁</a>
+    <a class="link_text" href="/home">網站首頁</a>
     <div class="vertical-line"></div>
     <a class="link_text" href="#">使用說明</a>
     <div class="vertical-line"></div>
@@ -90,11 +90,11 @@
     <a class="link_text" href="team">成員介紹</a>
   </div>
 
-  <div id="user_icon" type="button">
-    <img src="images/icon-member.jpg" id="user_icon_logo">
+  <div id="user_icon" onclick="toMemberPage()" style="display: flex;">
+    <img src="/images/icon-member.jpg" id="user_icon_logo">
   </div>
 
-  <div id="login_button">
+  <div id="login_button" style="display: none;">
     <button id="login" href="#">登入</button>
     <button id="signup" href="#">註冊</button>
   </div>
@@ -103,7 +103,7 @@
   <button id="hamburger_btn" class="hamburger">&#9776;</button>
   <div id="overlay"></div>
   <nav id="nav_menu2">
-    <a class="link_text" href="home">網站首頁</a>
+    <a class="link_text" href="/home">網站首頁</a>
     <a class="link_text" href="#">使用說明</a>
     <a class="link_text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a>
     <a class="link_text" href="team">成員介紹</a>
@@ -253,6 +253,27 @@
           <h5 class="group-title">服務項目</h5>
         </div>
         <div class="service-item-group">
+          <!-- 符合服務項目 動態生成 -->
+          <div class="service-group">
+            <h6 class="service-title-eligible">偏好服務項目 (1/3項)</h6>
+            <div class="item-group">
+              <!--打勾-->
+              <div class="service-item">
+                <i class="fi fi-sr-check item-img-eligible"></i>
+                <h6 class="item-text-eligible">氣氛悠閒</h6>
+              </div>
+              <!--打叉-->
+              <div class="service-item">
+                <i class="fi fi-sr-cross item-img"></i>
+                <h6 class="item-text">適合兒童</h6>
+              </div>
+              <!--問號-->
+              <div class="service-item">
+                <i class="fi fi-sr-question item-img-question"></i>
+                <h6 class="item-text-question">無障礙車位</h6>
+              </div>
+            </div>
+          </div>
           <?php
           // 定義顯示順序
           $order = ['服務項目', '付款方式', '規劃', '無障礙程度', '停車場', '設施', '其他'];
@@ -264,6 +285,9 @@
               echo '<div class="item-group">';
 
               foreach ($serviceItems as $serviceItem) {
+                if ($serviceItem['property'] === '無障礙車位') continue;
+                if ($serviceItem['property'] === '適合兒童') continue;
+                if ($serviceItem['property'] === '氣氛悠閒') continue;
                 if ($serviceItem['state'] == 1) {
                   echo '<div class="service-item">';
                   echo '<i class="fi fi-sr-checkbox item-img"></i>';

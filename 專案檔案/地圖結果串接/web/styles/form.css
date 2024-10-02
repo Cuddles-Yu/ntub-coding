@@ -17,6 +17,17 @@
   width: 100%;
 }
 
+.form-message-popup {
+  margin-top: 10px;
+  background-color: red;
+  padding: 5px;
+  padding-inline: 18px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 100%;
+  font-size: 14px;  
+}
+
 .form-message {
   margin-top: 10px;
   background-color: #fff;
@@ -42,6 +53,12 @@ font-size: 12px;
 display: none;
 }
 
+.form-error-message-popup {
+  color: white;
+  font-size: 14px;
+  display: none;
+}
+
 .form-error-message.active {
 display: block;
 }
@@ -53,7 +70,8 @@ display: block;
   padding-right: 0;
   padding-inline-start: 15px;
   padding-inline-end: 40px;
-  margin: 5px 0;
+  margin: 10px 0;
+  margin-bottom: 0;
   border: 1px solid #ccc;
   border-radius: 4px;
 }

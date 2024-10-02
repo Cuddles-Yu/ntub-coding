@@ -60,9 +60,9 @@ body{
 }
 
 #toggle-password {
-  position: absolute;
-  right: 33px;
-  top: 141px;
+  position: relative;
+  right: -315px;
+  top: -33px;
   cursor: pointer;
   width: 20px;
   height: 20px;
@@ -162,6 +162,7 @@ body.modal-open {
     right: 10vw;
     height: 80px;
     display: none;
+    cursor: pointer;
   }
   
   #user_icon_logo {
@@ -914,6 +915,8 @@ body.modal-open {
   .card-title{
     font-weight: bold;
     font-size: 20px;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   .quick-group{

@@ -14,11 +14,11 @@
         <!-- 基本項目 -->
         <div id="web_name">
             <img src="../images/logo-blue+.png" id="web_logo">
-            <a href="home.html">評星宇宙</a>
+            <a href="/home">評星宇宙</a>
         </div>
 
         <div id="nav_menu1">
-            <a class="link_text" href="home.html">網站首頁</a>
+            <a class="link_text" href="/home">網站首頁</a>
             <div class="vertical-line"></div>
             <a class="link_text" href="#">使用說明</a>
             <div class="vertical-line"></div>
@@ -27,11 +27,11 @@
             <a class="link_text" href="develop-team.html">成員介紹</a>
         </div>
 
-        <div id="user_icon" type="button">
-            <img src="../images/user_icon.png" id="user_icon_logo">
+        <div id="user_icon" onclick="toMemberPage()" style="display: flex;">
+            <img src="/images/icon-member.jpg" id="user_icon_logo">
         </div>
 
-        <div id="login_button">
+        <div id="login_button" style="display: none;">
             <button id="login" href="#">登入</button>
             <button id="signup" href="#">註冊</button>
         </div>
@@ -40,7 +40,7 @@
         <button id="hamburger_btn" class="hamburger">&#9776;</button>
         <div id="overlay"></div>
         <nav id="nav_menu2">
-            <a class="link_text" href="home.html">網站首頁</a>
+            <a class="link_text" href="/home">網站首頁</a>
             <a class="link_text" href="#">使用說明</a>
             <a class="link_text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a>
             <a class="link_text" href="develop-team.html">成員介紹</a>
@@ -75,16 +75,16 @@
         <!-- 基本資料 -->
         <div id="info_main_area">
             <div id="user_icon_logo2_container">
-                <img src="../images/user_icon.png" id="user_icon_logo2">
+                <img src="/images/icon-member.jpg" id="user_icon_logo2">
                 <i class="fi fi-sr-pen-clip edit_info1">修改</i>
             </div>
             <div class="item_name">
                 <span class="item_text">使用者名稱</span>
-                <input type="text" class="item_text2" id="user_name" name="user_name" value="11236007" readonly> <!-- readonly: 唯讀狀態 -->
+                <input type="text" class="item_text2" id="user_name" name="user_name" value="評星宇宙" readonly> <!-- readonly: 唯讀狀態 -->
             </div>
             <div class="item_name">
                 <span class="item_text">電子郵件</span>
-                <input type="text" class="item_text2" id="email" name="email" value="11236007@ntub.edu.tw" readonly>
+                <input type="text" class="item_text2" id="email" name="email" value="113206@ntub.edu.tw" readonly>
             </div>
             <div class="item_name">
                 <span class="item_text">密碼</span>
@@ -116,7 +116,7 @@
             <form class="preference_item_container">
                 <div class="checkbox_container2">
                     <span class="type_title">搜尋半徑</span>
-                    <input type="number" id="search_radius" name="search_radius" value="500" readonly>
+                    <input type="number" id="search_radius" name="search_radius" value="1500" readonly>
                     <span class="type_title" id="meter">公尺</span>
                     <span class="type_title">最低綜合評分（0~100）</span>
                     <input type="number" id="lower_score" name="lower_score" value="80" min="0" max="100" readonly>
@@ -415,62 +415,6 @@
                 </div>
                 <div class="mark_distance">
                     <span>1 km</span>
-                </div>
-                <div class="mark_time">
-                    <span style="margin-right: 5px;">2023-10-01</span>
-                </div>
-                <div class="mark_button mark_button2">
-                    <i class="fi fi-sr-bookmark sort_button"></i>
-                    <i class="fi fi-sr-share sort_button"></i>
-                </div>
-            </div>
-
-            <div class="content_row">
-                <div class="mark_number">
-                    <span>2</span>
-                </div>
-                <div class="mark_store">
-                    <div class="mark_img">
-                        <img src="../images/store-map.JPG">
-                    </div>
-                    <span class="store_name">波赫士領地精品咖啡館 昌吉店 BorgesPlace 提拉米蘇 千層蛋糕</span>
-                </div>
-                <div class="mark_score">
-                    <span>85</span>
-                </div>
-                <div class="mark_category">
-                    <span>餃子</span>
-                </div>
-                <div class="mark_distance">
-                    <span>2 km</span>
-                </div>
-                <div class="mark_time">
-                    <span style="margin-right: 5px;">2023-10-01</span>
-                </div>
-                <div class="mark_button mark_button2">
-                    <i class="fi fi-sr-bookmark sort_button"></i>
-                    <i class="fi fi-sr-share sort_button"></i>
-                </div>
-            </div>
-
-            <div class="content_row">
-                <div class="mark_number">
-                    <span>3</span>
-                </div>
-                <div class="mark_store">
-                    <div class="mark_img">
-                        <img src="../images/store-map.JPG">
-                    </div>
-                    <span class="store_name">波赫士領地精品咖啡館 昌吉店 BorgesPlace 提拉米蘇 千層蛋糕</span>
-                </div>
-                <div class="mark_score">
-                    <span>85</span>
-                </div>
-                <div class="mark_category">
-                    <span>餃子</span>
-                </div>
-                <div class="mark_distance">
-                    <span>1.4 km</span>
                 </div>
                 <div class="mark_time">
                     <span style="margin-right: 5px;">2023-10-01</span>

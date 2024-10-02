@@ -11,6 +11,12 @@ document.getElementById('hamburger_btn').addEventListener('click', function() {
     }
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('restaurant_service8').checked = true;
+  document.getElementById('personal_service5').checked = true;
+  document.getElementById('personal_service2').checked = true;
+});
+
 document.getElementById('overlay').addEventListener('click', function() {
     var navMenu = document.getElementById('nav_menu2');
     var overlay = document.getElementById('overlay');

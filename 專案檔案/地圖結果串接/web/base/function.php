@@ -24,7 +24,6 @@
 
   function bindPrepare($conn, $sql, $type, ...$params) {
     $stmt = $conn->prepare($sql);
-    if (!$stmt) die("SQL語法錯誤：" . $conn->error);
     $stmt->bind_param($type, ...$params);
     return $stmt;
   }
