@@ -3,6 +3,7 @@ function toSearchPage() {
   const lat = document.getElementById('map').getAttribute('data-lat');
   const lng = document.getElementById('map').getAttribute('data-lng');
   window.location.href = `search?q=${keyword}&lat=${lat}&lng=${lng}`;
+  userLocate();
   // if (navigator.geolocation) {
   //   navigator.geolocation.getCurrentPosition(function (position) {
   //     var userLat = position.coords.latitude;

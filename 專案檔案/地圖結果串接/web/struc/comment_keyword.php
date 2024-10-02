@@ -17,7 +17,7 @@
     $output = '';
     while ($comment = $result->fetch_assoc()) {
       $comments[] = $comment;
-      $output .= '<div class="comment-item" data-rating="' . htmlspecialchars($comment['rating']) . '">';
+      $output .= '<div class="comment-item" data-rating="'.htmlspecialchars($comment['rating']).'" data-index="'.htmlspecialchars($comment['id']).'">';
       $output .= '<div class="comment-information">';
       $output .= '<img class="avatar" src="images/' . ($comment['contributor_level'] == 0 ? 'icon-member.jpg' : 'icon-contributor.jpg') . '">';
       $output .= '<div class="star-group">';

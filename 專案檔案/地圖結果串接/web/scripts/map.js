@@ -41,17 +41,11 @@ var userIcon = L.icon({
     popupAnchor: [0, -20] // 彈出窗口錨點
 });
 
-// 創建中心位置的圖標    
-var centerIcon = L.icon({
-    iconUrl: './images/location-target.png',
-    iconSize: [30, 30],
-    popupAnchor: [0, -20]
-});
-
 // 在頁面加載時自動抓取使用者的位置並顯示在地圖上
 window.onload = function () {
   defaultLocate();
-  moveGetCenter();
+//   moveGetCenter();
+  userLocate();
 };
 
 // 定位使用者所在位置的函數
@@ -94,53 +88,16 @@ function userLocate() {
   }    
 }
 
-var distance = 1500; // 假設距離為3000公尺
-map.setZoom(getZoomLevel(distance));
-
-// 根據使用者偏好的半徑距離(縮放等級)設置地圖
-function getZoomLevel(distance) {
-    // 獲取使用者偏好的縮放等級(的函數)
-
-    if (distance <= 50) {
-        return 18; // 小於等於50公尺，設置最高的縮放級別
-    } else if (distance <= 100) {
-        return 17; // 小於等於100公尺，設置較高的縮放級別
-    } else if (distance <= 200) {
-        return 16; // 小於等於200公尺，設置較高的縮放級別
-    } else if (distance <= 300) {
-        return 15; // 小於等於300公尺，設置較高的縮放級別
-    } else if (distance <= 500) {
-        return 14; // 小於等於500公尺，設置較高的縮放級別
-    } else if (distance <= 1000) {
-        return 13; // 小於等於1公里，設置中等縮放級別
-    } else if (distance <= 3000) {
-        return 12; // 小於等於3公里，設置較低的縮放級別
-    } else if (distance <= 5000) {
-        return 11; // 小於等於5公里，設置最低的縮放級別
-    }
-    // 大於5公里，設置最低的縮放級別(預設值)
-    return 10;
-}
-
 // 使用者滑動後取得目前地圖中心經緯度
-function moveGetCenter() {
-    map.on('moveend', function () {
-        getCenter();
-    });
-}
+// function moveGetCenter() {
+//     map.on('moveend', function () {
+//         getCenter();
+//     });
+// }
 
 // 取得地圖中心經緯度
 function getCenter() {
     var mapCenter = map.getCenter(); // 取得地圖中心點的經緯度
-    //console.log("地圖中心經緯度：", mapCenter);
-    // 移除舊的中心標記（如果存在）
-    if (window.centerMarker) {
-        map.removeLayer(window.centerMarker);
-    }
-    // 創建新的中心標記並添加到地圖上
-    window.centerMarker = L.marker([mapCenter.lat, mapCenter.lng], {
-        icon: centerIcon
-    }).addTo(map);
     document.getElementById('map').setAttribute('data-lat', mapCenter.lat);
     document.getElementById('map').setAttribute('data-lng', mapCenter.lng);
     return mapCenter; // 回傳 L.LatLng 物件
