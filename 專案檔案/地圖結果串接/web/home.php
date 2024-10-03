@@ -53,7 +53,7 @@
     </div>
     <div id="login_button">
         <button id="login" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">登入</button>
-        <button id="signup">註冊</button>
+        <button id="signup" type="button" data-bs-toggle="modal" data-bs-target="#signupModal">註冊</button>
     </div>
     <button id="hamburger_btn" class="hamburger">&#9776;</button>
     <div id="overlay"></div>
@@ -109,6 +109,252 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" id="form-cancel-button" data-bs-dismiss="modal">取消</button>
           <button type="button" class="btn btn-primary" id="form-submit-button" onclick="loginRequest()">登入</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+  <!-- 註冊Modal 第一頁 -->
+  <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered login-modal">
+      <div class="modal-content signup-body">
+        <div class="modal-body login-modal-body">
+          <h2 class="form-h2">會員註冊(1/3)</h2>
+          <div class='form-message-popup' id="message" style="display:none">
+            <div id="loginError" class="form-error-message-popup" style="display:block; text-align:center"></div>
+          </div>
+          <form id="login-form">
+            <div>
+              <input type='text' id='name' class='form-input-popup' placeholder='使用者名稱' autocomplete="name" required>
+            </div>
+            <div>
+              <input type='email' id='email' class='form-input-popup' placeholder='帳號（電子郵件）' autocomplete="email" required>
+            </div>
+            <div style="margin-bottom: -25px">
+              <input type='password' class='form-input-popup password-input' placeholder='密碼' autocomplete="new-password" required>
+              <img src="images/password-hide.png" alt="password" class="toggle-password">
+            </div>
+            <div style="margin-bottom: -25px">
+              <input type='password' class='form-input-popup password-input' placeholder='確認密碼' autocomplete="new-password" required>
+              <img src="images/password-hide.png" alt="password" class="toggle-password">
+            </div>
+
+            <div class="remember_container" style="margin-top: 10px">
+              <input type="checkbox" id="remember" name="remember">
+              <label for="consent" id="consent_check">我已詳細閱讀並同意服務條款</label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="" data-bs-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary" id="" data-bs-target="#signupModal2" data-bs-toggle="modal">下一步</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 註冊Modal 第二頁 -->
+  <div class="modal fade" id="signupModal2" aria-hidden="true" tabindex="-1" aria-labelledby="exampleModalToggleLabel2">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable login-modal">
+      <div class="modal-content signup-body">
+        <div class="modal-body login-modal-body">
+          <h2 class="form-h2">會員註冊(2/3)</h2>
+          <div class='form-message-popup' id="message" style="display:none">
+            <div id="loginError" class="form-error-message-popup" style="display:block; text-align:center"></div>
+          </div>          
+          <p class="signup-explain1">此設定是為了提供您個性化的推薦，所有資訊僅用於提升服務品質</p>
+          <p class="signup-explain2">資訊可在會員資訊頁面進行設定及修改</p>
+          <form id="login-form">
+            <!-- 篩選選項 -->
+            <div class="input-group input-group-sm mb-3">
+              <p class="checkbox-title">搜尋半徑</p>
+              <input id="search-radius-input" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+              <span class="input-group-text" id="inputGroup-sizing-sm">公尺</span>
+            </div>
+            <p class="checkbox-title">個人需求</p>
+            <div class="checkbox-container">                
+              <div class="checkbox-item">
+                <input type="checkbox" id="parking" value="">
+                <label for="parking">停車場</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="wheelchair-accessible" value="">
+                <label for="wheelchair-accessible">無障礙</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="vegetarian" value="">
+                <label for="vegetarian">素食料理</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="healthy" value="">
+                <label for="healthy">健康料理</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="kids_friendly" value="">
+                <label for="kids_friendly">兒童友善</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="pets_friendly" value="">
+                <label for="pets_friendly">寵物友善</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="personal7" value="">
+                <label for="personal7">性別友善</label>
+              </div>                    
+            </div>
+            <p class="checkbox-title">用餐方式</p>
+            <div class="checkbox-container">                
+              <div class="checkbox-item">
+                <input type="checkbox" id="delivery" value="">
+                <label for="delivery">外送</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="takeaway" value="">
+                <label for="takeaway">外帶</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="dine-in" value="">
+                <label for="dine-in">內用</label>
+              </div>                  
+            </div>
+            <p class="checkbox-title">用餐時段</p>
+            <div class="checkbox-container">                
+              <div class="checkbox-item">
+                <input type="checkbox" id="breakfast" value="">
+                <label for="breakfast">早餐</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="brunch" value="">
+                <label for="brunch">早午餐</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="lunch" value="">
+                <label for="lunch">午餐</label>
+              </div>  
+              <div class="checkbox-item">
+                <input type="checkbox" id="dinner" value="">
+                <label for="dinner">晚餐</label>
+              </div>                  
+            </div>
+            <p class="checkbox-title">營業時間</p>
+            <div class="checkbox-container">                
+              <div class="checkbox-item">
+                <input type="checkbox" id="BusinessHours" value="">
+                <label for="BusinessHours">營業中</label>
+              </div>                                      
+            </div>
+            <p class="checkbox-title">用餐氛圍</p>
+            <div class="checkbox-container">                
+              <div class="checkbox-item">
+                <input type="checkbox" id="casual" value="">
+                <label for="casual">氣氛悠閒</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="cosy" value="">
+                <label for="cosy">環境舒適</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="ambiance3" value="">
+                <label for="ambiance3">音樂演奏</label>
+              </div>                                     
+            </div>
+            <p class="checkbox-title">用餐規劃</p>
+            <div class="checkbox-container">                
+              <div class="checkbox-item">
+                <input type="checkbox" id="reservation" value="">
+                <label for="reservation">接受訂位</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="group_friendly" value="">
+                <label for="group_friendly">適合團體</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="family_friendly" value="">
+                <label for="family_friendly">適合家庭聚餐</label>
+              </div>                                     
+            </div>
+            <p class="checkbox-title">基礎設施</p>
+            <div class="checkbox-container">                
+              <div class="checkbox-item">
+                <input type="checkbox" id="toilet" value="">
+                <label for="toilet">洗手間</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="wi-fi" value="">
+                <label for="wi-fi">無線網路</label>
+              </div>                                                        
+            </div>
+            <p class="checkbox-title">付款方式</p>
+            <div class="checkbox-container">                
+              <div class="checkbox-item">
+                <input type="checkbox" id="cash" value="">
+                <label for="cash">現金</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="credit_card" value="">
+                <label for="credit_card">信用卡</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="debit_card" value="">
+                <label for="debit_card">簽帳金融卡</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="mobile_payment" value="">
+                <label for="mobile_payment">行動支付</label>
+              </div>                                                        
+            </div>
+          </form>          
+        </div>
+        <div class="modal-footer">          
+          <button type="button" class="btn btn-secondary" id="" data-bs-target="#signupModal" data-bs-toggle="modal">上一頁</button>
+          <button type="button" class="btn btn-secondary" id="" data-bs-target="#signupModal3" data-bs-toggle="modal">略過</button>
+          <button type="button" class="btn btn-primary" id="" data-bs-target="#signupModal3" data-bs-toggle="modal">下一步</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- 註冊Modal 第三頁 -->
+<div class="modal fade" id="signupModal3" aria-hidden="true" tabindex="-1" aria-labelledby="exampleModalToggleLabel3">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable login-modal">
+      <div class="modal-content signup-body">
+        <div class="modal-body login-modal-body">
+          <h2 class="form-h2">會員註冊(3/3)</h2>
+          <div class='form-message-popup' id="message" style="display:none">
+            <div id="loginError" class="form-error-message-popup" style="display:block; text-align:center"></div>
+          </div>
+          <p class="signup-explain1">此設定是為了提供您個性化的推薦，所有資訊僅用於提升服務品質</p>
+          <p class="signup-explain2">可在會員資訊頁面進行設定及修改</p>
+          <form id="login-form">
+            <div class="slider-container">
+              <label for="environment">氛圍</label>
+              <input type="range" id="environment" name="environment" min="0" max="100" value="50" oninput="updateValue('environment')">
+              <span id="environment_value">50%</span>
+            </div>
+            
+            <div class="slider-container">
+              <label for="product">產品</label>
+              <input type="range" id="product" name="product" min="0" max="100" value="50" oninput="updateValue('product')">
+              <span id="product_value">50%</span>
+            </div>
+            
+            <div class="slider-container">
+              <label for="service">服務</label>
+              <input type="range" id="service" name="service" min="0" max="100" value="50" oninput="updateValue('service')">
+              <span id="service_value">50%</span>
+            </div>
+            
+            <div class="slider-container">
+              <label for="price">售價</label>
+              <input type="range" id="price" name="price" min="0" max="100" value="50" oninput="updateValue('price')">
+              <span id="price_value">50%</span>
+            </div>
+          </form>          
+        </div>
+        <div class="modal-footer">          
+          <button type="button" class="btn btn-secondary" id="" data-bs-target="#signupModal2" data-bs-toggle="modal">上一頁</button>
+          <button type="button" class="btn btn-primary" id="" onclick="">註冊</button>          
         </div>
       </div>
     </div>
@@ -355,7 +601,8 @@
   <script src="scripts/home.js"></script>
 
   <script src="member/login.js"></script>
-
+  <script src="scripts/new_signup_page_1.js"></script>
+  <script src="scripts/new_signup_page_3.js"></script>
   <script src="scripts/function.js"></script>
   <script>
     copyAttributesByElement(document.getElementById('login'),document.getElementById('login-nav'));
