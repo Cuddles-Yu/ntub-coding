@@ -11,12 +11,6 @@ document.getElementById('hamburger_btn').addEventListener('click', function() {
     }
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('restaurant_service8').checked = true;
-  document.getElementById('personal_service5').checked = true;
-  document.getElementById('personal_service2').checked = true;
-});
-
 document.getElementById('overlay').addEventListener('click', function() {
     var navMenu = document.getElementById('nav_menu2');
     var overlay = document.getElementById('overlay');
@@ -115,14 +109,26 @@ function switchToPreference() {
     placeDiv.style.color = "#5e5e5e";
 }
 
+// 強制設置圖示隱藏
+window.onload = function() {
+    document.querySelectorAll('.select_icon').forEach(function(element) {
+        element.style.display = 'none';
+    });
+    document.querySelectorAll('.deselect_icon').forEach(function(element) {
+        element.style.display = 'none';
+    });
+    document.querySelectorAll('.mixed_icon').forEach(function(element) {
+        element.style.display = 'none';
+    });
+};
+
 // 修改偏好設定按鈕
 let originalSettings = {};
 
 function editSettings() {
     const buttonGroups = document.querySelectorAll('.title_text');
     buttonGroups.forEach(group => {
-        group.querySelector('.select_all_button').style.display = 'inline';
-        group.querySelector('.deselect_all_button').style.display = 'inline';
+        group.querySelector('.deselect_icon').style.display = 'inline';
     });
 
     document.getElementById('preference_save_button').style.display = 'inline';
@@ -155,15 +161,15 @@ function saveSettings() {
 
     const buttonGroups = document.querySelectorAll('.title_text');
     buttonGroups.forEach(group => {
-        group.querySelector('.select_all_button').style.display = 'none';
-        group.querySelector('.deselect_all_button').style.display = 'none';
+        group.querySelector('.select_icon').style.display = 'none';
+        group.querySelector('.deselect_icon').style.display = 'none';
+        group.querySelector('.mixed_icon').style.display = 'none';
     });
 
     document.getElementById('preference_save_button').style.display = 'none';
     document.getElementById('preference_cancel_button').style.display = 'none';
     document.getElementById('preference_edit_button').style.display = 'inline';
 
-    // Disable all inputs
     const inputs = document.querySelectorAll('input');
     inputs.forEach(input => {
         if (input.type === 'checkbox' || input.type === 'radio') {
@@ -177,8 +183,9 @@ function saveSettings() {
 function cancelEdit() {
     const buttonGroups = document.querySelectorAll('.title_text');
     buttonGroups.forEach(group => {
-        group.querySelector('.select_all_button').style.display = 'none';
-        group.querySelector('.deselect_all_button').style.display = 'none';
+        group.querySelector('.select_icon').style.display = 'none';
+        group.querySelector('.deselect_icon').style.display = 'none';
+        group.querySelector('.mixed_icon').style.display = 'none';
     });
 
     document.getElementById('preference_save_button').style.display = 'none';
@@ -197,120 +204,325 @@ function cancelEdit() {
     });
 }
 
-// 未按下完成修改時，回到原本狀態
-
-// 偏好設定全選/取消全選按鈕
-function selectAllPersonal(event) {
-    event.preventDefault();
+// 全選、取消全選、混合圖示(個人需求)
+document.addEventListener('DOMContentLoaded', function() {
+    const selectAllIcon = document.getElementById('select_all_icon1');
+    const deselectAllIcon = document.getElementById('deselect_all_icon1');
+    const mixedIcon = document.getElementById('mixed_icon1');
     const checkboxes = document.querySelectorAll('.select_personal');
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = true;
-    });
-}
 
-function deselectAllPersonal(event) {
-    event.preventDefault();
-    const checkboxes = document.querySelectorAll('.select_personal');
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = false;
-    });
-}
+    selectAllIcon.style.display = 'none';
+    deselectAllIcon.style.display = 'none';
+    mixedIcon.style.display = 'none';
 
-function selectAllMethod(event) {
-    event.preventDefault();
+    function updateIcons() {
+        const total = checkboxes.length;
+        const checked = document.querySelectorAll('.select_personal:checked').length;
+
+        if (checked === total) {
+            selectAllIcon.style.display = 'inline';
+            deselectAllIcon.style.display = 'none';
+            mixedIcon.style.display = 'none';
+        } else if (checked === 0) {
+            selectAllIcon.style.display = 'none';
+            deselectAllIcon.style.display = 'inline';
+            mixedIcon.style.display = 'none';
+        } else {
+            selectAllIcon.style.display = 'none';
+            deselectAllIcon.style.display = 'none';
+            mixedIcon.style.display = 'inline';
+        }
+    }
+
+    function selectAll() {
+        checkboxes.forEach(checkbox => checkbox.checked = true);
+        updateIcons();
+    }
+
+    function deselectAll() {
+        checkboxes.forEach(checkbox => checkbox.checked = false);
+        updateIcons();
+    }
+
+    selectAllIcon.addEventListener('click', deselectAll);
+    deselectAllIcon.addEventListener('click', selectAll);
+    mixedIcon.addEventListener('click', selectAll);
+    checkboxes.forEach(checkbox => checkbox.addEventListener('change', updateIcons));
+
+    // 初始化圖示狀態
+    updateIcons();
+});
+
+// 全選、取消全選、混合圖示(用餐方式)
+document.addEventListener('DOMContentLoaded', function() {
+    const selectAllIcon = document.getElementById('select_all_icon2');
+    const deselectAllIcon = document.getElementById('deselect_all_icon2');
+    const mixedIcon = document.getElementById('mixed_icon2');
     const checkboxes = document.querySelectorAll('.select_method');
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = true;
-    });
-}
 
-function deselectAllMethod(event) {
-    event.preventDefault();
-    const checkboxes = document.querySelectorAll('.select_method');
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = false;
-    });
-}
+    function updateIcons() {
+        const total = checkboxes.length;
+        const checked = document.querySelectorAll('.select_method:checked').length;
 
-function selectAllTime(event) {
-    event.preventDefault();
+        if (checked === total) {
+            selectAllIcon.style.display = 'inline';
+            deselectAllIcon.style.display = 'none';
+            mixedIcon.style.display = 'none';
+        } else if (checked === 0) {
+            selectAllIcon.style.display = 'none';
+            deselectAllIcon.style.display = 'inline';
+            mixedIcon.style.display = 'none';
+        } else {
+            selectAllIcon.style.display = 'none';
+            deselectAllIcon.style.display = 'none';
+            mixedIcon.style.display = 'inline';
+        }
+    }
+
+    function selectAll() {
+        checkboxes.forEach(checkbox => checkbox.checked = true);
+        updateIcons();
+    }
+
+    function deselectAll() {
+        checkboxes.forEach(checkbox => checkbox.checked = false);
+        updateIcons();
+    }
+
+    selectAllIcon.addEventListener('click', deselectAll);
+    deselectAllIcon.addEventListener('click', selectAll);
+    mixedIcon.addEventListener('click', selectAll);
+    checkboxes.forEach(checkbox => checkbox.addEventListener('change', updateIcons));
+
+    // 初始化圖示狀態
+    updateIcons();
+});
+
+// 全選、取消全選、混合圖示(用餐時段)
+document.addEventListener('DOMContentLoaded', function() {
+    const selectAllIcon = document.getElementById('select_all_icon3');
+    const deselectAllIcon = document.getElementById('deselect_all_icon3');
+    const mixedIcon = document.getElementById('mixed_icon3');
     const checkboxes = document.querySelectorAll('.select_time');
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = true;
-    });
-}
 
-function deselectAllTime(event) {
-    event.preventDefault();
-    const checkboxes = document.querySelectorAll('.select_time');
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = false;
-    });
-}
+    function updateIcons() {
+        const total = checkboxes.length;
+        const checked = document.querySelectorAll('.select_time:checked').length;
 
-function selectAllAtmosphere(event) {
-    event.preventDefault();
+        if (checked === total) {
+            selectAllIcon.style.display = 'inline';
+            deselectAllIcon.style.display = 'none';
+            mixedIcon.style.display = 'none';
+        } else if (checked === 0) {
+            selectAllIcon.style.display = 'none';
+            deselectAllIcon.style.display = 'inline';
+            mixedIcon.style.display = 'none';
+        } else {
+            selectAllIcon.style.display = 'none';
+            deselectAllIcon.style.display = 'none';
+            mixedIcon.style.display = 'inline';
+        }
+    }
+
+    function selectAll() {
+        checkboxes.forEach(checkbox => checkbox.checked = true);
+        updateIcons();
+    }
+
+    function deselectAll() {
+        checkboxes.forEach(checkbox => checkbox.checked = false);
+        updateIcons();
+    }
+
+    selectAllIcon.addEventListener('click', deselectAll);
+    deselectAllIcon.addEventListener('click', selectAll);
+    mixedIcon.addEventListener('click', selectAll);
+    checkboxes.forEach(checkbox => checkbox.addEventListener('change', updateIcons));
+
+    // 初始化圖示狀態
+    updateIcons();
+});
+
+// 全選、取消全選、混合圖示(用餐氛圍)
+document.addEventListener('DOMContentLoaded', function() {
+    const selectAllIcon = document.getElementById('select_all_icon4');
+    const deselectAllIcon = document.getElementById('deselect_all_icon4');
+    const mixedIcon = document.getElementById('mixed_icon4');
     const checkboxes = document.querySelectorAll('.select_atmosphere');
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = true;
-    });
-}
 
-function deselectAllAtmosphere(event) {
-    event.preventDefault();
-    const checkboxes = document.querySelectorAll('.select_atmosphere');
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = false;
-    });
-}
+    function updateIcons() {
+        const total = checkboxes.length;
+        const checked = document.querySelectorAll('.select_atmosphere:checked').length;
 
-function selectAllPlan(event) {
-    event.preventDefault();
+        if (checked === total) {
+            selectAllIcon.style.display = 'inline';
+            deselectAllIcon.style.display = 'none';
+            mixedIcon.style.display = 'none';
+        } else if (checked === 0) {
+            selectAllIcon.style.display = 'none';
+            deselectAllIcon.style.display = 'inline';
+            mixedIcon.style.display = 'none';
+        } else {
+            selectAllIcon.style.display = 'none';
+            deselectAllIcon.style.display = 'none';
+            mixedIcon.style.display = 'inline';
+        }
+    }
+
+    function selectAll() {
+        checkboxes.forEach(checkbox => checkbox.checked = true);
+        updateIcons();
+    }
+
+    function deselectAll() {
+        checkboxes.forEach(checkbox => checkbox.checked = false);
+        updateIcons();
+    }
+
+    selectAllIcon.addEventListener('click', deselectAll);
+    deselectAllIcon.addEventListener('click', selectAll);
+    mixedIcon.addEventListener('click', selectAll);
+    checkboxes.forEach(checkbox => checkbox.addEventListener('change', updateIcons));
+
+    // 初始化圖示狀態
+    updateIcons();
+});
+
+// 全選、取消全選、混合圖示(用餐規劃)
+document.addEventListener('DOMContentLoaded', function() {
+    const selectAllIcon = document.getElementById('select_all_icon5');
+    const deselectAllIcon = document.getElementById('deselect_all_icon5');
+    const mixedIcon = document.getElementById('mixed_icon5');
     const checkboxes = document.querySelectorAll('.select_plan');
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = true;
-    });
-}
 
-function deselectAllPlan(event) {
-    event.preventDefault();
-    const checkboxes = document.querySelectorAll('.select_plan');
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = false;
-    });
-}
+    function updateIcons() {
+        const total = checkboxes.length;
+        const checked = document.querySelectorAll('.select_plan:checked').length;
 
-function selectAllFacility(event) {
-    event.preventDefault();
+        if (checked === total) {
+            selectAllIcon.style.display = 'inline';
+            deselectAllIcon.style.display = 'none';
+            mixedIcon.style.display = 'none';
+        } else if (checked === 0) {
+            selectAllIcon.style.display = 'none';
+            deselectAllIcon.style.display = 'inline';
+            mixedIcon.style.display = 'none';
+        } else {
+            selectAllIcon.style.display = 'none';
+            deselectAllIcon.style.display = 'none';
+            mixedIcon.style.display = 'inline';
+        }
+    }
+
+    function selectAll() {
+        checkboxes.forEach(checkbox => checkbox.checked = true);
+        updateIcons();
+    }
+
+    function deselectAll() {
+        checkboxes.forEach(checkbox => checkbox.checked = false);
+        updateIcons();
+    }
+
+    selectAllIcon.addEventListener('click', deselectAll);
+    deselectAllIcon.addEventListener('click', selectAll);
+    mixedIcon.addEventListener('click', selectAll);
+    checkboxes.forEach(checkbox => checkbox.addEventListener('change', updateIcons));
+
+    // 初始化圖示狀態
+    updateIcons();
+});
+
+// 全選、取消全選、混合圖示(基礎設施)
+document.addEventListener('DOMContentLoaded', function() {
+    const selectAllIcon = document.getElementById('select_all_icon6');
+    const deselectAllIcon = document.getElementById('deselect_all_icon6');
+    const mixedIcon = document.getElementById('mixed_icon6');
     const checkboxes = document.querySelectorAll('.select_facility');
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = true;
-    });
-}
 
-function deselectAllFacility(event) {
-    event.preventDefault();
-    const checkboxes = document.querySelectorAll('.select_facility');
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = false;
-    });
-}
+    function updateIcons() {
+        const total = checkboxes.length;
+        const checked = document.querySelectorAll('.select_facility:checked').length;
 
-function selectAllPayment(event) {
-    event.preventDefault();
+        if (checked === total) {
+            selectAllIcon.style.display = 'inline';
+            deselectAllIcon.style.display = 'none';
+            mixedIcon.style.display = 'none';
+        } else if (checked === 0) {
+            selectAllIcon.style.display = 'none';
+            deselectAllIcon.style.display = 'inline';
+            mixedIcon.style.display = 'none';
+        } else {
+            selectAllIcon.style.display = 'none';
+            deselectAllIcon.style.display = 'none';
+            mixedIcon.style.display = 'inline';
+        }
+    }
+
+    function selectAll() {
+        checkboxes.forEach(checkbox => checkbox.checked = true);
+        updateIcons();
+    }
+
+    function deselectAll() {
+        checkboxes.forEach(checkbox => checkbox.checked = false);
+        updateIcons();
+    }
+
+    selectAllIcon.addEventListener('click', deselectAll);
+    deselectAllIcon.addEventListener('click', selectAll);
+    mixedIcon.addEventListener('click', selectAll);
+    checkboxes.forEach(checkbox => checkbox.addEventListener('change', updateIcons));
+
+    // 初始化圖示狀態
+    updateIcons();
+});
+
+// 全選、取消全選、混合圖示(付款方式)
+document.addEventListener('DOMContentLoaded', function() {
+    const selectAllIcon = document.getElementById('select_all_icon7');
+    const deselectAllIcon = document.getElementById('deselect_all_icon7');
+    const mixedIcon = document.getElementById('mixed_icon7');
     const checkboxes = document.querySelectorAll('.select_payment');
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = true;
-    });
-}
 
-function deselectAllPayment(event) {
-    event.preventDefault();
-    const checkboxes = document.querySelectorAll('.select_payment');
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = false;
-    });
-}
+    function updateIcons() {
+        const total = checkboxes.length;
+        const checked = document.querySelectorAll('.select_payment:checked').length;
+
+        if (checked === total) {
+            selectAllIcon.style.display = 'inline';
+            deselectAllIcon.style.display = 'none';
+            mixedIcon.style.display = 'none';
+        } else if (checked === 0) {
+            selectAllIcon.style.display = 'none';
+            deselectAllIcon.style.display = 'inline';
+            mixedIcon.style.display = 'none';
+        } else {
+            selectAllIcon.style.display = 'none';
+            deselectAllIcon.style.display = 'none';
+            mixedIcon.style.display = 'inline';
+        }
+    }
+
+    function selectAll() {
+        checkboxes.forEach(checkbox => checkbox.checked = true);
+        updateIcons();
+    }
+
+    function deselectAll() {
+        checkboxes.forEach(checkbox => checkbox.checked = false);
+        updateIcons();
+    }
+
+    selectAllIcon.addEventListener('click', deselectAll);
+    deselectAllIcon.addEventListener('click', selectAll);
+    mixedIcon.addEventListener('click', selectAll);
+    checkboxes.forEach(checkbox => checkbox.addEventListener('change', updateIcons));
+
+    // 初始化圖示狀態
+    updateIcons();
+});
+
 
 /* 切換到權重設定頁面 */
 function switchToWeight() {

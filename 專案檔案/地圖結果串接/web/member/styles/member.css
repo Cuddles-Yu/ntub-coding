@@ -77,7 +77,7 @@ footer {
     }
     
     #user_icon_logo {
-        /* display: none; */
+        display: none;
         width: 40px;
         height: 40px;
         right: 10vw;
@@ -741,20 +741,26 @@ footer {
 
     .title_text {
         display: flex;
+        align-items: center;
     }
 
     .type_title {
         font-size: 22px;
         font-weight: bold;
         margin-right: 20px;
-        margin-top: 5px;
     }
 
     #meter {
         margin-right: 50px;
     }
 
-    .select_all_button {
+    .fi-sr-checkbox, .fi-sr-square, .fi-sr-square-minus {
+        display: flex;
+        align-items: center;
+        font-size: 20px;
+    }
+
+    /* .select_all_button {
         background-color: #FFFFFF;
         font-size: 16px;
         color: #414141;
@@ -769,7 +775,7 @@ footer {
         color: #414141;
         border-radius: 5px;
         border: 1px solid #414141;
-    }
+    } */
 
     .checkbox_container {
         display: flex;
@@ -1324,20 +1330,27 @@ footer {
 
     .title_text {
         display: flex;
+        align-items: center;
     }
 
     .type_title {
         font-size: 18px;
         font-weight: bold;
         margin-right: 20px;
-        margin-top: 5px;
     }
 
     #meter {
         margin-right: 50px;
     }
 
-    .select_all_button {
+    .fi-sr-checkbox, .fi-sr-square, .fi-sr-square-minus {
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+    }
+
+    /* .select_all_button {
+        display: none;
         background-color: #FFFFFF;
         font-size: 16px;
         color: #414141;
@@ -1347,12 +1360,13 @@ footer {
     }
 
     .deselect_all_button {
+        display: none;
         background-color: #FFFFFF;
         font-size: 16px;
         color: #414141;
         border-radius: 5px;
         border: 1px solid #414141;
-    }
+    } */
 
     .checkbox_container {
         display: flex;
@@ -1907,20 +1921,26 @@ footer {
 
     .title_text {
         display: flex;
+        align-items: center;
     }
 
     .type_title {
         font-size: 22px;
         font-weight: bold;
-        margin-right: 3px;
-        margin-top: 5px;
+        margin-right: 7px;
     }
 
     #meter {
         margin-right: 40px;
     }
 
-    .select_all_button {
+    .fi-sr-checkbox, .fi-sr-square, .fi-sr-square-minus {
+        display: flex;
+        align-items: center;
+        font-size: 20px;
+    }
+
+    /* .select_all_button {
         background-color: #FFFFFF;
         font-size: 16px;
         color: #414141;
@@ -1935,7 +1955,7 @@ footer {
         color: #414141;
         border-radius: 5px;
         border: 1px solid #414141;
-    }
+    } */
 
     .checkbox_container {
         display: flex;
@@ -2483,20 +2503,26 @@ footer {
 
     .title_text {
         display: flex;
+        align-items: center;
     }
 
     .type_title {
         font-size: 18px;
         font-weight: bold;
         margin-right: 5px;
-        margin-top: 3px;
     }
 
     #meter {
         margin-right: 40px;
     }
 
-    .select_all_button {
+    .fi-sr-checkbox, .fi-sr-square, .fi-sr-square-minus {
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+    }
+
+    /* .select_all_button {
         background-color: #FFFFFF;
         font-size: 16px;
         color: #414141;
@@ -2511,7 +2537,7 @@ footer {
         color: #414141;
         border-radius: 5px;
         border: 1px solid #414141;
-    }
+    } */
 
     .checkbox_container {
         display: flex;
