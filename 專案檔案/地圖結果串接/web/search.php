@@ -64,9 +64,9 @@
                 <!--名稱--><h5 class="store-name"><?=$storeName?></h5>
               </div>                
                 <div class="store-information row">
-                    <div class="col-6">                      
+                    <div class="col-6">                                     
                       <!--綜合評分--><h5 class="rating"><?=$bayesianScore?><small class="rating-text"> / 綜合評分</small></h5>                                            
-                      <!--餐廳分類--><h6 class="restaurant-style">類別：<?=$tag?></h6>
+                      <!--餐廳分類--><h6 class="restaurant-style">類別：<?=$tag?> ♻️</h6>
                       <!--餐廳地址--><h6 class="address">地址：<?=$location?></h6>
                     </div>                    
                     <div class="progress-group-text col">

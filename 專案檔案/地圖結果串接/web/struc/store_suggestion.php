@@ -69,7 +69,7 @@
                   <?php $rowIndex++; ?>
                 <?php endforeach; ?>
               </div>
-              <h6 class="restaurant-style">分類：<?=$tag?></h6>
+              <h6 class="restaurant-style">分類：<?=$tag?> ♻️</h6>
               <h6 class="address">地址：<?=$address?></h6>
           </div>
       </div>    

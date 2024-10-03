@@ -146,14 +146,17 @@
                             }
                             ?>">
           <i class="fi fi-sr-clock status-img"></i>營業中
+        </button>        
+        <button type="button" class="btn btn-outline-success e-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="環保餐廳：<br><li>環境管理</li><li>惜食（善用食材)</li><li>環境教育</li>" data-bs-custom-class="custom-tooltip1" data-bs-html="true">
+          ♻️
         </button>
-
         <!--分店綜合評分比較-->
         <?php if (!empty($otherBranches)) { ?>
           <!-- 顯示 "其他分店" 按鈕 -->
           <button class="btn btn-outline-secondary other-store-rating" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
             其他分店
           </button>
+          
       </div>
       <a class="love" href="#"><img class="love-img" src="images/button-favorite.png"></a>
     </div>

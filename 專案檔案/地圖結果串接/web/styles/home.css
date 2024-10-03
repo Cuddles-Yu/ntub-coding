@@ -1310,6 +1310,8 @@ body.modal-open {
   .card-title{
     font-weight: bold;
     font-size: 20px;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   .quick-group{
@@ -1702,6 +1704,8 @@ body.modal-open {
   .card-title{
     font-weight: bold;
     font-size: 20px;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   .quick-group{
