@@ -586,6 +586,19 @@ footer {
         box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
     }
 
+    .edit_info1 {
+        display: inline-block;
+        font-size: 16px;
+        color: #5053AF;
+        font-weight: bold;
+        margin-left: 0.5vw;
+        cursor: pointer;
+    }
+
+    .edit_info1:hover {
+        text-decoration: underline;
+    }
+
     .edit_info2 {
         display: inline-block;
         font-size: 16px;
@@ -1155,6 +1168,19 @@ footer {
         border-radius: 5px;
         padding: 7px;
         box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    .edit_info1 {
+        display: inline-block;
+        font-size: 14px;
+        color: #5053AF;
+        font-weight: bold;
+        margin-left: 0.5vw;
+        cursor: pointer;
+    }
+
+    .edit_info1:hover {
+        text-decoration: underline;
     }
 
     .edit_info2 {
@@ -1730,6 +1756,19 @@ footer {
         box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
     }
 
+    .edit_info1 {
+        display: inline-block;
+        font-size: 16px;
+        color: #5053AF;
+        font-weight: bold;
+        margin-left: 0.5vw;
+        cursor: pointer;
+    }
+
+    .edit_info1:hover {
+        text-decoration: underline;
+    }
+
     .edit_info2 {
         display: inline-block;
         font-size: 16px;
@@ -2292,6 +2331,19 @@ footer {
         border-radius: 5px;
         padding: 5px;
         box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    .edit_info1 {
+        display: inline-block;
+        font-size: 14px;
+        color: #5053AF;
+        font-weight: bold;
+        margin-left: 0.5vw;
+        cursor: pointer;
+    }
+
+    .edit_info1:hover {
+        text-decoration: underline;
     }
 
     .edit_info2 {

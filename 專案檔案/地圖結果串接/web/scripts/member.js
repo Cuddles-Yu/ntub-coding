@@ -51,6 +51,43 @@ function switchToInfo() {
     placeLogo.style.color = "#5e5e5e";
 }
 
+/* 修改使用者名稱 */
+document.addEventListener('DOMContentLoaded', function() {
+    function toggleEditMode(inputId, changeId, doneId, cancelId) {
+        const input = document.getElementById(inputId);
+        const changeIcon = document.getElementById(changeId);
+        const doneIcon = document.getElementById(doneId);
+        const cancelIcon = document.getElementById(cancelId);
+        let previousValue = input.value;
+
+        changeIcon.addEventListener('click', function() {
+            previousValue = input.value;
+            input.removeAttribute('readonly');
+            changeIcon.style.display = 'none';
+            doneIcon.style.display = 'inline';
+            cancelIcon.style.display = 'inline';
+        });
+
+        doneIcon.addEventListener('click', function() {
+            input.setAttribute('readonly', 'readonly');
+            changeIcon.style.display = 'inline';
+            doneIcon.style.display = 'none';
+            cancelIcon.style.display = 'none';
+        });
+
+        cancelIcon.addEventListener('click', function() {
+            input.value = previousValue;
+            input.setAttribute('readonly', 'readonly');
+            changeIcon.style.display = 'inline';
+            doneIcon.style.display = 'none';
+            cancelIcon.style.display = 'none';
+        });
+    }
+
+    toggleEditMode('user_name', 'change_user_name', 'done_user_name', 'cancel_user_name');
+});
+
+
 /* 控制密碼小視窗的顯示和隱藏 */
 document.getElementById('change_password').addEventListener('click', function() {
     document.getElementById('password_modal').style.display = 'block';
