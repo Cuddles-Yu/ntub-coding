@@ -1,7 +1,7 @@
 <?php
-  require_once $_SERVER['DOCUMENT_ROOT'] . '/base/db.php';
-  require_once $_SERVER['DOCUMENT_ROOT'] . '/base/function.php';
-  require_once $_SERVER['DOCUMENT_ROOT'] . '/base/queries.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/base/queries.php';
 
   function searchStores($keyword, $userLat, $userLng)
   {

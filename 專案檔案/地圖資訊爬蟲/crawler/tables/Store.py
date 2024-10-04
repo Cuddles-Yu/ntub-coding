@@ -4,12 +4,13 @@ from 地圖資訊爬蟲.crawler.module.functions.database.core import *
 from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
 
 
-def newObject(title, url, branch_title: Optional[str] = None, branch_name: Optional[str] = None):
+def newObject(title, url, branch_title: Optional[str] = None, branch_name: Optional[str] = None, mark: Optional[str] = None):
     return Store(
         name=title,
         branch_title=branch_title,
         branch_name=branch_name,
         tag=None,
+        mark=mark,
         preview_image=None,
         link=url,
         website=None,
@@ -121,6 +122,7 @@ class Store:
     _branch_title = ''
     _branch_name = ''
     _tag = ''
+    _mark = ''
     _preview_image = ''
     _link = ''
     _website = ''
@@ -129,11 +131,12 @@ class Store:
     _crawler_state = ''
     _crawler_description = ''
 
-    def __init__(self, name, branch_title, branch_name, tag, preview_image, link, website, phone_number, last_update, crawler_state, crawler_description):
+    def __init__(self, name, branch_title, branch_name, tag, mark, preview_image, link, website, phone_number, last_update, crawler_state, crawler_description):
         self._name = name
         self._branch_title = branch_title
         self._branch_name = branch_name
         self._tag = tag
+        self._mark = mark
         self._preview_image = preview_image
         self._link = link
         self._website = website
@@ -184,6 +187,14 @@ class Store:
         self._tag = value
 
     @property
+    def mark(self):
+        return self._mark
+
+    @mark.setter
+    def mark(self, value):
+        self._mark = value
+
+    @property
     def preview_image(self):
         return self._preview_image
 
@@ -225,13 +236,14 @@ class Store:
 
     def to_string(self):
         return (
-            f"({get(self.id)}, {get(self.name)}, {get(self.branch_title)}, {get(self.branch_name)}, {get(self.tag)}, {get(self.preview_image)}, {get(self.link)}, {get(self.website)}, "
-            f"{get(self.phone_number)}, {get(self.last_update)}, {get(self.crawler_state)}, {get(self.crawler_description)}, {get(self.crawler_time)})"
+            f"({get(self.id)}, {get(self.name)}, {get(self.branch_title)}, {get(self.branch_name)}, {get(self.tag)}, {get(self.mark)}, {get(self.preview_image)}, {get(self.link)}, "
+            f"{get(self.website)}, {get(self.phone_number)}, {get(self.last_update)}, {get(self.crawler_state)}, {get(self.crawler_description)}, {get(self.crawler_time)})"
         )
 
     def to_dict(self) -> dict:
         return {
             "tag": self.tag,
+            "mark": self.mark,
             "preview_image": self.preview_image,
             "link": self.link,
             "website": self.website,
@@ -264,6 +276,16 @@ class Store:
         )
         refresh_crawler_time(database, enabled=True)
         return True
+
+    def change_mark(self, database: SqlDatabase, mark):
+        self.mark = mark
+        refresh_crawler_time(database, enabled=False)
+        database.update(
+            'stores',
+            {"mark": self.mark},
+            {"name": self.name}
+        )
+        refresh_crawler_time(database, enabled=True)
 
     def change_tag(self, database: SqlDatabase, tag):
         self.tag = tag
@@ -328,4 +350,4 @@ class Store:
 class Reference(Store):
 
     def __init__(self, name):
-        super().__init__(name, None, None, None, None, None, None, None, None, None, None)
+        super().__init__(name, None, None, None, None, None, None, None, None, None, None, None)

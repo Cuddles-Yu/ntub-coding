@@ -1,0 +1,33 @@
+#crosshair {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 35px;
+  height: 35px;
+  margin-left: -17.5px; /* 使中心對齊 */
+  margin-top: -17.5px;  /* 使中心對齊 */
+  pointer-events: none; /* 防止干擾地圖的滑動和點擊 */
+  z-index: 1000; /* 確保在地圖上層顯示 */
+}
+
+#crosshair::before, #crosshair::after {
+  content: '';
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.7); /* 黑色透明線條 */
+}
+
+#crosshair::before {
+  width: 1px;
+  height: 100%;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+
+#crosshair::after {
+  height: 1px;
+  width: 100%;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}

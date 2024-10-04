@@ -8,10 +8,10 @@ RewriteRule ^$ /home [R=301,L]
 
 # 規則導向
 RewriteRule ^detail$ /store-detail.php [L]
-RewriteRule ^search$ /search.html [L]
-RewriteRule ^team$ /develop-team.html [L]
+RewriteRule ^search$ /search.php [L]
+RewriteRule ^team$ /develop-team.php [L]
 RewriteRule ^home$ /home.php [L]
-RewriteRule ^member/info$ /member/info.html [L]
+RewriteRule ^member/info$ /member/info.php [L]
 RewriteRule ^member/handler/login$ /member/handler/login.php [L]
 RewriteRule ^admin/handler/register$ /admin/handler/register.php [L]
 RewriteRule ^admin/register$ /admin/register.php [L]

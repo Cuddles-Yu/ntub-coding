@@ -43,6 +43,7 @@ def create_stores(cursor):
             `branch_title` varchar(255) DEFAULT NULL,
             `branch_name` varchar(255) DEFAULT NULL,
             `tag` varchar(20) DEFAULT NULL,
+            `mark` ENUM('客家', '環保') DEFAULT NULL,
             `preview_image` varchar(255) DEFAULT NULL,
             `link` varchar(2000) NOT NULL,
             `website` varchar(2000) DEFAULT NULL,

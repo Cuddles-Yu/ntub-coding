@@ -8,7 +8,7 @@ window.onload = function () {
     var storeLatLng = null; // 商家的經緯度
 
     // 抓取商家位置
-    fetch(`storedetail-landmark.php?storeId=${storeId}`)
+    fetch(`struc/store-detail_landmark.php?storeId=${storeId}`)
         .then(response => response.json())
         .then(data => {
             // console.log('JSON資料引入成功！');

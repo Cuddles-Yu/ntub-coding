@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,7 @@
 <body class="form-body">
   <?php
     require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'/base/session.php';
     require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
     global $conn;
     $stmt = $conn->prepare(query: 
@@ -29,14 +30,16 @@
   ?>
   <div class='form-container' id="container" auth="<?=$providedAuthKey?>">
     <h2 class="form-h2">管理者註冊</h2>
-    <div>
-        <input type='text' id='name' class='form-input' placeholder='名稱'>
-        <span id='nameError' class='form-error-message'>名稱欄位不能為空</span>
-    </div>    
-    <div>
-        <input type='password' id='password' class='form-input' placeholder='密碼'>
-        <span id='passwordError' class='form-error-message'>密碼欄位不能為空</span>
-    </div>
+    <form novalidate>
+      <div>
+          <input type='text' id='name' class='form-input' placeholder='名稱'>
+          <span id='nameError' class='form-error-message'>名稱欄位不能為空</span>
+      </div>    
+      <div>
+          <input type='password' id='password' class='form-input' placeholder='密碼'>
+          <span id='passwordError' class='form-error-message'>密碼欄位不能為空</span>
+      </div>
+    </form>    
     <br>
     <button type='button' class="form-button" id='form-submit-button' onClick='registerRequest()'>註冊</button>    
     <div id="authkey" class="form-error-message" style="display:none"></div>
@@ -96,6 +99,7 @@
       // 獲取 HTML 搜索結果
       fetch('./handler/register.php', {
         method: 'POST',
+        credentials: 'same-origin',
         body: formData
       })
         .then(response => response.json())

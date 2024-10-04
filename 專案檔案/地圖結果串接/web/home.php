@@ -1,6 +1,12 @@
-<!doctype html>
-<html>
+<?php
+  require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/base/session.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
+  global $conn;
+?>
 
+<!doctype html>
+<html lang="zh-TW">
 <head>
   <meta charset="utf-8" />
   <title>首頁 - 評星宇宙</title>
@@ -25,341 +31,16 @@
 
   <link rel="stylesheet" href="styles/home.css" />
   <link rel="stylesheet" href="styles/form.css" />
+  <link rel="stylesheet" href="styles/map.css" />
 </head>
 
 <body>
-  <?php
-    require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
-    require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
-    require_once $_SERVER['DOCUMENT_ROOT'].'/member/session.php';
-    global $conn;
-  ?>
-  <header>
-    <div id="web_name">      
-        <img src="images/logo-blue+.png" id="web_logo">
-        <a href="/home">評星宇宙</a>
-    </div>
-    <div id="nav_menu1">
-        <a class="link_text" href="/home">網站首頁</a>
-        <div class="vertical-line"></div>
-        <a class="link_text" href="#">使用說明</a>
-        <div class="vertical-line"></div>
-        <a class="link_text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a>
-        <div class="vertical-line"></div>
-        <a class="link_text" href="team">成員介紹</a>
-    </div>
-    <div id="user_icon" onclick="toMemberPage()" >
-        <img src="/images/icon-member.jpg" id="user_icon_logo">
-    </div>
-    <div id="login_button">
-        <button id="login" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">登入</button>
-        <button id="signup" type="button" data-bs-toggle="modal" data-bs-target="#signupModal">註冊</button>
-    </div>
-    <button id="hamburger_btn" class="hamburger">&#9776;</button>
-    <div id="overlay"></div>
-    <nav id="nav_menu2">
-        <a class="link_text" href="/home">網站首頁</a>
-        <a class="link_text">使用說明</a>
-        <a class="link_text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a>
-        <a class="link_text" href="team">成員介紹</a>
-        <a class="link_text close-menu" id="login-nav">登入</a>
-        <a class="link_text close-menu" id="signup-nav">註冊</a>
-    </nav>
-    <hr>
-  </header>
-
-  <!-- 登入Modal -->
-  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered login-modal">
-      <div class="modal-content">
-        <div class="modal-body login-modal-body">
-          <h2 class="form-h2">會員登入</h2>
-          <div class='form-message-popup' id="message" style="display:none">
-            <div id="loginError" class="form-error-message-popup" style="display:block; text-align:center"></div>
-          </div>
-          <form id="login-form">
-            <div>
-              <input type='email' id='email' class='form-input-popup' placeholder='帳號（電子郵件）' autocomplete="email" required>
-            </div>
-            <div style="margin-bottom: -25px">
-              <input type='password' id='password' class='form-input-popup' placeholder='密碼' autocomplete="current-password" required>
-              <img src="images/password-hide.png" alt="password" id="toggle-password">
-            </div> 
-            <div class="remember_container" style="margin-top: 10px">
-              <input type="checkbox" id="remember" name="remember">
-              <label for="remember" id="remember_text">記住我</label>
-              <div class="forget_pwd">忘記密碼？</div>
-            </div>
-            <div class="divider_container">
-              <div class="divider"></div><p class="divider_text">or</p><div class="divider"></div>
-            </div>
-            <div class="login_area">
-              <button type="button" class="btn btn-outline-secondary register-button">
-                <img src="images/icon-google.png" class="text-icon" alt="google_icon" id="google_icon"> Google登入
-              </button>                  
-            </div>  
-            <div class="login_area">
-              <button type="button" class="btn btn-outline-secondary register-button" href='./signup/page1.php'>
-                <img src="images/logo-blue+.png" class="text-icon" alt="logo_icon" id="logo_icon" width="20px" height="20px"> 註冊新會員
-              </button>                  
-            </div>  
-            <div class="agree">ⓘ登入即表示您同意我們的服務條款</div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" id="form-cancel-button" data-bs-dismiss="modal">取消</button>
-          <button type="button" class="btn btn-primary" id="form-submit-button" onclick="loginRequest()">登入</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   
+  <!-- ### 頁首 ### -->
+  <?php require $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
 
-  <!-- 註冊Modal 第一頁 -->
-  <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered login-modal">
-      <div class="modal-content signup-body">
-        <div class="modal-body login-modal-body">
-          <h2 class="form-h2">會員註冊(1/3)</h2>
-          <div class='form-message-popup' id="message" style="display:none">
-            <div id="loginError" class="form-error-message-popup" style="display:block; text-align:center"></div>
-          </div>
-          <form id="login-form">
-            <div>
-              <input type='text' id='name' class='form-input-popup' placeholder='使用者名稱' autocomplete="name" required>
-            </div>
-            <div>
-              <input type='email' id='email' class='form-input-popup' placeholder='帳號（電子郵件）' autocomplete="email" required>
-            </div>
-            <div style="margin-bottom: -25px">
-              <input type='password' class='form-input-popup password-input' placeholder='密碼' autocomplete="new-password" required>
-              <img src="images/password-hide.png" alt="password" class="toggle-password">
-            </div>
-            <div style="margin-bottom: -25px">
-              <input type='password' class='form-input-popup password-input' placeholder='確認密碼' autocomplete="new-password" required>
-              <img src="images/password-hide.png" alt="password" class="toggle-password">
-            </div>
 
-            <div class="remember_container" style="margin-top: 10px">
-              <input type="checkbox" id="remember" name="remember">
-              <label for="consent" id="consent_check">我已詳細閱讀並同意服務條款</label>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" id="" data-bs-dismiss="modal">取消</button>
-          <button type="button" class="btn btn-primary" id="" data-bs-target="#signupModal2" data-bs-toggle="modal">下一步</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 註冊Modal 第二頁 -->
-  <div class="modal fade" id="signupModal2" aria-hidden="true" tabindex="-1" aria-labelledby="exampleModalToggleLabel2">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable login-modal">
-      <div class="modal-content signup-body">
-        <div class="modal-body login-modal-body">
-          <h2 class="form-h2">會員註冊(2/3)</h2>
-          <div class='form-message-popup' id="message" style="display:none">
-            <div id="loginError" class="form-error-message-popup" style="display:block; text-align:center"></div>
-          </div>          
-          <p class="signup-explain1">此設定是為了提供您個性化的推薦，所有資訊僅用於提升服務品質</p>
-          <p class="signup-explain2">資訊可在會員資訊頁面進行設定及修改</p>
-          <form id="login-form">
-            <!-- 篩選選項 -->
-            <div class="input-group input-group-sm mb-3">
-              <p class="checkbox-title">搜尋半徑</p>
-              <input id="search-radius-input" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-              <span class="input-group-text" id="inputGroup-sizing-sm">公尺</span>
-            </div>
-            <p class="checkbox-title">個人需求</p>
-            <div class="checkbox-container">                
-              <div class="checkbox-item">
-                <input type="checkbox" id="parking" value="">
-                <label for="parking">停車場</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="wheelchair-accessible" value="">
-                <label for="wheelchair-accessible">無障礙</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="vegetarian" value="">
-                <label for="vegetarian">素食料理</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="healthy" value="">
-                <label for="healthy">健康料理</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="kids_friendly" value="">
-                <label for="kids_friendly">兒童友善</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="pets_friendly" value="">
-                <label for="pets_friendly">寵物友善</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="personal7" value="">
-                <label for="personal7">性別友善</label>
-              </div>                    
-            </div>
-            <p class="checkbox-title">用餐方式</p>
-            <div class="checkbox-container">                
-              <div class="checkbox-item">
-                <input type="checkbox" id="delivery" value="">
-                <label for="delivery">外送</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="takeaway" value="">
-                <label for="takeaway">外帶</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="dine-in" value="">
-                <label for="dine-in">內用</label>
-              </div>                  
-            </div>
-            <p class="checkbox-title">用餐時段</p>
-            <div class="checkbox-container">                
-              <div class="checkbox-item">
-                <input type="checkbox" id="breakfast" value="">
-                <label for="breakfast">早餐</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="brunch" value="">
-                <label for="brunch">早午餐</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="lunch" value="">
-                <label for="lunch">午餐</label>
-              </div>  
-              <div class="checkbox-item">
-                <input type="checkbox" id="dinner" value="">
-                <label for="dinner">晚餐</label>
-              </div>                  
-            </div>
-            <p class="checkbox-title">營業時間</p>
-            <div class="checkbox-container">                
-              <div class="checkbox-item">
-                <input type="checkbox" id="BusinessHours" value="">
-                <label for="BusinessHours">營業中</label>
-              </div>                                      
-            </div>
-            <p class="checkbox-title">用餐氛圍</p>
-            <div class="checkbox-container">                
-              <div class="checkbox-item">
-                <input type="checkbox" id="casual" value="">
-                <label for="casual">氣氛悠閒</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="cosy" value="">
-                <label for="cosy">環境舒適</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="ambiance3" value="">
-                <label for="ambiance3">音樂演奏</label>
-              </div>                                     
-            </div>
-            <p class="checkbox-title">用餐規劃</p>
-            <div class="checkbox-container">                
-              <div class="checkbox-item">
-                <input type="checkbox" id="reservation" value="">
-                <label for="reservation">接受訂位</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="group_friendly" value="">
-                <label for="group_friendly">適合團體</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="family_friendly" value="">
-                <label for="family_friendly">適合家庭聚餐</label>
-              </div>                                     
-            </div>
-            <p class="checkbox-title">基礎設施</p>
-            <div class="checkbox-container">                
-              <div class="checkbox-item">
-                <input type="checkbox" id="toilet" value="">
-                <label for="toilet">洗手間</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="wi-fi" value="">
-                <label for="wi-fi">無線網路</label>
-              </div>                                                        
-            </div>
-            <p class="checkbox-title">付款方式</p>
-            <div class="checkbox-container">                
-              <div class="checkbox-item">
-                <input type="checkbox" id="cash" value="">
-                <label for="cash">現金</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="credit_card" value="">
-                <label for="credit_card">信用卡</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="debit_card" value="">
-                <label for="debit_card">簽帳金融卡</label>
-              </div>
-              <div class="checkbox-item">
-                <input type="checkbox" id="mobile_payment" value="">
-                <label for="mobile_payment">行動支付</label>
-              </div>                                                        
-            </div>
-          </form>          
-        </div>
-        <div class="modal-footer">          
-          <button type="button" class="btn btn-secondary" id="" data-bs-target="#signupModal" data-bs-toggle="modal">上一頁</button>
-          <button type="button" class="btn btn-secondary" id="" data-bs-target="#signupModal3" data-bs-toggle="modal">略過</button>
-          <button type="button" class="btn btn-primary" id="" data-bs-target="#signupModal3" data-bs-toggle="modal">下一步</button>
-        </div>
-      </div>
-    </div>
-  </div>
-<!-- 註冊Modal 第三頁 -->
-<div class="modal fade" id="signupModal3" aria-hidden="true" tabindex="-1" aria-labelledby="exampleModalToggleLabel3">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable login-modal">
-      <div class="modal-content signup-body">
-        <div class="modal-body login-modal-body">
-          <h2 class="form-h2">會員註冊(3/3)</h2>
-          <div class='form-message-popup' id="message" style="display:none">
-            <div id="loginError" class="form-error-message-popup" style="display:block; text-align:center"></div>
-          </div>
-          <p class="signup-explain1">此設定是為了提供您個性化的推薦，所有資訊僅用於提升服務品質</p>
-          <p class="signup-explain2">可在會員資訊頁面進行設定及修改</p>
-          <form id="login-form">
-            <div class="slider-container">
-              <label for="environment">氛圍</label>
-              <input type="range" id="environment" name="environment" min="0" max="100" value="50" oninput="updateValue('environment')">
-              <span id="environment_value">50%</span>
-            </div>
-            
-            <div class="slider-container">
-              <label for="product">產品</label>
-              <input type="range" id="product" name="product" min="0" max="100" value="50" oninput="updateValue('product')">
-              <span id="product_value">50%</span>
-            </div>
-            
-            <div class="slider-container">
-              <label for="service">服務</label>
-              <input type="range" id="service" name="service" min="0" max="100" value="50" oninput="updateValue('service')">
-              <span id="service_value">50%</span>
-            </div>
-            
-            <div class="slider-container">
-              <label for="price">售價</label>
-              <input type="range" id="price" name="price" min="0" max="100" value="50" oninput="updateValue('price')">
-              <span id="price_value">50%</span>
-            </div>
-          </form>          
-        </div>
-        <div class="modal-footer">          
-          <button type="button" class="btn btn-secondary" id="" data-bs-target="#signupModal2" data-bs-toggle="modal">上一頁</button>
-          <button type="button" class="btn btn-primary" id="" onclick="">註冊</button>          
-        </div>
-      </div>
-    </div>
-  </div>
-
+  <!-- ### 內容 ### -->
   <section class="secondary-content">
     <h2 class="title-text">美食餐廳搜尋</h2>
       <div class="search">        
@@ -570,14 +251,10 @@
     </div>
   </section>
 
-  <footer>
-    <div class="bottom">
-      台北商業大學 | 資訊管理系<br>
-      北商資管專題 113206 小組<br>
-      <en style="margin-right: 0.6em; float: right; font-size: 0.6em;">Copyright ©2024 All rights reserved.</en>
-    </div>
-  </footer>
+  <!-- ### 頁尾 ### -->
+  <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/footer.php'; ?>
 
+  <!-- ### 載入 ### -->
   <!-- 載入地圖框架 leaflet.js -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
@@ -590,24 +267,12 @@
   <!-- 載入 Markercluster.js -->
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 
-  <!-- 載入JSON資料 data.__ -->
-  <!-- <script src="./base/data.php"></script> -->
-
-  <!-- 載入主程式 -->
   <script src="./scripts/map.js"></script>
   <script src="scripts/ui-interactions.js"></script>
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="scripts/home.js"></script>
-
-  <script src="member/login.js"></script>
   <script src="scripts/new_signup_page_1.js"></script>
   <script src="scripts/new_signup_page_3.js"></script>
-  <script src="scripts/function.js"></script>
-  <script>
-    copyAttributesByElement(document.getElementById('login'),document.getElementById('login-nav'));
-    copyAttributesByElement(document.getElementById('signup'),document.getElementById('signup-nav'));
-  </script>
   
 </body>
 

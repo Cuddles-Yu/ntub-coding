@@ -43,57 +43,42 @@ var userIcon = L.icon({
 
 // 在頁面加載時自動抓取使用者的位置並顯示在地圖上
 window.onload = function () {
+  moveGetCenter();
   defaultLocate();
-//   moveGetCenter();
-  userLocate();
 };
 
 // 定位使用者所在位置的函數
-function defaultLocate() {  
-  var userLat = 25.0418963;
-  var userLng = 121.5230431;
-  if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-          var userLat = position.coords.latitude;
-          var userLng = position.coords.longitude;
-          var userMarker = L.marker([userLat, userLng], {
-            icon: userIcon
-          }) // .bindPopup('您的位置').openPopup();
-          map.addLayer(userMarker);
-      }, function (error) {
-          alert('無法取得您的位置: ' + error.message);
-      });
-  } else {
-      alert('您的瀏覽器不支援地理定位功能。');
-  }    
-  setView([userLat, userLng], 16);
-}
-
-// 定位使用者所在位置的函數
-function userLocate() {  
+function defaultLocate() {
+  const defaultLat = 25.0418963; // 預設緯度
+  const defaultLng = 121.5230431; // 預設經度
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
-      var userLat = position.coords.latitude;
-      var userLng = position.coords.longitude;
-      var userMarker = L.marker([userLat, userLng], {
+      const userLat = position.coords.latitude;
+      const userLng = position.coords.longitude;
+      // 如果成功取得位置，使用使用者的位置
+      map.addLayer(L.marker([userLat, userLng], {
         icon: userIcon
-      }) // .bindPopup('您的位置').openPopup();
-      map.addLayer(userMarker);     
-      setView([userLat, userLng], 16);       
+      }));
+      map.setView([userLat, userLng], 16); // 設定使用者位置的視角
     }, function (error) {
-        alert('無法取得您的位置: ' + error.message);
+      // 如果無法取得位置，使用預設座標
+      alert('無法取得您的位置: ' + error.message);
+      map.setView([defaultLat, defaultLng], 16); // 設定預設位置的視角
     });
   } else {
-      alert('您的瀏覽器不支援地理定位功能。');
-  }    
+    // 如果瀏覽器不支援地理定位功能，使用預設座標
+    alert('您的瀏覽器不支援地理定位功能。');
+    map.setView([defaultLat, defaultLng], 16); // 設定預設位置的視角
+  }
 }
 
+
 // 使用者滑動後取得目前地圖中心經緯度
-// function moveGetCenter() {
-//     map.on('moveend', function () {
-//         getCenter();
-//     });
-// }
+function moveGetCenter() {
+    map.on('moveend', function () {
+        getCenter();        
+    });
+}
 
 // 取得地圖中心經緯度
 function getCenter() {
@@ -108,26 +93,6 @@ function setView([lat, lng], zoomLevel) {
     map.setView([lat, lng], zoomLevel);
     getCenter()
 }
-
-// 引入資料庫資料(JSON格式) [已停用，改為使用PHP引入]
-// fetch('./data.php')
-//     .then(response => {
-//         if (!response.ok) {
-//             throw new Error('Network response was not ok');
-//         }
-//         return response.json();
-//     })
-//     .then(data => {
-//         console.log('JSON資料引入成功！');
-//         if (Array.isArray(data) && data.length > 0) {
-//             processJsonData(data);
-//         } else {
-//             console.log('沒有資料顯示在地圖上');
-//         }
-//     })
-//     .catch(error => {
-//         console.error('引入JSON資料時發生了一些問題：', error);
-//     });
 
 var markers = new L.MarkerClusterGroup({
     maxClusterRadius: function (zoom) {

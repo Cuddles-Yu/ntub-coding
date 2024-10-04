@@ -71,6 +71,13 @@ class SqlDatabase:
                 ORDER BY id
             ''')
 
+    def compare_to_stores(self, name):
+        return fetch_column(self.connection, 'all', 0, f'''
+            SELECT link FROM stores
+            WHERE name = {name} AND crawler_description IS NULL
+            ORDER BY id
+        ''')
+
     def ask_to_reset_database(self):
         cursor = self.connection.cursor()
         print(f"清除'{self.name}'資料庫中的所有資料？[YES] ", end='')

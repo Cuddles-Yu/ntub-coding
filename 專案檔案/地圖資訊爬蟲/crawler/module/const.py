@@ -11,8 +11,12 @@ REF_LOCATION = False
 
 SHUFFLE_URLS = False
 
+OPEN_DATA = '客家'
+API_PATH = 'https://data.taipei/api/v1/dataset/d706f428-b2c7-4591-9ebf-9f5cd7408f47?scope=resourceAquire&limit=1000'  # 環保餐廳
+API_KEY = 'https://data.taipei/api/v1/dataset/2f2b039d-6bff-4663-a4e5-3bd6cc98ee48?scope=resourceAquire&limit=1000'  # 客家餐廳
+
 CONTINUE_CRAWLER = True  # 重新執行爬蟲(修復不完整資料)
-FORCE_CRAWLER = True
+FORCE_CRAWLER = False
 BRANCH_STORE_FIRST = False
 
 CONTINUE_COUNT = 0

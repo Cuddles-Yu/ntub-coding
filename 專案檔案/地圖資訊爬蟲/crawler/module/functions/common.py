@@ -3,12 +3,23 @@ import random
 import re
 import sys
 import time
+import requests
 import subprocess
 from enum import Enum
 from typing import Optional
 
 from numpy import sin, cos, arccos, pi, round
 from 地圖資訊爬蟲.crawler.module.const import *
+
+def get_json_from_api(api_url):
+    try:
+        response = requests.get(api_url)
+        if response.status_code == 200:
+            return response.json()
+        else:
+            print(f"請求失敗，狀態碼: {response.status_code}")
+    except requests.exceptions.RequestException as e:
+        print(f"發生錯誤: {e}")
 
 def to_bool(s: str) -> bool:
     if s.lower() in ('yes', 'true', 't', 'y', '1'):

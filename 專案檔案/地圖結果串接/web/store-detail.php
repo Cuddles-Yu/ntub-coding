@@ -1,5 +1,11 @@
+<?php 
+  require_once $_SERVER['DOCUMENT_ROOT'].'/base/session.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/base/queries.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/base/analysis.php';
+?>
+
 <!doctype html>
-<html> <!-- 網頁詳細頁面 -->
+<html lang="zh-TW">
 
 <head>
   <meta charset="utf-8" />
@@ -25,13 +31,10 @@
   <link rel="stylesheet" type="text/css" href="./styles/osm-map.css">
 
   <link rel="stylesheet" href="styles/store-detail.css" />
+
 </head>
 
 <?php
-  // 引入資料庫連接和查詢函數
-  require_once $_SERVER['DOCUMENT_ROOT'].'/base/queries.php';
-  require_once $_SERVER['DOCUMENT_ROOT'].'/base/analysis.php';
-
   // 優先使用 GET 參數
   $userId = $_GET['uid'] ?? null;
   $storeId = $_GET['id'] ?? null;
@@ -71,98 +74,60 @@
   }
 
 ?>
-
-  <!-- 頂欄 -->
-<header>
-  <!-- 基本項目 -->
-  <div id="web_name">
-    <img src="images/logo-blue+.png" id="web_logo">
-    <a href="/home">評星宇宙</a>
-  </div>
-
-  <div id="nav_menu1">
-    <a class="link_text" href="/home">網站首頁</a>
-    <div class="vertical-line"></div>
-    <a class="link_text" href="#">使用說明</a>
-    <div class="vertical-line"></div>
-    <a class="link_text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a>
-    <div class="vertical-line"></div>
-    <a class="link_text" href="team">成員介紹</a>
-  </div>
-
-  <div id="user_icon" onclick="toMemberPage()" style="display: flex;">
-    <img src="/images/icon-member.jpg" id="user_icon_logo">
-  </div>
-
-  <div id="login_button" style="display: none;">
-    <button id="login" href="#">登入</button>
-    <button id="signup" href="#">註冊</button>
-  </div>
-
-  <!-- 漢堡圖示 -->
-  <button id="hamburger_btn" class="hamburger">&#9776;</button>
-  <div id="overlay"></div>
-  <nav id="nav_menu2">
-    <a class="link_text" href="/home">網站首頁</a>
-    <a class="link_text" href="#">使用說明</a>
-    <a class="link_text" href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank">使用回饋</a>
-    <a class="link_text" href="team">成員介紹</a>
-    <button id="login2" href="#">登入</button>
-    <button id="signup2" href="#">註冊</button>
-  </nav>
-  <hr class="header-bar">
-</header>
-
 <body>
-<?php if (isset($storeInfo['name'])) : ?>
-  <section class="primary-content section-content">
-    <h1 class="store-title" id="store-title"><?=$storeName?></h1>
-    <div class="love-group">
-      <div class="type-rating-status-group">
-        <!--綜合評分-->
-        <h5 class="rating"><?php echo getBayesianScore($userId, $storeId, $conn); ?></h5>
-        <h6 class="rating-text">/ 綜合評分</h6>
-        <a class="store-type" type="button" href="search?q=<?php echo htmlspecialchars($storeInfo['tag']); ?>" target="_blank"> <?php echo htmlspecialchars($storeInfo['tag']); ?></a>
-        <!--營業時間按鈕-->
-        <button type="button" class="btn btn-outline-success status" data-bs-container="body" data-bs-toggle="popover2"
-          data-bs-title="詳細營業時間" data-bs-placement="top" data-bs-html="true"
-          data-bs-content="<?php
-                            foreach ($openingHours as $day => $hours) {
-                              echo htmlspecialchars($day) . ':<br>';
-                              if (empty($hours)) {
-                                echo '休息<br>';
-                              } else {
-                                foreach ($hours as $hour) {
-                                  if ($hour['open_time'] === null || $hour['close_time'] === null) {
-                                    echo '休息<br>';
-                                  } else {
-                                    $openTime = date('H:i', strtotime($hour['open_time']));
-                                    $closeTime = date('H:i', strtotime($hour['close_time']));
-                                    echo htmlspecialchars($openTime) . ' - ' . htmlspecialchars($closeTime) . '<br>';
-                                  }
-                                }
-                              }
-                              echo '<hr>';
-                            }
-                            ?>">
-          <i class="fi fi-sr-clock status-img"></i>營業中
-        </button>        
-        <button type="button" class="btn btn-outline-success e-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="環保餐廳：<br><li>環境管理</li><li>惜食（善用食材)</li><li>環境教育</li>" data-bs-custom-class="custom-tooltip1" data-bs-html="true">
-          ♻️
-        </button>
-        <!--分店綜合評分比較-->
-        <?php if (!empty($otherBranches)) { ?>
+
+  <!-- ### 頁首 ### -->
+  <?php require $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
+
+
+  <!-- ### 內容 ### -->
+  <?php if (isset($storeInfo['name'])) : ?>
+    <section class="primary-content section-content">
+      <h1 class="store-title" id="store-title"><?=$storeName?></h1>
+      <div class="love-group">
+        <div class="type-rating-status-group">
+          <!--綜合評分-->
+          <h5 class="rating"><?php echo getBayesianScore($userId, $storeId, $conn); ?></h5>
+          <h6 class="rating-text">/ 綜合評分</h6>
+          <a class="store-type" type="button" href="search?q=<?php echo htmlspecialchars($storeInfo['tag']); ?>" target="_blank"> <?php echo htmlspecialchars($storeInfo['tag']); ?></a>
+          <!--營業時間按鈕-->
+          <button type="button" class="btn btn-outline-success status" data-bs-container="body" data-bs-toggle="popover2"
+            data-bs-title="詳細營業時間" data-bs-placement="top" data-bs-html="true"
+            data-bs-content="<?php
+              foreach ($openingHours as $day => $hours) {
+                echo htmlspecialchars($day) . ':<br>';
+                if (empty($hours)) {
+                  echo '休息<br>';
+                } else {
+                  foreach ($hours as $hour) {
+                    if ($hour['open_time'] === null || $hour['close_time'] === null) {
+                      echo '休息<br>';
+                    } else {
+                      $openTime = date('H:i', strtotime($hour['open_time']));
+                      $closeTime = date('H:i', strtotime($hour['close_time']));
+                      echo htmlspecialchars($openTime) . ' - ' . htmlspecialchars($closeTime) . '<br>';
+                    }
+                  }
+                }
+                echo '<hr>';
+              }
+            ?>">
+            <i class="fi fi-sr-clock status-img"></i>營業中
+          </button>        
+          <button type="button" class="btn btn-outline-success e-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="環保餐廳：<br><li>環境管理</li><li>惜食（善用食材)</li><li>環境教育</li>" data-bs-custom-class="custom-tooltip1" data-bs-html="true">
+            ♻️
+          </button>
+          <!--分店綜合評分比較-->
+          <?php if (!empty($otherBranches)) { ?>
           <!-- 顯示 "其他分店" 按鈕 -->
           <button class="btn btn-outline-secondary other-store-rating" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
             其他分店
-          </button>
-          
+          </button>          
       </div>
       <a class="love" href="#"><img class="love-img" src="images/button-favorite.png"></a>
     </div>
     <div class="collapse multi-collapse" id="collapseExample">
       <div class="other-store">
-
       <?php
           // 顯示每個分店的資訊
           foreach ($otherBranches as $branch) {
@@ -457,7 +422,7 @@
       </div>
       <div id="map" class="map">
         <!-- 使用者定位按鈕 -->
-        <button type="button" id="locateButton" onclick="userLocate()">使用您的位置</button>
+        <button type="button" id="locateButton" onclick="defaultLocate()">使用您的位置</button>
       </div>
     </div>
 
@@ -496,14 +461,8 @@
     <p>指定的商家id不存在。</p>
   <?php endif; ?>
 
-  <!--底部欄-->
-  <footer>
-    <div class="bottom">
-      台北商業大學 | 資訊管理系<br>
-      北商資管專題 113206 小組<br>
-      <en style="margin-right: 9.6px; float: right; font-size: 9.6px;">Copyright ©2024 All rights reserved.</en>
-    </div>
-  </footer>
+  <!-- ### 頁尾 ### -->
+  <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/footer.php'; ?>
 
   <script>
     function setCommentKeyword(button) {
@@ -523,29 +482,28 @@
       const searchTerm = document.getElementById('commentKeyword').value.trim();
       const commentGroup = document.getElementById('commentGroup');
       const keywordTitleText = document.getElementById('comment-count-title');
-      if (commentGroup.getAttribute('keyword') === searchTerm) return;
+      if (commentGroup.getAttribute('keyword') === searchTerm) return;      
       commentGroup.innerHTML = '';
-      /// 發送 AJAX 請求 ///
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', './struc/comment_keyword.php', true);
-      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-      xhr.onload = function() {
-        if (this.status === 200) {          
-          const response = JSON.parse(this.responseText);
+      const storeId = '<?=$storeId;?>';
+      fetch('struc/comment_keyword.php', {
+          method: 'POST',
+          credentials: 'same-origin',
+          body: `id=${encodeURIComponent(storeId)}&q=${encodeURIComponent(searchTerm)}`
+      })
+      .then(response => response.json())
+      .then(data => {
           commentGroup.setAttribute('keyword', searchTerm);
-          commentGroup.innerHTML = response['html'];
+          commentGroup.innerHTML = data.html;
           if (searchTerm === '') {
-            keywordTitleText.textContent = '留言 ' + response['count'] + ' 則';
+              keywordTitleText.textContent = '留言 ' + data.count + ' 則';
           } else {
-            keywordTitleText.textContent = '留言搜尋結果 ' + response['count'] + ' 則';
+              keywordTitleText.textContent = '留言搜尋結果 ' + data.count + ' 則';
           }
-        }
-      };
-      xhr.onerror = function() {
-        console.error("發送 AJAX 請求時發生錯誤");
-      };
-      xhr.send('id=' + encodeURIComponent(<?php echo $storeId; ?>) + '&q=' + encodeURIComponent(searchTerm));
-    };
+      })
+      .catch(error => {
+          console.error("發送 fetch 請求時發生錯誤", error);
+      });
+    }
     document.getElementById('commentKeyword').addEventListener('keydown', function(event) {
       if (event.key === 'Enter') {
         event.preventDefault(); // 防止表單的預設提交行為

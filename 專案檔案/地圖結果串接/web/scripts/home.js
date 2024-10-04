@@ -2,50 +2,10 @@ function toSearchPage() {
   const keyword = encodeURIComponent(document.getElementById('keyword').value);
   const lat = document.getElementById('map').getAttribute('data-lat');
   const lng = document.getElementById('map').getAttribute('data-lng');
+  console.log(`search?q=${keyword}&lat=${lat}&lng=${lng}`);
   window.location.href = `search?q=${keyword}&lat=${lat}&lng=${lng}`;
-  userLocate();
-  // if (navigator.geolocation) {
-  //   navigator.geolocation.getCurrentPosition(function (position) {
-  //     var userLat = position.coords.latitude;
-  //     var userLng = position.coords.longitude;
-  //     localStorage.setItem('userLat', userLat);
-  //     localStorage.setItem('userLng', userLng);
-  //   }, function (error) {
-  //     console.error('無法取得您的位置: ' + error.message);
-  //     window.location.href = `search?q=${encodeURIComponent(document.getElementById('keyword').value)}`;
-  //   });
-  // } else {
-  //   console.error('您的瀏覽器不支援地理定位功能。');
-  //   window.location.href = `search?q=${encodeURIComponent(document.getElementById('keyword').value)}`;
-  // }
+  defaultLocate();
 }
-
-function toMemberPage() {
-  window.location.href = 'member/info';
-}
-
-/* 點擊漢堡圖示時，顯示/隱藏選單 */
-document.getElementById('hamburger_btn').addEventListener('click', function() {
-  var navMenu = document.getElementById('nav_menu2');
-  var overlay = document.getElementById('overlay');
-  if (navMenu.classList.contains('show')) {
-      navMenu.classList.remove('show');
-      overlay.classList.remove('show');
-  } else {
-      navMenu.classList.add('show');
-      overlay.classList.add('show');
-  }
-});
-
-document.querySelectorAll('.close-menu').forEach(tab => {
-  tab.addEventListener('click', function() {
-    var navMenu = document.getElementById('nav_menu2');
-    var overlay = document.getElementById('overlay');
-    navMenu.classList.remove('show');
-    overlay.classList.remove('show');
-  });
-});
-
 
 document.querySelectorAll('.title-text-2').forEach(tab => {
   tab.addEventListener('click', function() {
@@ -64,6 +24,7 @@ function generateStoreSuggestion(content) {
   formData.set('q', '蛋塔');      
   fetch('../struc/store_suggestion.php', {
     method: 'POST',
+    credentials: 'same-origin',
     body: formData
   })
     .then(response => response.text())
@@ -112,11 +73,12 @@ document.querySelectorAll('.restaurant-group, .restaurant-group-2, .restaurant-g
 
 //card滾動
 document.addEventListener('DOMContentLoaded', function () {
-  document.getElementById('search-radius-input').value = 1500;
-  document.getElementById('wheelchair-accessible').checked = true;
-  document.getElementById('kids_friendly').checked = true;
-  document.getElementById('casual').checked = true;
-
+  // document.getElementById('search-radius-input').value = 1500;
+  // document.getElementById('wheelchair-accessible').checked = true;
+  // document.getElementById('kids_friendly').checked = true;
+  // document.getElementById('casual').checked = true;
+  
+  // 自動載入熱門推薦的內容
   document.getElementById('tab-button-1').click();
 
   const restaurantGroups = document.querySelectorAll('.restaurant-group');

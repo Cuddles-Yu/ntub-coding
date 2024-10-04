@@ -1,23 +1,3 @@
-/* 點擊漢堡圖示時，顯示/隱藏選單 */
-document.getElementById('hamburger_btn').addEventListener('click', function() {
-    var navMenu = document.getElementById('nav_menu2');
-    var overlay = document.getElementById('overlay');
-    if (navMenu.classList.contains('show')) {
-        navMenu.classList.remove('show');
-        overlay.classList.remove('show');
-    } else {
-        navMenu.classList.add('show');
-        overlay.classList.add('show');
-    }
-});
-
-document.getElementById('overlay').addEventListener('click', function() {
-    var navMenu = document.getElementById('nav_menu2');
-    var overlay = document.getElementById('overlay');
-    navMenu.classList.remove('show');
-    overlay.classList.remove('show');
-});
-
 /* 切換到基本資料頁面 */
 function switchToInfo() {  
     // 先取得要操作的標籤

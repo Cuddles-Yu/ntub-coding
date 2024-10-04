@@ -10,24 +10,49 @@ from 地圖資訊爬蟲.crawler.tables import Store, Comment, Keyword, Location,
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
-
 ### 初始化 ###
 database = SqlDatabase('mapdb', 'root', '11236018')
 driver = EdgeDriver(database, url='https://www.google.com.tw/maps/preview')
 
+urls = []
+
 ### 主程式 ###
-if STORES_URLS:
-    urls = STORES_URLS
+if OPEN_DATA:
+    match OPEN_DATA:
+        case '環保':
+            NAME_KEY = '餐廳名稱'
+            ADDRESS_KEY = '餐廳地址'
+            API_PATH = 'https://data.taipei/api/v1/dataset/d706f428-b2c7-4591-9ebf-9f5cd7408f47?scope=resourceAquire&limit=1000'
+        case '客家':
+            NAME_KEY = '客家美食餐廳店名'
+            ADDRESS_KEY = '地址'
+            API_PATH = 'https://data.taipei/api/v1/dataset/2f2b039d-6bff-4663-a4e5-3bd6cc98ee48?scope=resourceAquire&limit=1000'
+    api_data = get_json_from_api(API_PATH)
+    if api_data:
+        names = [item.get(NAME_KEY) for item in api_data.get('result').get('results')]
+        addresses = [item.get(ADDRESS_KEY) for item in api_data.get('result').get('results')]
+        count = len(names)
+        print(f'\r正在爬取API所有商家資料(共{count}個)...\n')
+        for i, (name, address) in enumerate(zip(names, addresses)):
+            links, store_names = driver.search_and_scroll(name, return_one=True, show_hint=False)
+            if links:
+                urls.extend(links)
+                print(f'\r【💛已取得】{str(i + 1).zfill(len(str(count)))}/{count} | {name} | {address}\n', end='')
+            else:
+                print(f'\r【🤍未取得】{str(i + 1).zfill(len(str(count)))}/{count} | {name} | {address}\n', end='')
 else:
-    if CONTINUE_CRAWLER:
-        urls = database.get_urls_from_incomplete_store()
-        if CONTINUE_COUNT > 0: urls = limit_list(urls, CONTINUE_COUNT)
-        if not urls:
-            print(f'查無需資料修復之商家，程式將自動結束...')
-            driver.exit()
-        print(f'資料完整性修復模式 -> 已開啟')
+    if STORES_URLS:
+        urls = STORES_URLS
     else:
-        urls = []
+        if CONTINUE_CRAWLER:
+            urls = database.get_urls_from_incomplete_store()
+            if CONTINUE_COUNT > 0: urls = limit_list(urls, CONTINUE_COUNT)
+            if not urls:
+                print(f'查無需資料修復之商家，程式將自動結束...')
+                driver.exit()
+            print(f'資料完整性修復模式 -> 已開啟')
+        else:
+            urls = []
 
 print(f'資料將儲存至資料庫 -> {database.name}')
 if FORCE_CRAWLER: print(f'強制爬蟲模式(自動重設已存在商家) -> 已開啟')
@@ -42,6 +67,8 @@ url_count = len(urls)
 if urls: urls = to_map_url(urls)
 if SHUFFLE_URLS: shuffle(urls)
 
+print(urls)
+
 print(f'\r正在準備爬取所有商家連結資料(共{url_count}個)...\n')
 for i in range(url_count):
     CRAWLER_START_TIME = datetime.now()
@@ -53,7 +80,7 @@ for i in range(url_count):
         title = driver.wait_for_text(By.CLASS_NAME, 'DUwDvf')
         if title.strip() != '': break
         time.sleep(0.1)
-    store_item = Store.newObject(title, urls[i])
+    store_item = Store.newObject(title, urls[i], mark=OPEN_DATA)
     store_item._crawler_state = '基本'
 
     ### 檢查資料庫中是否已經存在指定的商家 ###
@@ -66,6 +93,7 @@ for i in range(url_count):
         else:
             # '成功' | '抽樣' | '超時' | '特殊'
             print(f'\r【⭐已存在】{str(i + 1).zfill(len(str(url_count)))}/{url_count} | {title} ({crawler_state})\n', end='')
+            if OPEN_DATA: store_item.change_mark(database, OPEN_DATA)
             continue
         # print(f'\r【🌐參照點】{str(i + 1).zfill(len(str(max_count)))}/{max_count} | {title}\n', end='')
 
@@ -233,12 +261,12 @@ for i in range(url_count):
             for service in category.find_elements(By.CLASS_NAME, 'hpLkke'):  # 所有提供的服務
                 if service_dict.get(service.find_element(By.TAG_NAME, 'span').text) is None: service_dict[service.find_element(By.TAG_NAME, 'span').text] = (category_name, 1)
 
-    ### 儲存至'關鍵字'資料表
-    if store_item.tag:
-        tag_item = Tag.Tag(
-            tag=store_item.tag,
-            category=None
-        ).insert_if_not_exists(database)
+    ### 儲存至'關鍵字'資料表 [已停用]
+    # if store_item.tag:
+    #     tag_item = Tag.Tag(
+    #         tag=store_item.tag,
+    #         category=None
+    #     ).insert_if_not_exists(database)
 
     ### 儲存商家資料，並取得其 store_id ###
     try:
