@@ -1,3 +1,23 @@
+/* 點擊漢堡圖示時，顯示/隱藏選單 */
+document.getElementById('hamburger_btn').addEventListener('click', function() {
+    var navMenu = document.getElementById('nav_menu2');
+    var overlay = document.getElementById('overlay');
+    if (navMenu.classList.contains('show')) {
+        navMenu.classList.remove('show');
+        overlay.classList.remove('show');
+    } else {
+        navMenu.classList.add('show');
+        overlay.classList.add('show');
+    }
+});
+
+document.getElementById('overlay').addEventListener('click', function() {
+    var navMenu = document.getElementById('nav_menu2');
+    var overlay = document.getElementById('overlay');
+    navMenu.classList.remove('show');
+    overlay.classList.remove('show');
+});
+
 /* 切換到基本資料頁面 */
 function switchToInfo() {  
     // 先取得要操作的標籤
@@ -14,13 +34,21 @@ function switchToInfo() {
     
     // 取得頁面的標籤、設定顏色
     let infoDiv = document.getElementById("info");
+    let infoLogo = document.getElementById("info_logo");
     let preferenceDiv = document.getElementById("preference");
+    let preferenceLogo = document.getElementById("preference_logo");
     let weightDiv = document.getElementById("weight");
+    let weightLogo = document.getElementById("weight_logo");
     let placeDiv = document.getElementById("place");
+    let placeLogo = document.getElementById("place_logo");
     infoDiv.style.color = "#8234FF";
+    infoLogo.style.color = "#8234FF";
     preferenceDiv.style.color = "#5e5e5e";
+    preferenceLogo.style.color = "#5e5e5e";
     weightDiv.style.color = "#5e5e5e";
+    weightLogo.style.color = "#5e5e5e";
     placeDiv.style.color = "#5e5e5e";
+    placeLogo.style.color = "#5e5e5e";
 }
 
 /* 控制密碼小視窗的顯示和隱藏 */
@@ -80,13 +108,21 @@ function switchToPreference() {
     
     // 取得頁面的標籤、設定顏色
     let infoDiv = document.getElementById("info");
+    let infoLogo = document.getElementById("info_logo");
     let preferenceDiv = document.getElementById("preference");
+    let preferenceLogo = document.getElementById("preference_logo");
     let weightDiv = document.getElementById("weight");
+    let weightLogo = document.getElementById("weight_logo");
     let placeDiv = document.getElementById("place");
+    let placeLogo = document.getElementById("place_logo");
     infoDiv.style.color = "#5e5e5e";
+    infoLogo.style.color = "#5e5e5e";
     preferenceDiv.style.color = "#8234FF";
+    preferenceLogo.style.color = "#8234FF";
     weightDiv.style.color = "#5e5e5e";
+    weightLogo.style.color = "#5e5e5e";
     placeDiv.style.color = "#5e5e5e";
+    placeLogo.style.color = "#5e5e5e";
 }
 
 // 強制設置圖示隱藏
@@ -520,13 +556,21 @@ function switchToWeight() {
     
     // 取得頁面的標籤、設定顏色
     let infoDiv = document.getElementById("info");
+    let infoLogo = document.getElementById("info_logo");
     let preferenceDiv = document.getElementById("preference");
+    let preferenceLogo = document.getElementById("preference_logo");
     let weightDiv = document.getElementById("weight");
+    let weightLogo = document.getElementById("weight_logo");
     let placeDiv = document.getElementById("place");
+    let placeLogo = document.getElementById("place_logo");
     infoDiv.style.color = "#5e5e5e";
+    infoLogo.style.color = "#5e5e5e";
     preferenceDiv.style.color = "#5e5e5e";
+    preferenceLogo.style.color = "#5e5e5e";
     weightDiv.style.color = "#8234FF";
+    weightLogo.style.color = "#8234FF";
     placeDiv.style.color = "#5e5e5e";
+    placeLogo.style.color = "#5e5e5e";
 }
 
 /* 切換編輯模式 */
@@ -571,7 +615,7 @@ function cancelEditMode2() {
 function updateValue(id) {
     var slider = document.getElementById(id);
     var output = document.getElementById(id + '_value');
-    output.textContent = slider.value + '%';
+    output.textContent = slider.value;
 }
 
 /* 切換到收藏地點頁面 */
@@ -590,13 +634,21 @@ function switchToPlace() {
     
     // 取得頁面的標籤、設定顏色
     let infoDiv = document.getElementById("info");
+    let infoLogo = document.getElementById("info_logo");
     let preferenceDiv = document.getElementById("preference");
+    let preferenceLogo = document.getElementById("preference_logo");
     let weightDiv = document.getElementById("weight");
+    let weightLogo = document.getElementById("weight_logo");
     let placeDiv = document.getElementById("place");
+    let placeLogo = document.getElementById("place_logo");
     infoDiv.style.color = "#5e5e5e";
+    infoLogo.style.color = "#5e5e5e";
     preferenceDiv.style.color = "#5e5e5e";
+    preferenceLogo.style.color = "#5e5e5e";
     weightDiv.style.color = "#5e5e5e";
+    weightLogo.style.color = "#5e5e5e";
     placeDiv.style.color = "#8234FF";
+    placeLogo.style.color = "#8234FF";
 }
 
 /* 箭頭圖示切換 */

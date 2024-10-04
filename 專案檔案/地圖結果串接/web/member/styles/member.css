@@ -562,18 +562,6 @@ footer {
         margin-left: 8vw;
     }
 
-    #user_icon_logo2_container {
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        margin-bottom: 4vh;
-    }
-
-    #user_icon_logo2 {
-        width: 240px;
-        height: 240px;
-    }
-
     .item_name {
         display: flex;
         align-items: center;
@@ -596,18 +584,6 @@ footer {
         border-radius: 5px;
         padding: 10px;
         box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
-    }
-
-    .edit_info1 {
-        display: inline-block;
-        font-size: 16px;
-        color: #5053AF;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-    .edit_info1:hover {
-        text-decoration: underline;
     }
 
     .edit_info2 {
@@ -997,9 +973,9 @@ footer {
     }
 
     .search{
+        display: flex;
         align-items: center;
         justify-content: center;
-        display: flex;
         margin-left: 10px;
         margin-right: 10px;
     }
@@ -1013,6 +989,12 @@ footer {
         margin-bottom: 2vh;
     }
     
+    .content_row_container {
+        overflow: auto;
+        overflow-x: hidden;
+        max-height: 500px;
+    }
+
     .mark_number {
         display: flex;
         align-items: center;
@@ -1151,18 +1133,6 @@ footer {
         margin-left: 8vw;
     }
 
-    #user_icon_logo2_container {
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        margin-bottom: 4vh;
-    }
-
-    #user_icon_logo2 {
-        width: 180px;
-        height: 180px;
-    }
-
     .item_name {
         display: flex;
         align-items: center;
@@ -1185,18 +1155,6 @@ footer {
         border-radius: 5px;
         padding: 7px;
         box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
-    }
-
-    .edit_info1 {
-        display: inline-block;
-        font-size: 14px;
-        color: #5053AF;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-    .edit_info1:hover {
-        text-decoration: underline;
     }
 
     .edit_info2 {
@@ -1604,6 +1562,12 @@ footer {
         margin-top: 2vh;
         margin-bottom: 2vh;
     }
+
+    .content_row_container {
+        overflow: auto;
+        overflow-x: hidden;
+        max-height: 350px;
+    }
     
     .mark_number {
         display: flex;
@@ -1741,18 +1705,6 @@ footer {
         display: flex;
     }
 
-    #user_icon_logo2_container {
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        margin-bottom: 4vh;
-    }
-
-    #user_icon_logo2 {
-        width: 240px;
-        height: 240px;
-    }
-
     .item_name {
         display: flex;
         align-items: center;
@@ -1776,18 +1728,6 @@ footer {
         border-radius: 5px;
         padding: 5px;
         box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
-    }
-
-    .edit_info1 {
-        display: inline-block;
-        font-size: 16px;
-        color: #5053AF;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-    .edit_info1:hover {
-        text-decoration: underline;
     }
 
     .edit_info2 {
@@ -2188,6 +2128,12 @@ footer {
         margin-bottom: 2vh;
         font-size: 18px;
     }
+
+    .content_row_container {
+        overflow: auto;
+        overflow-x: hidden;
+        max-height: 450px;
+    }
     
     .mark_number {
         display: flex;
@@ -2321,19 +2267,6 @@ footer {
     }
 
     /* 基本資料 */
-    #user_icon_logo2_container {
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        margin-top: 12vh;
-        margin-bottom: 4vh;
-        margin-left: 12vw;
-    }
-
-    #user_icon_logo2 {
-        width: 160px;
-        height: 160px;
-    }
 
     .item_name {
         display: flex;
@@ -2359,18 +2292,6 @@ footer {
         border-radius: 5px;
         padding: 5px;
         box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
-    }
-
-    .edit_info1 {
-        display: inline-block;
-        font-size: 14px;
-        color: #5053AF;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-    .edit_info1:hover {
-        text-decoration: underline;
     }
 
     .edit_info2 {
@@ -2786,6 +2707,13 @@ footer {
         margin-top: 2vh;
         margin-bottom: 2vh;
         font-size: 14px;
+    }
+
+    .content_row_container {
+        overflow: auto;
+        overflow-x: hidden;
+        max-height: 300px;
+        padding-right: 10px;
     }
     
     .mark_number {

@@ -55,29 +55,25 @@
         <!-- 側欄 -->
         <div class="side_area">
             <div class="page_button" id="info" style="color: #8234ff;" onclick="switchToInfo()"> <!-- info_main_area -->
-                <i class="fi fi-sr-interrogation logo"></i>
+                <i class="fi fi-sr-interrogation logo" id="info_logo" style="color: #8234ff;"></i>
                 <p>基本資料</p>
             </div>
             <div class="page_button" id="preference" onclick="switchToPreference()"> <!-- preference_main_area -->
-                <i class="fi fi-sr-settings-sliders logo"></i>
+                <i class="fi fi-sr-settings-sliders logo" id="preference_logo"></i>
                 <p>偏好設定</p>
             </div>
             <div class="page_button" id="weight" onclick="switchToWeight()"> <!-- weight_main_area -->
-                <i class="fi fi-sr-bars-progress logo"></i>
+                <i class="fi fi-sr-bars-progress logo" id="weight_logo"></i>
                 <p>權重設定</p>
             </div>
             <div class="page_button" id="place" onclick="switchToPlace()"> <!-- place_main_area -->
-                <i class="fi fi-sr-comment-heart logo"></i>
+                <i class="fi fi-sr-comment-heart logo" id="place_logo"></i>
                 <p>收藏地點</p>
             </div>
         </div>
 
         <!-- 基本資料 -->
         <div id="info_main_area">
-            <div id="user_icon_logo2_container">
-                <img src="../images/user_icon.png" id="user_icon_logo2">
-                <i class="fi fi-sr-pen-clip edit_info1">修改</i>
-            </div>
             <div class="item_name">
                 <span class="item_text">使用者名稱</span>
                 <input type="text" class="item_text2" id="user_name" name="user_name" value="11236007" readonly> <!-- readonly: 唯讀狀態 -->
@@ -89,8 +85,11 @@
             <div class="item_name">
                 <span class="item_text">密碼</span>
                 <input type="password" class="item_text2" id="password" name="password" value="12345678" readonly>
-                <!-- <span id="change_password" class="edit_info2">修改</span> -->
                 <i id="change_password" class="fi fi-sr-pen-clip edit_info2">修改</i>
+            </div>
+            <div class="item_name">
+                <span class="item_text">加入時間</span>
+                <span>2024年07月30日</span>
             </div>
             <!-- 修改密碼小視窗 -->
             <div id="password_modal" class="modal">
@@ -317,25 +316,25 @@
             <div class="slider-container">
                 <label for="atmosphere">氛圍</label>
                 <input type="range" id="atmosphere" name="atmosphere" min="0" max="100" value="50" oninput="updateValue('atmosphere')" disabled>
-                <span id="atmosphere_value">50%</span>
+                <span id="atmosphere_value">50</span>
             </div>
             
             <div class="slider-container">
                 <label for="product">產品</label>
                 <input type="range" id="product" name="product" min="0" max="100" value="50" oninput="updateValue('product')" disabled>
-                <span id="product_value">50%</span>
+                <span id="product_value">50</span>
             </div>
             
             <div class="slider-container">
                 <label for="service">服務</label>
                 <input type="range" id="service" name="service" min="0" max="100" value="50" oninput="updateValue('service')" disabled>
-                <span id="service_value">50%</span>
+                <span id="service_value">50</span>
             </div>
             
             <div class="slider-container">
                 <label for="price">售價</label>
                 <input type="range" id="price" name="price" min="0" max="100" value="50" oninput="updateValue('price')" disabled>
-                <span id="price_value">50%</span>
+                <span id="price_value">50</span>
             </div>
 
             <div class="button_area">
@@ -351,7 +350,7 @@
                     <div class="form-floating search-city">
                         <select class="form-select" id="location" name="location" aria-label="Floating label select example">
                         <option class="city" selected value="台北市">臺北市</option>
-                        <option class="city" selected value="台北市">新北市</option>
+                        <option class="city" selected value="新北市">新北市</option>
                         </select>
                         <label for="location">城市</label>
                     </div>
@@ -398,87 +397,145 @@
                 </div>
             </div>
 
-            <div class="content_row">
-                <div class="mark_number">
-                    <span>1</span>
-                </div>
-                <div class="mark_store">
-                    <div class="mark_img">
-                        <img src="../images/store-map.JPG">
+            <div class="content_row_container">
+                <div class="content_row">
+                    <div class="mark_number">
+                        <span>1</span>
                     </div>
-                    <span class="store_name">波赫士領地精品咖啡館 昌吉店 BorgesPlace 提拉米蘇 千層蛋糕</span>
+                    <div class="mark_store">
+                        <div class="mark_img">
+                            <img src="../images/store-map.JPG">
+                        </div>
+                        <span class="store_name">波赫士領地精品咖啡館 昌吉店 BorgesPlace 提拉米蘇 千層蛋糕</span>
+                    </div>
+                    <div class="mark_score">
+                        <span>85</span>
+                    </div>
+                    <div class="mark_category">
+                        <span>餃子</span>
+                    </div>
+                    <div class="mark_distance">
+                        <span>1 km</span>
+                    </div>
+                    <div class="mark_time">
+                        <span style="margin-right: 5px;">2023-10-01</span>
+                    </div>
+                    <div class="mark_button mark_button2">
+                        <i class="fi fi-sr-bookmark sort_button"></i>
+                        <i class="fi fi-sr-share sort_button"></i>
+                    </div>
                 </div>
-                <div class="mark_score">
-                    <span>85</span>
+    
+                <div class="content_row">
+                    <div class="mark_number">
+                        <span>2</span>
+                    </div>
+                    <div class="mark_store">
+                        <div class="mark_img">
+                            <img src="../images/store-map.JPG">
+                        </div>
+                        <span class="store_name">波赫士領地精品咖啡館 昌吉店 BorgesPlace 提拉米蘇 千層蛋糕</span>
+                    </div>
+                    <div class="mark_score">
+                        <span>85</span>
+                    </div>
+                    <div class="mark_category">
+                        <span>餃子</span>
+                    </div>
+                    <div class="mark_distance">
+                        <span>2 km</span>
+                    </div>
+                    <div class="mark_time">
+                        <span style="margin-right: 5px;">2023-10-01</span>
+                    </div>
+                    <div class="mark_button mark_button2">
+                        <i class="fi fi-sr-bookmark sort_button"></i>
+                        <i class="fi fi-sr-share sort_button"></i>
+                    </div>
                 </div>
-                <div class="mark_category">
-                    <span>餃子</span>
+    
+                <div class="content_row">
+                    <div class="mark_number">
+                        <span>3</span>
+                    </div>
+                    <div class="mark_store">
+                        <div class="mark_img">
+                            <img src="../images/store-map.JPG">
+                        </div>
+                        <span class="store_name">波赫士領地精品咖啡館 昌吉店 BorgesPlace 提拉米蘇 千層蛋糕</span>
+                    </div>
+                    <div class="mark_score">
+                        <span>85</span>
+                    </div>
+                    <div class="mark_category">
+                        <span>餃子</span>
+                    </div>
+                    <div class="mark_distance">
+                        <span>1.4 km</span>
+                    </div>
+                    <div class="mark_time">
+                        <span style="margin-right: 5px;">2023-10-01</span>
+                    </div>
+                    <div class="mark_button mark_button2">
+                        <i class="fi fi-sr-bookmark sort_button"></i>
+                        <i class="fi fi-sr-share sort_button"></i>
+                    </div>
                 </div>
-                <div class="mark_distance">
-                    <span>1 km</span>
-                </div>
-                <div class="mark_time">
-                    <span style="margin-right: 5px;">2023-10-01</span>
-                </div>
-                <div class="mark_button mark_button2">
-                    <i class="fi fi-sr-bookmark sort_button"></i>
-                    <i class="fi fi-sr-share sort_button"></i>
-                </div>
-            </div>
 
-            <div class="content_row">
-                <div class="mark_number">
-                    <span>2</span>
-                </div>
-                <div class="mark_store">
-                    <div class="mark_img">
-                        <img src="../images/store-map.JPG">
+                <div class="content_row">
+                    <div class="mark_number">
+                        <span>4</span>
                     </div>
-                    <span class="store_name">波赫士領地精品咖啡館 昌吉店 BorgesPlace 提拉米蘇 千層蛋糕</span>
+                    <div class="mark_store">
+                        <div class="mark_img">
+                            <img src="../images/store-map.JPG">
+                        </div>
+                        <span class="store_name">波赫士領地精品咖啡館 昌吉店 BorgesPlace 提拉米蘇 千層蛋糕</span>
+                    </div>
+                    <div class="mark_score">
+                        <span>85</span>
+                    </div>
+                    <div class="mark_category">
+                        <span>餃子</span>
+                    </div>
+                    <div class="mark_distance">
+                        <span>1.4 km</span>
+                    </div>
+                    <div class="mark_time">
+                        <span style="margin-right: 5px;">2023-10-01</span>
+                    </div>
+                    <div class="mark_button mark_button2">
+                        <i class="fi fi-sr-bookmark sort_button"></i>
+                        <i class="fi fi-sr-share sort_button"></i>
+                    </div>
                 </div>
-                <div class="mark_score">
-                    <span>85</span>
-                </div>
-                <div class="mark_category">
-                    <span>餃子</span>
-                </div>
-                <div class="mark_distance">
-                    <span>2 km</span>
-                </div>
-                <div class="mark_time">
-                    <span style="margin-right: 5px;">2023-10-01</span>
-                </div>
-                <div class="mark_button mark_button2">
-                    <i class="fi fi-sr-bookmark sort_button"></i>
-                    <i class="fi fi-sr-share sort_button"></i>
-                </div>
-            </div>
 
-            <div class="content_row">
-                <div class="mark_number">
-                    <span>3</span>
-                </div>
-                <div class="mark_store">
-                    <div class="mark_img">
-                        <img src="../images/store-map.JPG">
+                <div class="content_row">
+                    <div class="mark_number">
+                        <span>5</span>
                     </div>
-                    <span class="store_name">波赫士領地精品咖啡館 昌吉店 BorgesPlace 提拉米蘇 千層蛋糕</span>
-                </div>
-                <div class="mark_score">
-                    <span>85</span>
-                </div>
-                <div class="mark_category">
-                    <span>餃子</span>
-                </div>
-                <div class="mark_distance">
-                    <span>1.4 km</span>
-                </div>
-                <div class="mark_time">
-                    <span style="margin-right: 5px;">2023-10-01</span>
-                </div>
-                <div class="mark_button mark_button2">
-                    <i class="fi fi-sr-bookmark sort_button"></i>
-                    <i class="fi fi-sr-share sort_button"></i>
+                    <div class="mark_store">
+                        <div class="mark_img">
+                            <img src="../images/store-map.JPG">
+                        </div>
+                        <span class="store_name">波赫士領地精品咖啡館 昌吉店 BorgesPlace 提拉米蘇 千層蛋糕</span>
+                    </div>
+                    <div class="mark_score">
+                        <span>85</span>
+                    </div>
+                    <div class="mark_category">
+                        <span>餃子</span>
+                    </div>
+                    <div class="mark_distance">
+                        <span>1.4 km</span>
+                    </div>
+                    <div class="mark_time">
+                        <span style="margin-right: 5px;">2023-10-01</span>
+                    </div>
+                    <div class="mark_button mark_button2">
+                        <i class="fi fi-sr-bookmark sort_button"></i>
+                        <i class="fi fi-sr-share sort_button"></i>
+                    </div>
                 </div>
             </div>
         </div>
