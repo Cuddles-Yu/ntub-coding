@@ -57,7 +57,6 @@
       $conn->close();
       return $data;
   }
-
-  // 將數據轉換為 JSON 格式並輸出
+  
   header('Content-Type: application/json');
   echo json_encode(getStoreData($storeId));

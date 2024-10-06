@@ -11,31 +11,41 @@ RewriteRule ^detail$ /store-detail.php [L]
 RewriteRule ^search$ /search.php [L]
 RewriteRule ^team$ /develop-team.php [L]
 RewriteRule ^home$ /home.php [L]
+RewriteRule ^feedback$ /feedback.php [L]
 RewriteRule ^member/info$ /member/info.php [L]
-RewriteRule ^member/handler/login$ /member/handler/login.php [L]
-RewriteRule ^admin/handler/register$ /admin/handler/register.php [L]
 RewriteRule ^admin/register$ /admin/register.php [L]
 RewriteRule ^admin/pull$ /admin/git.php [L]
 RewriteRule ^admin/login$ /admin/login.php [L]
 
 # 禁止訪問(所有)
-# RewriteRule ^base(/)?(.*)$ /404.html [L]
+# RewriteRule ^base(/)?(.*)$ /error/404.php [L]
 
 # 禁止訪問(目錄)
 RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^admin(/)?$ /404.html [L]
+RewriteRule ^admin(/)?$ /error/404.php [L]
 RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^member(/)?$ /404.html [L]
+RewriteRule ^base(/)?$ /error/404.php [L]
 RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^struc(/)?$ /404.html [L]
+RewriteRule ^elem(/)?$ /error/404.php [L]
 RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^base(/)?$ /404.html [L]
+RewriteRule ^error(/)?$ /error/404.php [L]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^images(/)?$ /error/404.php [L]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^member(/)?$ /error/404.php [L]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^scripts(/)?$ /error/404.php [L]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^struc(/)?$ /error/404.php [L]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^styles(/)?$ /error/404.php [L]
+
 
 #禁止訪問(檔案)
 RewriteCond %{REQUEST_FILENAME} -f
-RewriteRule ^base/pwd.txt?$ /404.html [L]
+RewriteRule ^base/pwd.txt?$ /error/404.php [L]
 
 # 例外導向（需要在匹配所有路徑之前運行）
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /404.html [L]
+RewriteRule ^(.*)$ /error/404.php [L]

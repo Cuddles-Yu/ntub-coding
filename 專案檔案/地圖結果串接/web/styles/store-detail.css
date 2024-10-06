@@ -49,14 +49,6 @@
   font-style: normal;
 }
 
-html, body {
-  margin: 0;
-  height: 100%;
-  user-select:none; /* 禁止選取standard syntax */
-  -webkit-user-select:none; /* 禁止for Chrome、Safari */
-  -moz-user-select:none;  /* 禁止for Mozilla、Firefox */
-}
-
 body{
   padding-top: 90px;
 }
@@ -75,57 +67,11 @@ body{
     z-index: 9999;
 }
 
-.link_text {
-    text-decoration: none; /* 移除底線 */
-    color: black;
-    font-size: 20px;
-}
-
 .vertical-line {
     width: 2px; /* 設置寬度 */
     height: 30px; /* 設置高度 */
     background-color: #C5C5C5; /* 設置顏色 */
     margin: 0 40px; /* 設置上下為0，左右為20px的間距 */
-}
-
-#user_icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    right: 10vw;
-    height: 80px;
-}
-
-#user_icon_logo {
-    /* display: none; */
-    width: 40px;
-    height: 40px;
-    right: 10vw;
-    cursor: pointer;
-}
-
-#web_name {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    left: 10vw;
-    font-size: 30px;
-    font-weight: bold;
-}
-
-#web_name a {
-    text-decoration: none; /* 移除底線 */
-    color: black;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin-left: 5px;
-}
-
-#web_logo {
-    width: auto;
-    height: 50px;
 }
 
 #login_button {
@@ -206,58 +152,11 @@ body{
       z-index: 9999;
   }
 
-  .link_text {
-      text-decoration: none; /* 移除底線 */
-      color: black;
-      font-size: 20px;
-  }
-
   .vertical-line {
       width: 2px; /* 設置寬度 */
       height: 30px; /* 設置高度 */
       background-color: #C5C5C5; /* 設置顏色 */
       margin: 0 40px; /* 設置上下為0，左右為20px的間距 */
-  }
-
-  #user_icon {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: fixed;
-      right: 10vw;
-      height: 80px;
-  }
-
-  #user_icon_logo {
-      display: block;
-      position: fixed;
-      width: 40px;
-      height: 40px;
-      right: 10vw;
-      cursor: pointer;
-  }
-
-  #web_name {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: fixed;
-      left: 5vw;
-      font-size: 30px;
-      font-weight: bold;
-  }
-
-  #web_name a {
-      text-decoration: none; /* 移除底線 */
-      color: black;
-      margin-top: 0px;
-      margin-bottom: 0px;
-      margin-left: 5px;
-  }
-
-  #web_logo {
-      width: auto;
-      height: 50px;
   }
 
   #login_button {
@@ -383,59 +282,12 @@ body{
       background-color: #FFFFFF;
       z-index: 9999;
   }
-
-  .link_text {
-      text-decoration: none; /* 移除底線 */
-      color: black;
-      font-size: 20px;
-  }
-
+  
   .vertical-line {
       width: 2px; /* 設置寬度 */
       height: 30px; /* 設置高度 */
       background-color: #C5C5C5; /* 設置顏色 */
       margin: 0 40px; /* 設置上下為0，左右為20px的間距 */
-  }
-
-  #user_icon {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: fixed;
-      right: 10vw;
-      height: 80px;
-  }
-
-  #user_icon_logo {
-      display: block;
-      position: fixed;
-      width: 40px;
-      height: 40px;
-      right: 14vw;
-      cursor: pointer;
-  }
-
-  #web_name {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: fixed;
-      left: 5vw;
-      font-size: 30px;
-      font-weight: bold;
-  }
-
-  #web_name a {
-      text-decoration: none; /* 移除底線 */
-      color: black;
-      margin-top: 0px;
-      margin-bottom: 0px;
-      margin-left: 5px;
-  }
-
-  #web_logo {
-      width: auto;
-      height: 50px;
   }
 
   #login_button {
@@ -1237,6 +1089,10 @@ body{
     text-decoration-line: none;
 }
 
+.card-a{
+  height: 100%;
+}
+
 .fifth-content{
     margin-top: 30px;
 }
@@ -1310,14 +1166,6 @@ body{
     margin-right: 3px;
     color: #374957;
     font-size: 16px;
-}
-
-.bottom{
-    background-color: #485465;
-    height: 90px;
-    color: white;
-    padding: 15px 20px 20px 25px;
-    font-size: 14px;  
 }
 }
 
@@ -2009,6 +1857,10 @@ body{
     color: #2E2E2E;
     text-decoration-line: none;
   }
+
+  .card-a{
+    height: 100%;
+  }
   
   .fifth-content{
     margin-top: 10px;
@@ -2083,14 +1935,6 @@ body{
     margin-right: 3px;
     color: #374957;
     font-size: 16px;
-  }
-  
-  .bottom{
-    background-color: #485465;
-    height: 90px;
-    color: white;
-    padding: 15px 20px 20px 25px;
-    font-size: 14px;  
   }
 }
 
@@ -2775,6 +2619,10 @@ body{
     color: #2E2E2E;
     text-decoration-line: none;
   }
+
+  .card-a{
+    height: 100%;
+  }
   
   .fifth-content{
     margin-top: 25px;
@@ -2849,14 +2697,6 @@ body{
     margin-right: 3px;
     color: #374957;
     font-size: 16px;
-  }
-  
-  .bottom{
-    background-color: #485465;
-    height: 90px;
-    color: white;
-    padding: 15px 20px 20px 25px;
-    font-size: 14px;  
   }
 }
 
@@ -3543,6 +3383,10 @@ body{
     color: #2E2E2E;
     text-decoration-line: none;
   }
+
+  .card-a{
+    height: 100%;
+  }
   
   .fifth-content{
     margin-top: 25px;
@@ -3617,14 +3461,6 @@ body{
     margin-right: 3px;
     color: #374957;
     font-size: 16px;
-  }
-  
-  .bottom{
-    background-color: #485465;
-    height: 90px;
-    color: white;
-    padding: 15px 20px 20px 25px;
-    font-size: 14px;  
   }
 }
 

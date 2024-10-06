@@ -3,19 +3,19 @@
   <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>無效的網址 - 評星宇宙</title>
+      <title><?=$pageTitle?> - 評星宇宙</title>
       <link rel="stylesheet" href="/styles/404.css">
   </head>
   <body>
       <div class="container">
           <div class="icon">
-              <img src="/images/website-error.png" alt="錯誤圖示">
+              <img src="<?=$icon??'/images/website-error.png';?>" alt="圖示">
           </div>
           <div class="text">
-              <h1>無效的網址</h1>
-              <p>您所尋找的頁面不存在或已被移除。</p>
-              <p>請檢查網址是否正確，或點擊下方按鈕返回首頁。</p>
-              <a href="/home">返回首頁</a>
+              <h1><?=$errorMessage?></h1>
+              <p><?=$errorDescription?></p>
+              <p><?=$suggestion?></p>
+              <a href="<?=$link?>"><?=$linkLabel?></a>
           </div>
       </div>
   </body>

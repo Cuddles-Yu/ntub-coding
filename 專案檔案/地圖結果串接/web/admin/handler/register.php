@@ -4,6 +4,7 @@
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
   global $conn;
 
+  header('Content-Type: application/json');
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $count = null;
     $name = $_POST['name'];

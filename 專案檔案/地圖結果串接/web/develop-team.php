@@ -7,7 +7,7 @@
   
 <head>
   <meta charset="utf-8" />
-  <title>成員介紹</title>
+  <title>成員介紹 - 評星宇宙</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
   <meta name="keywords" content="評價, google map" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
@@ -21,7 +21,6 @@
   
 
   <!-- ### 內容 ### -->
-  <h1 class="title">成員介紹</h1>
   <section class="primary-conent">
 
     <div class="member-group">  
@@ -73,12 +72,24 @@
           </div>
         </div>
       </div>
-    
-      
     </div>
   </section>
   
+  <!-- ### 頁尾 ### -->
+  <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/footer.php'; ?>
+  
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    document.querySelectorAll('.team-menu').forEach(page => {
+      page.removeAttribute('href');
+      page.setAttribute('style', 'cursor:default;');
+    });
+    document.querySelectorAll('.team-page').forEach(page => {
+      page.removeAttribute('href');
+      page.setAttribute('style', 'cursor:default;');
+    });
+  </script>
 
 </body>
 

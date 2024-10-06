@@ -42,6 +42,9 @@
   text-align: center;
   margin-bottom: 20px;
 }
+.form-h2-title {
+  text-align: center;
+}
 
 .form-label {
   font-weight: bold;
@@ -102,4 +105,131 @@ display: block;
 
 .form-button:hover {
   background-color: #0056b3;
+}
+
+.agree-checkbox {
+  position: relative;
+  margin-top: 15px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.login_area {
+  display: flex;
+  justify-content: space-around;
+}
+
+.divider_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 15px 0;
+}
+
+.divider {
+  flex-grow: 1;
+  height: 1px;
+  background-color: black;
+  margin-top: 3px;
+}
+
+.divider_text {
+  padding: 0 10px;
+  font-weight: bold;
+  font-size: 16px;
+  margin: 0;
+}
+
+.checkbox-set {
+  display: flex;
+  font-size: 16px;
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+
+.toggle-password {
+  position: relative;
+  right: -315px;
+  top: -33px;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+.text-icon {
+  position: relative;
+  top: -2px;
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+.forget_pwd {
+  color: rgb(119, 119, 119);
+  margin-left: auto;
+  align-self: flex-end;
+  cursor: pointer;
+  text-align: right;
+}
+
+.checkbox-set-text {
+  cursor: pointer;
+  padding-left: 5px;
+}
+
+.signup-button{
+  width: 300px;
+  margin-top: 10px;
+}
+
+.signup-button-disabled{
+  width: 300px;
+  margin-top: 10px;
+  background-color: #d3d3d3; /* 灰色背景 */
+  color: #7a7a7a; /* 字體顏色較淡 */
+  border: 1px solid #a9a9a9; /* 灰色邊框 */
+  cursor: default; /* 滑鼠指標顯示為禁止符號 */
+  opacity: 0.6; /* 增加透明度來顯示為停用狀態 */
+}
+
+.login-modal{
+  width: 390px;
+}
+
+.login-modal-body{
+  padding: 20px;
+}
+
+.signup-explain{
+  font-size: 14px;
+  text-align: left;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.slider-bar {
+  width:200px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+#signup-environment-value, #signup-product-value, #signup-service-value, #signup-price-value{
+  display: inline-block;
+  width: 33px;
+  text-align: left;
+}
+
+.signup-body{
+  width: 390px;
+  height: 395px;
+}
+
+.modal.fade.show {
+  opacity: 1; /* 保持模態框顯示時完全不透明 */
+  transition: opacity 0.15s linear; /* 控制淡入的時間 */
+}
+
+.modal.fade {
+  opacity: 1; /* 在顯示的狀態下立即設置為不透明，移除淡出動畫 */
 }

@@ -42,9 +42,7 @@
                 if (event.key === 'Enter') {
                     event.preventDefault();
                     if (index < inputs.length - 1) {
-                      setTimeout(() => {
-                          inputs[index + 1].focus();
-                      }, 0);
+                      inputs[index + 1].focus();
                     } else {
                       submitButton.click();
                     }

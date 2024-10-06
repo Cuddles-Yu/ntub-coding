@@ -1,8 +1,17 @@
+document.querySelectorAll('.home-menu').forEach(page => {
+  page.removeAttribute('href');
+  page.setAttribute('style', 'cursor:default;');
+});
+document.querySelectorAll('.home-page').forEach(page => {
+  page.removeAttribute('href');
+  page.setAttribute('style', 'cursor:default;');
+});
+
 function toSearchPage() {
+  getCenter();
   const keyword = encodeURIComponent(document.getElementById('keyword').value);
   const lat = document.getElementById('map').getAttribute('data-lat');
   const lng = document.getElementById('map').getAttribute('data-lng');
-  console.log(`search?q=${keyword}&lat=${lat}&lng=${lng}`);
   window.location.href = `search?q=${keyword}&lat=${lat}&lng=${lng}`;
   defaultLocate();
 }
@@ -71,13 +80,25 @@ document.querySelectorAll('.restaurant-group, .restaurant-group-2, .restaurant-g
   handleScroll(container);
 });
 
-//card滾動
+
+// 如果為登入登出跳轉，則顯示提示訊息
 document.addEventListener('DOMContentLoaded', function () {
-  // document.getElementById('search-radius-input').value = 1500;
-  // document.getElementById('wheelchair-accessible').checked = true;
-  // document.getElementById('kids_friendly').checked = true;
-  // document.getElementById('casual').checked = true;
+  const justLoggedIn = localStorage.getItem('justLoggedIn');  
+  const memberName = localStorage.getItem('memberName');
+  const justLoggedOut = localStorage.getItem('justLoggedOut');
+
+  if (justLoggedIn.trim() === 'true') {
+    showAlert('green', `會員 ${memberName} 已成功降落在評星宇宙！`);
+  } else if (justLoggedOut === 'true') {
+    showAlert('red', '您已離開評星宇宙。');
+  }
+
+  localStorage.removeItem('justLoggedIn');
+  localStorage.removeItem('memberName');
+  localStorage.removeItem('justLoggedOut');
+});
   
+document.addEventListener('DOMContentLoaded', function () {
   // 自動載入熱門推薦的內容
   document.getElementById('tab-button-1').click();
 
@@ -131,18 +152,6 @@ if (filterContainer.scrollWidth > filterContainer.clientWidth) {
 } else {
   filterContainer.style.overflowX = 'auto'; // 隱藏垂直滾動條
 }
-
-document.getElementById('toggle-password').addEventListener('click', function() {
-  var passwordInput = document.getElementById('password');
-  var passwordIcon = document.getElementById('toggle-password');
-  if (passwordInput.type === 'password') {
-      passwordInput.type = 'text';
-      passwordIcon.setAttribute('src', 'images/password-show.png');
-  } else {
-      passwordInput.type = 'password';
-      passwordIcon.setAttribute('src', 'images/password-hide.png');
-  }
-});
 
 //card手動滑鼠滾動
 document.addEventListener('DOMContentLoaded', function() {

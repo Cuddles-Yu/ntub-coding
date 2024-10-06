@@ -90,7 +90,7 @@ window.onload = function () {
             }
 
         })
-        .catch(error => console.error('錯誤:', error));
+        .catch(error => console.error('取得您的位置時發生錯誤:', error));
 };
 
 // 計算兩個經緯度之間的距離（哈弗辛公式）已直接使用公尺來計算

@@ -30,7 +30,6 @@
   <link rel="stylesheet" type="text/css" href="./styles/osm-map.css">
 
   <link rel="stylesheet" href="styles/home.css" />
-  <link rel="stylesheet" href="styles/form.css" />
   <link rel="stylesheet" href="styles/map.css" />
 </head>
 
@@ -220,16 +219,13 @@
     </div>
 
 
-    <!-- osm 地圖 -->
     <div id="map" class="map">
-      <div id="crosshair"></div> <!-- 添加透明十字 -->
-        <!-- 使用者定位按鈕 -->
+      <div id="crosshair"></div>
         <button type="button" id="locateButton" onclick="userLocate()">使用您的位置</button>
     </div>
 
-
     <div class="tip-line"></div>
-    <a class="tip" id="scroll-to-tertiary"> ⇊ 從熱門到個人化推薦，發現美食的無限可能</a>
+    <a class="tip" id="scroll-to-tertiary" style="cursor:pointer;margin-bottom:110px"> ⇊ 從熱門到個人化推薦，發現美食的無限可能</a>
   </section>
 
   <section class="tertiary-content" id="tertiary-content">
@@ -267,12 +263,10 @@
   <!-- 載入 Markercluster.js -->
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 
-  <script src="./scripts/map.js"></script>
+  <script src="scripts/map.js"></script>
   <script src="scripts/ui-interactions.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="scripts/home.js"></script>
-  <script src="scripts/new_signup_page_1.js"></script>
-  <script src="scripts/new_signup_page_3.js"></script>
   
 </body>
 

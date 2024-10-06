@@ -4,12 +4,13 @@
     box-sizing: border-box;
 }
 
-html, body {
-  margin: 0;
-  height: 100%;
-  user-select:none; /* 禁止選取standard syntax */
-  -webkit-user-select:none; /* 禁止for Chrome、Safari */
-  -moz-user-select:none;  /* 禁止for Mozilla、Firefox */
+.home-page {
+  border-bottom-style: solid;  
+  border-bottom-color: mediumblue;
+}
+.home-menu {
+  border-left-style: solid;
+  border-left-color: mediumblue;
 }
 
 body{
@@ -21,24 +22,6 @@ p {
 }
 
 @media (min-width: 1373px){
-
-  @keyframes rotate {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-  
-  .rotating {
-    display: flex;
-    animation: rotate 1s cubic-bezier(0.4, 0.3, 0.5, 0.3) infinite;
-    justify-content: center;
-    align-items: center;
-    margin-top: 8px;
-    margin-bottom: 8px;
-  }
 
   .all-content{
     max-width: 1600px;
@@ -195,11 +178,11 @@ p {
 
   .store{
     margin-top: 10px;
+    padding: 10px;
     height: 65vh;
     overflow: auto;
     overflow-y: auto;
     overflow-x: hidden;
-    padding-right: 5px;
   }
 
   .store-body{
@@ -327,14 +310,6 @@ p {
   .love-img, .map-link-img, .web-img{
     width: 20px;
     margin-right: 3px;
-  }
-
-  .bottom{
-    background-color: #485465;
-    height: 90px;
-    color: white;
-    padding: 15px 20px 20px 25px;
-    font-size: 14px;  
   }
 }
 
@@ -645,14 +620,6 @@ p {
     width: 20px;
     margin-right: 3px;
   }
-
-  .bottom{
-    background-color: #485465;
-    height: 90px;
-    color: white;
-    padding: 15px 20px 20px 25px;
-    font-size: 14px;  
-  }
 }
 
 @media (max-width:695px){
@@ -952,13 +919,5 @@ p {
   .love-img, .map-link-img, .web-img{
     width: 20px;
     margin-right: 3px;
-  }
-
-  .bottom{
-    background-color: #485465;
-    height: 90px;
-    color: white;
-    padding: 15px 20px 20px 25px;
-    font-size: 14px;  
   }
 }

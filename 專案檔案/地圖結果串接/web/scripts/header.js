@@ -1,70 +1,133 @@
-function toMemberPage() {
-  window.location.href = 'member/info';
-}
-
-function toHomePage() {
-  window.location.href = 'home';
+let alertTimeout;
+function showAlert(type, message) {
+  const ALERT_INTERVAL = 5000;
+  const alertBox = document.getElementById('alert-box');
+  clearTimeout(alertTimeout);
+  alertBox.classList.remove('alert-show');
+  alertBox.classList.add('alert-hide');
+  setTimeout(function() {
+      alertBox.className = 'alert';      
+      if (type === 'green' || type === 'success') {
+        alertBox.classList.add('alert-success');
+      } else if (type === 'orange' || type === 'warning') {
+        alertBox.classList.add('alert-warning');
+      } else if (type === 'red' || type === 'danger') {
+        alertBox.classList.add('alert-danger');
+      }      
+      alertBox.textContent = message;
+      alertBox.classList.remove('alert-hide');
+      alertBox.classList.add('alert-show');
+      alertTimeout = setTimeout(function() {
+        alertBox.classList.remove('alert-show');
+        alertBox.classList.add('alert-hide');
+      }, ALERT_INTERVAL);
+  }, 200);
 }
 
 function clearInputs(...inputs) {
   inputs.forEach(input => input.value = '');
 }
 
-function loginRequest() {
-  const emailInput = document.getElementById('login-email')      
-  const passwordInput = document.getElementById('login-password')
-  const email = emailInput.value;   
-  const password = passwordInput.value;
-  if (!email || !password) {
-    !email ? emailInput.focus() : passwordInput.focus();
-    return;
-  }      
-  clearInputs(emailInput, passwordInput);
-  emailInput.focus();
-
-  const formData = new FormData();
-  formData.set('email', email);     
-  formData.set('password', password); 
-  fetch('./member/handler/login.php', {
-    method: 'POST',
-    credentials: 'same-origin',
-    body: formData
-  })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        document.getElementById('loginError').innerText = `會員編號登入成功`;
-        document.getElementById('login-message').style.display = 'none';
-        document.getElementById('login-cancel-button').click();
-        document.getElementById('user_icon').style.display = 'flex';
-        document.getElementById('login_button').style.display = 'none';
-      } else {
-        if ('showMessage' in data) {
-          alert(data.showMessage);
-        } else {
-          document.getElementById('loginError').innerText = data.message;
-          document.getElementById('login-message').style.display = 'block';
-        }
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      document.getElementById('loginError').innerText = `發生非預期的錯誤，請稍後再試。`;
-      document.getElementById('login-message').style.display = 'block';
-    });
+function updateLabelValue(id) {
+  var slider = document.getElementById(id);
+  var output = document.getElementById(id + '-value');
+  output.textContent = slider.value;
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-  const inputs = document.querySelectorAll('.login-input');
-  const submitButton = document.getElementById('login-submit-button');
+function closeOpenedModal() {
+  const modals = document.querySelectorAll('.modal');
+  modals.forEach(modalElement => {
+    const modalInstance = bootstrap.Modal.getInstance(modalElement);
+    if (modalInstance) modalInstance.hide();
+  });
+  const backdrops = document.querySelectorAll('.modal-backdrop');
+  backdrops.forEach(function (backdrop) {
+      backdrop.remove();
+  });
+}
+
+/* 自動讓登入表單的第一個輸入框取得焦點 */
+document.getElementById('loginModal').addEventListener('shown.bs.modal', function () {
+  document.getElementById('login-email').focus()
+})
+document.getElementById('signupModal1').addEventListener('shown.bs.modal', function () {
+  document.getElementById('signup-email').focus()
+})
+document.getElementById('logoutModal').addEventListener('shown.bs.modal', function () {
+  document.getElementById('logout-confirm-button').focus()
+})
+
+function cancelSignup(targetId) {
+  closeOpenedModal();
+  let modal = new bootstrap.Modal(document.getElementById('cancelSignupModal'));
+  document.getElementById('cancel-signup-cancel-button').setAttribute('onclick', `restoreSignup('${targetId}')`);
+  modal.show();
+}
+function restoreSignup(targetId) {
+  closeOpenedModal();
+  let modal = new bootstrap.Modal(document.getElementById(targetId));
+  modal.show();
+}
+
+function cancelModal() {
+  closeOpenedModal();
+  clearInputs(
+    document.getElementById('login-email'), 
+    document.getElementById('login-password')
+  )
+  document.getElementById("remember").checked = false;
+  document.getElementById('login-message').style.display = 'none';
+  clearInputs(
+    document.getElementById('signup-email'), 
+    document.getElementById('signup-name'), 
+    document.getElementById('signup-password'), 
+    document.getElementById('signup-check-password')
+  );
+  document.getElementById('signup-consent').checked = false;
+  document.getElementById('signup-message').style.display = 'none';
+}
+
+/* 自動在電子郵件欄位失去焦點時，驗證 */
+// const emailInput = document.getElementById('signup-email');
+// emailInput.addEventListener('blur', function() {
+//   if (emailInput.value.trim()!=="") emailVerifyRequest();
+// });
+
+/* 切換密碼顯示/隱藏 */
+function togglePasswordVisibility(inputId, iconId, autoFocus = true) {
+  var passwordInput = document.getElementById(inputId);
+  var passwordIcon = document.getElementById(iconId);
+  if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+      passwordIcon.setAttribute('src', 'images/password-show.png');
+  } else {
+      passwordInput.type = 'password';
+      passwordIcon.setAttribute('src', 'images/password-hide.png');
+  }
+  if (autoFocus) passwordInput.focus();
+}
+document.getElementById('login-toggle-password').addEventListener('click', function() {
+  togglePasswordVisibility('login-password', 'login-toggle-password');
+});
+document.getElementById('signup-toggle-password').addEventListener('click', function() {    
+  togglePasswordVisibility('signup-password', 'signup-toggle-password');
+  togglePasswordVisibility('signup-check-password', 'signup-toggle-check-password', false);
+});
+document.getElementById('signup-toggle-check-password').addEventListener('click', function() {    
+  togglePasswordVisibility('signup-check-password', 'signup-toggle-check-password');  
+  togglePasswordVisibility('signup-password', 'signup-toggle-password', false);  
+});
+
+
+function bindFormControl(inputClass, buttonId) {
+  const inputs = document.querySelectorAll(inputClass);
+  const submitButton = document.getElementById(buttonId);
   inputs.forEach((input, index) => {
       input.addEventListener('keydown', function(event) {
           if (event.key === 'Enter') {
             event.preventDefault();
             if (index < inputs.length - 1) {
-              setTimeout(() => {
-                  inputs[index + 1].focus();
-              }, 0);
+              inputs[index + 1].focus();
             } else {
               submitButton.click();
             }
@@ -72,6 +135,11 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   });
   inputs[0].focus();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  bindFormControl('.login-input', 'login-submit-button');
+  bindFormControl('.signup-input', 'signup1-next-button');
 });
 
 
@@ -106,7 +174,19 @@ document.querySelectorAll('.close-menu').forEach(tab => {
 const currentHour = new Date().getHours();
 const iconContainer = document.getElementById('web_name');
 if (currentHour >= 6 && currentHour < 18) {
-    iconContainer.innerHTML = '<img src="images/logo-yellow.png" id="web_logo"> <a href="../home">評星宇宙</a>';
+    iconContainer.innerHTML = '<img src="/images/logo-yellow.png" id="web_logo"> <a href="../home">評星宇宙</a>';
 } else {
-    iconContainer.innerHTML = '<img src="images/logo-blue+.png" id="web_logo"> <a href="../home">評星宇宙</a>';
+    iconContainer.innerHTML = '<img src="/images/logo-blue+.png" id="web_logo"> <a href="../home">評星宇宙</a>';
 }
+
+/* 點擊使用者圖示時，顯示/隱藏會員下拉選單 */
+const memberIcon = document.getElementById('user_icon');
+const dropdownMenu = document.getElementById('dropdownMenu');
+memberIcon.addEventListener('click', function() {
+    dropdownMenu.style.display = dropdownMenu.style.display === 'none' || dropdownMenu.style.display === '' ? 'block' : 'none';
+});
+document.addEventListener('click', function(event) {
+    if (!memberIcon.contains(event.target) && !dropdownMenu.contains(event.target)) {
+        dropdownMenu.style.display = 'none';
+    }
+});

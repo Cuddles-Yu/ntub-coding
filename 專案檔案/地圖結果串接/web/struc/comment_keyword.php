@@ -1,7 +1,9 @@
 <?php
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
-  global $conn;
+  global $conn;  
+
+  header('Content-Type: application/json');
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $searchTerm = isset($_POST['q']) ? $_POST['q'] : '';
     $storeId = isset($_POST['id']) ? (int)$_POST['id'] : 0;
@@ -31,8 +33,5 @@
       $output .= '<p class="comment-text">' . str_replace($searchTerm, '<em class="comment-highlight">' . htmlspecialchars($searchTerm) . '</em>', htmlspecialchars($comment['contents'])) . '</p>';
       $output .= '</div></div>';
     }
-    echo json_encode([
-      'html' => $output,
-      'count' => count($comments)
-    ]);
+    echo json_encode(['html' => $output, 'count' => count($comments)]);
   }

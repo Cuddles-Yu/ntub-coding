@@ -4,7 +4,7 @@
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/queries.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/analysis.php';
 
-  global $conn;
+  global $conn, $markOptions;
   $userId = null;
   $keyword = array_key_exists('q', $_POST) ? htmlspecialchars($_POST['q']) : null;
   $mapCenterLat = isset($_POST['mapCenterLat']) ? floatval($_POST['mapCenterLat']) : null;
@@ -26,6 +26,8 @@
       usort($storeData, function ($a, $b) {
           return $b['bayesianScore'] <=> $a['bayesianScore'];
       });
+  } else {
+      exit;
   }
 ?>
 
@@ -35,15 +37,20 @@
       $store = $storeItem['store'];
       $storeId = $store['id'];
       $bayesianScore = $storeItem['bayesianScore'];
-      $distance = normalizeDistance($store['distance']);
+
+      $targetsInfo = getTargets($storeId);
+      $distance = normalizeDistance($store['distance']);      
+      $tag = htmlspecialchars($store['tag']);
       $storeName = htmlspecialchars($store['name']);
       $preview_image = htmlspecialchars($store['preview_image']);
-      $tag = htmlspecialchars($store['tag']);
       $location = htmlspecialchars(getAddress($store));
-      $targetsInfo = getTargets($storeId);
 
+      $mark = $store['mark'];
+      $cardType = $markOptions[$mark]['cardType'] ?? '';
+      $tagName = $markOptions[$mark]['tagName'] ?? '';
+      
       $categories = [
-        $_ENVIRONMENT => ['weight' => '30', 'color' => '#562B08'],
+        $_ATMOSPHERE => ['weight' => '30', 'color' => '#562B08'],
         $_PRODUCT => ['weight' => '30', 'color' => '#7B8F60'],
         $_SERVICE => ['weight' => '30', 'color' => '#5053AF'],
         $_PRICE => ['weight' => '30', 'color' => '#C19237'],
@@ -54,7 +61,7 @@
       $rowIndex = 1;
     ?>
     <div class="container-fluid store-body" onclick="redirectToDetailPage('<?=$storeId?>')">
-        <div class="row">
+        <div class="row <?=$cardType?>">
             <div class="store-img-group col-3">
               <img class="store-img" src="<?=$preview_image?>">
             </div>
@@ -66,7 +73,7 @@
                 <div class="store-information row">
                     <div class="col-6">                                     
                       <!--綜合評分--><h5 class="rating"><?=$bayesianScore?><small class="rating-text"> / 綜合評分</small></h5>                                            
-                      <!--餐廳分類--><h6 class="restaurant-style">類別：<?=$tag?> ♻️</h6>
+                      <!--餐廳分類--><h6 class="restaurant-style">類別：<?=$tag?><?=$tagName?></h6>
                       <!--餐廳地址--><h6 class="address">地址：<?=$location?></h6>
                     </div>                    
                     <div class="progress-group-text col">

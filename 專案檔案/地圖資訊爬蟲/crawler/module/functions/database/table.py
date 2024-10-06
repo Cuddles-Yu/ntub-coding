@@ -38,7 +38,7 @@ def create_tags(cursor):
 def create_stores(cursor):
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS `stores` (
-            `id` int NOT NULL AUTO_INCREMENT,
+            `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
             `name` varchar(255) NOT NULL,
             `branch_title` varchar(255) DEFAULT NULL,
             `branch_name` varchar(255) DEFAULT NULL,
@@ -52,10 +52,9 @@ def create_stores(cursor):
             `crawler_state` varchar(10) DEFAULT '建立',
             `crawler_description` varchar(100) DEFAULT NULL,
             `crawler_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-            PRIMARY KEY (`id`),
             UNIQUE KEY `name_UNIQUE` (`name`),
             KEY `fk_tag_s_idx` (`tag`),
-            CONSTRAINT `fk_tag_s` FOREIGN KEY (`tag`) REFERENCES `tags` (`tag`) ON DELETE CASCADE ON UPDATE CASCADE
+            FOREIGN KEY (`tag`) REFERENCES `tags` (`tag`) ON DELETE CASCADE ON UPDATE CASCADE
         )
     ''')
 
@@ -82,7 +81,7 @@ def create_comments(cursor):
             `sample_of_highest_rating` tinyint NOT NULL DEFAULT '0',
             `sample_of_lowest_rating` tinyint NOT NULL DEFAULT '0',
             PRIMARY KEY (`store_id`,`id`),
-            CONSTRAINT `store_id` FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+            FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
         )
     ''')
 
@@ -90,7 +89,7 @@ def create_comments(cursor):
 def create_locations(cursor):
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS `locations` (
-            `store_id` int NOT NULL,
+            `store_id` int NOT NULL PRIMARY KEY,
             `longitude` decimal(10,7) DEFAULT NULL,
             `latitude` decimal(10,7) DEFAULT NULL,
             `postal_code` varchar(6) DEFAULT NULL,
@@ -98,8 +97,7 @@ def create_locations(cursor):
             `dist` varchar(3) DEFAULT NULL,
             `vil` varchar(3) DEFAULT NULL,
             `details` varchar(255) DEFAULT NULL,
-            PRIMARY KEY (`store_id`),
-            CONSTRAINT `fk_store_id_l` FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+            FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
         )
     ''')
 
@@ -107,7 +105,7 @@ def create_locations(cursor):
 def create_rates(cursor):
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS `rates` (
-            `store_id` int NOT NULL,
+            `store_id` int NOT NULL PRIMARY KEY,
             `avg_ratings` decimal(2,1) DEFAULT NULL,
             `total_reviews` int DEFAULT NULL,
             `total_browses` int DEFAULT NULL,
@@ -123,8 +121,7 @@ def create_rates(cursor):
             `product_rating` decimal(6,3) DEFAULT NULL,
             `service_rating` decimal(6,3) DEFAULT NULL,
             `store_responses` int DEFAULT NULL,
-            PRIMARY KEY (`store_id`),
-            CONSTRAINT `fk_store_id_r` FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+            FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
         )
     ''')
 
@@ -139,7 +136,7 @@ def create_services(cursor):
             `state` tinyint DEFAULT NULL,
             PRIMARY KEY (`store_id`,`id`),
             KEY `fk_store_id_s_idx` (`store_id`),
-            CONSTRAINT `fk_store_id_s` FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+            FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
         )
     ''')
 
@@ -154,7 +151,7 @@ def create_openhours(cursor):
             `close_time` time DEFAULT NULL,
             PRIMARY KEY (`store_id`,`id`),
             KEY `fk_store_id_o_idx` (`store_id`),
-            CONSTRAINT `fk_store_id_o` FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+            FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
         )
     ''')
 
@@ -167,8 +164,8 @@ def create_favorites(cursor):
             `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (`user_id`,`store_id`),
             KEY `fk_store_id` (`store_id`),
-            CONSTRAINT `fk_store_id` FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-            CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `members` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+            FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+            FOREIGN KEY (`user_id`) REFERENCES `members` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
         )
     ''')
 
@@ -189,30 +186,30 @@ def create_histories(cursor):
 def create_preferences(cursor):
     cursor.execute('''
         CREATE TABLE preferences (
-            member_id INT,
+            member_id INT PRIMARY KEY,
             atmosphere_weight INT DEFAULT 50,
             price_weight INT DEFAULT 50,
             product_weight INT DEFAULT 50,
             service_weight INT DEFAULT 50,
+            search_radius INT DEFAULT 1500,                 
             open_now BOOLEAN DEFAULT FALSE,
+            parking BOOLEAN DEFAULT FALSE,
             wheelchair_accessible BOOLEAN DEFAULT FALSE,
             vegetarian BOOLEAN DEFAULT FALSE,
             healthy BOOLEAN DEFAULT FALSE,
             kids_friendly BOOLEAN DEFAULT FALSE,
             pets_friendly BOOLEAN DEFAULT FALSE,
-            family_friendly BOOLEAN DEFAULT FALSE,
-            group_friendly BOOLEAN DEFAULT FALSE,
-            parking BOOLEAN DEFAULT FALSE,
+            gender_friendly BOOLEAN DEFAULT FALSE,
             delivery BOOLEAN DEFAULT FALSE,
             takeaway BOOLEAN DEFAULT FALSE,
             dine_in BOOLEAN DEFAULT FALSE,
             breakfast BOOLEAN DEFAULT FALSE,
             brunch BOOLEAN DEFAULT FALSE,
             lunch BOOLEAN DEFAULT FALSE,
-            dinner BOOLEAN DEFAULT FALSE,
-            casual BOOLEAN DEFAULT FALSE,
-            cosy BOOLEAN DEFAULT FALSE,
+            dinner BOOLEAN DEFAULT FALSE,       
             reservation BOOLEAN DEFAULT FALSE,
+            group_friendly BOOLEAN DEFAULT FALSE,
+            family_friendly BOOLEAN DEFAULT FALSE,            
             toilet BOOLEAN DEFAULT FALSE,
             wifi BOOLEAN DEFAULT FALSE,
             cash BOOLEAN DEFAULT FALSE,
@@ -220,7 +217,7 @@ def create_preferences(cursor):
             debit_card BOOLEAN DEFAULT FALSE,
             mobile_payment BOOLEAN DEFAULT FALSE,
             FOREIGN KEY (member_id) REFERENCES members(id) ON DELETE CASCADE ON UPDATE CASCADE
-        );
+        )
     ''')
 
 # '金鑰'資料表
@@ -233,7 +230,7 @@ def create_tokens(cursor):
             create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             expiration_time TIMESTAMP NOT NULL,
             FOREIGN KEY (member_id) REFERENCES members(id) ON DELETE CASCADE ON UPDATE CASCADE
-        );
+        )
     ''')
 
 # '關鍵字'資料表
@@ -248,7 +245,7 @@ def create_keywords(cursor):
             `source_url` varchar(2000) DEFAULT NULL,
             PRIMARY KEY (`store_id`,`word`,`source`),
             KEY `fk_store_id_k` (`store_id`,`word`,`source`),
-            CONSTRAINT `fk_store_id_k` FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+            FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
         )
     ''')
 
@@ -263,6 +260,6 @@ def create_marks(cursor):
             `state` enum('正面','負面','喜好') NOT NULL,
             PRIMARY KEY (`store_id`,`comment_id`,`id`),
             KEY `fk_comment_id_m_idx` (`comment_id`),
-            CONSTRAINT `fk_store_id_m` FOREIGN KEY (`store_id`, `comment_id`) REFERENCES `comments` (`store_id`, `id`) ON DELETE CASCADE ON UPDATE CASCADE
+            FOREIGN KEY (`store_id`, `comment_id`) REFERENCES `comments` (`store_id`, `id`) ON DELETE CASCADE ON UPDATE CASCADE
         )
     ''')

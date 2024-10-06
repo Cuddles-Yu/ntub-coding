@@ -3,7 +3,8 @@
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/session.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
   global $conn;
-
+  
+  header('Content-Type: application/json');
   if (isset($_POST['name']) && isset($_POST['password'])) {
     $name = $_POST['name'];
     $password = $_POST['password'];
@@ -20,8 +21,8 @@
     $stmt->close();
 
     if ($hashedPassword && password_verify($password, $hashedPassword)) {
-        echo json_encode(['success' => true, 'token' => $authKey]); // 假設 auth_key 作為 token 返回
+      echo json_encode(['success' => true, 'token' => $authKey]); // 假設 auth_key 作為 token 返回
     } else {
-        echo json_encode(['success' => false, 'message' => '帳號或密碼不正確']);
+      echo json_encode(['success' => false, 'message' => '帳號或密碼不正確']);
     }
   }

@@ -1,11 +1,16 @@
 <?php
-  $TOKEN_EXPIRATION_TIME = 3 *(60*60*24*30)+ 0 *(60*60*24)+ 0 *(60*60)+ 0 *60+ 0; //月日時分秒
-  ini_set('session.gc_maxlifetime', $TOKEN_EXPIRATION_TIME);
-  ini_set('session.cookie_lifetime', $TOKEN_EXPIRATION_TIME);
+  $TOKEN_EXPIRATION_TIME = 0 *(60*60*24*30)+ 1 *(60*60*24)+ 0 *(60*60)+ 0 *60+ 0; //月日時分秒  
+  ini_set('session.gc_maxlifetime', $TOKEN_EXPIRATION_TIME);  
+  // ini_set('session.cookie_lifetime', $TOKEN_EXPIRATION_TIME);
   session_start();
 
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
+
+  function resetSession() {
+    session_unset();
+    session_destroy();
+  }
 
   function checkSessionToken() {
     global $conn;
@@ -26,13 +31,20 @@
         $current_time = new DateTime("now");
         $token_expiry = DateTime::createFromFormat('Y-m-d H:i:s', $expiration_time);
         if ($current_time < $token_expiry) {
-          return json_encode(['success' => true, 'message' => '驗證成功，已自動登入', 'member_id' => $member_id]);
+          if (isset($_COOKIE['remember'])) {            
+            return json_encode(['success' => true, 'message' => '驗證成功，已自動登入', 'member_id' => $member_id]);
+          } else {        
+            resetSession();
+            return json_encode(['success' => false, 'showMessage' => '保持登入狀態已關閉，請重新登入以驗證身份']);
+          }
         } else {
-          return json_encode(['success' => false, 'showMessage' => '連線已過期，請重新登入']);
+          resetSession();            
+          return json_encode(['success' => false, 'showMessage' => '連線階段已過期，請重新登入以驗證身份']);
         }
       } else {
-        return json_encode(['success' => false, 'message' => '您的連線資訊無效，請重新登入']);
-      }
+        resetSession();
+        return json_encode(['success' => false, 'showMessage' => '連線金鑰驗證失敗，請重新登入以驗證身份']);
+      }      
     } else {
       return json_encode(['success' => false, 'message' => '尚未登入帳號']);
     }

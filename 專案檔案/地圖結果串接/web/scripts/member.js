@@ -1,90 +1,56 @@
-/* 點擊漢堡圖示時，顯示/隱藏選單 */
-document.getElementById('hamburger_btn').addEventListener('click', function() {
-    var navMenu = document.getElementById('nav_menu2');
-    var overlay = document.getElementById('overlay');
-    if (navMenu.classList.contains('show')) {
-        navMenu.classList.remove('show');
-        overlay.classList.remove('show');
-    } else {
-        navMenu.classList.add('show');
-        overlay.classList.add('show');
-    }
+document.querySelectorAll('.member-menu').forEach(page => {
+  page.removeAttribute('href');
+  page.setAttribute('style', 'cursor:default;');
+});
+document.querySelectorAll('.member-page').forEach(page => {
+  page.removeAttribute('href');
+  page.setAttribute('style', 'cursor:default;');
 });
 
-document.getElementById('overlay').addEventListener('click', function() {
-    var navMenu = document.getElementById('nav_menu2');
-    var overlay = document.getElementById('overlay');
-    navMenu.classList.remove('show');
-    overlay.classList.remove('show');
-});
-
-/* 切換到基本資料頁面 */
-function switchToInfo() {  
-    // 先取得要操作的標籤
-    let info_main_area_Div = document.getElementById("info_main_area");
-    let preference_main_area_Div = document.getElementById("preference_main_area");
-    let weight_main_area_Div = document.getElementById("weight_main_area");
-    let place_main_area_Div = document.getElementById("place_main_area");
-
-     // 再對標籤進行操作
-    info_main_area_Div.style.display = "block";
-    preference_main_area_Div.style.display = "none";
-    weight_main_area_Div.style.display = "none";
-    place_main_area_Div.style.display = "none";
-    
-    // 取得頁面的標籤、設定顏色
-    let infoDiv = document.getElementById("info");
-    let infoLogo = document.getElementById("info_logo");
-    let preferenceDiv = document.getElementById("preference");
-    let preferenceLogo = document.getElementById("preference_logo");
-    let weightDiv = document.getElementById("weight");
-    let weightLogo = document.getElementById("weight_logo");
-    let placeDiv = document.getElementById("place");
-    let placeLogo = document.getElementById("place_logo");
-    infoDiv.style.color = "#8234FF";
-    infoLogo.style.color = "#8234FF";
-    preferenceDiv.style.color = "#5e5e5e";
-    preferenceLogo.style.color = "#5e5e5e";
-    weightDiv.style.color = "#5e5e5e";
-    weightLogo.style.color = "#5e5e5e";
-    placeDiv.style.color = "#5e5e5e";
-    placeLogo.style.color = "#5e5e5e";
+function switchTo(page) {
+  // 主要區域
+  document.getElementById("info_main_area").style.display = (page=='info') ? "block" : "none";
+  document.getElementById("preference_main_area").style.display = (page=='preference') ? "block" : "none";
+  document.getElementById("weight_main_area").style.display = (page=='weight') ? "block" : "none";
+  document.getElementById("favorite_main_area").style.display = (page=='favorite') ? "block" : "none";
+  // 選單標籤
+  document.getElementById("info").style.color = (page=='info') ? "#8234FF" : "#5e5e5e";
+  document.getElementById("info_logo").style.color = (page=='info') ? "#8234FF" : "#5e5e5e";
+  document.getElementById("preference").style.color = (page=='preference') ? "#8234FF" : "#5e5e5e";
+  document.getElementById("preference_logo").style.color = (page=='preference') ? "#8234FF" : "#5e5e5e";
+  document.getElementById("weight").style.color = (page=='weight') ? "#8234FF" : "#5e5e5e";
+  document.getElementById("weight_logo").style.color = (page=='weight') ? "#8234FF" : "#5e5e5e";
+  document.getElementById("favorite").style.color = (page=='favorite') ? "#8234FF" : "#5e5e5e";
+  document.getElementById("favorite_logo").style.color = (page=='favorite') ? "#8234FF" : "#5e5e5e";
 }
 
 /* 修改使用者名稱 */
 document.addEventListener('DOMContentLoaded', function() {
-    function toggleEditMode(inputId, changeId, doneId, cancelId) {
-        const input = document.getElementById(inputId);
-        const changeIcon = document.getElementById(changeId);
-        const doneIcon = document.getElementById(doneId);
-        const cancelIcon = document.getElementById(cancelId);
-        let previousValue = input.value;
-
-        changeIcon.addEventListener('click', function() {
-            previousValue = input.value;
-            input.removeAttribute('readonly');
-            changeIcon.style.display = 'none';
-            doneIcon.style.display = 'inline';
-            cancelIcon.style.display = 'inline';
-        });
-
-        doneIcon.addEventListener('click', function() {
-            input.setAttribute('readonly', 'readonly');
-            changeIcon.style.display = 'inline';
-            doneIcon.style.display = 'none';
-            cancelIcon.style.display = 'none';
-        });
-
-        cancelIcon.addEventListener('click', function() {
-            input.value = previousValue;
-            input.setAttribute('readonly', 'readonly');
-            changeIcon.style.display = 'inline';
-            doneIcon.style.display = 'none';
-            cancelIcon.style.display = 'none';
-        });
-    }
-
-    toggleEditMode('user_name', 'change_user_name', 'done_user_name', 'cancel_user_name');
+  const input = document.getElementById('user_name');
+  const changeIcon = document.getElementById('change_user_name');
+  const doneIcon = document.getElementById('done_user_name');
+  const cancelIcon = document.getElementById('cancel_user_name');
+  let previousValue = input.value;
+  changeIcon.addEventListener('click', function() {
+      previousValue = input.value;
+      input.removeAttribute('readonly');
+      changeIcon.style.display = 'none';
+      doneIcon.style.display = 'inline';
+      cancelIcon.style.display = 'inline';
+  });
+  doneIcon.addEventListener('click', function() {
+      input.setAttribute('readonly', 'readonly');
+      changeIcon.style.display = 'inline';
+      doneIcon.style.display = 'none';
+      cancelIcon.style.display = 'none';
+  });
+  cancelIcon.addEventListener('click', function() {
+      input.value = previousValue;
+      input.setAttribute('readonly', 'readonly');
+      changeIcon.style.display = 'inline';
+      doneIcon.style.display = 'none';
+      cancelIcon.style.display = 'none';
+  });
 });
 
 
@@ -106,21 +72,15 @@ window.onclick = function(event) {
 
 // 新密碼設定提交時進行檢查
 document.getElementById('password_form').addEventListener('submit', function(event) {
-    event.preventDefault(); // 防止表單提交
-
+    event.preventDefault();
     const currentPassword = document.getElementById('current_password').value;
     const newPassword = document.getElementById('new_password').value;
     const confirmPassword = document.getElementById('confirm_password').value;
 
-    // 檢查新密碼和確認密碼是否一致
     if (newPassword === confirmPassword) {
-        // 檢查目前密碼和新密碼是否不同
         if (currentPassword !== newPassword) {
-            // 顯示成功訊息
             document.getElementById('success_message').style.display = 'block';
-
-            // 隱藏模態視窗
-            setTimeout(closeModal, 2500); // 2.5秒後關閉模態視窗
+            setTimeout(closeModal, 2500);
         } else {
             alert('新密碼不能與目前密碼相同，請重新輸入。');
         }
@@ -128,39 +88,6 @@ document.getElementById('password_form').addEventListener('submit', function(eve
         alert('新密碼和確認密碼不一致，請重新輸入。');
     }
 });
-
-/* 切換到偏好設定頁面 */
-function switchToPreference() {  
-    // 先取得要操作的標籤
-    let info_main_area_Div = document.getElementById("info_main_area");
-    let preference_main_area_Div = document.getElementById("preference_main_area");
-    let weight_main_area_Div = document.getElementById("weight_main_area");
-    let place_main_area_Div = document.getElementById("place_main_area");
-
-     // 再對標籤進行操作
-    info_main_area_Div.style.display = "none";
-    preference_main_area_Div.style.display = "block";
-    weight_main_area_Div.style.display = "none";
-    place_main_area_Div.style.display = "none";
-    
-    // 取得頁面的標籤、設定顏色
-    let infoDiv = document.getElementById("info");
-    let infoLogo = document.getElementById("info_logo");
-    let preferenceDiv = document.getElementById("preference");
-    let preferenceLogo = document.getElementById("preference_logo");
-    let weightDiv = document.getElementById("weight");
-    let weightLogo = document.getElementById("weight_logo");
-    let placeDiv = document.getElementById("place");
-    let placeLogo = document.getElementById("place_logo");
-    infoDiv.style.color = "#5e5e5e";
-    infoLogo.style.color = "#5e5e5e";
-    preferenceDiv.style.color = "#8234FF";
-    preferenceLogo.style.color = "#8234FF";
-    weightDiv.style.color = "#5e5e5e";
-    weightLogo.style.color = "#5e5e5e";
-    placeDiv.style.color = "#5e5e5e";
-    placeLogo.style.color = "#5e5e5e";
-}
 
 // 強制設置圖示隱藏
 window.onload = function() {
@@ -173,6 +100,14 @@ window.onload = function() {
     document.querySelectorAll('.mixed_icon').forEach(function(element) {
         element.style.display = 'none';
     });
+
+    // 頁面載入後檢查 URL 中是否有搜尋關鍵字，並自動執行搜尋
+    const urlParams = new URLSearchParams(window.location.search);
+    const tab = urlParams.get('tab');
+    if (tab) {
+      window.history.replaceState({}, '', `${location.protocol}//${location.host}${location.pathname}`);
+      switchTo(tab);
+    }   
 };
 
 // 修改偏好設定按鈕
@@ -576,40 +511,6 @@ document.addEventListener('DOMContentLoaded', function() {
     updateIcons();
 });
 
-
-/* 切換到權重設定頁面 */
-function switchToWeight() {
-    // 先取得要操作的標籤
-    let info_main_area_Div = document.getElementById("info_main_area");
-    let preference_main_area_Div = document.getElementById("preference_main_area");
-    let weight_main_area_Div = document.getElementById("weight_main_area");
-    let place_main_area_Div = document.getElementById("place_main_area");
-
-     // 再對標籤進行操作
-    info_main_area_Div.style.display = "none";
-    preference_main_area_Div.style.display = "none";
-    weight_main_area_Div.style.display = "block";
-    place_main_area_Div.style.display = "none";
-    
-    // 取得頁面的標籤、設定顏色
-    let infoDiv = document.getElementById("info");
-    let infoLogo = document.getElementById("info_logo");
-    let preferenceDiv = document.getElementById("preference");
-    let preferenceLogo = document.getElementById("preference_logo");
-    let weightDiv = document.getElementById("weight");
-    let weightLogo = document.getElementById("weight_logo");
-    let placeDiv = document.getElementById("place");
-    let placeLogo = document.getElementById("place_logo");
-    infoDiv.style.color = "#5e5e5e";
-    infoLogo.style.color = "#5e5e5e";
-    preferenceDiv.style.color = "#5e5e5e";
-    preferenceLogo.style.color = "#5e5e5e";
-    weightDiv.style.color = "#8234FF";
-    weightLogo.style.color = "#8234FF";
-    placeDiv.style.color = "#5e5e5e";
-    placeLogo.style.color = "#5e5e5e";
-}
-
 /* 切換編輯模式 */
 var initialValues = {};
 
@@ -649,43 +550,10 @@ function cancelEditMode2() {
 }
 
 /* 權重 %數值更新 */
-function updateValue(id) {
+function updateLabelValue(id) {
     var slider = document.getElementById(id);
     var output = document.getElementById(id + '_value');
     output.textContent = slider.value;
-}
-
-/* 切換到收藏地點頁面 */
-function switchToPlace() {  
-    // 先取得要操作的標籤
-    let info_main_area_Div = document.getElementById("info_main_area");
-    let preference_main_area_Div = document.getElementById("preference_main_area");
-    let weight_main_area_Div = document.getElementById("weight_main_area");
-    let place_main_area_Div = document.getElementById("place_main_area");
-
-     // 再對標籤進行操作
-    info_main_area_Div.style.display = "none";
-    preference_main_area_Div.style.display = "none";
-    weight_main_area_Div.style.display = "none";
-    place_main_area_Div.style.display = "block";
-    
-    // 取得頁面的標籤、設定顏色
-    let infoDiv = document.getElementById("info");
-    let infoLogo = document.getElementById("info_logo");
-    let preferenceDiv = document.getElementById("preference");
-    let preferenceLogo = document.getElementById("preference_logo");
-    let weightDiv = document.getElementById("weight");
-    let weightLogo = document.getElementById("weight_logo");
-    let placeDiv = document.getElementById("place");
-    let placeLogo = document.getElementById("place_logo");
-    infoDiv.style.color = "#5e5e5e";
-    infoLogo.style.color = "#5e5e5e";
-    preferenceDiv.style.color = "#5e5e5e";
-    preferenceLogo.style.color = "#5e5e5e";
-    weightDiv.style.color = "#5e5e5e";
-    weightLogo.style.color = "#5e5e5e";
-    placeDiv.style.color = "#8234FF";
-    placeLogo.style.color = "#8234FF";
 }
 
 /* 箭頭圖示切換 */

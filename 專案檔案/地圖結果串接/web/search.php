@@ -217,8 +217,7 @@
         </div>
 
         <div id="map" class="map">
-          <div id="crosshair"></div> <!-- 添加透明十字 -->
-          <!-- 使用者定位按鈕 -->
+          <div id="crosshair"></div>
           <button type="button" id="locateButton" onclick="defaultLocate()">使用您的位置</button>
         </div>
       </div>
@@ -251,9 +250,6 @@
   <!-- 載入 Markercluster.js -->
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 
-  <!-- 載入JSON資料 -->
-  <!-- <script src="./search_landmark.php"></script> -->
-
   <!-- 載入主程式 -->  
   <script src="./scripts/map.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -262,17 +258,21 @@
 
   <!-- 搜尋跳轉功能 -->
   <script>
+    document.querySelectorAll('.home-menu').forEach(page => {
+      page.removeAttribute('href');
+      page.setAttribute('style', 'cursor:default;');
+    });
+    document.querySelectorAll('.home-page').forEach(page => {
+      page.removeAttribute('href');
+      page.setAttribute('style', 'cursor:default;');
+    });
+
     // 創建中心位置的圖標
     var centerIcon = L.icon({
       iconUrl: './images/location-target.png',
       iconSize: [30, 30],
       popupAnchor: [0, -20]
     });
-    function updateKeywordURL(keyword) {
-      document.title = keyword.trim() === "" ? "搜尋結果 - 評星宇宙" : `${keyword}搜尋結果 - 評星宇宙`;
-      //history.pushState():保留紀錄、history.replaceState():不保留紀錄
-      window.history.replaceState({}, '', `${location.protocol}//${location.host}${location.pathname}?q=${keyword}`);
-    }
 
     function searchKeyword() {
       var keyword = document.getElementById('keyword').value;
@@ -280,7 +280,8 @@
       var mapCenter = getCenter(); // 取得地圖中心經緯度
       var lat = document.getElementById('map').getAttribute('data-lat');
       var lng = document.getElementById('map').getAttribute('data-lng');
-      updateKeywordURL(keyword);
+      document.title = keyword.trim() === "" ? "搜尋結果 - 評星宇宙" : `${keyword}搜尋結果 - 評星宇宙`;
+      window.history.replaceState({}, '', `${location.protocol}//${location.host}${location.pathname}?q=${keyword}&lat=${lat}&lng=${lng}`);
 
       const formData = new FormData();
       formData.set('q', keyword);
@@ -302,7 +303,7 @@
             searchResults.innerHTML = "<p>沒有找到相關結果。</p>";
           }
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => console.error('搜尋餐廳過程中出現錯誤：', error));
         
       markers.clearLayers(); // 清除先前的地標          
       // 取得地圖中心經緯度
@@ -327,7 +328,7 @@
           // 更新地圖標記
           if (Array.isArray(data) && data.length > 0) processJsonData(data);         
         })
-        .catch(error => console.error('地標獲取錯誤:', error));
+        .catch(error => console.error('地標獲取錯誤：', error));
       // 使用者滑動後取得目前地圖中心經緯度並自動搜尋
       // moveGetCenter();
     }
@@ -389,9 +390,9 @@
   </script>
 
   <!-- 跳轉詳細頁面 -->
-  <script>
+  <script>    
     function redirectToDetailPage(storeId) {
-      window.location.href = `detail?id=${storeId}`;
+      window.location.href = `detail?id=${storeId}`
     }
   </script>
 
@@ -404,18 +405,13 @@
       const lng = urlParams.get('lng');
       if (lat && lng) {
         setView([lat, lng], 16);
-        var userMarker = L.marker([lat, lng], {
-          icon: userIcon
-        });
-        map.addLayer(userMarker);
+        defaultLocate(false);
         if (keyword) document.getElementById('keyword').value = keyword;
         document.getElementById('search-button').click();
       } else {
         defaultLocate();
-        if (keyword) {
-          document.getElementById('keyword').value = keyword;
-          document.getElementById('search-button').click();
-        }
+        if (keyword) document.getElementById('keyword').value = keyword;
+        document.getElementById('search-button').click();
       }   
     }
   </script>

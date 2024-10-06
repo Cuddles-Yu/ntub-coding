@@ -5,7 +5,6 @@
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/queries.php';
 
-  // 查詢資料
   function getStoreData() {
       global $conn;
       $stmt = $conn->prepare(query:
@@ -49,6 +48,5 @@
       return $data;
   }
 
-  // 將數據轉換為 JSON 格式並輸出
   header('Content-Type: application/json');
   echo json_encode(getStoreData());

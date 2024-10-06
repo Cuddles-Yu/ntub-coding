@@ -4,12 +4,14 @@
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
   global $conn;
 
+  header('Content-Type: application/json');
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $member_id = null;
     $member_name = null;
     $hashedPassword = null;
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $remember = $_POST['remember']==='1'?true:false;
 
     $stmt = bindPrepare($conn, 
     " SELECT `id`, `name`, `password` FROM members 
@@ -23,15 +25,21 @@
       if (password_verify($password, $hashedPassword)) {
         $token = generateToken(40);
         date_default_timezone_set("Asia/Taipei");
-        $expires_at = date("Y-m-d H:i:s", time() + $TOKEN_EXPIRATION_TIME); // 設置有效期
+        $expiryTime = time() + $TOKEN_EXPIRATION_TIME;
+        $expiryFormat = date("Y-m-d H:i:s", $expiryTime); // 設置有效期
         $stmt = bindPrepare($conn,
         "INSERT INTO tokens(`member_id`, `token`, `expiration_time`)
           VALUE (?,?,?)
-        ", "iss", $member_id, $token, $expires_at);
+        ", "iss", $member_id, $token, $expiryFormat);
         $stmt->execute();
         $_SESSION['member_id'] = $member_id;
         $_SESSION['token'] = $token;
-        echo json_encode(['success' => true, 'id' => $member_id]);
+        if ($remember) {
+          setcookie('remember', '1', $expiryTime, "/", "", false, true);
+        } else{
+          setcookie('remember', '0', 0, "/", "", false, true);
+        }
+        echo json_encode(['success' => true, 'id' => $member_id, 'name' => $member_name]);
       } else {
         echo json_encode(['success' => false, 'message' => '帳號或密碼不正確']);
       }

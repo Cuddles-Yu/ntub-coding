@@ -1,37 +1,19 @@
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
+.home-page {
+  border-bottom-style: solid;  
+  border-bottom-color: mediumblue;
 }
-
-html, body {
-  margin: 0;
-  height: 100%;
-  user-select:none; /* 禁止選取standard syntax */
-  -webkit-user-select:none; /* 禁止for Chrome、Safari */
-  -moz-user-select:none;  /* 禁止for Mozilla、Firefox */
+.home-menu {
+  border-left-style: solid;
+  border-left-color: mediumblue;
 }
 
 body{
   padding-top: 90px;
 }
 
-.login-modal{
-  width: 390px;
-}
-
-.login-modal-body{
-  padding: 20px;
-}
-
 .input-group-login{
   display: flex;
   margin-top: 5px;
-}
-
-.text-icon {
-  position: relative;
-  top: -2px;
 }
 
 .tab-content-1, .tab-content-2, .tab-content-3 {
@@ -51,136 +33,9 @@ body{
   text-decoration: none;
 }
 
-.forget_pwd {
-  color: rgb(119, 119, 119);
-  margin-left: auto;
-  align-self: flex-end;
-  cursor: pointer;
-  text-align: right;
-}
-
-#toggle-password {
-  position: relative;
-  right: -315px;
-  top: -33px;
-  cursor: pointer;
-  width: 20px;
-  height: 20px;
-}
-
-.remember_container {
-  display: flex;
-  font-size: 16px;
-  justify-content: flex-end;
-}
-
-#remember_text {
-  cursor: pointer;
-  padding-left: 5px;
-}
-
-.divider_container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  margin: 15px 0;
-}
-
-.divider {
-  flex-grow: 1;
-  height: 1px;
-  background-color: black;
-  margin-top: 3px;
-}
-
-.divider_text {
-  padding: 0 10px;
-  font-weight: bold;
-  font-size: 16px;
-  margin: 0;
-}
-
-#google_icon {
-  position: relative;
-  width: 20px;
-  height: 20px;
-}
-
-.login_area {
-  display: flex;
-  justify-content: space-around;
-}
-
-.register-button{
-  width: 300px;
-  margin-top: 10px;
-}
-
-.agree {
-  position: relative;
-  margin-top: 15px;
-  font-size: 16px;
-  text-align: center;
-}
-
-.signup-explain1{
-  font-size: 11px;
-  text-align: center;
-  margin-top: 15px;
-  margin-bottom: 5px;
-}
-
-.signup-explain2{
-  font-size: 11px;
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-.slider-container{
-  text-align: center;
-}
-
-#environment_value, #product_value, #service_value, #price_value{
-  display: inline-block;
-  width: 33px;
-  text-align: left;
-}
-
-.toggle-password {
-  position: relative;
-  right: -315px;
-  top: -33px;
-  cursor: pointer;
-  width: 20px;
-  height: 20px;
-}
-
-.signup-body{
-  width: 390px;
-  height: 395px;
-}
-
-.modal.fade.show {
-  opacity: 1; /* 保持模態框顯示時完全不透明 */
-  transition: opacity 0.15s linear; /* 控制淡入的時間 */
-}
-
-.modal.fade {
-  opacity: 1; /* 在顯示的狀態下立即設置為不透明，移除淡出動畫 */
-}
-
 @media (min-width: 711px){
-  .secondary-content{
-    max-width: 1400px;
-    height: auto;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 80px;
-  }
-
   .title-text{
-    margin-top: 90px;
+    margin-top: 70px;
     text-align: center;
     font-weight: bold;
     font-size: 75px;
@@ -231,25 +86,8 @@ body{
     z-index: 10500; /* backdrop 也要设置更高 */
   }
 
-  .checkbox-title{
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 0;
-    margin-right: 15px;
-  }
-
-  .checkbox-title:not(:first-child){
-    margin-top: 5px;
-  }
-
   .input-group{
     width: 200px;
-  }
-
-
-  .checkbox-container{
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); /* 自動適應列數 */
   }
 
   .search-button{
@@ -483,11 +321,12 @@ body{
     cursor: pointer;
   }
 
-  .card-title{
+  .card-title {
     font-weight: bold;
     font-size: 20px;
     overflow: hidden;
-    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
   }
 
   .quick-group{
@@ -553,27 +392,15 @@ body{
   .restaurant-style, .address{
     font-size: 12.8px;
     margin-top: 10px;
-  }
-
-  .bottom{
-    background-color: #485465;
-    height: 90px;
-    color: white;
-    padding: 25px 20px 0px 25px;
-    font-size: 14px;
+    width: 254px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
   }
 }
 
 
 @media (min-width: 551px) and (max-width: 710px){
-  .secondary-content{
-    max-width: 1400px;
-    min-height: auto;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 80px;
-  }
-
   .title-text{
     margin-top: 60px;
     text-align: center;
@@ -878,11 +705,12 @@ body{
     cursor: pointer;
   }
 
-  .card-title{
+  .card-title {
     font-weight: bold;
     font-size: 20px;
     overflow: hidden;
-    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
   }
 
   .quick-group{
@@ -948,26 +776,14 @@ body{
   .restaurant-style, .address{
     font-size: 12.8px;
     margin-top: 10px;
-  }
-
-  .bottom{
-    background-color: #485465;
-    height: 90px;
-    color: white;
-    padding: 25px 20px 0px 25px;
-    font-size: 14px;
+    width: 254px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
   }
 }
 
 @media (max-width: 550px){
-  .secondary-content{
-    max-width: 1400px;
-    min-height: auto;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 80px;
-  }
-
   .title-text{
     margin-top: 25px;
     text-align: center;
@@ -1272,11 +1088,12 @@ body{
     cursor: pointer;
   }
 
-  .card-title{
+  .card-title {
     font-weight: bold;
     font-size: 20px;
     overflow: hidden;
-    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
   }
 
   .quick-group{
@@ -1342,13 +1159,9 @@ body{
   .restaurant-style, .address{
     font-size: 12.8px;
     margin-top: 10px;
-  }
-
-  .bottom{
-    background-color: #485465;
-    height: 90px;
-    color: white;
-    padding: 25px 20px 0px 25px;
-    font-size: 14px;
+    width: 254px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
   }
 }

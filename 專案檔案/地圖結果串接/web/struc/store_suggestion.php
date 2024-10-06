@@ -24,11 +24,14 @@
         $link = htmlspecialchars($store['link']);
         $website = htmlspecialchars($store['website']);
         $tag = htmlspecialchars($store['tag']);
+        $mark = $store['mark'];
+        $cardType = $markOptions[$mark]['cardType'] ?? '';
+        $tagName = $markOptions[$mark]['tagName'] ?? '';
         $address = htmlspecialchars(getAddress($store));
         $bayesianScore = getBayesianScore($userId, $storeId, $conn);
         $targetsInfo = getTargets($storeId);
       ?>
-      <div class="card restaurant">
+      <div class="card restaurant <?=$cardType?>">
           <img src="<?=$previewImage?>" class="card-img-top">
           <div class="card-body">
               <h5 class="card-title"><?=$storeName?></h5>
@@ -41,7 +44,7 @@
               <div class="progress-group-text">
                 <?php
                   $categories = [
-                    $_ENVIRONMENT => ['weight' => '30', 'color' => '#562B08'],
+                    $_ATMOSPHERE => ['weight' => '30', 'color' => '#562B08'],
                     $_PRODUCT => ['weight' => '30', 'color' => '#7B8F60'],
                     $_SERVICE => ['weight' => '30', 'color' => '#5053AF'],
                     $_PRICE => ['weight' => '30', 'color' => '#C19237'],
@@ -69,7 +72,7 @@
                   <?php $rowIndex++; ?>
                 <?php endforeach; ?>
               </div>
-              <h6 class="restaurant-style">分類：<?=$tag?> ♻️</h6>
+              <h6 class="restaurant-style">類別：<?=$tag?><?=$tagName?></h6>
               <h6 class="address">地址：<?=$address?></h6>
           </div>
       </div>    

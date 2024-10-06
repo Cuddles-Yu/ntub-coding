@@ -2,6 +2,42 @@
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/session.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/queries.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/analysis.php';
+
+  // 優先使用 GET 參數
+  $userId = $_GET['uid'] ?? null;
+  $storeId = $_GET['id'] ?? null;
+
+  // 如果 storeId 或 storeName 不存在，根據現有的值獲取缺失的資訊
+  if (empty($storeId)) {
+    header("Location: /home");
+    exit;
+  }
+
+  // 獲取店家資訊
+  $storeInfo = getStoreInfoById($storeId);
+  if (!empty($storeInfo)) {
+    $storeName = htmlspecialchars($storeInfo['name']);
+    $relevants = getRelevantComments($storeId);
+    $Highests = getHighestComments($storeId);
+    $Lowests = getLowestComments($storeId);
+    $comments = getComments($storeId);
+    $location = getLocation($storeId);
+    $rating = getRating($storeId);
+    $service = getService($storeId);
+    $keywords = getAllKeywords($storeId);
+    $foodKeywords = getFoodKeyword($storeId);
+    $openingHours = getOpeningHours($storeId);
+    $otherBranches = getOtherBranches($storeInfo['branch_title'], $storeId);
+    $positiveMarks = getMarks($storeId, $_POSITIVE);
+    $negativeMarks = getMarks($storeId, $_NEGATIVE);
+    $neutralMarks = getMarks($storeId, [$_PREFER, $_NEUTRAL]);
+    $targetsInfo = getTargets($storeId);
+  }
+  // 如果 storeId 不存在，顯示錯誤頁面
+  if (!isset($storeInfo['name'])) {
+    require_once $_SERVER['DOCUMENT_ROOT'].'/error/id-not-found.php';
+    exit;
+  }
 ?>
 
 <!doctype html>
@@ -34,95 +70,53 @@
 
 </head>
 
-<?php
-  // 優先使用 GET 參數
-  $userId = $_GET['uid'] ?? null;
-  $storeId = $_GET['id'] ?? null;
-
-  // 如果 storeId 或 storeName 不存在，根據現有的值獲取缺失的資訊
-  if (empty($storeId)) {
-    Header("Location: /home");
-    exit;
-  }
-
-  // 獲取店家資訊
-  $storeInfo = getStoreInfoById($storeId);
-  if (!empty($storeInfo)) {
-    $storeName = htmlspecialchars($storeInfo['name']);
-
-    $relevants = getRelevantComments($storeId);
-    $Highests = getHighestComments($storeId);
-    $Lowests = getLowestComments($storeId);
-    $comments = getComments($storeId);
-
-    $location = getLocation($storeId);
-    $rating = getRating($storeId);
-    $service = getService($storeId);
-    $keywords = getAllKeywords($storeId);
-    $foodKeywords = getFoodKeyword($storeId);
-    $openingHours = getOpeningHours($storeId);
-    $otherBranches = getOtherBranches($storeInfo['branch_title'], $storeId);
-
-    $positiveMarks = getMarks($storeId, $_POSITIVE);
-    $negativeMarks = getMarks($storeId, $_NEGATIVE);
-    $neutralMarks = getMarks($storeId, [$_PREFER, $_NEUTRAL]);
-
-    $targetsInfo = getTargets($storeId);
-  } else {
-    Header("Location: /home");
-    exit;
-  }
-
-?>
 <body>
 
   <!-- ### 頁首 ### -->
   <?php require $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
 
-
   <!-- ### 內容 ### -->
-  <?php if (isset($storeInfo['name'])) : ?>
-    <section class="primary-content section-content">
-      <h1 class="store-title" id="store-title"><?=$storeName?></h1>
-      <div class="love-group">
-        <div class="type-rating-status-group">
-          <!--綜合評分-->
-          <h5 class="rating"><?php echo getBayesianScore($userId, $storeId, $conn); ?></h5>
-          <h6 class="rating-text">/ 綜合評分</h6>
-          <a class="store-type" type="button" href="search?q=<?php echo htmlspecialchars($storeInfo['tag']); ?>" target="_blank"> <?php echo htmlspecialchars($storeInfo['tag']); ?></a>
-          <!--營業時間按鈕-->
-          <button type="button" class="btn btn-outline-success status" data-bs-container="body" data-bs-toggle="popover2"
-            data-bs-title="詳細營業時間" data-bs-placement="top" data-bs-html="true"
-            data-bs-content="<?php
-              foreach ($openingHours as $day => $hours) {
-                echo htmlspecialchars($day) . ':<br>';
-                if (empty($hours)) {
-                  echo '休息<br>';
-                } else {
-                  foreach ($hours as $hour) {
-                    if ($hour['open_time'] === null || $hour['close_time'] === null) {
-                      echo '休息<br>';
-                    } else {
-                      $openTime = date('H:i', strtotime($hour['open_time']));
-                      $closeTime = date('H:i', strtotime($hour['close_time']));
-                      echo htmlspecialchars($openTime) . ' - ' . htmlspecialchars($closeTime) . '<br>';
-                    }
+  <section class="primary-content section-content">
+    <h1 class="store-title" id="store-title"><?=$storeName?></h1>
+    <div class="love-group">
+      <div class="type-rating-status-group">
+        <!--綜合評分-->
+        <h5 class="rating"><?php echo getBayesianScore($userId, $storeId, $conn); ?></h5>
+        <h6 class="rating-text">/ 綜合評分</h6>
+        <a class="store-type" type="button" href="search?q=<?php echo htmlspecialchars($storeInfo['tag']); ?>" target="_blank"> <?php echo htmlspecialchars($storeInfo['tag']); ?></a>
+        <!--營業時間按鈕-->
+        <button type="button" class="btn btn-outline-success status" data-bs-container="body" data-bs-toggle="popover2"
+          data-bs-title="詳細營業時間" data-bs-placement="top" data-bs-html="true"
+          data-bs-content="<?php
+            foreach ($openingHours as $day => $hours) {
+              echo htmlspecialchars($day) . ':<br>';
+              if (empty($hours)) {
+                echo '休息<br>';
+              } else {
+                foreach ($hours as $hour) {
+                  if ($hour['open_time'] === null || $hour['close_time'] === null) {
+                    echo '休息<br>';
+                  } else {
+                    $openTime = date('H:i', strtotime($hour['open_time']));
+                    $closeTime = date('H:i', strtotime($hour['close_time']));
+                    echo htmlspecialchars($openTime) . ' - ' . htmlspecialchars($closeTime) . '<br>';
                   }
                 }
-                echo '<hr>';
               }
-            ?>">
-            <i class="fi fi-sr-clock status-img"></i>營業中
-          </button>        
-          <button type="button" class="btn btn-outline-success e-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="環保餐廳：<br><li>環境管理</li><li>惜食（善用食材)</li><li>環境教育</li>" data-bs-custom-class="custom-tooltip1" data-bs-html="true">
-            ♻️
-          </button>
-          <!--分店綜合評分比較-->
-          <?php if (!empty($otherBranches)) { ?>
-          <!-- 顯示 "其他分店" 按鈕 -->
-          <button class="btn btn-outline-secondary other-store-rating" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-            其他分店
-          </button>          
+              echo '<hr>';
+            }
+          ?>">
+          <i class="fi fi-sr-clock status-img"></i>營業中
+        </button>        
+        <button type="button" class="btn btn-outline-success e-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="環保餐廳：<br><li>環境管理</li><li>惜食（善用食材)</li><li>環境教育</li>" data-bs-custom-class="custom-tooltip1" data-bs-html="true">
+          ♻️
+        </button>
+        <!--分店綜合評分比較-->
+        <?php if (!empty($otherBranches)) { ?>
+        <!-- 顯示 "其他分店" 按鈕 -->
+        <button class="btn btn-outline-secondary other-store-rating" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          其他分店
+        </button>          
       </div>
       <a class="love" href="#"><img class="love-img" src="images/button-favorite.png"></a>
     </div>
@@ -178,7 +172,7 @@
           <tbody>
             <?php
             $categories = [
-              $_ENVIRONMENT => ['weight' => '30', 'color' => '#562B08'],
+              $_ATMOSPHERE => ['weight' => '30', 'color' => '#562B08'],
               $_PRODUCT => ['weight' => '30', 'color' => '#7B8F60'],
               $_SERVICE => ['weight' => '30', 'color' => '#5053AF'],
               $_PRICE => ['weight' => '30', 'color' => '#C19237'],
@@ -353,7 +347,7 @@
           <option value="由低至高">由低至高</option>
         </select>
         <span class="input-group-text" id="inputGroup-sizing-default">篩選</span>
-        <input type="text" class="form-control form-input comment-keyword-input" id="commentKeyword" name="commentKeyword" placeholder="評論關鍵字">
+        <input type="text" class="form-control comment-keyword-input" id="commentKeyword" name="commentKeyword" placeholder="評論關鍵字">
         <button class="btn btn-outline-secondary" onclick="searchComments()" id="search-button">搜尋</button>
       </div>
     </div>
@@ -381,7 +375,7 @@
               <div class="card-body">
                 <a class="card-text" href="search?q=<?php echo urlencode($foodKeyword['word']); ?>" target="_blank"><?php echo htmlspecialchars($foodKeyword['word']); ?>(<?php echo htmlspecialchars($foodKeyword['count']); ?>)</a><!--填入推薦食物名稱 href填入此食物的評星宇宙搜尋結果網址-->
               </div>
-              <a href="https://www.google.com/search?udm=2&q=<?php echo urlencode($storeInfo['name'] . ' ' . $foodKeyword['word']); ?> " target="_blank"><img class="card-img" src="<?php echo $foodKeyword['image_url'] ?>"><!--src填入推薦食物照片連結 href填入搜尋此食物的google連結--></a>
+              <a class="card-a" href="https://www.google.com/search?udm=2&q=<?php echo urlencode($storeInfo['name'] . ' ' . $foodKeyword['word']); ?> " target="_blank"><img class="card-img" src="<?php echo $foodKeyword['image_url'] ?>"><!--src填入推薦食物照片連結 href填入搜尋此食物的google連結--></a>
             </div>
           <?php endforeach; ?>
         <?php else: ?>
@@ -421,7 +415,6 @@
         </div>
       </div>
       <div id="map" class="map">
-        <!-- 使用者定位按鈕 -->
         <button type="button" id="locateButton" onclick="defaultLocate()">使用您的位置</button>
       </div>
     </div>
@@ -457,10 +450,6 @@
     <!--資料爬蟲時間--><h6 class="update">資料更新時間：<?php echo $storeInfo['crawler_time'] ?></h6>
   </section>
 
-  <?php else : ?>
-    <p>指定的商家id不存在。</p>
-  <?php endif; ?>
-
   <!-- ### 頁尾 ### -->
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/footer.php'; ?>
 
@@ -479,16 +468,21 @@
       searchComments();
     });
     function searchComments() {
+      const storeId = <?=$storeId?>;
       const searchTerm = document.getElementById('commentKeyword').value.trim();
       const commentGroup = document.getElementById('commentGroup');
       const keywordTitleText = document.getElementById('comment-count-title');
       if (commentGroup.getAttribute('keyword') === searchTerm) return;      
       commentGroup.innerHTML = '';
-      const storeId = '<?=$storeId;?>';
+      
+      const formData = new FormData();
+      formData.set('id', storeId);
+      formData.set('q', searchTerm);
+      
       fetch('struc/comment_keyword.php', {
           method: 'POST',
           credentials: 'same-origin',
-          body: `id=${encodeURIComponent(storeId)}&q=${encodeURIComponent(searchTerm)}`
+          body: formData
       })
       .then(response => response.json())
       .then(data => {
@@ -500,9 +494,7 @@
               keywordTitleText.textContent = '留言搜尋結果 ' + data.count + ' 則';
           }
       })
-      .catch(error => {
-          console.error("發送 fetch 請求時發生錯誤", error);
-      });
+      .catch(error => console.error('發送 fetch 請求時發生錯誤：', error));
     }
     document.getElementById('commentKeyword').addEventListener('keydown', function(event) {
       if (event.key === 'Enter') {

@@ -5,7 +5,7 @@
 
   $_ROUND = 1;
 
-  $_ENVIRONMENT = '氛圍';
+  $_ATMOSPHERE = '氛圍';
   $_PRICE= '售價';
   $_PRODUCT = '產品';
   $_SERVICE = '服務';
@@ -17,7 +17,7 @@
   $_TOTAL = '總計';
 
   function getTargets($store_id) {
-      global $conn, $_ENVIRONMENT, $_PRICE, $_PRODUCT, $_SERVICE, $_POSITIVE, $_NEGATIVE, $_PREFER, $_NEUTRAL, $_TOTAL;
+      global $conn, $_ATMOSPHERE, $_PRICE, $_PRODUCT, $_SERVICE, $_POSITIVE, $_NEGATIVE, $_PREFER, $_NEUTRAL, $_TOTAL;
 
       // 查詢相關商店的留言，並篩選掉空值
       $stmt = bindPrepare($conn,
@@ -34,31 +34,31 @@
 
       // 初始化正面和負面數量的計數
       $positive_count = [
-          $_ENVIRONMENT => 0,
+          $_ATMOSPHERE => 0,
           $_PRICE => 0,
           $_PRODUCT => 0,
           $_SERVICE => 0
       ];
       $negative_count = [
-          $_ENVIRONMENT => 0,
+          $_ATMOSPHERE => 0,
           $_PRICE => 0,
           $_PRODUCT => 0,
           $_SERVICE => 0
       ];
       $prefer_count = [
-          $_ENVIRONMENT => 0,
+          $_ATMOSPHERE => 0,
           $_PRICE => 0,
           $_PRODUCT => 0,
           $_SERVICE => 0
       ];
       $neutral_count = [
-          $_ENVIRONMENT => 0,
+          $_ATMOSPHERE => 0,
           $_PRICE => 0,
           $_PRODUCT => 0,
           $_SERVICE => 0
       ];
       $total_count = [
-          $_ENVIRONMENT => 0,
+          $_ATMOSPHERE => 0,
           $_PRICE => 0,
           $_PRODUCT => 0,
           $_SERVICE => 0
@@ -67,7 +67,7 @@
       // 統計每個指標的正面和負面數量
       while ($row = $result->fetch_assoc()) {        
           $states = [
-              'environment_state' => $_ENVIRONMENT,
+              'environment_state' => $_ATMOSPHERE,
               'price_state' => $_PRICE,
               'product_state' => $_PRODUCT,
               'service_state' => $_SERVICE,
@@ -105,8 +105,8 @@
       $keyword = "%$keyword%";
       $stmt = bindPrepare($conn,
       " SELECT 
-          DISTINCT s.id, s.name, s.preview_image, s.link, s.website, r.avg_ratings, r.total_reviews, 
-          l.city, l.dist, l.details, s.tag, r.environment_rating, r.product_rating, r.service_rating, r.price_rating, l.latitude, l.longitude
+          DISTINCT s.id, s.name, s.tag, s.mark, s.preview_image, s.link, s.website, r.avg_ratings, r.total_reviews, 
+          l.city, l.dist, l.details, r.environment_rating, r.product_rating, r.service_rating, r.price_rating, l.latitude, l.longitude
         FROM stores AS s
         INNER JOIN keywords AS k ON s.id = k.store_id
         INNER JOIN rates AS r ON s.id = r.store_id
@@ -130,8 +130,8 @@
       if ($userLat&&$userLng) {
         $stmt = bindPrepare($conn,  
         " SELECT 
-          DISTINCT s.id, s.name, s.preview_image, s.link, s.website, r.avg_ratings, r.total_reviews, 
-          l.city, l.dist, l.details, s.tag, r.environment_rating, r.product_rating, r.service_rating, r.price_rating, l.latitude, l.longitude,
+          DISTINCT s.id, s.name, s.tag, s.mark, s.preview_image, s.link, s.website, r.avg_ratings, r.total_reviews, 
+          l.city, l.dist, l.details, r.environment_rating, r.product_rating, r.service_rating, r.price_rating, l.latitude, l.longitude,
           (6371000*acos(cos(radians(?))*cos(radians(l.latitude))*cos(radians(l.longitude)-radians(?))+sin(radians(?))*sin(radians(l.latitude)))) AS distance
           FROM stores AS s
           INNER JOIN keywords AS k ON s.id = k.store_id
@@ -139,13 +139,13 @@
           INNER JOIN locations AS l ON s.id = l.store_id
           WHERE (s.name LIKE ? OR s.tag LIKE ? OR k.word LIKE ?) AND s.crawler_state IN ('成功', '完成', '超時')
           HAVING distance <= 1500
-          ORDER BY distance, r.avg_ratings DESC, r.total_reviews DESC
+          ORDER BY s.mark DESC, distance, r.avg_ratings DESC, r.total_reviews DESC
         ", 'dddsss', $userLat, $userLng, $userLat, $keyword, $keyword, $keyword);
       } else {
         $stmt = bindPrepare($conn,
         " SELECT 
-          DISTINCT s.id, s.name, s.preview_image, s.link, s.website, r.avg_ratings, r.total_reviews, 
-          l.city, l.dist, l.details, s.tag, r.environment_rating, r.product_rating, r.service_rating, r.price_rating, l.latitude, l.longitude
+          DISTINCT s.id, s.name, s.tag, s.mark, s.preview_image, s.link, s.website, r.avg_ratings, r.total_reviews, 
+          l.city, l.dist, l.details, r.environment_rating, r.product_rating, r.service_rating, r.price_rating, l.latitude, l.longitude
           FROM stores AS s
           INNER JOIN keywords AS k ON s.id = k.store_id
           INNER JOIN rates AS r ON s.id = r.store_id
@@ -192,7 +192,7 @@
 
   // 計算並回傳指定商店的貝氏平均分數
   function getBayesianScore($user_id, $store_id, $conn) {
-      global $_ROUND, $_ENVIRONMENT, $_PRICE, $_PRODUCT, $_SERVICE;
+      global $_ROUND, $_ATMOSPHERE, $_PRICE, $_PRODUCT, $_SERVICE;
       if ($user_id) {
         $stmt = bindPrepare($conn,
         " SELECT environment_weight, price_weight, product_weight, service_weight
@@ -212,7 +212,7 @@
           ];
       }
       $normalized_weights = normalizeWeights([
-          $_ENVIRONMENT => $weights['environment_weight'],
+          $_ATMOSPHERE => $weights['environment_weight'],
           $_PRICE => $weights['price_weight'],
           $_PRODUCT => $weights['product_weight'],
           $_SERVICE => $weights['service_weight']
@@ -236,7 +236,7 @@
 
               // 計算基礎分數，根據各項指標的正規化權重
               $store_score = 
-                  $row['environment_rating'] * $normalized_weights[$_ENVIRONMENT] +
+                  $row['environment_rating'] * $normalized_weights[$_ATMOSPHERE] +
                   $row['product_rating'] * $normalized_weights[$_PRODUCT] +
                   $row['service_rating'] * $normalized_weights[$_SERVICE] +
                   $row['price_rating'] * $normalized_weights[$_PRICE];

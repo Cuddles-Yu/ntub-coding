@@ -1,0 +1,13 @@
+.store-card-green{
+  background-color: #daf9da;
+  border-color: lightgreen;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-orange{
+  background-color: #ffdfd2;
+  border-color: lightsalmon;
+  border-width: thick;
+  border-style: outset;
+}

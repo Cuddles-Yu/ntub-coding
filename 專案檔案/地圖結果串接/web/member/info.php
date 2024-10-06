@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>會員資訊頁面</title>
-    <link rel="stylesheet" href="styles/member.css">
+    <title>會員專區 - 評星宇宙</title>
+    <link rel="stylesheet" href="../styles/member.css">
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
 </head>
@@ -16,47 +16,48 @@
   <?php require $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
 
   <hr>
-
   <main>
       <!-- 側欄 -->
       <div class="side_area">
-          <div class="page_button" id="info" style="color: #8234ff;" onclick="switchToInfo()"> <!-- info_main_area -->
-              <i class="fi fi-sr-interrogation logo"></i>
+          <div class="page_button" id="info" style="color: #8234ff;" onclick="switchTo('info')">
+              <i class="fi fi-sr-interrogation logo" id="info_logo" style="color: #8234ff;"></i>
               <p>基本資料</p>
           </div>
-          <div class="page_button" id="preference" onclick="switchToPreference()"> <!-- preference_main_area -->
-              <i class="fi fi-sr-settings-sliders logo"></i>
+          <div class="page_button" id="preference" onclick="switchTo('preference')">
+              <i class="fi fi-sr-settings-sliders logo" id="preference_logo"></i>
               <p>偏好設定</p>
           </div>
-          <div class="page_button" id="weight" onclick="switchToWeight()"> <!-- weight_main_area -->
-              <i class="fi fi-sr-bars-progress logo"></i>
+          <div class="page_button" id="weight" onclick="switchTo('weight')">
+              <i class="fi fi-sr-bars-progress logo" id="weight_logo"></i>
               <p>權重設定</p>
           </div>
-          <div class="page_button" id="place" onclick="switchToPlace()"> <!-- place_main_area -->
-              <i class="fi fi-sr-comment-heart logo"></i>
+          <div class="page_button" id="favorite" onclick="switchTo('favorite')">
+              <i class="fi fi-sr-comment-heart logo" id="favorite_logo"></i>
               <p>收藏地點</p>
           </div>
       </div>
 
       <!-- 基本資料 -->
       <div id="info_main_area">
-          <div id="user_icon_logo2_container">
-              <img src="/images/icon-member.jpg" id="user_icon_logo2">
-              <i class="fi fi-sr-pen-clip edit_info1">修改</i>
-          </div>
           <div class="item_name">
               <span class="item_text">使用者名稱</span>
-              <input type="text" class="item_text2" id="user_name" name="user_name" value="評星宇宙" readonly> <!-- readonly: 唯讀狀態 -->
+              <input type="text" class="item_text2" id="user_name" name="user_name" value="11236007" readonly> <!-- readonly: 唯讀狀態 -->
+              <i id="change_user_name" class="fi fi-sr-pencil edit_info1">修改</i>
+              <i id="done_user_name" class="fi fi-sr-check edit_info1" style="display: none;"></i>
+              <i id="cancel_user_name" class="fi fi-sr-undo edit_info1" style="display: none;"></i>
           </div>
           <div class="item_name">
-              <span class="item_text">電子郵件</span>
-              <input type="text" class="item_text2" id="email" name="email" value="113206@ntub.edu.tw" readonly>
+              <span class="item_text">帳號</span>
+              <input type="text" class="item_text2" id="email" name="email" value="abc12345" readonly>
           </div>
           <div class="item_name">
               <span class="item_text">密碼</span>
               <input type="password" class="item_text2" id="password" name="password" value="12345678" readonly>
-              <!-- <span id="change_password" class="edit_info2">修改</span> -->
-              <i id="change_password" class="fi fi-sr-pen-clip edit_info2">修改</i>
+              <i id="change_password" class="fi fi-sr-pencil edit_info2">修改</i>
+          </div>
+          <div class="item_name">
+              <span class="item_text">加入時間</span>
+              <span>2024年07月30日</span>
           </div>
           <!-- 修改密碼小視窗 -->
           <div id="password_modal" class="modal">
@@ -82,7 +83,7 @@
           <form class="preference_item_container">
               <div class="checkbox_container2">
                   <span class="type_title">搜尋半徑</span>
-                  <input type="number" id="search_radius" name="search_radius" value="1500" readonly>
+                  <input type="number" id="search_radius" name="search_radius" value="500" readonly>
                   <span class="type_title" id="meter">公尺</span>
                   <span class="type_title">最低綜合評分（0~100）</span>
                   <input type="number" id="lower_score" name="lower_score" value="80" min="0" max="100" readonly>
@@ -103,8 +104,9 @@
 
               <div class="title_text" id="personal_button">
                   <div class="type_title">個人需求</div>
-                  <button class="select_all_button" onclick="selectAllPersonal(event)" style="display: none;">全選</button>
-                  <button class="deselect_all_button" onclick="deselectAllPersonal(event)" style="display: none;">取消全選</button>
+                  <i id="select_all_icon1" class="fi fi-sr-checkbox select_icon"></i> <!-- 全選圖示 -->
+                  <i id="deselect_all_icon1" class="fi fi-sr-square deselect_icon"></i> <!-- 未選圖示 -->
+                  <i id="mixed_icon1" class="fi fi-sr-square-minus mixed_icon"></i> <!-- 混合圖示 -->
               </div>
               <div class="checkbox_container personal_service">
                   <div class="checkbox_item">
@@ -139,8 +141,9 @@
 
               <div class="title_text" id="method_button">
                   <div class="type_title">用餐方式</div>
-                  <button class="select_all_button" onclick="selectAllMethod(event)" style="display: none;">全選</button>
-                  <button class="deselect_all_button" onclick="deselectAllMethod(event)" style="display: none;">取消全選</button>
+                  <i id="select_all_icon2" class="fi fi-sr-checkbox select_icon"></i> <!-- 全選圖示 -->
+                  <i id="deselect_all_icon2" class="fi fi-sr-square deselect_icon"></i> <!-- 未選圖示 -->
+                  <i id="mixed_icon2" class="fi fi-sr-square-minus mixed_icon"></i> <!-- 混合圖示 -->
               </div>
               <div class="checkbox_container meal_method">
                   <div class="checkbox_item">
@@ -159,8 +162,9 @@
 
               <div class="title_text" id="time_button">
                   <div class="type_title">用餐時段</div>
-                  <button class="select_all_button" onclick="selectAllTime(event)" style="display: none;">全選</button>
-                  <button class="deselect_all_button" onclick="deselectAllTime(event)" style="display: none;">取消全選</button>
+                  <i id="select_all_icon3" class="fi fi-sr-checkbox select_icon"></i> <!-- 全選圖示 -->
+                  <i id="deselect_all_icon3" class="fi fi-sr-square deselect_icon"></i> <!-- 未選圖示 -->
+                  <i id="mixed_icon3" class="fi fi-sr-square-minus mixed_icon"></i> <!-- 混合圖示 -->
               </div>
               <div class="checkbox_container meal_time">
                   <div class="checkbox_item">
@@ -183,8 +187,9 @@
 
               <div class="title_text" id="atmosphere_button">
                   <div class="type_title">用餐氛圍</div>
-                  <button class="select_all_button" onclick="selectAllAtmosphere(event)" style="display: none;">全選</button>
-                  <button class="deselect_all_button" onclick="deselectAllAtmosphere(event)" style="display: none;">取消全選</button>
+                  <i id="select_all_icon4" class="fi fi-sr-checkbox select_icon"></i> <!-- 全選圖示 -->
+                  <i id="deselect_all_icon4" class="fi fi-sr-square deselect_icon"></i> <!-- 未選圖示 -->
+                  <i id="mixed_icon4" class="fi fi-sr-square-minus mixed_icon"></i> <!-- 混合圖示 -->
               </div>
               <div class="checkbox_container meal_atmosphere">
                   <div class="checkbox_item">
@@ -203,8 +208,9 @@
 
               <div class="title_text" id="plan_button">
                   <div class="type_title">用餐規劃</div>
-                  <button class="select_all_button" onclick="selectAllPlan(event)" style="display: none;">全選</button>
-                  <button class="deselect_all_button" onclick="deselectAllPlan(event)" style="display: none;">取消全選</button>
+                  <i id="select_all_icon5" class="fi fi-sr-checkbox select_icon"></i> <!-- 全選圖示 -->
+                  <i id="deselect_all_icon5" class="fi fi-sr-square deselect_icon"></i> <!-- 未選圖示 -->
+                  <i id="mixed_icon5" class="fi fi-sr-square-minus mixed_icon"></i> <!-- 混合圖示 -->
               </div>
               <div class="checkbox_container meal_plan">
                   <div class="checkbox_item">
@@ -223,8 +229,9 @@
 
               <div class="title_text" id="facility_button">
                   <div class="type_title">基礎設施</div>
-                  <button class="select_all_button" onclick="selectAllFacility(event)" style="display: none;">全選</button>
-                  <button class="deselect_all_button" onclick="deselectAllFacility(event)" style="display: none;">取消全選</button>
+                  <i id="select_all_icon6" class="fi fi-sr-checkbox select_icon"></i> <!-- 全選圖示 -->
+                  <i id="deselect_all_icon6" class="fi fi-sr-square deselect_icon"></i> <!-- 未選圖示 -->
+                  <i id="mixed_icon6" class="fi fi-sr-square-minus mixed_icon"></i> <!-- 混合圖示 -->
               </div>
               <div class="checkbox_container basic_facility">
                   <div class="checkbox_item">
@@ -239,8 +246,9 @@
 
               <div class="title_text" id="payment_button">
                   <div class="type_title">付款方式</div>
-                  <button class="select_all_button" onclick="selectAllPayment(event)" style="display: none;">全選</button>
-                  <button class="deselect_all_button" onclick="deselectAllPayment(event)" style="display: none;">取消全選</button>
+                  <i id="select_all_icon7" class="fi fi-sr-checkbox select_icon"></i> <!-- 全選圖示 -->
+                  <i id="deselect_all_icon7" class="fi fi-sr-square deselect_icon"></i> <!-- 未選圖示 -->
+                  <i id="mixed_icon7" class="fi fi-sr-square-minus mixed_icon"></i> <!-- 混合圖示 -->
               </div>
               <div class="checkbox_container payment">
                   <div class="checkbox_item">
@@ -274,33 +282,27 @@
           <div class="description_text">請依據您的重視程度，填寫適當的指標權重，以找尋更符合您需求的商家。</div>
           
           <div class="slider-container">
-              <label for="atmosphere">氛圍</label>
-              <input type="range" id="atmosphere" name="atmosphere" min="0" max="100" value="50" oninput="updateValue('atmosphere')" disabled>
-              <span id="atmosphere_value">50%</span>
+              <label for="signup-atmosphere">氛圍</label>
+              <input type="range" id="signup-atmosphere" name="signup-atmosphere" min="0" max="100" value="50" oninput="updateLabelValue('atmosphere')" disabled>
+              <span id="atmosphere_value">50</span>
           </div>
           
           <div class="slider-container">
-              <label for="product">產品</label>
-              <input type="range" id="product" name="product" min="0" max="100" value="50" oninput="updateValue('product')" disabled>
-              <span id="product_value">50%</span>
+              <label for="signup-product">產品</label>
+              <input type="range" id="signup-product" name="signup-product" min="0" max="100" value="50" oninput="updateLabelValue('product')" disabled>
+              <span id="product_value">50</span>
           </div>
           
           <div class="slider-container">
-              <label for="service">服務</label>
-              <input type="range" id="service" name="service" min="0" max="100" value="50" oninput="updateValue('service')" disabled>
-              <span id="service_value">50%</span>
+              <label for="signup-service">服務</label>
+              <input type="range" id="signup-service" name="signup-service" min="0" max="100" value="50" oninput="updateLabelValue('service')" disabled>
+              <span id="service_value">50</span>
           </div>
           
           <div class="slider-container">
-              <label for="price">售價</label>
-              <input type="range" id="price" name="price" min="0" max="100" value="50" oninput="updateValue('price')" disabled>
-              <span id="price_value">50%</span>
-          </div>
-          
-          <div class="slider-container">
-              <label for="popularity">熱門度</label>
-              <input type="range" id="popularity" name="popularity" min="0" max="100" value="50" oninput="updateValue('popularity')" disabled>
-              <span id="popularity_value">50%</span>
+              <label for="signup-price">售價</label>
+              <input type="range" id="signup-price" name="signup-price" min="0" max="100" value="50" oninput="updateLabelValue('price')" disabled>
+              <span id="price_value">50</span>
           </div>
 
           <div class="button_area">
@@ -310,13 +312,13 @@
       </div>
 
       <!-- 收藏地點 -->
-      <div id="place_main_area">
+      <div id="favorite_main_area">
           <div>
               <div class="search">
                   <div class="form-floating search-city">
                       <select class="form-select" id="location" name="location" aria-label="Floating label select example">
                       <option class="city" selected value="台北市">臺北市</option>
-                      <option class="city" selected value="台北市">新北市</option>
+                      <option class="city" selected value="新北市">新北市</option>
                       </select>
                       <label for="location">城市</label>
                   </div>
@@ -363,31 +365,145 @@
               </div>
           </div>
 
-          <div class="content_row">
-              <div class="mark_number">
-                  <span>1</span>
-              </div>
-              <div class="mark_store">
-                  <div class="mark_img">
-                      <img src="../images/store-map.JPG">
+          <div class="content_row_container">
+              <div class="content_row">
+                  <div class="mark_number">
+                      <span>1</span>
                   </div>
-                  <span class="store_name">波赫士領地精品咖啡館 昌吉店 BorgesPlace 提拉米蘇 千層蛋糕</span>
+                  <div class="mark_store">
+                      <div class="mark_img">
+                          <img src="../images/store-map.JPG">
+                      </div>
+                      <span class="store_name">波赫士領地精品咖啡館 昌吉店 BorgesPlace 提拉米蘇 千層蛋糕</span>
+                  </div>
+                  <div class="mark_score">
+                      <span>85</span>
+                  </div>
+                  <div class="mark_category">
+                      <span>餃子</span>
+                  </div>
+                  <div class="mark_distance">
+                      <span>1 km</span>
+                  </div>
+                  <div class="mark_time">
+                      <span style="margin-right: 5px;">2023-10-01</span>
+                  </div>
+                  <div class="mark_button mark_button2">
+                      <i class="fi fi-sr-bookmark sort_button"></i>
+                      <i class="fi fi-sr-share sort_button"></i>
+                  </div>
               </div>
-              <div class="mark_score">
-                  <span>85</span>
+  
+              <div class="content_row">
+                  <div class="mark_number">
+                      <span>2</span>
+                  </div>
+                  <div class="mark_store">
+                      <div class="mark_img">
+                          <img src="../images/store-map.JPG">
+                      </div>
+                      <span class="store_name">波赫士領地精品咖啡館 昌吉店 BorgesPlace 提拉米蘇 千層蛋糕</span>
+                  </div>
+                  <div class="mark_score">
+                      <span>85</span>
+                  </div>
+                  <div class="mark_category">
+                      <span>餃子</span>
+                  </div>
+                  <div class="mark_distance">
+                      <span>2 km</span>
+                  </div>
+                  <div class="mark_time">
+                      <span style="margin-right: 5px;">2023-10-01</span>
+                  </div>
+                  <div class="mark_button mark_button2">
+                      <i class="fi fi-sr-bookmark sort_button"></i>
+                      <i class="fi fi-sr-share sort_button"></i>
+                  </div>
               </div>
-              <div class="mark_category">
-                  <span>餃子</span>
+  
+              <div class="content_row">
+                  <div class="mark_number">
+                      <span>3</span>
+                  </div>
+                  <div class="mark_store">
+                      <div class="mark_img">
+                          <img src="../images/store-map.JPG">
+                      </div>
+                      <span class="store_name">波赫士領地精品咖啡館 昌吉店 BorgesPlace 提拉米蘇 千層蛋糕</span>
+                  </div>
+                  <div class="mark_score">
+                      <span>85</span>
+                  </div>
+                  <div class="mark_category">
+                      <span>餃子</span>
+                  </div>
+                  <div class="mark_distance">
+                      <span>1.4 km</span>
+                  </div>
+                  <div class="mark_time">
+                      <span style="margin-right: 5px;">2023-10-01</span>
+                  </div>
+                  <div class="mark_button mark_button2">
+                      <i class="fi fi-sr-bookmark sort_button"></i>
+                      <i class="fi fi-sr-share sort_button"></i>
+                  </div>
               </div>
-              <div class="mark_distance">
-                  <span>1 km</span>
+
+              <div class="content_row">
+                  <div class="mark_number">
+                      <span>4</span>
+                  </div>
+                  <div class="mark_store">
+                      <div class="mark_img">
+                          <img src="../images/store-map.JPG">
+                      </div>
+                      <span class="store_name">波赫士領地精品咖啡館 昌吉店 BorgesPlace 提拉米蘇 千層蛋糕</span>
+                  </div>
+                  <div class="mark_score">
+                      <span>85</span>
+                  </div>
+                  <div class="mark_category">
+                      <span>餃子</span>
+                  </div>
+                  <div class="mark_distance">
+                      <span>1.4 km</span>
+                  </div>
+                  <div class="mark_time">
+                      <span style="margin-right: 5px;">2023-10-01</span>
+                  </div>
+                  <div class="mark_button mark_button2">
+                      <i class="fi fi-sr-bookmark sort_button"></i>
+                      <i class="fi fi-sr-share sort_button"></i>
+                  </div>
               </div>
-              <div class="mark_time">
-                  <span style="margin-right: 5px;">2023-10-01</span>
-              </div>
-              <div class="mark_button mark_button2">
-                  <i class="fi fi-sr-bookmark sort_button"></i>
-                  <i class="fi fi-sr-share sort_button"></i>
+
+              <div class="content_row">
+                  <div class="mark_number">
+                      <span>5</span>
+                  </div>
+                  <div class="mark_store">
+                      <div class="mark_img">
+                          <img src="../images/store-map.JPG">
+                      </div>
+                      <span class="store_name">波赫士領地精品咖啡館 昌吉店 BorgesPlace 提拉米蘇 千層蛋糕</span>
+                  </div>
+                  <div class="mark_score">
+                      <span>85</span>
+                  </div>
+                  <div class="mark_category">
+                      <span>餃子</span>
+                  </div>
+                  <div class="mark_distance">
+                      <span>1.4 km</span>
+                  </div>
+                  <div class="mark_time">
+                      <span style="margin-right: 5px;">2023-10-01</span>
+                  </div>
+                  <div class="mark_button mark_button2">
+                      <i class="fi fi-sr-bookmark sort_button"></i>
+                      <i class="fi fi-sr-share sort_button"></i>
+                  </div>
               </div>
           </div>
       </div>
@@ -396,7 +512,9 @@
   <!-- ### 頁尾 ### -->
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/footer.php'; ?>
 
-  <script src="../scripts/member.js"></script>
+  <script src="../scripts/member.js"></script>  
+  <script src="../scripts/ui-interactions.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   
 </body>
 </html>
