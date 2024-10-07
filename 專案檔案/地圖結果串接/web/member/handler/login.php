@@ -6,8 +6,8 @@
 
   header('Content-Type: application/json');
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $member_id = null;
-    $member_name = null;
+    $memberId = null;
+    $memberName = null;
     $hashedPassword = null;
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -18,10 +18,10 @@
       WHERE `email` = ?
     ", "s", $email);
     $stmt->execute();
-    $stmt->bind_result($member_id, $member_name, $hashedPassword);
+    $stmt->bind_result($memberId, $memberName, $hashedPassword);
     $stmt->fetch();
     $stmt->close();
-    if ($member_id&&$member_name&&$hashedPassword) {
+    if ($memberId&&$memberName&&$hashedPassword) {
       if (password_verify($password, $hashedPassword)) {
         $token = generateToken(40);
         date_default_timezone_set("Asia/Taipei");
@@ -30,16 +30,16 @@
         $stmt = bindPrepare($conn,
         "INSERT INTO tokens(`member_id`, `token`, `expiration_time`)
           VALUE (?,?,?)
-        ", "iss", $member_id, $token, $expiryFormat);
+        ", "iss", $memberId, $token, $expiryFormat);
         $stmt->execute();
-        $_SESSION['member_id'] = $member_id;
+        $_SESSION['member_id'] = $memberId;
         $_SESSION['token'] = $token;
         if ($remember) {
           setcookie('remember', '1', $expiryTime, "/", "", false, true);
         } else{
           setcookie('remember', '0', 0, "/", "", false, true);
         }
-        echo json_encode(['success' => true, 'id' => $member_id, 'name' => $member_name]);
+        echo json_encode(['success' => true, 'id' => $memberId, 'name' => $memberName]);
       } else {
         echo json_encode(['success' => false, 'message' => '帳號或密碼不正確']);
       }

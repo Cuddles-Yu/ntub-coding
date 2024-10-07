@@ -4,19 +4,19 @@
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/queries.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/analysis.php';
 
-  global $conn, $markOptions;
-  $userId = null;
+  $memberWeights = getMemberNormalizedWeight();
+
   $keyword = array_key_exists('q', $_POST) ? htmlspecialchars($_POST['q']) : null;
   $mapCenterLat = isset($_POST['mapCenterLat']) ? floatval($_POST['mapCenterLat']) : null;
   $mapCenterLng = isset($_POST['mapCenterLng']) ? floatval($_POST['mapCenterLng']) : null;
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
       if (is_null($keyword)) return;
-      $stores = searchByLocation($keyword, $mapCenterLat, $mapCenterLng);
+      $stores = searchByLocation($keyword, $mapCenterLat, $mapCenterLng, $RESULT_LIMIT);
       $storeData = [];
       foreach ($stores as $store) {
           $storeId = $store['id'];
-          $bayesianScore = getBayesianScore($userId, $storeId, $conn);
+          $bayesianScore = getBayesianScore($memberWeights, $storeId);
           $storeData[] = [
               'store' => $store,
               'bayesianScore' => $bayesianScore
@@ -60,7 +60,7 @@
       });
       $rowIndex = 1;
     ?>
-    <div class="container-fluid store-body" onclick="redirectToDetailPage('<?=$storeId?>')">
+    <div class="container-fluid store-body" data-id="<?=$storeId?>" onclick="redirectToDetailPage('<?=$storeId?>')">
         <div class="row <?=$cardType?>">
             <div class="store-img-group col-3">
               <img class="store-img" src="<?=$preview_image?>">
@@ -106,5 +106,5 @@
     </div>
   <?php endforeach?>
 <?php else : ?>
-    <p>沒有找到相關結果。</p>
+    <p style="text-align:center;">沒有找到相關結果。</p>
 <?php endif?>

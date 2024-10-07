@@ -1,24 +1,38 @@
-//營業時間展開框
-//初始化 Popover
 document.addEventListener('DOMContentLoaded', function () {
+
   // 初始化所有擁有 'status' class 的 popover
   var popovers = [].slice.call(document.querySelectorAll('.status'));
-  
   popovers.forEach(function (popoverEl) {
     var popover = new bootstrap.Popover(popoverEl, {
-      placement: 'bottom', // 固定為底部顯示
-      fallbackPlacements: [] // 禁止根據空間自動調整方向
+      placement: 'bottom',
+      fallbackPlacements: []
     });
-
-    // 點擊空白處隱藏 Popover
     document.addEventListener('click', function (e) {
       if (!popoverEl.contains(e.target) && !document.querySelector('.popover')?.contains(e.target)) {
         popover.hide(); // 手動隱藏 Popover
       }
     });
   });
-  
-  // console.log('store-detail.js資料引入成功！');
+
+  // 清除沒有子元素的服務項目並重新排序
+  const itemGroups = document.querySelectorAll('.item-group');
+  itemGroups.forEach(function (itemGroup) {
+    // 清除沒有子元素的 item-group
+    if (itemGroup.children.length === 0) {
+      const serviceGroup = itemGroup.closest('.service-group');
+      if (serviceGroup) serviceGroup.remove();
+    } else {
+      // 重新排序服務項目
+      const serviceItems = Array.from(itemGroup.querySelectorAll('.service-item'));
+      const crossItems = serviceItems.filter(item => item.querySelector('.fi-sr-cross'));
+      const otherItems = serviceItems.filter(item => !item.querySelector('.fi-sr-cross'));
+      // 清空 item-group 並根據條件排序後重新插入
+      itemGroup.innerHTML = '';
+      otherItems.forEach(item => itemGroup.appendChild(item));
+      crossItems.forEach(item => itemGroup.appendChild(item));
+    }
+  });
+
 });
 
 //其他分店展開框
@@ -217,16 +231,3 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
-
-/*留言按鈕文字狀態
- document.getElementById('toggleButton').addEventListener('click', function () {
-   const button = this;
-   const isExpanded = button.getAttribute('aria-expanded') === 'true';
-
-   // 根據 aria-expanded 的狀態來改變文字
-   if (isExpanded) {
-     button.textContent = '收起';
-   } else {
-     button.textContent = '展開';
-   }
- });*/

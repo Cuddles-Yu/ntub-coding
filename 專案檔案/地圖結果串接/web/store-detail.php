@@ -4,7 +4,6 @@
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/analysis.php';
 
   // 優先使用 GET 參數
-  $userId = $_GET['uid'] ?? null;
   $storeId = $_GET['id'] ?? null;
 
   // 如果 storeId 或 storeName 不存在，根據現有的值獲取缺失的資訊
@@ -17,6 +16,13 @@
   $storeInfo = getStoreInfoById($storeId);
   if (!empty($storeInfo)) {
     $storeName = htmlspecialchars($storeInfo['name']);
+    $storeMark = htmlspecialchars($storeInfo['mark']);
+    $markIcon = $markOptions[$storeMark]['tagIcon'] ?? '';
+    $markClass = $markOptions[$storeMark]['buttonClass'] ?? '';
+    $storeTag = htmlspecialchars($storeInfo['tag']);    
+    $memberServices = getMemberServiceList();
+    $memberWeights = getMemberNormalizedWeight();
+    $score = getBayesianScore($memberWeights, $storeId);    
     $relevants = getRelevantComments($storeId);
     $Highests = getHighestComments($storeId);
     $Lowests = getLowestComments($storeId);
@@ -32,12 +38,12 @@
     $negativeMarks = getMarks($storeId, $_NEGATIVE);
     $neutralMarks = getMarks($storeId, [$_PREFER, $_NEUTRAL]);
     $targetsInfo = getTargets($storeId);
-  }
-  // 如果 storeId 不存在，顯示錯誤頁面
-  if (!isset($storeInfo['name'])) {
+  } else {
     require_once $_SERVER['DOCUMENT_ROOT'].'/error/id-not-found.php';
     exit;
   }
+
+  $serviceOrder = ['服務項目', '付款方式', '規劃', '無障礙程度', '停車場', '設施', '其他'];
 ?>
 
 <!doctype html>
@@ -73,7 +79,7 @@
 <body>
 
   <!-- ### 頁首 ### -->
-  <?php require $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
+  <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
 
   <!-- ### 內容 ### -->
   <section class="primary-content section-content">
@@ -81,9 +87,9 @@
     <div class="love-group">
       <div class="type-rating-status-group">
         <!--綜合評分-->
-        <h5 class="rating"><?php echo getBayesianScore($userId, $storeId, $conn); ?></h5>
+        <h5 class="rating"><?=$score?></h5>
         <h6 class="rating-text">/ 綜合評分</h6>
-        <a class="store-type" type="button" href="search?q=<?php echo htmlspecialchars($storeInfo['tag']); ?>" target="_blank"> <?php echo htmlspecialchars($storeInfo['tag']); ?></a>
+        <a class="store-type" type="button" href="search?q=<?=$storeTag?>" target="_blank"><?=$storeTag?></a>
         <!--營業時間按鈕-->
         <button type="button" class="btn btn-outline-success status" data-bs-container="body" data-bs-toggle="popover2"
           data-bs-title="詳細營業時間" data-bs-placement="top" data-bs-html="true"
@@ -107,47 +113,47 @@
             }
           ?>">
           <i class="fi fi-sr-clock status-img"></i>營業中
-        </button>        
-        <button type="button" class="btn btn-outline-success e-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="環保餐廳：<br><li>環境管理</li><li>惜食（善用食材)</li><li>環境教育</li>" data-bs-custom-class="custom-tooltip1" data-bs-html="true">
-          ♻️
         </button>
-        <!--分店綜合評分比較-->
-        <?php if (!empty($otherBranches)) { ?>
-        <!-- 顯示 "其他分店" 按鈕 -->
-        <button class="btn btn-outline-secondary other-store-rating" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-          其他分店
-        </button>          
+        <?php if($storeMark): ?>
+          <button type="button" class="btn <?=$markClass?> e-icon" data-bs-toggle="tooltip" 
+            data-bs-placement="bottom" data-bs-title="<?=$storeMark?>餐廳" data-bs-custom-class="custom-tooltip1" data-bs-html="true">
+            <?=$markIcon?>
+          </button>
+        <?php endif; ?>
+        <?php if (!empty($otherBranches)): ?>
+          <button class="btn btn-outline-secondary other-store-rating" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+            aria-expanded="false" aria-controls="collapseExample">
+            其他分店
+          </button>
+        <?php endif; ?>
       </div>
       <a class="love" href="#"><img class="love-img" src="images/button-favorite.png"></a>
     </div>
     <div class="collapse multi-collapse" id="collapseExample">
       <div class="other-store">
-      <?php
-          // 顯示每個分店的資訊
-          foreach ($otherBranches as $branch) {
+        <?php foreach ($otherBranches as $branch): ?>
+          <?php 
             $storeId = htmlspecialchars($branch['id']);
             $storeName = htmlspecialchars($branch['name']);
             $branchName = htmlspecialchars($branch['branch_name']);
-            $branchId = htmlspecialchars($branch['id']); // 取得分店的 ID
+            $branchId = htmlspecialchars($branch['id']);
             $avgRating = htmlspecialchars($branch['avg_ratings']);
             $address = htmlspecialchars(($branch['city'] ?? '').($branch['dist'] ?? '').($branch['vil'] ?? '').($branch['details'] ?? ''));
-
-            echo '<div class="other-store-display">';
-            echo '<a class="other-store-group col-11" href="detail?id='.$storeId.'">'; // 連結到分店詳細頁面
-            echo '<li class="store-name col-4">'.$branchName.'</li>';
-            echo '<p class="other-rating col-3">'.$avgRating.' /綜合評分</p>';
-            echo '<p class="other-map address col"><i class="fi fi-sr-map-marker address-img"></i>'.$address.'</p>';
-            echo '</a>';
-            echo '<i class="fi fi-sr-bookmark collect" role="button"></i>';
-            echo '</div>';
-          }
-        } ?>
-
+          ?>
+          <div class="other-store-display">
+            <a class="other-store-group col-11" href="detail?id=<?=$storeId?>"> <!-- 連結到分店詳細頁面 -->
+              <li class="store-name col-4"><?=$branchName?></li>
+              <p class="other-rating col-3"><?=$avgRating?> / 綜合評分</p>
+              <p class="other-map address col"><i class="fi fi-sr-map-marker address-img"></i><?=$address?></p>
+            </a>
+            <i class="fi fi-sr-bookmark collect" role="button"></i>
+          </div>
+        <?php endforeach;?>
       </div>
     </div>
     <!-- 商家介紹 (根據使用者需求而產生的介紹(每個人看到的不一樣))-->
     <?php if (isset($intro)) : ?>
-        <li id="item" class="introduction" data-content="<?php echo $intro; ?>"></li>
+        <li id="item" class="introduction" data-content="<?=$intro; ?>"></li>
     <?php else : ?>
     <?php endif; ?>   
   </section>
@@ -163,26 +169,15 @@
           <thead>
             <tr class="row1">
               <th scope="col" class="col1"></th>
-              <th scope="col" class="col2"><?php echo $_POSITIVE ?></th>
-              <th scope="col" class="col3"><?php echo $_NEGATIVE ?></th>
-              <th scope="col" class="col5"><?php echo $_NEUTRAL ?></th>
-              <th scope="col" class="col6"><?php echo $_TOTAL ?></th>
+              <th scope="col" class="col2"><?=$_POSITIVE ?></th>
+              <th scope="col" class="col3"><?=$_NEGATIVE ?></th>
+              <th scope="col" class="col5"><?=$_NEUTRAL ?></th>
+              <th scope="col" class="col6"><?=$_TOTAL ?></th>
             </tr>
           </thead>
           <tbody>
-            <?php
-            $categories = [
-              $_ATMOSPHERE => ['weight' => '30', 'color' => '#562B08'],
-              $_PRODUCT => ['weight' => '30', 'color' => '#7B8F60'],
-              $_SERVICE => ['weight' => '30', 'color' => '#5053AF'],
-              $_PRICE => ['weight' => '30', 'color' => '#C19237'],
-            ];
-            uasort($categories, function ($a, $b) {
-              return $b['weight'] <=> $a['weight'];
-            });
-            $rowIndex = 1;
-            ?>
-            <?php foreach ($categories as $category => $data): ?>
+            <?php $rowIndex = 1;?>
+            <?php foreach ($memberWeights as $category => $data): ?>
               <?php
               $result = getProportionScore($category);
               $proportion = $result['proportion'];
@@ -191,11 +186,16 @@
               <tr class="row<?= $rowIndex ?>">
                 <td>
                   <div class="progress-group">
-                    <h6 class="progress-text" style="color: <?= $data['color'] ?>;"><?= $category ?></h6>
-                    <h6 class="progress-percent" style="color: <?= $data['color'] ?>;"><?= $score ?></h6>
+                    <h6 class="progress-text" style="color:<?=$data['color']?>;padding-right:5px;"><?=$category?></h6>
+                    <?php if($SESSION_DATA->success): ?>
+                      <h6 class="progress-text" style="color:<?=$data['color']?>;padding-right:5px;"><?=$data['weight']*50?>%</h6>
+                    <?php endif; ?>
+                    <h6 class="progress-text" style="color:<?=$data['color']?>;">-></h6>
+                    <h6 class="progress-percent" style="color:<?=$data['color']?>"><?=$score?></h6>
+                    
                   </div>
                   <div class="progress col" role="progressbar" aria-label="Success example" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">
-                    <div class="progress-bar overflow-visible" style="width: <?=$proportion?>%; background-color: <?= $data['color'] ?>;"></div>
+                    <div class="progress-bar overflow-visible" style="width: <?=$proportion?>%; background-color: <?=$data['color']?>;"></div>
                   </div>
                 </td>
                 <td class="evaluate-good"><?= $targetsInfo[$_POSITIVE][$category] ?? 'NULL' ?></td>
@@ -215,57 +215,82 @@
           <h5 class="group-title">服務項目</h5>
         </div>
         <div class="service-item-group">
-          <!-- 符合服務項目 動態生成 -->
-          <div class="service-group">
-            <h6 class="service-title-eligible">偏好服務項目 (1/3項)</h6>
-            <div class="item-group">
-              <!--打勾-->
-              <div class="service-item">
-                <i class="fi fi-sr-check item-img-eligible"></i>
-                <h6 class="item-text-eligible">氣氛悠閒</h6>
-              </div>
-              <!--打叉-->
-              <div class="service-item">
-                <i class="fi fi-sr-cross item-img"></i>
-                <h6 class="item-text">適合兒童</h6>
-              </div>
-              <!--問號-->
-              <div class="service-item">
-                <i class="fi fi-sr-question item-img-question"></i>
-                <h6 class="item-text-question">無障礙車位</h6>
+
+          <?php if ($SESSION_DATA->success): ?>
+            <div class="matched-services">
+              <h6 class="service-title-eligible">需求項目</h6>
+              <div class="item-group">
+                <!-- 需求項目 動態生成 -->
+                <?php foreach ($serviceOrder as $category): ?>
+                  <?php if (isset($service[$category])): ?>
+                    <?php $serviceItems = $service[$category]; ?>                    
+                    <?php foreach ($serviceItems as $serviceItem): ?>
+                      <?php 
+                        $key = false;
+                        foreach ($memberServices as $memberService) {
+                          if (str_contains($serviceItem['property'], $memberService) || str_contains($serviceItem['category'], $memberService)) {
+                            $key = true;
+                            break;
+                        }}
+                      ?>
+                      <?php if ($key): ?>
+                        <!-- 顯示需求項目，state == 1 的優先顯示 -->
+                        <div class="service-item matched">
+                          <?php if ($serviceItem['state'] == 1): ?>
+                            <i class="fi fi-sr-check item-img-eligible"></i>
+                          <h6 class="item-text-eligible"><?php echo htmlspecialchars($serviceItem['property']); ?></h6>
+                          <?php else: ?>
+                            <i class="fi fi-sr-cross item-img"></i>
+                            <h6 class="item-text"><?php echo htmlspecialchars($serviceItem['property']); ?></h6>
+                          <?php endif; ?>                          
+                        </div>
+                        <?php unset($memberServices[$serviceItem['property']]); // 移除已顯示的服務項目 ?>
+                      <?php endif; ?>
+                    <?php endforeach; ?>
+                    
+                  <?php endif; ?>
+                <?php endforeach; ?>
               </div>
             </div>
-          </div>
-          <?php
-          // 定義顯示順序
-          $order = ['服務項目', '付款方式', '規劃', '無障礙程度', '停車場', '設施', '其他'];
-          foreach ($order as $category) {
-            if (isset($service[$category])) {
-              $serviceItems = $service[$category];
-              echo '<div class="service-group">';
-              echo '<h6 class="service-title">' . htmlspecialchars($category) . '</h6>';
-              echo '<div class="item-group">';
+          <?php endif; ?>
 
-              foreach ($serviceItems as $serviceItem) {
-                if ($serviceItem['property'] === '無障礙車位') continue;
-                if ($serviceItem['property'] === '適合兒童') continue;
-                if ($serviceItem['property'] === '氣氛悠閒') continue;
-                if ($serviceItem['state'] == 1) {
-                  echo '<div class="service-item">';
-                  echo '<i class="fi fi-sr-checkbox item-img"></i>';
-                  echo '<h6 class="item-text">' . htmlspecialchars($serviceItem['property']) . '</h6>';
-                  echo '</div>';
-                } else {
-                  echo '<div class="service-item">';
-                  echo '<i class="fi fi-sr-square-x item-img"></i>';
-                  echo '<h6 class="item-text">' . htmlspecialchars($serviceItem['property']) . '</h6>';
-                  echo '</div>';
-                }
-              }
-              echo '</div>';  // item-group 結束
-              echo '</div>';  // service-group 結束
-            }
-          } ?>
+          <!-- 接著顯示所有其他服務項目 -->
+          <?php foreach ($serviceOrder as $category): ?>
+            <?php if (isset($service[$category])): ?>
+              <?php $serviceItems = $service[$category]; ?>
+              <div class="service-group">
+                <h6 class="service-title"><?php echo htmlspecialchars($category); ?></h6>
+                <div class="item-group">
+                  <?php foreach ($serviceItems as $serviceItem): ?>
+                    <?php if (
+                      $serviceItem['property'] === '無障礙車位' || 
+                      $serviceItem['property'] === '適合兒童' || 
+                      $serviceItem['property'] === '氣氛悠閒') continue; ?>
+
+                    <?php 
+                      $key = false;
+                      // 再次檢查是否已經顯示在需求項目中，避免重複顯示
+                      foreach ($memberServices as $memberService) {
+                        if (str_contains($serviceItem['property'], $memberService) || str_contains($serviceItem['category'], $memberService)) {
+                          $key = true;
+                          break;
+                        }
+                      }
+                    ?>
+                    <?php if (!$key): ?>
+                      <!-- 其他項目顯示 -->
+                      <div class="service-item">
+                        <i class="fi <?php echo ($serviceItem['state'] == 1) ? 'fi-sr-checkbox' : 'fi-sr-square-x'; ?> item-img"></i>
+                        <h6 class="item-text"><?php echo htmlspecialchars($serviceItem['property']); ?></h6>
+                      </div>
+                    <?php endif; ?>
+                  <?php endforeach; ?>
+                </div>
+              </div>
+            <?php endif; ?>
+          <?php endforeach; ?>
+
+
         </div>
       </div>
     </div>
@@ -320,14 +345,14 @@
       ];
       ?>
       <?php foreach ($categories as $category => $data): ?>
-        <div class="group-gb <?php echo $data['name'] ?>-side">
-          <h6 class="title-gb"><?php echo $category ?><i class="fi fi-sr-caret-right keyword-arrow"></i></h6>
+        <div class="group-gb <?=$data['name'] ?>-side">
+          <h6 class="title-gb"><?=$category ?><i class="fi fi-sr-caret-right keyword-arrow"></i></h6>
           <div class="group-keyword">
             <?php foreach ($data['marks'] as $index => $keyword): ?>
               <div class="keywords">
-                <button type="button" class="comment-<?php echo $data['name'] ?>" onclick="setCommentKeyword(this)" data-bs-toggle="modal" data-bs-target="#<?php echo $data['name'] ?>Modal<?php echo $index; ?>">
-                  <w class="object"><?php echo htmlspecialchars($keyword['object']); ?></w>
-                  <w class="count">(<?php echo htmlspecialchars($keyword['count']); ?>)</w>
+                <button type="button" class="comment-<?=$data['name'] ?>" onclick="setCommentKeyword(this)" data-bs-toggle="modal" data-bs-target="#<?=$data['name'] ?>Modal<?=$index; ?>">
+                  <w class="object"><?=htmlspecialchars($keyword['object']); ?></w>
+                  <w class="count">(<?=htmlspecialchars($keyword['count']); ?>)</w>
                 </button>
               </div>
             <?php endforeach; ?>
@@ -373,9 +398,9 @@
           <?php foreach ($foodKeywords as $foodKeyword): ?>
             <div class="card">
               <div class="card-body">
-                <a class="card-text" href="search?q=<?php echo urlencode($foodKeyword['word']); ?>" target="_blank"><?php echo htmlspecialchars($foodKeyword['word']); ?>(<?php echo htmlspecialchars($foodKeyword['count']); ?>)</a><!--填入推薦食物名稱 href填入此食物的評星宇宙搜尋結果網址-->
+                <a class="card-text" href="search?q=<?=urlencode($foodKeyword['word']); ?>" target="_blank"><?=htmlspecialchars($foodKeyword['word']); ?>(<?=htmlspecialchars($foodKeyword['count']); ?>)</a><!--填入推薦食物名稱 href填入此食物的評星宇宙搜尋結果網址-->
               </div>
-              <a class="card-a" href="https://www.google.com/search?udm=2&q=<?php echo urlencode($storeInfo['name'] . ' ' . $foodKeyword['word']); ?> " target="_blank"><img class="card-img" src="<?php echo $foodKeyword['image_url'] ?>"><!--src填入推薦食物照片連結 href填入搜尋此食物的google連結--></a>
+              <a class="card-a" href="https://www.google.com/search?udm=2&q=<?=urlencode($storeInfo['name'] . ' ' . $foodKeyword['word']); ?> " target="_blank"><img class="card-img" src="<?=$foodKeyword['image_url'] ?>"><!--src填入推薦食物照片連結 href填入搜尋此食物的google連結--></a>
             </div>
           <?php endforeach; ?>
         <?php else: ?>
@@ -400,17 +425,17 @@
         <div class="introduction-item-group">
           <div class="store-introduction-group">
             <li class="introduction-title">地址</li>
-            <li class="introduction-item"><a class="introduction-item" onclick="navigateToStore(<?php echo htmlspecialchars(json_encode($location['latitude'])); ?>, <?php echo htmlspecialchars(json_encode($location['longitude'])); ?>)">
-                <?php echo htmlspecialchars($location['city'] . '' . $location['dist'] . '' . $location['vil'] . '' . $location['city'] . '' . $location['details']); ?></a></li>
+            <li class="introduction-item"><a class="introduction-item" onclick="navigateToStore(<?=htmlspecialchars(json_encode($location['latitude'])); ?>, <?=htmlspecialchars(json_encode($location['longitude'])); ?>)">
+                <?=htmlspecialchars($location['city'] . '' . $location['dist'] . '' . $location['vil'] . '' . $location['city'] . '' . $location['details']); ?></a></li>
           </div>
           <div class="store-introduction-group">
             <li class="introduction-title">電話</li>
-            <li class="introduction-item"><?php echo htmlspecialchars($storeInfo['phone_number']); ?></li>
+            <li class="introduction-item"><?=htmlspecialchars($storeInfo['phone_number']); ?></li>
           </div>
           <div class="store-introduction-group">
             <li class="introduction-title">相關網站</li>
-            <li class="introduction-item"><a class="introduction-item" href="<?php echo htmlspecialchars($storeInfo['website']); ?>" target="_blank">
-                <?php echo htmlspecialchars($storeInfo['website']); ?></a></li>
+            <li class="introduction-item"><a class="introduction-item" href="<?=htmlspecialchars($storeInfo['website']); ?>" target="_blank">
+                <?=htmlspecialchars($storeInfo['website']); ?></a></li>
           </div>
         </div>
       </div>
@@ -447,7 +472,7 @@
       <div class="carousel-arrow-tag right-arrow-2" type="button"><i class="fi fi-sr-angle-right"></i></div>
   </section>
   <section class="section-content">
-    <!--資料爬蟲時間--><h6 class="update">資料更新時間：<?php echo $storeInfo['crawler_time'] ?></h6>
+    <!--資料爬蟲時間--><h6 class="update">資料更新時間：<?=$storeInfo['crawler_time'] ?></h6>
   </section>
 
   <!-- ### 頁尾 ### -->
@@ -460,6 +485,17 @@
       searchInput.value = objectValue;
       document.getElementById('search-button').click();
     }
+  </script>
+
+  <script>
+    document.querySelectorAll('.home-menu').forEach(page => {
+      page.removeAttribute('href');
+      page.setAttribute('style', 'cursor:default;');
+    });
+    document.querySelectorAll('.home-page').forEach(page => {
+      page.removeAttribute('href');
+      page.setAttribute('style', 'cursor:default;');
+    });
   </script>
 
   <script>
@@ -529,7 +565,7 @@
   </script>
 
   <script>
-    var storeId = <?php echo json_encode($storeId); ?>;
+    var storeId = <?=json_encode($storeId); ?>;
   </script>
 
   <script>

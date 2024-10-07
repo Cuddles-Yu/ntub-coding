@@ -1,3 +1,12 @@
+.home-page {
+  border-bottom-style: solid;  
+  border-bottom-color: mediumblue;
+}
+.home-menu {
+  border-left-style: solid;
+  border-left-color: mediumblue;
+}
+
 *,
 *::before,
 *::after {
@@ -65,13 +74,6 @@ body{
     width: 100%;
     background-color: #FFFFFF;
     z-index: 9999;
-}
-
-.vertical-line {
-    width: 2px; /* 設置寬度 */
-    height: 30px; /* 設置高度 */
-    background-color: #C5C5C5; /* 設置顏色 */
-    margin: 0 40px; /* 設置上下為0，左右為20px的間距 */
 }
 
 #login_button {
@@ -150,13 +152,6 @@ body{
       width: 100%;
       background-color: #FFFFFF;
       z-index: 9999;
-  }
-
-  .vertical-line {
-      width: 2px; /* 設置寬度 */
-      height: 30px; /* 設置高度 */
-      background-color: #C5C5C5; /* 設置顏色 */
-      margin: 0 40px; /* 設置上下為0，左右為20px的間距 */
   }
 
   #login_button {
@@ -283,13 +278,6 @@ body{
       z-index: 9999;
   }
   
-  .vertical-line {
-      width: 2px; /* 設置寬度 */
-      height: 30px; /* 設置高度 */
-      background-color: #C5C5C5; /* 設置顏色 */
-      margin: 0 40px; /* 設置上下為0，左右為20px的間距 */
-  }
-
   #login_button {
       display: none;
       justify-content: center;
@@ -426,7 +414,7 @@ body{
     min-width: 90.6px;
     height: 42.1px;
     text-align: center;
-    padding: 7px 7px 7px 7px;
+    padding: 7px 16px 7px 16px;
     color: white;
     border-radius: 10px;
     font-size: 19px;
@@ -1210,7 +1198,7 @@ body{
     background-color: #A3A3A3;
     min-width: 90.6px;
     text-align: center;
-    padding: 7px 7px 7px 7px;
+    padding: 7px 16px 7px 16px;
     color: white;
     border-radius: 10px;
     font-size: 14px;
@@ -1978,7 +1966,7 @@ body{
     background-color: #A3A3A3;
     min-width: 90.6px;
     text-align: center;
-    padding: 7px 1px 7px 1px;
+    padding: 7px 16px 7px 16px;
     color: white;
     border-radius: 10px;
     font-size: 14px;
@@ -2740,7 +2728,7 @@ body{
     background-color: #A3A3A3;
     min-width: 90.6px;
     text-align: center;
-    padding: 7px 1px 7px 1px;
+    padding: 7px 16px 7px 16px;
     color: white;
     border-radius: 10px;
     font-size: 14px;

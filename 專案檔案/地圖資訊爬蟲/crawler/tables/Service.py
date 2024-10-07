@@ -1,6 +1,8 @@
 from 地圖資訊爬蟲.crawler.tables.base import *
 from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
 
+# 需要被移除的服務項目 '停車位不好找', '停車位很難找'
+
 class Service:
     _store_id = 0
     _id = 0

@@ -16,7 +16,7 @@
 <body>
 
   <!-- ### 頁首 ### -->
-  <?php require $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
+  <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
 
 
   <!-- ### 內容 ### -->

@@ -17,10 +17,6 @@ body{
   padding-top: 90px;
 }
 
-p {
-  text-align: center;
-}
-
 @media (min-width: 1373px){
 
   .all-content{

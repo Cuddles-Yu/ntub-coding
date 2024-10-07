@@ -1,3 +1,5 @@
+<?php if(basename($_SERVER['SCRIPT_FILENAME']) == basename(__FILE__)) { header('Location: /home'); exit;} ?>
+
 <?php
   function normalizeDistance($distance) {
     if ($distance < 1000.0) {

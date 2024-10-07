@@ -57,7 +57,7 @@
       formData.set('name', document.getElementById('name').value);     
       formData.set('password', document.getElementById('password').value); 
       // 獲取 HTML 搜索結果
-      fetch('./check.php', {
+      fetch('./handler/check.php', {
         method: 'POST',
         credentials: 'same-origin',
         body: formData

@@ -33,7 +33,7 @@
 <body>
 
   <!-- ### 頁首 ### -->
-  <?php require $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
+  <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
 
 
   <!-- ### 內容 ### -->
@@ -288,7 +288,7 @@
       formData.set('mapCenterLat', lat);
       formData.set('mapCenterLng', lng);
 
-      searchResults.innerHTML = '<div class="rotating"><img src="./images/icon-loading.png" width="30" height="30"></div><p>正在為您搜尋符合條件的商家...</p>';
+      searchResults.innerHTML = '<div class="rotating"><img src="./images/icon-loading.png" width="30" height="30"></div><p style="text-align:center;">正在為您搜尋符合條件的商家...</p>';
       // 獲取 HTML 搜索結果
       fetch('struc/search_result.php', {
         method: 'POST',
@@ -299,33 +299,26 @@
         .then(data => {
           if (data && data.trim() !== "") {
             searchResults.innerHTML = data;
-          } else {
-            searchResults.innerHTML = "<p>沒有找到相關結果。</p>";
           }
         })
         .catch(error => console.error('搜尋餐廳過程中出現錯誤：', error));
         
-      markers.clearLayers(); // 清除先前的地標          
-      // 取得地圖中心經緯度
+      markers.clearLayers();
       var mapCenter = getCenter();
       var lat = mapCenter.lat;
       var lng = mapCenter.lng;
-      // 移除舊的中心標記（如果存在）
       if (window.centerMarker) map.removeLayer(window.centerMarker);
-      // 創建新的中心標記並添加到地圖上
       window.centerMarker = L.marker([lat, lng], {
         icon: centerIcon
       }).addTo(map);
 
-      // 獲取 JSON 地標資料並更新地圖標記
       fetch('struc/search_landmark.php', {
         method: 'POST',
         credentials: 'same-origin',
         body: formData
       })
         .then(response => response.json())
-        .then(data => {          
-          // 更新地圖標記
+        .then(data => {
           if (Array.isArray(data) && data.length > 0) processJsonData(data);         
         })
         .catch(error => console.error('地標獲取錯誤：', error));
@@ -333,18 +326,13 @@
       // moveGetCenter();
     }
 
-    // 清除舊地標並處理新的地標資料
     function processJsonData(data) {
-      markers.clearLayers(); // 清除先前的地標!
-      // console.log("清除現有地標");
-
+      markers.clearLayers();
       var latlngs = [];
 
-      // 設定搜尋中心（確保不會自動依據地標範圍縮放）
       var center = map.getCenter();
       setView([center.lat, center.lng], 15);
     
-      // 如果有新地標資料，處理並添加到地圖
       if (data.length > 0) {
         for (let i = 0; i < data.length; i++) {
           if (data[i].latitude && data[i].longitude) {
@@ -354,15 +342,23 @@
 
               var marker = L.marker(latlng, { icon: storeIcon })
                 .bindPopup(
-                  `<div class="popup-content" style="cursor: pointer;">
-                  <img src="${data[i].preview_image}" style="width: 200px; height: 112.5px; object-fit: cover; object-position: center;"/>
-                  <div style="font-weight: bold; font-size: 16px; margin-top: 10px; margin-bottom: 10px;">${data[i].name}</div>
-                  <div style="font-size: 14px; margin-bottom: 5px;">評分：${data[i].rating}</div>
-                  <div style="font-size: 14px; margin-bottom: 5px;">評論數：${data[i].total_withcomments}/${data[i].sample_ratings}</div>
-                  <div style="font-size: 14px; margin-bottom: 5px;">標籤：${data[i].tag}</div>
-                  <button style="font-size:12px; right:0; cursor: pointer;" onclick="redirectToDetailPage('${data[i].id}')">詳細資訊</button>
+                  `<div class="popup-content" style="cursor:default;">
+                    <button class="btn btn-primary" style="font-size:12px;right:0;cursor:pointer;width:200px;margin-bottom:5px" onclick="redirectToDetailPage('${data[i].id}')">詳細資訊</button>
+                    <img src="${data[i].preview_image}" style="width:200px;height:112.5px;object-fit:cover;object-position:center;"/>
+                    <div style="font-weight:bold;font-size:16px;margin-top:10px;margin-bottom:10px;overflow:hidden;text-overflow:ellipsis;text-wrap:nowrap;width:200px">${data[i].name}</div>
+                    <div style="font-size:14px;margin-bottom:5px;color:red;">綜合評分：${data[i].score}</div>
+                    <div style="font-size:14px;">標籤：${data[i].tag}</div>                    
                   </div>`
-                );
+                , {
+                  maxWidth: 193,
+                  className: 'custom-popup',
+                  closeButton: false,
+                  closeOnClick: true,
+                }).on('click', function () {
+                  browseHighlightResult(data[i].id);
+                }).on('popupclose', function () {
+                  clearHighlightResult();
+                });;
               markers.addLayer(marker);
             }
           }
@@ -389,10 +385,21 @@
     }
   </script>
 
-  <!-- 跳轉詳細頁面 -->
   <script>    
     function redirectToDetailPage(storeId) {
       window.location.href = `detail?id=${storeId}`
+    }
+    function browseHighlightResult(storeId) {
+      clearHighlightResult();
+      var element = document.querySelector(`.store-body[data-id="${storeId}"]`);
+      if (element) {
+        element.classList.add('store-card-highlight');
+        element.scrollIntoView({ behavior: 'smooth' }); 
+      }
+    }
+    function clearHighlightResult() {
+      var old = document.querySelector(`.store-card-highlight`);
+      if (old) old.classList.remove('store-card-highlight');
     }
   </script>
 

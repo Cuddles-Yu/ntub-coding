@@ -1,3 +1,5 @@
+<?php if(basename($_SERVER['SCRIPT_FILENAME']) == basename(__FILE__)) { header('Location: /home'); exit;} ?>
+
 <link rel="stylesheet" href="/styles/header.css" />
 <link rel="stylesheet" href="/styles/form.css" />
 <link rel="stylesheet" href="/styles/common.css" />
@@ -8,7 +10,7 @@
   <div id="web_name"></div>
 
   <div id="nav_menu1">
-      <a class="link_text home-page page-item" href="../home">網站首頁</a>
+      <a class="link_text home-page page-item" href="../home">餐廳搜尋</a>
       <div class="vertical-line"></div>
       <a class="link_text use-page page-item" style="color:lightgray;cursor:default;">使用說明</a> <!-- !!!需要更新!!! -->      
       <div class="vertical-line"></div>
@@ -69,7 +71,7 @@
 
         <form novalidate style="margin-top:15px;margin-left:20px;margin-right:20px;">         
           <h2>會員登出</h2>
-          <p>您會遺失所有未保存的資料，並返回主頁</p>
+          <p>您會遺失所有未保存的資料，系統會自動跳轉網頁</p>
         </form>
 
       </div>

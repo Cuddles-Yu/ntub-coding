@@ -1,3 +1,5 @@
+<?php if(basename($_SERVER['SCRIPT_FILENAME']) == basename(__FILE__)) { header('Location: /home'); exit;} ?>
+
 <link rel="stylesheet" href="/styles/footer.css" />
 <footer>
   <div class="bottom">

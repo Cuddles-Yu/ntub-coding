@@ -36,7 +36,7 @@
 <body>
   
   <!-- ### 頁首 ### -->
-  <?php require $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
+  <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
 
 
   <!-- ### 內容 ### -->
@@ -218,10 +218,9 @@
       </div>
     </div>
 
-
     <div id="map" class="map">
       <div id="crosshair"></div>
-        <button type="button" id="locateButton" onclick="userLocate()">使用您的位置</button>
+      <button type="button" id="locateButton" onclick="userLocate()">使用您的位置</button>
     </div>
 
     <div class="tip-line"></div>

@@ -1,3 +1,5 @@
+<?php if(basename($_SERVER['SCRIPT_FILENAME']) == basename(__FILE__)) { header('Location: /home'); exit;} ?>
+
 <?php
   $TOKEN_EXPIRATION_TIME = 0 *(60*60*24*30)+ 1 *(60*60*24)+ 0 *(60*60)+ 0 *60+ 0; //月日時分秒  
   ini_set('session.gc_maxlifetime', $TOKEN_EXPIRATION_TIME);  
@@ -51,3 +53,4 @@
   }
 
   $SESSION_DATA = json_decode(checkSessionToken());
+  $MEMBER_ID = $SESSION_DATA->success ? $SESSION_DATA->member_id : null;

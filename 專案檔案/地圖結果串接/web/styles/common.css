@@ -11,3 +11,9 @@
   border-width: thick;
   border-style: outset;
 }
+
+.store-card-highlight{
+  border-color: #8384b0;
+  border-width: thick;
+  border-style: outset;
+}

@@ -1,9 +1,10 @@
-<?php //抓取資料庫商家的資料定義函式
+<?php if(basename($_SERVER['SCRIPT_FILENAME']) == basename(__FILE__)) { header('Location: /home'); exit;} ?>
+
+<?php
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/session.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
 
-  // 商家資料表得到(商家名稱)
   function getStoreInfo($storeName) {
       global $conn;
       $stmt = bindPrepare($conn,
@@ -15,7 +16,6 @@
       return $result->fetch_assoc();
   }
 
-  // 根據商家ID獲取商家資訊
   function getStoreInfoById($storeId) {
       global $conn;
       $stmt = bindPrepare($conn,
@@ -27,7 +27,6 @@
       return $result->fetch_assoc();
   }
 
-  // 留言(依商家查詢) 所有有文字留言的商家
   function getComments($storeId) {
       global $conn;
       $stmt = bindPrepare($conn,
@@ -42,7 +41,6 @@
       return $comments;
   }
 
-  // 留言(依商家查詢) 樣本為「最相關」有文字留言的商家
   function getRelevantComments($storeId) {
       global $conn;
       $stmt = bindPrepare($conn,
@@ -58,7 +56,6 @@
       return $comments;
   }
 
-  // 留言(依商家查詢) 樣本為「評分最高」有文字留言的商家
   function getHighestComments($storeId) {
       global $conn;
       $stmt = bindPrepare($conn,
@@ -75,7 +72,6 @@
       return $comments;
   }
 
-  // 留言(依商家查詢) 樣本為「評分最低」有文字留言的商家
   function getLowestComments($storeId) {
       global $conn;
       $stmt = bindPrepare($conn, 
@@ -92,7 +88,6 @@
       return $comments;
   }
 
-  // 地址(依商家查詢)
   function getLocation($storeId) {
       global $conn;
       $stmt = bindPrepare($conn, 
@@ -103,7 +98,6 @@
       return $result->fetch_assoc();
   }
 
-  // 評價(依商家查詢)
   function getRating($storeId) {
       global $conn;
       $stmt = bindPrepare($conn,
@@ -114,7 +108,6 @@
       return $result->fetch_assoc();
   }
 
-  // 服務(依商家查詢)
   function getService($storeId) {
       global $conn;
       $stmt = bindPrepare($conn,
@@ -135,7 +128,6 @@
       return $services;
   }
 
-  // 推薦餐點關鍵字(依商家查詢)
   function getFoodKeyword($storeId) {
       global $conn;
       $stmt = bindPrepare($conn,
@@ -153,7 +145,6 @@
       return $keywords;
   }
 
-  // 所有的關鍵字(依商家查詢從多到少)
   function getAllKeywords($storeId) {
       global $conn;
       $stmt = bindPrepare($conn,
@@ -172,7 +163,6 @@
       return $keywords;
   }
 
-  //營業時間(依商家查詢)
   function getOpeningHours($storeId) {
       global $conn;
       $stmt = bindPrepare($conn,
@@ -193,7 +183,6 @@
       return $openingHours;
   }
 
-  // 其他分店
   function getOtherBranches($branchTitle, $storeId) {
     if (!isset($branchTitle)) return;
     global $conn;
@@ -214,7 +203,6 @@
     return $branches;
   };
 
-  //標籤
   function getMarks($storeId, $states) {
       global $conn;
       if (!is_array($states)) $states = [$states];

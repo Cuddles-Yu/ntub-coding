@@ -31,13 +31,6 @@ body{
       z-index: 9999;
   }
 
-  .vertical-line {
-      width: 2px; /* 設置寬度 */
-      height: 30px; /* 設置高度 */
-      background-color: #C5C5C5; /* 設置顏色 */
-      margin: 0 40px; /* 設置上下為0，左右為20px的間距 */
-  }
-
   #login_button {
       display: flex;
       justify-content: center;
@@ -114,13 +107,6 @@ body{
       width: 100%;
       background-color: #FFFFFF;
       z-index: 9999;
-  }
-
-  .vertical-line {
-      width: 2px; /* 設置寬度 */
-      height: 30px; /* 設置高度 */
-      background-color: #C5C5C5; /* 設置顏色 */
-      margin: 0 40px; /* 設置上下為0，左右為20px的間距 */
   }
 
   #login_button {
@@ -245,13 +231,6 @@ body{
       width: 100%;
       background-color: #FFFFFF;
       z-index: 9999;
-  }
-
-  .vertical-line {
-      width: 2px; /* 設置寬度 */
-      height: 30px; /* 設置高度 */
-      background-color: #C5C5C5; /* 設置顏色 */
-      margin: 0 40px; /* 設置上下為0，左右為20px的間距 */
   }
 
   #login_button {

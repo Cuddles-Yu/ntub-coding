@@ -34,7 +34,7 @@ function logoutRequest() {
         generateLoadingOverlay();
         localStorage.setItem('justLoggedOut', 'true');
         setTimeout(function() {
-          window.location.href = '/home';
+          window.location.reload(true);
         }, LOADING_DURATION);
       }
     })
@@ -73,7 +73,7 @@ function loginRequest() {
         localStorage.setItem('justLoggedIn', 'true');
         localStorage.setItem('memberName', data.name);
         setTimeout(function() {
-          window.location.href = '/home';
+          window.location.reload(true);
         }, LOADING_DURATION);
       } else {
         if (!('showMessage'in data)) {

@@ -7,6 +7,7 @@
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $searchTerm = isset($_POST['q']) ? $_POST['q'] : '';
       $stores = searchByKeyword($searchTerm);
+      $memberWeights = getMemberNormalizedWeight();
   }
 ?>
 
@@ -16,8 +17,7 @@
   </div>    
   <div class="restaurant-group">
     <?php foreach ($stores as $store) : ?>
-      <?php
-        $userId = null;
+      <?php        
         $storeId = $store['id'];
         $storeName = htmlspecialchars($store['name']);
         $previewImage = htmlspecialchars($store['preview_image']);
@@ -28,7 +28,7 @@
         $cardType = $markOptions[$mark]['cardType'] ?? '';
         $tagName = $markOptions[$mark]['tagName'] ?? '';
         $address = htmlspecialchars(getAddress($store));
-        $bayesianScore = getBayesianScore($userId, $storeId, $conn);
+        $bayesianScore = getBayesianScore($memberWeights, $storeId);
         $targetsInfo = getTargets($storeId);
       ?>
       <div class="card restaurant <?=$cardType?>">

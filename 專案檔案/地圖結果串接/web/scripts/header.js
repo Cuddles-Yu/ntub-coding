@@ -24,6 +24,31 @@ function showAlert(type, message) {
   }, 200);
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+
+  // 如果為登入登出跳轉，則顯示提示訊息
+  const justLoggedIn = localStorage.getItem('justLoggedIn');
+  const memberName = localStorage.getItem('memberName');
+  const justLoggedOut = localStorage.getItem('justLoggedOut');
+  const tryToLogin = localStorage.getItem('tryToLogin');
+  if (justLoggedIn === 'true') {
+    showAlert('green', `會員 ${memberName} 已成功降落在評星宇宙！`);
+  } else if (justLoggedOut === 'true') {
+    showAlert('red', '您已離開評星宇宙。');
+  } else if (tryToLogin === 'true') {
+    document.getElementById('login').click();
+  }
+  localStorage.removeItem('justLoggedIn');
+  localStorage.removeItem('memberName');
+  localStorage.removeItem('justLoggedOut');
+  localStorage.removeItem('tryToLogin');
+
+  // 綁定表單控制
+  bindFormControl('.login-input', 'login-submit-button');
+  bindFormControl('.signup-input', 'signup1-next-button');
+
+});
+
 function clearInputs(...inputs) {
   inputs.forEach(input => input.value = '');
 }
@@ -136,11 +161,6 @@ function bindFormControl(inputClass, buttonId) {
   });
   inputs[0].focus();
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-  bindFormControl('.login-input', 'login-submit-button');
-  bindFormControl('.signup-input', 'signup1-next-button');
-});
 
 
 /* 點擊漢堡圖示時，顯示/隱藏選單 */

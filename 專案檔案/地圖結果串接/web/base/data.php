@@ -1,5 +1,6 @@
-<?php
+<?php if(basename($_SERVER['SCRIPT_FILENAME']) == basename(__FILE__)) { header('Location: /home'); exit;} ?>
 
+<?php
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/session.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';

@@ -1,4 +1,15 @@
-<?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/session.php'; ?>
+<?php 
+  require_once $_SERVER['DOCUMENT_ROOT'].'/base/session.php'; 
+  if (!$SESSION_DATA->success) {    
+    echo "
+      <script>
+        localStorage.setItem('tryToLogin', 'true');
+        window.location.replace('/home');
+      </script>
+    ";
+    exit();
+  }
+?>
 
 <!DOCTYPE html>
 <html lang="zh-TW">
@@ -13,7 +24,7 @@
 <body>
     
   <!-- ### 頁首 ### -->
-  <?php require $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
+  <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
 
   <hr>
   <main>
