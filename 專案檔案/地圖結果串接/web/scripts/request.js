@@ -121,8 +121,7 @@ async function emailVerifyRequest() {
       credentials: 'same-origin',
       body: formData
     });
-    const data = await response.json();
-    
+    const data = await response.json();    
     if (data.success) {
       return true;
     } else {

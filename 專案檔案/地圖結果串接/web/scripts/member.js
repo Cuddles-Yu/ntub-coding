@@ -53,42 +53,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-
-/* 控制密碼小視窗的顯示和隱藏 */
-document.getElementById('change_password').addEventListener('click', function() {
-    document.getElementById('password_modal').style.display = 'block';
-});
-
-function closeModal() {
-    document.getElementById('password_modal').style.display = 'none';
-}
-
-// 點擊密碼小視窗外部區域時關閉密碼小視窗
-window.onclick = function(event) {
-    if (event.target == document.getElementById('password_modal')) {
-        document.getElementById('password_modal').style.display = 'none';
-    }
-}
-
-// 新密碼設定提交時進行檢查
-document.getElementById('password_form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const currentPassword = document.getElementById('current_password').value;
-    const newPassword = document.getElementById('new_password').value;
-    const confirmPassword = document.getElementById('confirm_password').value;
-
-    if (newPassword === confirmPassword) {
-        if (currentPassword !== newPassword) {
-            document.getElementById('success_message').style.display = 'block';
-            setTimeout(closeModal, 2500);
-        } else {
-            alert('新密碼不能與目前密碼相同，請重新輸入。');
-        }
-    } else {
-        alert('新密碼和確認密碼不一致，請重新輸入。');
-    }
-});
-
 // 強制設置圖示隱藏
 window.onload = function() {
     document.querySelectorAll('.select_icon').forEach(function(element) {
@@ -136,28 +100,15 @@ function editSettings() {
 }
 
 function saveSettings() {
-    const lowerScoreInput = document.getElementById('lower_score');
-    let lowerScoreValue = parseInt(lowerScoreInput.value, 10);
-
-    // 檢查分數是否在合理範圍(0-100)內
-    if (lowerScoreValue > 100) {
-        lowerScoreValue = 100;
-    } else if (lowerScoreValue < 0) {
-        lowerScoreValue = 0;
-    }
-    lowerScoreInput.value = lowerScoreValue;
-
     const buttonGroups = document.querySelectorAll('.title_text');
     buttonGroups.forEach(group => {
         group.querySelector('.select_icon').style.display = 'none';
         group.querySelector('.deselect_icon').style.display = 'none';
         group.querySelector('.mixed_icon').style.display = 'none';
     });
-
     document.getElementById('preference_save_button').style.display = 'none';
     document.getElementById('preference_cancel_button').style.display = 'none';
     document.getElementById('preference_edit_button').style.display = 'inline';
-
     const inputs = document.querySelectorAll('input');
     inputs.forEach(input => {
         if (input.type === 'checkbox' || input.type === 'radio') {
@@ -166,6 +117,72 @@ function saveSettings() {
             input.readOnly = true;
         }
     });
+    const searchRadius = document.getElementById('search_radius').value;
+    const openNow = document.getElementById('open_now').checked?1:0;
+    const parking = document.getElementById('parking').checked?1:0;
+    const wheelchairAccessible = document.getElementById('wheelchair_accessible').checked?1:0;
+    const vegetarian = document.getElementById('vegetarian').checked?1:0;
+    const healthy = document.getElementById('healthy').checked?1:0;
+    const kidsFriendly = document.getElementById('kids_friendly').checked?1:0;
+    const petsFriendly = document.getElementById('pets_friendly').checked?1:0;
+    const genderFriendly = document.getElementById('gender_friendly').checked?1:0;
+    const dilivery = document.getElementById('delivery').checked?1:0;
+    const takeaway = document.getElementById('takeaway').checked?1:0;
+    const dineIn = document.getElementById('dine_in').checked?1:0;
+    const breakfast = document.getElementById('breakfast').checked?1:0;
+    const brunch = document.getElementById('brunch').checked?1:0;
+    const lunch = document.getElementById('lunch').checked?1:0;
+    const dinner = document.getElementById('dinner').checked?1:0;
+    const reservation = document.getElementById('reservation').checked?1:0;
+    const groupFriendly = document.getElementById('group_friendly').checked?1:0;
+    const familyFriendly = document.getElementById('family_friendly').checked?1:0;
+    const toilet = document.getElementById('toilet').checked?1:0;
+    const wifi = document.getElementById('wifi').checked?1:0;
+    const cash = document.getElementById('cash').checked?1:0;
+    const creditCard = document.getElementById('credit_card').checked?1:0;
+    const debitCard = document.getElementById('debit_card').checked?1:0;
+    const mobilePayment = document.getElementById('mobile_payment').checked?1:0;
+    // 請求
+    const formData = new FormData();
+    formData.set('searchRadius', searchRadius);
+    formData.set('openNow', openNow);
+    formData.set('parking', parking);
+    formData.set('wheelchairAccessible', wheelchairAccessible);
+    formData.set('vegetarian', vegetarian);
+    formData.set('healthy', healthy);
+    formData.set('kidsFriendly', kidsFriendly);
+    formData.set('petsFriendly', petsFriendly);
+    formData.set('genderFriendly', genderFriendly);
+    formData.set('dilivery', dilivery);
+    formData.set('takeaway', takeaway);
+    formData.set('dineIn', dineIn);
+    formData.set('breakfast', breakfast);
+    formData.set('brunch', brunch);
+    formData.set('lunch', lunch);
+    formData.set('dinner', dinner);
+    formData.set('reservation', reservation);
+    formData.set('groupFriendly', groupFriendly);
+    formData.set('familyFriendly', familyFriendly);
+    formData.set('toilet', toilet);
+    formData.set('wifi', wifi);
+    formData.set('cash', cash);
+    formData.set('creditCard', creditCard);
+    formData.set('debitCard', debitCard);
+    formData.set('mobilePayment', mobilePayment);
+    fetch('/member/handler/update_preference.php', {
+      method: 'POST',
+      credentials: 'same-origin',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        showAlert('green', data.message);
+      } else {
+        showAlert('red', data.message);
+      }
+    })
+    .catch(error => console.error('更新偏好過程中發生錯誤：', error));
 }
 
 function cancelEdit() {
@@ -336,11 +353,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const selectAllIcon = document.getElementById('select_all_icon4');
     const deselectAllIcon = document.getElementById('deselect_all_icon4');
     const mixedIcon = document.getElementById('mixed_icon4');
-    const checkboxes = document.querySelectorAll('.select_atmosphere');
+    const checkboxes = document.querySelectorAll('.select_open_hour');
 
     function updateIcons() {
         const total = checkboxes.length;
-        const checked = document.querySelectorAll('.select_atmosphere:checked').length;
+        const checked = document.querySelectorAll('.select_open_hour:checked').length;
 
         if (checked === total) {
             selectAllIcon.style.display = 'inline';
@@ -515,35 +532,69 @@ document.addEventListener('DOMContentLoaded', function() {
 var initialValues = {};
 
 function toggleEditMode2() {
-    var sliders = document.querySelectorAll('input[type="range"]');
-    var editButton2 = document.getElementById('weight_edit_button');
-    var cancelButton2 = document.getElementById('weight_cancel_button');
+  var sliders = document.querySelectorAll('#weight_main_area input[type="range"]');
+  var editButton2 = document.getElementById('weight_edit_button');
+  var cancelButton2 = document.getElementById('weight_cancel_button');
 
-    if (editButton2.innerText === '修改') {
-        sliders.forEach(function(slider) {
-            initialValues[slider.id] = slider.value; // 保存初始值
-            slider.disabled = false;
-        });
-        editButton2.innerText = '完成';
-        cancelButton2.style.display = 'inline';
-    } else {
-        sliders.forEach(function(slider) {
-            slider.disabled = true;
-        });
-        editButton2.innerText = '修改';
-        cancelButton2.style.display = 'none';
-    }
+  if (editButton2.innerText === '修改') {
+      sliders.forEach(function(slider) {
+          initialValues[slider.id] = slider.value; // 保存初始值
+          slider.disabled = false;
+      });
+      editButton2.innerText = '完成';
+      cancelButton2.style.display = 'inline';
+  } else {
+      sliders.forEach(function(slider) {
+          slider.disabled = true;
+      });
+      editButton2.innerText = '修改';
+      cancelButton2.style.display = 'none';
+      
+      const atmosphere = document.getElementById('atmosphere').value;
+      const product = document.getElementById('product').value;
+      const service = document.getElementById('service').value;
+      const price = document.getElementById('price').value;
+
+      if (atmosphere+product+service+price == 0) {
+        showAlert('red', '偏好設定更新失敗，至少要有一項權重值 > 0。');
+        cancelEditMode2();
+        return;
+      }
+
+      const formData = new FormData();
+      formData.set('atmosphere', atmosphere);
+      formData.set('product', product);
+      formData.set('service', service);
+      formData.set('price', price);
+
+      fetch('/member/handler/update_weight.php', {
+        method: 'POST',
+        credentials: 'same-origin',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          showAlert('green', data.message);
+        } else {
+          showAlert('red', data.message);
+        }
+      })
+      .catch(error => console.error('更新權重過程中發生錯誤：', error));
+  }
+
 }
 
 function cancelEditMode2() {
-    var sliders = document.querySelectorAll('input[type="range"]');
+    var sliders = document.querySelectorAll('#weight_main_area input[type="range"]');
     var editButton2 = document.getElementById('weight_edit_button');
     var cancelButton2 = document.getElementById('weight_cancel_button');
 
     sliders.forEach(function(slider) {
         slider.disabled = true;
         slider.value = initialValues[slider.id]; // 恢復到初始值
-        document.getElementById(slider.id + '_value').innerText = initialValues[slider.id] + '%'; // 更新顯示的值
+        console.log(slider.id);
+        document.getElementById(slider.id + '_value').innerText = initialValues[slider.id]; // 更新顯示的值
     });
     editButton2.innerText = '修改';
     cancelButton2.style.display = 'none';
@@ -554,6 +605,7 @@ function updateLabelValue(id) {
     var slider = document.getElementById(id);
     var output = document.getElementById(id + '_value');
     output.textContent = slider.value;
+    slider.setAttribute('value', slider.value);
 }
 
 /* 箭頭圖示切換 */

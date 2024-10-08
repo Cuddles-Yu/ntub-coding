@@ -83,7 +83,7 @@
             }
         }
     }
-
+    $stmt->close();
     // 返回正面和負面留言的數量
     return [
         $_POSITIVE => $positive_count,
@@ -113,10 +113,12 @@
     ", "sss", $keyword, $keyword, $keyword);
     $stmt->execute();
     $result = $stmt->get_result();
+
     $stores = [];
     while ($row = $result->fetch_assoc()) {
         if (is_numeric($row['latitude']) && is_numeric($row['longitude'])) $stores[] = $row;
     }
+    $stmt->close();
     return $stores;
   }
 
@@ -158,6 +160,7 @@
     while ($row = $result->fetch_assoc()) {
         if (is_numeric($row['latitude']) && is_numeric($row['longitude'])) $stores[] = $row;
     }
+    $stmt->close();
     return $stores;
   }
 
@@ -188,28 +191,42 @@
     ];
   }
 
+  function getMemberInfo() {
+    global $conn, $MEMBER_ID;
+    if (is_null($MEMBER_ID)) return null;
+    $stmt = bindPrepare($conn, "
+      SELECT * FROM members AS m
+      LEFT JOIN preferences AS p ON m.id = p.member_id
+      WHERE m.id = ?
+    ", "i", $MEMBER_ID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $member = $result->fetch_assoc();
+    $stmt->close();
+    return $member ?? null;
+  }
+
   function getMemberServiceList() {
     global $conn, $MEMBER_ID, $serviceMap;
+    if (is_null($MEMBER_ID)) return [];
     $services = [];
-    if (!is_null($MEMBER_ID)) {
-      $stmt = bindPrepare($conn," 
-        SELECT 
-          parking, wheelchair_accessible, vegetarian, healthy, kids_friendly, pets_friendly, 
-          gender_friendly, delivery, takeaway, dine_in, breakfast, brunch, lunch, dinner, reservation, 
-          group_friendly, family_friendly, toilet, wifi, cash, credit_card, debit_card, mobile_payment
-        FROM preferences
-        WHERE member_id = ?
-      ", "i", $MEMBER_ID);
-      $stmt->execute();
-      $result = $stmt->get_result();
-      $row = $result->fetch_assoc();
-      $stmt->close();
-      if ($row) {
-        foreach ($serviceMap as $field => $label) {
-          if (isset($row[$field]) && $row[$field] == 1) $services[] = $label;
-        }
+    $stmt = bindPrepare($conn," 
+      SELECT 
+        parking, wheelchair_accessible, vegetarian, healthy, kids_friendly, pets_friendly, 
+        gender_friendly, delivery, takeaway, dine_in, breakfast, brunch, lunch, dinner, reservation, 
+        group_friendly, family_friendly, toilet, wifi, cash, credit_card, debit_card, mobile_payment
+      FROM preferences
+      WHERE member_id = ?
+    ", "i", $MEMBER_ID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $stmt->close();
+    if ($row) {
+      foreach ($serviceMap as $field => $label) {
+        if (isset($row[$field]) && $row[$field] == 1) $services[] = $label;
       }
-    }  
+    }
     return $services;
   }
 

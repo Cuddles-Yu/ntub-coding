@@ -89,6 +89,15 @@ display: block;
   border-radius: 4px;
 }
 
+.form-input-member {
+  width: auto;
+  padding: 10px;
+  padding-right: 0;
+  margin-bottom: 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
 .form-input.error {
   border-color: red;
 }

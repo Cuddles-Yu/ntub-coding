@@ -17,9 +17,9 @@
     $stmt->fetch();
     $stmt->close();
     
-    if ($count == 0) {
-      echo json_encode(['success' => true, 'message' => '該帳號尚未被註冊']);
-    } else {
+    if ($count > 0) {
       echo json_encode(['success' => false, 'message' => '該帳號已被註冊，請更換其他帳號']);
+    } else {
+      echo json_encode(['success' => true, 'message' => '該帳號尚未被註冊']);
     }
   }

@@ -21,7 +21,7 @@
     $stmt->bind_result($memberId, $memberName, $hashedPassword);
     $stmt->fetch();
     $stmt->close();
-    if ($memberId&&$memberName&&$hashedPassword) {
+    if (!is_null($memberId)) {
       if (password_verify($password, $hashedPassword)) {
         $token = generateToken(40);
         date_default_timezone_set("Asia/Taipei");
@@ -44,6 +44,6 @@
         echo json_encode(['success' => false, 'message' => '帳號或密碼不正確']);
       }
     } else {
-      echo json_encode(['success' => false, 'message' => '該帳號尚未註冊會員']);
+      echo json_encode(['success' => false, 'message' => '該帳號尚未被註冊']);
     }
   }

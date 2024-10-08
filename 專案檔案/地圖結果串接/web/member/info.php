@@ -1,5 +1,6 @@
 <?php 
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/session.php'; 
+  require_once $_SERVER['DOCUMENT_ROOT'].'/base/analysis.php';
   if (!$SESSION_DATA->success) {    
     echo "
       <script>
@@ -8,7 +9,8 @@
       </script>
     ";
     exit();
-  }
+  }  
+  $memberInfo = getMemberInfo();
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +27,40 @@
     
   <!-- ### 頁首 ### -->
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
+
+  <!-- ### 登入 ### -->
+  <div class="modal fade" data-bs-keyboard="false" data-bs-backdrop="static" id="modifyPasswordModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered login-modal">
+    <div class="modal-content">
+      <div class="modal-body login-modal-body" style="height:270px;">
+        <h2 class="form-h2">修改密碼</h2>
+        <div class='form-message-popup' id="login-message" style="display:none">
+          <div id="loginError" class="form-error-message-popup" style="display:block; text-align:center"></div>
+        </div>
+
+        <!-- ### 填寫 ### -->
+        <form novalidate>
+          <div style="margin-bottom: -25px">
+            <input type='password' id='old-password' class='form-input-popup login-input' placeholder='舊密碼' autocomplete="current-password" required>
+            <img src="/images/password-hide.png" alt="password" id="old-toggle-password" class="toggle-password">
+          </div>
+          <div style="margin-bottom: -25px">
+            <input type='password' id='new-password' class='form-input-popup login-input' placeholder='新密碼' autocomplete="current-password" required>
+            <img src="/images/password-hide.png" alt="password" id="new-toggle-password" class="toggle-password">
+          </div>
+          <div style="margin-bottom: -25px">
+            <input type='password' id='check-password' class='form-input-popup login-input' placeholder='確認新密碼' autocomplete="current-password" required>
+            <img src="/images/password-hide.png" alt="password" id="check-toggle-password" class="toggle-password">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="login-cancel-button" onclick="cancelModal()">取消</button>
+        <button type="button" class="btn btn-primary" id="login-submit-button" onclick="loginRequest()">修改</button>
+      </div>
+    </div>
+  </div>
+</div>
 
   <hr>
   <main>
@@ -44,241 +80,144 @@
           </div>
           <div class="page_button" id="favorite" onclick="switchTo('favorite')">
               <i class="fi fi-sr-comment-heart logo" id="favorite_logo"></i>
-              <p>收藏地點</p>
+              <p>收藏餐廳</p>
           </div>
       </div>
 
       <!-- 基本資料 -->
       <div id="info_main_area">
           <div class="item_name">
-              <span class="item_text">使用者名稱</span>
-              <input type="text" class="item_text2" id="user_name" name="user_name" value="11236007" readonly> <!-- readonly: 唯讀狀態 -->
+              <span class="item_text item-text-right">帳號</span>
+              <input type="text" class="form-input-member" id="email" name="email" value="<?=$memberInfo['email']?>" readonly>
+          </div>
+          <div class="item_name">
+              <span class="item_text item-text-right">名稱</span>
+              <input type="text" class="form-input-member" id="user_name" name="user_name" value="<?=$memberInfo['name']?>" readonly>
               <i id="change_user_name" class="fi fi-sr-pencil edit_info1">修改</i>
               <i id="done_user_name" class="fi fi-sr-check edit_info1" style="display: none;"></i>
               <i id="cancel_user_name" class="fi fi-sr-undo edit_info1" style="display: none;"></i>
+          </div>          
+          <div class="item_name">
+              <span class="item_text item-text-right">密碼</span>
+              <input type="password" class="form-input-member" id="password" name="password" value="········" readonly>
+              <i id="change_password" class="fi fi-sr-pencil edit_info2" data-bs-toggle="modal" data-bs-target="#modifyPasswordModal">修改</i>
           </div>
           <div class="item_name">
-              <span class="item_text">帳號</span>
-              <input type="text" class="item_text2" id="email" name="email" value="abc12345" readonly>
-          </div>
-          <div class="item_name">
-              <span class="item_text">密碼</span>
-              <input type="password" class="item_text2" id="password" name="password" value="12345678" readonly>
-              <i id="change_password" class="fi fi-sr-pencil edit_info2">修改</i>
-          </div>
-          <div class="item_name">
-              <span class="item_text">加入時間</span>
-              <span>2024年07月30日</span>
-          </div>
-          <!-- 修改密碼小視窗 -->
-          <div id="password_modal" class="modal">
-              <div class="modal-content">
-                  <span class="close-button" onclick="closeModal()">&times;</span>
-                  <div id="password_title">修改密碼</div>
-                  <form id="password_form">
-                      <label for="current_password">目前密碼</label>
-                      <input type="password" id="current_password" name="current_password" required></br>
-                      <label for="new_password">新密碼</label>
-                      <input type="password" id="new_password" name="new_password" required></br>
-                      <label for="confirm_password">確認新密碼</label>
-                      <input type="password" id="confirm_password" name="confirm_password" required>
-                      <button type="submit">確認</button>
-                  </form>
-                  <p class="success-message" id="success_message">密碼已修改成功！</p>
-              </div>
+              <span class="item_text item-text-right">加入時間</span>
+              <input type="text" class="form-input-member" id="create_time" name="create_time" value="<?=$memberInfo['create_time']?>" readonly>
           </div>
       </div>
 
       <!-- 偏好設定 -->
       <div id="preference_main_area">
           <form class="preference_item_container">
-              <div class="checkbox_container2">
-                  <span class="type_title">搜尋半徑</span>
-                  <input type="number" id="search_radius" name="search_radius" value="500" readonly>
-                  <span class="type_title" id="meter">公尺</span>
-                  <span class="type_title">最低綜合評分（0~100）</span>
-                  <input type="number" id="lower_score" name="lower_score" value="80" min="0" max="100" readonly>
-                  <span class="type_title">分</span>
+              <div class="input-group input-group-sm mb-3" style="width:230px;">
+                <p class="checkbox-title">搜尋半徑</p>
+                <input id="search_radius" name="search_radius" type="text" class="form-control" 
+                  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="<?=$memberInfo['search_radius']?>">
+                <span class="input-group-text" id="inputGroup-sizing-sm">公尺</span>
               </div>
-
-              <div class="checkbox_container2">
-                  <span class="type_title">是否需在營業時間內</span>
-                  <div class="radio_item">
-                      <input type="radio" id="service_time_y" name="service_time" value="yes" disabled>
-                      <label for="service_time_y">是</label>
-                  </div>
-                  <div class="radio_item">
-                      <input type="radio" id="service_time_n" name="service_time" value="no" disabled>
-                      <label for="service_time_n">否</label>
-                  </div>
-              </div>
-
-              <div class="title_text" id="personal_button">
-                  <div class="type_title">個人需求</div>
-                  <i id="select_all_icon1" class="fi fi-sr-checkbox select_icon"></i> <!-- 全選圖示 -->
-                  <i id="deselect_all_icon1" class="fi fi-sr-square deselect_icon"></i> <!-- 未選圖示 -->
-                  <i id="mixed_icon1" class="fi fi-sr-square-minus mixed_icon"></i> <!-- 混合圖示 -->
-              </div>
-              <div class="checkbox_container personal_service">
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_personal" id="personal_service1" name="personal_service1" autocomplete="on" disabled>
-                      <label for="personal_service1">停車場</label>
-                  </div>
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_personal" id="personal_service2" name="personal_service2" autocomplete="on" disabled>
-                      <label for="personal_service2">無障礙</label>
-                  </div>
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_personal" id="personal_service3" name="personal_service3" autocomplete="on" disabled>
-                      <label for="personal_service3">素食料理</label>
-                  </div>
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_personal" id="personal_service4" name="personal_service4" autocomplete="on" disabled>
-                      <label for="personal_service4">健康料理</label>
-                  </div>
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_personal" id="personal_service5" name="personal_service5" autocomplete="on" disabled>
-                      <label for="personal_service5">兒童友善</label>
-                  </div>
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_personal" id="personal_service6" name="personal_service6" autocomplete="on" disabled>
-                      <label for="personal_service6">寵物友善</label>
-                  </div>
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_personal" id="personal_service7" name="personal_service7" autocomplete="on" disabled>
-                      <label for="personal_service7">性別友善</label>
-                  </div>
-              </div>
-
-              <div class="title_text" id="method_button">
-                  <div class="type_title">用餐方式</div>
-                  <i id="select_all_icon2" class="fi fi-sr-checkbox select_icon"></i> <!-- 全選圖示 -->
-                  <i id="deselect_all_icon2" class="fi fi-sr-square deselect_icon"></i> <!-- 未選圖示 -->
-                  <i id="mixed_icon2" class="fi fi-sr-square-minus mixed_icon"></i> <!-- 混合圖示 -->
-              </div>
-              <div class="checkbox_container meal_method">
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_method" id="restaurant_service1" name="restaurant_service1" autocomplete="on" disabled>
-                      <label for="restaurant_service1">外送</label>
-                  </div>
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_method" id="restaurant_service2" name="restaurant_service2" autocomplete="on" disabled>
-                      <label for="restaurant_service2">外帶</label>
-                  </div>
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_method" id="restaurant_service3" name="restaurant_service3" autocomplete="on" disabled>
-                      <label for="restaurant_service3">內用</label>
-                  </div>
-              </div>
-
-              <div class="title_text" id="time_button">
-                  <div class="type_title">用餐時段</div>
-                  <i id="select_all_icon3" class="fi fi-sr-checkbox select_icon"></i> <!-- 全選圖示 -->
-                  <i id="deselect_all_icon3" class="fi fi-sr-square deselect_icon"></i> <!-- 未選圖示 -->
-                  <i id="mixed_icon3" class="fi fi-sr-square-minus mixed_icon"></i> <!-- 混合圖示 -->
-              </div>
-              <div class="checkbox_container meal_time">
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_time" id="restaurant_service4" name="restaurant_service4" autocomplete="on" disabled>
-                      <label for="restaurant_service4">早餐</label>
-                  </div>
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_time" id="restaurant_service5" name="restaurant_service5" autocomplete="on" disabled>
-                      <label for="restaurant_service5">早午餐</label>
-                  </div>
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_time" id="restaurant_service6" name="restaurant_service6" autocomplete="on" disabled>
-                      <label for="restaurant_service6">午餐</label>
-                  </div>
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_time" id="restaurant_service7" name="restaurant_service7" autocomplete="on" disabled>
-                      <label for="restaurant_service7">晚餐</label>
-                  </div>
-              </div>
-
-              <div class="title_text" id="atmosphere_button">
-                  <div class="type_title">用餐氛圍</div>
-                  <i id="select_all_icon4" class="fi fi-sr-checkbox select_icon"></i> <!-- 全選圖示 -->
-                  <i id="deselect_all_icon4" class="fi fi-sr-square deselect_icon"></i> <!-- 未選圖示 -->
-                  <i id="mixed_icon4" class="fi fi-sr-square-minus mixed_icon"></i> <!-- 混合圖示 -->
-              </div>
-              <div class="checkbox_container meal_atmosphere">
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_atmosphere" id="restaurant_service8" name="restaurant_service8" autocomplete="on" disabled>
-                      <label for="restaurant_service8">氣氛悠閒</label>
-                  </div>
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_atmosphere" id="restaurant_service9" name="restaurant_service9" autocomplete="on" disabled>
-                      <label for="restaurant_service9">環境舒適</label>
-                  </div>
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_atmosphere" id="restaurant_service10" name="restaurant_service10" autocomplete="on" disabled>
-                      <label for="restaurant_service10">音樂演奏</label>
-                  </div>
-              </div>
-
-              <div class="title_text" id="plan_button">
-                  <div class="type_title">用餐規劃</div>
-                  <i id="select_all_icon5" class="fi fi-sr-checkbox select_icon"></i> <!-- 全選圖示 -->
-                  <i id="deselect_all_icon5" class="fi fi-sr-square deselect_icon"></i> <!-- 未選圖示 -->
-                  <i id="mixed_icon5" class="fi fi-sr-square-minus mixed_icon"></i> <!-- 混合圖示 -->
-              </div>
-              <div class="checkbox_container meal_plan">
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_plan" id="restaurant_service11" name="restaurant_service11" autocomplete="on" disabled>
-                      <label for="restaurant_service11">接受訂位</label>
-                  </div>
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_plan" id="restaurant_service12" name="restaurant_service12" autocomplete="on" disabled>
-                      <label for="restaurant_service12">適合團體</label>
-                  </div>
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_plan" id="restaurant_service13" name="restaurant_service13" autocomplete="on" disabled>
-                      <label for="restaurant_service13">適合家庭聚餐</label>
-                  </div>
-              </div>
-
-              <div class="title_text" id="facility_button">
-                  <div class="type_title">基礎設施</div>
-                  <i id="select_all_icon6" class="fi fi-sr-checkbox select_icon"></i> <!-- 全選圖示 -->
-                  <i id="deselect_all_icon6" class="fi fi-sr-square deselect_icon"></i> <!-- 未選圖示 -->
-                  <i id="mixed_icon6" class="fi fi-sr-square-minus mixed_icon"></i> <!-- 混合圖示 -->
-              </div>
-              <div class="checkbox_container basic_facility">
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_facility" id="restaurant_service14" name="restaurant_service14" autocomplete="on" disabled>
-                      <label for="restaurant_service14">洗手間</label>
-                  </div>
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_facility" id="restaurant_service15" name="restaurant_service15" autocomplete="on" disabled>
-                      <label for="restaurant_service15">無線網路</label>
-                  </div>
-              </div>
-
-              <div class="title_text" id="payment_button">
-                  <div class="type_title">付款方式</div>
-                  <i id="select_all_icon7" class="fi fi-sr-checkbox select_icon"></i> <!-- 全選圖示 -->
-                  <i id="deselect_all_icon7" class="fi fi-sr-square deselect_icon"></i> <!-- 未選圖示 -->
-                  <i id="mixed_icon7" class="fi fi-sr-square-minus mixed_icon"></i> <!-- 混合圖示 -->
-              </div>
-              <div class="checkbox_container payment">
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_payment" id="restaurant_service16" name="restaurant_service16" autocomplete="on" disabled>
-                      <label for="restaurant_service16">現金</label>
-                  </div>
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_payment" id="restaurant_service17" name="restaurant_service17" autocomplete="on" disabled>
-                      <label for="restaurant_service17">信用卡</label>
-                  </div>
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_payment" id="restaurant_service18" name="restaurant_service18" autocomplete="on" disabled>
-                      <label for="restaurant_service18">簽帳金融卡</label>
-                  </div>
-                  <div class="checkbox_item">
-                      <input type="checkbox" class="select_payment" id="restaurant_service19" name="restaurant_service19" autocomplete="on" disabled>
-                      <label for="restaurant_service19">行動支付</label>
-                  </div>
-              </div>
+              <?php
+                $checkboxGroups = [
+                  'open_hour_button' => [
+                    'index' => 4,
+                    'title' => '營業時間',
+                    'select' => 'select_open_hour',
+                    'class' => 'open_hour',
+                    'items' => [
+                      'open_now' => '營業中'
+                    ]
+                  ],
+                  'personal_button' => [
+                    'index' => 1,
+                    'title' => '個人需求',
+                    'select' => 'select_personal',
+                    'class' => 'personal_service',
+                    'items' => [
+                      'parking' => '停車場',
+                      'wheelchair_accessible' => '無障礙',
+                      'vegetarian' => '素食料理',
+                      'healthy' => '健康料理',
+                      'kids_friendly' => '兒童友善',
+                      'pets_friendly' => '寵物友善',
+                      'gender_friendly' => '性別友善'
+                    ]
+                  ],
+                  'method_button' => [
+                    'index' => 2,
+                    'title' => '用餐方式',
+                    'select' => 'select_method',
+                    'class' => 'meal_method',
+                    'items' => [
+                      'delivery' => '外送',
+                      'takeaway' => '外帶',
+                      'dine_in' => '內用'
+                    ]
+                  ],
+                  'time_button' => [
+                    'index' => 3,
+                    'title' => '用餐時段',
+                    'select' => 'select_time',
+                    'class' => 'meal_time',
+                    'items' => [
+                      'breakfast' => '早餐',
+                      'brunch' => '早午餐',
+                      'lunch' => '午餐',
+                      'dinner' => '晚餐'
+                    ]
+                  ],
+                  'plan_button' => [
+                    'index' => 5,
+                    'title' => '用餐規劃',
+                    'select' => 'select_plan',
+                    'class' => 'meal_plan',
+                    'items' => [
+                      'reservation' => '接受訂位',
+                      'group_friendly' => '適合團體',
+                      'family_friendly' => '適合家庭聚餐'
+                    ]
+                  ],
+                  'facility_button' => [
+                    'index' => 6,
+                    'title' => '基礎設施',
+                    'select' => 'select_facility',
+                    'class' => 'basic_facility',
+                    'items' => [
+                      'toilet' => '洗手間',
+                      'wifi' => '無線網路'
+                    ]
+                  ],
+                  'payment_button' => [
+                    'index' => 7,
+                    'title' => '付款方式',
+                    'select' => 'select_payment',
+                    'class' => 'payment',
+                    'items' => [
+                      'cash' => '現金',
+                      'credit_card' => '信用卡',
+                      'debit_card' => '簽帳金融卡',
+                      'mobile_payment' => '行動支付'
+                    ]
+                  ]
+                ];
+              ?>
+              <?php foreach($checkboxGroups as $key => $group): ?>
+                <div class="title_text" id="<?=$key?>">
+                  <div class="type_title"><?=$group['title']?></div>
+                  <i id="select_all_icon<?=$group['index']?>" class="fi fi-sr-checkbox select_icon"></i>
+                  <i id="deselect_all_icon<?=$group['index']?>" class="fi fi-sr-square deselect_icon"></i>
+                  <i id="mixed_icon<?=$group['index']?>" class="fi fi-sr-square-minus mixed_icon"></i>
+                </div>                
+                <div class="checkbox_container <?=$group['class']?>">
+                  <?php foreach($group['items'] as $item => $value): ?>
+                      <div class="checkbox_item">
+                        <input type="checkbox" class="<?=$group['select']?>" id="<?=$item?>" name="<?=$item?>" autocomplete="on" disabled 
+                          <?php if($memberInfo[$item]): echo 'checked'; endif; ?>>
+                        <label for="<?=$item?>"><?=$value?></label>
+                      </div>
+                  <?php endforeach; ?>                
+                </div>
+              <?php endforeach; ?>
           </form>
 
           <div class="button_area">
@@ -293,27 +232,27 @@
           <div class="description_text">請依據您的重視程度，填寫適當的指標權重，以找尋更符合您需求的商家。</div>
           
           <div class="slider-container">
-              <label for="signup-atmosphere">氛圍</label>
-              <input type="range" id="signup-atmosphere" name="signup-atmosphere" min="0" max="100" value="50" oninput="updateLabelValue('atmosphere')" disabled>
-              <span id="atmosphere_value">50</span>
+              <label for="atmosphere">氛圍</label>
+              <input type="range" id="atmosphere" name="atmosphere" min="0" max="100" value="<?=$memberInfo['atmosphere_weight']?>" oninput="updateLabelValue('atmosphere')" disabled>
+              <span id="atmosphere_value"><?=$memberInfo['atmosphere_weight']?></span>
           </div>
           
           <div class="slider-container">
-              <label for="signup-product">產品</label>
-              <input type="range" id="signup-product" name="signup-product" min="0" max="100" value="50" oninput="updateLabelValue('product')" disabled>
-              <span id="product_value">50</span>
+              <label for="product">產品</label>
+              <input type="range" id="product" name="product" min="0" max="100" value="<?=$memberInfo['product_weight']?>" oninput="updateLabelValue('product')" disabled>
+              <span id="product_value"><?=$memberInfo['product_weight']?></span>
           </div>
           
           <div class="slider-container">
-              <label for="signup-service">服務</label>
-              <input type="range" id="signup-service" name="signup-service" min="0" max="100" value="50" oninput="updateLabelValue('service')" disabled>
-              <span id="service_value">50</span>
+              <label for="service">服務</label>
+              <input type="range" id="service" name="service" min="0" max="100" value="<?=$memberInfo['service_weight']?>" oninput="updateLabelValue('service')" disabled>
+              <span id="service_value"><?=$memberInfo['service_weight']?></span>
           </div>
           
           <div class="slider-container">
-              <label for="signup-price">售價</label>
-              <input type="range" id="signup-price" name="signup-price" min="0" max="100" value="50" oninput="updateLabelValue('price')" disabled>
-              <span id="price_value">50</span>
+              <label for="price">售價</label>
+              <input type="range" id="price" name="price" min="0" max="100" value="<?=$memberInfo['price_weight']?>" oninput="updateLabelValue('price')" disabled>
+              <span id="price_value"><?=$memberInfo['price_weight']?></span>
           </div>
 
           <div class="button_area">
@@ -322,7 +261,7 @@
           </div>
       </div>
 
-      <!-- 收藏地點 -->
+      <!-- 收藏餐廳 -->
       <div id="favorite_main_area">
           <div>
               <div class="search">
