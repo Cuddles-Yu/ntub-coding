@@ -49,7 +49,7 @@
       <a class="display-after-login link_text close-menu" id="member-weight-nav">權重設定</a>
       <a class="display-after-login link_text close-menu" id="member-favorite-nav">收藏商家</a>
       <span class="display-after-login menu-separator"></span>
-      <a class="link_text close-menu" id="member-logout-nav">登出</a>
+      <a class="link_text close-menu" id="member-logout-nav" data-bs-toggle="modal" data-bs-target="#logoutModal">登出</a>
   </nav>
     
   <div id="dropdownMenu" class="dropdown-menu">

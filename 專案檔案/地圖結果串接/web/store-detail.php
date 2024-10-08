@@ -517,6 +517,7 @@
       
       fetch('struc/comment_keyword.php', {
           method: 'POST',
+          credentials: 'include',
           credentials: 'same-origin',
           body: formData
       })

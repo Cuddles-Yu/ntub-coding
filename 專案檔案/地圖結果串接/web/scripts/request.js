@@ -25,17 +25,19 @@ function generateLoadingOverlay(during=0) {
 function logoutRequest() {
   fetch('/member/handler/logout.php', {
     method: 'POST',
+    credentials: 'include',
     credentials: 'same-origin',
   })
     .then(response => response.json())
     .then(data => {
       if (data.success) {
+        console.log(window.location.href);
         cancelModal();
         generateLoadingOverlay();
-        localStorage.setItem('justLoggedOut', 'true');
+        localStorage.setItem('justLoggedOut', 'true');      
         setTimeout(function() {
           window.location.reload(true);
-        }, LOADING_DURATION);
+        }, LOADING_DURATION);      
       }
     })
     .catch(error => {
@@ -62,6 +64,7 @@ function loginRequest() {
   formData.set('remember', rememberInput.checked?1:0);
   fetch('./member/handler/login.php', {
     method: 'POST',
+    credentials: 'include',
     credentials: 'same-origin',
     body: formData
   })
@@ -73,7 +76,7 @@ function loginRequest() {
         localStorage.setItem('justLoggedIn', 'true');
         localStorage.setItem('memberName', data.name);
         setTimeout(function() {
-          window.location.reload(true);
+          window.location.reload(true);          
         }, LOADING_DURATION);
       } else {
         if (!('showMessage'in data)) {
@@ -118,6 +121,7 @@ async function emailVerifyRequest() {
   try {
     const response = await fetch('./member/handler/email_verify.php', {
       method: 'POST',
+      credentials: 'include',
       credentials: 'same-origin',
       body: formData
     });
@@ -248,6 +252,7 @@ function signupRequest() {
   formData.set('mobilePayment', mobilePayment);
   fetch('./member/handler/signup.php', {
     method: 'POST',
+    credentials: 'include',
     credentials: 'same-origin',
     body: formData
   })

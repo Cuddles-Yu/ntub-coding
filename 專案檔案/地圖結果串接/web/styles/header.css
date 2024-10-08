@@ -4,7 +4,16 @@
     box-sizing: border-box;
 }
 
-html, body {
+html {
+  scroll-padding-top: 100px;
+  margin: 0;
+  height: 100%;
+  user-select:none; /* 禁止選取standard syntax */
+  -webkit-user-select:none; /* 禁止for Chrome、Safari */
+  -moz-user-select:none;  /* 禁止for Mozilla、Firefox */
+}
+
+body {
   margin: 0;
   height: 100%;
   user-select:none; /* 禁止選取standard syntax */

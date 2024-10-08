@@ -292,6 +292,7 @@
       // 獲取 HTML 搜索結果
       fetch('struc/search_result.php', {
         method: 'POST',
+        credentials: 'include',
         credentials: 'same-origin',
         body: formData
       })
@@ -314,6 +315,7 @@
 
       fetch('struc/search_landmark.php', {
         method: 'POST',
+        credentials: 'include',
         credentials: 'same-origin',
         body: formData
       })
@@ -357,7 +359,7 @@
                 }).on('click', function () {
                   browseHighlightResult(data[i].id);
                 }).on('popupclose', function () {
-                  clearHighlightResult();
+                  // clearHighlightResult();
                 });;
               markers.addLayer(marker);
             }

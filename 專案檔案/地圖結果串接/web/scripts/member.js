@@ -171,6 +171,7 @@ function saveSettings() {
     formData.set('mobilePayment', mobilePayment);
     fetch('/member/handler/update_preference.php', {
       method: 'POST',
+      credentials: 'include',
       credentials: 'same-origin',
       body: formData
     })
@@ -569,6 +570,7 @@ function toggleEditMode2() {
 
       fetch('/member/handler/update_weight.php', {
         method: 'POST',
+        credentials: 'include',
         credentials: 'same-origin',
         body: formData
       })

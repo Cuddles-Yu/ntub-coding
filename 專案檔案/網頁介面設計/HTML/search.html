@@ -195,6 +195,7 @@
         var formData = new FormData(this);
         fetch('popularStores.php', {
             method: 'POST',
+            credentials: 'include',
             body: formData
         })
         .then(response => response.text())
@@ -210,6 +211,7 @@
         var formData = new FormData(this);
         fetch('search.php', {
             method: 'POST',
+            credentials: 'include',
             body: formData
         })
         .then(response => response.text())

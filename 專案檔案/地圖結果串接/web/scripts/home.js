@@ -33,6 +33,7 @@ function generateStoreSuggestion(content) {
   formData.set('q', '蛋塔');      
   fetch('../struc/store_suggestion.php', {
     method: 'POST',
+    credentials: 'include',
     credentials: 'same-origin',
     body: formData
   })

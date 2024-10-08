@@ -27,21 +27,30 @@ function showAlert(type, message) {
 document.addEventListener('DOMContentLoaded', function () {
 
   // 如果為登入登出跳轉，則顯示提示訊息
-  const justLoggedIn = localStorage.getItem('justLoggedIn');
-  const memberName = localStorage.getItem('memberName');
-  const justLoggedOut = localStorage.getItem('justLoggedOut');
-  const tryToLogin = localStorage.getItem('tryToLogin');
+  const justLoggedIn = localStorage.getItem('justLoggedIn')??'';
+  const memberName = localStorage.getItem('memberName')??'';
+  const justLoggedOut = localStorage.getItem('justLoggedOut')??'';
+  const tryToLogin = localStorage.getItem('tryToLogin')??'';
+  const loginExpired = localStorage.getItem('loginExpired')??'';
+  const showMessage = localStorage.getItem('showMessage')??'';
   if (justLoggedIn === 'true') {
     showAlert('green', `會員 ${memberName} 已成功降落在評星宇宙！`);
-  } else if (justLoggedOut === 'true') {
+  } 
+  if (justLoggedOut === 'true') {
     showAlert('red', '您已離開評星宇宙。');
-  } else if (tryToLogin === 'true') {
+  } 
+  if (loginExpired === 'true')  {
+    showAlert('red', showMessage);
+  }
+  if (tryToLogin === 'true') {
     document.getElementById('login').click();
   }
   localStorage.removeItem('justLoggedIn');
   localStorage.removeItem('memberName');
   localStorage.removeItem('justLoggedOut');
   localStorage.removeItem('tryToLogin');
+  localStorage.removeItem('loginExpired')
+  localStorage.removeItem('showMessage')
 
   // 綁定表單控制
   bindFormControl('.login-input', 'login-submit-button');
