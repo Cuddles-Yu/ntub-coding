@@ -25,9 +25,6 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
     
-  <!-- 載入 /styles/osm-map.css -->
-  <link rel="stylesheet" type="text/css" href="./styles/osm-map.css">
-
   <link rel="stylesheet" href="styles/home.css" />
   <link rel="stylesheet" href="styles/map.css" />
 </head>

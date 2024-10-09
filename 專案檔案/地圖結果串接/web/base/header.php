@@ -395,6 +395,7 @@
   </div>
 </div>
 
+<script src="/scripts/function.js"></script>
 <script src="/scripts/header.js"></script>
 <script src="/scripts/request.js"></script>
 
