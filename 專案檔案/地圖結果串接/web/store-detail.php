@@ -463,26 +463,6 @@
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/footer.php'; ?>
 
   <script>
-    window.addEventListener('load', function () {
-      var distanceDiv = L.control({ position: 'topright' });
-      distanceDiv.onAdd = function (map) {
-        var div = L.DomUtil.create('div', 'distance-info');      
-        div.setAttribute('id', 'distance-info');
-        div.setAttribute('style', 
-          'background-color:white;'+
-          'padding:5px 10px;'+
-          'border-top-right-radius:10px;'+
-          'border-bottom-left-radius:10px;'+
-          'margin:0;'+
-          'font-weight:bold;'
-        );
-        return div;
-      };            
-      distanceDiv.addTo(map);   
-    });
-  </script>
-
-  <script>
     function setCommentKeyword(button) {
       const objectValue = button.querySelector('.object').textContent;
       const searchInput = document.getElementById('commentKeyword');

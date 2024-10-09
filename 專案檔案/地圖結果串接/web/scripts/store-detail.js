@@ -20,7 +20,12 @@ document.addEventListener('DOMContentLoaded', function () {
     // 清除沒有子元素的 item-group
     if (itemGroup.children.length === 0) {
       const serviceGroup = itemGroup.closest('.service-group');
-      if (serviceGroup) serviceGroup.remove();
+      const matchedGroup = itemGroup.closest('.matched-services');
+      if (serviceGroup) {
+        serviceGroup.remove();
+      } else if (matchedGroup) {
+        matchedGroup.remove();
+      } 
     } else {
       // 重新排序服務項目
       const serviceItems = Array.from(itemGroup.querySelectorAll('.service-item'));
