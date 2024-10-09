@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // 強制設置圖示隱藏
-window.onload = function() {
+window.addEventListener('load', function () {
     document.querySelectorAll('.select_icon').forEach(function(element) {
         element.style.display = 'none';
     });
@@ -72,7 +72,7 @@ window.onload = function() {
       window.history.replaceState({}, '', `${location.protocol}//${location.host}${location.pathname}`);
       switchTo(tab);
     }   
-};
+});
 
 // 修改偏好設定按鈕
 let originalSettings = {};
@@ -171,7 +171,6 @@ function saveSettings() {
     formData.set('mobilePayment', mobilePayment);
     fetch('/member/handler/update_preference.php', {
       method: 'POST',
-      credentials: 'include',
       credentials: 'same-origin',
       body: formData
     })
@@ -570,7 +569,6 @@ function toggleEditMode2() {
 
       fetch('/member/handler/update_weight.php', {
         method: 'POST',
-        credentials: 'include',
         credentials: 'same-origin',
         body: formData
       })

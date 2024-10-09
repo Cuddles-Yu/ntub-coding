@@ -4,6 +4,16 @@
     box-sizing: border-box;
 }
 
+.modal {
+  z-index: 999999;
+}
+
+.modal-backdrop {
+  z-index: 999998;
+}
+
+
+
 html {
   scroll-padding-top: 100px;
   margin: 0;
@@ -21,6 +31,12 @@ body {
   -moz-user-select:none;  /* 禁止for Mozilla、Firefox */
 }
 
+.no-flow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+}
+
 .checkbox-title{
   font-size: 18px;
   font-weight: bold;
@@ -29,6 +45,18 @@ body {
 }
 .checkbox-title:not(:first-child){
   margin-top: 10px;
+}
+
+.header-separator {
+  width: 100%;
+  height: 4px;
+  background-color: #9D9ABD;
+  border: none;
+  position: fixed;
+  top: 80px;
+  margin: 0;
+  border-bottom-style: revert-layer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .signup-progress {
@@ -82,7 +110,7 @@ body {
   margin-bottom: 8px;
 }
 
-@media (min-width: 1200px){
+@media (min-width: 1400px){
   header {
       display: flex;
       justify-content: center;
@@ -92,7 +120,7 @@ body {
       height: 80px;
       width: 100%;
       background-color: #FFFFFF;
-      z-index: 999;
+      z-index: 9999;
   }
 
   .link_text {
@@ -173,18 +201,6 @@ body {
       color: #247cff;
       margin-left: 10px;
   }
-
-  hr {
-      width: 100%;
-      height: 4px; /* 粗細 */
-      background-color: #9D9ABD;
-      border: none;
-      position: fixed;
-      top: 80px;
-      margin: 0;
-      border-bottom-style: revert-layer;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  }
   
   /* 漢堡圖示 */
   #nav_menu1 {
@@ -197,7 +213,7 @@ body {
       position: absolute;
       top: 80px;
       background-color: white;
-      width: 100%;
+      width: 250px;
   }
 
   #nav_menu2 a {
@@ -216,7 +232,7 @@ body {
   }
 }
 
-@media (min-width: 700px) and (max-width: 1199px){
+@media (min-width: 700px) and (max-width: 1400px){
   header {
       display: flex;
       justify-content: center;
@@ -226,7 +242,7 @@ body {
       height: 80px;
       width: 100%;
       background-color: #FFFFFF;
-      z-index: 999;
+      z-index: 9999;
   }
 
   .link_text {
@@ -253,7 +269,7 @@ body {
   }
 
   #user_icon_logo {
-    display: block;
+    display: none;
     position: fixed;
     width: 40px;
     height: 40px;
@@ -310,35 +326,21 @@ body {
       margin-left: 10px;
   }
 
-  hr {
-      width: 100%;
-      height: 4px; /* 粗細 */
-      background-color: #9D9ABD;
-      border: none;
-      position: fixed;
-      top: 80px;
-      margin: 0;
-      border-bottom-style: revert-layer;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  }
-
   /* 漢堡圖示相關 */
   #nav_menu1 {
-      display: none; /* 隱藏完整的頂欄 */
+      display: none; 
   }
-
   #nav_menu2 {
-      display: none; /* 隱藏導航菜單 */
+      display: none;
       flex-direction: column;
       position: fixed;
       top: 80px;
       left: 0;
       background-color: white;
-      width: 35vh;
+      width: 250px;
       height: 100vh;
-      transform: translateX(-100%); /* 水平移動 */
-      transition: transform 10s ease-out; /* 平滑過渡 */;
-      z-index: 1;
+      transform: translateX(-100%);
+      transition: transform 10s ease-out;
   }
 
   #nav_menu2 a {
@@ -408,7 +410,7 @@ body {
       height: 80px;
       width: 100%;
       background-color: #FFFFFF;
-      z-index: 999;
+      z-index: 9999;
   }
 
   .link_text {
@@ -435,7 +437,7 @@ body {
   }
 
   #user_icon_logo {
-    display: block;
+    display: none;
     position: fixed;
     width: 40px;
     height: 40px;
@@ -475,35 +477,21 @@ body {
       right: 15vw;
   }
 
-  hr {
-      width: 100%;
-      height: 4px; /* 粗細 */
-      background-color: #9D9ABD;
-      border: none;
-      position: fixed;
-      top: 80px;
-      margin: 0;
-      border-bottom-style: revert-layer;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  }
-
   /* 漢堡圖示相關 */
   #nav_menu1 {
-      display: none; /* 隱藏完整的頂欄 */
+      display: none;
   }
-
   #nav_menu2 {
-      display: none; /* 隱藏導航菜單 */
+      display: none;
       flex-direction: column;
       position: fixed;
       top: 80px;
       left: 0;
       background-color: white;
-      width: 35vh;
+      width: 250px;
       height: 100vh;
-      transform: translateX(-100%); /* 水平移動 */
-      transition: transform 10s ease-out; /* 平滑過渡 */;
-      z-index: 1;
+      transform: translateX(-100%);
+      transition: transform 10s ease-out;
   }
 
   #overlay {
@@ -563,7 +551,6 @@ body {
   }
 }
 
-
 /* 下拉選單樣式 */
 .dropdown-menu {
   display: none;
@@ -574,7 +561,7 @@ body {
   width: 150px;
   right: 10vw;
   top: 60px;
-  z-index: 19999;
+  z-index: 9999;
 }
 .dropdown-menu a {
   display: block;
@@ -588,39 +575,4 @@ body {
 }
 .dropdown-menu a:last-child {
   border-bottom: none;
-}
-
-/* 自動消失的警告提示 */
-.alert {
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 16px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  top: -100px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-  transition: top 0.5s ease-in-out, opacity 0.5s ease-in-out;
-  opacity: 0;
-}
-.alert-show {
-  top: 20px;
-  opacity: 1;
-}
-.alert-hide {
-  top: -100px;
-  opacity: 0;
-}
-.alert-danger {
-  background-color: #f44336;
-  color: white;
-}
-.alert-success {
-  background-color: #4CAF50;
-  color: white;
-}
-.alert-warning {
-  background-color: #9e640e;
-  color: white;
 }

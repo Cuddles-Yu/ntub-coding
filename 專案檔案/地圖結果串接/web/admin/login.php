@@ -59,7 +59,6 @@
       // 獲取 HTML 搜索結果
       fetch('./handler/check.php', {
         method: 'POST',
-        credentials: 'include',
         credentials: 'same-origin',
         body: formData
       })

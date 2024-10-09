@@ -1,8 +1,4 @@
-<?php  
-  header("Access-Control-Allow-Origin: https://commentspace.ascdc.tw");
-  header("Access-Control-Allow-Credentials: true");
-  header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-  header("Access-Control-Allow-Headers: Content-Type");
+<?php 
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/session.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
@@ -39,11 +35,9 @@
         $_SESSION['member_id'] = $memberId;
         $_SESSION['token'] = $token;
         if ($remember) {
-          setcookie('remember', '1', $expiryTime, "/", "commentspace.ascdc.tw", false, true);
-          // header('Set-Cookie: remember=1; Path=/; SameSite=None; Secure; HttpOnly');
+          setcookie('remember', '1', $expiryTime, "/", "", false, true);
         } else{
-          setcookie('remember', '0', 0, "/", "commentspace.ascdc.tw", false, true);
-          // header('Set-Cookie: remember=0; Path=/; SameSite=None; Secure; HttpOnly');
+          setcookie('remember', '0', 0, "/", "", false, true);
         }
         echo json_encode(['success' => true, 'id' => $memberId, 'name' => $memberName]);
       } else {

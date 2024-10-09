@@ -21,7 +21,6 @@ html, body {
     user-select:none; /* 禁止選取standard syntax */
     -webkit-user-select:none; /* 禁止for Chrome、Safari */
     -moz-user-select:none;  /* 禁止for Mozilla、Firefox */
-    z-index: 1;
     flex-direction: column;
 }
 
@@ -38,18 +37,6 @@ button {
 
 /* header */
 @media (min-width: 1200px){
-    header {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: fixed;
-        top: 0;
-        height: 80px;
-        width: 100%;
-        background-color: #FFFFFF;
-        z-index: 1000;
-    }
-
     #login_button {
         display: flex;
         justify-content: center;
@@ -85,50 +72,10 @@ button {
         top: 80px;
         margin: 0 !important;
     }
-    
-    /* 漢堡圖示 */
-    #nav_menu1 {
-        display: flex;
-    }
 
-    #nav_menu2 {
-        display: none; /* 隱藏導航菜單 */
-        flex-direction: column;
-        position: fixed;
-        top: 80px;
-        background-color: white;
-        width: 100%;
-        z-index: 10000;
-    }
-
-    #nav_menu2 a {
-        padding: 10px;
-        text-align: center;
-        border-bottom: 1px solid #ddd;
-    }
-
-    .hamburger {
-        display: none; /* 隱藏漢堡圖標 */
-        font-size: 30px;
-        background: none;
-        border: none;
-        cursor: pointer;
-    }
 }
 
 @media (min-width: 700px) and (max-width: 1199px){
-    header {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: fixed;
-        top: 0;
-        height: 80px;
-        width: 100%;
-        background-color: #FFFFFF;
-        z-index: 1000;
-    }
-
     #login_button {
         display: none;
         justify-content: center;
@@ -164,53 +111,7 @@ button {
         top: 80px;
         margin: 0 !important;
     }
-
-    /* 漢堡圖示相關 */
-    #nav_menu1 {
-        display: none; /* 隱藏完整的頂欄 */
-    }
-
-    #nav_menu2 {
-        display: none; /* 隱藏導航菜單 */
-        flex-direction: column;
-        position: fixed;
-        top: 80px;
-        left: 0;
-        background-color: white;
-        width: 40vh;
-        height: 100vh;
-        transform: translateX(-100%); /* 水平移動 */
-        transition: transform 10s ease-out; /* 平滑過渡 */;
-        z-index: 10000;
-    }
-
-    #nav_menu2 a {
-        padding: 30px;
-        text-align: center;
-        font-size: 28px;
-    }
-
-    #nav_menu2.show {
-        display: flex; /* 顯示導航菜單 */
-        transform: translateX(0); /* 水平移動 */
-        z-index: 9999;
-    }
-
-    #overlay {
-        display: none; /* 隱藏遮罩 */
-        position: fixed;
-        top: 80px;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色 */
-        z-index: 9998;
-    }
-
-    #overlay.show {
-        display: block; /* 顯示遮罩 */
-    }
-
+    
     #login2 {
         border: none;
         background-color: transparent;
@@ -243,18 +144,6 @@ button {
 }
 
 @media (max-width: 699px) {
-    header {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: fixed;
-        top: 0;
-        height: 80px;
-        width: 100%;
-        background-color: #FFFFFF;
-        z-index: 1000;
-    }
-
     #login_button {
         display: none;
         justify-content: center;
@@ -272,52 +161,6 @@ button {
         position: fixed;
         top: 80px;
         margin: 0 !important;
-    }
-
-    /* 漢堡圖示相關 */
-    #nav_menu1 {
-        display: none; /* 隱藏完整的頂欄 */
-    }
-
-    #nav_menu2 {
-        display: none; /* 隱藏導航菜單 */
-        flex-direction: column;
-        position: fixed;
-        top: 80px;
-        left: 0;
-        background-color: white;
-        width: 40vh;
-        height: 100vh;
-        transform: translateX(-100%); /* 水平移動 */
-        transition: transform 10s ease-out; /* 平滑過渡 */;
-        z-index: 10000;
-    }
-
-    #overlay {
-        display: none; /* 隱藏遮罩 */
-        position: fixed;
-        top: 80px;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色 */
-        z-index: 9998;
-    }
-
-    #overlay.show {
-        display: block; /* 顯示遮罩 */
-    }
-
-    #nav_menu2.show {
-        display: flex; /* 顯示導航菜單 */
-        transform: translateX(0); /* 水平移動 */
-        z-index: 9999;
-    }
-
-    #nav_menu2 a {
-        padding: 30px;
-        text-align: center;
-        font-size: 28px;
     }
 
     #login2 {
@@ -386,7 +229,6 @@ button {
         align-items: center;
         min-height: calc(100vh - 90px); /* 內容高度 - 底欄高度 */
         width: 100%;
-        z-index: 0;
         flex: 1;
         overflow: hidden;
     }
@@ -439,21 +281,6 @@ button {
 
     .edit_info2:hover {
         text-decoration: underline;
-    }
-
-    /* 密碼小視窗背景 */
-    .modal {
-        display: none; /* 初始狀態隱藏 */
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgb(0, 0, 0);
-        background-color: rgba(0, 0, 0, 0.4); /* 黑色背景透明度 */
-        z-index: 10000;
     }
 
     #password_title {
@@ -826,8 +653,8 @@ button {
         display: flex;
         align-items: center;
         flex-grow: 2; /* 讓每個項目可以擴展 */
-        flex-basis: 320px; /* 初始寬度 */
-        margin-right: 10px;
+        flex-basis: 300px; /* 初始寬度 */
+        margin-right: 20px;
         font-size: 20px;
     }
 
@@ -844,19 +671,11 @@ button {
         display: flex;
         align-items: center;
         flex-grow: 1; /* 讓每個項目可以擴展 */
-        flex-basis: 60px; /* 初始寬度 */
+        flex-basis: 0px; /* 初始寬度 */
         font-size: 20px;
     }
 
     .mark_category {
-        display: flex;
-        align-items: center;
-        flex-grow: 1; /* 讓每個項目可以擴展 */
-        flex-basis: 60px; /* 初始寬度 */
-        font-size: 20px;
-    }
-
-    .mark_distance {
         display: flex;
         align-items: center;
         flex-grow: 1; /* 讓每個項目可以擴展 */
@@ -868,7 +687,7 @@ button {
         display: flex;
         align-items: center;
         flex-grow: 1; /* 讓每個項目可以擴展 */
-        flex-basis: 80px; /* 初始寬度 */
+        flex-basis: 120px; /* 初始寬度 */
         font-size: 20px;
     }
     
@@ -930,7 +749,6 @@ button {
         align-items: center;
         min-height: calc(100vh - 90px); /* 內容高度 - 底欄高度 */
         width: 100%;
-        z-index: 0;
         flex: 1;
         overflow: hidden;
     }
@@ -983,21 +801,6 @@ button {
 
     .edit_info2:hover {
         text-decoration: underline;
-    }
-
-    /* 密碼小視窗背景 */
-    .modal {
-        display: none; /* 初始狀態隱藏 */
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgb(0, 0, 0);
-        background-color: rgba(0, 0, 0, 0.4); /* 黑色背景透明度 */
-        z-index: 10000;
     }
 
     #password_title {
@@ -1372,8 +1175,8 @@ button {
         display: flex;
         align-items: center;
         flex-grow: 2; /* 讓每個項目可以擴展 */
-        flex-basis: 320px; /* 初始寬度 */
-        margin-right: 5px;
+        flex-basis: 180px; /* 初始寬度 */
+        margin-right: 20px;
     }
 
     .store_name {
@@ -1389,28 +1192,21 @@ button {
         display: flex;
         align-items: center;
         flex-grow: 1; /* 讓每個項目可以擴展 */
-        flex-basis: 60px; /* 初始寬度 */
+        flex-basis: 0px; /* 初始寬度 */
     }
 
     .mark_category {
         display: flex;
         align-items: center;
         flex-grow: 1; /* 讓每個項目可以擴展 */
-        flex-basis: 60px; /* 初始寬度 */
-    }
-
-    .mark_distance {
-        display: flex;
-        align-items: center;
-        flex-grow: 1; /* 讓每個項目可以擴展 */
-        flex-basis: 60px; /* 初始寬度 */
+        flex-basis: 50px; /* 初始寬度 */
     }
     
     .mark_time {
         display: flex;
         align-items: center;
         flex-grow: 1; /* 讓每個項目可以擴展 */
-        flex-basis: 80px; /* 初始寬度 */
+        flex-basis: 100px; /* 初始寬度 */
     }
     
     .mark_button {
@@ -1476,7 +1272,6 @@ button {
         align-items: center;
         min-height: calc(100vh - 90px); /* 內容高度 - 底欄高度 */
         width: 100%;
-        z-index: 0;
         flex: 1;
         overflow: hidden;
     }
@@ -1530,21 +1325,6 @@ button {
 
     .edit_info2:hover {
         text-decoration: underline;
-    }
-
-    /* 密碼小視窗背景 */
-    .modal {
-        display: none; /* 初始狀態隱藏 */
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgb(0, 0, 0);
-        background-color: rgba(0, 0, 0, 0.4); /* 黑色背景透明度 */
-        z-index: 10000;
     }
 
     #password_title {
@@ -1939,13 +1719,6 @@ button {
         flex-grow: 0.5; /* 讓每個項目可以擴展 */
         flex-basis: 50px; /* 初始寬度 */
     }
-
-    .mark_distance {
-        display: flex;
-        align-items: center;
-        flex-grow: 0.5; /* 讓每個項目可以擴展 */
-        flex-basis: 50px; /* 初始寬度 */
-    }
     
     .mark_time {
         /* display: flex; */
@@ -2016,7 +1789,6 @@ button {
         align-items: center;
         min-height: calc(100vh - 90px); /* 內容高度 - 底欄高度 */
         width: 100%;
-        z-index: 0;
         flex: 1;
         overflow: hidden;
     }
@@ -2073,19 +1845,6 @@ button {
 
     .edit_info2:hover {
         text-decoration: underline;
-    }
-
-    /* 密碼小視窗背景 */
-    .modal {
-        display: none; /* 初始狀態隱藏 */
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.4); /* 黑色背景透明度 */
-        z-index: 10000;
     }
 
     #password_title {
@@ -2508,17 +2267,6 @@ button {
         flex-basis: 50px; /* 初始寬度 */
     }
 
-    .mark_distance {
-        display: flex;
-        align-items: center;
-        flex-grow: 0.5; /* 讓每個項目可以擴展 */
-        flex-basis: 50px; /* 初始寬度 */
-    }
-
-    .mark_distance span {
-        margin-right: 2px !important;
-    }
-    
     .mark_time {
         /* display: flex; */
         display: none;

@@ -1,47 +1,108 @@
-// 建構地圖，經緯度座標中心、縮放等級
 var map = L.map('map');
 
 map.on('locationerror', function (e) {
-  alert("定位失敗，請確認您是否已開啟定位。");
+  showAlert('red', '定位失敗，請確認您是否已開啟定位。');
 });
 
-// OpenStreetMap 預設
 var OpenStreetMap_Mapnik = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
+var storeIcon = L.icon({
+  iconUrl: './images/location-mark1.png',
+  iconSize: [30, 30],
+  popupAnchor: [0, -20]
+})
+var mapIcon = L.icon({
+  iconUrl: './images/location-mark2.png',
+  iconSize: [30, 30],
+  popupAnchor: [0, -20]
+});
+var userIcon = L.icon({
+  iconUrl: './images/location-mark3.png',
+  iconSize: [20, 20],
+  popupAnchor: [0, -20]
+});
+var markers = new L.MarkerClusterGroup({
+maxClusterRadius: function (zoom) {
+    return zoom > 14 ? 40 : 80;
+}
+});
 
-// 添加比例尺
 L.control.scale({
-    position: 'bottomleft', // 比例尺位置(可選項目：'topright', 'topleft', 'bottomright', 'bottomleft')
+    position: 'bottomleft',
     imperial: false
 }).addTo(map);
 
-// 創建商家的位置圖標
-var storeIcon = L.icon({
-    iconUrl: './images/location-mark1.png',
-    iconSize: [30, 30],
-    popupAnchor: [0, -20]
-})
-
-// 創建單一該商家的位置圖標
-var mapIcon = L.icon({
-    iconUrl: './images/location-mark2.png',
-    iconSize: [30, 30],
-    popupAnchor: [0, -20]
-});
-
-// 創建使用者的位置圖標  
-var userIcon = L.icon({
-    iconUrl: './images/location-mark3.png',
-    iconSize: [20, 20],
-    popupAnchor: [0, -20]
-});
 
 // 在頁面加載時自動抓取使用者的位置並顯示在地圖上
-window.onload = function () {
-  defaultLocate();
-  moveGetCenter();
-};
+window.addEventListener('load', function () {
+  generateNavigationButton();
+  generateInfoBar();
+  map.on('moveend', function () {
+    getCenter();        
+  });  
+});
+
+function generateNavigationButton() {
+  var locationButton = L.control({ position: 'topleft' });
+  locationButton.onAdd = function (map) {
+    var button = L.DomUtil.create('button', 'btn-solid-gray');
+    button.setAttribute('id', 'current-locate-button');
+    button.setAttribute('type', 'button');
+    button.setAttribute('onclick', 'defaultLocate()');
+    button.setAttribute('style', 
+      'height:25px;'+
+      'margin-top:-60px;'+
+      'margin-left:50px;'
+    );
+    button.innerHTML = '<img src="/images/button-navigation.png" style="max-width:80%;max-height:80%;margin-bottom:1px;margin-right:5px;"></img>返回所在位置';
+    return button;
+  };
+  locationButton.addTo(map);
+  var searchButton = L.control({ position: 'topleft' });
+  searchButton.onAdd = function (map) {
+    var button = L.DomUtil.create('button', 'btn-solid-gray');
+    button.setAttribute('id', 'search-locate-button');
+    button.setAttribute('type', 'button');
+    button.setAttribute('onclick', 'searchLocate()');
+    button.setAttribute('style', 
+      'height:25px;'+
+      'margin-top:-30px;'+
+      'margin-left:50px;'+
+      'display:none;'
+    );
+    button.innerHTML = '<img src="/images/button-search-target.png" style="max-width:80%;max-height:80%;margin-bottom:1px;margin-right:5px;"></img>返回查詢位置';
+    return button;
+  };
+  searchButton.addTo(map);
+}
+
+
+function generateInfoBar(info='') {
+  var mapInfoBar = L.control({ position: 'topright' });
+  mapInfoBar.onAdd = function (map) {
+    var div = L.DomUtil.create('div', '');              
+    div.setAttribute('id', 'map-info-bar');
+    div.innerHTML = info;
+    div.setAttribute('style', 
+      'background-color:white;'+
+      'padding:5px 10px;'+
+      'border-top-right-radius:10px;'+
+      'border-bottom-left-radius:10px;'+
+      'margin:-1px;'+
+      'font-weight:bold;'+
+      'border:1px solid #716d6d;'+
+      'display:none;'
+    );
+    return div;
+  };            
+  mapInfoBar.addTo(map);
+}
+function showInfoBar(info) {
+  var infoBar = document.getElementById('map-info-bar');
+  infoBar.innerHTML = info;
+  infoBar.style.display = (info.trim()!=='')?'block':'none';
+}
 
 // 定位使用者所在位置的函數
 async function defaultLocate(autoSetView = true) {
@@ -65,13 +126,14 @@ async function defaultLocate(autoSetView = true) {
   } else {
     console.log('您的瀏覽器不支援地理定位功能。');
   }
+  document.getElementById('crosshair').style.display = 'block';
 }
 
-// 使用者滑動後取得目前地圖中心經緯度
-function moveGetCenter() {
-    map.on('moveend', function () {
-        getCenter();        
-    });
+function searchLocate() {
+  var lat = document.getElementById('map').getAttribute('search-lat');
+  var lng = document.getElementById('map').getAttribute('search-lng');
+  var zoom = document.getElementById('map').getAttribute('search-zoom');
+  if (lat&&lng&&zoom) map.setView([lat, lng], zoom);
 }
 
 // 取得地圖中心經緯度
@@ -88,57 +150,6 @@ function setView([lat, lng], zoomLevel) {
   getCenter()
 }
 
-var markers = new L.MarkerClusterGroup({
-  maxClusterRadius: function (zoom) {
-      return zoom > 14 ? 40 : 80;
-  }
-});
-
-// 處理JSON資料，建立地標
-function processJsonData(data) {
-  markers.clearLayers();
-  if (data.length === 0) return;
-  var latlngs = [];
-  for (let i = 0; i < data.length; i++) {
-    if (data[i].latitude && data[i].longitude) {
-      var latlng = [parseFloat(data[i].latitude), parseFloat(data[i].longitude)];
-      if (isFinite(latlng[0]) && isFinite(latlng[1])) {
-        latlngs.push(latlng);
-        var marker = L.marker(latlng, { icon: storeIcon })
-          .bindPopup(`
-            <div class="popup-content" style="cursor: pointer;">
-              <img src="${data[i].preview_image}" style="width: 200px; height: 112.5px; object-fit: cover; object-position: center;"/>
-              <div style="font-weight: bold; font-size: 16px; margin-top: 10px; margin-bottom: 10px;">${data[i].name}</div>
-              <div style="font-size: 14px; margin-bottom: 5px;">評分：${data[i].rating}</div> <!-- 乘以20 -->
-              <div style="font-size: 14px; margin-bottom: 5px;">評論數：${data[i].total_withcomments}/${data[i].sample_ratings}</div>
-              <div style="font-size: 14px; margin-bottom: 5px;">標籤：${data[i].tag}</div>
-              <button style="font-size:12px; right:0; cursor: pointer;" onclick="redirectToDetailPage('${data[i].id}')">詳細資訊</button>
-            </div>`
-          ).on('popupopen', function () {
-              document.querySelector('.popup-content').addEventListener('click', function () {
-                  scrollToStore(data[i].id, data[i].name);
-              });
-          });
-        markers.addLayer(marker);
-      } else {
-        console.error("無效的經緯度數據: ", latlng);
-      }
-    } else {
-      console.error("Latlng 格式錯誤或缺失");
-    }
-  }
-
-  // 將 markers 加入到 map 的圖層上
-  map.addLayer(markers);
-
-  // 自動調整地圖範圍
-  if (latlngs.length > 1) {
-      setPlaceCenter(latlngs); // 自動調整地圖範圍
-  } else if (latlngs.length === 1) {
-      setView(latlngs[0], 16); // 如果只有一個標記，放大地圖並設置中心點
-  }
-}
-
 // 設置地圖中心函式(會讓地圖自動縮放)
 function setPlaceCenter(latlngs) {
     if (latlngs.length === 0) return;
@@ -150,5 +161,9 @@ function setPlaceCenter(latlngs) {
     } else if (latlngs.length === 1) {
       setView(latlngs[0], 16);
     }
-    getCenter();
+    var mapCenter = getCenter();
+    document.getElementById('map').setAttribute('search-lat', mapCenter.lat);
+    document.getElementById('map').setAttribute('search-lng', mapCenter.lng);
+    document.getElementById('map').setAttribute('search-zoom', zoomLevel);    
+    document.getElementById('search-locate-button').style.display = 'block';    
 }

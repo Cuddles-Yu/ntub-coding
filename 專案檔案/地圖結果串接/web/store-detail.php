@@ -20,6 +20,7 @@
     $markIcon = $markOptions[$storeMark]['tagIcon'] ?? '';
     $markClass = $markOptions[$storeMark]['buttonClass'] ?? '';
     $storeTag = htmlspecialchars($storeInfo['tag']);    
+    $isFavorite = isFavorite($storeId);
     $memberServices = getMemberServiceList();
     $memberWeights = getMemberNormalizedWeight();
     $score = getBayesianScore($memberWeights, $storeId);    
@@ -30,9 +31,8 @@
     $location = getLocation($storeId);
     $rating = getRating($storeId);
     $service = getService($storeId);
-    $keywords = getAllKeywords($storeId);
+    $keywords = getAllKeywords($storeId);    
     $foodKeywords = getFoodKeyword($storeId);
-    $openingHours = getOpeningHours($storeId);
     $otherBranches = getOtherBranches($storeInfo['branch_title'], $storeId);
     $positiveMarks = getMarks($storeId, $_POSITIVE);
     $negativeMarks = getMarks($storeId, $_NEGATIVE);
@@ -83,37 +83,16 @@
 
   <!-- ### 內容 ### -->
   <section class="primary-content section-content">
-    <h1 class="store-title" id="store-title"><?=$storeName?></h1>
+    <div id="favorite-button" onclick="toggleFavorite(this,<?=$storeId?>)">
+      <img src="<?=$isFavorite?'/images/button-favorite-active.png':'/images/button-favorite-inactive.png';?>">
+      <h1 class="store-title" id="store-title" style="margin-left:10px"><?=$storeName?></h1>
+    </div>    
     <div class="love-group">
       <div class="type-rating-status-group">
-        <!--綜合評分-->
         <h5 class="rating"><?=$score?></h5>
         <h6 class="rating-text">/ 綜合評分</h6>
         <a class="store-type" type="button" href="search?q=<?=$storeTag?>" target="_blank"><?=$storeTag?></a>
-        <!--營業時間按鈕-->
-        <button type="button" class="btn btn-outline-success status" data-bs-container="body" data-bs-toggle="popover2"
-          data-bs-title="詳細營業時間" data-bs-placement="top" data-bs-html="true"
-          data-bs-content="<?php
-            foreach ($openingHours as $day => $hours) {
-              echo htmlspecialchars($day) . ':<br>';
-              if (empty($hours)) {
-                echo '休息<br>';
-              } else {
-                foreach ($hours as $hour) {
-                  if ($hour['open_time'] === null || $hour['close_time'] === null) {
-                    echo '休息<br>';
-                  } else {
-                    $openTime = date('H:i', strtotime($hour['open_time']));
-                    $closeTime = date('H:i', strtotime($hour['close_time']));
-                    echo htmlspecialchars($openTime) . ' - ' . htmlspecialchars($closeTime) . '<br>';
-                  }
-                }
-              }
-              echo '<hr>';
-            }
-          ?>">
-          <i class="fi fi-sr-clock status-img"></i>營業中
-        </button>
+        <?php require_once $_SERVER['DOCUMENT_ROOT'].'/elem/open-hour-button.php';?>
         <?php if($storeMark): ?>
           <button type="button" class="btn <?=$markClass?> e-icon" data-bs-toggle="tooltip" 
             data-bs-placement="bottom" data-bs-title="<?=$storeMark?>餐廳" data-bs-custom-class="custom-tooltip1" data-bs-html="true">
@@ -126,27 +105,30 @@
             其他分店
           </button>
         <?php endif; ?>
-      </div>
-      <a class="love" href="#"><img class="love-img" src="images/button-favorite.png"></a>
+      </div>      
     </div>
     <div class="collapse multi-collapse" id="collapseExample">
       <div class="other-store">
         <?php foreach ($otherBranches as $branch): ?>
           <?php 
             $storeId = htmlspecialchars($branch['id']);
-            $storeName = htmlspecialchars($branch['name']);
+            $branchTitle = htmlspecialchars($branch['branch_title']);
             $branchName = htmlspecialchars($branch['branch_name']);
             $branchId = htmlspecialchars($branch['id']);
             $avgRating = htmlspecialchars($branch['avg_ratings']);
             $address = htmlspecialchars(($branch['city'] ?? '').($branch['dist'] ?? '').($branch['vil'] ?? '').($branch['details'] ?? ''));
           ?>
           <div class="other-store-display">
-            <a class="other-store-group col-11" href="detail?id=<?=$storeId?>"> <!-- 連結到分店詳細頁面 -->
-              <li class="store-name col-4"><?=$branchName?></li>
-              <p class="other-rating col-3"><?=$avgRating?> / 綜合評分</p>
-              <p class="other-map address col"><i class="fi fi-sr-map-marker address-img"></i><?=$address?></p>
+            <a class="other-store-group" style="width:100%" href="detail?id=<?=$storeId?>">            
+              <p class="store-name no-flow" style="width:15%"><?=$branchTitle?></p>
+              <p style="width:2%;text-align:center;color:lightgrey">|</p>
+              <p class="store-name no-flow" style="width:15%"><?=$branchName?></p>
+              <p style="width:2%;text-align:center;color:lightgrey">|</p>
+              <p class="other-rating no-flow" style="width:14%;text-align:center"><?=$avgRating?> / 綜合評分</p>
+              <p style="width:2%;text-align:center;color:lightgrey">|</p>
+              <p class="other-map address no-flow"><i class="fi fi-sr-map-marker address-img"></i><?=$address?></p>
             </a>
-            <i class="fi fi-sr-bookmark collect" role="button"></i>
+            <!-- <i class="fi fi-sr-bookmark collect" role="button"></i> -->
           </div>
         <?php endforeach;?>
       </div>
@@ -182,20 +164,21 @@
               $result = getProportionScore($category);
               $proportion = $result['proportion'];
               $score = $result['score'];
+              $color = $data['weight'] > 0 ? $data['color'] : 'darkgrey';
               ?>
               <tr class="row<?= $rowIndex ?>">
                 <td>
                   <div class="progress-group">
-                    <h6 class="progress-text" style="color:<?=$data['color']?>;padding-right:5px;"><?=$category?></h6>
+                    <h6 class="progress-text" style="color:<?=$color?>;padding-right:5px;"><?=$category?></h6>
                     <?php if($SESSION_DATA->success): ?>
-                      <h6 class="progress-text" style="color:<?=$data['color']?>;padding-right:5px;"><?=$data['weight']*50?>%</h6>
+                      <h6 class="progress-text" style="color:<?=$color?>;padding-right:5px;"><?=round($data['weight']*100)?>%</h6>
                     <?php endif; ?>
-                    <h6 class="progress-text" style="color:<?=$data['color']?>;">-></h6>
-                    <h6 class="progress-percent" style="color:<?=$data['color']?>"><?=$score?></h6>
+                    <h6 class="progress-text" style="color:<?=$color?>;">|</h6>
+                    <h6 class="progress-percent" style="color:<?=$color?>"><?=$score?></h6>
                     
                   </div>
                   <div class="progress col" role="progressbar" aria-label="Success example" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">
-                    <div class="progress-bar overflow-visible" style="width: <?=$proportion?>%; background-color: <?=$data['color']?>;"></div>
+                    <div class="progress-bar overflow-visible" style="width: <?=$proportion?>%; background-color: <?=$color?>;"></div>
                   </div>
                 </td>
                 <td class="evaluate-good"><?= $targetsInfo[$_POSITIVE][$category] ?? 'NULL' ?></td>
@@ -439,9 +422,10 @@
           </div>
         </div>
       </div>
+
       <div id="map" class="map">
-        <button type="button" id="locateButton" onclick="defaultLocate()">使用您的位置</button>
       </div>
+
     </div>
 
   </section>
@@ -477,6 +461,26 @@
 
   <!-- ### 頁尾 ### -->
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/footer.php'; ?>
+
+  <script>
+    window.addEventListener('load', function () {
+      var distanceDiv = L.control({ position: 'topright' });
+      distanceDiv.onAdd = function (map) {
+        var div = L.DomUtil.create('div', 'distance-info');      
+        div.setAttribute('id', 'distance-info');
+        div.setAttribute('style', 
+          'background-color:white;'+
+          'padding:5px 10px;'+
+          'border-top-right-radius:10px;'+
+          'border-bottom-left-radius:10px;'+
+          'margin:0;'+
+          'font-weight:bold;'
+        );
+        return div;
+      };            
+      distanceDiv.addTo(map);   
+    });
+  </script>
 
   <script>
     function setCommentKeyword(button) {
@@ -517,7 +521,6 @@
       
       fetch('struc/comment_keyword.php', {
           method: 'POST',
-          credentials: 'include',
           credentials: 'same-origin',
           body: formData
       })
@@ -599,13 +602,12 @@
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 
   <!-- 載入主程式 -->
-  <script src="./scripts/map.js"></script>
-  <script src="./scripts/storedetail-landmark.js"></script>
+  <script src="/scripts/map.js"></script>
+  <script src="/scripts/storedetail-landmark.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-  <script src="scripts/ui-interactions.js"></script>
 
-  <script src="scripts/store-detail.js"></script>
+  <script src="/scripts/store-detail.js"></script>
 
 </body>
 

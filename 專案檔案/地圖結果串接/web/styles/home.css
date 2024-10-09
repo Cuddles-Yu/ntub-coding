@@ -78,13 +78,6 @@ body{
     border: 1px solid #919ca5;
   }
 
-  .modal {
-    z-index: 10510; /* 确保比 header 更高 */
-  }
-
-  .modal-backdrop {
-    z-index: 10500; /* backdrop 也要设置更高 */
-  }
 
   .input-group{
     width: 200px;
@@ -140,16 +133,13 @@ body{
     max-width: 770px;
     height: 400px;
     border-radius: 10px;
+    border: 1px solid #716d6d;
     margin-top: 40px;
     margin-left: auto;
     margin-right: auto;
   }
 
   .legend{
-    font-size: 12px;
-  }
-
-  #locateButton{
     font-size: 12px;
   }
 
@@ -344,11 +334,6 @@ body{
     margin-right: 15px;
   }
 
-  .love-img, .map-link-img, .web-img{
-    width: 20px;
-    margin-right: 3px;
-  }
-
   .rating{
     color: #AC3535;
     font-weight: bold;
@@ -447,14 +432,6 @@ body{
     border: 1px solid #919ca5;
   }
 
-  .modal {
-    z-index: 10510; /* 确保比 header 更高 */
-  }
-
-  .modal-backdrop {
-    z-index: 10500; /* backdrop 也要设置更高 */
-  }
-
   .checkbox-title{
     font-size: 18px;
     font-weight: bold;
@@ -526,16 +503,13 @@ body{
     max-width: 770px;
     height: 400px;
     border-radius: 10px;
+    border: 1px solid #716d6d;
     margin-top: 40px;
     margin-left: 10px;
     margin-right: 10px;
   }
 
   .legend{
-    font-size: 12px;
-  }
-
-  #locateButton{
     font-size: 12px;
   }
 
@@ -728,11 +702,6 @@ body{
     margin-right: 15px;
   }
 
-  .love-img, .map-link-img, .web-img{
-    width: 20px;
-    margin-right: 3px;
-  }
-
   .rating{
     color: #AC3535;
     font-weight: bold;
@@ -830,14 +799,6 @@ body{
     border: 1px solid #919ca5;
   }
 
-  .modal {
-    z-index: 10510; /* 确保比 header 更高 */
-  }
-
-  .modal-backdrop {
-    z-index: 10500; /* backdrop 也要设置更高 */
-  }
-
   .checkbox-title{
     font-size: 18px;
     font-weight: bold;
@@ -909,16 +870,13 @@ body{
     max-width: 770px;
     height: 400px;
     border-radius: 10px;
+    border: 1px solid #716d6d;
     margin-top: 20px;
     margin-left: 10px;
     margin-right: 10px;
   }
 
   .legend{
-    font-size: 12px;
-  }
-
-  #locateButton{
     font-size: 12px;
   }
 

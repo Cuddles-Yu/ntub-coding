@@ -164,6 +164,21 @@
     return $stores;
   }
 
+  function isFavorite($storeId) {
+    global $conn, $MEMBER_ID;
+    if (is_null($MEMBER_ID)) return false;
+    $count = 0;
+    $stmt = bindPrepare($conn, "
+      SELECT COUNT(*) FROM favorites 
+      WHERE member_id = ? AND store_id = ?
+    ", "ii", $MEMBER_ID, $storeId);
+    $stmt->execute();
+    $stmt->bind_result($count);
+    $stmt->fetch();
+    $stmt->close();
+    return $count>0;
+  }
+
   function normalizeWeights($weights) {
     $total_weight = 0;
     foreach ($weights as $key => $value) {
@@ -171,7 +186,7 @@
     }
     if ($total_weight == 0) throw new Exception("總權重不能為零");
     foreach ($weights as $key => $value) {
-      $weights[$key]['weight'] = $value['weight'] / $total_weight;
+      $weights[$key]['weight'] = $value['weight']/$total_weight;
     }
     return $weights;
   }
@@ -203,7 +218,28 @@
     $result = $stmt->get_result();
     $member = $result->fetch_assoc();
     $stmt->close();
-    return $member ?? null;
+    return $member??null;
+  }
+
+  function getFavoriteStores() {
+    global $conn, $MEMBER_ID;
+    if (is_null($MEMBER_ID)) return [];
+    $stmt = bindPrepare($conn, "
+      SELECT 
+        s.id, s.name, s.tag, s.mark, s.preview_image, f.create_time
+      FROM favorites AS f
+      INNER JOIN stores AS s ON f.store_id = s.id
+      WHERE f.member_id = ?
+      ORDER BY f.create_time DESC
+    ", "i", $MEMBER_ID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stores = [];
+    while ($row = $result->fetch_assoc()) {
+      $stores[] = $row;
+    }
+    $stmt->close();
+    return $stores;
   }
 
   function getMemberServiceList() {
@@ -278,10 +314,10 @@
       while ($row = $all_result->fetch_assoc()) {
         $temp_store_id = $row['store_id'];
         $store_score = 
-            $row['environment_rating'] * $memberWeights[$_ATMOSPHERE]['weight'] +
-            $row['product_rating'] * $memberWeights[$_PRODUCT]['weight'] +
-            $row['service_rating'] * $memberWeights[$_SERVICE]['weight'] +
-            $row['price_rating'] * $memberWeights[$_PRICE]['weight'];
+          $row['environment_rating']*$memberWeights[$_ATMOSPHERE]['weight'] +
+          $row['product_rating']*$memberWeights[$_PRODUCT]['weight'] +
+          $row['service_rating']*$memberWeights[$_SERVICE]['weight'] +
+          $row['price_rating']*$memberWeights[$_PRICE]['weight'];
         $stores[$temp_store_id] = [
             'score' => $store_score,
             'total_withcomments' => $row['total_withcomments'],

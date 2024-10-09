@@ -1,19 +1,11 @@
-.store-card-green{
-  background-color: #daf9da;
-  border-color: lightgreen;
-  border-width: thick;
-  border-style: outset;
+.search-result-button-icon {
+  width: 20px;
+  margin-right: 3px;
+  position: relative;
+  top: -2px;
 }
 
-.store-card-orange{
-  background-color: #ffdfd2;
-  border-color: lightsalmon;
-  border-width: thick;
-  border-style: outset;
-}
-
-.store-card-highlight{
-  border-color: #8384b0;
-  border-width: thick;
-  border-style: outset;
+a.map-link {
+  color: inherit; /* 保留繼承的文字顏色 */
+  text-decoration: none; /* 移除底線 */
 }

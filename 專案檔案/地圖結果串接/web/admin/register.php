@@ -97,7 +97,6 @@
       // 獲取 HTML 搜索結果
       fetch('./handler/register.php', {
         method: 'POST',
-        credentials: 'include',
         credentials: 'same-origin',
         body: formData
       })

@@ -3,23 +3,28 @@
 <link rel="stylesheet" href="/styles/header.css" />
 <link rel="stylesheet" href="/styles/form.css" />
 <link rel="stylesheet" href="/styles/common.css" />
+<link rel="stylesheet" href="/styles/solid-button.css" />
+<link rel="stylesheet" href="/styles/outline-button.css" />
+<link rel="stylesheet" href="/styles/alert.css" />
+<link rel="stylesheet" href="/styles/store-card.css" />
+
+<div id="alert-box" class="alert"></div>
 
 <header>
-
-  <div id="alert-box" class="alert"></div>
+  
   <div id="web_name"></div>
 
   <div id="nav_menu1">
-      <a class="link_text home-page page-item" href="../home">餐廳搜尋</a>
+      <a class="link_text home-page page-item" href="/home">餐廳搜尋</a>
       <div class="vertical-line"></div>
       <a class="link_text use-page page-item" style="color:lightgray;cursor:default;">使用說明</a> <!-- !!!需要更新!!! -->      
       <div class="vertical-line"></div>
-      <a class="link_text feedback-page page-item" href="../feedback">使用回饋</a> <!-- href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank" -->
+      <a class="link_text feedback-page page-item" href="/feedback">使用回饋</a> <!-- href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank" -->
       <div class="vertical-line"></div>
-      <a class="link_text team-page page-item" href="../team">成員介紹</a>
+      <a class="link_text team-page page-item" href="/team">成員介紹</a>
       <?php if($SESSION_DATA->success): ?>
         <div class="vertical-line"></div>
-        <a class="link_text member-page page-item" href="../member/info">👑會員專區</a>
+        <a class="link_text member-page page-item" href="/member/info">👑會員專區</a>
       <?php endif; ?>
   </div>
 
@@ -34,32 +39,33 @@
   <button id="hamburger_btn" class="hamburger">&#9776;</button>
   <div id="overlay"></div>
   <nav id="nav_menu2">
-      <a class="link_text page-menu home-menu" href="../home">網站首頁</a>
+      <a class="link_text page-menu home-menu" href="/home">網站首頁</a>
       <a class="link_text page-menu use-menu" style="color:lightgray;cursor:default;">使用說明</a>
-      <a class="link_text page-menu feedback-menu" href="../feedback">使用回饋</a>
-      <a class="link_text page-menu team-menu" href="../team">成員介紹</a> 
-      
-      <span class="display-before-login menu-separator"></span>
-      <a class="display-before-login link_text close-menu" id="login-nav" data-bs-toggle="modal" data-bs-target="#loginModal">登入</a>
-      <a class="display-before-login link_text close-menu" id="signup-nav" data-bs-toggle="modal" data-bs-target="#signupModal1">註冊</a>
-
-      <span class="display-after-login menu-separator"></span>
-      <a class="display-after-login link_text close-menu" id="member-info-nav">基本資料</a>
-      <a class="display-after-login link_text close-menu" id="member-preference-nav">偏好設定</a>
-      <a class="display-after-login link_text close-menu" id="member-weight-nav">權重設定</a>
-      <a class="display-after-login link_text close-menu" id="member-favorite-nav">收藏商家</a>
-      <span class="display-after-login menu-separator"></span>
-      <a class="link_text close-menu" id="member-logout-nav" data-bs-toggle="modal" data-bs-target="#logoutModal">登出</a>
+      <a class="link_text page-menu feedback-menu" href="/feedback">使用回饋</a>
+      <a class="link_text page-menu team-menu" href="/team">成員介紹</a>
+      <?php if($SESSION_DATA->success): ?>
+        <span class="display-after-login menu-separator"></span>
+        <a class="display-after-login link_text close-menu" href="/member/info?tab=info" id="member-info-nav">基本資料</a>
+        <a class="display-after-login link_text close-menu" href="/member/info?tab=preference" id="member-preference-nav">偏好設定</a>
+        <a class="display-after-login link_text close-menu" href="/member/info?tab=weight" id="member-weight-nav">權重設定</a>
+        <a class="display-after-login link_text close-menu" href="/member/info?tab=favorite" id="member-favorite-nav">收藏商家</a>
+        <span class="display-after-login menu-separator"></span>
+        <a class="link_text close-menu" id="member-logout-nav" data-bs-toggle="modal" data-bs-target="#logoutModal">登出</a>
+      <?php else: ?>
+        <span class="display-before-login menu-separator"></span>
+        <a class="display-before-login link_text close-menu" id="login-nav" data-bs-toggle="modal" data-bs-target="#loginModal">登入</a>
+        <a class="display-before-login link_text close-menu" id="signup-nav" data-bs-toggle="modal" data-bs-target="#signupModal1">註冊</a>
+      <?php endif; ?>
   </nav>
     
   <div id="dropdownMenu" class="dropdown-menu">
-    <a href="../member/info?tab=info">基本資料</a>
-    <a href="../member/info?tab=preference">偏好設定</a>
-    <a href="../member/info?tab=weight">權重設定</a>
-    <a href="../member/info?tab=favorite">收藏商家</a>
+    <a href="/member/info?tab=info">基本資料</a>
+    <a href="/member/info?tab=preference">偏好設定</a>
+    <a href="/member/info?tab=weight">權重設定</a>
+    <a href="/member/info?tab=favorite">收藏商家</a>
     <a href="" data-bs-toggle="modal" data-bs-target="#logoutModal">登出</a>
   </div>
-  <hr>
+  <hr class="header-separator">
 
 </header>
 
@@ -394,5 +400,5 @@
 
 <script>
   const SESSION_DATA = <?=json_encode($SESSION_DATA)?>;
-  if (!SESSION_DATA.success && 'showMessage' in SESSION_DATA) showAlert('danger', SESSION_DATA.showMessage);
+  if (!SESSION_DATA.success && 'showMessage' in SESSION_DATA) showAlert('red', SESSION_DATA.showMessage);
 </script>

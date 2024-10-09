@@ -13,6 +13,20 @@
   box-sizing: border-box;
 }
 
+#favorite-button {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.open-hour-separator {
+  margin: 7px 0;
+  color: inherit;
+  border: 0;
+  border-top: var(--bs-border-width) solid;
+  opacity: .25;
+}
+
 .service-title-eligible{
   font-weight: bold;
   font-size: 16px;
@@ -64,17 +78,6 @@ body{
 
 /* header */
 @media (min-width: 1200px){
-  header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    height: 80px;
-    width: 100%;
-    background-color: #FFFFFF;
-    z-index: 9999;
-}
 
 #login_button {
     display: flex;
@@ -142,17 +145,6 @@ body{
 }
 
 @media (min-width: 700px) and (max-width: 1199px){
-  header {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: fixed;
-      top: 0;
-      height: 80px;
-      width: 100%;
-      background-color: #FFFFFF;
-      z-index: 9999;
-  }
 
   #login_button {
       display: none;
@@ -206,7 +198,6 @@ body{
       height: 100vh;
       transform: translateX(-100%); /* 水平移動 */
       transition: transform 10s ease-out; /* 平滑過渡 */;
-      z-index: 1;
   }
 
   #nav_menu2 a {
@@ -266,18 +257,6 @@ body{
 }
 
 @media (max-width: 699px) {
-  header {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: fixed;
-      top: 0;
-      height: 80px;
-      width: 100%;
-      background-color: #FFFFFF;
-      z-index: 9999;
-  }
-  
   #login_button {
       display: none;
       justify-content: center;
@@ -313,7 +292,6 @@ body{
       height: 100vh;
       transform: translateX(-100%); /* 水平移動 */
       transition: transform 10s ease-out; /* 平滑過渡 */;
-      z-index: 1;
   }
 
   #overlay {
@@ -390,9 +368,9 @@ body{
 .store-title{
     font-weight: bold;
     font-size: 45px;
-    user-select: text; 
-    -webkit-user-select: text;
-    -moz-user-select: text;
+    user-select: none; 
+    -webkit-user-select: none;
+    -moz-user-select: none;
 }
 
 .love-group{
@@ -461,11 +439,11 @@ body{
 }
 
 .other-store{
-    max-width: 809px;
-    max-height: 95px;
-    border: 1px solid #A3A3A3;
-    border-radius: 10px;
-    padding: 7px 10px 5px 15px;
+  max-width: 800px;
+  max-height: 125px;
+  border: 1px solid #A3A3A3;
+  border-radius: 10px;
+  padding: 7px 15px 7px 15px;
 }
 
 .other-store-display{
@@ -509,8 +487,7 @@ body{
     width: 40px;
 }
 
-.status{
-    color: #2C901B;
+.status{  
     font-size: 19px;
     font-weight: bold;
     display: flex;
@@ -613,7 +590,7 @@ body{
 
 #map{
     width: 60%;
-    border-radius: 6.83px;
+    border-radius: 10px;
     border: 1px solid #716d6d; /* 添加外框，寬度為1px */
 }
 
@@ -1175,9 +1152,9 @@ body{
   .store-title{
     font-weight: bold;
     font-size: 30px;
-    user-select: text; 
-    -webkit-user-select: text;
-    -moz-user-select: text;
+    user-select: none; 
+    -webkit-user-select: none;
+    -moz-user-select: none;
   }
 
   .love-group{
@@ -1247,7 +1224,7 @@ body{
     max-height: 80px;
     border: 1px solid #A3A3A3;
     border-radius: 10px;
-    padding: 7px 10px 5px 15px;
+    padding: 7px 15px 7px 15px;
   }
 
   .other-store-display{
@@ -1292,7 +1269,6 @@ body{
   }
   
   .status{
-    color: #2C901B;
     font-size: 14px;
     font-weight: bold;
     display: flex;
@@ -1388,7 +1364,7 @@ body{
   
   #map{
     width: 60%;
-    border-radius: 6.83px;
+    border-radius: 10px;
     border: 1px solid #716d6d; /* 添加外框，寬度為1px */
   }
   
@@ -1943,9 +1919,9 @@ body{
   .store-title{
     font-weight: bold;
     font-size: 30px;
-    user-select: text; 
-    -webkit-user-select: text;
-    -moz-user-select: text;
+    user-select: none; 
+    -webkit-user-select: none;
+    -moz-user-select: none;
   }
 
   .love-group{
@@ -2021,7 +1997,7 @@ body{
     max-height: 80px;
     border: 1px solid #A3A3A3;
     border-radius: 10px;
-    padding: 7px 10px 5px 15px;
+    padding: 7px 15px 7px 15px;
   }
 
   .other-store-display{
@@ -2066,7 +2042,6 @@ body{
   }
   
   .status{
-    color: #2C901B;
     font-size: 14px;
     font-weight: bold;
     display: flex;
@@ -2166,7 +2141,7 @@ body{
 
   #map{
     width: 50%;
-    border-radius: 6.83px;
+    border-radius: 10px;
     border: 1px solid #716d6d; /* 添加外框，寬度為1px */
   }
   
@@ -2705,9 +2680,9 @@ body{
   .store-title{
     font-weight: bold;
     font-size: 30px;
-    user-select: text; 
-    -webkit-user-select: text;
-    -moz-user-select: text;
+    user-select: none; 
+    -webkit-user-select: none;
+    -moz-user-select: none;
   }
 
   .love-group{
@@ -2783,7 +2758,7 @@ body{
     max-height: 80px;
     border: 1px solid #A3A3A3;
     border-radius: 3px 10px;
-    padding: 7px 10px 5px 15px;
+    padding: 7px 15px 7px 15px;
   }
 
   .other-store-display{
@@ -2828,7 +2803,6 @@ body{
   }
   
   .status{
-    color: #2C901B;
     font-size: 14px;
     font-weight: bold;
     display: flex;
@@ -2928,7 +2902,7 @@ body{
   
   #map{
     width: 50%;
-    border-radius: 6.83px;
+    border-radius: 10px;
     border: 1px solid #716d6d; /* 添加外框，寬度為1px */
   }
   

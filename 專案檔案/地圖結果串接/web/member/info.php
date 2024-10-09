@@ -11,6 +11,7 @@
     exit();
   }  
   $memberInfo = getMemberInfo();
+  $favoriteStores = getFavoriteStores();
 ?>
 
 <!DOCTYPE html>
@@ -30,37 +31,37 @@
 
   <!-- ### 登入 ### -->
   <div class="modal fade" data-bs-keyboard="false" data-bs-backdrop="static" id="modifyPasswordModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered login-modal">
-    <div class="modal-content">
-      <div class="modal-body login-modal-body" style="height:270px;">
-        <h2 class="form-h2">修改密碼</h2>
-        <div class='form-message-popup' id="login-message" style="display:none">
-          <div id="loginError" class="form-error-message-popup" style="display:block; text-align:center"></div>
-        </div>
+    <div class="modal-dialog modal-dialog-centered login-modal">
+      <div class="modal-content">
+        <div class="modal-body login-modal-body" style="height:270px;">
+          <h2 class="form-h2">修改密碼</h2>
+          <div class='form-message-popup' id="login-message" style="display:none">
+            <div id="loginError" class="form-error-message-popup" style="display:block; text-align:center"></div>
+          </div>
 
-        <!-- ### 填寫 ### -->
-        <form novalidate>
-          <div style="margin-bottom: -25px">
-            <input type='password' id='old-password' class='form-input-popup login-input' placeholder='舊密碼' autocomplete="current-password" required>
-            <img src="/images/password-hide.png" alt="password" id="old-toggle-password" class="toggle-password">
-          </div>
-          <div style="margin-bottom: -25px">
-            <input type='password' id='new-password' class='form-input-popup login-input' placeholder='新密碼' autocomplete="current-password" required>
-            <img src="/images/password-hide.png" alt="password" id="new-toggle-password" class="toggle-password">
-          </div>
-          <div style="margin-bottom: -25px">
-            <input type='password' id='check-password' class='form-input-popup login-input' placeholder='確認新密碼' autocomplete="current-password" required>
-            <img src="/images/password-hide.png" alt="password" id="check-toggle-password" class="toggle-password">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" id="login-cancel-button" onclick="cancelModal()">取消</button>
-        <button type="button" class="btn btn-primary" id="login-submit-button" onclick="loginRequest()">修改</button>
+          <!-- ### 填寫 ### -->
+          <form novalidate>
+            <div style="margin-bottom: -25px">
+              <input type='password' id='old-password' class='form-input-popup login-input' placeholder='舊密碼' autocomplete="current-password" required>
+              <img src="/images/password-hide.png" alt="password" id="old-toggle-password" class="toggle-password">
+            </div>
+            <div style="margin-bottom: -25px">
+              <input type='password' id='new-password' class='form-input-popup login-input' placeholder='新密碼' autocomplete="current-password" required>
+              <img src="/images/password-hide.png" alt="password" id="new-toggle-password" class="toggle-password">
+            </div>
+            <div style="margin-bottom: -25px">
+              <input type='password' id='check-password' class='form-input-popup login-input' placeholder='確認新密碼' autocomplete="current-password" required>
+              <img src="/images/password-hide.png" alt="password" id="check-toggle-password" class="toggle-password">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="login-cancel-button" onclick="cancelModal()">取消</button>
+          <button type="button" class="btn btn-primary" id="login-submit-button" onclick="loginRequest()">修改</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
   <hr>
   <main>
@@ -264,21 +265,13 @@
       <!-- 收藏餐廳 -->
       <div id="favorite_main_area">
           <div>
-              <div class="search">
-                  <div class="form-floating search-city">
-                      <select class="form-select" id="location" name="location" aria-label="Floating label select example">
-                      <option class="city" selected value="台北市">臺北市</option>
-                      <option class="city" selected value="新北市">新北市</option>
-                      </select>
-                      <label for="location">城市</label>
-                  </div>
-  
-                  <div class="form-floating search-keyword">
-                      <input type="text" class="form-control" id="keyword" name="keyword" placeholder="關鍵字">
-                      <label for="keyword">搜尋關鍵字</label>
-                  </div>
-                  <button type="submit" class="btn btn-secondary mt-3 search-button">搜尋</button>
-                </div>
+            <div class="search">  
+              <div class="form-floating search-keyword">
+                <input type="text" class="form-control" id="keyword" name="keyword" placeholder="關鍵字">
+                <label for="keyword">搜尋關鍵字</label>
+              </div>
+              <button type="submit" class="btn btn-secondary mt-3 search-button">搜尋</button>
+            </div>
           </div>
           
           <div class="first_line">
@@ -300,11 +293,6 @@
                   <i class="fi fi-sr-arrow-down" id="store_down_arrow3"></i>
                   <i class="fi fi-sr-arrow-up" id="store_up_arrow3" style="display: none;"></i>
               </div>
-              <div class="mark_distance">
-                  <span style="margin-right: 5px;">距離</span>
-                  <i class="fi fi-sr-arrow-down" id="store_down_arrow4"></i>
-                  <i class="fi fi-sr-arrow-up" id="store_up_arrow4" style="display: none;"></i>
-              </div>
               <div class="mark_time">
                   <span style="margin-right: 5px;">收藏時間</span>
                   <i class="fi fi-sr-arrow-down" id="store_down_arrow5"></i>
@@ -316,145 +304,42 @@
           </div>
 
           <div class="content_row_container">
+            <?php $index=1; ?>
+            <?php foreach($favoriteStores as $store): ?>
+              <?php
+                $name = htmlspecialchars($store['name']);
+                $preview_image = htmlspecialchars($store['preview_image']);
+                $tag = htmlspecialchars($store['tag']);
+                $createTime = htmlspecialchars($store['create_time']);
+                $mark = htmlspecialchars($store['mark']);
+                $markName = $markOptions[$mark]['tagName'] ?? '';                
+              ?>
               <div class="content_row">
-                  <div class="mark_number">
-                      <span>1</span>
+                <div class="mark_number">
+                  <span><?=$index?></span>
+                </div>
+                <div class="mark_store">
+                  <div class="mark_img">
+                    <img src="<?=$preview_image?>">
                   </div>
-                  <div class="mark_store">
-                      <div class="mark_img">
-                          <img src="../images/store-map.JPG">
-                      </div>
-                      <span class="store_name">波赫士領地精品咖啡館 昌吉店 BorgesPlace 提拉米蘇 千層蛋糕</span>
-                  </div>
-                  <div class="mark_score">
-                      <span>85</span>
-                  </div>
-                  <div class="mark_category">
-                      <span>餃子</span>
-                  </div>
-                  <div class="mark_distance">
-                      <span>1 km</span>
-                  </div>
-                  <div class="mark_time">
-                      <span style="margin-right: 5px;">2023-10-01</span>
-                  </div>
-                  <div class="mark_button mark_button2">
-                      <i class="fi fi-sr-bookmark sort_button"></i>
-                      <i class="fi fi-sr-share sort_button"></i>
-                  </div>
+                  <span class="store_name"><?=$name?></span>
+                </div>
+                <div class="mark_score">
+                  <span>00</span>
+                </div>
+                <div class="mark_category">
+                  <span><?=$tag?><?=$markName?></span>
+                </div>
+                <div class="mark_time">
+                  <span style="margin-right: 5px;"><?=$createTime?></span>
+                </div>
+                <div class="mark_button mark_button2">
+                  <i class="fi fi-sr-bookmark sort_button"></i>
+                  <i class="fi fi-sr-share sort_button"></i>
+                </div>
               </div>
-  
-              <div class="content_row">
-                  <div class="mark_number">
-                      <span>2</span>
-                  </div>
-                  <div class="mark_store">
-                      <div class="mark_img">
-                          <img src="../images/store-map.JPG">
-                      </div>
-                      <span class="store_name">波赫士領地精品咖啡館 昌吉店 BorgesPlace 提拉米蘇 千層蛋糕</span>
-                  </div>
-                  <div class="mark_score">
-                      <span>85</span>
-                  </div>
-                  <div class="mark_category">
-                      <span>餃子</span>
-                  </div>
-                  <div class="mark_distance">
-                      <span>2 km</span>
-                  </div>
-                  <div class="mark_time">
-                      <span style="margin-right: 5px;">2023-10-01</span>
-                  </div>
-                  <div class="mark_button mark_button2">
-                      <i class="fi fi-sr-bookmark sort_button"></i>
-                      <i class="fi fi-sr-share sort_button"></i>
-                  </div>
-              </div>
-  
-              <div class="content_row">
-                  <div class="mark_number">
-                      <span>3</span>
-                  </div>
-                  <div class="mark_store">
-                      <div class="mark_img">
-                          <img src="../images/store-map.JPG">
-                      </div>
-                      <span class="store_name">波赫士領地精品咖啡館 昌吉店 BorgesPlace 提拉米蘇 千層蛋糕</span>
-                  </div>
-                  <div class="mark_score">
-                      <span>85</span>
-                  </div>
-                  <div class="mark_category">
-                      <span>餃子</span>
-                  </div>
-                  <div class="mark_distance">
-                      <span>1.4 km</span>
-                  </div>
-                  <div class="mark_time">
-                      <span style="margin-right: 5px;">2023-10-01</span>
-                  </div>
-                  <div class="mark_button mark_button2">
-                      <i class="fi fi-sr-bookmark sort_button"></i>
-                      <i class="fi fi-sr-share sort_button"></i>
-                  </div>
-              </div>
-
-              <div class="content_row">
-                  <div class="mark_number">
-                      <span>4</span>
-                  </div>
-                  <div class="mark_store">
-                      <div class="mark_img">
-                          <img src="../images/store-map.JPG">
-                      </div>
-                      <span class="store_name">波赫士領地精品咖啡館 昌吉店 BorgesPlace 提拉米蘇 千層蛋糕</span>
-                  </div>
-                  <div class="mark_score">
-                      <span>85</span>
-                  </div>
-                  <div class="mark_category">
-                      <span>餃子</span>
-                  </div>
-                  <div class="mark_distance">
-                      <span>1.4 km</span>
-                  </div>
-                  <div class="mark_time">
-                      <span style="margin-right: 5px;">2023-10-01</span>
-                  </div>
-                  <div class="mark_button mark_button2">
-                      <i class="fi fi-sr-bookmark sort_button"></i>
-                      <i class="fi fi-sr-share sort_button"></i>
-                  </div>
-              </div>
-
-              <div class="content_row">
-                  <div class="mark_number">
-                      <span>5</span>
-                  </div>
-                  <div class="mark_store">
-                      <div class="mark_img">
-                          <img src="../images/store-map.JPG">
-                      </div>
-                      <span class="store_name">波赫士領地精品咖啡館 昌吉店 BorgesPlace 提拉米蘇 千層蛋糕</span>
-                  </div>
-                  <div class="mark_score">
-                      <span>85</span>
-                  </div>
-                  <div class="mark_category">
-                      <span>餃子</span>
-                  </div>
-                  <div class="mark_distance">
-                      <span>1.4 km</span>
-                  </div>
-                  <div class="mark_time">
-                      <span style="margin-right: 5px;">2023-10-01</span>
-                  </div>
-                  <div class="mark_button mark_button2">
-                      <i class="fi fi-sr-bookmark sort_button"></i>
-                      <i class="fi fi-sr-share sort_button"></i>
-                  </div>
-              </div>
+              <?php $index++; ?>
+            <?php endforeach; ?>
           </div>
       </div>
   </main>
@@ -463,7 +348,6 @@
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/footer.php'; ?>
 
   <script src="../scripts/member.js"></script>  
-  <script src="../scripts/ui-interactions.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   
 </body>

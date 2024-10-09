@@ -25,20 +25,32 @@
         $website = htmlspecialchars($store['website']);
         $tag = htmlspecialchars($store['tag']);
         $mark = $store['mark'];
+        $isFavorite = isFavorite($storeId);
         $cardType = $markOptions[$mark]['cardType'] ?? '';
         $tagName = $markOptions[$mark]['tagName'] ?? '';
         $address = htmlspecialchars(getAddress($store));
         $bayesianScore = getBayesianScore($memberWeights, $storeId);
         $targetsInfo = getTargets($storeId);
       ?>
-      <div class="card restaurant <?=$cardType?>">
+      <div class="card restaurant <?=$cardType?> <?php if($isFavorite): echo 'store-card-favorite'; endif;?>">
           <img src="<?=$previewImage?>" class="card-img-top">
           <div class="card-body">
               <h5 class="card-title"><?=$storeName?></h5>
               <div class="quick-group">
-                  <a class="love" href="#"><img class="love-img" src="images/button-favorite.png"><h6 class="love-text">最愛</h6></a><br>
-                  <a class="map-link" href="<?=$link?>"><img class="map-link-img" src="images/button-map.png"><h6 class="map-link-text">地圖</h6></a><br>
-                  <a class="web" href="<?=$website?>"><img class="web-img" src="images/button-browse.png"><h6 class="web-text">官網</h6></a>
+                <div onclick="toggleFavorite(this,<?=$storeId?>);event.stopPropagation();">
+                  <img class="search-result-button-icon" src="<?=isFavorite($storeId)?'images/button-favorite-active.png':'images/button-favorite-inactive.png';?>">
+                  <h6 class="love-text">收藏</h6>
+                </div>
+                <a class="map-link" href="<?=htmlspecialchars($link)?>" target="_blank" onclick="event.stopPropagation();">
+                  <img class="search-result-button-icon" src="images/button-map.png">
+                  <h6 class="map-link-text">地圖</h6>
+                </a>
+                <?php if (!empty($website)) : ?>
+                  <a class="map-link" href="<?=htmlspecialchars($website)?>" target="_blank" onclick="event.stopPropagation();">
+                    <img class="search-result-button-icon" src="images/button-browse.png">
+                    <h6 class="web-text">官網</h6>
+                  </a>
+                <?php endif?>
               </div>
               <h5 class="rating"><small class="rating-text"><?=$bayesianScore?> / 綜合評分</small></h5>
               <div class="progress-group-text">
@@ -63,7 +75,8 @@
                   <tr class="row<?= $rowIndex ?>">
                     <div class="progress-group">
                       <div class="progress-text" style="color: <?=$data['color']?>;"><?=$category?></div>
-                      <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                      <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+                        style="--bs-progress-bg:lightgray;">
                         <div class="progress-bar overflow-visible" style="width: <?=$proportion?>%; background-color: <?=$data['color']?>;"></div>
                       </div>
                       <div class="progress-score" style="color: <?=$data['color']?>;"><?=$score?></div>

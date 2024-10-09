@@ -25,7 +25,6 @@ function generateLoadingOverlay(during=0) {
 function logoutRequest() {
   fetch('/member/handler/logout.php', {
     method: 'POST',
-    credentials: 'include',
     credentials: 'same-origin',
   })
     .then(response => response.json())
@@ -42,7 +41,7 @@ function logoutRequest() {
     })
     .catch(error => {
       console.error('Error:', error);
-      showAlert('danger', '登出失敗，'+error);
+      showAlert('red', '登出失敗，'+error);
     });
 }
 
@@ -64,7 +63,6 @@ function loginRequest() {
   formData.set('remember', rememberInput.checked?1:0);
   fetch('./member/handler/login.php', {
     method: 'POST',
-    credentials: 'include',
     credentials: 'same-origin',
     body: formData
   })
@@ -121,7 +119,6 @@ async function emailVerifyRequest() {
   try {
     const response = await fetch('./member/handler/email_verify.php', {
       method: 'POST',
-      credentials: 'include',
       credentials: 'same-origin',
       body: formData
     });
@@ -252,7 +249,6 @@ function signupRequest() {
   formData.set('mobilePayment', mobilePayment);
   fetch('./member/handler/signup.php', {
     method: 'POST',
-    credentials: 'include',
     credentials: 'same-origin',
     body: formData
   })
@@ -260,9 +256,9 @@ function signupRequest() {
   .then(data => {
     cancelModal(); 
     if (data.success) {
-      showAlert('warning', '您已成功註冊為評星宇宙會員。');
+      showAlert('brown', '您已成功註冊為評星宇宙會員。');
     } else {
-      showAlert('danger', '發生了預期之外的錯誤，請重新註冊。');
+      showAlert('red', '發生了預期之外的錯誤，請重新註冊。');
     }
   })
   .catch(error => console.error('註冊過程中發生錯誤：', error));

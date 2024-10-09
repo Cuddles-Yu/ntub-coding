@@ -21,7 +21,6 @@
 
   <!-- 載入 leaflet.awesome-markers.css -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers/dist/leaflet.awesome-markers.css" />
-
   <!-- 載入 MarkerCluster.css -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
@@ -219,8 +218,7 @@
     </div>
 
     <div id="map" class="map">
-      <div id="crosshair"></div>
-      <button type="button" id="locateButton" onclick="userLocate()">使用您的位置</button>
+      <div id="crosshair" style="display:none;"></div>
     </div>
 
     <div class="tip-line"></div>
@@ -262,8 +260,7 @@
   <!-- 載入 Markercluster.js -->
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 
-  <script src="scripts/map.js"></script>
-  <script src="scripts/ui-interactions.js"></script>
+  <script src="/scripts/map.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="scripts/home.js"></script>
   

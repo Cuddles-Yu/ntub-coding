@@ -13,8 +13,11 @@ function toSearchPage() {
   const lat = document.getElementById('map').getAttribute('data-lat');
   const lng = document.getElementById('map').getAttribute('data-lng');
   window.location.href = `search?q=${keyword}&lat=${lat}&lng=${lng}`;
-  defaultLocate();
 }
+
+window.addEventListener('load', function () {     
+  defaultLocate();  
+});
 
 document.querySelectorAll('.title-text-2').forEach(tab => {
   tab.addEventListener('click', function() {
@@ -33,7 +36,6 @@ function generateStoreSuggestion(content) {
   formData.set('q', '蛋塔');      
   fetch('../struc/store_suggestion.php', {
     method: 'POST',
-    credentials: 'include',
     credentials: 'same-origin',
     body: formData
   })

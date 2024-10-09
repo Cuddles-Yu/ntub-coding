@@ -1,0 +1,147 @@
+.alert {
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: top 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  opacity: 0;
+  z-index: 9999999;
+}
+.alert-show {
+  top: 20px;
+  opacity: 1;
+}
+.alert-hide {
+  top: -100px;
+  opacity: 0;
+}
+
+/* 紅色 */
+.alert-dark-red {
+  background-color: #d32f2f;
+  color: white;
+}
+.alert-red {
+  background-color: #f44336;
+  color: white;
+}
+.alert-light-red {
+  background-color: #e57373;
+  color: white;
+}
+
+/* 綠色 */
+.alert-dark-green {
+  background-color: #388E3C;
+  color: white;
+}
+.alert-green {
+  background-color: #4CAF50;
+  color: white;
+}
+.alert-light-green {
+  background-color: #81C784;
+  color: white;
+}
+
+/* 藍色 */
+.alert-dark-blue {
+  background-color: #1976D2;
+  color: white;
+}
+.alert-blue {
+  background-color: #2196F3;
+  color: white;
+}
+.alert-light-blue {
+  background-color: #64B5F6;
+  color: white;
+}
+
+/* 黃色 */
+.alert-dark-yellow {
+  background-color: #FBC02D;
+  color: black;
+}
+.alert-yellow {
+  background-color: #FFEB3B;
+  color: black;
+}
+.alert-light-yellow {
+  background-color: #FFF176;
+  color: black;
+}
+
+/* 橙色 */
+.alert-dark-orange {
+  background-color: #F57C00;
+  color: white;
+}
+.alert-orange {
+  background-color: #FF9800;
+  color: white;
+}
+.alert-light-orange {
+  background-color: #FFB74D;
+  color: white;
+}
+
+/* 紫色 */
+.alert-dark-purple {
+  background-color: #7B1FA2;
+  color: white;
+}
+.alert-purple {
+  background-color: #9C27B0;
+  color: white;
+}
+.alert-light-purple {
+  background-color: #BA68C8;
+  color: white;
+}
+
+/* 棕色 */
+.alert-dark-brown {
+  background-color: #5D4037;
+  color: white;
+}
+.alert-brown {
+  background-color: #795548;
+  color: white;
+}
+.alert-light-brown {
+  background-color: #A1887F;
+  color: white;
+}
+
+/* 灰色 */
+.alert-dark-gray {
+  background-color: #616161;
+  color: white;
+}
+.alert-gray {
+  background-color: #9E9E9E;
+  color: white;
+}
+.alert-light-gray {
+  background-color: #BDBDBD;
+  color: white;
+}
+
+/* 黑色 */
+.alert-dark-black {
+  background-color: #212121;
+  color: white;
+}
+.alert-black {
+  background-color: #000000;
+  color: white;
+}
+.alert-light-black {
+  background-color: #424242;
+  color: white;
+}

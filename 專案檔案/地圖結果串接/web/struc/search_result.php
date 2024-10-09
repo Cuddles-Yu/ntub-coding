@@ -39,6 +39,7 @@
       $bayesianScore = $storeItem['bayesianScore'];
 
       $targetsInfo = getTargets($storeId);
+      $isFavorite = isFavorite($storeId);
       $distance = normalizeDistance($store['distance']);      
       $tag = htmlspecialchars($store['tag']);
       $storeName = htmlspecialchars($store['name']);
@@ -60,8 +61,8 @@
       });
       $rowIndex = 1;
     ?>
-    <div class="container-fluid store-body" data-id="<?=$storeId?>" onclick="redirectToDetailPage('<?=$storeId?>')">
-        <div class="row <?=$cardType?>">
+    <div class="container-fluid store-body <?=$cardType?> <?php if($isFavorite): echo 'store-card-favorite'; endif;?>" data-id="<?=$storeId?>" onclick="redirectToDetailPage('<?=$storeId?>')">
+        <div class="row">
             <div class="store-img-group col-3">
               <img class="store-img" src="<?=$preview_image?>">
             </div>
@@ -96,9 +97,20 @@
                       <?php endforeach?>
                     </div>
                     <div class="quick-group col-2">
-                        <a class="love" href="#"><img class="love-img" src="images/button-favorite.png"><h6 class="love-text">最愛</h6></a>
-                        <a class="map-link" href="<?=htmlspecialchars($store['link'])?>" target="_blank" onclick="event.stopPropagation();"><img class="map-link-img" src="images/button-map.png"><h6 class="map-link-text">地圖</h6></a>
-                        <a class="web" href="<?=htmlspecialchars($store['website'])?>" target="_blank" onclick="event.stopPropagation();"><img class="web-img" src="images/button-browse.png"><h6 class="web-text">官網</h6></a>
+                      <div onclick="toggleFavorite(this,<?=$storeId?>);event.stopPropagation();">
+                        <img class="search-result-button-icon" src="<?=$isFavorite?'images/button-favorite-active.png':'images/button-favorite-inactive.png';?>">
+                        <h6 class="love-text">收藏</h6>
+                      </div>
+                      <a class="map-link" href="<?=htmlspecialchars($store['link'])?>" target="_blank" onclick="event.stopPropagation();">
+                        <img class="search-result-button-icon" src="images/button-map.png">
+                        <h6 class="map-link-text">地圖</h6>
+                      </a>
+                      <?php if (!empty($store['website'])) : ?>
+                        <a class="map-link" href="<?=htmlspecialchars($store['website'])?>" target="_blank" onclick="event.stopPropagation();">
+                          <img class="search-result-button-icon" src="images/button-browse.png">
+                          <h6 class="web-text">官網</h6>
+                        </a>
+                      <?php endif?>
                     </div>
                 </div>
             </div>

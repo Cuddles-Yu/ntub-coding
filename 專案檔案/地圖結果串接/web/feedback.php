@@ -21,7 +21,7 @@
 
   <!-- ### 內容 ### -->
   <section class="primary-conent">
-    <div style="display:grid;">
+    <div style="display:grid;margin-top:70px;">
       <form novalidate style="width:600px;place-self:center;display:grid">
         <p>若您有任何建議或想法，您可以透過這個表單向開發團隊提出！</p>
         <p>◆ 將回饋敘述的越詳細並附上影像輔助說明，越容易瞭解您的想法並推出更新</p>
@@ -47,7 +47,6 @@
 
   <!-- 載入主程式 -->  
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="scripts/ui-interactions.js"></script>
 
   <script>
       document.getElementById('submit-btn').addEventListener('click', function() {

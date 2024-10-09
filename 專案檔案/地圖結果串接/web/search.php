@@ -206,7 +206,7 @@
                 </div>
               </div>
             </div>
-            <button type="button" class="btn btn-secondary mt-3 search-button" id="search-button" onclick="searchKeyword()">搜尋</button>
+            <button type="button" class="btn btn-solid-windows-blue mt-3 search-button" id="search-button" onclick="searchKeyword()">搜尋</button>
           </div>
         <!--已選擇篩選條件-->
         <div class="filter-container">
@@ -217,14 +217,14 @@
         </div>
 
         <div id="map" class="map">
-          <div id="crosshair"></div>
-          <button type="button" id="locateButton" onclick="defaultLocate()">使用您的位置</button>
+          <div id="crosshair" style="display:none;"></div>
         </div>
+
       </div>
 
       <div class="tertiary-content col">
         <div class="tertiary-title">
-          <h1 class="tertiary-text">搜尋結果</h1>
+          <h1 class="tertiary-text" id="search-result-title">搜尋結果</h1>
           <div class="title-line"></div>
         </div>
         <div id="searchResults" class="store-display store">
@@ -251,10 +251,9 @@
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 
   <!-- 載入主程式 -->  
-  <script src="./scripts/map.js"></script>
+  <script src="/scripts/map.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="scripts/search.js"></script>
-  <script src="scripts/ui-interactions.js"></script>
+  <script src="/scripts/search.js"></script>
 
   <!-- 搜尋跳轉功能 -->
   <script>
@@ -275,6 +274,7 @@
     });
 
     function searchKeyword() {
+      var searchButton = document.getElementById('search-button');
       var keyword = document.getElementById('keyword').value;
       var searchResults = document.getElementById('searchResults');
       var mapCenter = getCenter(); // 取得地圖中心經緯度
@@ -282,6 +282,8 @@
       var lng = document.getElementById('map').getAttribute('data-lng');
       document.title = keyword.trim() === "" ? "搜尋結果 - 評星宇宙" : `${keyword}搜尋結果 - 評星宇宙`;
       window.history.replaceState({}, '', `${location.protocol}//${location.host}${location.pathname}?q=${keyword}&lat=${lat}&lng=${lng}`);
+
+      searchButton.disabled = true;
 
       const formData = new FormData();
       formData.set('q', keyword);
@@ -292,7 +294,6 @@
       // 獲取 HTML 搜索結果
       fetch('struc/search_result.php', {
         method: 'POST',
-        credentials: 'include',
         credentials: 'same-origin',
         body: formData
       })
@@ -302,7 +303,10 @@
             searchResults.innerHTML = data;
           }
         })
-        .catch(error => console.error('搜尋餐廳過程中出現錯誤：', error));
+        .catch(error => console.error('搜尋餐廳過程中出現錯誤：', error))
+        .finally(() => {
+          document.getElementById('search-result-title').innerText = `搜尋結果 共 ${document.querySelectorAll('.store-body').length} 筆`;
+        });
         
       markers.clearLayers();
       var mapCenter = getCenter();
@@ -315,7 +319,6 @@
 
       fetch('struc/search_landmark.php', {
         method: 'POST',
-        credentials: 'include',
         credentials: 'same-origin',
         body: formData
       })
@@ -323,9 +326,13 @@
         .then(data => {
           if (Array.isArray(data) && data.length > 0) processJsonData(data);         
         })
-        .catch(error => console.error('地標獲取錯誤：', error));
-      // 使用者滑動後取得目前地圖中心經緯度並自動搜尋
-      // moveGetCenter();
+        .catch(error => {
+          console.error('地標獲取錯誤：', error);
+        })
+        .finally(() => {
+          searchButton.disabled = false;
+          showInfoBar(`[開發中] 搜尋半徑 ??? 公尺`);          
+        });
     }
 
     function processJsonData(data) {
@@ -345,7 +352,6 @@
               var marker = L.marker(latlng, { icon: storeIcon })
                 .bindPopup(
                   `<div class="popup-content" style="cursor:default;">
-                    <button class="btn btn-primary" style="font-size:12px;right:0;cursor:pointer;width:200px;margin-bottom:5px" onclick="redirectToDetailPage('${data[i].id}')">詳細資訊</button>
                     <img src="${data[i].preview_image}" style="width:200px;height:112.5px;object-fit:cover;object-position:center;"/>
                     <div style="font-weight:bold;font-size:16px;margin-top:10px;margin-bottom:10px;overflow:hidden;text-overflow:ellipsis;text-wrap:nowrap;width:200px">${data[i].name}</div>
                     <div style="font-size:14px;margin-bottom:5px;color:red;">綜合評分：${data[i].score}</div>
@@ -368,13 +374,7 @@
 
         // 將新的地標加回地圖
         map.addLayer(markers);
-
-        // 如果有多個地標，調整地圖的範圍
-        if (latlngs.length > 1) {
-          setPlaceCenter(latlngs);
-        } else if (latlngs.length === 1) {
-          setView(latlngs[0], 16); // 如果只有一個標記，放大地圖並設置中心點
-        }
+        setPlaceCenter(latlngs);
       } else {
         // 如果沒有新資料，則清除所有舊地標並顯示提示
         // console.log('沒有找到符合條件的地標');
@@ -406,8 +406,7 @@
   </script>
 
   <script>
-    // 頁面載入後檢查 URL 中是否有搜尋關鍵字，並自動執行搜尋
-    window.onload = function () {
+    window.addEventListener('load', function () {      
       const urlParams = new URLSearchParams(window.location.search);
       const keyword = urlParams.get('q');
       const lat = urlParams.get('lat');
@@ -419,10 +418,10 @@
         document.getElementById('search-button').click();
       } else {
         defaultLocate();
-        if (keyword) document.getElementById('keyword').value = keyword;
+        if (isset(keyword)) document.getElementById('keyword').value = keyword;
         document.getElementById('search-button').click();
-      }   
-    }
+      }      
+    });
   </script>
 
   <!-- 滾動到商家項目(未成功) -->

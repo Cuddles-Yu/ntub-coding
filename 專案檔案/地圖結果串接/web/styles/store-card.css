@@ -1,0 +1,284 @@
+.store-card-environment{
+  background-color: #daf9da;
+}
+
+.store-card-culture{
+  background-color: #ffe1aa;
+}
+
+.store-card-favorite {
+  background-color: #f3e2b8;
+  border-color: goldenrod;
+  border-width: thick;
+  border-style: outset;
+}
+.store-card-highlight{
+  border-color: #8384b0;
+  border-width: thick;
+  border-style: outset;
+}
+.store-card-solid-red {
+  background-color: #f9dada; 
+  border-color: red;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-outline-red {
+  background-color: transparent;
+  border-color: red;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-solid-light-red {
+  background-color: #ffebeb; 
+  border-color: lightcoral;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-outline-light-red {
+  background-color: transparent;
+  border-color: lightcoral;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-solid-dark-red {
+  background-color: #e6b3b3; 
+  border-color: darkred;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-outline-dark-red {
+  background-color: transparent;
+  border-color: darkred;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-solid-orange {
+  background-color: #ffe6cc; 
+  border-color: orange;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-outline-orange {
+  background-color: transparent;
+  border-color: orange;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-solid-light-orange {
+  background-color: #ffeccc; 
+  border-color: lightsalmon;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-outline-light-orange {
+  background-color: transparent;
+  border-color: lightsalmon;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-solid-dark-orange {
+  background-color: #e6b385; 
+  border-color: darkorange;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-outline-dark-orange {
+  background-color: transparent;
+  border-color: darkorange;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-solid-yellow {
+  background-color: #fff9cc; 
+  border-color: yellow;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-outline-yellow {
+  background-color: transparent;
+  border-color: yellow;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-solid-green {
+  background-color: #daf9da; 
+  border-color: lightgreen;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-outline-green {
+  background-color: transparent;
+  border-color: lightgreen;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-solid-dark-green {
+  background-color: #b3d1b3; 
+  border-color: darkgreen;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-outline-dark-green {
+  background-color: transparent;
+  border-color: darkgreen;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-solid-blue {
+  background-color: #d9e6f9; 
+  border-color: blue;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-outline-blue {
+  background-color: transparent;
+  border-color: blue;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-solid-dark-blue {
+  background-color: #b3c6e6; 
+  border-color: darkblue;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-outline-dark-blue {
+  background-color: transparent;
+  border-color: darkblue;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-solid-magenta {
+  background-color: #f9daf9; 
+  border-color: magenta;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-outline-magenta {
+  background-color: transparent;
+  border-color: magenta;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-solid-dark-magenta {
+  background-color: #e6b3e6; 
+  border-color: darkmagenta;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-outline-dark-magenta {
+  background-color: transparent;
+  border-color: darkmagenta;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-solid-cyan {
+  background-color: #daf9f9; 
+  border-color: cyan;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-outline-cyan {
+  background-color: transparent;
+  border-color: cyan;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-solid-dark-cyan {
+  background-color: #b3e6e6; 
+  border-color: darkcyan;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-outline-dark-cyan {
+  background-color: transparent;
+  border-color: darkcyan;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-solid-gold {
+  background-color: #fff7d1; 
+  border-color: gold;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-outline-gold {
+  background-color: transparent;
+  border-color: gold;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-solid-dark-gold {
+  background-color: #ffe599; 
+  border-color: darkgoldenrod;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-outline-dark-gold {
+  background-color: transparent;
+  border-color: darkgoldenrod;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-solid-silver {
+  background-color: #f2f2f2; 
+  border-color: silver;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-outline-silver {
+  background-color: transparent;
+  border-color: silver;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-solid-dark-silver {
+  background-color: #e6e6e6; 
+  border-color: darkgray;
+  border-width: thick;
+  border-style: outset;
+}
+
+.store-card-outline-dark-silver {
+  background-color: transparent;
+  border-color: darkgray;
+  border-width: thick;
+  border-style: outset;
+}

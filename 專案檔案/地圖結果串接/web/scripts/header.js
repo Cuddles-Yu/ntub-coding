@@ -1,27 +1,20 @@
 let alertTimeout;
-function showAlert(type, message) {
-  const ALERT_INTERVAL = 5000;
+function showAlert(type, message, timeout = 5000) {
   const alertBox = document.getElementById('alert-box');
   clearTimeout(alertTimeout);
   alertBox.classList.remove('alert-show');
   alertBox.classList.add('alert-hide');
   setTimeout(function() {
-      alertBox.className = 'alert';      
-      if (type === 'green' || type === 'success') {
-        alertBox.classList.add('alert-success');
-      } else if (type === 'orange' || type === 'warning') {
-        alertBox.classList.add('alert-warning');
-      } else if (type === 'red' || type === 'danger') {
-        alertBox.classList.add('alert-danger');
-      }      
-      alertBox.textContent = message;
-      alertBox.classList.remove('alert-hide');
-      alertBox.classList.add('alert-show');
-      alertTimeout = setTimeout(function() {
-        alertBox.classList.remove('alert-show');
-        alertBox.classList.add('alert-hide');
-      }, ALERT_INTERVAL);
-  }, 200);
+    alertBox.className = 'alert';
+    alertBox.classList.add(`alert-${type}`);
+    alertBox.textContent = message;
+    alertBox.classList.remove('alert-hide');
+    alertBox.classList.add('alert-show');
+    alertTimeout = setTimeout(function() {
+      alertBox.classList.remove('alert-show');
+      alertBox.classList.add('alert-hide');
+    }, timeout);
+  }, 50);
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -219,3 +212,46 @@ document.addEventListener('click', function(event) {
         dropdownMenu.style.display = 'none';
     }
 });
+
+function toggleFavorite(element, storeId) {
+  element.disabled = true;
+  const formData = new FormData();
+  formData.append('storeId', storeId);
+
+  fetch('/handler/toggle_favorite.php', {
+    method: 'POST',
+    body: formData,
+    credentials: 'same-origin'
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      const storeBody = element.closest('.store-body');
+      const storeCard = element.closest('.restaurant');
+      if (data.isFavorite) {
+        element.querySelector('img').src = 'images/button-favorite-active.png';
+        if (storeBody) storeBody.classList.add('store-card-favorite');
+        if (storeCard) storeCard.classList.add('store-card-favorite');
+        showAlert('green', data.message, 3000);
+      } else {
+        element.querySelector('img').src = 'images/button-favorite-inactive.png';
+        if (storeBody) storeBody.classList.remove('store-card-favorite');
+        if (storeCard) storeCard.classList.remove('store-card-favorite');
+        showAlert('dark-orange', data.message, 3000);
+      }          
+    } else {          
+      showAlert('red', data.message);
+      setTimeout(() => {
+        closeOpenedModal();
+        let modal = new bootstrap.Modal(document.getElementById('loginModal'));
+        modal.show();
+      }, 100);
+    }
+  })
+  .catch(error => {
+    console.error('收藏過程中發生錯誤：', error);
+  })
+  .finally(() => {
+    element.disabled = false;
+  });
+}

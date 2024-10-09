@@ -163,26 +163,6 @@
       return $keywords;
   }
 
-  function getOpeningHours($storeId) {
-      global $conn;
-      $stmt = bindPrepare($conn,
-      " SELECT * FROM openhours
-        WHERE store_id = ?
-      ", "i", $storeId);
-      $stmt->execute();
-      $result = $stmt->get_result();
-      //構建營業時間
-      $openingHours = [];
-      while ($row = $result->fetch_assoc()) {
-          $openingHours[$row['day_of_week']][] = [
-              'open_time' => $row['open_time'],
-              'close_time' => $row['close_time']
-          ];
-      }
-      $stmt->close();
-      return $openingHours;
-  }
-
   function getOtherBranches($branchTitle, $storeId) {
     if (!isset($branchTitle)) return;
     global $conn;
