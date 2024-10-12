@@ -22,29 +22,6 @@ function generateLoadingOverlay(during=0) {
   return overlay;
 }
 
-function logoutRequest() {
-  fetch('/member/handler/logout.php', {
-    method: 'POST',
-    credentials: 'same-origin',
-  })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        console.log(window.location.href);
-        cancelModal();
-        generateLoadingOverlay();
-        localStorage.setItem('justLoggedOut', 'true');      
-        setTimeout(function() {
-          window.location.reload(true);
-        }, LOADING_DURATION);      
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      showAlert('red', '登出失敗，'+error);
-    });
-}
-
 function loginRequest() {
   const emailInput = document.getElementById('login-email')      
   const passwordInput = document.getElementById('login-password')
@@ -85,8 +62,7 @@ function loginRequest() {
       }
       clearInputs(emailInput, passwordInput);
     })
-    .catch(error => {
-      console.error('Error:', error);
+    .catch(() => {
       document.getElementById('loginError').innerText = `發生非預期的錯誤，請稍後再試。`;
       document.getElementById('login-message').style.display = 'block';
     });    
@@ -106,7 +82,7 @@ async function emailVerifyRequest() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       emailInput.focus();
-      document.getElementById('signupError').innerText = '請輸入有效的電子郵件地址。';
+      document.getElementById('signupError').innerText = '電子郵件地址無效。';
       document.getElementById('signup-message').style.display = 'block';      
       return false;
     }
@@ -132,7 +108,6 @@ async function emailVerifyRequest() {
       return false;
     }
   } catch (error) {
-    console.error('Error:', error);
     document.getElementById('signupError').innerText = `發生非預期的錯誤，請稍後再試。`;
     document.getElementById('signup-message').style.display = 'block';
     return false;
@@ -188,8 +163,6 @@ function signupRequest() {
   const product = document.getElementById('signup-product').value;
   const service = document.getElementById('signup-service').value;
   const price = document.getElementById('signup-price').value;
-  const searchRadius = document.getElementById('signup-search-radius-input').value;
-  const openNow = document.getElementById('signup-open-now').checked?1:0;
   const parking = document.getElementById('signup-parking').checked?1:0;
   const wheelchairAccessible = document.getElementById('signup-wheelchair-accessible').checked?1:0;
   const vegetarian = document.getElementById('signup-vegetarian').checked?1:0;
@@ -222,8 +195,6 @@ function signupRequest() {
   formData.set('product', product);
   formData.set('service', service);
   formData.set('price', price);
-  formData.set('searchRadius', searchRadius);
-  formData.set('openNow', openNow);
   formData.set('parking', parking);
   formData.set('wheelchairAccessible', wheelchairAccessible);
   formData.set('vegetarian', vegetarian);
@@ -256,10 +227,10 @@ function signupRequest() {
   .then(data => {
     cancelModal(); 
     if (data.success) {
-      showAlert('brown', '您已成功註冊為評星宇宙會員。');
+      showAlert('brown', '您已成功註冊為評星宇宙會員');
     } else {
-      showAlert('red', '發生了預期之外的錯誤，請重新註冊。');
+      showAlert('red', '發生了預期之外的錯誤，請重新註冊');
     }
   })
-  .catch(error => console.error('註冊過程中發生錯誤：', error));
+  .catch(() => {showAlert('red', '註冊過程中發生非預期的錯誤');})
 }

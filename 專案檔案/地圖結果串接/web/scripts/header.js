@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
     showAlert('green', `會員 ${memberName} 已成功降落在評星宇宙！`);
   } 
   if (justLoggedOut === 'true') {
-    showAlert('red', '您已離開評星宇宙。');
+    showAlert('red', '您已離開評星宇宙');
   } 
   if (loginExpired === 'true')  {
     showAlert('red', showMessage);
@@ -73,6 +73,18 @@ function closeOpenedModal() {
   });
 }
 
+function toggleMenu() {
+  var menu = document.getElementById("member-menu-items");
+  var arrow = document.getElementById("expand-arrow");
+  if (menu.style.display === "none") {
+    menu.style.display = "block";
+    arrow.style.transform = "rotate(-180deg)"; // 箭頭旋轉效果
+  } else {
+    menu.style.display = "none";
+    arrow.style.transform = "rotate(0deg)";
+  }
+}
+
 /* 自動讓登入表單的第一個輸入框取得焦點 */
 document.getElementById('loginModal').addEventListener('shown.bs.modal', function () {
   document.getElementById('login-email').focus()
@@ -84,11 +96,21 @@ document.getElementById('logoutModal').addEventListener('shown.bs.modal', functi
   document.getElementById('logout-confirm-button').focus()
 })
 
-function cancelSignup(targetId) {
-  closeOpenedModal();
-  let modal = new bootstrap.Modal(document.getElementById('cancelSignupModal'));
-  document.getElementById('cancel-signup-cancel-button').setAttribute('onclick', `restoreSignup('${targetId}')`);
-  modal.show();
+function cancelSignup(targetId) {  
+  if (
+    targetId === 'signupModal1' &&
+    document.getElementById('signup-email').value === '' && 
+    document.getElementById('signup-name').value === '' &&
+    document.getElementById('signup-password').value === '' &&
+    document.getElementById('signup-check-password').value === ''
+  ) {    
+    closeOpenedModal();
+  } else {
+    closeOpenedModal();
+    let modal = new bootstrap.Modal(document.getElementById('cancelSignupModal'));
+    document.getElementById('cancel-signup-cancel-button').setAttribute('onclick', `restoreSignup('${targetId}')`);
+    modal.show();
+  }
 }
 function restoreSignup(targetId) {
   closeOpenedModal();
@@ -114,13 +136,6 @@ function cancelModal() {
   document.getElementById('signup-message').style.display = 'none';
 }
 
-/* 自動在電子郵件欄位失去焦點時，驗證 */
-// const emailInput = document.getElementById('signup-email');
-// emailInput.addEventListener('blur', function() {
-//   if (emailInput.value.trim()!=="") emailVerifyRequest();
-// });
-
-/* 切換密碼顯示/隱藏 */
 function togglePasswordVisibility(inputId, iconId, autoFocus = true) {
   var passwordInput = document.getElementById(inputId);
   var passwordIcon = document.getElementById(iconId);
@@ -145,7 +160,6 @@ document.getElementById('signup-toggle-check-password').addEventListener('click'
   togglePasswordVisibility('signup-password', 'signup-toggle-password', false);  
 });
 
-
 function bindFormControl(inputClass, buttonId) {
   const inputs = document.querySelectorAll(inputClass);
   const submitButton = document.getElementById(buttonId);
@@ -162,6 +176,81 @@ function bindFormControl(inputClass, buttonId) {
       });
   });
   inputs[0].focus();
+}
+
+function updatePreferences(target) {
+  const searchRadius = document.getElementById(`${target}-search-radius-input`).value;
+  const willOpen = document.getElementById(`${target}-will-open`).checked?1:0;
+  const openNow = document.getElementById(`${target}-open-now`).checked?1:0;
+  const willClose = document.getElementById(`${target}-will-close`).checked?1:0;
+  const closeNow = document.getElementById(`${target}-close-now`).checked?1:0;
+  const parking = document.getElementById(`${target}-parking`).checked?1:0;
+  const wheelchairAccessible = document.getElementById(`${target}-wheelchair-accessible`).checked?1:0;
+  const vegetarian = document.getElementById(`${target}-vegetarian`).checked?1:0;
+  const healthy = document.getElementById(`${target}-healthy`).checked?1:0;
+  const kidsFriendly = document.getElementById(`${target}-kids-friendly`).checked?1:0;
+  const petsFriendly = document.getElementById(`${target}-pets-friendly`).checked?1:0;
+  const genderFriendly = document.getElementById(`${target}-gender-friendly`).checked?1:0;
+  const dilivery = document.getElementById(`${target}-delivery`).checked?1:0;
+  const takeaway = document.getElementById(`${target}-takeaway`).checked?1:0;
+  const dineIn = document.getElementById(`${target}-dine-in`).checked?1:0;
+  const breakfast = document.getElementById(`${target}-breakfast`).checked?1:0;
+  const brunch = document.getElementById(`${target}-brunch`).checked?1:0;
+  const lunch = document.getElementById(`${target}-lunch`).checked?1:0;
+  const dinner = document.getElementById(`${target}-dinner`).checked?1:0;
+  const reservation = document.getElementById(`${target}-reservation`).checked?1:0;
+  const groupFriendly = document.getElementById(`${target}-group-friendly`).checked?1:0;
+  const familyFriendly = document.getElementById(`${target}-family-friendly`).checked?1:0;
+  const toilet = document.getElementById(`${target}-toilet`).checked?1:0;
+  const wifi = document.getElementById(`${target}-wifi`).checked?1:0;
+  const cash = document.getElementById(`${target}-cash`).checked?1:0;
+  const creditCard = document.getElementById(`${target}-credit-card`).checked?1:0;
+  const debitCard = document.getElementById(`${target}-debit-card`).checked?1:0;
+  const mobilePayment = document.getElementById(`${target}-mobile-payment`).checked?1:0;
+  // 請求
+  const formData = new FormData();
+  formData.set('searchRadius', searchRadius);
+  formData.set('willOpen', willOpen);
+  formData.set('openNow', openNow);
+  formData.set('willClose', willClose);
+  formData.set('closeNow', closeNow);
+  formData.set('parking', parking);
+  formData.set('wheelchairAccessible', wheelchairAccessible);
+  formData.set('vegetarian', vegetarian);
+  formData.set('healthy', healthy);
+  formData.set('kidsFriendly', kidsFriendly);
+  formData.set('petsFriendly', petsFriendly);
+  formData.set('genderFriendly', genderFriendly);
+  formData.set('dilivery', dilivery);
+  formData.set('takeaway', takeaway);
+  formData.set('dineIn', dineIn);
+  formData.set('breakfast', breakfast);
+  formData.set('brunch', brunch);
+  formData.set('lunch', lunch);
+  formData.set('dinner', dinner);
+  formData.set('reservation', reservation);
+  formData.set('groupFriendly', groupFriendly);
+  formData.set('familyFriendly', familyFriendly);
+  formData.set('toilet', toilet);
+  formData.set('wifi', wifi);
+  formData.set('cash', cash);
+  formData.set('creditCard', creditCard);
+  formData.set('debitCard', debitCard);
+  formData.set('mobilePayment', mobilePayment);
+  fetch('/member/handler/update-preference.php', {
+    method: 'POST',
+    credentials: 'same-origin',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      showAlert('green', data.message);
+    } else {
+      showAlert('red', data.message);
+    }
+  })
+  .catch(() => {showAlert('red', '更新偏好過程中發生非預期的錯誤');});
 }
 
 

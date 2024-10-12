@@ -14,7 +14,7 @@
 <div class="carousel-container">
   <div class="carousel-arrow left-arrow" type="button">
     <i class="fi fi-sr-angle-left"></i>
-  </div>    
+  </div>
   <div class="restaurant-group">
     <?php foreach ($stores as $store) : ?>
       <?php        
@@ -88,7 +88,7 @@
               <h6 class="restaurant-style">類別：<?=$tag?><?=$tagName?></h6>
               <h6 class="address">地址：<?=$address?></h6>
           </div>
-      </div>    
+      </div>
     <?php endforeach; ?>    
   </div>
   <div class="carousel-arrow right-arrow" type="button">

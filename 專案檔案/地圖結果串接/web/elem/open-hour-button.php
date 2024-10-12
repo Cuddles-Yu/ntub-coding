@@ -52,7 +52,7 @@
         }
         if ($currentTime < $row['open_time'] && $oneHourLater >= $row['open_time']) {
           $status['text'] = '即將營業';
-          $status['class'] = 'btn-outline-light-green';
+          $status['class'] = 'btn-outline-dark-green';
           break;
         }
       }

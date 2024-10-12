@@ -70,13 +70,13 @@
             <div class="distance-name-display">
                 <!--距離--><div class="distance"><?=$distance?></div>
                 <!--名稱--><h5 class="store-name"><?=$storeName?></h5>
-              </div>                
+              </div>
                 <div class="store-information row">
                     <div class="col-6">                                     
                       <!--綜合評分--><h5 class="rating"><?=$bayesianScore?><small class="rating-text"> / 綜合評分</small></h5>                                            
                       <!--餐廳分類--><h6 class="restaurant-style">類別：<?=$tag?><?=$tagName?></h6>
                       <!--餐廳地址--><h6 class="address">地址：<?=$location?></h6>
-                    </div>                    
+                    </div>
                     <div class="progress-group-text col">
                       <?php foreach ($categories as $category => $data): ?>
                         <?php

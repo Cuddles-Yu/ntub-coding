@@ -43,11 +43,11 @@
                   'link' => $row['store_link'],
                   'preview_image' => $row['store_preview_image'],
                   'latitude' => floatval($row['location_latitude']), 
-                  'longitude' => floatval($row['location_longitude']), //緯度latitude再經度longitude
-                  'tag' => $row['tag'], //商家標籤
-                  'rating' => floatval($row['avg_ratings']), //這間商家的google評分
-                  'sample_ratings' =>intval($row['sample_ratings'] ), //抓取的樣本總數(有留言+沒有留言)
-                  'total_withcomments' =>intval($row['total_withcomments'] ), //有留言的總數
+                  'longitude' => floatval($row['location_longitude']),
+                  'tag' => $row['tag'],
+                  'rating' => floatval($row['avg_ratings']),
+                  'sample_ratings' =>intval($row['sample_ratings'] ),
+                  'total_withcomments' =>intval($row['total_withcomments'] ),
               );
           }
       } else {

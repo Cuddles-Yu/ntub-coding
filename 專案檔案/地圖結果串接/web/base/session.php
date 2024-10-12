@@ -9,7 +9,8 @@
 
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
-
+  require_once $_SERVER['DOCUMENT_ROOT'].'/base/analysis.php';
+  
   function resetSession() {
     session_unset();
     session_destroy();    
@@ -54,7 +55,9 @@
   }
 
   $SESSION_DATA = json_decode(checkSessionToken());
-  $MEMBER_ID = $SESSION_DATA->success ? $SESSION_DATA->member_id : null;
+  $MEMBER_ID = $SESSION_DATA->success ? $SESSION_DATA->member_id : null;  
+  $MEMBER_INFO = getMemberInfo();
+  $FAVORITE_STORES = getFavoriteStores();
   if (!$SESSION_DATA->success&&$SESSION_DATA->expired) {
     echo "
       <script>

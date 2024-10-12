@@ -5,6 +5,6 @@
   <div class="bottom">
     台北商業大學 | 資訊管理系<br>
     北商資管專題 113206 小組<br>
-    <en style="margin-right: 0.6em; float: right; font-size: 0.6em;">Copyright ©2024 All rights reserved.</en>
+    <en style="float:right;">Copyright ©2024 All rights reserved.</en>
   </div>
 </footer>

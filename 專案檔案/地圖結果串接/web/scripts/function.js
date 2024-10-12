@@ -33,10 +33,6 @@ function toggleFavorite(element, storeId) {
       }, 100);
     }
   })
-  .catch(error => {
-    console.error('收藏過程中發生錯誤：', error);
-  })
-  .finally(() => {
-    element.disabled = false;
-  });
+  .catch(() => {showAlert('red', '收藏過程中發生非預期的錯誤');})
+  .finally(() => {element.disabled = false;});
 }

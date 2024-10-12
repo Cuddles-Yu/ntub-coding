@@ -1,3 +1,22 @@
+.btn-no-outline {
+  border-color: transparent !important;
+}
+
+.btn-outline-windows-blue {
+  border-color: #0078D7; 
+  color: #0078D7;
+  background-color: transparent;
+}
+.btn-outline-windows-blue:hover {
+  background-color: #2899F5; 
+  color: white;
+}
+.btn-outline-windows-blue:active {
+  border-color: #005A9E !important;
+  background-color: #005A9E !important; 
+  color: white !important;
+}
+
 .btn-outline-red {
   border-color: #FF0000;
   color: #FF0000;

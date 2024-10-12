@@ -26,7 +26,6 @@
         JOIN rates AS r ON s.id = r.store_id
         WHERE crawler_state IN ('成功', '完成', '超時');
       ");
-      #無注入
       $stmt->execute();
       $result = $stmt->get_result();
 

@@ -8,6 +8,11 @@
   height: 100vh;
 }
 
+.form-dialog {
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .form-container {
   background-color: #fff;
   padding: 20px;
@@ -162,14 +167,6 @@ display: block;
   right: -315px;
   top: -33px;
   cursor: pointer;
-  width: 20px;
-  height: 20px;
-}
-
-.text-icon {
-  position: relative;
-  top: -2px;
-  position: relative;
   width: 20px;
   height: 20px;
 }

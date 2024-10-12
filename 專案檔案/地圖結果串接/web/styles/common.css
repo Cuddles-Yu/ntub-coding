@@ -9,3 +9,18 @@ a.map-link {
   color: inherit; /* 保留繼承的文字顏色 */
   text-decoration: none; /* 移除底線 */
 }
+
+.text-icon {
+  width:1em;
+  height:1em;
+  position: relative;
+  margin-right: 5px;
+}
+
+.button-text-icon {
+  width:1em;
+  height:1em;
+  position: relative;
+  margin-right: 5px;
+  top: 2px;
+}

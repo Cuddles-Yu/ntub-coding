@@ -1,0 +1,1098 @@
+.suggestion-page {
+  border-bottom-style: solid;  
+  border-bottom-color: mediumblue;
+}
+.suggestion-menu {
+  border-left-style: solid;
+  border-left-color: mediumblue;
+}
+
+.input-group-login{
+  display: flex;
+  margin-top: 5px;
+}
+
+.tab-content-1, .tab-content-2, .tab-content-3 {
+  display: none;
+}
+
+.tab-content-1.active, .tab-content-2.active, .tab-content-3.active {
+  display: block;
+}
+
+.sign_up_text{
+  color: rgb(139, 139, 139);
+  font-size: 16px;
+  left: auto;
+  display: flex;
+  justify-content: flex-end;
+  text-decoration: none;
+}
+
+@media (min-width: 711px){
+  .title-text{
+    margin-top: 70px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 75px;
+    background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+    background-clip: text;
+    color: transparent;
+  }
+
+  .search{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-top: 15px;
+    gap: 10px;
+  }
+
+  .search-city{
+    display: none;
+  }
+
+  .search-keyword{
+    width: 600px;
+    position: relative;
+    overflow-x: hidden;
+    font-size: 16px;
+  }
+
+  .form-floating>.form-control, .form-floating>.form-control-plaintext{
+    padding: 16px  12px;
+    height: 65px;
+  }
+
+  .filter-button{
+    position: relative;
+    margin-bottom: 15px;
+    color: white;
+    white-space: nowrap;
+    font-size: 16px;
+    background-color: #919ca5;
+    border: 1px solid #919ca5;
+  }
+
+
+  .input-group{
+    width: 200px;
+  }
+
+  .search-button{
+    position: relative;
+    margin-bottom: 15px;
+    color: white;
+    white-space: nowrap;
+    font-size: 16px;
+  }
+
+  .filter-container{
+    width: 725px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    background-color: #d9dfe4;
+    border-radius: 5px;
+    display: flex;
+    display: none;
+  }
+
+  .filter-result{
+    max-width: 100%;
+    display: flex;
+    white-space: nowrap;
+    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .filter-title{
+    white-space: nowrap;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    margin: 0;
+    color: rgb(109, 139, 219);
+  }
+
+  .condition{
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid #b0c4d6;
+    background-color: white;
+    border-radius: 10px;
+    font-size: 16px;
+  }
+
+  #map{
+    max-width: 788px;
+    height: 400px;
+    border-radius: 10px;
+    border: 1px solid #716d6d;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .legend{
+    font-size: 12px;
+  }
+
+  .tip-line{
+    border: 1px solid #68737a;
+    margin-top: 45px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+  }
+
+  .tip{
+    color: #68737a;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+
+  #tab {
+    width: 100%;
+    background: white;
+  }
+
+  /* 頁籤ul */
+  #tab > ul {
+    display: flex;             
+    justify-content: center;   
+    margin: 0;
+    padding: 20px 20px 0 20px;
+    gap: 30px;
+  }
+
+  #tab > ul > li {
+    list-style-type: none;
+  }
+
+  /* 頁籤上的文字 */
+  #tab > ul > li > a { 
+    text-decoration: none;
+    font-size: 30px;
+    color: #333;
+    float: left;
+    padding: 10px;
+    margin-left: 5px;
+    white-space: nowrap;
+  }
+
+  /*頁籤div內容*/
+  #tab > div {
+    clear: both;
+    padding: 0 15px;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+  }
+
+  /*第一筆的底色*/
+  #tab > ul li:first-child a {
+    background: #7e8b9c;
+    color: white;
+    border-radius: 5px;
+  }
+
+  span:target ~ #tab > div:first-of-type {
+    visibility: hidden;
+    height: 0;
+    padding: 0 15px;
+  }
+
+  /*頁籤變換&第一筆*/
+  #tab-1:target ~ #tab > ul li a[href$="#tab-1"],
+  #tab-2:target ~ #tab > ul li a[href$="#tab-2"],
+  #tab-3:target ~ #tab > ul li a[href$="#tab-3"] {
+    background: #7e8b9c;
+    color: white;
+    border-radius: 5px;
+  }
+
+  /* 重置未選中的標籤顏色為白色 */
+  #tab-2:target ~ #tab > ul li a[href$="#tab-1"],
+  #tab-3:target ~ #tab > ul li a[href$="#tab-1"],
+  #tab-1:target ~ #tab > ul li a[href$="#tab-2"],
+  #tab-3:target ~ #tab > ul li a[href$="#tab-2"],
+  #tab-1:target ~ #tab > ul li a[href$="#tab-3"],
+  #tab-2:target ~ #tab > ul li a[href$="#tab-3"] {
+    background: white;
+    color: black;
+  }
+
+  /*頁籤內容顯示&第一筆*/
+  span ~ #tab > div:first-of-type,
+  #tab-1:target ~ #tab > div.tab-content-1,
+  #tab-2:target ~ #tab > div.tab-content-2,
+  #tab-3:target ~ #tab > div.tab-content-3{
+    visibility: visible;
+    height: 100%;
+  }
+
+  .tab-1, .tab-2, .tab-3 {
+    display: none;
+  }
+
+  .title-text-2{
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+    cursor: pointer;
+  }
+
+  .carousel-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .carousel-arrow{
+    font-size: 25px;
+    color: #8b8686;
+    margin-top: 20px;
+  }
+
+  .carousel-arrow.hidden {
+    display: none; 
+  }
+
+  .left-arrow {
+    margin-right: 10px;
+  }
+  
+  .right-arrow {
+    margin-left: 10px;
+  }
+
+  .restaurant-group{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    height: 600px;
+    gap: 60px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    margin-top: 20px;
+    padding-top: 5px;
+    cursor: grab;
+  }
+
+  .card-img-top{
+    width: 100%;
+    height: 214px;
+    object-fit: cover;
+  }
+
+  .restaurant{
+    margin-top: 5px;
+    width: 288px;
+    height: 500px;
+    flex: 0 0 auto;
+    cursor: pointer;
+  }
+
+  .card-title {
+    font-weight: bold;
+    font-size: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+  }
+
+  .quick-group{
+    display: flex;
+  }
+
+  .love-text, .map-link-text, .web-text{
+    font-weight: bold;
+    font-size: 16px;
+    color: #374957;
+    text-decoration: none;
+    white-space: nowrap;
+    display: inline-block;
+    margin-right: 15px;
+  }
+
+  .rating{
+    color: #AC3535;
+    font-weight: bold;
+    font-size: 25px;
+  }
+
+  .rating-text{
+    margin-left: 5px;
+    font-size: 12px;
+  }
+
+  .progress-group-text{
+    margin-top: 7px;
+    font-size: 13px;
+    white-space: nowrap;
+    padding-right: 60px;
+  }
+  
+  .progress-score{
+    font-size: 13px;
+    text-align: right;
+    white-space: nowrap;
+    width: 50px;
+  }
+
+  .progress-group{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 5px;
+    margin-bottom: 3px;
+  }
+
+  .progress{
+    height: 12px;
+    margin-bottom: 5px;
+    flex-grow: 1;
+    min-width: 40px;
+  }
+
+  .restaurant-style, .address{
+    font-size: 12.8px;
+    margin-top: 10px;
+    width: 254px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+  }
+}
+
+
+@media (min-width: 551px) and (max-width: 710px){
+  .title-text{
+    margin-top: 60px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 65px;
+    background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+    background-clip: text;
+    color: transparent;
+  }
+
+  .search{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-top: 15px;
+  }
+
+  .search-city{
+    display: none;
+  }
+
+  .search-keyword{
+    width: 470px;
+    position: relative;
+    margin-left: 10px;
+    overflow-x: hidden;
+    font-size: 16px;
+  }
+
+  .form-floating>.form-control, .form-floating>.form-control-plaintext{
+    padding: 16px  12px;
+    height: 65px;
+  }
+
+  .filter-button{
+    position: relative;
+    margin-left: 20px;
+    margin-bottom: 15px;
+    color: white;
+    white-space: nowrap;
+    font-size: 16px;
+    background-color: #919ca5;
+    border: 1px solid #919ca5;
+  }
+
+  .checkbox-title{
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-right: 15px;
+  }
+
+  .checkbox-title:not(:first-child){
+    margin-top: 5px;
+  }
+
+  .input-group{
+    width: 200px;
+  }
+
+  .checkbox-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); /* 自動適應列數 */
+  }
+
+  .search-button{
+    position: relative;
+    margin-left: 20px;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    color: white;
+    white-space: nowrap;
+    font-size: 16px;
+  }
+
+  .filter-container{
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    background-color: #d9dfe4;
+    border-radius: 5px;
+    display: flex;
+    display: none;
+  }
+
+  .filter-result{
+    max-width: 100%;
+    display: flex;
+    white-space: nowrap;
+    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .filter-title{
+    white-space: nowrap;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    margin: 0;
+    color: rgb(109, 139, 219);
+  }
+
+  .condition{
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid #b0c4d6;
+    background-color: white;
+    border-radius: 10px;
+    font-size: 14px;
+  }
+
+  #map{
+    max-width: 770px;
+    height: 400px;
+    border-radius: 10px;
+    border: 1px solid #716d6d;
+    margin-top: 40px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .legend{
+    font-size: 12px;
+  }
+
+  .tip-line{
+    border: 1px solid #68737a;
+    margin-top: 45px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .tip{
+    color: #68737a;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+
+  #tab {
+    width: 100%;
+    background: white;
+  }
+
+  /* 頁籤ul */
+  #tab > ul {
+    display: flex;             
+    justify-content: center;   
+    margin: 0;
+    padding: 20px 20px 0 20px;
+    gap: 30px;
+  }
+
+  #tab > ul > li {
+    list-style-type: none;
+  }
+
+  /* 頁籤上的文字 */
+  #tab > ul > li > a { 
+    text-decoration: none;
+    font-size: 25px;
+    color: #333;
+    float: left;
+    padding: 10px;
+    margin-left: 5px;
+    white-space: nowrap;
+  }
+
+  /*頁籤div內容*/
+  #tab > div {
+    clear: both;
+    padding: 0 15px;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+  }
+
+  /*第一筆的底色*/
+  #tab > ul li:first-child a {
+    background: #7e8b9c;
+    color: white;
+    border-radius: 5px;
+  }
+
+  span:target ~ #tab > div:first-of-type {
+    visibility: hidden;
+    height: 0;
+    padding: 0 15px;
+  }
+
+  /*頁籤變換&第一筆*/
+  #tab-1:target ~ #tab > ul li a[href$="#tab-1"],
+  #tab-2:target ~ #tab > ul li a[href$="#tab-2"],
+  #tab-3:target ~ #tab > ul li a[href$="#tab-3"] {
+    background: #7e8b9c;
+    color: white;
+    border-radius: 5px;
+  }
+
+  /* 重置未選中的標籤顏色為白色 */
+  #tab-2:target ~ #tab > ul li a[href$="#tab-1"],
+  #tab-3:target ~ #tab > ul li a[href$="#tab-1"],
+  #tab-1:target ~ #tab > ul li a[href$="#tab-2"],
+  #tab-3:target ~ #tab > ul li a[href$="#tab-2"],
+  #tab-1:target ~ #tab > ul li a[href$="#tab-3"],
+  #tab-2:target ~ #tab > ul li a[href$="#tab-3"] {
+    background: white;
+    color: black;
+  }
+
+  /*頁籤內容顯示&第一筆*/
+  span ~ #tab > div:first-of-type,
+  #tab-1:target ~ #tab > div.tab-content-1,
+  #tab-2:target ~ #tab > div.tab-content-2,
+  #tab-3:target ~ #tab > div.tab-content-3{
+    visibility: visible;
+    height: 100%;
+  }
+
+  .tab-1, .tab-2, .tab-3{
+    display: none;
+  }
+
+  .title-text-2{
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+  }
+
+  .carousel-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .carousel-arrow{
+    font-size: 25px;
+    color: #8b8686;
+    margin-top: 20px;
+  }
+
+  .carousel-arrow.hidden {
+    display: none; 
+  }
+
+  .left-arrow {
+    margin-right: 10px;
+  }
+  
+  .right-arrow {
+    margin-left: 10px;
+  }
+
+  .restaurant-group{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    height: 600px;
+    gap: 30px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    margin-top: 20px;
+    padding-top: 5px;
+    cursor: grab;
+  }
+
+  .card-img-top{
+    width: 100%;
+    height: 214px;
+    object-fit: cover;
+  }
+
+  .restaurant{
+    margin-top: 5px;
+    width: 288px;
+    height: 500px;
+    flex: 0 0 auto;
+    cursor: pointer;
+  }
+
+  .card-title {
+    font-weight: bold;
+    font-size: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+  }
+
+  .quick-group{
+    display: flex;
+  }
+
+  .love-text, .map-link-text, .web-text{
+    font-weight: bold;
+    font-size: 16px;
+    color: #374957;
+    text-decoration: none;
+    white-space: nowrap;
+    display: inline-block;
+    margin-right: 15px;
+  }
+
+  .rating{
+    color: #AC3535;
+    font-weight: bold;
+    font-size: 23px;
+  }
+
+  .rating-text{
+    margin-left: 5px;
+    font-size: 12px;
+  }
+
+  .progress-group-text{
+    margin-top: 7px;
+    font-size: 13px;
+    white-space: nowrap;
+    padding-right: 60px;
+  }
+  
+  .progress-score{
+    font-size: 13px;
+    text-align: right;
+    white-space: nowrap;
+    width: 50px;
+  }
+
+  .progress-group{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 5px;
+    margin-bottom: 3px;
+  }
+
+  .progress{
+    height: 12px;
+    margin-bottom: 5px;
+    flex-grow: 1;
+    min-width: 40px;
+  }
+
+  .restaurant-style, .address{
+    font-size: 12.8px;
+    margin-top: 10px;
+    width: 254px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+  }
+}
+
+@media (max-width: 550px){
+  .title-text{
+    margin-top: 25px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 50px;
+    background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+    background-clip: text;
+    color: transparent;
+  }
+
+  .search{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-top: 15px;
+  }
+
+  .search-city{
+    display: none;
+  }
+
+  .search-keyword{
+    width: 470px;
+    position: relative;    
+    margin-left: 10px;
+    overflow-x: hidden;
+    font-size: 16px;
+  }
+
+  .form-floating>.form-control, .form-floating>.form-control-plaintext{
+    padding: 16px  12px;
+    height: 38px;
+  }
+
+  .filter-button{
+    position: relative;
+    margin-left: 20px;
+    margin-bottom: 15px;
+    color: white;
+    white-space: nowrap;
+    font-size: 16px;
+    background-color: #919ca5;
+    border: 1px solid #919ca5;
+  }
+
+  .checkbox-title{
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-right: 15px;
+  }
+
+  .checkbox-title:not(:first-child){
+    margin-top: 5px;
+  }
+
+  .input-group{
+    width: 200px;
+  }
+  
+  .checkbox-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); /* 自動適應列數 */
+  }
+
+  .search-button{
+    position: relative;
+    margin-left: 20px;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    color: white;
+    white-space: nowrap;
+    font-size: 16px;
+  }
+
+  .filter-container{
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    background-color: #d9dfe4;
+    border-radius: 5px;
+    display: flex;
+    display: none;
+  }
+
+  .filter-result{
+    max-width: 100%;
+    display: flex;
+    white-space: nowrap;
+    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .filter-title{
+    white-space: nowrap;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    margin: 0;
+    color: rgb(109, 139, 219);
+  }
+
+  .condition{
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid #b0c4d6;
+    background-color: white;
+    border-radius: 10px;
+    font-size: 14px;
+  }
+
+  #map{
+    max-width: 770px;
+    height: 400px;
+    border-radius: 10px;
+    border: 1px solid #716d6d;
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .legend{
+    font-size: 12px;
+  }
+
+  .tip-line{
+    border: 1px solid #68737a;
+    margin-top: 45px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .tip{
+    color: #68737a;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+
+  #tab {
+    width: 100%;
+    background: white;
+  }
+
+  /* 頁籤ul */
+  #tab > ul {
+    display: flex;             
+    justify-content: center;   
+    margin: 0;
+    padding: 20px 20px 0 20px;
+    gap: 30px;
+  }
+
+  #tab > ul > li {
+    list-style-type: none;
+  }
+
+  /* 頁籤上的文字 */
+  #tab > ul > li > a { 
+    text-decoration: none;
+    font-size: 20px;
+    color: #333;
+    float: left;
+    padding: 10px;
+    margin-left: 5px;
+    white-space: nowrap;
+  }
+
+  /*頁籤div內容*/
+  #tab > div {
+    clear: both;
+    padding: 0 15px;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+  }
+
+  /*第一筆的底色*/
+  #tab > ul li:first-child a {
+    background: #7e8b9c;
+    color: white;
+    border-radius: 5px;
+  }
+
+  span:target ~ #tab > div:first-of-type {
+    visibility: hidden;
+    height: 0;
+    padding: 0 15px;
+  }
+
+  /*頁籤變換&第一筆*/
+  #tab-1:target ~ #tab > ul li a[href$="#tab-1"],
+  #tab-2:target ~ #tab > ul li a[href$="#tab-2"],
+  #tab-3:target ~ #tab > ul li a[href$="#tab-3"] {
+    background: #7e8b9c;
+    color: white;
+    border-radius: 5px;
+  }
+
+  /* 重置未選中的標籤顏色為白色 */
+  #tab-2:target ~ #tab > ul li a[href$="#tab-1"],
+  #tab-3:target ~ #tab > ul li a[href$="#tab-1"],
+  #tab-1:target ~ #tab > ul li a[href$="#tab-2"],
+  #tab-3:target ~ #tab > ul li a[href$="#tab-2"],
+  #tab-1:target ~ #tab > ul li a[href$="#tab-3"],
+  #tab-2:target ~ #tab > ul li a[href$="#tab-3"] {
+    background: white;
+    color: black;
+  }
+
+  /*頁籤內容顯示&第一筆*/
+  span ~ #tab > div:first-of-type,
+  #tab-1:target ~ #tab > div.tab-content-1,
+  #tab-2:target ~ #tab > div.tab-content-2,
+  #tab-3:target ~ #tab > div.tab-content-3{
+    visibility: visible;
+    height: 100%;
+  }
+
+  .tab-1, .tab-2, .tab-3 {
+    display: none;
+  }
+
+  .title-text-2{
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+  }
+
+  .carousel-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .carousel-arrow{
+    font-size: 25px;
+    color: #8b8686;
+    margin-top: 20px;
+  }
+
+  .carousel-arrow.hidden {
+    display: none; 
+  }
+
+  .left-arrow {
+    margin-right: 10px;
+  }
+  
+  .right-arrow {
+    margin-left: 10px;
+  }
+
+  .restaurant-group{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    height: 600px;
+    gap: 15px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    margin-top: 20px;
+    padding-top: 5px;
+    cursor: grab;
+  }
+
+  .card-img-top{
+    width: 100%;
+    height: 214px;
+    object-fit: cover;
+  }
+
+  .restaurant{
+    margin-top: 5px;
+    width: 288px;
+    height: 500px;
+    flex: 0 0 auto;
+    cursor: pointer;
+  }
+
+  .card-title {
+    font-weight: bold;
+    font-size: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+  }
+
+  .quick-group{
+    display: flex;
+  }
+
+  .love-text, .map-link-text, .web-text{
+    font-weight: bold;
+    font-size: 16px;
+    color: #374957;
+    text-decoration: none;
+    white-space: nowrap;
+    display: inline-block;
+    margin-right: 15px;
+  }
+
+  .love-img, .map-link-img, .web-img{
+    width: 20px;
+    margin-right: 3px;
+  }
+
+  .rating{
+    color: #AC3535;
+    font-weight: bold;
+    font-size: 23px;
+  }
+
+  .rating-text{
+    margin-left: 5px;
+    font-size: 12px;
+  }
+
+  .progress-group-text{
+    margin-top: 7px;
+    font-size: 13px;
+    white-space: nowrap;
+    padding-right: 60px;
+  }
+  
+  .progress-score{
+    font-size: 13px;
+    text-align: right;
+    white-space: nowrap;
+    width: 50px;
+  }
+
+  .progress-group{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 5px;
+    margin-bottom: 3px;
+  }
+
+  .progress{
+    height: 12px;
+    margin-bottom: 5px;
+    flex-grow: 1;
+    min-width: 40px;
+  }
+
+  .restaurant-style, .address{
+    font-size: 12.8px;
+    margin-top: 10px;
+    width: 254px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+  }
+}

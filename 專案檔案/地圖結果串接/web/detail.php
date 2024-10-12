@@ -33,10 +33,7 @@
     $service = getService($storeId);
     $keywords = getAllKeywords($storeId);    
     $foodKeywords = getFoodKeyword($storeId);
-    $otherBranches = getOtherBranches($storeInfo['branch_title'], $storeId);
-    $positiveMarks = getMarks($storeId, $_POSITIVE);
-    $negativeMarks = getMarks($storeId, $_NEGATIVE);
-    $neutralMarks = getMarks($storeId, [$_PREFER, $_NEUTRAL]);
+    $otherBranches = getOtherBranches($storeInfo['branch_title'], $storeId);    
     $targetsInfo = getTargets($storeId);
   } else {
     require_once $_SERVER['DOCUMENT_ROOT'].'/error/id-not-found.php';
@@ -48,42 +45,28 @@
 
 <!doctype html>
 <html lang="zh-TW">
-
 <head>
-  <meta charset="utf-8" />
   <title>詳細資訊 - 評星宇宙</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-  <meta name="keywords" content="評價, google map" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
-  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>
-
-  <!-- 載入 leaflet.css -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin="" />
-
-  <!-- 載入 leaflet.awesome-markers.css -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers/dist/leaflet.awesome-markers.css" />
-
-  <!-- 載入 MarkerCluster.css -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
-
-  <link rel="stylesheet" href="styles/store-detail.css" />
-
+  <link rel="stylesheet" href="/styles/detail.css" />
+  <link rel="stylesheet" href="/styles/map.css" />
 </head>
 
 <body>
-
-  <!-- ### 頁首 ### -->
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
 
-  <!-- ### 內容 ### -->
-  <section class="primary-content section-content">
+  <section class="normal-content section-content">
     <div id="favorite-button" onclick="toggleFavorite(this,<?=$storeId?>)">
       <img src="<?=$isFavorite?'/images/button-favorite-active.png':'/images/button-favorite-inactive.png';?>">
       <h1 class="store-title" id="store-title" style="margin-left:10px"><?=$storeName?></h1>
-    </div>    
+    </div>
     <div class="love-group">
       <div class="type-rating-status-group">
         <h5 class="rating"><?=$score?></h5>
@@ -102,7 +85,7 @@
             其他分店
           </button>
         <?php endif; ?>
-      </div>      
+      </div>
     </div>
     <div class="collapse multi-collapse" id="collapseExample">
       <div class="other-store">
@@ -125,7 +108,7 @@
               <p style="width:2%;text-align:center;color:lightgrey">|</p>
               <p class="other-map address no-flow"><i class="fi fi-sr-map-marker address-img"></i><?=$address?></p>
             </a>
-            <!-- <i class="fi fi-sr-bookmark collect" role="button"></i> -->
+            <!-- <i class="fi fi-sr-bookmark collect" role="button"></i>-->
           </div>
         <?php endforeach;?>
       </div>
@@ -137,7 +120,7 @@
     <?php endif; ?>   
   </section>
 
-  <section class="secondary-content section-content">
+  <section class="normal-content section-content">
     <div class="first-row">
       <div class="anaysis col">
         <div class="title-group">
@@ -276,7 +259,7 @@
     </div>
   </section>
 
-  <section class="tertiary-content section-content">
+  <section class="normal-content section-content">
     <div class="comment-title">
       <div class="title-group">
         <i class="fi fi-sr-comment-alt group-title-img"></i>
@@ -297,18 +280,18 @@
         <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
         <label class="btn btn-outline-secondary sample-button" for="btnradio4">評分最低</label>
       </div>
-      <button type="button" class="btn question" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="留言樣本選擇" data-bs-custom-class="custom-tooltip1">
+      <button type="button" class="btn question" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="評論樣本選擇" data-bs-custom-class="custom-tooltip1">
         <i class="fi fi-sr-interrogation question-img"></i>
       </button>
     </div>
     <div class="comment-keyword">
-      <div class="keyword-title">
+      <div class="keyword-title" id="keyword-title">        
         <h5 class="keyword-title-text">關鍵字</h5>
         <!--篩選按鈕-->
         <div class="input-group mb-3 filter-button">
           <span class="input-group-text" id="basic-addon1"><i class="fi fi-sr-filter-list"></i></i>篩選</span>
           <select class="form-select" aria-label="Default select example" id="filterSelect">
-            <option value="all" selected>全部</option>
+            <option value="全部" selected>全部</option>
             <option value="氛圍">氛圍</option>
             <option value="產品">產品</option>
             <option value="服務">服務</option>
@@ -318,11 +301,11 @@
       </div>
       <!--### 生成Mark統計標籤 ###-->
       <?php
-      $categories = [
-        $_POSITIVE => ['name' => 'good', 'marks' => $positiveMarks],
-        $_NEGATIVE => ['name' => 'bad', 'marks' => $negativeMarks],
-        $_NEUTRAL => ['name' => 'middle', 'marks' => $neutralMarks],
-      ];
+        $categories = [
+          $_POSITIVE => ['name' => 'good', 'marks' => getMarks($storeId, $_POSITIVE)],
+          $_NEGATIVE => ['name' => 'bad', 'marks' => getMarks($storeId, $_NEGATIVE)],
+          $_NEUTRAL => ['name' => 'middle', 'marks' => getMarks($storeId, [$_PREFER, $_NEUTRAL])],
+        ];
       ?>
       <?php foreach ($categories as $category => $data): ?>
         <div class="group-gb <?=$data['name'] ?>-side">
@@ -330,7 +313,7 @@
           <div class="group-keyword">
             <?php foreach ($data['marks'] as $index => $keyword): ?>
               <div class="keywords">
-                <button type="button" class="comment-<?=$data['name'] ?>" onclick="setCommentKeyword(this)" data-bs-toggle="modal" data-bs-target="#<?=$data['name'] ?>Modal<?=$index; ?>">
+                <button type="button" class="comment-<?=$data['name']?>" onclick="searchCommentsByTarget(this)">
                   <w class="object"><?=htmlspecialchars($keyword['object']); ?></w>
                   <w class="count">(<?=htmlspecialchars($keyword['count']); ?>)</w>
                 </button>
@@ -341,61 +324,55 @@
       <?php endforeach; ?>
     </div>
 
-    <div class="keyword-title">
-      <h5 class="keyword-title-text" id="comment-count-title"><!--動態生成留言數量--></h5> 
+    <div class="keyword-title" id="comment-title">
+      <button id="reset-comment-search" class="btn btn-outline-gray btn-no-outline" onclick="resetCommentSearch()">
+        <i class="fi fi-sr-undo" style="font-size: 1.5em;"></i>
+      </button>
+      <h5 class="keyword-title-text" id="comment-count-title">留言 0 則</h5> 
       <!--排序按鈕-->
-      <div class="input-group mb-3 sort-button">
+      <div id="comments-order-bar" class="input-group mb-3 sort-button">
         <span class="input-group-text" id="basic-addon1"><i class="fi fi-sr-sort-amount-down"></i>排序</span>
-        <select class="form-select comment-sort-select" aria-label="Default select example" id="sortSelect">
+        <select class="form-select comment-sort-select" aria-label="Default select example" id="sortSelect" style="max-width:150px;">
           <option value="相關性" selected>相關性</option>
           <option value="由高至低">由高至低</option>
           <option value="由低至高">由低至高</option>
         </select>
         <span class="input-group-text" id="inputGroup-sizing-default">篩選</span>
         <input type="text" class="form-control comment-keyword-input" id="commentKeyword" name="commentKeyword" placeholder="評論關鍵字">
-        <button class="btn btn-outline-secondary" onclick="searchComments()" id="search-button">搜尋</button>
+        <button class="btn btn-outline-windows-blue" onclick="searchCommentsByKeyword()" id="search-button" style="border-color:lightgray;">搜尋</button>
+        <button class="btn btn-outline-light-gray" onclick="clearSearchKeyword()" id="clear-button" style="border-color:lightgray;color:gray;">清除</button>
       </div>
     </div>
     <div class="comment-group" id="commentGroup" keyword=-1>
       <!-- 動態生成留言 -->
     </div>
-
   </section>
-
-  <section class="fourth-content section-content">
-    <div class="title-group">
-      <i class="fi fi-sr-hand-holding-heart group-title-img"></i>
-      <h5 class="group-title">吃過都推薦</h5>
-      <button type="button" class="btn question-2" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="點擊文字搜尋餐點餐廳<br>點擊圖片搜尋餐點照片" data-bs-custom-class="custom-tooltip1" data-bs-html="true">
-        <i class="fi fi-sr-interrogation question-img"></i>
-      </button>
-    </div>
-    <div class="carousel-container">
-      <div class="carousel-arrow left-arrow" type="button"><i class="fi fi-sr-angle-left"></i></div>
-      <div class="group-card">
-        <!--推薦食物-->
-        <?php if ($foodKeywords): ?>
+  <?php if ($foodKeywords): ?>
+    <section class="normal-content section-content">
+      <div class="title-group">
+        <i class="fi fi-sr-hand-holding-heart group-title-img"></i>
+        <h5 class="group-title">吃過都推薦</h5>
+        <button type="button" class="btn question-2" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="點擊文字搜尋餐點餐廳<br>點擊圖片搜尋餐點照片" data-bs-custom-class="custom-tooltip1" data-bs-html="true">
+          <i class="fi fi-sr-interrogation question-img"></i>
+        </button>
+      </div>
+      <div class="carousel-container">
+        <div class="carousel-arrow left-arrow" type="button"><i class="fi fi-sr-angle-left"></i></div>
+        <div class="group-card">          
           <?php foreach ($foodKeywords as $foodKeyword): ?>
             <div class="card">
               <div class="card-body">
-                <a class="card-text" href="search?q=<?=urlencode($foodKeyword['word']); ?>" target="_blank"><?=htmlspecialchars($foodKeyword['word']); ?>(<?=htmlspecialchars($foodKeyword['count']); ?>)</a><!--填入推薦食物名稱 href填入此食物的評星宇宙搜尋結果網址-->
+                <a class="card-text" href="search?q=<?=urlencode($foodKeyword['word']); ?>" target="_blank"><?=htmlspecialchars($foodKeyword['word']); ?>(<?=htmlspecialchars($foodKeyword['count']); ?>)</a>
               </div>
-              <a class="card-a" href="https://www.google.com/search?udm=2&q=<?=urlencode($storeInfo['name'] . ' ' . $foodKeyword['word']); ?> " target="_blank"><img class="card-img" src="<?=$foodKeyword['image_url'] ?>"><!--src填入推薦食物照片連結 href填入搜尋此食物的google連結--></a>
+              <a class="card-a" href="https://www.google.com/search?udm=2&q=<?=urlencode($storeInfo['name'] . ' ' . $foodKeyword['word']); ?> " target="_blank"><img class="card-img" src="<?=$foodKeyword['image_url'] ?>"></a>
             </div>
-          <?php endforeach; ?>
-        <?php else: ?>
-          <div class="card">
-            <div class="card-body">
-              <a class="card-text" target="_blank">暫無推薦餐點</a>
-            </div>
-            <a target="_blank"><img class="card-img" src="images/預設.jpg"><!--src填入推薦食物照片連結 href填入搜尋此食物的google連結--></a><!--暫無推薦餐點照片 先放水餃照片代替-->
-          </div>
-        <?php endif; ?>
+          <?php endforeach; ?>        
+        </div>
+        <div class="carousel-arrow right-arrow" type="button"><i class="fi fi-sr-angle-right"></i></div>
       </div>
-      <div class="carousel-arrow right-arrow" type="button"><i class="fi fi-sr-angle-right"></i></div>
-    </div>
-  </section>
-  <section class="fifth-content section-content">
+    </section>
+  <?php endif; ?>
+  <section class="normal-content section-content">
     <div class="introduction-display">
       <div class="store-introduction">
         <div class="title-group">
@@ -427,7 +404,7 @@
 
   </section>
 
-  <section class="sixth-content section-content">
+  <section class="normal-content section-content">
     <div class="title-group">
       <i class="fi fi-sr-interactive group-title-img"></i>
       <h5 class="group-title ">最多人提到</h5>
@@ -440,7 +417,7 @@
           foreach ($keywords as $keyword) {
             if ($keyword['count'] > 1) { // 檢查 count 的數量是否大於 1
               echo '<button class="tag btn-outline-secondary btn" type="button">';
-              echo '<a class="tag-text" href="search?q=' . urlencode($keyword['word']) . '" target="_blank">' . htmlspecialchars($keyword['word']) . ' (' . htmlspecialchars($keyword['count']) . ')</a>'; //<!--填入關鍵字 href填入此的評星宇宙搜尋結果網址-->
+              echo '<a class="tag-text" href="search?q=' . urlencode($keyword['word']) . '" target="_blank">' . htmlspecialchars($keyword['word']) . ' (' . htmlspecialchars($keyword['count']) . ')</a>';
               echo '</button>';
             }
           }
@@ -456,136 +433,15 @@
     <!--資料爬蟲時間--><h6 class="update">資料更新時間：<?=$storeInfo['crawler_time'] ?></h6>
   </section>
 
-  <!-- ### 頁尾 ### -->
-  <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/footer.php'; ?>
-
-  <script>
-    function setCommentKeyword(button) {
-      const objectValue = button.querySelector('.object').textContent;
-      const searchInput = document.getElementById('commentKeyword');
-      searchInput.value = objectValue;
-      document.getElementById('search-button').click();
-    }
-  </script>
-
-  <script>
-    document.querySelectorAll('.home-menu').forEach(page => {
-      page.removeAttribute('href');
-      page.setAttribute('style', 'cursor:default;');
-    });
-    document.querySelectorAll('.home-page').forEach(page => {
-      page.removeAttribute('href');
-      page.setAttribute('style', 'cursor:default;');
-    });
-  </script>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      document.title = `${document.getElementById('store-title').textContent.trim()}詳細資訊 - 評星宇宙`;
-      searchComments();
-    });
-    function searchComments() {
-      const storeId = <?=$storeId?>;
-      const searchTerm = document.getElementById('commentKeyword').value.trim();
-      const commentGroup = document.getElementById('commentGroup');
-      const keywordTitleText = document.getElementById('comment-count-title');
-      if (commentGroup.getAttribute('keyword') === searchTerm) return;      
-      commentGroup.innerHTML = '';
-      
-      const formData = new FormData();
-      formData.set('id', storeId);
-      formData.set('q', searchTerm);
-      
-      fetch('struc/comment_keyword.php', {
-          method: 'POST',
-          credentials: 'same-origin',
-          body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-          commentGroup.setAttribute('keyword', searchTerm);
-          commentGroup.innerHTML = data.html;
-          if (searchTerm === '') {
-              keywordTitleText.textContent = '留言 ' + data.count + ' 則';
-          } else {
-              keywordTitleText.textContent = '留言搜尋結果 ' + data.count + ' 則';
-          }
-      })
-      .catch(error => console.error('發送 fetch 請求時發生錯誤：', error));
-    }
-    document.getElementById('commentKeyword').addEventListener('keydown', function(event) {
-      if (event.key === 'Enter') {
-        event.preventDefault(); // 防止表單的預設提交行為
-        document.getElementById('search-button').click(); // 觸發按鈕點擊事件
-      }
-    });
-  </script>
-
-  <script>
-    document.getElementById('sortSelect').addEventListener('change', function() {
-      const sortValue = this.value;
-      const commentGroup = document.getElementById('commentGroup');
-      const comments = Array.from(commentGroup.getElementsByClassName('comment-item'));
-      comments.sort((a, b) => {
-        const ratingA = parseInt(a.getAttribute('data-rating'));
-        const ratingB = parseInt(b.getAttribute('data-rating'));
-        const indexA = parseInt(a.getAttribute('data-index'));
-        const indexB = parseInt(b.getAttribute('data-index'));
-
-        if (sortValue === '由高至低') {
-          return ratingB - ratingA;
-        } else if (sortValue === '由低至高') {
-          return ratingA - ratingB;
-        } else {
-          return indexA - indexB; // 相關性排序，根據原始順序
-        }
-      });
-      comments.forEach(comment => commentGroup.appendChild(comment));
-      commentGroup.scrollTo(0, 0);
-    });
-  </script>
-
-  <script>
-    var storeId = <?=json_encode($storeId); ?>;
-  </script>
-
-  <script>
-    function navigateToStore(storeLat, storeLng) {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          var userLat = position.coords.latitude;
-          var userLng = position.coords.longitude;
-          var googleMapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${storeLat},${storeLng}`;
-          window.open(googleMapsUrl, '_blank');
-        }, function(error) {
-          alert('無法取得您的位置: ' + error.message);
-        });
-      } else {
-        alert('您的瀏覽器不支援地理定位功能。');
-      }
-    }
-  </script>
-
-  <!-- 載入地圖框架 leaflet.js -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
-  <!-- 載入 leaflet.awesome-markers.min.js -->
-  <script src="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers/dist/leaflet.awesome-markers.min.js"></script>
-
-  <!-- 載入 Font Awesome Kit -->
-  <script src="https://kit.fontawesome.com/876a36192d.js" crossorigin="anonymous"></script>
-
-  <!-- 載入 Markercluster.js -->
-  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-
-  <!-- 載入主程式 -->
-  <script src="/scripts/map.js"></script>
-  <script src="/scripts/storedetail-landmark.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-
-  <script src="/scripts/store-detail.js"></script>
-
+  <script src="https://kit.fontawesome.com/876a36192d.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers/dist/leaflet.awesome-markers.min.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+  <script src="/scripts/detail.js"></script>
+  <script src="/scripts/map.js"></script>
+  <script src="/scripts/detail-landmark.js"></script>
+  <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/footer.php'; ?>
 </body>
-
 </html>

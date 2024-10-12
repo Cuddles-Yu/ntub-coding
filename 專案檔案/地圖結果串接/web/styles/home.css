@@ -35,7 +35,6 @@ body{
 
 @media (min-width: 711px){
   .title-text{
-    margin-top: 70px;
     text-align: center;
     font-weight: bold;
     font-size: 75px;
@@ -61,11 +60,6 @@ body{
     position: relative;
     overflow-x: hidden;
     font-size: 16px;
-  }
-
-  .form-floating>.form-control, .form-floating>.form-control-plaintext{
-    padding: 16px  12px;
-    height: 65px;
   }
 
   .filter-button{
@@ -130,7 +124,7 @@ body{
   }
 
   #map{
-    max-width: 770px;
+    max-width: 788px;
     height: 400px;
     border-radius: 10px;
     border: 1px solid #716d6d;
@@ -159,14 +153,6 @@ body{
     font-size: 20px;
     font-weight: bold;
     margin-top: 20px;
-  }
-
-  .tertiary-content{
-    max-width: 1400px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 10px;
-    height: auto;
   }
 
   #tab {
@@ -388,7 +374,6 @@ body{
 
 @media (min-width: 551px) and (max-width: 710px){
   .title-text{
-    margin-top: 60px;
     text-align: center;
     font-weight: bold;
     font-size: 65px;
@@ -414,11 +399,6 @@ body{
     margin-left: 10px;
     overflow-x: hidden;
     font-size: 16px;
-  }
-
-  .form-floating>.form-control, .form-floating>.form-control-plaintext{
-    padding: 16px  12px;
-    height: 65px;
   }
 
   .filter-button{
@@ -528,14 +508,6 @@ body{
     font-size: 16px;
     font-weight: bold;
     margin-top: 20px;
-  }
-
-  .tertiary-content{
-    max-width: 1400px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 10px;
-    height: auto;
   }
 
   #tab {
@@ -755,7 +727,6 @@ body{
 
 @media (max-width: 550px){
   .title-text{
-    margin-top: 25px;
     text-align: center;
     font-weight: bold;
     font-size: 50px;
@@ -781,11 +752,6 @@ body{
     margin-left: 10px;
     overflow-x: hidden;
     font-size: 16px;
-  }
-
-  .form-floating>.form-control, .form-floating>.form-control-plaintext{
-    padding: 16px  12px;
-    height: 38px;
   }
 
   .filter-button{
@@ -895,14 +861,6 @@ body{
     font-size: 16px;
     font-weight: bold;
     margin-top: 20px;
-  }
-
-  .tertiary-content{
-    max-width: 1400px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 10px;
-    height: auto;
   }
 
   #tab {

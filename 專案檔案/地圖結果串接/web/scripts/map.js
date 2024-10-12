@@ -1,12 +1,28 @@
-var map = L.map('map');
+var map = L.map('map', {
+  zoom: 11,
+  minZoom: 11,
+  maxZoom: 18,
+  maxBoundsViscosity: 0.5,  
+  maxBounds: L.latLngBounds(
+    L.latLng(24.75, 121.1),
+    L.latLng(25.35, 122.0)
+  )
+});
 
 map.on('locationerror', function (e) {
-  showAlert('red', '定位失敗，請確認您是否已開啟定位。');
+  showAlert('red', '定位失敗，請確認您是否已開啟定位');
+});
+map.on('moveend', function() {
+  getCenter();
+  var bounds = map.getBounds();
+  var maxBounds = map.options.maxBounds;
+  if (!maxBounds.contains(bounds)) showAlert("red", "僅支援雙北地區餐廳");
 });
 
 var OpenStreetMap_Mapnik = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>contributors'
 }).addTo(map);
+
 var storeIcon = L.icon({
   iconUrl: './images/location-mark1.png',
   iconSize: [30, 30],
@@ -22,11 +38,57 @@ var userIcon = L.icon({
   iconSize: [20, 20],
   popupAnchor: [0, -20]
 });
-var markers = new L.MarkerClusterGroup({
-maxClusterRadius: function (zoom) {
-    return zoom > 14 ? 40 : 80;
-}
+var centerIcon = L.icon({
+  iconUrl: './images/location-target.png',
+  iconSize: [34, 34],
+  popupAnchor: [0, -20]
 });
+
+var markers = new L.MarkerClusterGroup({
+  showCoverageOnHover: false,
+  maxClusterRadius: function (zoom) {
+    return zoom > 14 ? 40 : 80;
+  },
+  iconCreateFunction: function(cluster) {    
+		return L.divIcon({
+      className: 'leaflet-marker',
+      html: `<div style="position: relative; width: 40px; height: 40px;opacity:0.9;">
+              <img src="/images/location-group3.png" style="width: 100%; height: 100%;">
+              <w style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -60%); color: white; font-size: 15px;">${cluster.getChildCount()}</w>
+            </div>`,
+      iconSize: [40, 40],
+      iconAnchor: [20, 40]
+  })}
+});
+
+
+// var geoLayer;
+// document.getElementById('citySelect').addEventListener('change', function() {
+//   var city = this.value;
+//   if (geoLayer) map.removeLayer(geoLayer);
+//   if (city) {
+//     fetch(`/geo/${city}.json`)
+//       .then(response => response.json())
+//       .then(json => {
+//         geoLayer = L.geoJSON(json).bindPopup(function (layer) {
+//           return layer.feature.properties.T_Name;
+//         }).addTo(map);
+//         //map.fitBounds(currentLayer.getBounds());
+//       });
+//   }
+// });
+
+// const popup = L.popup();
+// function onMapClick(e) {
+//   let lat = e.latlng.lat;
+//   let lng = e.latlng.lng;
+//   popup
+//     .setLatLng(e.latlng)
+//     .setContent(`緯度：${lat}<br/>經度：${lng}`)
+//     .openOn(map);
+// }
+// map.on('click', onMapClick);
+
 
 L.control.scale({
     position: 'bottomleft',
@@ -34,13 +96,9 @@ L.control.scale({
 }).addTo(map);
 
 
-// 在頁面加載時自動抓取使用者的位置並顯示在地圖上
 window.addEventListener('load', function () {
   generateNavigationButton();
   generateInfoBar();
-  map.on('moveend', function () {
-    getCenter();        
-  });  
 });
 
 function generateNavigationButton() {
@@ -55,7 +113,7 @@ function generateNavigationButton() {
       'margin-top:-60px;'+
       'margin-left:50px;'
     );
-    button.innerHTML = '<img src="/images/button-navigation.png" style="max-width:80%;max-height:80%;margin-bottom:1px;margin-right:5px;"></img>返回所在位置';
+    button.innerHTML = '<img src="/images/button-navigation.png" style="max-width:80%;max-height:80%;margin-bottom:1px;margin-right:5px;"></img>所在位置';
     return button;
   };
   locationButton.addTo(map);
@@ -71,7 +129,7 @@ function generateNavigationButton() {
       'margin-left:50px;'+
       'display:none;'
     );
-    button.innerHTML = '<img src="/images/button-search-target.png" style="max-width:80%;max-height:80%;margin-bottom:1px;margin-right:5px;"></img>返回查詢位置';
+    button.innerHTML = '<img src="/images/button-search-target.png" style="max-width:80%;max-height:80%;margin-bottom:1px;margin-right:5px;"></img>查詢位置';
     return button;
   };
   searchButton.addTo(map);
@@ -104,7 +162,6 @@ function showInfoBar(info) {
   infoBar.style.display = (info.trim()!=='')?'block':'none';
 }
 
-// 定位使用者所在位置的函數
 async function defaultLocate(autoSetView = true) {
   const defaultLat = 25.0418963;
   const defaultLng = 121.5230431;
@@ -121,12 +178,13 @@ async function defaultLocate(autoSetView = true) {
       }));
       if (autoSetView) map.setView([userLat, userLng], 16);
     } catch (error) {
-      console.log('無法取得您的位置: ' + error.message);
+      showAlert('red', `取得您的位置過程中發生非預期的錯誤`);
     }
   } else {
-    console.log('您的瀏覽器不支援地理定位功能。');
+    showAlert('red', '不支援地理定位功能');
   }
-  document.getElementById('crosshair').style.display = 'block';
+  var crosshair = document.getElementById('crosshair');
+  if (crosshair) crosshair.style.display = 'block';
 }
 
 function searchLocate() {
@@ -136,21 +194,16 @@ function searchLocate() {
   if (lat&&lng&&zoom) map.setView([lat, lng], zoom);
 }
 
-// 取得地圖中心經緯度
 function getCenter() {
   var mapCenter = map.getCenter();
   document.getElementById('map').setAttribute('data-lat', mapCenter.lat);
   document.getElementById('map').setAttribute('data-lng', mapCenter.lng);
   return mapCenter;
 }
-
-// 設置地圖中心經緯度
 function setView([lat, lng], zoomLevel) {
   map.setView([lat, lng], zoomLevel);
   getCenter()
 }
-
-// 設置地圖中心函式(會讓地圖自動縮放)
 function setPlaceCenter(latlngs) {
     if (latlngs.length === 0) return;
     var bounds = L.latLngBounds(latlngs);

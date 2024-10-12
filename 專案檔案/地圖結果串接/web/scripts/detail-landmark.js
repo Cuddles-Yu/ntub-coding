@@ -32,7 +32,7 @@ function normalizeDistance(distance) {
 window.addEventListener('load', function () {
   var bounds = [];
   var storeLatLng = null;
-  fetch(`struc/store-detail_landmark.php?storeId=${storeId}`, {
+  fetch(`struc/detail-landmark.php?storeId=${storeId}`, {
     method: 'POST',
     credentials: 'same-origin'
   }).then(response => response.json())
@@ -75,5 +75,6 @@ window.addEventListener('load', function () {
       } else {
         alert('您的瀏覽器不支援地理定位功能。');
       }
-  }).catch(error => console.error('取得您的位置時發生錯誤:', error));
+    })
+    .catch(() => {showAlert('red', '取得您的位置時發生非預期的錯誤');});
 });

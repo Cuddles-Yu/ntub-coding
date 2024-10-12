@@ -3,24 +3,19 @@
 ?>
 
 <!doctype html>
-<html lang="zh-TW">
-  
+<html lang="zh-TW">  
 <head>
   <meta charset="utf-8" />
   <title>成員介紹 - 評星宇宙</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">  
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-  <meta name="keywords" content="評價, google map" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
-  <link rel="stylesheet" href="styles/team-member.css" />
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>  
+  <link rel="stylesheet" href="/styles/team.css" />
 </head>
 
 <body>
-
-  <!-- ### 頁首 ### -->
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
   
-
-  <!-- ### 內容 ### -->
   <section class="primary-conent">
 
     <div class="member-group">  
@@ -74,23 +69,12 @@
       </div>
     </div>
   </section>
-  
-  <!-- ### 頁尾 ### -->
-  <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/footer.php'; ?>
-  
+    
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-  <script>
-    document.querySelectorAll('.team-menu').forEach(page => {
-      page.removeAttribute('href');
-      page.setAttribute('style', 'cursor:default;');
-    });
-    document.querySelectorAll('.team-page').forEach(page => {
-      page.removeAttribute('href');
-      page.setAttribute('style', 'cursor:default;');
-    });
-  </script>
-
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+  <script src="https://kit.fontawesome.com/876a36192d.js" crossorigin="anonymous"></script>
+  <script src="/scripts/team.js"></script>
+  <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/footer.php'; ?>
 </body>
 
 </html>

@@ -29,3 +29,12 @@
     $stmt->bind_param($type, ...$params);
     return $stmt;
   }
+
+  function transformToPreference($item) {
+    global $MEMBER_INFO;
+    $item = str_replace('condition-', '', $item);
+    $item = str_replace('signup-', '', $item);
+    $item = str_replace('member-', '', $item);
+    $item = str_replace('-', '_', $item);
+    return $MEMBER_INFO[$item] ? 'checked' : '';
+  }

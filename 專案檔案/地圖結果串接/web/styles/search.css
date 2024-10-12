@@ -26,12 +26,6 @@ body{
 
 @media (min-width: 1373px){
 
-  .all-content{
-    max-width: 1600px;
-    min-height: calc(100% - 100px);
-    margin-bottom: 10px;
-  }
-
   .search{
     align-items: center;
     padding-top: 30px;
@@ -60,7 +54,7 @@ body{
 
   .filter-button{
     position: relative;
-    margin-left: 30px;
+    margin-left: 12px;
     margin-bottom: 15px;
     color: white;
     white-space: nowrap;
@@ -90,20 +84,15 @@ body{
   }
 
   .search-keyword{
-    width: 500px;
+    width: 510px;
     position: relative;
     overflow-x: hidden;
     font-size: 16px;
   }
 
-  .form-floating>.form-control, .form-floating>.form-control-plaintext{
-    padding: 16px  12px;
-    height: 58px;
-  }
-
   .search-button{
     position: relative;
-    margin-left: 20px;
+    margin-left: 10px;
     margin-bottom: 15px;
     color: white;
     white-space: nowrap;
@@ -304,7 +293,7 @@ body{
 
 }
 
-@media (min-width: 696px) and (max-width:1372px){
+@media (min-width: 696px) and (max-width:1372px) {
 
   @keyframes rotate {
     0% {
@@ -322,11 +311,6 @@ body{
     align-items: center;
     margin-top: 8px;
     margin-bottom: 8px;
-  }
-
-  .all-content{
-    max-width: 1000px;
-    min-height: calc(100% - 90px);
   }
 
   .search{
@@ -392,11 +376,6 @@ body{
     position: relative;
     overflow-x: hidden;
     font-size: 16px;
-  }
-
-  .form-floating>.form-control, .form-floating>.form-control-plaintext{
-    padding: 16px  12px;
-    height: 58px;
   }
 
   .search-button{
@@ -620,11 +599,6 @@ body{
     margin-bottom: 8px;
   }
 
-  .all-content{
-    max-width: 1000px;
-    min-height: calc(100% - 90px);
-  }
-
   .search{
     align-items: center;
     padding-top: 30px;
@@ -688,11 +662,6 @@ body{
     position: relative;
     overflow-x: hidden;
     font-size: 16px;
-  }
-
-  .form-floating>.form-control, .form-floating>.form-control-plaintext{
-    padding: 16px  12px;
-    height: 58px;
   }
 
   .search-button{

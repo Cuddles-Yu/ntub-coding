@@ -13,6 +13,27 @@
   box-sizing: border-box;
 }
 
+.good-side{
+  background-color: #edfff3;
+}
+.bad-side{
+  background-color: #ffeded;
+}
+.middle-side{
+  background-color: #ededff;
+}
+.normal-side{
+  background-color: #f9f9f9;
+}
+
+#reset-comment-search {
+  display:none;
+  margin-bottom:18px;
+  margin-right:-25px;
+  width:40px;
+  padding:0;
+}
+
 #favorite-button {
   display: inline-flex;
   align-items: center;
@@ -360,11 +381,6 @@ body{
     margin: 0 auto;
 }
 
-.primary-content{
-    margin-top: 35px;
-    box-sizing: border-box;
-}
-
 .store-title{
     font-weight: bold;
     font-size: 45px;
@@ -525,10 +541,6 @@ body{
     color: #343333;
     font-size: 20px;
     font-weight: bold;
-    margin-top: 10px;
-}
-
-.secondary-content{
     margin-top: 10px;
 }
 
@@ -739,10 +751,6 @@ body{
     text-underline-offset: 3px;
 }
 
-.tertiary-content{
-    margin-top: 50px;
-}
-
 .comment-title{
     display: flex;
     align-items: flex-start;
@@ -838,22 +846,6 @@ body{
     margin-bottom: 15px;
 }
 
-.good-side{
-    background-color: #f1fff5;
-}
-
-.bad-side{
-    background-color: #fff3f3;
-}
-
-.neutral-side{
-    background-color: #fefbf2f5;
-} 
-
-.middle-side{
-    background-color: #f8f8ff;
-}
-
 .title-gb{
     margin-left: 15px;
     margin-top: 10px;
@@ -943,7 +935,6 @@ body{
 }
 
 .comment-item{
-    background-color: #F9F9F9;
     padding: 15px 10px 13px 15px;
     border-radius: 15px;
     margin-bottom: 15px;
@@ -976,10 +967,6 @@ body{
     font-weight: bold;
     margin: 0;
     font-size: 16px;
-}
-
-.fourth-content{
-    margin-top: 30px;
 }
 
 .question-2{
@@ -1058,14 +1045,6 @@ body{
   height: 100%;
 }
 
-.fifth-content{
-    margin-top: 30px;
-}
-
-.sixth-content{
-    margin-top: 30px;
-}
-
 .carousel-container-tag{
     display: flex;
     align-items: flex-start;
@@ -1142,11 +1121,6 @@ body{
     width: 98%;
     max-width: 1540px;
     margin: 0 auto;
-  }
-
-  .primary-content{
-    margin-top: 10px;
-    box-sizing: border-box;
   }
 
   .store-title{
@@ -1306,10 +1280,6 @@ body{
     margin-top: 7px;
   }
   
-  .secondary-content{
-    margin-top: 10px;
-  }
-
   .table{
     margin-top: 10px;
     margin-bottom: 0px;
@@ -1509,10 +1479,6 @@ body{
     text-underline-offset: 3px;
   }
   
-  .tertiary-content{
-    margin-top: 30px;
-  }
-  
   .comment-title{
     display: flex;
     align-items: center;
@@ -1606,22 +1572,6 @@ body{
     margin-bottom: 15px;
   }
   
-  .good-side{
-    background-color: #f1fff5;
-  }
-  
-  .bad-side{
-    background-color: #fff3f3;
-  }
-
-  .neutral-side{
-    background-color: #fefbf2f5;
-  } 
-
-  .middle-side{
-    background-color: #f8f8ff;
-  }
-  
   .title-gb{
     margin-left: 15px;
     margin-top: 10px;
@@ -1710,7 +1660,6 @@ body{
   }
   
   .comment-item{
-    background-color: #F9F9F9;
     padding: 10px 10px 13px 15px;
     border-radius: 15px;
     margin-bottom: 15px;
@@ -1743,10 +1692,6 @@ body{
     font-weight: bold;
     margin: 0;
     font-size: 14px;
-  }
-  
-  .fourth-content{
-    margin-top: 10px;
   }
 
   .question-2{
@@ -1825,14 +1770,6 @@ body{
   .card-a{
     height: 100%;
   }
-  
-  .fifth-content{
-    margin-top: 10px;
-  }
-
-  .sixth-content{
-    margin-top: 10px;
-  }
 
   .carousel-container-tag{
     display: flex;
@@ -1909,11 +1846,6 @@ body{
     width: 98%;
     max-width: 1540px;
     margin: 0 auto;
-  }
-
-  .primary-content{
-    margin-top: 10px;
-    box-sizing: border-box;
   }
 
   .store-title{
@@ -2077,10 +2009,6 @@ body{
     font-size: 16px;
     font-weight: bold;
     margin-top: 7px;
-  }
-  
-  .secondary-content{
-    margin-top: 10px;
   }
 
   .table{
@@ -2274,10 +2202,6 @@ body{
     font-size: 16px;
   }
   
-  .tertiary-content{
-    margin-top: 30px;
-  }
-  
   .comment-title{
     display: flex;
     align-items: center;
@@ -2365,22 +2289,6 @@ body{
     min-height: 100px;
     border-radius: 10px;
     margin-bottom: 15px;
-  }
-  
-  .good-side{
-    background-color: #f1fff5;
-  }
-
-  .bad-side{
-    background-color: #fff3f3;
-  }
-
-  .neutral-side{
-    background-color: #fefbf2f5;
-  } 
-
-  .middle-side{
-    background-color: #f8f8ff;
   }
   
   .title-gb{
@@ -2471,7 +2379,6 @@ body{
   }
   
   .comment-item{
-    background-color: #F9F9F9;
     padding: 10px 10px 13px 15px;
     border-radius: 15px;
     margin-bottom: 15px;
@@ -2504,10 +2411,6 @@ body{
     font-weight: bold;
     margin: 0;
     font-size: 14px;
-  }
-  
-  .fourth-content{
-    margin-top: 25px;
   }
 
   .question-2{
@@ -2586,14 +2489,6 @@ body{
   .card-a{
     height: 100%;
   }
-  
-  .fifth-content{
-    margin-top: 25px;
-  }
-
-  .sixth-content{
-    margin-top: 25px;
-  }
 
   .carousel-container-tag{
     display: flex;
@@ -2670,11 +2565,6 @@ body{
     width: 98%;
     max-width: 1540px;
     margin: 0 auto;
-  }
-
-  .primary-content{
-    margin-top: 10px;
-    box-sizing: border-box;
   }
 
   .store-title{
@@ -2838,10 +2728,6 @@ body{
     font-size: 16px;
     font-weight: bold;
     margin-top: 7px;
-  }
-  
-  .secondary-content{
-    margin-top: 10px;
   }
 
   .table{
@@ -3038,10 +2924,6 @@ body{
     font-size: 16px;
   }
   
-  .tertiary-content{
-    margin-top: 30px;
-  }
-  
   .comment-title{
     display: flex;
     align-items: center;
@@ -3128,22 +3010,6 @@ body{
     min-height: 100px;
     border-radius: 10px;
     margin-bottom: 15px;
-  }
-  
-  .good-side{
-    background-color: #f1fff5;
-  }
-
-  .bad-side{
-    background-color: #fff3f3;
-  }
-
-  .neutral-side{
-    background-color: #fefbf2f5;
-  } 
-
-  .middle-side{
-    background-color: #f8f8ff;
   }
   
   .title-gb{
@@ -3234,7 +3100,6 @@ body{
   }
   
   .comment-item{
-    background-color: #F9F9F9;
     padding: 10px 10px 13px 15px;
     border-radius: 15px;
     margin-bottom: 15px;
@@ -3267,10 +3132,6 @@ body{
     font-weight: bold;
     margin: 0;
     font-size: 14px;
-  }
-  
-  .fourth-content{
-    margin-top: 25px;
   }
 
   .question-2{
@@ -3348,14 +3209,6 @@ body{
 
   .card-a{
     height: 100%;
-  }
-  
-  .fifth-content{
-    margin-top: 25px;
-  }
-
-  .sixth-content{
-    margin-top: 25px;
   }
 
   .carousel-container-tag{
