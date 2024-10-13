@@ -24,7 +24,7 @@
         <img class="member-picture" src="images/member1.png">
         <h2 class="member-name">余奕博</h2>
         <div class="email-group">
-          <img class="arrow" src="images/list-point.jpg">
+          <img class="arrow" src="images/list-point.png">
           <div class="text-group">
             <h6 class="email-title">Email</h6>
             <h6 class="email">11236018@ntub.edu.tw</h6>
@@ -33,10 +33,10 @@
       </div>
       <div class="member-card">
         <h4 class="member-title">組員</h4>
-        <img class="member-picture" src="images/member2.jpg">
+        <img class="member-picture" src="images/member2.png">
         <h2 class="member-name">邱綺琳</h2>
         <div class="email-group">
-          <img class="arrow" src="images/list-point.jpg">
+          <img class="arrow" src="images/list-point.png">
           <div class="text-group">
             <h6 class="email-title">Email</h6>
             <h6 class="email">11236019@ntub.edu.tw</h6>
@@ -45,10 +45,10 @@
       </div>
       <div class="member-card">
         <h4 class="member-title">組員</h4>
-        <img class="member-picture" src="images/member3.jpg">
+        <img class="member-picture" src="images/member3.png">
         <h2 class="member-name">鄧惠中</h2>
         <div class="email-group">
-          <img class="arrow" src="images/list-point.jpg">
+          <img class="arrow" src="images/list-point.png">
           <div class="text-group">
             <h6 class="email-title">Email</h6>
             <h6 class="email">11236007@ntub.edu.tw</h6>
@@ -60,7 +60,7 @@
         <img class="member-picture" src="images/member4.png">
         <h2 class="member-name">陳彥瑾</h2>
         <div class="email-group">
-          <img class="arrow" src="images/list-point.jpg">
+          <img class="arrow" src="images/list-point.png">
           <div class="text-group">
             <h6 class="email-title">Email</h6>
             <h6 class="email">11236037@ntub.edu.tw</h6>

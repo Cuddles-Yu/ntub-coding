@@ -36,3 +36,33 @@ function toggleFavorite(element, storeId) {
   .catch(() => {showAlert('red', '收藏過程中發生非預期的錯誤');})
   .finally(() => {element.disabled = false;});
 }
+
+function countCheckedServiceMarks() {
+  const checkboxes = document.querySelectorAll('.service-mark');
+  const checkedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+  return checkedCount;
+}
+
+function updateArea(target) {
+  const selectedCity = document.getElementById(`${target}-city-select`).value;
+  const distSelect = document.getElementById(`${target}-dist-select`);    
+  if (selectedCity === '') {
+    distSelect.innerHTML = "";
+    return;
+  }
+  distSelect.innerHTML = "<option value=''>(無限制)</option>";
+  const formData = new FormData();
+  formData.set('city', selectedCity);     
+  fetch('/handler/get-dists.php', {
+    method: 'POST',
+    credentials: 'same-origin',
+    body: formData
+  }).then(response => response.json())
+    .then(data => {
+      data.forEach(dist => {
+        distSelect.innerHTML += `<option value="${dist}">${dist}</option>`;
+      });
+    })        
+    .catch(error => {showAlert('red', error);}
+  );
+}

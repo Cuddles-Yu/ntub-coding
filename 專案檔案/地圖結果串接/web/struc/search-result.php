@@ -6,17 +6,18 @@
 
   $memberWeights = getMemberNormalizedWeight();
 
+  $searchRadius = $_POST['searchRadius']??1500;
   $keyword = array_key_exists('q', $_POST) ? htmlspecialchars($_POST['q']) : null;
   $mapCenterLat = isset($_POST['mapCenterLat']) ? floatval($_POST['mapCenterLat']) : null;
   $mapCenterLng = isset($_POST['mapCenterLng']) ? floatval($_POST['mapCenterLng']) : null;
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
       if (is_null($keyword)) return;
-      $stores = searchByLocation($keyword, $mapCenterLat, $mapCenterLng, $RESULT_LIMIT);
+      $stores = searchByLocation($keyword, $searchRadius, $mapCenterLat, $mapCenterLng, $RESULT_LIMIT);
       $storeData = [];
       foreach ($stores as $store) {
-          $storeId = $store['id'];
-          $bayesianScore = getBayesianScore($memberWeights, $storeId);
+          $STORE_ID = $store['id'];
+          $bayesianScore = getBayesianScore($memberWeights, $STORE_ID);
           $storeData[] = [
               'store' => $store,
               'bayesianScore' => $bayesianScore
@@ -35,11 +36,11 @@
   <?php foreach ($storeData as $storeItem) : ?>      
     <?php
       $store = $storeItem['store'];
-      $storeId = $store['id'];
+      $STORE_ID = $store['id'];
       $bayesianScore = $storeItem['bayesianScore'];
 
-      $targetsInfo = getTargets($storeId);
-      $isFavorite = isFavorite($storeId);
+      $targetsInfo = getTargets($STORE_ID);
+      $isFavorite = isFavorite($STORE_ID);
       $distance = normalizeDistance($store['distance']);      
       $tag = htmlspecialchars($store['tag']);
       $storeName = htmlspecialchars($store['name']);
@@ -61,7 +62,7 @@
       });
       $rowIndex = 1;
     ?>
-    <div class="container-fluid store-body <?=$cardType?> <?php if($isFavorite): echo 'store-card-favorite'; endif;?>" data-id="<?=$storeId?>" onclick="redirectToDetailPage('<?=$storeId?>')">
+    <div class="container-fluid store-body <?=$cardType?> <?php if($isFavorite): echo 'store-card-favorite'; endif;?>" data-id="<?=$STORE_ID?>" onclick="redirectToDetailPage('<?=$STORE_ID?>')">
         <div class="row">
             <div class="store-img-group col-3">
               <img class="store-img" src="<?=$preview_image?>">
@@ -97,7 +98,7 @@
                       <?php endforeach?>
                     </div>
                     <div class="quick-group col-2">
-                      <div onclick="toggleFavorite(this,<?=$storeId?>);event.stopPropagation();">
+                      <div onclick="toggleFavorite(this,<?=$STORE_ID?>);event.stopPropagation();">
                         <img class="search-result-button-icon" src="<?=$isFavorite?'images/button-favorite-active.png':'images/button-favorite-inactive.png';?>">
                         <h6 class="love-text">收藏</h6>
                       </div>

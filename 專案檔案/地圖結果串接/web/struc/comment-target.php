@@ -8,7 +8,7 @@
   header('Content-Type: application/json');
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $object = $_POST['q']??'';
-    $storeId = $_POST['id']??'';
+    $STORE_ID = $_POST['id']??'';
     $requestType = $_POST['type']??'';
     $target = $_POST['target']??'';
     if ($target === '氛圍') $target = '環境';
@@ -32,14 +32,14 @@
         INNER JOIN comments AS c ON m.comment_id = c.id AND m.store_id = c.store_id
         WHERE m.store_id = ? AND object = ? AND state IN ($allStates)
       ");
-      $stmt->bind_param("is", $storeId, $object);
+      $stmt->bind_param("is", $STORE_ID, $object);
     } else {
       $stmt = $conn->prepare("
         SELECT DISTINCT c.* FROM marks AS m
         INNER JOIN comments AS c ON m.comment_id = c.id AND m.store_id = c.store_id
         WHERE m.store_id = ? AND object = ? AND target = ? AND state IN ($allStates)
       ");
-      $stmt->bind_param("iss", $storeId, $object, $target);
+      $stmt->bind_param("iss", $STORE_ID, $object, $target);
     }
     $stmt->execute();
     $result = $stmt->get_result();

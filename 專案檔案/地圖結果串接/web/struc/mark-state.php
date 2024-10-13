@@ -3,14 +3,14 @@
 
   header('Content-Type: application/json');
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $storeId = $_POST['id'] ?? '';
+    $STORE_ID = $_POST['id'] ?? '';
     $target = $_POST['target'] ?? '';
     if ($target === '氛圍') $target = '環境';
     if ($target === '全部') $target = '';
     
     echo json_encode([
-      'good' => generateMarks($storeId, '正面', $target),
-      'bad' => generateMarks($storeId, '負面', $target),
-      'middle' => generateMarks($storeId, '中立', $target),
+      'good' => generateMarks($STORE_ID, '正面', $target),
+      'bad' => generateMarks($STORE_ID, '負面', $target),
+      'middle' => generateMarks($STORE_ID, '中立', $target),
     ]);
   }

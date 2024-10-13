@@ -9,6 +9,23 @@ document.querySelectorAll('.home-page').forEach(page => {
   page.setAttribute('style', 'cursor:default;');
 });
 
+window.addEventListener('load', async function () {      
+  const urlParams = new URLSearchParams(window.location.search);
+  const keyword = urlParams.get('q')??'';
+  const lat = urlParams.get('lat');
+  const lng = urlParams.get('lng');
+  if (lat && lng) {
+    setView([lat, lng], 16);
+    await defaultLocate(false);
+    document.getElementById('keyword').value = keyword;
+    document.getElementById('search-button').click();
+  } else {
+    await defaultLocate();
+    document.getElementById('keyword').value = keyword;
+    document.getElementById('search-button').click();
+  }
+  setCondition();
+});
 
 //搜尋結果滾動條隱藏
 const storeContainer = document.querySelector('.store');
@@ -27,10 +44,11 @@ document.getElementById('keyword').addEventListener('keydown', function(event) {
 });
 
 function searchStoresByKeyword() {
+  var searchRadius = document.getElementById('condition-search-radius-input').value;
   var searchButton = document.getElementById('search-button');
   var keyword = document.getElementById('keyword').value;
   var searchResults = document.getElementById('searchResults');
-  var mapCenter = getCenter(); // 取得地圖中心經緯度
+  var mapCenter = getCenter();
   var lat = document.getElementById('map').getAttribute('data-lat');
   var lng = document.getElementById('map').getAttribute('data-lng');
   document.title = keyword.trim() === "" ? "搜尋結果 - 評星宇宙" : `${keyword}搜尋結果 - 評星宇宙`;
@@ -40,6 +58,7 @@ function searchStoresByKeyword() {
 
   const formData = new FormData();
   formData.set('q', keyword);
+  formData.set('searchRadius', searchRadius);
   formData.set('mapCenterLat', lat);
   formData.set('mapCenterLng', lng);
 
@@ -84,7 +103,7 @@ function searchStoresByKeyword() {
     })
     .finally(() => {
       searchButton.disabled = false;
-      showInfoBar(`[開發中] 搜尋半徑 ??? 公尺`);          
+      showInfoBar(`搜尋半徑 ${document.getElementById('condition-search-radius-input').value} 公尺`);          
     });
 }
 
@@ -154,23 +173,6 @@ function clearHighlightResult() {
   var old = document.querySelector(`.store-card-highlight`);
   if (old) old.classList.remove('store-card-highlight');
 }
-
-window.addEventListener('load', async function () {      
-  const urlParams = new URLSearchParams(window.location.search);
-  const keyword = urlParams.get('q')??'';
-  const lat = urlParams.get('lat');
-  const lng = urlParams.get('lng');
-  if (lat && lng) {
-    setView([lat, lng], 16);
-    await defaultLocate(false);
-    document.getElementById('keyword').value = keyword;
-    document.getElementById('search-button').click();
-  } else {
-    await defaultLocate();
-    document.getElementById('keyword').value = keyword;
-    document.getElementById('search-button').click();
-  }      
-});
 
 function scrollToStore(storeName, storeId) {
   var storeElement = document.querySelector(`id=${storeId}`);

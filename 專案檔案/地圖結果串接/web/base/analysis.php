@@ -7,6 +7,7 @@
   
   $_ROUND = 1;
   $RESULT_LIMIT = 50;
+  $MIN_KEYWORD_COUNT = 10;
 
   $_ATMOSPHERE = '氛圍';
   $_PRICE= '售價';
@@ -122,7 +123,7 @@
     return $stores;
   }
 
-  function searchByLocation($keyword, $userLat, $userLng, $limit){
+  function searchByLocation($keyword, $searchRadius, $userLat, $userLng, $limit){
     global $conn;
     $keyword = "%$keyword%";
     if ($userLat&&$userLng) {
@@ -136,7 +137,7 @@
         INNER JOIN rates AS r ON s.id = r.store_id
         INNER JOIN locations AS l ON s.id = l.store_id
         WHERE (s.name LIKE ? OR s.tag LIKE ? OR k.word LIKE ?) AND s.crawler_state IN ('成功', '完成', '超時')
-        HAVING distance <= 1500
+        HAVING distance <= $searchRadius
         ORDER BY distance, r.avg_ratings DESC, r.total_reviews DESC
         LIMIT ?
       ", 'dddsssi', $userLat, $userLng, $userLat, $keyword, $keyword, $keyword, $limit);

@@ -63,7 +63,7 @@ var markers = new L.MarkerClusterGroup({
 
 
 // var geoLayer;
-// document.getElementById('citySelect').addEventListener('change', function() {
+// document.getElementById('condition-city-select').addEventListener('change', function() {
 //   var city = this.value;
 //   if (geoLayer) map.removeLayer(geoLayer);
 //   if (city) {

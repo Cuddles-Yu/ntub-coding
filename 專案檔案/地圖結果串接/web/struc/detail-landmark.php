@@ -3,9 +3,9 @@
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/queries.php';
 
-  $storeId = $_GET['storeId'] ?? null;
+  $STORE_ID = $_GET['storeId'] ?? null;
 
-  if (is_null($storeId)) {
+  if (is_null($STORE_ID)) {
       echo json_encode(['error' => '無效的店家 ID']);
       exit;
   }
@@ -59,4 +59,4 @@
   }
   
   header('Content-Type: application/json');
-  echo json_encode(getStoreData($storeId));
+  echo json_encode(getStoreData($STORE_ID));

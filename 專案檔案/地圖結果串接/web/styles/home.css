@@ -85,17 +85,6 @@ body{
     font-size: 16px;
   }
 
-  .filter-container{
-    width: 725px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    background-color: #d9dfe4;
-    border-radius: 5px;
-    display: flex;
-    display: none;
-  }
-
   .filter-result{
     max-width: 100%;
     display: flex;
@@ -128,7 +117,6 @@ body{
     height: 400px;
     border-radius: 10px;
     border: 1px solid #716d6d;
-    margin-top: 40px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -442,16 +430,6 @@ body{
     font-size: 16px;
   }
 
-  .filter-container{
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 10px;
-    background-color: #d9dfe4;
-    border-radius: 5px;
-    display: flex;
-    display: none;
-  }
-
   .filter-result{
     max-width: 100%;
     display: flex;
@@ -484,7 +462,6 @@ body{
     height: 400px;
     border-radius: 10px;
     border: 1px solid #716d6d;
-    margin-top: 40px;
     margin-left: 10px;
     margin-right: 10px;
   }
@@ -795,16 +772,6 @@ body{
     font-size: 16px;
   }
 
-  .filter-container{
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 10px;
-    background-color: #d9dfe4;
-    border-radius: 5px;
-    display: flex;
-    display: none;
-  }
-
   .filter-result{
     max-width: 100%;
     display: flex;
@@ -837,7 +804,6 @@ body{
     height: 400px;
     border-radius: 10px;
     border: 1px solid #716d6d;
-    margin-top: 20px;
     margin-left: 10px;
     margin-right: 10px;
   }

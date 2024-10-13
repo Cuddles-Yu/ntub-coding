@@ -36,33 +36,33 @@
     $result = $stmt->get_result();
     $status = [
       'text' => '已打烊',
-      'class' => 'btn-outline-orange',
+      'class' => 'orange',
     ];    
     while ($row = $result->fetch_assoc()) {
       if (!empty($row['open_time']) && !empty($row['close_time'])) {
         if ($currentTime >= $row['open_time'] && $currentTime <= $row['close_time']) {
           if ($oneHourBeforeClose >= $row['close_time'] && $currentTime < $row['close_time']) {
             $status['text'] = '即將打烊';
-            $status['class'] = 'btn-outline-dark-orange';
+            $status['class'] = 'dark-orange';
           } else {
             $status['text'] = '營業中';
-            $status['class'] = 'btn-outline-green';
+            $status['class'] = 'green';
           }
           break;
         }
         if ($currentTime < $row['open_time'] && $oneHourLater >= $row['open_time']) {
           $status['text'] = '即將營業';
-          $status['class'] = 'btn-outline-dark-green';
+          $status['class'] = 'dark-green';
           break;
         }
       }
     }
     $stmt->close();
     return $status;
-}
+  }
 
-  $openingStatus = getOpeningStatus($storeId);
-  $openingHours = getOpeningHours($storeId);
+  $openingStatus = getOpeningStatus($STORE_ID);
+  $openingHours = getOpeningHours($STORE_ID);
   $daysOfWeek = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
   $todayIndex = date('N') - 1;
   $reorderedDays = array_merge(array_slice($daysOfWeek, $todayIndex), array_slice($daysOfWeek, 0, $todayIndex));
@@ -71,7 +71,7 @@
   $statusClass = $openingStatus['class'];
 ?>
 
-<button type="button" class="btn <?=$statusClass?> status" data-bs-container="body" data-bs-toggle="popover"
+<button type="button" class="btn btn-solid-<?=$statusClass?> status" data-bs-container="body" data-bs-toggle="popover"
   data-bs-title="營業時間" data-bs-placement="top" data-bs-html="true"
   data-bs-content="
   <?php
@@ -99,5 +99,5 @@
       }
       if ($day !== $lastDay) echo "<div class='open-hour-separator'></div>";
   }?>">
-  <i class="fi fi-sr-clock status-img"></i><?=$statusText?>
+  <i class="fi fi-sr-clock status-img"></i><?=$statusText?><i class="fi fi-sr-angle-small-right text-icon button-down-arrow"></i>
 </button>

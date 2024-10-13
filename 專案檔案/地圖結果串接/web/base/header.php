@@ -31,7 +31,7 @@
   </div>
 
   <div id="user_icon" <?php if($SESSION_DATA->success): ?>style="display:flex;"<?php endif; ?>>
-    <img src="/images/icon-member.jpg" id="user_icon_logo">
+    <img src="/images/icon-member.png" id="user_icon_logo">
   </div>
   <div id="login_button" <?php if($SESSION_DATA->success): ?>style="display:none;"<?php endif; ?>>
     <button id="login" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">登入</button>

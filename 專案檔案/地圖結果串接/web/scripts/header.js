@@ -73,6 +73,35 @@ function closeOpenedModal() {
   });
 }
 
+function setCondition() {  
+  const city = document.getElementById('condition-city-select').value;
+  const dist = document.getElementById('condition-dist-select').value;
+  const searchRadius = document.getElementById('condition-search-radius-input').value;
+  const willOpen = document.getElementById('condition-will-open').checked?1:0;
+  const openNow = document.getElementById('condition-open-now').checked?1:0;
+  const willClose = document.getElementById('condition-will-close').checked?1:0;
+  const closeNow = document.getElementById('condition-close-now').checked?1:0;
+  const serviceCount = countCheckedServiceMarks();
+  const container = document.getElementById('filter-container');
+  container.innerHTML = '<p class="filter-title">條件</p>';
+  if (city) {
+    container.innerHTML += `<p class="filter-item">區域：${city}${dist}</p>`;
+  } else {
+    container.innerHTML += `<p class="filter-item">區域：(無限制)</p>`;
+  }
+  container.innerHTML += `<p class="filter-item">範圍：${searchRadius} 公尺</p>`;
+  const openStatus = [];
+  if (willOpen) openStatus.push('即將營業');
+  if (openNow) openStatus.push('營業中');
+  if (willClose) openStatus.push('即將打烊');
+  if (closeNow) openStatus.push('已打烊');
+  container.innerHTML += `<p class="filter-item">狀態：${openStatus.join('/')}</p>`;
+  if (serviceCount > 0) {
+    container.innerHTML += `<p class="filter-item" style="background-color:mediumpurple;">包含 ${serviceCount} 項需求服務</p>`;
+  }
+  closeOpenedModal();  
+}
+
 function toggleMenu() {
   var menu = document.getElementById("member-menu-items");
   var arrow = document.getElementById("expand-arrow");
@@ -178,7 +207,9 @@ function bindFormControl(inputClass, buttonId) {
   inputs[0].focus();
 }
 
-function updatePreferences(target) {
+function updatePreferences(target, show = true) {
+  const city = document.getElementById(`${target}-city-select`).value;
+  const dist = document.getElementById(`${target}-dist-select`).value;
   const searchRadius = document.getElementById(`${target}-search-radius-input`).value;
   const willOpen = document.getElementById(`${target}-will-open`).checked?1:0;
   const openNow = document.getElementById(`${target}-open-now`).checked?1:0;
@@ -209,6 +240,8 @@ function updatePreferences(target) {
   const mobilePayment = document.getElementById(`${target}-mobile-payment`).checked?1:0;
   // 請求
   const formData = new FormData();
+  formData.set('city', city);
+  formData.set('dist', dist);
   formData.set('searchRadius', searchRadius);
   formData.set('willOpen', willOpen);
   formData.set('openNow', openNow);
@@ -245,9 +278,9 @@ function updatePreferences(target) {
   .then(response => response.json())
   .then(data => {
     if (data.success) {
-      showAlert('green', data.message);
+      if (show) showAlert('green', data.message);
     } else {
-      showAlert('red', data.message);
+      if (show) showAlert('red', data.message);
     }
   })
   .catch(() => {showAlert('red', '更新偏好過程中發生非預期的錯誤');});

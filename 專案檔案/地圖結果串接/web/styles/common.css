@@ -24,3 +24,10 @@ a.map-link {
   margin-right: 5px;
   top: 2px;
 }
+
+.button-down-arrow {
+  transform: rotate(90deg);
+  margin-left: 5px;
+  margin-bottom: 3px;
+  margin-right: -6px;
+}

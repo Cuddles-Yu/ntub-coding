@@ -18,27 +18,27 @@
   <div class="restaurant-group">
     <?php foreach ($stores as $store) : ?>
       <?php        
-        $storeId = $store['id'];
+        $STORE_ID = $store['id'];
         $storeName = htmlspecialchars($store['name']);
         $previewImage = htmlspecialchars($store['preview_image']);
         $link = htmlspecialchars($store['link']);
         $website = htmlspecialchars($store['website']);
         $tag = htmlspecialchars($store['tag']);
         $mark = $store['mark'];
-        $isFavorite = isFavorite($storeId);
+        $isFavorite = isFavorite($STORE_ID);
         $cardType = $markOptions[$mark]['cardType'] ?? '';
         $tagName = $markOptions[$mark]['tagName'] ?? '';
         $address = htmlspecialchars(getAddress($store));
-        $bayesianScore = getBayesianScore($memberWeights, $storeId);
-        $targetsInfo = getTargets($storeId);
+        $bayesianScore = getBayesianScore($memberWeights, $STORE_ID);
+        $targetsInfo = getTargets($STORE_ID);
       ?>
       <div class="card restaurant <?=$cardType?> <?php if($isFavorite): echo 'store-card-favorite'; endif;?>">
           <img src="<?=$previewImage?>" class="card-img-top">
           <div class="card-body">
               <h5 class="card-title"><?=$storeName?></h5>
               <div class="quick-group">
-                <div onclick="toggleFavorite(this,<?=$storeId?>);event.stopPropagation();">
-                  <img class="search-result-button-icon" src="<?=isFavorite($storeId)?'images/button-favorite-active.png':'images/button-favorite-inactive.png';?>">
+                <div onclick="toggleFavorite(this,<?=$STORE_ID?>);event.stopPropagation();">
+                  <img class="search-result-button-icon" src="<?=isFavorite($STORE_ID)?'images/button-favorite-active.png':'images/button-favorite-inactive.png';?>">
                   <h6 class="love-text">收藏</h6>
                 </div>
                 <a class="map-link" href="<?=htmlspecialchars($link)?>" target="_blank" onclick="event.stopPropagation();">

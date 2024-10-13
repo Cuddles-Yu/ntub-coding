@@ -11,13 +11,13 @@
       echo json_encode(['success' => false, 'message' => '您需要先登入會員才能進行餐廳收藏']);
       exit();
     }    
-    $storeId = $_POST['storeId'];
+    $STORE_ID = $_POST['storeId'];
 
     // 檢查 storeId 是否存在
     $stmt = bindPrepare($conn, "
       SELECT COUNT(*) FROM stores 
       WHERE id = ?
-    ", "i", $storeId);
+    ", "i", $STORE_ID);
     $stmt->execute();
     $stmt->bind_result($storeCount);
     $stmt->fetch();
@@ -32,7 +32,7 @@
     $stmt = bindPrepare($conn, "
       SELECT COUNT(*) FROM favorites 
       WHERE member_id = ? AND store_id = ?
-    ", "ii", $MEMBER_ID, $storeId);
+    ", "ii", $MEMBER_ID, $STORE_ID);
     $stmt->execute();
     $stmt->bind_result($count);
     $stmt->fetch();
@@ -42,7 +42,7 @@
       $stmt = bindPrepare($conn, "
         DELETE FROM favorites
         WHERE member_id = ? AND store_id = ?
-      ", "ii", $MEMBER_ID, $storeId);
+      ", "ii", $MEMBER_ID, $STORE_ID);
       if ($stmt->execute()) {
         echo json_encode(['success' => true, 'isFavorite' => false, 'message' => '已將該餐廳從收藏中移除']);
       } else {
@@ -54,7 +54,7 @@
         $stmt = bindPrepare($conn, "
           INSERT INTO favorites (member_id, store_id) 
           VALUES (?, ?)
-        ", "ii", $MEMBER_ID, $storeId);
+        ", "ii", $MEMBER_ID, $STORE_ID);
         if ($stmt->execute()) {
           echo json_encode(['success' => true, 'isFavorite' => true, 'message' => '已將該餐廳加入收藏']);
         } else {

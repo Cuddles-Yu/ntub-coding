@@ -1,5 +1,6 @@
 <?php 
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/session.php'; 
+  require_once $_SERVER['DOCUMENT_ROOT'].'/base/queries.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/analysis.php';
   if (!$SESSION_DATA->success) {    
     echo "
@@ -10,7 +11,7 @@
     ";
     exit();
   }
-  $MEMBER_INFO = getMemberInfo();
+  global $MEMBER_INFO;
   $FAVORITE_STORES = getFavoriteStores();
 ?>
 
@@ -48,36 +49,68 @@
       <div id="info_main_area">
           <div class="item_name">
               <span class="item_text item-text-right">帳號</span>
-              <input type="text" class="form-input-member" id="email" name="email" value="<?=$MEMBER_INFO['email']?>" readonly>
+              <input type="text" class="form-input-member" id="email" name="email" value="<?=$MEMBER_INFO['email']?>" disabled>
           </div>
           <div class="item_name">
               <span class="item_text item-text-right">名稱</span>
-              <input type="text" class="form-input-member" id="user_name" name="user_name" value="<?=$MEMBER_INFO['name']?>" readonly>
+              <input type="text" class="form-input-member" id="user_name" name="user_name" value="<?=$MEMBER_INFO['name']?>" disabled>
               <i id="change_user_name" class="fi fi-sr-pencil edit_info1" data-bs-toggle="modal" data-bs-target="#modifyNameModal">修改</i>
           </div>
           <div class="item_name">
               <span class="item_text item-text-right">密碼</span>
-              <input type="password" class="form-input-member" id="password" name="password" value="········" readonly>
+              <input type="password" class="form-input-member" id="password" name="password" value="········" disabled>
               <i id="change_password" class="fi fi-sr-pencil edit_info2" data-bs-toggle="modal" data-bs-target="#modifyPasswordModal">修改</i>
           </div>
           <div class="item_name">
               <span class="item_text item-text-right">加入時間</span>
-              <input type="text" class="form-input-member" id="create_time" name="create_time" value="<?=$MEMBER_INFO['create_time']?>" readonly>
+              <input type="text" class="form-input-member" id="create_time" name="create_time" value="<?=$MEMBER_INFO['create_time']?>" disabled>
           </div>
       </div>
       <div id="preference_main_area">
-          <form class="preference_item_container">
-              <div class="input-group input-group-sm mb-3" style="width:230px;">
-                <p class="checkbox-title">搜尋半徑</p>
-                <input id="member-search-radius-input" name="search_radius" type="text" class="form-control" 
-                  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="<?=$MEMBER_INFO['search_radius']?>">
+          <form class="preference_item_container">              
+              <div class="type_title">位置</div>
+              <div id="comments-order-bar" class="input-group member-input-box mb-3 sort-button" style="margin-top:1vh;margin-bottom:1vh;">
+                <span class="input-group-text member-input-box-title" id="basic-addon1">縣市區域</span>
+                <select class="form-select member-input-box-main field" aria-label="Default select example" id="member-city-select" 
+                  style="max-width:120px;" onchange="updateArea('member')" disabled>
+                  <option value="" selected>(無限制)</option>
+                  <?php 
+                    $selectedCity = $MEMBER_INFO['city']??'';
+                    $selectedDist = $MEMBER_INFO['dist']??'';
+                    $dists = getDists($selectedCity);
+                  ?>
+                  <?php foreach($ALL_CITIES as $city): ?>
+                    <option value="<?=$city?>"
+                      <?php if($SESSION_DATA->success&&$selectedCity===$city): echo ' selected'; endif;?>><?=$city?>
+                    </option>
+                  <?php endforeach; ?>
+                </select>
+                <select class="form-select member-input-box-main field" aria-label="Default select example" style="max-width:120px;" id="member-dist-select" disabled>
+                  <?php if ($selectedCity === ''): ?>
+                    <option value="" selected></option>
+                  <?php else: ?>
+                    <option value="" selected>(無限制)</option>
+                    <?php foreach($dists as $dist): ?>
+                      <option value="<?=$dist?>"
+                        <?php if($SESSION_DATA->success&&$selectedDist===$dist): echo ' selected'; endif;?>><?=$dist?>
+                      </option>
+                    <?php endforeach; ?>
+                  <?php endif; ?>
+                </select>
+              </div>
+              <div class="type_title">*範圍</div>
+              <div id="comments-order-bar" class="input-group member-input-box mb-3 sort-button" style="margin-top:1vh;margin-bottom:1vh;">
+                <span class="input-group-text member-input-box-title" id="basic-addon1">搜尋半徑</span>
+                <input id="member-search-radius-input" type="text" class="form-control member-input-box-main field" style="max-width:182px;" 
+                  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+                  value="<?php if($SESSION_DATA->success): echo $MEMBER_INFO['search_radius']; else: echo '1500'; endif;?>" disabled>
                 <span class="input-group-text" id="inputGroup-sizing-sm">公尺</span>
               </div>
               <?php
                 $checkboxGroups = [
                   'open_hour_button' => [
                     'index' => 4,
-                    'title' => '營業時間',
+                    'title' => '*營業時間',
                     'select' => 'select_open_hour',
                     'class' => 'open_hour',
                     'items' => [
@@ -170,7 +203,7 @@
                 <div class="checkbox_container <?=$group['class']?>">
                   <?php foreach($group['items'] as $item => $value): ?>
                       <div class="checkbox_item">
-                        <input type="checkbox" class="<?=$group['select']?>" id="<?=$item?>" name="<?=$item?>" autocomplete="on" disabled 
+                        <input type="checkbox" class="<?=$group['select']?> checkbox" id="<?=$item?>" name="<?=$item?>" autocomplete="on" disabled 
                           <?=transformToPreference($item)?>>
                         <label for="<?=$item?>"><?=$value?></label>
                       </div>

@@ -4,37 +4,37 @@
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/analysis.php';
 
   // 優先使用 GET 參數
-  $storeId = $_GET['id'] ?? null;
+  $STORE_ID = $_GET['id'] ?? null;
 
   // 如果 storeId 或 storeName 不存在，根據現有的值獲取缺失的資訊
-  if (empty($storeId)) {
+  if (empty($STORE_ID)) {
     header("Location: /home");
     exit;
   }
 
   // 獲取店家資訊
-  $storeInfo = getStoreInfoById($storeId);
+  $storeInfo = getStoreInfoById($STORE_ID);
   if (!empty($storeInfo)) {
     $storeName = htmlspecialchars($storeInfo['name']);
     $storeMark = htmlspecialchars($storeInfo['mark']);
     $markIcon = $markOptions[$storeMark]['tagIcon'] ?? '';
     $markClass = $markOptions[$storeMark]['buttonClass'] ?? '';
     $storeTag = htmlspecialchars($storeInfo['tag']);    
-    $isFavorite = isFavorite($storeId);
+    $isFavorite = isFavorite($STORE_ID);
     $memberServices = getMemberServiceList();
     $memberWeights = getMemberNormalizedWeight();
-    $score = getBayesianScore($memberWeights, $storeId);    
-    $relevants = getRelevantComments($storeId);
-    $Highests = getHighestComments($storeId);
-    $Lowests = getLowestComments($storeId);
-    $comments = getComments($storeId);
-    $location = getLocation($storeId);
-    $rating = getRating($storeId);
-    $service = getService($storeId);
-    $keywords = getAllKeywords($storeId);    
-    $foodKeywords = getFoodKeyword($storeId);
-    $otherBranches = getOtherBranches($storeInfo['branch_title'], $storeId);    
-    $targetsInfo = getTargets($storeId);
+    $score = getBayesianScore($memberWeights, $STORE_ID);    
+    $relevants = getRelevantComments($STORE_ID);
+    $Highests = getHighestComments($STORE_ID);
+    $Lowests = getLowestComments($STORE_ID);
+    $comments = getComments($STORE_ID);
+    $location = getLocation($STORE_ID);
+    $rating = getRating($STORE_ID);
+    $service = getService($STORE_ID);
+    $keywords = getAllKeywords($STORE_ID);
+    $foodKeywords = getFoodKeyword($STORE_ID);
+    $otherBranches = getOtherBranches($storeInfo['branch_title'], $STORE_ID);    
+    $targetsInfo = getTargets($STORE_ID);
   } else {
     require_once $_SERVER['DOCUMENT_ROOT'].'/error/id-not-found.php';
     exit;
@@ -63,7 +63,7 @@
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
 
   <section class="normal-content section-content">
-    <div id="favorite-button" onclick="toggleFavorite(this,<?=$storeId?>)">
+    <div id="favorite-button" onclick="toggleFavorite(this,<?=$STORE_ID?>)">
       <img src="<?=$isFavorite?'/images/button-favorite-active.png':'/images/button-favorite-inactive.png';?>">
       <h1 class="store-title" id="store-title" style="margin-left:10px"><?=$storeName?></h1>
     </div>
@@ -71,7 +71,7 @@
       <div class="type-rating-status-group">
         <h5 class="rating"><?=$score?></h5>
         <h6 class="rating-text">/ 綜合評分</h6>
-        <a class="store-type" type="button" href="search?q=<?=$storeTag?>" target="_blank"><?=$storeTag?></a>
+        <a class="store-type btn btn-outline-gray" type="button" href="search?q=<?=$storeTag?>" target="_blank"><?=$storeTag?></a>
         <?php require_once $_SERVER['DOCUMENT_ROOT'].'/elem/open-hour-button.php';?>
         <?php if($storeMark): ?>
           <button type="button" class="btn <?=$markClass?> e-icon" data-bs-toggle="tooltip" 
@@ -80,9 +80,10 @@
           </button>
         <?php endif; ?>
         <?php if (!empty($otherBranches)): ?>
-          <button class="btn btn-outline-secondary other-store-rating" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+          <button class="btn btn-solid-gray status other-store-rating" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
             aria-expanded="false" aria-controls="collapseExample">
             其他分店
+            <i class="fi fi-sr-angle-small-right text-icon button-down-arrow"></i>
           </button>
         <?php endif; ?>
       </div>
@@ -91,7 +92,6 @@
       <div class="other-store">
         <?php foreach ($otherBranches as $branch): ?>
           <?php 
-            $storeId = htmlspecialchars($branch['id']);
             $branchTitle = htmlspecialchars($branch['branch_title']);
             $branchName = htmlspecialchars($branch['branch_name']);
             $branchId = htmlspecialchars($branch['id']);
@@ -99,7 +99,7 @@
             $address = htmlspecialchars(($branch['city'] ?? '').($branch['dist'] ?? '').($branch['vil'] ?? '').($branch['details'] ?? ''));
           ?>
           <div class="other-store-display">
-            <a class="other-store-group" style="width:100%" href="detail?id=<?=$storeId?>">            
+            <a class="other-store-group" style="width:100%" href="detail?id=<?=$branchId?>">            
               <p class="store-name no-flow" style="width:15%"><?=$branchTitle?></p>
               <p style="width:2%;text-align:center;color:lightgrey">|</p>
               <p class="store-name no-flow" style="width:15%"><?=$branchName?></p>
@@ -130,11 +130,11 @@
         <table class="table table-borderless">
           <thead>
             <tr class="row1">
-              <th scope="col" class="col1"></th>
-              <th scope="col" class="col2"><?=$_POSITIVE ?></th>
-              <th scope="col" class="col3"><?=$_NEGATIVE ?></th>
-              <th scope="col" class="col5"><?=$_NEUTRAL ?></th>
-              <th scope="col" class="col6"><?=$_TOTAL ?></th>
+              <th scope="col" class="col1" style="width:30%"></th>
+              <th scope="col" class="col2" style="width:15%"><?=$_POSITIVE ?></th>
+              <th scope="col" class="col3" style="width:15%"><?=$_NEGATIVE ?></th>
+              <th scope="col" class="col5" style="width:15%"><?=$_NEUTRAL ?></th>
+              <th scope="col" class="col6" style="width:15%"><?=$_TOTAL ?></th>
             </tr>
           </thead>
           <tbody>
@@ -146,7 +146,7 @@
               $score = $result['score'];
               $color = $data['weight'] > 0 ? $data['color'] : 'darkgrey';
               ?>
-              <tr class="row<?= $rowIndex ?>">
+              <tr class="row<?=$rowIndex ?>">
                 <td>
                   <div class="progress-group">
                     <h6 class="progress-text" style="color:<?=$color?>;padding-right:5px;"><?=$category?></h6>
@@ -161,10 +161,10 @@
                     <div class="progress-bar overflow-visible" style="width: <?=$proportion?>%; background-color: <?=$color?>;"></div>
                   </div>
                 </td>
-                <td class="evaluate-good"><?= $targetsInfo[$_POSITIVE][$category] ?? 'NULL' ?></td>
-                <td class="evaluate-bad"><?= $targetsInfo[$_NEGATIVE][$category] ?? 'NULL' ?></td>
-                <td class="evaluate-neutral"><?= $targetsInfo[$_NEUTRAL][$category] ?? 'NULL' ?></td>
-                <td class="evaluate-all"><?= $targetsInfo[$_TOTAL][$category] ?? 'NULL' ?></td>
+                <td class="evaluate-good"><?=$targetsInfo[$_POSITIVE][$category]??'NULL'?></td>
+                <td class="evaluate-bad"><?=$targetsInfo[$_NEGATIVE][$category]??'NULL'?></td>
+                <td class="evaluate-neutral"><?=$targetsInfo[$_NEUTRAL][$category]??'NULL'?></td>
+                <td class="evaluate-all"><?=$targetsInfo[$_TOTAL][$category]??'NULL'?> 則</td>
               </tr>
               <?php $rowIndex++; ?>
             <?php endforeach; ?>
@@ -197,17 +197,16 @@
                         }}
                       ?>
                       <?php if ($key): ?>
-                        <!-- 顯示需求項目，state == 1 的優先顯示 -->
                         <div class="service-item matched">
                           <?php if ($serviceItem['state'] == 1): ?>
                             <i class="fi fi-sr-check item-img-eligible"></i>
                           <h6 class="item-text-eligible"><?php echo htmlspecialchars($serviceItem['property']); ?></h6>
                           <?php else: ?>
-                            <i class="fi fi-sr-cross item-img"></i>
-                            <h6 class="item-text"><?php echo htmlspecialchars($serviceItem['property']); ?></h6>
+                            <i class="fi fi-sr-cross item-img-ineligible"></i>
+                            <h6 class="item-text-ineligible"><?php echo htmlspecialchars($serviceItem['property']); ?></h6>
                           <?php endif; ?>                          
                         </div>
-                        <?php unset($memberServices[$serviceItem['property']]); // 移除已顯示的服務項目 ?>
+                        <?php unset($memberServices[$serviceItem['property']]);?>
                       <?php endif; ?>
                     <?php endforeach; ?>
                     
@@ -286,7 +285,7 @@
     </div>
     <div class="comment-keyword">
       <div class="keyword-title" id="keyword-title">        
-        <h5 class="keyword-title-text">關鍵字</h5>
+        <h5 class="keyword-title-text">標記</h5>
         <!--篩選按鈕-->
         <div class="input-group mb-3 filter-button">
           <span class="input-group-text" id="basic-addon1"><i class="fi fi-sr-filter-list"></i></i>篩選</span>
@@ -301,10 +300,13 @@
       </div>
       <!--### 生成Mark統計標籤 ###-->
       <?php
+        $positiveMarks = getMarks($STORE_ID, $_POSITIVE);
+        $negativeMarks = getMarks($STORE_ID, $_NEGATIVE);
+        $neutralMarks = getMarks($STORE_ID, [$_PREFER, $_NEUTRAL]);
         $categories = [
-          $_POSITIVE => ['name' => 'good', 'marks' => getMarks($storeId, $_POSITIVE)],
-          $_NEGATIVE => ['name' => 'bad', 'marks' => getMarks($storeId, $_NEGATIVE)],
-          $_NEUTRAL => ['name' => 'middle', 'marks' => getMarks($storeId, [$_PREFER, $_NEUTRAL])],
+          $_POSITIVE => ['name' => 'good', 'marks' => $positiveMarks],
+          $_NEGATIVE => ['name' => 'bad', 'marks' => $negativeMarks],
+          $_NEUTRAL => ['name' => 'middle', 'marks' => $neutralMarks],
         ];
       ?>
       <?php foreach ($categories as $category => $data): ?>
@@ -401,34 +403,29 @@
       </div>
 
     </div>
-
   </section>
 
+  <?php if ($keywords): ?>
   <section class="normal-content section-content">
     <div class="title-group">
       <i class="fi fi-sr-interactive group-title-img"></i>
-      <h5 class="group-title ">最多人提到</h5>
+      <h5 class="group-title ">搜尋關鍵字</h5>
     </div>
     <div class="carousel-container-tag">
       <div class="carousel-arrow-tag left-arrow-2" type="button"><i class="fi fi-sr-angle-left"></i></div>
 
       <div class="tag-group">
-        <?php if ($keywords) {
+        <?php 
           foreach ($keywords as $keyword) {
-            if ($keyword['count'] > 1) { // 檢查 count 的數量是否大於 1
-              echo '<button class="tag btn-outline-secondary btn" type="button">';
-              echo '<a class="tag-text" href="search?q=' . urlencode($keyword['word']) . '" target="_blank">' . htmlspecialchars($keyword['word']) . ' (' . htmlspecialchars($keyword['count']) . ')</a>';
-              echo '</button>';
-            }
+            echo '<button class="tag btn-outline-secondary btn" type="button">';
+            echo '<a class="tag-text" href="search?q=' . urlencode($keyword['word']) . '" target="_blank">' . htmlspecialchars($keyword['word']) . ' (' . htmlspecialchars($keyword['count']) . ')</a>';
+            echo '</button>';
           }
-        } else {
-          echo '<div class="tag">';
-          echo '<p class="tag-text">無相關關鍵字</p>';
-          echo '</div>';
-        } ?>
+        ?>
       </div>
       <div class="carousel-arrow-tag right-arrow-2" type="button"><i class="fi fi-sr-angle-right"></i></div>
   </section>
+  <?php endif; ?>
   <section class="section-content">
     <!--資料爬蟲時間--><h6 class="update">資料更新時間：<?=$storeInfo['crawler_time'] ?></h6>
   </section>

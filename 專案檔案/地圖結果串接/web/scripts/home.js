@@ -7,12 +7,17 @@ document.querySelectorAll('.home-page').forEach(page => {
   page.setAttribute('style', 'cursor:default;');
 });
 
+window.addEventListener('load', function () {     
+  defaultLocate();  
+  setCondition();
+});
+
 document.addEventListener('DOMContentLoaded', function () {
 
 });
 
 function syncToPreferences() {
-  updatePreferences('condition');
+  updatePreferences('condition', false);
   showAlert('green', '已同步至偏好設定');
 }
 
@@ -24,9 +29,6 @@ function toSearchPage() {
   window.location.href = `search?q=${keyword}&lat=${lat}&lng=${lng}`;
 }
 
-window.addEventListener('load', function () {     
-  defaultLocate();  
-});
 
 document.querySelectorAll('.title-text-2').forEach(tab => {
   tab.addEventListener('click', function() {
@@ -72,23 +74,3 @@ document.getElementById('overlay').addEventListener('click', function() {
   navMenu.classList.remove('show');
   overlay.classList.remove('show');
 });
-
-//隱藏推薦滾動條
-function handleScroll(container) {
-  if (container.scrollHeight > container.clientHeight) {
-    container.style.overflowY = 'scroll'; // 顯示滾動條
-  } else {
-    container.style.overflowY = 'auto'; // 隱藏滾動條
-  }
-};
-document.querySelectorAll('.restaurant-group, .restaurant-group-2, .restaurant-group-3').forEach(container => {
-  handleScroll(container);
-});
-
-//篩選條件滾動條隱藏
-const filterContainer = document.querySelector('.filter-result');
-if (filterContainer.scrollWidth > filterContainer.clientWidth) {
-  filterContainer.style.overflowX = 'scroll'; // 顯示垂直滾動條
-} else {
-  filterContainer.style.overflowX = 'auto'; // 隱藏垂直滾動條
-}

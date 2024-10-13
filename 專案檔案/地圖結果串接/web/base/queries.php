@@ -4,6 +4,7 @@
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/session.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/base/analysis.php';
 
   function getStoreInfo($storeName) {
       global $conn;
@@ -15,6 +16,38 @@
       $result = $stmt->get_result();
       return $result->fetch_assoc();
   }
+
+  function getCities() {
+    global $conn;
+    $stmt = $conn->prepare("
+      SELECT DISTINCT city FROM locations
+    ");
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $cities = [];
+    while ($row = $result->fetch_assoc()) {
+      $cities[] = $row['city'];
+    }
+    $stmt->close();
+    return $cities;
+  }
+  function getDists($city) {
+    if (!$city) return [];
+    global $conn;
+    $stmt = bindPrepare($conn, "
+      SELECT DISTINCT dist FROM locations
+      WHERE city = ?
+    ", 's', $city);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $dists = [];
+    while ($row = $result->fetch_assoc()) {
+      $dists[] = $row['dist'];
+    }
+    $stmt->close();
+    return $dists;
+  }
+
 
   function getStoreInfoById($storeId) {
       global $conn;
@@ -129,11 +162,11 @@
   }
 
   function getFoodKeyword($storeId) {
-      global $conn;
+      global $conn, $MIN_KEYWORD_COUNT;
       $stmt = bindPrepare($conn,
       " SELECT * FROM keywords
-        WHERE store_id = ? AND source = 'recommend'
-        ORDER BY count DESC 
+        WHERE store_id = ? AND source = 'recommend' AND count >= $MIN_KEYWORD_COUNT
+        ORDER BY count DESC
       ", "i", $storeId);
       $stmt->execute();
       $result = $stmt->get_result();
@@ -146,10 +179,10 @@
   }
 
   function getAllKeywords($storeId) {
-      global $conn;
+      global $conn, $MIN_KEYWORD_COUNT;
       $stmt = bindPrepare($conn,
       " SELECT word, count FROM keywords
-        WHERE store_id = ? and source = 'google'
+        WHERE store_id = ? and source = 'google' AND count >= $MIN_KEYWORD_COUNT
         ORDER BY count DESC
       ", "i", $storeId);
       $stmt->execute();

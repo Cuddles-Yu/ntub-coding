@@ -99,15 +99,6 @@ body{
     font-size: 16px;
   }
 
-  .filter-container{
-    width: 700px;
-    margin-top: 10px;
-    background-color: #d9dfe4;
-    border-radius: 5px;
-    display: flex;
-    display: none;
-  }
-
   .filter-result{
     max-width: 100%;
     display: flex;
@@ -137,7 +128,7 @@ body{
 
   #map{
     width: 700px;
-    height: 65vh;
+    height: 61vh;
     border-radius: 10px;
     border: 1px solid #716d6d;
     margin-top: 5px;
@@ -385,15 +376,6 @@ body{
     color: white;
     white-space: nowrap;
     font-size: 16px;
-  }
-
-  .filter-container{
-    width: 700px;
-    margin-top: 10px;
-    background-color: #d9dfe4;
-    border-radius: 5px;
-    display: flex;
-    display: none;
   }
 
   .filter-result{
@@ -671,15 +653,6 @@ body{
     color: white;
     white-space: nowrap;
     font-size: 16px;
-  }
-
-  .filter-container{
-    width: 700px;
-    margin-top: 10px;
-    background-color: #d9dfe4;
-    border-radius: 5px;
-    display: flex;
-    display: none;
   }
 
   .filter-result{

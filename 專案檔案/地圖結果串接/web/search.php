@@ -21,12 +21,6 @@
 <body>
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
 
-  <!-- <select id="citySelect">
-    <option value="">請選擇一個城市</option>
-    <option value="new-taipei-city">新北市</option>
-    <option value="taipei-city">台北市</option>
-  </select> -->
-
   <div class="container-fluid all-content">
     <div class="content-row row">
       <div class="secondary-content col">
@@ -35,16 +29,13 @@
             <input type="text" class="form-control" id="keyword" name="keyword" placeholder="關鍵字">
             <label for="keyword">查詢關鍵字</label>
           </div>
-          <button type="button" class="btn btn-solid-gray mt-3 filter-button" data-bs-toggle="modal" data-bs-target="#condition2Modal">
+          <button type="button" class="btn btn-solid-gray mt-3 filter-button" data-bs-toggle="modal" data-bs-target="#conditionModal">
             <i class="fi fi-sr-filter filter-img button-text-icon"></i>篩選條件
           </button>
           <button type="button" class="btn btn-solid-windows-blue mt-3 search-button" id="search-button" onclick="searchStoresByKeyword()">搜尋</button>
         </div>        
-        <div class="filter-container">
-          <p class="filter-title"><i class="fi fi-sr-filter"></i>已篩選條件：</p>
-          <div class="filter-result">
-            <div class="condition">停車場</div>
-          </div>
+        <div id="filter-container" class="filter-container">
+          <p class="filter-title">條件</p>
         </div>
         <div id="map" class="map">
           <div id="crosshair" style="display:none;"></div>
@@ -64,7 +55,7 @@
 
   <?php 
     $modalTitle = '篩選條件';
-    $modalId = 'condition2';
+    $modalId = 'condition';
     require_once $_SERVER['DOCUMENT_ROOT'].'/form/condition.php'; 
   ?>
 

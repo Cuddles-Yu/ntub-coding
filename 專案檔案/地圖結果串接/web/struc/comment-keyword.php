@@ -7,13 +7,13 @@
   header('Content-Type: application/json');
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $searchTerm = $_POST['q']??'';
-    $storeId = $_POST['id']??'0';
+    $STORE_ID = $_POST['id']??'0';
     $searchTermWildcard = "%$searchTerm%";
     $stmt = $conn->prepare("
       SELECT * FROM comments
       WHERE store_id = ? AND contents LIKE ?
     ");
-    $stmt->bind_param("is", $storeId, $searchTermWildcard);
+    $stmt->bind_param("is", $STORE_ID, $searchTermWildcard);
     $stmt->execute();
     $result = $stmt->get_result();
     $comments = [];

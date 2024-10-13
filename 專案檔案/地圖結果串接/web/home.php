@@ -2,7 +2,7 @@
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/session.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
-  global $conn;
+  global $conn, $MEMBER_INFO;
 ?>
 
 <!doctype html>
@@ -11,8 +11,8 @@
   <meta charset="utf-8" />
   <title>餐廳搜尋 - 評星宇宙</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />  
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers/dist/leaflet.awesome-markers.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
@@ -36,11 +36,8 @@
       </button>
       <button type="button" class="btn btn-solid-windows-blue mt-3 search-button" id="search-button" onclick="toSearchPage()">搜尋</button>
     </div>    
-    <div class="filter-container">
-      <p class="filter-title"><i class="fi fi-sr-filter"></i>已篩選條件：</p>
-      <div class="filter-result">
-        <div class="condition">停車場</div>
-      </div>
+    <div id="filter-container" class="filter-container">
+      <p class="filter-title">條件</p>
     </div>
     <div id="map" class="map">
       <div id="crosshair" style="display:none;"></div>

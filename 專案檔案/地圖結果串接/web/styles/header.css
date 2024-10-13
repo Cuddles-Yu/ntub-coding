@@ -4,6 +4,49 @@
     box-sizing: border-box;
 }
 
+.filter-container{
+  width: 788px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+
+.filter-title {
+  white-space: nowrap;
+  font-size: 16px;
+  font-weight: bold;
+  color: rebeccapurple;
+  padding-top: 2px;
+}
+
+.filter-item {
+  white-space: nowrap;
+  font-weight: bold;
+  margin-right: 5px;
+  background-color: rebeccapurple;
+  color: white;
+  border-radius: 50px;
+  padding: 2px 10px;
+  font-size: 13px;
+  margin-top: 2px;
+  position: relative;
+  height: fit-content;
+}
+
+.condition-input-box {
+  width: 336px;
+}
+
+.condition-input-box-title {
+  width: 90px;
+}
+
+.condition-input-box-main {
+  width: 110px;
+  max-height:150px;
+  overflow-y:auto;
+}
+
 .member-menu {
   display: block;
   padding: 10px 0;
@@ -61,9 +104,10 @@
 }
 
 .main-content {
-  min-height: calc(100% - 160px);
-  margin-top: 70px;
+  min-height: calc(100% - 150px);
+  margin-top: 60px;
 }
+
 .secondary-content {
   min-height: calc(100% - 160px);
 }

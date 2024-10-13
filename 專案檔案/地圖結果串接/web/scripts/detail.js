@@ -11,7 +11,7 @@ document.querySelectorAll('.home-page').forEach(page => {
 
 window.addEventListener('load', function () {
   if (storeId) {
-    generateMark();
+    // generateMark();
     searchCommentsByKeyword();
   }
 });
@@ -175,6 +175,7 @@ function resetCommentSearch() {
 }
 
 function searchCommentsByTarget(button) {
+  console.log(storeId);
   const target = button.querySelector('.object').textContent;  
   const commentCountTitle = document.getElementById('comment-count-title');
   document.getElementById('commentGroup').scrollTo(0, 0)
