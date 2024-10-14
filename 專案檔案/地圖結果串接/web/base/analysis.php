@@ -123,7 +123,7 @@
     return $stores;
   }
 
-  function searchByLocation($keyword, $searchRadius, $userLat, $userLng, $limit){
+  function searchByLocation($keyword, $searchRadius, $userLat, $userLng){
     global $conn;
     $keyword = "%$keyword%";
     if ($userLat&&$userLng) {
@@ -139,8 +139,7 @@
         WHERE (s.name LIKE ? OR s.tag LIKE ? OR k.word LIKE ?) AND s.crawler_state IN ('成功', '完成', '超時')
         HAVING distance <= $searchRadius
         ORDER BY distance, r.avg_ratings DESC, r.total_reviews DESC
-        LIMIT ?
-      ", 'dddsssi', $userLat, $userLng, $userLat, $keyword, $keyword, $keyword, $limit);
+      ", 'dddsss', $userLat, $userLng, $userLat, $keyword, $keyword, $keyword);
     } else {
       $stmt = bindPrepare($conn,
       " SELECT 
@@ -152,8 +151,7 @@
         INNER JOIN locations AS l ON s.id = l.store_id
         WHERE (s.name LIKE ? OR s.tag LIKE ? OR k.word LIKE ?) AND s.crawler_state IN ('成功', '完成', '超時')
         ORDER BY r.avg_ratings DESC, r.total_reviews DESC
-        LIMIT ?
-      ", 'sssi', $keyword, $keyword, $keyword, $limit);
+      ", 'sss', $keyword, $keyword, $keyword);
     }
     $stmt->execute();
     $result = $stmt->get_result();

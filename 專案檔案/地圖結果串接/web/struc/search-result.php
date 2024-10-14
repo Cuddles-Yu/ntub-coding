@@ -4,62 +4,32 @@
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/queries.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/analysis.php';
 
-  $memberWeights = getMemberNormalizedWeight();
-
-  $searchRadius = $_POST['searchRadius']??1500;
-  $keyword = array_key_exists('q', $_POST) ? htmlspecialchars($_POST['q']) : null;
-  $mapCenterLat = isset($_POST['mapCenterLat']) ? floatval($_POST['mapCenterLat']) : null;
-  $mapCenterLng = isset($_POST['mapCenterLng']) ? floatval($_POST['mapCenterLng']) : null;
-
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
-      if (is_null($keyword)) return;
-      $stores = searchByLocation($keyword, $searchRadius, $mapCenterLat, $mapCenterLng, $RESULT_LIMIT);
-      $storeData = [];
-      foreach ($stores as $store) {
-          $STORE_ID = $store['id'];
-          $bayesianScore = getBayesianScore($memberWeights, $STORE_ID);
-          $storeData[] = [
-              'store' => $store,
-              'bayesianScore' => $bayesianScore
-          ];
-      }
-      // 根據Bayesian Score從高到低進行排序
-      usort($storeData, function ($a, $b) {
-          return $b['bayesianScore'] <=> $a['bayesianScore'];
-      });
-  } else {
-      exit;
-  }
+  $inputJSON = file_get_contents('php://input');
+  $input = json_decode($inputJSON, true);
+  $storeData = $input['data'] ?? [];
 ?>
 
 <?php if (!empty($storeData)) : ?>
   <?php foreach ($storeData as $storeItem) : ?>      
     <?php
-      $store = $storeItem['store'];
-      $STORE_ID = $store['id'];
-      $bayesianScore = $storeItem['bayesianScore'];
+      $STORE_ID = $storeItem['id'];
+      $bayesianScore = $storeItem['score'];
 
       $targetsInfo = getTargets($STORE_ID);
       $isFavorite = isFavorite($STORE_ID);
-      $distance = normalizeDistance($store['distance']);      
-      $tag = htmlspecialchars($store['tag']);
-      $storeName = htmlspecialchars($store['name']);
-      $preview_image = htmlspecialchars($store['preview_image']);
-      $location = htmlspecialchars(getAddress($store));
+      $distance = normalizeDistance($storeItem['distance']);      
+      $tag = htmlspecialchars($storeItem['tag']);
+      $storeName = htmlspecialchars($storeItem['name']);
+      $preview_image = htmlspecialchars($storeItem['preview_image']);
+      $location = htmlspecialchars(getAddress($storeItem));
+      $link = htmlspecialchars($storeItem['link']);
+      $website = htmlspecialchars($storeItem['website']);
 
-      $mark = $store['mark'];
+      $mark = $storeItem['mark'];
       $cardType = $markOptions[$mark]['cardType'] ?? '';
       $tagName = $markOptions[$mark]['tagName'] ?? '';
       
-      $categories = [
-        $_ATMOSPHERE => ['weight' => '30', 'color' => '#562B08'],
-        $_PRODUCT => ['weight' => '30', 'color' => '#7B8F60'],
-        $_SERVICE => ['weight' => '30', 'color' => '#5053AF'],
-        $_PRICE => ['weight' => '30', 'color' => '#C19237'],
-      ];
-      uasort($categories, function ($a, $b) {
-        return $b['weight'] <=> $a['weight'];
-      });
+      $normalizedWeights = getMemberNormalizedWeight();
       $rowIndex = 1;
     ?>
     <div class="container-fluid store-body <?=$cardType?> <?php if($isFavorite): echo 'store-card-favorite'; endif;?>" data-id="<?=$STORE_ID?>" onclick="redirectToDetailPage('<?=$STORE_ID?>')">
@@ -79,7 +49,7 @@
                       <!--餐廳地址--><h6 class="address">地址：<?=$location?></h6>
                     </div>
                     <div class="progress-group-text col">
-                      <?php foreach ($categories as $category => $data): ?>
+                      <?php foreach ($normalizedWeights as $category => $data): ?>
                         <?php
                           $result = getProportionScore($category);
                           $proportion = $result['proportion'];
@@ -102,12 +72,12 @@
                         <img class="search-result-button-icon" src="<?=$isFavorite?'images/button-favorite-active.png':'images/button-favorite-inactive.png';?>">
                         <h6 class="love-text">收藏</h6>
                       </div>
-                      <a class="map-link" href="<?=htmlspecialchars($store['link'])?>" target="_blank" onclick="event.stopPropagation();">
+                      <a class="map-link" href="<?=$link?>" target="_blank" onclick="event.stopPropagation();">
                         <img class="search-result-button-icon" src="images/button-map.png">
                         <h6 class="map-link-text">地圖</h6>
                       </a>
-                      <?php if (!empty($store['website'])) : ?>
-                        <a class="map-link" href="<?=htmlspecialchars($store['website'])?>" target="_blank" onclick="event.stopPropagation();">
+                      <?php if (!empty($website)) : ?>
+                        <a class="map-link" href="<?=$website?>" target="_blank" onclick="event.stopPropagation();">
                           <img class="search-result-button-icon" src="images/button-browse.png">
                           <h6 class="web-text">官網</h6>
                         </a>

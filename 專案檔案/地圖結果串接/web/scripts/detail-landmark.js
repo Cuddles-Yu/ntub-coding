@@ -31,13 +31,16 @@ function normalizeDistance(distance) {
 
 window.addEventListener('load', function () {
   var bounds = [];
-  var storeLatLng = null;
+  var storeLatLng = null;  
+  const mapElement = this.document.getElementById('map');
+  const locateButton = this.document.getElementById('current-locate-button');
+  const storeButton = this.document.getElementById('search-locate-button');
   fetch(`struc/detail-landmark.php?storeId=${storeId}`, {
     method: 'POST',
     credentials: 'same-origin'
   }).then(response => response.json())
-    .then(data => {
-      if (data && !data.error) {
+    .then(async data => {
+      if (data && !data.error) {        
         var latlng = [parseFloat(data[0].latitude), parseFloat(data[0].longitude)];
         storeLatLng = latlng;
         var marker = L.marker(latlng, {
@@ -47,11 +50,18 @@ window.addEventListener('load', function () {
         });
         map.addLayer(marker);
         bounds.push(latlng);
+        mapElement.setAttribute('store-lat', latlng[0]);
+        mapElement.setAttribute('store-lng', latlng[1]);
+        storeButton.setAttribute('onclick', 'storeLocate()');
+        storeButton.innerHTML = '<img src="/images/button-search-target.png" style="max-width:80%;max-height:80%;margin-bottom:1px;margin-right:5px;"></img>餐廳位置';
       }
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-          var userLat = position.coords.latitude;
-          var userLng = position.coords.longitude;
+        try {
+          const position = await new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject);
+          });
+          const userLat = position.coords.latitude;
+          const userLng = position.coords.longitude;
           var userMarker = L.marker(
             [userLat, userLng], 
             {icon: userIcon}
@@ -61,19 +71,25 @@ window.addEventListener('load', function () {
           setView([userLat, userLng], 11);          
           if (storeLatLng) {
             var distance = calculateDistance(userLat, userLng, storeLatLng[0], storeLatLng[1]);
-            var zoomLevel = getZoomLevel(distance);
-            
+            var zoomLevel = getZoomLevel(distance);            
             map.fitBounds(bounds, {
                 padding: [50, 50],
                 maxZoom: zoomLevel
             });
+            storeButton.style.display = 'block';            
             showInfoBar(`當前位置與該商家距離 ${normalizeDistance(distance)}`)
           }
-        }, function (error) {
-            alert('無法取得您的位置: ' + error.message);
-        });
+        } catch (error) {
+          locateButton.style.display = 'block';
+          locateButton.setAttribute('onclick', 'storeLocate()');
+          locateButton.innerHTML = '<img src="/images/button-search-target.png" style="max-width:80%;max-height:80%;margin-bottom:1px;margin-right:5px;"></img>餐廳位置';
+          storeLocate();
+        }
       } else {
-        alert('您的瀏覽器不支援地理定位功能。');
+        locateButton.style.display = 'block';
+        locateButton.setAttribute('onclick', 'storeLocate()');
+        locateButton.innerHTML = '<img src="/images/button-search-target.png" style="max-width:80%;max-height:80%;margin-bottom:1px;margin-right:5px;"></img>餐廳位置';
+        storeLocate();
       }
     })
     .catch(() => {showAlert('red', '取得您的位置時發生非預期的錯誤');});

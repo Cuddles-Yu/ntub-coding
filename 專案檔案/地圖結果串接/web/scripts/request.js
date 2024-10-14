@@ -1,6 +1,6 @@
 let LOADING_DURATION = 500;
 
-function generateLoadingOverlay(during=0) {
+function generateLoadingOverlay(during=0, hint1='', hint2='') {
   // 生成全景遮罩載入等待動畫
   var overlay = document.createElement('div');
   overlay.setAttribute('class', 'modal-backdrop fade show');
@@ -9,10 +9,29 @@ function generateLoadingOverlay(during=0) {
   loading.setAttribute('class', 'rotating');
   var img = document.createElement('img');
   img.src = "/images/icon-loading.png";
-  img.style.width = '50px';
-  img.style.height = '50px';
+  img.style.width = '40px';
+  img.style.height = '40px';
   loading.appendChild(img);
   overlay.appendChild(loading);
+  if (hint1) {
+    var p = document.createElement('p');
+    p.innerText = hint1;
+    p.style.textAlign = 'center';
+    p.style.fontSize = '20px';
+    p.style.fontWeight = 'bold';
+    p.style.color = 'white';
+    overlay.appendChild(p);
+  }
+  if (hint2) {
+    var p = document.createElement('p');
+    p.innerText = hint2;
+    p.style.textAlign = 'center';
+    p.style.fontSize = '16px';
+    p.style.fontWeight = 'bold';
+    p.style.color = 'white';
+    p.style.marginTop = '-20px';
+    overlay.appendChild(p);
+  }
   document.body.appendChild(overlay);
   if (during > 0) {
     setTimeout(function() {

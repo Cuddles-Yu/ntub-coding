@@ -9,22 +9,26 @@ document.querySelectorAll('.home-page').forEach(page => {
   page.setAttribute('style', 'cursor:default;');
 });
 
-window.addEventListener('load', async function () {      
+window.addEventListener('load', async function () {    
   const urlParams = new URLSearchParams(window.location.search);
-  const keyword = urlParams.get('q')??'';
-  const lat = urlParams.get('lat');
-  const lng = urlParams.get('lng');
-  if (lat && lng) {
-    setView([lat, lng], 16);
-    await defaultLocate(false);
-    document.getElementById('keyword').value = keyword;
-    document.getElementById('search-button').click();
-  } else {
-    await defaultLocate();
-    document.getElementById('keyword').value = keyword;
-    document.getElementById('search-button').click();
+  const encodedData = urlParams.get('data')??null;
+  const data = encodedData ? (decodeSearchParams(encodedData)??null) : null;
+  if (data) {
+    if (data.lat && data.lng) {
+      setView([data.lat, data.lng], 16);
+      await defaultLocate(false);
+      document.getElementById('keyword').value = data.keyword;
+      this.setTimeout(() => {document.getElementById('search-button').click();}, 50);
+    } else {
+      await defaultLocate();    
+      if (keyword) {
+        document.getElementById('keyword').value = data.keyword;
+        this.setTimeout(() => {document.getElementById('search-button').click();}, 50);
+      }
+    }
+    this.setTimeout(() => {setConditionFromData(data);}, 50);    
   }
-  setCondition();
+  showCondition();
 });
 
 //搜尋結果滾動條隱藏
@@ -52,59 +56,96 @@ function searchStoresByKeyword() {
   var lat = document.getElementById('map').getAttribute('data-lat');
   var lng = document.getElementById('map').getAttribute('data-lng');
   document.title = keyword.trim() === "" ? "搜尋結果 - 評星宇宙" : `${keyword}搜尋結果 - 評星宇宙`;
-  window.history.replaceState({}, '', `${location.protocol}//${location.host}${location.pathname}?q=${keyword}&lat=${lat}&lng=${lng}`);
+  window.history.replaceState({}, '', `${location.protocol}//${location.host}${location.pathname}?data=${getEncodeSearchParams()}`);
 
   searchButton.disabled = true;
-
   const formData = new FormData();
   formData.set('q', keyword);
   formData.set('searchRadius', searchRadius);
   formData.set('mapCenterLat', lat);
   formData.set('mapCenterLng', lng);
+  
+  document.getElementById('search-result-title').innerText = '搜尋結果';
+  searchResults.innerHTML = ''; // '<div class="rotating"><img src="./images/icon-loading.png" width="30" height="30"></div><p style="text-align:center;">正在為您搜尋符合條件的商家...</p>'
+  searchButton.disabled = true;
 
-  searchResults.innerHTML = '<div class="rotating"><img src="./images/icon-loading.png" width="30" height="30"></div><p style="text-align:center;">正在為您搜尋符合條件的商家...</p>';
-  // 獲取 HTML 搜索結果
-  fetch('struc/search-result.php', {
+  overlay = generateLoadingOverlay(0, '正在為您搜尋符合條件的商家', '這可能會花費一些時間，請稍候...');
+  showInfoBar('');
+  document.getElementById('search-locate-button').style.display = 'none';
+  markers.clearLayers();  
+  if (window.centerMarker) map.removeLayer(window.centerMarker);  
+  
+  fetch('/struc/search-data.php', {
     method: 'POST',
     credentials: 'same-origin',
-    body: formData
+    body: formData,
   })
-    .then(response => response.text())
+    .then(response => response.json())  // 確保 search-data.php 返回 JSON 格式
     .then(data => {
-      if (data && data.trim() !== "") {
-        searchResults.innerHTML = data;
+      if (Array.isArray(data) && data.length > 0) {
+        return Promise.all([
+          // 處理HTML結果
+          new Promise((resolve) => {
+            fetch('/struc/search-result.php', {
+              method: 'POST',
+              credentials: 'same-origin',
+              headers: {
+                'Content-Type': 'application/json',
+                'Cache-Control': 'no-cache'  // 禁用快取
+              },
+              body: JSON.stringify({ data })  // 傳遞數據到 search-result.php
+            })
+            .then(response => response.text())
+            .then(html => {
+              if (html && html.trim() !== "") {
+                searchResults.innerHTML = html;
+              }
+              resolve();
+            });
+          }),
+  
+          // 地圖地標處理
+          new Promise((resolve) => {
+            fetch('/struc/search-landmark.php', {
+              method: 'POST',
+              credentials: 'same-origin',
+              headers: {
+                'Content-Type': 'application/json',
+                'Cache-Control': 'no-cache'  // 禁用快取
+              },
+              body: JSON.stringify({ data })
+            })
+            .then(response => response.json())
+            .then(landmarkData => {
+              if (Array.isArray(landmarkData) && landmarkData.length > 0) {
+                processJsonData(landmarkData);
+              }
+              resolve();
+            });
+          })
+        ]);
+      } else {
+        searchResults.innerHTML = "<p style='text-align:center;'>沒有找到相關結果。</p>";
       }
     })
-    .catch(() => {showAlert('red', '推薦餐廳過程中發生非預期的錯誤');})
+    .catch(error => {
+      console.error('查詢過程中產生非預期的錯誤:', error);
+    })  
     .finally(() => {
-      document.getElementById('search-result-title').innerText = `搜尋結果 共 ${document.querySelectorAll('.store-body').length} 筆`;
-    });
-    
-  markers.clearLayers();
-  var mapCenter = getCenter();
-  var lat = mapCenter.lat;
-  var lng = mapCenter.lng;
-  if (window.centerMarker) map.removeLayer(window.centerMarker);
-  window.centerMarker = L.marker([lat, lng], {
-    icon: centerIcon
-  }).addTo(map);
-
-  fetch('struc/search-landmark.php', {
-    method: 'POST',
-    credentials: 'same-origin',
-    body: formData
-  })
-    .then(response => response.json())
-    .then(data => {
-      if (Array.isArray(data) && data.length > 0) processJsonData(data);         
-    })
-    .catch(() => {
-      console.error('地標獲取過程中產生非預期的錯誤');
-    })
-    .finally(() => {
+      var mapCenter = getCenter();
+      var lat = mapCenter.lat;
+      var lng = mapCenter.lng;
+      window.centerMarker = L.marker([lat, lng], {
+        icon: centerIcon
+      }).addTo(map);
+      overlay.remove();
       searchButton.disabled = false;
-      showInfoBar(`搜尋半徑 ${document.getElementById('condition-search-radius-input').value} 公尺`);          
+      const count = document.querySelectorAll('.store-body').length;
+      document.getElementById('search-result-title').innerText = `前 ${count} 筆搜尋結果`;
+      showInfoBar(`搜尋半徑 ${document.getElementById('condition-search-radius-input').value} 公尺`);
     });
+  
+  
 }
 
 function processJsonData(data) {

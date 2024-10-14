@@ -9,11 +9,11 @@ document.querySelectorAll('.home-page').forEach(page => {
   page.setAttribute('style', 'cursor:default;');
 });
 
-window.addEventListener('load', function () {
+window.addEventListener('load', async function () {
   if (storeId) {
-    // generateMark();
     searchCommentsByKeyword();
   }
+  await defaultLocate();
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -127,14 +127,16 @@ document.addEventListener('DOMContentLoaded', function () {
   const keywordLeftArrow = document.querySelector('.left-arrow-2');
   const keywordRightArrow = document.querySelector('.right-arrow-2');
   const keywordScrollAmount = 400;
-  keywordLeftArrow.addEventListener('click', function () {
-    keywordGroup.scrollBy({ left: -keywordScrollAmount, behavior: 'smooth' });
-  });
-  keywordRightArrow.addEventListener('click', function () {
-    keywordGroup.scrollBy({ left: keywordScrollAmount, behavior: 'smooth' });
-  });
-  window.addEventListener('resize', updateArrowVisibility);
-  updateArrowVisibility(keywordGroup, keywordLeftArrow, keywordRightArrow);
+  if (keywordLeftArrow) {
+    keywordLeftArrow.addEventListener('click', function () {
+      keywordGroup.scrollBy({ left: -keywordScrollAmount, behavior: 'smooth' });
+    });
+    keywordRightArrow.addEventListener('click', function () {
+      keywordGroup.scrollBy({ left: keywordScrollAmount, behavior: 'smooth' });
+    });
+    window.addEventListener('resize', updateArrowVisibility);
+    updateArrowVisibility(keywordGroup, keywordLeftArrow, keywordRightArrow);
+  }
   //隱藏留言滾動條
   const containers = document.querySelectorAll('.other-store');
   containers.forEach(container => {
@@ -341,10 +343,6 @@ function navigateToStore(storeLat, storeLng) {
       var userLng = position.coords.longitude;
       var googleMapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${storeLat},${storeLng}`;
       window.open(googleMapsUrl, '_blank');
-    }, function(error) {
-      alert('無法取得您的位置: ' + error.message);
     });
-  } else {
-    alert('您的瀏覽器不支援地理定位功能。');
   }
 }

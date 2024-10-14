@@ -303,13 +303,13 @@
         $positiveMarks = getMarks($STORE_ID, $_POSITIVE);
         $negativeMarks = getMarks($STORE_ID, $_NEGATIVE);
         $neutralMarks = getMarks($STORE_ID, [$_PREFER, $_NEUTRAL]);
-        $categories = [
+        $normalizedWeights = [
           $_POSITIVE => ['name' => 'good', 'marks' => $positiveMarks],
           $_NEGATIVE => ['name' => 'bad', 'marks' => $negativeMarks],
           $_NEUTRAL => ['name' => 'middle', 'marks' => $neutralMarks],
         ];
       ?>
-      <?php foreach ($categories as $category => $data): ?>
+      <?php foreach ($normalizedWeights as $category => $data): ?>
         <div class="group-gb <?=$data['name'] ?>-side">
           <h6 class="title-gb"><?=$category ?><i class="fi fi-sr-caret-right keyword-arrow"></i></h6>
           <div class="group-keyword">
@@ -436,7 +436,7 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers/dist/leaflet.awesome-markers.min.js"></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-  <script src="/scripts/detail.js"></script>
+  <script src="/scripts/detail.js" defer></script>
   <script src="/scripts/map.js"></script>
   <script src="/scripts/detail-landmark.js"></script>
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/footer.php'; ?>

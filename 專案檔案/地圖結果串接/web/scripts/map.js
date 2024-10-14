@@ -98,7 +98,7 @@ L.control.scale({
 
 window.addEventListener('load', function () {
   generateNavigationButton();
-  generateInfoBar();
+  generateInfoBar(); 
 });
 
 function generateNavigationButton() {
@@ -111,7 +111,8 @@ function generateNavigationButton() {
     button.setAttribute('style', 
       'height:25px;'+
       'margin-top:-60px;'+
-      'margin-left:50px;'
+      'margin-left:50px;'+
+      'display:none;'
     );
     button.innerHTML = '<img src="/images/button-navigation.png" style="max-width:80%;max-height:80%;margin-bottom:1px;margin-right:5px;"></img>所在位置';
     return button;
@@ -165,7 +166,7 @@ function showInfoBar(info) {
 async function defaultLocate(autoSetView = true) {
   const defaultLat = 25.0418963;
   const defaultLng = 121.5230431;
-  if (autoSetView) map.setView([defaultLat, defaultLng], 16);
+  const locateButton = document.getElementById('current-locate-button');
   if (navigator.geolocation) {
     try {
       const position = await new Promise((resolve, reject) => {
@@ -178,20 +179,34 @@ async function defaultLocate(autoSetView = true) {
       }));
       if (autoSetView) map.setView([userLat, userLng], 16);
     } catch (error) {
-      showAlert('red', `取得您的位置過程中發生非預期的錯誤`);
+      if (!this.document.getElementById('map').getAttribute('store-lat')) {
+        locateButton.innerHTML = '<img src="/images/button-navigation.png" style="max-width:80%;max-height:80%;margin-bottom:1px;margin-right:5px;"></img>預設位置';      
+        if (autoSetView) map.setView([defaultLat, defaultLng], 16);
+      }
     }
-  } else {
-    showAlert('red', '不支援地理定位功能');
+  } else {    
+    if (!this.document.getElementById('map').getAttribute('store-lat')) {
+      locateButton.innerHTML = '<img src="/images/button-navigation.png" style="max-width:80%;max-height:80%;margin-bottom:1px;margin-right:5px;"></img>預設位置';
+      if (autoSetView) map.setView([defaultLat, defaultLng], 16);
+    }
   }
+  locateButton.style.display = 'block';
   var crosshair = document.getElementById('crosshair');
   if (crosshair) crosshair.style.display = 'block';
 }
+
 
 function searchLocate() {
   var lat = document.getElementById('map').getAttribute('search-lat');
   var lng = document.getElementById('map').getAttribute('search-lng');
   var zoom = document.getElementById('map').getAttribute('search-zoom');
   if (lat&&lng&&zoom) map.setView([lat, lng], zoom);
+}
+
+function storeLocate() {
+  var lat = document.getElementById('map').getAttribute('store-lat');
+  var lng = document.getElementById('map').getAttribute('store-lng');
+  if (lat&&lng) map.setView([lat, lng], 16);
 }
 
 function getCenter() {
@@ -218,5 +233,5 @@ function setPlaceCenter(latlngs) {
     document.getElementById('map').setAttribute('search-lat', mapCenter.lat);
     document.getElementById('map').setAttribute('search-lng', mapCenter.lng);
     document.getElementById('map').setAttribute('search-zoom', zoomLevel);    
-    document.getElementById('search-locate-button').style.display = 'block';    
+    document.getElementById('search-locate-button').style.display = 'block';
 }

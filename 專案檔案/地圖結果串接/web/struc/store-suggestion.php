@@ -55,18 +55,18 @@
               <h5 class="rating"><small class="rating-text"><?=$bayesianScore?> / 綜合評分</small></h5>
               <div class="progress-group-text">
                 <?php
-                  $categories = [
+                  $normalizedWeights = [
                     $_ATMOSPHERE => ['weight' => '30', 'color' => '#562B08'],
                     $_PRODUCT => ['weight' => '30', 'color' => '#7B8F60'],
                     $_SERVICE => ['weight' => '30', 'color' => '#5053AF'],
                     $_PRICE => ['weight' => '30', 'color' => '#C19237'],
                   ];
-                  uasort($categories, function ($a, $b) {
+                  uasort($normalizedWeights, function ($a, $b) {
                     return $b['weight'] <=> $a['weight'];
                   });
                   $rowIndex = 1;
                 ?>
-                <?php foreach ($categories as $category => $data): ?>
+                <?php foreach ($normalizedWeights as $category => $data): ?>
                   <?php
                     $result = getProportionScore($category);
                     $proportion = $result['proportion'];

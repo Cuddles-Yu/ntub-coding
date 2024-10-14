@@ -73,7 +73,7 @@ function closeOpenedModal() {
   });
 }
 
-function setCondition() {  
+function showCondition() {  
   const city = document.getElementById('condition-city-select').value;
   const dist = document.getElementById('condition-dist-select').value;
   const searchRadius = document.getElementById('condition-search-radius-input').value;
@@ -99,7 +99,8 @@ function setCondition() {
   if (serviceCount > 0) {
     container.innerHTML += `<p class="filter-item" style="background-color:mediumpurple;">包含 ${serviceCount} 項需求服務</p>`;
   }
-  closeOpenedModal();  
+  closeOpenedModal();
+  window.history.replaceState({}, '', `${location.protocol}//${location.host}${location.pathname}?data=${getEncodeSearchParams()}`);
 }
 
 function toggleMenu() {

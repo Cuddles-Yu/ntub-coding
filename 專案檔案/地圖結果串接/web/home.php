@@ -57,7 +57,7 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers/dist/leaflet.awesome-markers.min.js"></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-  <script src="/scripts/home.js"></script>
+  <script src="/scripts/home.js" defer></script>
   <script src="/scripts/map.js"></script>
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/footer.php'; ?>
 </body>

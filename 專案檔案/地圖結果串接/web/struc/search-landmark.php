@@ -1,31 +1,37 @@
 <?php
-  require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
-  require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
-  require_once $_SERVER['DOCUMENT_ROOT'].'/base/queries.php';
-  require_once $_SERVER['DOCUMENT_ROOT'].'/base/analysis.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/base/queries.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/base/analysis.php';
+$inputJSON = file_get_contents('php://input');
+$input = json_decode($inputJSON, true);
 
-  global $conn;
-  $searchRadius = $_POST['searchRadius']??1500;
-  $keyword = array_key_exists('q', $_POST) ? htmlspecialchars($_POST['q']) : null;
-  $mapCenterLat = isset($_POST['mapCenterLat']) ? floatval($_POST['mapCenterLat']) : null;
-  $mapCenterLng = isset($_POST['mapCenterLng']) ? floatval($_POST['mapCenterLng']) : null;
+// 獲取商家數據
+$storeData = $input['data'] ?? [];
 
-  header('Content-Type: application/json');
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $stores = searchByLocation($keyword, $searchRadius, $mapCenterLat, $mapCenterLng, $RESULT_LIMIT);
-    $data = [];
-    foreach ($stores as $store) {
-      $data[] = [
-        'id' => $store['id'],
-        'name' => $store['name'],
-        'latitude' => $store['latitude'],
-        'longitude' => $store['longitude'],
-        'tag' => $store['tag'],
-        'preview_image' => $store['preview_image'],
-        'distance' => $store['distance'],
-        'score' => getBayesianScore(getMemberNormalizedWeight(), $store['id'])
-      ];
+header('Content-Type: application/json');
+
+if (!empty($storeData)) {
+    $landmarkData = [];
+    
+    foreach ($storeData as $store) {
+        // 生成地標所需的資料
+        $landmarkData[] = [
+            'id' => $store['id'],
+            'name' => htmlspecialchars($store['name']),
+            'latitude' => $store['latitude'],
+            'longitude' => $store['longitude'],
+            'tag' => htmlspecialchars($store['tag']),
+            'preview_image' => htmlspecialchars($store['preview_image']),
+            'distance' => $store['distance'],
+            'score' => $store['score']
+        ];
     }
-    echo json_encode($data);
+
+    // 將地標資料返回給前端
+    echo json_encode($landmarkData);
     exit;
-  }
+} else {
+    echo json_encode([]);
+    exit;
+}

@@ -7,9 +7,13 @@ document.querySelectorAll('.home-page').forEach(page => {
   page.setAttribute('style', 'cursor:default;');
 });
 
-window.addEventListener('load', function () {     
-  defaultLocate();  
-  setCondition();
+window.addEventListener('load', async function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  const encodedData = urlParams.get('data')??null;
+  const data = encodedData ? (decodeSearchParams(encodedData)??null) : null;
+  if (data) setConditionFromData(data);
+  showCondition();
+  await defaultLocate();
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -23,10 +27,7 @@ function syncToPreferences() {
 
 function toSearchPage() {
   getCenter();
-  const keyword = encodeURIComponent(document.getElementById('keyword').value);
-  const lat = document.getElementById('map').getAttribute('data-lat');
-  const lng = document.getElementById('map').getAttribute('data-lng');
-  window.location.href = `search?q=${keyword}&lat=${lat}&lng=${lng}`;
+  window.location.href = `search?data=${getEncodeSearchParams()}`;
 }
 
 
