@@ -81,7 +81,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
   <link rel="stylesheet" href="/styles/elem/form.css">
-  <link rel="stylesheet" href="/sys/git_history.css">
+  <link rel="stylesheet" href="/admin/sys/git_history.css">
 </head>
 
 <body>
