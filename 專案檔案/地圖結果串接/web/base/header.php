@@ -18,7 +18,7 @@
       <div class="vertical-line"></div>
       <a class="link_text page-item suggestion-page" href="/suggestion">餐廳推薦</a>
       <div class="vertical-line"></div>
-      <a class="link_text page-item use-page" style="color:lightgray;cursor:default;">使用說明</a><!-- !!!需要更新!!! -->
+      <a class="link_text page-item use-page">使用說明</a><!-- !!!需要更新!!! style="color:lightgray;cursor:default;" -->
       <div class="vertical-line"></div>
       <a class="link_text page-item feedback-page" href="/feedback">聯絡我們</a><!-- href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank" -->
       <div class="vertical-line"></div>
@@ -42,7 +42,7 @@
   <nav id="nav_menu2">
       <a class="link_text page-menu home-menu" href="/home">餐廳搜尋</a>
       <a class="link_text page-menu suggestion-menu" href="/suggestion">餐廳推薦</a>
-      <a class="link_text page-menu use-menu" style="color:lightgray;cursor:default;">使用說明</a>
+      <a class="link_text page-menu use-menu">使用說明</a>
       <a class="link_text page-menu feedback-menu" href="/feedback">聯絡我們</a>
       <a class="link_text page-menu team-menu" href="/team">成員介紹</a>
       <?php if($SESSION_DATA->success): ?>
