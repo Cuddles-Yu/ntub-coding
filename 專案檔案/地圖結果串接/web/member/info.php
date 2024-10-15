@@ -67,7 +67,7 @@
           </div>
       </div>
       <div id="preference_main_area">
-          <form class="preference_item_container">              
+          <form class="preference_item_container">
               <div class="type_title">位置</div>
               <div id="comments-order-bar" class="input-group member-input-box mb-3 sort-button" style="margin-top:1vh;margin-bottom:1vh;">
                 <span class="input-group-text member-input-box-title" id="basic-addon1">縣市區域</span>
@@ -102,7 +102,7 @@
               <div id="comments-order-bar" class="input-group member-input-box mb-3 sort-button" style="margin-top:1vh;margin-bottom:1vh;">
                 <span class="input-group-text member-input-box-title" id="basic-addon1">搜尋半徑</span>
                 <input id="member-search-radius-input" type="text" class="form-control member-input-box-main field" style="max-width:182px;" 
-                  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+                  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                   value="<?php if($SESSION_DATA->success): echo $MEMBER_INFO['search_radius']; else: echo '1500'; endif;?>" disabled>
                 <span class="input-group-text" id="inputGroup-sizing-sm">公尺</span>
               </div>
@@ -218,24 +218,27 @@
         </div>
       </div>
       <div id="weight_main_area">
-        <div class="description_text">請依據您的重視程度，填寫適當的指標權重，以找尋更符合您需求的商家。</div>
+        <div class="description_text">
+          <p>請調整每項指標的權重，以反映您對餐廳需求的重視程度。</p>
+          <p>權重越高，表示您越重視該指標的表現，為您推薦最符合期望的餐廳。</p>
+        </div>
         <div class="slider-container">
-          <label for="atmosphere">氛圍</label>
+          <label for="atmosphere"><?=$_ATMOSPHERE?></label>
           <input type="range" id="atmosphere" name="atmosphere" min="0" max="100" value="<?=$MEMBER_INFO['atmosphere_weight']?>" oninput="updateLabelValue('atmosphere')" disabled>
           <span id="atmosphere-value"><?=$MEMBER_INFO['atmosphere_weight']?></span>
         </div>
         <div class="slider-container">
-          <label for="product">產品</label>
+          <label for="product"><?=$_PRODUCT?></label>
           <input type="range" id="product" name="product" min="0" max="100" value="<?=$MEMBER_INFO['product_weight']?>" oninput="updateLabelValue('product')" disabled>
           <span id="product-value"><?=$MEMBER_INFO['product_weight']?></span>
         </div>
         <div class="slider-container">
-          <label for="service">服務</label>
+          <label for="service"><?=$_SERVICE?></label>
           <input type="range" id="service" name="service" min="0" max="100" value="<?=$MEMBER_INFO['service_weight']?>" oninput="updateLabelValue('service')" disabled>
           <span id="service-value"><?=$MEMBER_INFO['service_weight']?></span>
         </div>
         <div class="slider-container">
-          <label for="price">售價</label>
+          <label for="price"><?=$_PRICE?></label>
           <input type="range" id="price" name="price" min="0" max="100" value="<?=$MEMBER_INFO['price_weight']?>" oninput="updateLabelValue('price')" disabled>
           <span id="price-value"><?=$MEMBER_INFO['price_weight']?></span>
         </div>

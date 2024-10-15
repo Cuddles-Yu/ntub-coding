@@ -10,22 +10,22 @@
         <h2 class="form-h2-title">權重設定</h2>
         <p class="signup-explain">為了計算您客製化的餐廳分數，請依據您的需求調整下列四個項目的權重 [您可以隨時進行設定及修改]</p>
         <div class="slider-container">
-          <label for="signup-atmosphere">氛圍</label>
+          <label for="signup-atmosphere"><?=$_ATMOSPHERE?></label>
           <input type="range" class="slider-bar" id="signup-atmosphere" name="signup-atmosphere" min="0" max="100" value="50" oninput="updateLabelValue('signup-atmosphere')">
           <span id="signup-atmosphere-value">50</span>
         </div>
         <div class="slider-container">
-          <label for="signup-product">產品</label>
+          <label for="signup-product"><?=$_PRODUCT?></label>
           <input type="range" class="slider-bar" id="signup-product" name="signup-product" min="0" max="100" value="50" oninput="updateLabelValue('signup-product')">
           <span id="signup-product-value">50</span>
         </div>
         <div class="slider-container">
-          <label for="signup-service">服務</label>
+          <label for="signup-service"><?=$_SERVICE?></label>
           <input type="range" class="slider-bar" id="signup-service" name="signup-service" min="0" max="100" value="50" oninput="updateLabelValue('signup-service')">
           <span id="signup-service-value">50</span>
         </div>
         <div class="slider-container">
-          <label for="signup-price">售價</label>
+          <label for="signup-price"><?=$_PRICE?></label>
           <input type="range" class="slider-bar" id="signup-price" name="signup-price" min="0" max="100" value="50" oninput="updateLabelValue('signup-price')">
           <span id="signup-price-value">50</span>
         </div>

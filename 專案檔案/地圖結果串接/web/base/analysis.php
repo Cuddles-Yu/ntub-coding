@@ -4,15 +4,16 @@
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/session.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
-  
+
   $_ROUND = 1;
   $RESULT_LIMIT = 100;
   $MIN_KEYWORD_COUNT = 10;
 
-  $_ATMOSPHERE = '氛圍';
-  $_PRICE= '售價';
-  $_PRODUCT = '產品';
-  $_SERVICE = '服務';
+  $_ALL = '全部';
+  $_ATMOSPHERE = '餐廳氛圍';
+  $_PRICE= '性價比';
+  $_PRODUCT = '餐點品質';
+  $_SERVICE = '服務態度';
 
   $_POSITIVE = '正面';
   $_NEGATIVE = '負面';

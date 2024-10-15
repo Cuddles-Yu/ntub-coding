@@ -274,17 +274,17 @@
       </button>
     </div>
     <div class="comment-keyword">
-      <div class="keyword-title" id="keyword-title">        
+      <div class="keyword-title" id="keyword-title">
         <h5 class="keyword-title-text">標記</h5>
         <!--篩選按鈕-->
         <div class="input-group mb-3 filter-button">
           <span class="input-group-text" id="basic-addon1"><i class="fi fi-sr-filter-list"></i></i>篩選</span>
           <select class="form-select" aria-label="Default select example" id="filterSelect">
-            <option value="全部" selected>全部</option>
-            <option value="氛圍">氛圍</option>
-            <option value="產品">產品</option>
-            <option value="服務">服務</option>
-            <option value="售價">售價</option>
+            <option value="<?=$_ALL?>" selected><?=$_ALL?></option>
+            <option value="<?=$_ATMOSPHERE?>"><?=$_ATMOSPHERE?></option>
+            <option value="<?=$_PRODUCT?>"><?=$_PRODUCT?></option>
+            <option value="<?=$_SERVICE?>"><?=$_SERVICE?></option>
+            <option value="<?=$_PRICE?>"><?=$_PRICE?></option>
           </select>
         </div>
       </div>

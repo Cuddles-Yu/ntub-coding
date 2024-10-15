@@ -449,7 +449,7 @@ function cancelEditMode2() {
       slider.disabled = true;
       slider.value = initialValues[slider.id]; // 恢復到初始值
       console.log(slider.id);
-      document.getElementById(slider.id + '_value').innerText = initialValues[slider.id]; // 更新顯示的值
+      document.getElementById(slider.id + '-value').innerText = initialValues[slider.id]; // 更新顯示的值
   });
   editButton.style.display = 'inline';
   saveButton.style.display = 'none';

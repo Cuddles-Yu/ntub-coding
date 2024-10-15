@@ -6,11 +6,11 @@
           目前進度: 2 / 3
         </div>
       </div>
-      <h2 class="form-h2-title" style="padding-top:20px;">偏好設定</h2>        
+      <h2 class="form-h2-title" style="padding-top:20px;">偏好設定</h2>
       <p class="signup-explain" style="margin-top:0;padding-left:20px;padding-right:20px;">為了提供您客製化的推薦餐廳，我們需要瞭解您的具體需求 [您可以隨時進行設定及修改]</p>
       <div class="modal-body login-modal-body" style="height:222px;padding-top:0;padding-right:10px;">
         <p class="checkbox-title">個人需求</p>
-        <div class="checkbox-container">                
+        <div class="checkbox-container">
           <div class="checkbox-item">
             <input type="checkbox" id="signup-parking" value="">
             <label for="signup-parking">停車場</label>

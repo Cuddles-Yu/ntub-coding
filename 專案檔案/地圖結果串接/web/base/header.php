@@ -11,7 +11,6 @@
 <div id="alert-box" class="alert"></div>
 
 <header>
-  
   <div id="web_name"></div>
 
   <div id="nav_menu1">
@@ -19,9 +18,9 @@
       <div class="vertical-line"></div>
       <a class="link_text page-item suggestion-page" href="/suggestion">餐廳推薦</a>
       <div class="vertical-line"></div>
-      <a class="link_text page-item use-page" style="color:lightgray;cursor:default;">使用說明</a><!-- !!!需要更新!!! -->      
+      <a class="link_text page-item use-page" style="color:lightgray;cursor:default;">使用說明</a><!-- !!!需要更新!!! -->
       <div class="vertical-line"></div>
-      <a class="link_text page-item feedback-page" href="/feedback">使用回饋</a><!-- href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank" -->
+      <a class="link_text page-item feedback-page" href="/feedback">聯絡我們</a><!-- href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank" -->
       <div class="vertical-line"></div>
       <a class="link_text page-item team-page" href="/team">成員介紹</a>
       <?php if($SESSION_DATA->success): ?>
@@ -44,7 +43,7 @@
       <a class="link_text page-menu home-menu" href="/home">餐廳搜尋</a>
       <a class="link_text page-menu suggestion-menu" href="/suggestion">餐廳推薦</a>
       <a class="link_text page-menu use-menu" style="color:lightgray;cursor:default;">使用說明</a>
-      <a class="link_text page-menu feedback-menu" href="/feedback">使用回饋</a>
+      <a class="link_text page-menu feedback-menu" href="/feedback">聯絡我們</a>
       <a class="link_text page-menu team-menu" href="/team">成員介紹</a>
       <?php if($SESSION_DATA->success): ?>
         <span class="display-after-login menu-separator"></span>
@@ -63,7 +62,6 @@
         <a class="display-before-login link_text close-menu" id="signup-nav" data-bs-toggle="modal" data-bs-target="#signupModal1">註冊</a>
       <?php endif; ?>
   </nav>
-    
   <div id="dropdownMenu" class="dropdown-menu">
     <a href="/member/info?tab=info">基本資料</a>
     <a href="/member/info?tab=preference">偏好設定</a>
