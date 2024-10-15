@@ -42,10 +42,10 @@ function generateLoadingOverlay(during=0, hint1='', hint2='') {
 }
 
 function loginRequest() {
-  const emailInput = document.getElementById('login-email')      
+  const emailInput = document.getElementById('login-email')
   const passwordInput = document.getElementById('login-password')
   const rememberInput = document.getElementById('remember')
-  const email = emailInput.value;   
+  const email = emailInput.value;
   const password = passwordInput.value;
   if (!email || !password) {
     !email ? emailInput.focus() : passwordInput.focus();
@@ -54,8 +54,8 @@ function loginRequest() {
     return;
   }
   const formData = new FormData();
-  formData.set('email', email);     
-  formData.set('password', password); 
+  formData.set('email', email);
+  formData.set('password', password);
   formData.set('remember', rememberInput.checked?1:0);
   fetch('./member/handler/login.php', {
     method: 'POST',
@@ -70,12 +70,12 @@ function loginRequest() {
         localStorage.setItem('justLoggedIn', 'true');
         localStorage.setItem('memberName', data.name);
         setTimeout(function() {
-          window.location.reload(true);          
+          window.location.reload(true);
         }, LOADING_DURATION);
       } else {
         if (!('showMessage'in data)) {
           document.getElementById('loginError').innerText = data.message;
-          document.getElementById('login-message').style.display = 'block';        
+          document.getElementById('login-message').style.display = 'block';
         }
         emailInput.focus();
       }
@@ -84,13 +84,12 @@ function loginRequest() {
     .catch(() => {
       document.getElementById('loginError').innerText = `發生非預期的錯誤，請稍後再試。`;
       document.getElementById('login-message').style.display = 'block';
-    });    
+    });
 }
 
 async function emailVerifyRequest() {
   const emailInput = document.getElementById('signup-email');
   const email = emailInput.value.trim();
-  
   // 驗證
   if (!email) {
     emailInput.focus();
@@ -102,7 +101,7 @@ async function emailVerifyRequest() {
     if (!emailRegex.test(email)) {
       emailInput.focus();
       document.getElementById('signupError').innerText = '電子郵件地址無效。';
-      document.getElementById('signup-message').style.display = 'block';      
+      document.getElementById('signup-message').style.display = 'block';
       return false;
     }
   }
@@ -117,7 +116,7 @@ async function emailVerifyRequest() {
       credentials: 'same-origin',
       body: formData
     });
-    const data = await response.json();    
+    const data = await response.json();
     if (data.success) {
       return true;
     } else {
@@ -134,7 +133,7 @@ async function emailVerifyRequest() {
 }
 
 
-async function accountVerifyRequest() {  
+async function accountVerifyRequest() {
   const nameInput = document.getElementById('signup-name');
   const name = nameInput.value.trim();
   const passwordInput = document.getElementById('signup-password');
@@ -244,9 +243,10 @@ function signupRequest() {
   })
   .then(response => response.json())
   .then(data => {
-    cancelModal(); 
+    cancelModal();
     if (data.success) {
       showAlert('brown', '您已成功註冊為評星宇宙會員');
+      setTimeout(function() {showModal('loginModal');}, 500);
     } else {
       showAlert('red', '發生了預期之外的錯誤，請重新註冊');
     }

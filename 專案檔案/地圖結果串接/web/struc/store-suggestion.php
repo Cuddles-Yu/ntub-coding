@@ -17,7 +17,7 @@
   </div>
   <div class="restaurant-group">
     <?php foreach ($stores as $store) : ?>
-      <?php        
+      <?php
         $STORE_ID = $store['id'];
         $storeName = htmlspecialchars($store['name']);
         $previewImage = htmlspecialchars($store['preview_image']);

@@ -2,7 +2,7 @@
   <div class="modal-dialog form-dialog modal-dialog-centered logout-modal" style="justify-content:center;">
     <div class="modal-content" style="width:auto">
       <div class="modal-body logout-modal-body">
-        <form novalidate style="margin-top:15px;margin-left:20px;margin-right:20px;">         
+        <form novalidate style="margin-top:15px;margin-left:20px;margin-right:20px;">
           <h2>會員登出</h2>
           <p>您會遺失所有未保存的資料，系統會自動跳轉網頁</p>
         </form>
@@ -27,10 +27,10 @@
           console.log(window.location.href);
           cancelModal();
           generateLoadingOverlay();
-          localStorage.setItem('justLoggedOut', 'true');      
+          localStorage.setItem('justLoggedOut', 'true');
           setTimeout(function() {
             window.location.reload(true);
-          }, LOADING_DURATION);      
+          }, LOADING_DURATION);
         }
       })
       .catch(() => {showAlert('red', '登出失敗，請稍後再試');});

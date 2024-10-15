@@ -19,11 +19,11 @@
     $storeMark = htmlspecialchars($storeInfo['mark']);
     $markIcon = $markOptions[$storeMark]['tagIcon'] ?? '';
     $markClass = $markOptions[$storeMark]['buttonClass'] ?? '';
-    $storeTag = htmlspecialchars($storeInfo['tag']);    
+    $storeTag = htmlspecialchars($storeInfo['tag']);
     $isFavorite = isFavorite($STORE_ID);
     $memberServices = getMemberServiceList();
     $memberWeights = getMemberNormalizedWeight();
-    $score = getBayesianScore($memberWeights, $STORE_ID);    
+    $score = getBayesianScore($memberWeights, $STORE_ID);
     $relevants = getRelevantComments($STORE_ID);
     $Highests = getHighestComments($STORE_ID);
     $Lowests = getLowestComments($STORE_ID);
@@ -33,7 +33,7 @@
     $service = getService($STORE_ID);
     $keywords = getAllKeywords($STORE_ID);
     $foodKeywords = getFoodKeyword($STORE_ID);
-    $otherBranches = getOtherBranches($storeInfo['branch_title'], $STORE_ID);    
+    $otherBranches = getOtherBranches($storeInfo['branch_title'], $STORE_ID);
     $targetsInfo = getTargets($STORE_ID);
   } else {
     require_once $_SERVER['DOCUMENT_ROOT'].'/error/id-not-found.php';
@@ -71,7 +71,7 @@
       <div class="type-rating-status-group">
         <h5 class="rating"><?=$score?></h5>
         <h6 class="rating-text">/ 綜合評分</h6>
-        <a class="store-type btn btn-outline-gray" type="button" href="search?q=<?=$storeTag?>" target="_blank"><?=$storeTag?></a>
+        <button class="store-type btn btn-outline-gray" type="button" onclick="openSearchPage('<?=$storeTag?>')"><?=$storeTag?></button>
         <?php require_once $_SERVER['DOCUMENT_ROOT'].'/elem/open-hour-button.php';?>
         <?php if($storeMark): ?>
           <button type="button" class="btn <?=$markClass?> e-icon" data-bs-toggle="tooltip" 
@@ -91,23 +91,23 @@
     <div class="collapse multi-collapse" id="collapseExample">
       <div class="other-store">
         <?php foreach ($otherBranches as $branch): ?>
-          <?php 
+          <?php
             $branchTitle = htmlspecialchars($branch['branch_title']);
             $branchName = htmlspecialchars($branch['branch_name']);
             $branchId = htmlspecialchars($branch['id']);
-            $avgRating = htmlspecialchars($branch['avg_ratings']);
+            $branchScore = getBayesianScore($memberWeights, $branchId);
             $address = htmlspecialchars(($branch['city'] ?? '').($branch['dist'] ?? '').($branch['vil'] ?? '').($branch['details'] ?? ''));
           ?>
           <div class="other-store-display">
-            <a class="other-store-group" style="width:100%" href="detail?id=<?=$branchId?>">            
-              <p class="store-name no-flow" style="width:15%"><?=$branchTitle?></p>
-              <p style="width:2%;text-align:center;color:lightgrey">|</p>
-              <p class="store-name no-flow" style="width:15%"><?=$branchName?></p>
-              <p style="width:2%;text-align:center;color:lightgrey">|</p>
-              <p class="other-rating no-flow" style="width:14%;text-align:center"><?=$avgRating?> / 綜合評分</p>
-              <p style="width:2%;text-align:center;color:lightgrey">|</p>
+            <div class="other-store-group" style="width:100%;height:40px;" onclick="urlToDetailPage(<?=$branchId?>)">
+              <p class="store-name no-flow" style="width:14%"><?=$branchTitle?></p>
+              <p style="width:2%;text-align:center;color:lightgrey;;margin:0 0;">|</p>
+              <p class="store-name no-flow" style="width:14%"><?=$branchName?></p>
+              <p style="width:2%;text-align:center;color:lightgrey;margin:0 0;">|</p>
+              <p class="other-rating no-flow" style="width:16%;text-align:center"><?=$branchScore?> / 綜合評分</p>
+              <p style="width:2%;text-align:center;color:lightgrey;margin:0 0;">|</p>
               <p class="other-map address no-flow"><i class="fi fi-sr-map-marker address-img"></i><?=$address?></p>
-            </a>
+        </div>
             <!-- <i class="fi fi-sr-bookmark collect" role="button"></i>-->
           </div>
         <?php endforeach;?>
@@ -117,7 +117,7 @@
     <?php if (isset($intro)) : ?>
         <li id="item" class="introduction" data-content="<?=$intro; ?>"></li>
     <?php else : ?>
-    <?php endif; ?>   
+    <?php endif; ?>
   </section>
 
   <section class="normal-content section-content">
@@ -143,22 +143,21 @@
               <?php
               $result = getProportionScore($category);
               $proportion = $result['proportion'];
-              $score = $result['score'];
-              $color = $data['weight'] > 0 ? $data['color'] : 'darkgrey';
+              $proportionScore = $result['score'];
+              $proportionColor = $data['weight'] > 0 ? $data['color'] : 'darkgrey';
               ?>
               <tr class="row<?=$rowIndex ?>">
                 <td>
                   <div class="progress-group">
-                    <h6 class="progress-text" style="color:<?=$color?>;padding-right:5px;"><?=$category?></h6>
+                    <h6 class="progress-text" style="color:<?=$proportionColor?>;padding-right:5px;"><?=$category?></h6>
                     <?php if($SESSION_DATA->success): ?>
-                      <h6 class="progress-text" style="color:<?=$color?>;padding-right:5px;"><?=round($data['weight']*100)?>%</h6>
+                      <h6 class="progress-text" style="color:<?=$proportionColor?>;padding-right:5px;"><?=round($data['weight']*100)?>%</h6>
                     <?php endif; ?>
-                    <h6 class="progress-text" style="color:<?=$color?>;">|</h6>
-                    <h6 class="progress-percent" style="color:<?=$color?>"><?=$score?></h6>
-                    
+                    <h6 class="progress-text" style="color:<?=$proportionColor?>;">|</h6>
+                    <h6 class="progress-percent" style="color:<?=$proportionColor?>"><?=$proportionScore?></h6>
                   </div>
                   <div class="progress col" role="progressbar" aria-label="Success example" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">
-                    <div class="progress-bar overflow-visible" style="width: <?=$proportion?>%; background-color: <?=$color?>;"></div>
+                    <div class="progress-bar overflow-visible" style="width: <?=$proportion?>%; background-color: <?=$proportionColor?>;"></div>
                   </div>
                 </td>
                 <td class="evaluate-good"><?=$targetsInfo[$_POSITIVE][$category]??'NULL'?></td>
@@ -183,12 +182,12 @@
             <div class="matched-services">
               <h6 class="service-title-eligible">需求項目</h6>
               <div class="item-group">
-                <!-- 需求項目 動態生成 -->
+
                 <?php foreach ($serviceOrder as $category): ?>
                   <?php if (isset($service[$category])): ?>
-                    <?php $serviceItems = $service[$category]; ?>                    
+                    <?php $serviceItems = $service[$category]; ?>
                     <?php foreach ($serviceItems as $serviceItem): ?>
-                      <?php 
+                      <?php
                         $key = false;
                         foreach ($memberServices as $memberService) {
                           if (str_contains($serviceItem['property'], $memberService) || str_contains($serviceItem['category'], $memberService)) {
@@ -204,19 +203,18 @@
                           <?php else: ?>
                             <i class="fi fi-sr-cross item-img-ineligible"></i>
                             <h6 class="item-text-ineligible"><?php echo htmlspecialchars($serviceItem['property']); ?></h6>
-                          <?php endif; ?>                          
+                          <?php endif; ?>
                         </div>
                         <?php unset($memberServices[$serviceItem['property']]);?>
                       <?php endif; ?>
                     <?php endforeach; ?>
-                    
                   <?php endif; ?>
                 <?php endforeach; ?>
+
               </div>
             </div>
           <?php endif; ?>
 
-          <!-- 接著顯示所有其他服務項目 -->
           <?php foreach ($serviceOrder as $category): ?>
             <?php if (isset($service[$category])): ?>
               <?php $serviceItems = $service[$category]; ?>
@@ -224,14 +222,8 @@
                 <h6 class="service-title"><?php echo htmlspecialchars($category); ?></h6>
                 <div class="item-group">
                   <?php foreach ($serviceItems as $serviceItem): ?>
-                    <?php if (
-                      $serviceItem['property'] === '無障礙車位' || 
-                      $serviceItem['property'] === '適合兒童' || 
-                      $serviceItem['property'] === '氣氛悠閒') continue; ?>
-
-                    <?php 
+                    <?php
                       $key = false;
-                      // 再次檢查是否已經顯示在需求項目中，避免重複顯示
                       foreach ($memberServices as $memberService) {
                         if (str_contains($serviceItem['property'], $memberService) || str_contains($serviceItem['category'], $memberService)) {
                           $key = true;
@@ -240,7 +232,6 @@
                       }
                     ?>
                     <?php if (!$key): ?>
-                      <!-- 其他項目顯示 -->
                       <div class="service-item">
                         <i class="fi <?php echo ($serviceItem['state'] == 1) ? 'fi-sr-checkbox' : 'fi-sr-square-x'; ?> item-img"></i>
                         <h6 class="item-text"><?php echo htmlspecialchars($serviceItem['property']); ?></h6>
@@ -251,7 +242,6 @@
               </div>
             <?php endif; ?>
           <?php endforeach; ?>
-
 
         </div>
       </div>
@@ -363,8 +353,8 @@
         <div class="group-card">          
           <?php foreach ($foodKeywords as $foodKeyword): ?>
             <div class="card">
-              <div class="card-body">
-                <a class="card-text" href="search?q=<?=urlencode($foodKeyword['word']); ?>" target="_blank"><?=htmlspecialchars($foodKeyword['word']); ?>(<?=htmlspecialchars($foodKeyword['count']); ?>)</a>
+              <div class="card-body" onclick="openSearchPage('<?=$foodKeyword['word']?>')">
+                <a class="card-text"><?=htmlspecialchars($foodKeyword['word']); ?>(<?=htmlspecialchars($foodKeyword['count']); ?>)</a>
               </div>
               <a class="card-a" href="https://www.google.com/search?udm=2&q=<?=urlencode($storeInfo['name'] . ' ' . $foodKeyword['word']); ?> " target="_blank"><img class="card-img" src="<?=$foodKeyword['image_url'] ?>"></a>
             </div>
@@ -417,8 +407,8 @@
       <div class="tag-group">
         <?php 
           foreach ($keywords as $keyword) {
-            echo '<button class="tag btn-outline-secondary btn" type="button">';
-            echo '<a class="tag-text" href="search?q=' . urlencode($keyword['word']) . '" target="_blank">' . htmlspecialchars($keyword['word']) . ' (' . htmlspecialchars($keyword['count']) . ')</a>';
+            echo '<button class="tag btn-outline-secondary btn" type="button" onclick="openSearchPage(\''.$keyword['word'].'\')">';
+            echo '<a class="tag-text">'.htmlspecialchars($keyword['word']).' ('.htmlspecialchars($keyword['count']).')</a>';
             echo '</button>';
           }
         ?>

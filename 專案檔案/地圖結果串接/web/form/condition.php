@@ -5,7 +5,7 @@
 
   $checkboxGroups = [
     'open_hour_button' => [
-      'title' => '*營業時間',
+      'title' => '營業時間',
       'items' => [
         'condition-will-open' => ['name' => '即將營業', 'default' => 'checked'],
         'condition-open-now' => ['name' => '營業中(不含即將打烊)', 'default' => 'checked'],
@@ -67,13 +67,21 @@
     <div class="modal-content">
       <h2 class="form-h2-title" style="padding-top:20px;"><?=$modalTitle?></h2>
       <div class="modal-body login-modal-body" style="height:400px;padding-top:10px;padding-right: 0;">
-        <p class="checkbox-title" style="font-weight:normal;background:gray;color:white;text-align:center;">基本條件</p>
-        <p class="checkbox-title" style="margin-bottom:2px">位置</p>
+        <p class="checkbox-title" style="font-weight:normal;background:gray;color:white;text-align:center;">搜尋模式</p>
+        <p class="checkbox-title" style="margin-bottom:2px;color:#663399;" id="distance-title">中心距離</p>
         <div id="comments-order-bar" class="input-group condition-input-box mb-3 sort-button" style="margin-bottom:-1px !important;">
+          <span class="input-group-text condition-input-box-title" id="basic-addon1">搜尋半徑</span>
+          <input id="<?=$modalId?>-search-radius-input" type="text" class="form-control condition-input-box-main"
+            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+            value="<?php if($SESSION_DATA->success): echo $MEMBER_INFO['search_radius']; else: echo '1500'; endif;?>">
+          <span class="input-group-text" id="inputGroup-sizing-sm">公尺</span>
+        </div>
+        <p class="checkbox-title" style="margin-bottom:2px" id="geo-title">地理位置</p>
+        <div id="comments-order-bar" class="input-group condition-input-box mb-3 sort-button">
           <span class="input-group-text condition-input-box-title" id="basic-addon1">縣市區域</span>
           <select class="form-select condition-input-box-main" aria-label="Default select example" id="condition-city-select" onchange="updateArea('condition')">
             <option value="" selected>(無限制)</option>
-            <?php 
+            <?php
               $selectedCity = $MEMBER_INFO['city']??'';
               $selectedDist = $MEMBER_INFO['dist']??'';
               $dists = getDists($selectedCity);
@@ -84,7 +92,7 @@
               </option>
             <?php endforeach; ?>
           </select>
-          <select class="form-select condition-input-box-main" aria-label="Default select example" id="condition-dist-select">
+          <select class="form-select condition-input-box-main" aria-label="Default select example" id="condition-dist-select" disabled>
             <?php if ($selectedCity === ''): ?>
               <option value="" selected></option>
             <?php else: ?>
@@ -97,22 +105,14 @@
             <?php endif; ?>
           </select>
         </div>
-        
-        <p class="checkbox-title" style="margin-bottom:2px">*範圍</p>
-        <div id="comments-order-bar" class="input-group condition-input-box mb-3 sort-button"  style="margin-bottom:-1px !important;">
-          <span class="input-group-text condition-input-box-title" id="basic-addon1">搜尋半徑</span>
-          <input id="<?=$modalId?>-search-radius-input" type="text" class="form-control condition-input-box-main" 
-            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
-            value="<?php if($SESSION_DATA->success): echo $MEMBER_INFO['search_radius']; else: echo '1500'; endif;?>">
-          <span class="input-group-text" id="inputGroup-sizing-sm">公尺</span>
-        </div>        
+        <p class="checkbox-title" style="font-weight:normal;background:gray;color:white;text-align:center;">營業狀態</p>
         <?php $index=1; $serviceMark=false;?>
         <?php foreach($checkboxGroups as $key => $group): ?>
           <p class="checkbox-title"><?=$group['title']?></p>
           <div class="checkbox-container">
             <?php foreach($group['items'] as $item => $label): ?>
               <div class="checkbox-item">
-                <input <?php if($serviceMark): echo 'class="service-mark"'; endif;?> type="checkbox" id="<?=$item?>" value=""                    
+                <input <?php if($serviceMark): echo 'class="service-mark"'; endif;?> type="checkbox" id="<?=$item?>" value=""
                   <?php if($SESSION_DATA->success): echo transformToPreference($item); else: echo $label['default']??''; endif;?>>
                 <label for="<?=$item?>"><?=$label['name']?></label>
               </div>

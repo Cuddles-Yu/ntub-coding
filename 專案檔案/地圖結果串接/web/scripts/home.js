@@ -11,9 +11,9 @@ window.addEventListener('load', async function () {
   const urlParams = new URLSearchParams(window.location.search);
   const encodedData = urlParams.get('data')??null;
   const data = encodedData ? (decodeSearchParams(encodedData)??null) : null;
-  if (data) setConditionFromData(data);
-  showCondition();
+  if (data) await setConditionFromData(data);
   await defaultLocate();
+  showCondition();
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -45,7 +45,7 @@ document.querySelectorAll('.title-text-2').forEach(tab => {
 function generateStoreSuggestion(content) {
   var searchResults = document.getElementById(content);
   const formData = new FormData();
-  formData.set('q', '蛋塔');      
+  formData.set('q', '蛋塔');
   fetch('../struc/store-suggestion.php', {
     method: 'POST',
     credentials: 'same-origin',

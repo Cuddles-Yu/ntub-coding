@@ -17,7 +17,7 @@ function showAlert(type, message, timeout = 5000) {
   }, 50);
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+window.onload = function() {
 
   // 如果為登入登出跳轉，則顯示提示訊息
   const justLoggedIn = localStorage.getItem('justLoggedIn')??'';
@@ -28,15 +28,15 @@ document.addEventListener('DOMContentLoaded', function () {
   const showMessage = localStorage.getItem('showMessage')??'';
   if (justLoggedIn === 'true') {
     showAlert('green', `會員 ${memberName} 已成功降落在評星宇宙！`);
-  } 
+  }
   if (justLoggedOut === 'true') {
     showAlert('red', '您已離開評星宇宙');
-  } 
+  }
   if (loginExpired === 'true')  {
     showAlert('red', showMessage);
   }
   if (tryToLogin === 'true') {
-    document.getElementById('login').click();
+    setTimeout(function() {showModal('loginModal');}, 500);
   }
   localStorage.removeItem('justLoggedIn');
   localStorage.removeItem('memberName');
@@ -44,6 +44,10 @@ document.addEventListener('DOMContentLoaded', function () {
   localStorage.removeItem('tryToLogin');
   localStorage.removeItem('loginExpired')
   localStorage.removeItem('showMessage')
+
+}
+
+document.addEventListener('DOMContentLoaded', function () {
 
   // 綁定表單控制
   bindFormControl('.login-input', 'login-submit-button');
@@ -73,7 +77,8 @@ function closeOpenedModal() {
   });
 }
 
-function showCondition() {  
+function showCondition() {
+  const mapElem = document.getElementById('map');
   const city = document.getElementById('condition-city-select').value;
   const dist = document.getElementById('condition-dist-select').value;
   const searchRadius = document.getElementById('condition-search-radius-input').value;
@@ -83,24 +88,27 @@ function showCondition() {
   const closeNow = document.getElementById('condition-close-now').checked?1:0;
   const serviceCount = countCheckedServiceMarks();
   const container = document.getElementById('filter-container');
-  container.innerHTML = '<p class="filter-title">條件</p>';
+  const type = city?'city':'radius'
+  container.innerHTML = `<p class="filter-title-${type}">條件</p>`;
   if (city) {
-    container.innerHTML += `<p class="filter-item">區域：${city}${dist}</p>`;
+    container.innerHTML += `<p class="filter-item-${type}">搜尋區域：${city}${dist}</p>`;
+    mapElem.style.border = '3px solid #aa5d00';
   } else {
-    container.innerHTML += `<p class="filter-item">區域：(無限制)</p>`;
+    container.innerHTML += `<p class="filter-item-${type}">搜尋半徑：${searchRadius} 公尺</p>`;
+    mapElem.style.border = '3px solid #663399';
   }
-  container.innerHTML += `<p class="filter-item">範圍：${searchRadius} 公尺</p>`;
   const openStatus = [];
   if (willOpen) openStatus.push('即將營業');
   if (openNow) openStatus.push('營業中');
   if (willClose) openStatus.push('即將打烊');
   if (closeNow) openStatus.push('已打烊');
-  container.innerHTML += `<p class="filter-item">狀態：${openStatus.join('/')}</p>`;
+  container.innerHTML += `<p class="filter-item-${type}">狀態：${openStatus.join('/')}</p>`;
   if (serviceCount > 0) {
-    container.innerHTML += `<p class="filter-item" style="background-color:mediumpurple;">包含 ${serviceCount} 項需求服務</p>`;
+    container.innerHTML += `<p class="filter-item-${type}-light">包含 ${serviceCount} 項需求服務</p>`;
   }
   closeOpenedModal();
-  window.history.replaceState({}, '', `${location.protocol}//${location.host}${location.pathname}?data=${getEncodeSearchParams()}`);
+  // drawGeoJson();
+  this.window.history.replaceState({}, '', `${location.protocol}//${location.host}${location.pathname}?data=${getEncodeSearchParams()}`);
 }
 
 function toggleMenu() {
@@ -126,23 +134,24 @@ document.getElementById('logoutModal').addEventListener('shown.bs.modal', functi
   document.getElementById('logout-confirm-button').focus()
 })
 
-function cancelSignup(targetId) {  
+function cancelSignup(targetId) {
   if (
     targetId === 'signupModal1' &&
-    document.getElementById('signup-email').value === '' && 
+    document.getElementById('signup-email').value === '' &&
     document.getElementById('signup-name').value === '' &&
     document.getElementById('signup-password').value === '' &&
     document.getElementById('signup-check-password').value === ''
-  ) {    
+  ) {
     closeOpenedModal();
   } else {
     closeOpenedModal();
     let modal = new bootstrap.Modal(document.getElementById('cancelSignupModal'));
-    document.getElementById('cancel-signup-cancel-button').setAttribute('onclick', `restoreSignup('${targetId}')`);
+    document.getElementById('cancel-signup-cancel-button').setAttribute('onclick', `showModal('${targetId}')`);
     modal.show();
   }
 }
-function restoreSignup(targetId) {
+
+function showModal(targetId) {
   closeOpenedModal();
   let modal = new bootstrap.Modal(document.getElementById(targetId));
   modal.show();
@@ -151,15 +160,15 @@ function restoreSignup(targetId) {
 function cancelModal() {
   closeOpenedModal();
   clearInputs(
-    document.getElementById('login-email'), 
+    document.getElementById('login-email'),
     document.getElementById('login-password')
   )
   document.getElementById("remember").checked = false;
   document.getElementById('login-message').style.display = 'none';
   clearInputs(
-    document.getElementById('signup-email'), 
-    document.getElementById('signup-name'), 
-    document.getElementById('signup-password'), 
+    document.getElementById('signup-email'),
+    document.getElementById('signup-name'),
+    document.getElementById('signup-password'),
     document.getElementById('signup-check-password')
   );
   document.getElementById('signup-consent').checked = false;
@@ -181,13 +190,13 @@ function togglePasswordVisibility(inputId, iconId, autoFocus = true) {
 document.getElementById('login-toggle-password').addEventListener('click', function() {
   togglePasswordVisibility('login-password', 'login-toggle-password');
 });
-document.getElementById('signup-toggle-password').addEventListener('click', function() {    
+document.getElementById('signup-toggle-password').addEventListener('click', function() {
   togglePasswordVisibility('signup-password', 'signup-toggle-password');
   togglePasswordVisibility('signup-check-password', 'signup-toggle-check-password', false);
 });
-document.getElementById('signup-toggle-check-password').addEventListener('click', function() {    
-  togglePasswordVisibility('signup-check-password', 'signup-toggle-check-password');  
-  togglePasswordVisibility('signup-password', 'signup-toggle-password', false);  
+document.getElementById('signup-toggle-check-password').addEventListener('click', function() {
+  togglePasswordVisibility('signup-check-password', 'signup-toggle-check-password');
+  togglePasswordVisibility('signup-password', 'signup-toggle-password', false);
 });
 
 function bindFormControl(inputClass, buttonId) {
@@ -299,7 +308,7 @@ document.getElementById('hamburger_btn').addEventListener('click', function() {
       navMenu.classList.add('show');
       overlay.classList.add('show');
   }
-});  
+});
 document.getElementById('overlay').addEventListener('click', function() {
   var navMenu = document.getElementById('nav_menu2');
   var overlay = document.getElementById('overlay');
@@ -319,9 +328,9 @@ document.querySelectorAll('.close-menu').forEach(tab => {
 const currentHour = new Date().getHours();
 const iconContainer = document.getElementById('web_name');
 if (currentHour >= 6 && currentHour < 18) {
-    iconContainer.innerHTML = '<img src="/images/logo-yellow.png" id="web_logo"> <a href="../home">評星宇宙</a>';
+    iconContainer.innerHTML = '<a href="/home"><img src="/images/logo-yellow.png" id="web_logo" style="margin-top:-8px;">評星宇宙</a>';
 } else {
-    iconContainer.innerHTML = '<img src="/images/logo-blue+.png" id="web_logo"> <a href="../home">評星宇宙</a>';
+    iconContainer.innerHTML = '<a href="/home"><img src="/images/logo-blue+.png" id="web_logo" style="margin-top:-8px;">評星宇宙</a>';
 }
 
 /* 點擊使用者圖示時，顯示/隱藏會員下拉選單 */

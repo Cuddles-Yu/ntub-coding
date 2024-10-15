@@ -1,8 +1,8 @@
-<?php 
-  require_once $_SERVER['DOCUMENT_ROOT'].'/base/session.php'; 
+<?php
+  require_once $_SERVER['DOCUMENT_ROOT'].'/base/session.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/queries.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/analysis.php';
-  if (!$SESSION_DATA->success) {    
+  if (!$SESSION_DATA->success) {
     echo "
       <script>
         localStorage.setItem('tryToLogin', 'true');
@@ -115,7 +115,7 @@
                     'class' => 'open_hour',
                     'items' => [
                       'member-will-open' => '即將營業',
-                      'member-open-now' => '營業中',                      
+                      'member-open-now' => '營業中',
                       'member-will-close' => '即將打烊',
                       'member-close-now' => '已打烊',
                     ]
@@ -207,7 +207,7 @@
                           <?=transformToPreference($item)?>>
                         <label for="<?=$item?>"><?=$value?></label>
                       </div>
-                  <?php endforeach; ?>                
+                  <?php endforeach; ?>
                 </div>
               <?php endforeach; ?>
           </form>
@@ -217,27 +217,27 @@
           <button id="preference_save_button" class="save-button btn-solid-windows-blue" onclick="saveSettings()" style="display: none;">完成</button>
         </div>
       </div>
-      <div id="weight_main_area"> 
+      <div id="weight_main_area">
         <div class="description_text">請依據您的重視程度，填寫適當的指標權重，以找尋更符合您需求的商家。</div>
         <div class="slider-container">
           <label for="atmosphere">氛圍</label>
           <input type="range" id="atmosphere" name="atmosphere" min="0" max="100" value="<?=$MEMBER_INFO['atmosphere_weight']?>" oninput="updateLabelValue('atmosphere')" disabled>
-          <span id="atmosphere_value"><?=$MEMBER_INFO['atmosphere_weight']?></span>
-        </div>          
+          <span id="atmosphere-value"><?=$MEMBER_INFO['atmosphere_weight']?></span>
+        </div>
         <div class="slider-container">
           <label for="product">產品</label>
           <input type="range" id="product" name="product" min="0" max="100" value="<?=$MEMBER_INFO['product_weight']?>" oninput="updateLabelValue('product')" disabled>
-          <span id="product_value"><?=$MEMBER_INFO['product_weight']?></span>
-        </div>          
+          <span id="product-value"><?=$MEMBER_INFO['product_weight']?></span>
+        </div>
         <div class="slider-container">
           <label for="service">服務</label>
           <input type="range" id="service" name="service" min="0" max="100" value="<?=$MEMBER_INFO['service_weight']?>" oninput="updateLabelValue('service')" disabled>
-          <span id="service_value"><?=$MEMBER_INFO['service_weight']?></span>
-        </div>          
+          <span id="service-value"><?=$MEMBER_INFO['service_weight']?></span>
+        </div>
         <div class="slider-container">
           <label for="price">售價</label>
           <input type="range" id="price" name="price" min="0" max="100" value="<?=$MEMBER_INFO['price_weight']?>" oninput="updateLabelValue('price')" disabled>
-          <span id="price_value"><?=$MEMBER_INFO['price_weight']?></span>
+          <span id="price-value"><?=$MEMBER_INFO['price_weight']?></span>
         </div>
         <div class="button_area">
         <button id="weight_edit_button" class="edit-button btn-solid-gray" onclick="toggleEditMode2()">修改</button>
@@ -247,7 +247,7 @@
       </div>
       <div id="favorite_main_area">
         <div>
-          <div class="search">  
+          <div class="search">
             <div class="form-floating search-keyword">
               <input type="text" class="form-control" id="keyword" name="keyword" placeholder="關鍵字">
               <label for="keyword">搜尋關鍵字</label>
@@ -292,7 +292,7 @@
               $tag = htmlspecialchars($store['tag']);
               $createTime = htmlspecialchars($store['create_time']);
               $mark = htmlspecialchars($store['mark']);
-              $markName = $markOptions[$mark]['tagName'] ?? '';                
+              $markName = $markOptions[$mark]['tagName'] ?? '';
             ?>
             <div class="content_row">
               <div class="mark_number">

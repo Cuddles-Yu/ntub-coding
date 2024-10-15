@@ -82,7 +82,7 @@
 <?php require_once $_SERVER['DOCUMENT_ROOT'].'/form/signup3.php'; ?>
 
 <script src="/scripts/function.js"></script>
-<script src="/scripts/header.js"></script>
+<script src="/scripts/header.js" defer></script>
 <script src="/scripts/request.js"></script>
 
 <script>

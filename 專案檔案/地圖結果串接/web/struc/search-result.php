@@ -10,14 +10,14 @@
 ?>
 
 <?php if (!empty($storeData)) : ?>
-  <?php foreach ($storeData as $storeItem) : ?>      
+  <?php foreach ($storeData as $storeItem) : ?>
     <?php
       $STORE_ID = $storeItem['id'];
       $bayesianScore = $storeItem['score'];
 
       $targetsInfo = getTargets($STORE_ID);
       $isFavorite = isFavorite($STORE_ID);
-      $distance = normalizeDistance($storeItem['distance']);      
+      $distance = $storeItem['distance']?normalizeDistance($storeItem['distance']):null;
       $tag = htmlspecialchars($storeItem['tag']);
       $storeName = htmlspecialchars($storeItem['name']);
       $preview_image = htmlspecialchars($storeItem['preview_image']);
@@ -28,7 +28,7 @@
       $mark = $storeItem['mark'];
       $cardType = $markOptions[$mark]['cardType'] ?? '';
       $tagName = $markOptions[$mark]['tagName'] ?? '';
-      
+
       $normalizedWeights = getMemberNormalizedWeight();
       $rowIndex = 1;
     ?>
@@ -39,14 +39,16 @@
             </div>
             <div class="store-right col">
             <div class="distance-name-display">
-                <!--距離--><div class="distance"><?=$distance?></div>
-                <!--名稱--><h5 class="store-name"><?=$storeName?></h5>
+                <?php if($distance):?>
+                  <div class="distance"><?=$distance?></div>
+                <?php endif;?>
+                <h5 class="store-name"><?=$storeName?></h5>
               </div>
                 <div class="store-information row">
-                    <div class="col-6">                                     
-                      <!--綜合評分--><h5 class="rating"><?=$bayesianScore?><small class="rating-text"> / 綜合評分</small></h5>                                            
-                      <!--餐廳分類--><h6 class="restaurant-style">類別：<?=$tag?><?=$tagName?></h6>
-                      <!--餐廳地址--><h6 class="address">地址：<?=$location?></h6>
+                    <div class="col-6">
+                      <h5 class="rating"><?=$bayesianScore?><small class="rating-text"> / 綜合評分</small></h5>
+                      <h6 class="restaurant-style">類別：<?=$tag?><?=$tagName?></h6>
+                      <h6 class="address">地址：<?=$location?></h6>
                     </div>
                     <div class="progress-group-text col">
                       <?php foreach ($normalizedWeights as $category => $data): ?>

@@ -63,20 +63,20 @@ window.addEventListener('load', function () {
           const userLat = position.coords.latitude;
           const userLng = position.coords.longitude;
           var userMarker = L.marker(
-            [userLat, userLng], 
+            [userLat, userLng],
             {icon: userIcon}
           );
           map.addLayer(userMarker);
           bounds.push([userLat, userLng]);
-          setView([userLat, userLng], 11);          
+          setView([userLat, userLng], 11);
           if (storeLatLng) {
             var distance = calculateDistance(userLat, userLng, storeLatLng[0], storeLatLng[1]);
-            var zoomLevel = getZoomLevel(distance);            
+            var zoomLevel = getZoomLevel(distance);
             map.fitBounds(bounds, {
                 padding: [50, 50],
                 maxZoom: zoomLevel
             });
-            storeButton.style.display = 'block';            
+            storeButton.style.display = 'block';
             showInfoBar(`當前位置與該商家距離 ${normalizeDistance(distance)}`)
           }
         } catch (error) {

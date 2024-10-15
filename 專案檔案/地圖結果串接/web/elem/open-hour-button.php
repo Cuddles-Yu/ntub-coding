@@ -37,7 +37,7 @@
     $status = [
       'text' => '已打烊',
       'class' => 'orange',
-    ];    
+    ];
     while ($row = $result->fetch_assoc()) {
       if (!empty($row['open_time']) && !empty($row['close_time'])) {
         if ($currentTime >= $row['open_time'] && $currentTime <= $row['close_time']) {

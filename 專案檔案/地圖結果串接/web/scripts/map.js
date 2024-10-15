@@ -1,12 +1,14 @@
+const allowedBounds = L.latLngBounds(
+  L.latLng(24.75, 121.1),
+  L.latLng(25.35, 122.0)
+)
+
 var map = L.map('map', {
   zoom: 11,
   minZoom: 11,
   maxZoom: 18,
-  maxBoundsViscosity: 0.5,  
-  maxBounds: L.latLngBounds(
-    L.latLng(24.75, 121.1),
-    L.latLng(25.35, 122.0)
-  )
+  maxBoundsViscosity: 0.5,
+  maxBounds: allowedBounds
 });
 
 map.on('locationerror', function (e) {
@@ -49,7 +51,7 @@ var markers = new L.MarkerClusterGroup({
   maxClusterRadius: function (zoom) {
     return zoom > 14 ? 40 : 80;
   },
-  iconCreateFunction: function(cluster) {    
+  iconCreateFunction: function(cluster) {
 		return L.divIcon({
       className: 'leaflet-marker',
       html: `<div style="position: relative; width: 40px; height: 40px;opacity:0.9;">
@@ -62,21 +64,52 @@ var markers = new L.MarkerClusterGroup({
 });
 
 
-// var geoLayer;
-// document.getElementById('condition-city-select').addEventListener('change', function() {
-//   var city = this.value;
-//   if (geoLayer) map.removeLayer(geoLayer);
-//   if (city) {
-//     fetch(`/geo/${city}.json`)
-//       .then(response => response.json())
-//       .then(json => {
-//         geoLayer = L.geoJSON(json).bindPopup(function (layer) {
-//           return layer.feature.properties.T_Name;
-//         }).addTo(map);
-//         //map.fitBounds(currentLayer.getBounds());
-//       });
-//   }
-// });
+var geoLayer;
+function clearGeoJson() {
+  if (geoLayer) map.removeLayer(geoLayer);
+}
+async function drawGeoJson(fit=true) {
+  const city = document.getElementById('condition-city-select').value;
+  const dist = document.getElementById('condition-dist-select')?document.getElementById('condition-dist-select').value:'';
+  clearGeoJson();
+  if (city) {
+    fetch(`/geo/${city}.json`)
+    .then(response => response.json())
+    .then(async json => {
+      if (dist) {
+        const filteredFeatures = json.features.filter(feature => {
+          return feature.properties.T_Name === dist;
+        });
+        geoLayer = L.geoJSON({
+          type: "FeatureCollection",
+          features: filteredFeatures
+        }).addTo(map);
+      } else {
+        const dists = [];
+        const formData = new FormData();
+        formData.set('city', city);
+        await fetch('/handler/get-dists.php', {
+          method: 'POST',
+          credentials: 'same-origin',
+          body: formData
+        }).then(response => response.json())
+          .then(data => {
+            data.forEach(dist => {dists.push(dist);});
+          })
+          .catch(error => {showAlert('red', error);}
+        );
+        const filteredFeatures = json.features.filter(feature => {
+          return dists.includes(feature.properties.T_Name);
+        });
+        geoLayer = L.geoJSON({
+          type: "FeatureCollection",
+          features: filteredFeatures
+        }).addTo(map);
+      }
+      if (fit) map.fitBounds(geoLayer.getBounds());
+    });
+  }
+}
 
 // const popup = L.popup();
 // function onMapClick(e) {
@@ -98,7 +131,7 @@ L.control.scale({
 
 window.addEventListener('load', function () {
   generateNavigationButton();
-  generateInfoBar(); 
+  generateInfoBar();
 });
 
 function generateNavigationButton() {
@@ -108,7 +141,7 @@ function generateNavigationButton() {
     button.setAttribute('id', 'current-locate-button');
     button.setAttribute('type', 'button');
     button.setAttribute('onclick', 'defaultLocate()');
-    button.setAttribute('style', 
+    button.setAttribute('style',
       'height:25px;'+
       'margin-top:-60px;'+
       'margin-left:50px;'+
@@ -124,7 +157,7 @@ function generateNavigationButton() {
     button.setAttribute('id', 'search-locate-button');
     button.setAttribute('type', 'button');
     button.setAttribute('onclick', 'searchLocate()');
-    button.setAttribute('style', 
+    button.setAttribute('style',
       'height:25px;'+
       'margin-top:-30px;'+
       'margin-left:50px;'+
@@ -140,10 +173,10 @@ function generateNavigationButton() {
 function generateInfoBar(info='') {
   var mapInfoBar = L.control({ position: 'topright' });
   mapInfoBar.onAdd = function (map) {
-    var div = L.DomUtil.create('div', '');              
+    var div = L.DomUtil.create('div', '');
     div.setAttribute('id', 'map-info-bar');
     div.innerHTML = info;
-    div.setAttribute('style', 
+    div.setAttribute('style',
       'background-color:white;'+
       'padding:5px 10px;'+
       'border-top-right-radius:10px;'+
@@ -154,7 +187,7 @@ function generateInfoBar(info='') {
       'display:none;'
     );
     return div;
-  };            
+  };
   mapInfoBar.addTo(map);
 }
 function showInfoBar(info) {
@@ -167,33 +200,57 @@ async function defaultLocate(autoSetView = true) {
   const defaultLat = 25.0418963;
   const defaultLng = 121.5230431;
   const locateButton = document.getElementById('current-locate-button');
+  const locateHintShown = localStorage.getItem('locateHint');
   if (navigator.geolocation) {
     try {
       const position = await new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject);
+        navigator.geolocation.getCurrentPosition(resolve, reject, {
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0
+        });
       });
       const userLat = position.coords.latitude;
       const userLng = position.coords.longitude;
-      map.addLayer(L.marker([userLat, userLng], {
-        icon: userIcon
-      }));
-      if (autoSetView) map.setView([userLat, userLng], 16);
+      const userLocation = L.latLng(userLat, userLng);
+      if (allowedBounds.contains(userLocation)) {
+        map.addLayer(L.marker([userLat, userLng], {
+          icon: userIcon
+        }));
+        if (autoSetView) map.setView([userLat, userLng], 16);
+      } else {
+        // if (!locateHintShown) {
+        //   showAlert('red', '位置不在支援範圍，自動將您定位至預設位置');
+        //   localStorage.setItem('locateHint', 'true');
+        // }
+        locateButton.innerHTML = '<img src="/images/button-navigation.png" style="max-width:80%;max-height:80%;margin-bottom:1px;margin-right:5px;"></img>預設位置';
+        if (autoSetView) map.setView([defaultLat, defaultLng], 16);
+      }
     } catch (error) {
-      if (!this.document.getElementById('map').getAttribute('store-lat')) {
-        locateButton.innerHTML = '<img src="/images/button-navigation.png" style="max-width:80%;max-height:80%;margin-bottom:1px;margin-right:5px;"></img>預設位置';      
+      // if (!locateHintShown) {
+      //   showAlert('red', '無法確認定位，自動將您定位至預設位置');
+      //   localStorage.setItem('locateHint', 'true');
+      // }
+      if (!document.getElementById('map').getAttribute('store-lat')) {
+        locateButton.innerHTML = '<img src="/images/button-navigation.png" style="max-width:80%;max-height:80%;margin-bottom:1px;margin-right:5px;"></img>預設位置';
         if (autoSetView) map.setView([defaultLat, defaultLng], 16);
       }
     }
-  } else {    
-    if (!this.document.getElementById('map').getAttribute('store-lat')) {
+  } else {
+    // if (!locateHintShown) {
+    //   showAlert('red', '您的瀏覽器不支援定位功能，自動將您定位至預設位置');
+    //   localStorage.setItem('locateHint', 'true');
+    // }
+    if (!document.getElementById('map').getAttribute('store-lat')) {
       locateButton.innerHTML = '<img src="/images/button-navigation.png" style="max-width:80%;max-height:80%;margin-bottom:1px;margin-right:5px;"></img>預設位置';
       if (autoSetView) map.setView([defaultLat, defaultLng], 16);
     }
   }
   locateButton.style.display = 'block';
-  var crosshair = document.getElementById('crosshair');
+  const crosshair = document.getElementById('crosshair');
   if (crosshair) crosshair.style.display = 'block';
 }
+
 
 
 function searchLocate() {
@@ -232,6 +289,6 @@ function setPlaceCenter(latlngs) {
     var mapCenter = getCenter();
     document.getElementById('map').setAttribute('search-lat', mapCenter.lat);
     document.getElementById('map').setAttribute('search-lng', mapCenter.lng);
-    document.getElementById('map').setAttribute('search-zoom', zoomLevel);    
+    document.getElementById('map').setAttribute('search-zoom', zoomLevel);
     document.getElementById('search-locate-button').style.display = 'block';
 }

@@ -30,7 +30,7 @@
           <span id="signup-price-value">50</span>
         </div>
       </div>
-      <div class="modal-footer">          
+      <div class="modal-footer">
         <button type="button" class="btn btn-solid-gray" id="signup3-cancel-button" onclick="cancelSignup('signupModal3')">取消</button>
         <button type="button" class="btn btn-solid-gray" id="signup3-previus-button" data-bs-target="#signupModal2" data-bs-toggle="modal">上一步</button>
         <button type="button" class="btn btn-primary" id="signup-submit-button" onclick="signupRequest()">註冊</butto>

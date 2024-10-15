@@ -41,7 +41,7 @@
           </div>
         </div>
         <p class="checkbox-title">用餐方式</p>
-        <div class="checkbox-container">                
+        <div class="checkbox-container">
           <div class="checkbox-item">
             <input type="checkbox" id="signup-delivery" value="">
             <label for="signup-delivery">外送</label>
@@ -56,7 +56,7 @@
           </div>
         </div>
         <p class="checkbox-title">用餐時段</p>
-        <div class="checkbox-container">                
+        <div class="checkbox-container">
           <div class="checkbox-item">
             <input type="checkbox" id="signup-breakfast" value="">
             <label for="signup-breakfast">早餐</label>

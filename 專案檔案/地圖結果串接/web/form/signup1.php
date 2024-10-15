@@ -1,12 +1,12 @@
 <div class="modal fade" data-bs-keyboard="false" data-bs-backdrop="static" id="signupModal1" aria-hidden="true" tabindex="-1" aria-labelledby="signupModal1Label" >
-  <div class="modal-dialog form-dialog modal-dialog-centered login-modal">        
+  <div class="modal-dialog form-dialog modal-dialog-centered login-modal">
     <div class="modal-content">
       <div class="progress signup-progress">
         <div class="progress-bar signup-progress-bar" role="progressbar" style="width:33%;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">
           目前進度: 1 / 3
         </div>
       </div>
-      <div class="modal-body login-modal-body" style="height:350px">        
+      <div class="modal-body login-modal-body" style="height:350px">
         <h2 class="form-h2">會員註冊</h2>
         <div class='form-message-popup' id="signup-message" style="display:none">
           <div id="signupError" class="form-error-message-popup" style="display:block; text-align:center"></div>
