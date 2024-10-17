@@ -1,4 +1,5 @@
 var keyword = new URLSearchParams(window.location.search).get('q')??null;
+let isLoading = false;
 
 document.querySelectorAll('.home-menu').forEach(page => {
   page.removeAttribute('href');
@@ -31,6 +32,13 @@ window.addEventListener('load', async function () {
   showCondition();
 });
 
+function saveCondition() {
+  showCondition();
+  setTimeout(function() {
+    searchStoresByKeyword();
+  }, 100);
+}
+
 //搜尋結果滾動條隱藏
 const storeContainer = document.querySelector('.store');
 if (storeContainer.scrollWidth > storeContainer.clientWidth) {
@@ -47,14 +55,22 @@ document.getElementById('keyword').addEventListener('keydown', function(event) {
   }
 });
 
+const searchResults = document.getElementById('searchResults');
+// searchResults.addEventListener('scroll', () => {
+//   if ((searchResults.scrollTop + searchResults.clientHeight) >= searchResults.scrollHeight - 1000 && !isLoading) {
+//     console.log('scroll to bottom');
+//   }
+// });
+
+
 async function searchStoresByKeyword() {
   var searchRadius = document.getElementById('condition-search-radius-input').value;
   var searchButton = document.getElementById('search-button');
   var city = document.getElementById('condition-city-select').value;
   var dist = document.getElementById('condition-dist-select').value;
   var keyword = document.getElementById('keyword').value;
-  var searchResults = document.getElementById('searchResults');
-  var mapCenter = getCenter();
+  const searchResults = document.getElementById('searchResults');
+  getCenter();
   var lat = document.getElementById('map').getAttribute('data-lat');
   var lng = document.getElementById('map').getAttribute('data-lng');
   document.title = keyword.trim() === "" ? "搜尋結果 - 評星宇宙" : `${keyword}搜尋結果 - 評星宇宙`;

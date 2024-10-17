@@ -30,6 +30,12 @@ function toSearchPage() {
   window.location.href = `search?data=${getEncodeSearchParams()}`;
 }
 
+function saveCondition() {
+  showCondition();
+  setTimeout(function() {
+    toSearchPage();
+  }, 100);
+}
 
 document.querySelectorAll('.title-text-2').forEach(tab => {
   tab.addEventListener('click', function() {

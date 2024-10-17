@@ -128,7 +128,8 @@
         <?php if($SESSION_DATA->success): ?>
           <button type="button" class="btn btn-solid-gray" id="<?=$modalId?>-sync-button" onclick="syncToPreferences()">同步至偏好</button>
         <?php endif; ?>
-        <button type="button" class="btn btn-solid-windows-blue" id="<?=$modalId?>-confirm-button" onclick="showCondition()">完成</button>
+        <button type="button" class="btn btn-solid-gray" id="<?=$modalId?>-confirm-button" onclick="showCondition()">完成</button>
+        <button type="button" class="btn btn-solid-windows-blue" id="<?=$modalId?>-search-button" onclick="saveCondition()">搜尋</button>
       </div>
     </div>
   </div>

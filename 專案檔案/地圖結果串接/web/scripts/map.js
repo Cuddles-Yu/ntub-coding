@@ -251,8 +251,6 @@ async function defaultLocate(autoSetView = true) {
   if (crosshair) crosshair.style.display = 'block';
 }
 
-
-
 function searchLocate() {
   var lat = document.getElementById('map').getAttribute('search-lat');
   var lng = document.getElementById('map').getAttribute('search-lng');

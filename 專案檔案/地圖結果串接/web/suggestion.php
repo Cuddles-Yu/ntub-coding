@@ -32,13 +32,13 @@
       </ul>
       <div class="tab-content-1 active" id="tab-content-1">
       </div>
-      <div class="tab-content-2" id="tab-content-2"> 
+      <div class="tab-content-2" id="tab-content-2">
       </div>
       <div class="tab-content-3" id="tab-content-3">
       </div>
     </div>
   </section>
-  
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
   <script src="https://kit.fontawesome.com/876a36192d.js" crossorigin="anonymous"></script>

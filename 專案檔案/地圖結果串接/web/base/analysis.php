@@ -102,8 +102,8 @@
   function searchByKeyword($keyword){
     global $conn;
     $keyword = "%$keyword%";
-    $stmt = bindPrepare($conn,
-    " SELECT 
+    $stmt = bindPrepare($conn,"
+      SELECT
         DISTINCT s.id, s.name, s.tag, s.mark, s.preview_image, s.link, s.website, r.avg_ratings, r.total_reviews, 
         l.city, l.dist, l.details, r.environment_rating, r.product_rating, r.service_rating, r.price_rating, l.latitude, l.longitude
       FROM stores AS s

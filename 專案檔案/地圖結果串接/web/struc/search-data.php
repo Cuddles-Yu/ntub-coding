@@ -21,17 +21,18 @@
     $stores = searchByLocation($keyword, $searchRadius, $city, $dist, $mapCenterLat, $mapCenterLng);
     $storeData = [];
     foreach ($stores as $store) {
+      $website = $store['website'];
       $storeData[] = [
         'id' => $store['id'],
         'name' => $store['name'],
         'latitude' => $store['latitude'],
         'longitude' => $store['longitude'],
-        'tag' => htmlspecialchars($store['tag']),
-        'preview_image' => htmlspecialchars($store['preview_image']),
+        'tag' => $store['tag'],
+        'preview_image' => $store['preview_image'],
         'distance' => $store['distance']??null,
         'score' => number_format(round($store['score'], $_ROUND), $_ROUND)??null,
         'link' => $store['link'],
-        'website' => $store['website']??null,
+        'website' => str_contains($website, '%') ? $website : '',
         'city' => $store['city'],
         'dist' => $store['dist'],
         'details' => $store['details'],

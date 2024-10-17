@@ -28,7 +28,7 @@
     $oneHourLater = date('H:i:s', strtotime('+1 hour'));
     $oneHourBeforeClose = date('H:i:s', strtotime('+1 hour', strtotime($currentTime)));
     $stmt = bindPrepare($conn,"
-      SELECT open_time, close_time FROM openhours 
+      SELECT open_time, close_time FROM openhours
       WHERE store_id = ? AND day_of_week = ?"
     , "is", $storeId, $today
     );

@@ -350,15 +350,15 @@
       </div>
       <div class="carousel-container">
         <div class="carousel-arrow left-arrow" type="button"><i class="fi fi-sr-angle-left"></i></div>
-        <div class="group-card">          
+        <div class="group-card">
           <?php foreach ($foodKeywords as $foodKeyword): ?>
             <div class="card">
               <div class="card-body" onclick="openSearchPage('<?=$foodKeyword['word']?>')">
                 <a class="card-text"><?=htmlspecialchars($foodKeyword['word']); ?>(<?=htmlspecialchars($foodKeyword['count']); ?>)</a>
               </div>
-              <a class="card-a" href="https://www.google.com/search?udm=2&q=<?=urlencode($storeInfo['name'] . ' ' . $foodKeyword['word']); ?> " target="_blank"><img class="card-img" src="<?=$foodKeyword['image_url'] ?>"></a>
+              <a class="card-a" href="https://www.google.com/search?udm=2&q=<?=urlencode($storeInfo['name'].' '.$storeInfo['tag'].' '. $foodKeyword['word']); ?> " target="_blank"><img class="card-img" src="<?=$foodKeyword['image_url'] ?>"></a>
             </div>
-          <?php endforeach; ?>        
+          <?php endforeach; ?>
         </div>
         <div class="carousel-arrow right-arrow" type="button"><i class="fi fi-sr-angle-right"></i></div>
       </div>

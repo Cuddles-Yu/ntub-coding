@@ -34,7 +34,9 @@ function toggleFavorite(element, storeId) {
     }
   })
   .catch(() => {showAlert('red', '收藏過程中發生非預期的錯誤');})
-  .finally(() => {element.disabled = false;});
+  .finally(() => {
+    element.disabled = false;
+  });
 }
 
 function toBase64(str) {
@@ -42,7 +44,7 @@ function toBase64(str) {
     return String.fromCharCode('0x' + p1);
   }));
 }
-function getEncodeSearchParams() {  
+function getEncodeSearchParams() {
   const data = {
     q: document.getElementById('keyword').value,
     lat: document.getElementById('map').getAttribute('data-lat'),
@@ -139,8 +141,8 @@ function redirectToDetailPage(storeId) {
   window.location.href = `detail?id=${storeId}&data=${encodeURIComponent(data)}`;
 }
 function urlToDetailPage(storeId) {
-  const encodedData = new URLSearchParams(window.location.search).get('data')??null;
-  window.location.href = `detail?id=${storeId}&data=${encodeURIComponent(encodedData)}`;
+  const data = new URLSearchParams(window.location.search).get('data')??null;
+  window.location.href = `detail?id=${storeId}&data=${encodeURIComponent(data)}`;
 }
 function openSearchPage(keyword) {
   const encodedData = new URLSearchParams(window.location.search).get('data')??null;

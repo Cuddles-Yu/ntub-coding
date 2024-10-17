@@ -171,14 +171,14 @@ function resetCommentSearch() {
   document.getElementById('commentKeyword').setAttribute('style', '');
   document.getElementById('search-button').setAttribute('style', 'border-color:lightgray;');
   document.getElementById('clear-button').setAttribute('style', 'border-color:lightgray;color:gray;');
-  document.getElementById('reset-comment-search').setAttribute('style', '');    
+  document.getElementById('reset-comment-search').setAttribute('style', '');
   document.getElementById('keyword-title').scrollIntoView({ behavior: 'smooth', block: 'start' });
   searchCommentsByKeyword();
 }
 
 function searchCommentsByTarget(button) {
   console.log(storeId);
-  const target = button.querySelector('.object').textContent;  
+  const target = button.querySelector('.object').textContent;
   const commentCountTitle = document.getElementById('comment-count-title');
   document.getElementById('commentGroup').scrollTo(0, 0)
   document.getElementById('commentGroup').setAttribute('keyword', -1);
@@ -186,7 +186,7 @@ function searchCommentsByTarget(button) {
   document.getElementById('commentKeyword').setAttribute('style', 'display:none;');
   document.getElementById('search-button').setAttribute('style', 'display:none;');
   document.getElementById('clear-button').setAttribute('style', 'display:none;');
-  document.getElementById('reset-comment-search').setAttribute('style', 'display:block;');    
+  document.getElementById('reset-comment-search').setAttribute('style', 'display:block;');
   document.getElementById('comment-title').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   const formData = new FormData();
@@ -194,7 +194,6 @@ function searchCommentsByTarget(button) {
   formData.set('q', target);
   formData.set('target', document.getElementById('filterSelect').value);
   formData.set('type', button.classList[0]);
-  
   fetch('struc/comment-target.php', {
       method: 'POST',
       credentials: 'same-origin',
