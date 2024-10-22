@@ -521,11 +521,11 @@ body {
       flex-direction: column;
       position: fixed;
       top: 80px;
-      left: 0;
+      right: 0;
       background-color: white;
       width: 250px;
       height: 100vh;
-      transform: translateX(-100%);
+      transform: translateX(100%);
       transition: transform 10s ease-out;
   }
 
@@ -672,11 +672,11 @@ body {
       flex-direction: column;
       position: fixed;
       top: 80px;
-      left: 0;
+      right: 0;
       background-color: white;
       width: 250px;
       height: 100vh;
-      transform: translateX(-100%);
+      transform: translateX(100%);
       transition: transform 10s ease-out;
   }
 
