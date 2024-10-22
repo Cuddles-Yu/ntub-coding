@@ -142,7 +142,7 @@ def main():
 
     # 顯示最終結果，包含原始分數、加權後的分數以及 multiplier
     print(F"\n{ColorCode.DARK_BLUE}{ColorCode.BOLD}分數結果:{ColorCode.DEFAULT}")
-    print(final_scores[['store_id', 'Environment', 'Product', 'Service', 'Price', 'score', 'bayesian_score']].to_string(index=False))
+    print(final_scores[['Environment', 'Product', 'Service', 'Price', 'score', 'bayesian_score', 'total_withcomments']].to_string(index=False))
 
     # 顯示貝氏平均和 C 值
     print(f"\n{ColorCode.DARK_BLUE}{ColorCode.BOLD}貝氏平均:{ColorCode.DEFAULT} {bayesian_average}")

@@ -7,8 +7,8 @@ document.querySelectorAll('.suggestion-page').forEach(page => {
   page.setAttribute('style', 'cursor:default;');
 });
 
-window.addEventListener('load', function () {     
-  
+window.addEventListener('load', function () {
+
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const scrollAmount = 690;
 
   // 檢查卡片的總寬度是否超過容器寬度
-  function updateArrowVisibility(restaurantGroup, leftArrow, rightArrow) {    
+  function updateArrowVisibility(restaurantGroup, leftArrow, rightArrow) {
     const cardScrollWidth = restaurantGroup.scrollWidth;
     const containerWidth = restaurantGroup.clientWidth;
     if (cardScrollWidth <= containerWidth) {
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!isDown) return;
       e.preventDefault();
       const x = e.pageX - restaurantGroup.offsetLeft;
-      const walk = (x - startX) * 5; // 滑動速度調整
+      const walk = (x - startX) * 5;
       restaurantGroup.scrollLeft = scrollLeft - walk;
     });
   });
@@ -101,7 +101,7 @@ document.querySelectorAll('.title-text-2').forEach(tab => {
 function generateStoreSuggestion(content) {
   var searchResults = document.getElementById(content);
   const formData = new FormData();
-  formData.set('q', '蛋塔');      
+  formData.set('q', '蛋塔');
   fetch('../struc/store-suggestion.php', {
     method: 'POST',
     credentials: 'same-origin',

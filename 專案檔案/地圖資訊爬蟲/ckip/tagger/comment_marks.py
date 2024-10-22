@@ -35,6 +35,8 @@ sids = database.fetch_column('all', 0, '''
     WHERE m.store_id IS NULL
 ''')
 
+sids = [4742]
+
 ### 留言分析 ###
 print()
 
@@ -58,6 +60,7 @@ for e_sid, sid in enumerate(sids):
     tagged_words = defaultdict(lambda: defaultdict(int))
 
     for e_comment, (store_id, comment_id, sentence) in enumerate(comments):
+
         print(f"\r評論斷句標記提取 | 商家id:{sid} | 進度:{e_sid+1}/{len(sids)} | 留言:{e_comment+1}/{len(comments)}", end='')
         filtered_sentences = [f.strip() for f in [re.sub(r'[^\u4e00-\u9fffA-Za-z，。；、\s]', '', s) for s in re.split(r'[，；。\n]+', sentence) if s] if f]
         # 斷詞
@@ -107,10 +110,12 @@ for e_sid, sid in enumerate(sids):
             # if is_sublist([['Na', 'D', 'VH'], ['VA', 'D', 'VH'], ['Na', 'Dfa', 'VH'], ['VA', 'Dfa', 'VH']], pos_list):
             # combine_word_na, combine_pos_na =
             # word_list, pos_list = combine_by_pattern(*combine_by_pattern(*combine_by_pattern(*combine_by_pos(word_list, pos_list, 'Na'), ["Na", "DE", "Na"]),  ["VH", "VB", "DE"]), ["VH", "Na"])
-            # print(f"{{'斷句': {analysis.get('斷句')}, '斷詞': [{', '.join(analysis.get('斷詞', []))}], '詞性': [{', '.join(analysis.get('詞性', []))}]}}")
+            print(sentence)
+            print(f"{{'斷句': {analysis.get('斷句')}, '斷詞': [{', '.join(analysis.get('斷詞', []))}], '詞性': [{', '.join(analysis.get('詞性', []))}]}}")
             sentence_splits.append({"商家": sid, "留言": comment_id, "斷句": filter_sentence, "斷詞": word_list, "詞性": pos_list})
 
         aa.analyze_sentence(sentence_splits)
+
         # print()
 
     # 輸出最終得分
@@ -119,46 +124,46 @@ for e_sid, sid in enumerate(sids):
     # database.execute(f'''
     #     TRUNCATE `marks`
     # ''')
-    mid = 1
-    last_store = -1
-    last_comment = -1
-    ana = {}
-    for i, m in enumerate(aa.marks):
-        if last_store != m.store_id:
-            last_store = m.store_id
-        if last_comment != m.comment_id:
-            if ana:
-                result = {}
-                for target, sentiments in ana.items():
-                    # 找到最大值
-                    max_value = max(sentiments.values())
-                    # 找到所有等於最大值的情緒
-                    max_sentiments = [k for k, v in sentiments.items() if v == max_value]
-                    # 判斷結果
-                    if len(max_sentiments) > 1:
-                        result[target] = None  # 如果多個最大值，則輸出 None
-                    else:
-                        result[target] = max_sentiments[0]  # 否則輸出最大值的情緒
-                database.update('comments', {
-                    "environment_state": result.get("環境"),
-                    "price_state": result.get("售價"),
-                    "product_state": result.get("產品"),
-                    "service_state": result.get("服務")
-                }, {"store_id": last_store, "id": last_comment})
-            ana = {
-                "環境": {"正面": 0, "負面": 0, "中立": 0, "喜好": 0},
-                "產品": {"正面": 0, "負面": 0, "中立": 0, "喜好": 0},
-                "服務": {"正面": 0, "負面": 0, "中立": 0, "喜好": 0},
-                "售價": {"正面": 0, "負面": 0, "中立": 0, "喜好": 0}
-            }
-            last_comment = m.comment_id
-            mid = 1
-        ana[m.get_target()][m.get_state()] += 1
-        m.id = mid
-        mid += 1
-        m.insert(database)
-
-    aa.marks.clear()
+    # mid = 1
+    # last_store = -1
+    # last_comment = -1
+    # ana = {}
+    # for i, m in enumerate(aa.marks):
+    #     if last_store != m.store_id:
+    #         last_store = m.store_id
+    #     if last_comment != m.comment_id:
+    #         if ana:
+    #             result = {}
+    #             for target, sentiments in ana.items():
+    #                 # 找到最大值
+    #                 max_value = max(sentiments.values())
+    #                 # 找到所有等於最大值的情緒
+    #                 max_sentiments = [k for k, v in sentiments.items() if v == max_value]
+    #                 # 判斷結果
+    #                 if len(max_sentiments) > 1:
+    #                     result[target] = None  # 如果多個最大值，則輸出 None
+    #                 else:
+    #                     result[target] = max_sentiments[0]  # 否則輸出最大值的情緒
+    #             database.update('comments', {
+    #                 "environment_state": result.get("環境"),
+    #                 "price_state": result.get("售價"),
+    #                 "product_state": result.get("產品"),
+    #                 "service_state": result.get("服務")
+    #             }, {"store_id": last_store, "id": last_comment})
+    #         ana = {
+    #             "環境": {"正面": 0, "負面": 0, "中立": 0, "喜好": 0},
+    #             "產品": {"正面": 0, "負面": 0, "中立": 0, "喜好": 0},
+    #             "服務": {"正面": 0, "負面": 0, "中立": 0, "喜好": 0},
+    #             "售價": {"正面": 0, "負面": 0, "中立": 0, "喜好": 0}
+    #         }
+    #         last_comment = m.comment_id
+    #         mid = 1
+    #     ana[m.get_target()][m.get_state()] += 1
+    #     m.id = mid
+    #     mid += 1
+    #     m.insert(database)
+    #
+    # aa.marks.clear()
 
 # all_pos_dict = {tag: dict(sorted(words.items(), key=lambda item: item[1], reverse=True)) for tag, words in tagged_words.items()}
 # print(all_pos_dict)

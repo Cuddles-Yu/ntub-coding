@@ -66,20 +66,32 @@
   <div class="modal-dialog form-dialog modal-dialog-centered modal-dialog-scrollable login-modal">
     <div class="modal-content">
       <h2 class="form-h2-title" style="padding-top:20px;"><?=$modalTitle?></h2>
-      <div class="modal-body login-modal-body" style="height:400px;padding-top:10px;padding-right: 0;">
+      <div class="modal-body login-modal-body" style="height:400px;padding-top:10px;padding-right:0;">
         <p class="checkbox-title" style="font-weight:normal;background:gray;color:white;text-align:center;">搜尋模式</p>
-        <p class="checkbox-title" style="margin-bottom:2px;color:#663399;" id="distance-title">中心距離</p>
+        <div style="display:flex;align-items:center;margin-top:10px;">
+          <input type="radio" id="condition-distance-radio" name="search-type" value="distance"
+            style="margin-right:5px;" <?php if($SESSION_DATA->success && $MEMBER_INFO['search_mode'] === 'distance'): echo 'checked'; endif;?>>
+          <label for="condition-distance-radio">
+            <p class="checkbox-title" style="cursor:pointer;margin-bottom:2px;color:#663399;" id="condition-distance-title">中心距離</p>
+          </label>
+        </div>
         <div id="comments-order-bar" class="input-group condition-input-box mb-3 sort-button" style="margin-bottom:-1px !important;">
           <span class="input-group-text condition-input-box-title" id="basic-addon1">搜尋半徑</span>
           <input id="<?=$modalId?>-search-radius-input" type="text" class="form-control condition-input-box-main"
             aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-            value="<?php if($SESSION_DATA->success): echo $MEMBER_INFO['search_radius']; else: echo '1500'; endif;?>">
+            value="<?php if($SESSION_DATA->success):echo $MEMBER_INFO['search_radius']; else:echo '1500'; endif;?>">
           <span class="input-group-text" id="inputGroup-sizing-sm">公尺</span>
         </div>
-        <p class="checkbox-title" style="margin-bottom:2px" id="geo-title">地理位置</p>
+        <div style="display:flex;align-items:center;margin-top:10px;">
+          <input type="radio" id="condition-geo-radio" name="search-type" value="geo" style="margin-right:5px;"
+            <?php if($SESSION_DATA->success && $MEMBER_INFO['search_mode'] === 'geo'): echo 'checked'; else: echo 'disabled'; endif;?>>
+          <label for="condition-geo-radio">
+            <p class="checkbox-title" style="margin-bottom:2px;color:gray;" id="condition-geo-title">地理位置</p>
+          </label>
+        </div>
         <div id="comments-order-bar" class="input-group condition-input-box mb-3 sort-button">
           <span class="input-group-text condition-input-box-title" id="basic-addon1">縣市區域</span>
-          <select class="form-select condition-input-box-main" aria-label="Default select example" id="condition-city-select" onchange="updateArea('condition')">
+          <select class="form-select condition-input-box-main" aria-label="Default select example" id="condition-city-select" onclick="updateRadio('condition')" onchange="updateArea('condition')">
             <option value="" selected>(無限制)</option>
             <?php
               $selectedCity = $MEMBER_INFO['city']??'';
@@ -94,7 +106,7 @@
           </select>
           <select class="form-select condition-input-box-main" aria-label="Default select example" id="condition-dist-select" disabled>
             <?php if ($selectedCity === ''): ?>
-              <option value="" selected></option>
+              <option value="nothing" selected></option>
             <?php else: ?>
               <option value="" selected>(無限制)</option>
               <?php foreach($dists as $dist): ?>
@@ -134,3 +146,5 @@
     </div>
   </div>
 </div>
+
+<script src="/scripts/condition.js" defer></script>

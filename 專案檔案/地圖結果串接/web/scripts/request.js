@@ -87,24 +87,27 @@ function loginRequest() {
     });
 }
 
-async function emailVerifyRequest() {
-  const emailInput = document.getElementById('signup-email');
+function emailVerify(emailInputId) {
+  const emailInput = document.getElementById(emailInputId);
   const email = emailInput.value.trim();
-  // 驗證
   if (!email) {
     emailInput.focus();
-    document.getElementById('signupError').innerText = '電子郵件欄位不能為空值或空格。';
-    document.getElementById('signup-message').style.display = 'block';
-    return false;
+    return '電子郵件欄位不能為空值或空格。';
   } else {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       emailInput.focus();
-      document.getElementById('signupError').innerText = '電子郵件地址無效。';
-      document.getElementById('signup-message').style.display = 'block';
-      return false;
+      return '電子郵件地址無效。';
     }
   }
+  return '';
+}
+
+async function emailVerifyRequest() {
+  const verify = emailVerify('signup-email');
+  document.getElementById('signupError').innerText = verify;
+  document.getElementById('signup-message').style.display = verify?'block':'none';
+  if (verify!=='') return false;
 
   // 請求
   const formData = new FormData();

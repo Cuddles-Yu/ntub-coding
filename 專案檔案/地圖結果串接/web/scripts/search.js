@@ -66,6 +66,7 @@ const searchResults = document.getElementById('searchResults');
 async function searchStoresByKeyword() {
   var searchRadius = document.getElementById('condition-search-radius-input').value;
   var searchButton = document.getElementById('search-button');
+  var distanceMode = document.getElementById('condition-distance-radio').checked;
   var city = document.getElementById('condition-city-select').value;
   var dist = document.getElementById('condition-dist-select').value;
   var keyword = document.getElementById('keyword').value;
@@ -83,7 +84,7 @@ async function searchStoresByKeyword() {
   formData.set('city', city);
   formData.set('dist', dist);
   formData.set('searchRadius', searchRadius);
-  if (!city) {
+  if (distanceMode) {
     formData.set('mapCenterLat', lat);
     formData.set('mapCenterLng', lng);
   } else {
@@ -145,7 +146,7 @@ async function searchStoresByKeyword() {
       console.error('查詢過程中產生非預期的錯誤:', error);
     })
     .finally(() => {
-      if (!city) {
+      if (distanceMode) {
         var mapCenter = getCenter();
         var lat = mapCenter.lat;
         var lng = mapCenter.lng;

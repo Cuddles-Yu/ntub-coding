@@ -35,6 +35,7 @@
     <div class="container-fluid store-body <?=$cardType?> <?php if($isFavorite): echo 'store-card-favorite'; endif;?>" data-id="<?=$STORE_ID?>" onclick="redirectToDetailPage('<?=$STORE_ID?>')">
         <div class="row">
             <div class="store-img-group col-3">
+              <div class="service-match-counter">符合四項</div>
               <img class="store-img" src="<?=$preview_image?>">
             </div>
             <div class="store-right col">

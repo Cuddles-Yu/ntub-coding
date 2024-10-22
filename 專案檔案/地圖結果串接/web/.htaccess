@@ -9,6 +9,7 @@ RewriteRule ^$ /home [R=301,L]
 # 規則導向
 RewriteRule ^detail$ /detail.php [L]
 RewriteRule ^search$ /search.php [L]
+RewriteRule ^instruction$ /instruction.php [L]
 RewriteRule ^team$ /team.php [L]
 RewriteRule ^home$ /home.php [L]
 RewriteRule ^suggestion$ /suggestion.php [L]
@@ -31,16 +32,21 @@ RewriteRule ^elem(/)?$ /error/404.php [L]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^error(/)?$ /error/404.php [L]
 RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^geo(/)?$ /error/404.php [L]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^handler(/)?$ /error/404.php [L]
+RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^images(/)?$ /error/404.php [L]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^member(/)?$ /error/404.php [L]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^pdf(/)?$ /error/404.php [L]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^scripts(/)?$ /error/404.php [L]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^struc(/)?$ /error/404.php [L]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^styles(/)?$ /error/404.php [L]
-
 
 #禁止訪問(檔案)
 RewriteCond %{REQUEST_FILENAME} -f

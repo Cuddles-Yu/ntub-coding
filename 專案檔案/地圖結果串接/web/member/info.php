@@ -68,13 +68,35 @@
       </div>
       <div id="preference_main_area">
           <form class="preference_item_container">
-              <div class="type_title">位置</div>
+            <div class="type_title">搜尋模式 <em style="color:red;font-weight:bold;">*</em></div>
+            <div style="display:flex;align-items:center;margin-top:10px;">
+              <input type="radio" id="member-distance-radio" class="checkbox" name="search-type" value="distance" style="margin-right:5px;"
+                <?php if($SESSION_DATA->success && $MEMBER_INFO['search_mode'] === 'distance'): echo 'checked'; endif;?> disabled>
+              <label for="member-distance-radio">
+                <p class="checkbox-title" style="margin-bottom:2px;margin-left:5px;" id="member-distance-title">中心距離</p>
+              </label>
+            </div>
+            <div id="comments-order-bar" class="input-group member-input-box mb-3 sort-button" style="margin-top:1vh;margin-bottom:1vh;">
+              <span class="input-group-text member-input-box-title" id="basic-addon1">搜尋半徑</span>
+              <input id="member-search-radius-input" type="text" class="form-control member-input-box-main field" style="max-width:182px;"
+                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                value="<?php if($SESSION_DATA->success): echo $MEMBER_INFO['search_radius']; else: echo '1500'; endif;?>" disabled>
+              <span class="input-group-text" id="inputGroup-sizing-sm">公尺</span>
+            </div>
+            <div style="display:flex;align-items:center;margin-top:10px;">
+              <input type="radio" id="member-geo-radio" class="checkbox" name="search-type" value="geo" style="margin-right:5px;"
+                <?php if($SESSION_DATA->success && $MEMBER_INFO['search_mode'] === 'geo'): echo 'checked'; endif;?> disabled>
+              <label for="member-geo-radio">
+                <p class="checkbox-title" style="margin-bottom:2px;margin-left:5px;
+                  <?php if(!($SESSION_DATA->success && $MEMBER_INFO['city'])): echo 'color:gray;'; endif; ?>" id="member-geo-title">地理位置</p>
+              </label>
+            </div>
               <div id="comments-order-bar" class="input-group member-input-box mb-3 sort-button" style="margin-top:1vh;margin-bottom:1vh;">
                 <span class="input-group-text member-input-box-title" id="basic-addon1">縣市區域</span>
-                <select class="form-select member-input-box-main field" aria-label="Default select example" id="member-city-select" 
-                  style="max-width:120px;" onchange="updateArea('member')" disabled>
+                <select class="form-select member-input-box-main field" aria-label="Default select example" id="member-city-select"
+                  style="max-width:120px;" onclick="updateRadio('member')" onchange="updateArea('member')" disabled>
                   <option value="" selected>(無限制)</option>
-                  <?php 
+                  <?php
                     $selectedCity = $MEMBER_INFO['city']??'';
                     $selectedDist = $MEMBER_INFO['dist']??'';
                     $dists = getDists($selectedCity);
@@ -98,19 +120,11 @@
                   <?php endif; ?>
                 </select>
               </div>
-              <div class="type_title">*範圍</div>
-              <div id="comments-order-bar" class="input-group member-input-box mb-3 sort-button" style="margin-top:1vh;margin-bottom:1vh;">
-                <span class="input-group-text member-input-box-title" id="basic-addon1">搜尋半徑</span>
-                <input id="member-search-radius-input" type="text" class="form-control member-input-box-main field" style="max-width:182px;" 
-                  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                  value="<?php if($SESSION_DATA->success): echo $MEMBER_INFO['search_radius']; else: echo '1500'; endif;?>" disabled>
-                <span class="input-group-text" id="inputGroup-sizing-sm">公尺</span>
-              </div>
               <?php
                 $checkboxGroups = [
                   'open_hour_button' => [
                     'index' => 4,
-                    'title' => '*營業時間',
+                    'title' => '營業時間 <em style="color:red;font-weight:bold;">*</em>',
                     'select' => 'select_open_hour',
                     'class' => 'open_hour',
                     'items' => [
@@ -203,7 +217,7 @@
                 <div class="checkbox_container <?=$group['class']?>">
                   <?php foreach($group['items'] as $item => $value): ?>
                       <div class="checkbox_item">
-                        <input type="checkbox" class="<?=$group['select']?> checkbox" id="<?=$item?>" name="<?=$item?>" autocomplete="on" disabled 
+                        <input type="checkbox" class="<?=$group['select']?> checkbox" id="<?=$item?>" name="<?=$item?>" autocomplete="on" disabled
                           <?=transformToPreference($item)?>>
                         <label for="<?=$item?>"><?=$value?></label>
                       </div>
@@ -212,9 +226,9 @@
               <?php endforeach; ?>
           </form>
         <div class="button_area">
-          <button id="preference_edit_button" class="edit-button btn-solid-gray" onclick="editSettings()">修改</button>
+          <button id="preference_edit_button" class="edit-button btn-solid-gray" onclick="editPreference()">修改</button>
           <button id="preference_cancel_button" class="cancel-button btn-solid-gray" onclick="cancelEdit()" style="display: none;">取消</button>
-          <button id="preference_save_button" class="save-button btn-solid-windows-blue" onclick="saveSettings()" style="display: none;">完成</button>
+          <button id="preference_save_button" class="save-button btn-solid-windows-blue" onclick="savePreference()" style="display: none;">完成</button>
         </div>
       </div>
       <div id="weight_main_area">
@@ -333,7 +347,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
   <script src="https://kit.fontawesome.com/876a36192d.js" crossorigin="anonymous"></script>
-  <script src="/scripts/member.js"></script>
+  <script src="/scripts/member.js" defer></script>
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/footer.php'; ?>
 </body>
 </html>

@@ -33,7 +33,7 @@
             <i class="fi fi-sr-filter filter-img button-text-icon"></i>篩選條件
           </button>
           <button type="button" class="btn btn-solid-windows-blue mt-3 search-button" id="search-button" onclick="searchStoresByKeyword()">搜尋</button>
-        </div>        
+        </div>
         <div id="filter-container" class="filter-container">
           <p class="filter-title">條件</p>
         </div>

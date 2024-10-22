@@ -25,7 +25,7 @@ ner = NER(data_dir)
 data = database.fetch('all', f'''
     SELECT s.name, c.contents FROM comments AS c
     LEFT JOIN stores AS s ON c.store_id = s.id
-    WHERE c.contents IS NOT NULL
+    WHERE c.contents IS NOT NULL and s.id = 358
     ORDER BY c.store_id, s.id
 ''')
 
@@ -53,7 +53,7 @@ for index in range(total_comments):
     for word, tag in zip(word_sentence_list[index], pos_sentence_list[index]):
         tagged_words[to_visualize(tag)][word] += 1
 all_pos_dict = {tag: dict(sorted(words.items(), key=lambda item: item[1], reverse=True)) for tag, words in tagged_words.items()}
-write_json(all_pos_dict, 'results/test_pos.json')
+write_json(all_pos_dict, 'results/id358.json')
 
 #### 斷詞分析 ###
 last_store_name = ''

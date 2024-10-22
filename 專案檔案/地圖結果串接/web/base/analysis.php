@@ -337,10 +337,10 @@
     global $conn, $MEMBER_ID, $serviceMap;
     if (is_null($MEMBER_ID)) return [];
     $services = [];
-    $stmt = bindPrepare($conn," 
-      SELECT 
-        parking, wheelchair_accessible, vegetarian, healthy, kids_friendly, pets_friendly, 
-        gender_friendly, delivery, takeaway, dine_in, breakfast, brunch, lunch, dinner, reservation, 
+    $stmt = bindPrepare($conn,"
+      SELECT
+        parking, wheelchair_accessible, vegetarian, healthy, kids_friendly, pets_friendly,
+        gender_friendly, delivery, takeaway, dine_in, breakfast, brunch, lunch, dinner, reservation,
         group_friendly, family_friendly, toilet, wifi, cash, credit_card, debit_card, mobile_payment
       FROM preferences
       WHERE member_id = ?

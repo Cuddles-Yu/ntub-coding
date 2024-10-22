@@ -1,3 +1,5 @@
+let preloading = true;
+
 let alertTimeout;
 function showAlert(type, message, timeout = 5000) {
   const alertBox = document.getElementById('alert-box');
@@ -88,9 +90,9 @@ function showCondition() {
   const closeNow = document.getElementById('condition-close-now').checked?1:0;
   const serviceCount = countCheckedServiceMarks();
   const container = document.getElementById('filter-container');
-  const type = city?'city':'radius'
+  const type = document.getElementById('condition-geo-radio').checked?'geo':'distance';
   container.innerHTML = `<p class="filter-title-${type}">條件</p>`;
-  if (city) {
+  if (type === 'geo'){
     container.innerHTML += `<p class="filter-item-${type}">搜尋區域：${city}${dist}</p>`;
     mapElem.style.border = '3px solid #aa5d00';
   } else {
@@ -107,7 +109,6 @@ function showCondition() {
     container.innerHTML += `<p class="filter-item-${type}-light">包含 ${serviceCount} 項需求服務</p>`;
   }
   closeOpenedModal();
-  // drawGeoJson();
   this.window.history.replaceState({}, '', `${location.protocol}//${location.host}${location.pathname}?data=${getEncodeSearchParams()}`);
 }
 
@@ -216,86 +217,6 @@ function bindFormControl(inputClass, buttonId) {
   });
   inputs[0].focus();
 }
-
-function updatePreferences(target, show = true) {
-  const city = document.getElementById(`${target}-city-select`).value;
-  const dist = document.getElementById(`${target}-dist-select`).value;
-  const searchRadius = document.getElementById(`${target}-search-radius-input`).value;
-  const willOpen = document.getElementById(`${target}-will-open`).checked?1:0;
-  const openNow = document.getElementById(`${target}-open-now`).checked?1:0;
-  const willClose = document.getElementById(`${target}-will-close`).checked?1:0;
-  const closeNow = document.getElementById(`${target}-close-now`).checked?1:0;
-  const parking = document.getElementById(`${target}-parking`).checked?1:0;
-  const wheelchairAccessible = document.getElementById(`${target}-wheelchair-accessible`).checked?1:0;
-  const vegetarian = document.getElementById(`${target}-vegetarian`).checked?1:0;
-  const healthy = document.getElementById(`${target}-healthy`).checked?1:0;
-  const kidsFriendly = document.getElementById(`${target}-kids-friendly`).checked?1:0;
-  const petsFriendly = document.getElementById(`${target}-pets-friendly`).checked?1:0;
-  const genderFriendly = document.getElementById(`${target}-gender-friendly`).checked?1:0;
-  const dilivery = document.getElementById(`${target}-delivery`).checked?1:0;
-  const takeaway = document.getElementById(`${target}-takeaway`).checked?1:0;
-  const dineIn = document.getElementById(`${target}-dine-in`).checked?1:0;
-  const breakfast = document.getElementById(`${target}-breakfast`).checked?1:0;
-  const brunch = document.getElementById(`${target}-brunch`).checked?1:0;
-  const lunch = document.getElementById(`${target}-lunch`).checked?1:0;
-  const dinner = document.getElementById(`${target}-dinner`).checked?1:0;
-  const reservation = document.getElementById(`${target}-reservation`).checked?1:0;
-  const groupFriendly = document.getElementById(`${target}-group-friendly`).checked?1:0;
-  const familyFriendly = document.getElementById(`${target}-family-friendly`).checked?1:0;
-  const toilet = document.getElementById(`${target}-toilet`).checked?1:0;
-  const wifi = document.getElementById(`${target}-wifi`).checked?1:0;
-  const cash = document.getElementById(`${target}-cash`).checked?1:0;
-  const creditCard = document.getElementById(`${target}-credit-card`).checked?1:0;
-  const debitCard = document.getElementById(`${target}-debit-card`).checked?1:0;
-  const mobilePayment = document.getElementById(`${target}-mobile-payment`).checked?1:0;
-  // 請求
-  const formData = new FormData();
-  formData.set('city', city);
-  formData.set('dist', dist);
-  formData.set('searchRadius', searchRadius);
-  formData.set('willOpen', willOpen);
-  formData.set('openNow', openNow);
-  formData.set('willClose', willClose);
-  formData.set('closeNow', closeNow);
-  formData.set('parking', parking);
-  formData.set('wheelchairAccessible', wheelchairAccessible);
-  formData.set('vegetarian', vegetarian);
-  formData.set('healthy', healthy);
-  formData.set('kidsFriendly', kidsFriendly);
-  formData.set('petsFriendly', petsFriendly);
-  formData.set('genderFriendly', genderFriendly);
-  formData.set('dilivery', dilivery);
-  formData.set('takeaway', takeaway);
-  formData.set('dineIn', dineIn);
-  formData.set('breakfast', breakfast);
-  formData.set('brunch', brunch);
-  formData.set('lunch', lunch);
-  formData.set('dinner', dinner);
-  formData.set('reservation', reservation);
-  formData.set('groupFriendly', groupFriendly);
-  formData.set('familyFriendly', familyFriendly);
-  formData.set('toilet', toilet);
-  formData.set('wifi', wifi);
-  formData.set('cash', cash);
-  formData.set('creditCard', creditCard);
-  formData.set('debitCard', debitCard);
-  formData.set('mobilePayment', mobilePayment);
-  fetch('/member/handler/update-preference.php', {
-    method: 'POST',
-    credentials: 'same-origin',
-    body: formData
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.success) {
-      if (show) showAlert('green', data.message);
-    } else {
-      if (show) showAlert('red', data.message);
-    }
-  })
-  .catch(() => {showAlert('red', '更新偏好過程中發生非預期的錯誤');});
-}
-
 
 /* 點擊漢堡圖示時，顯示/隱藏選單 */
 document.getElementById('hamburger_btn').addEventListener('click', function() {

@@ -1,4 +1,4 @@
-<?php 
+<?php
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/session.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/queries.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/analysis.php';
@@ -17,6 +17,8 @@
   if (!empty($storeInfo)) {
     $storeName = htmlspecialchars($storeInfo['name']);
     $storeMark = htmlspecialchars($storeInfo['mark']);
+    $website = htmlspecialchars($storeInfo['website']);
+    $phoneNumber = htmlspecialchars($storeInfo['phone_number']);
     $markIcon = $markOptions[$storeMark]['tagIcon'] ?? '';
     $markClass = $markOptions[$storeMark]['buttonClass'] ?? '';
     $storeTag = htmlspecialchars($storeInfo['tag']);
@@ -356,7 +358,7 @@
               <div class="card-body" onclick="openSearchPage('<?=$foodKeyword['word']?>')">
                 <a class="card-text"><?=htmlspecialchars($foodKeyword['word']); ?>(<?=htmlspecialchars($foodKeyword['count']); ?>)</a>
               </div>
-              <a class="card-a" href="https://www.google.com/search?udm=2&q=<?=urlencode($storeInfo['name'].' '.$storeInfo['tag'].' '. $foodKeyword['word']); ?> " target="_blank"><img class="card-img" src="<?=$foodKeyword['image_url'] ?>"></a>
+              <a class="card-a" href="https://www.google.com/search?udm=2&q=<?=urlencode($storeName.' '.$storeTag.' '. $foodKeyword['word']); ?> " target="_blank"><img class="card-img" src="<?=$foodKeyword['image_url'] ?>"></a>
             </div>
           <?php endforeach; ?>
         </div>
@@ -365,7 +367,7 @@
     </section>
   <?php endif; ?>
   <section class="normal-content section-content">
-    <div class="introduction-display">
+    <div class="introduction-display" style="min-height:185px;">
       <div class="store-introduction">
         <div class="title-group">
           <i class="fi fi-sr-search-alt group-title-img"></i>
@@ -379,12 +381,19 @@
           </div>
           <div class="store-introduction-group">
             <li class="introduction-title">電話</li>
-            <li class="introduction-item"><?=htmlspecialchars($storeInfo['phone_number']); ?></li>
+            <?php if($phoneNumber):?>
+              <li class="introduction-item"><?=$phoneNumber;?></li>
+            <?php else:?>
+              <li class="introduction-item">(未提供)</li>
+            <?php endif;?>
           </div>
           <div class="store-introduction-group">
             <li class="introduction-title">相關網站</li>
-            <li class="introduction-item"><a class="introduction-item" href="<?=htmlspecialchars($storeInfo['website']); ?>" target="_blank">
-                <?=htmlspecialchars($storeInfo['website']); ?></a></li>
+            <?php if($website):?>
+              <a class="introduction-item" href="<?=$website;?>" target="_blank"><?=$website;?></a>
+            <?php else:?>
+              <li class="introduction-item">(未提供)</li>
+            <?php endif;?>
           </div>
         </div>
       </div>
@@ -405,7 +414,7 @@
       <div class="carousel-arrow-tag left-arrow-2" type="button"><i class="fi fi-sr-angle-left"></i></div>
 
       <div class="tag-group">
-        <?php 
+        <?php
           foreach ($keywords as $keyword) {
             echo '<button class="tag btn-outline-secondary btn" type="button" onclick="openSearchPage(\''.$keyword['word'].'\')">';
             echo '<a class="tag-text">'.htmlspecialchars($keyword['word']).' ('.htmlspecialchars($keyword['count']).')</a>';

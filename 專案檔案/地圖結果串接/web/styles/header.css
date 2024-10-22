@@ -21,7 +21,7 @@
   margin-right: 8px;
 }
 
-.filter-title-radius {
+.filter-title-distance {
   white-space: nowrap;
   font-size: 16px;
   font-weight: bold;
@@ -30,7 +30,7 @@
   margin-left: 12px;
   margin-right: 8px;
 }
-.filter-title-radius-light {
+.filter-title-distance-light {
   white-space: nowrap;
   font-size: 16px;
   font-weight: bold;
@@ -40,7 +40,7 @@
   margin-right: 8px;
 }
 
-.filter-title-city {
+.filter-title-geo {
   white-space: nowrap;
   font-size: 16px;
   font-weight: bold;
@@ -49,7 +49,7 @@
   margin-left: 12px;
   margin-right: 8px;
 }
-.filter-title-city-light {
+.filter-title-geo-light {
   white-space: nowrap;
   font-size: 16px;
   font-weight: bold;
@@ -59,7 +59,7 @@
   margin-right: 8px;
 }
 
-.filter-item-radius {
+.filter-item-distance {
   white-space: nowrap;
   font-weight: bold;
   margin-right: 5px;
@@ -72,7 +72,7 @@
   position: relative;
   height: fit-content;
 }
-.filter-item-radius-light {
+.filter-item-distance-light {
   white-space: nowrap;
   font-weight: bold;
   margin-right: 5px;
@@ -86,7 +86,7 @@
   height: fit-content;
 }
 
-.filter-item-city {
+.filter-item-geo {
   white-space: nowrap;
   font-weight: bold;
   margin-right: 5px;
@@ -99,7 +99,7 @@
   position: relative;
   height: fit-content;
 }
-.filter-item-city-light {
+.filter-item-geo-light {
   white-space: nowrap;
   font-weight: bold;
   margin-right: 5px;

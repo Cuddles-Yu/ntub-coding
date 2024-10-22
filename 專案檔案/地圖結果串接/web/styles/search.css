@@ -20,6 +20,14 @@
   top: -2px;
 }
 
+.service-match-counter {
+  position: absolute;
+  background-color: #8352b3;
+  padding: 5px;
+  color: white;
+  border-bottom-right-radius: 10px;
+}
+
 body{
   padding-top: 90px;
 }
@@ -167,6 +175,7 @@ body{
   }
 
   .store-img-group{
+    position: relative;
     padding-left: 0;
   }
 
@@ -435,6 +444,7 @@ body{
   }
 
   .store-img-group{
+    position: relative;
     padding-left: 0;
     width: 200px;
   }
@@ -702,6 +712,7 @@ body{
   }
 
   .store-img-group{
+    position: relative;
     width: 0;
   }
 

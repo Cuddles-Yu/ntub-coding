@@ -20,11 +20,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-function syncToPreferences() {
-  updatePreferences('condition', false);
-  showAlert('green', '已同步至偏好設定');
-}
-
 function toSearchPage() {
   getCenter();
   window.location.href = `search?data=${getEncodeSearchParams()}`;
