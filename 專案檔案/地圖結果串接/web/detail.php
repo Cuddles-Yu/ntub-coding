@@ -429,6 +429,8 @@
     <!--資料爬蟲時間--><h6 class="update">資料更新時間：<?=$storeInfo['crawler_time'] ?></h6>
   </section>
 
+  <button id="back-to-top-btn" style="display:none;"><i class="fas fa-arrow-up"></i></button>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
   <script src="https://kit.fontawesome.com/876a36192d.js" crossorigin="anonymous"></script>
