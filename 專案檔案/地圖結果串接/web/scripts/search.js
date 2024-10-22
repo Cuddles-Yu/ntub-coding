@@ -15,6 +15,7 @@ window.addEventListener('load', async function () {
   const encodedData = urlParams.get('data')??null;
   const data = encodedData ? (decodeSearchParams(encodedData)??null) : null;
   if (data) {
+    await setConditionFromData(data);
     if (data.lat && data.lng) {
       setView([data.lat, data.lng], 16);
       await defaultLocate(false);
@@ -27,7 +28,6 @@ window.addEventListener('load', async function () {
         this.setTimeout(() => {document.getElementById('search-button').click();}, 50);
       }
     }
-    await setConditionFromData(data);
   }
   showCondition();
 });
