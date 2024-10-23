@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (recommendCard) {
     const recommendLeftArrow = document.querySelector('.left-arrow');
     const recommendRightArrow = document.querySelector('.right-arrow');
-    const recommendScrollAmount = 500;  
+    const recommendScrollAmount = 500;
     recommendLeftArrow.addEventListener('click', function () {
       recommendCard.scrollBy({ left: -recommendScrollAmount, behavior: 'smooth' });
     });
@@ -198,7 +198,6 @@ function resetCommentSearch() {
 }
 
 function searchCommentsByTarget(button) {
-  console.log(storeId);
   const target = button.querySelector('.object').textContent;
   const commentCountTitle = document.getElementById('comment-count-title');
   document.getElementById('commentGroup').scrollTo(0, 0)

@@ -29,7 +29,7 @@ function saveCondition() {
   showCondition();
   setTimeout(function() {
     toSearchPage();
-  }, 100);
+  }, 300);
 }
 
 document.querySelectorAll('.title-text-2').forEach(tab => {
@@ -42,26 +42,6 @@ document.querySelectorAll('.title-text-2').forEach(tab => {
       generateStoreSuggestion(targetTab);
   });
 });
-
-function generateStoreSuggestion(content) {
-  var searchResults = document.getElementById(content);
-  const formData = new FormData();
-  formData.set('q', '蛋塔');
-  fetch('../struc/store-suggestion.php', {
-    method: 'POST',
-    credentials: 'same-origin',
-    body: formData
-  })
-    .then(response => response.text())
-    .then(data => {
-      if (data && data.trim() !== "") {
-        searchResults.innerHTML = data;
-      } else {
-        searchResults.innerHTML = "<p>沒有找到相關結果。</p>";
-      }
-    })
-    .catch(() => {showAlert('red', '推薦餐廳過程中發生非預期的錯誤');});
-}
 
 document.getElementById('keyword').addEventListener('keydown', function(event) {
   if (event.key === 'Enter') {

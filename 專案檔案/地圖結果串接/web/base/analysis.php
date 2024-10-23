@@ -316,8 +316,8 @@
     global $conn, $MEMBER_ID;
     if (is_null($MEMBER_ID)) return [];
     $stmt = bindPrepare($conn, "
-      SELECT 
-        s.id, s.name, s.tag, s.mark, s.preview_image, f.create_time
+      SELECT
+        s.id, s.name, s.link, s.tag, s.mark, s.preview_image, f.create_time
       FROM favorites AS f
       INNER JOIN stores AS s ON f.store_id = s.id
       WHERE f.member_id = ?

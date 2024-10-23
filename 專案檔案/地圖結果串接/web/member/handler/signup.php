@@ -46,28 +46,28 @@
     if (!($stmt->execute())) {
       echo json_encode(['success' => false, 'message' => $conn->error]);
       exit;
-    }    
+    }
     $memberId = $conn->insert_id;
     $stmt->close();
 
     ### 創建新會員偏好設定 ###
-    $stmt = bindPrepare($conn, 
-      " INSERT INTO preferences (
-        member_id, atmosphere_weight, price_weight, product_weight, service_weight, parking, wheelchair_accessible, 
-        vegetarian, healthy, kids_friendly, pets_friendly, gender_friendly, delivery, takeaway, dine_in, 
-        breakfast, brunch, lunch, dinner, reservation, group_friendly, family_friendly, 
-        toilet, wifi, cash, credit_card, debit_card, mobile_payment) 
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) 
-    ", "iiiiisssssssssssssssssssssss", 
-      $memberId, $atmosphere, $product, $service, $price, $parking, $wheelchairAccessible, 
-      $vegetarian, $healthy, $kidsFriendly, $petsFriendly, $genderFriendly, $dilivery, $takeaway, $dineIn, 
-      $breakfast, $brunch, $lunch, $dinner, $reservation, $groupFriendly, $familyFriendly, 
+    $stmt = bindPrepare($conn, "
+      INSERT INTO preferences (
+        member_id, atmosphere_weight, price_weight, product_weight, service_weight, parking, wheelchair_accessible,
+        vegetarian, healthy, kids_friendly, pets_friendly, gender_friendly, delivery, takeaway, dine_in,
+        breakfast, brunch, lunch, dinner, reservation, group_friendly, family_friendly,
+        toilet, wifi, cash, credit_card, debit_card, mobile_payment)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ", "iiiiisssssssssssssssssssssss",
+      $memberId, $atmosphere, $product, $service, $price, $parking, $wheelchairAccessible,
+      $vegetarian, $healthy, $kidsFriendly, $petsFriendly, $genderFriendly, $dilivery, $takeaway, $dineIn,
+      $breakfast, $brunch, $lunch, $dinner, $reservation, $groupFriendly, $familyFriendly,
       $toilet, $wifi, $cash, $creditCard, $debitCard, $mobilePayment
     );
     if ($stmt->execute()) {
       echo json_encode(['success' => true, 'message' => '註冊成功']);
     } else {
       echo json_encode(['success' => false, 'message' => $conn->error]);
-    }    
+    }
     $stmt->close();
   }

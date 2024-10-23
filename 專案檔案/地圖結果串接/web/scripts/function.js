@@ -2,6 +2,14 @@ window.addEventListener('load', function () {
   preloading = false;
 });
 
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    showAlert('green', '已複製到剪貼簿');
+  }).catch(() => {
+    showAlert('red', '複製到剪貼簿時發生錯誤');
+  });
+}
+
 function toggleFavorite(element, storeId) {
   element.disabled = true;
   const formData = new FormData();
@@ -210,15 +218,16 @@ function updatePreferences(target, show = true) {
     credentials: 'same-origin',
     body: formData
   })
-  .then(response => response.json())
-  .then(data => {
-    if (data.success) {
-      if (show) showAlert('green', data.message);
-    } else {
-      if (show) showAlert('red', data.message);
-    }
-  })
-  .catch(() => {showAlert('red', '更新偏好過程中發生非預期的錯誤');});
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        if (show) showAlert('green', data.message);
+      } else {
+        if (show) showAlert('red', data.message);
+      }
+    })
+    .catch(() => {showAlert('red', '更新偏好過程中發生非預期的錯誤');
+  });
 }
 
 function countCheckedServiceMarks() {
@@ -227,19 +236,22 @@ function countCheckedServiceMarks() {
   return checkedCount;
 }
 
+function goToDetailPage(storeId) {
+  window.location.href = `/detail?id=${storeId}`;
+}
 function redirectToDetailPage(storeId) {
   data = document.getElementById('searchResults').getAttribute('search-data');
-  window.location.href = `detail?id=${storeId}&data=${encodeURIComponent(data)}`;
+  window.location.href = `/detail?id=${storeId}&data=${encodeURIComponent(data)}`;
 }
 function urlToDetailPage(storeId) {
   const data = new URLSearchParams(window.location.search).get('data')??null;
-  window.location.href = `detail?id=${storeId}&data=${encodeURIComponent(data)}`;
+  window.location.href = `/detail?id=${storeId}&data=${encodeURIComponent(data)}`;
 }
 function openSearchPage(keyword) {
   const encodedData = new URLSearchParams(window.location.search).get('data')??null;
   var data = decodeSearchParams(encodedData);
   data.q = keyword;
-  window.open(`search?data=${encodeSearchParams(data)}`, '_blank');
+  window.open(`/search?data=${encodeSearchParams(data)}`, '_blank');
 }
 
 function radioChecked(target, state) {
@@ -327,4 +339,12 @@ function addRadioChangeListener(target) {
   document.getElementById(`${target}-geo-radio`).addEventListener('change', function() {
     radioToggle(target, 'geo');
   });
+}
+
+function preventMultipleClick(event) {
+  event.stopPropagation();
+}
+
+function targetFavorite(elem) {
+  elem.closest('.content_row').classList.add('favorite-target');
 }

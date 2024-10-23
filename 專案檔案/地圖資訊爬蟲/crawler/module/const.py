@@ -11,12 +11,12 @@ REF_LOCATION = False
 
 SHUFFLE_URLS = False
 
-OPEN_DATA = '客家'
+OPEN_DATA = None
 API_PATH = 'https://data.taipei/api/v1/dataset/d706f428-b2c7-4591-9ebf-9f5cd7408f47?scope=resourceAquire&limit=1000'  # 環保餐廳
 API_KEY = 'https://data.taipei/api/v1/dataset/2f2b039d-6bff-4663-a4e5-3bd6cc98ee48?scope=resourceAquire&limit=1000'  # 客家餐廳
 
-CONTINUE_CRAWLER = True  # 重新執行爬蟲(修復不完整資料)
-FORCE_CRAWLER = False
+CONTINUE_CRAWLER = False  # 重新執行爬蟲(修復不完整資料)
+FORCE_CRAWLER = True
 BRANCH_STORE_FIRST = False
 
 CONTINUE_COUNT = 0
@@ -26,6 +26,7 @@ HAVE_TO_GET_ALL_RESULTS = False
 AUTO_SEARCH_IMAGE = False
 
 STORES_URLS = [
+    'https://www.google.com.tw/maps/place/+/data=!4m7!3m6!1s0x3442a90ca507e3bb:0x803939ffa227dbed!8m2!3d25.0442063!4d121.5133685!16s%2Fg%2F12m9dpz5x!19sChIJu-MHpQypQjQR7dsnov85OYA'
 ]
 
 PASS_TAGS = ['暫時關閉', '永久歇業']
@@ -47,7 +48,7 @@ MAXIMUM_WAITING = 3
 HIGHRATING_SCORE = 4
 LOWRATING_SCORE = 3
 
-MAXIMUM_SAMPLES = 800
+MAXIMUM_SAMPLES = 200
 REFERENCE_SAMPLES = 100
 MINIMUM_SAMPLES = 30
 

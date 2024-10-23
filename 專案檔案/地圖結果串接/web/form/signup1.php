@@ -6,7 +6,7 @@
           目前進度: 1 / 3
         </div>
       </div>
-      <div class="modal-body login-modal-body" style="height:350px">
+      <div class="modal-body login-modal-body" style="height:450px">
         <h2 class="form-h2">會員註冊</h2>
         <div class='form-message-popup' id="signup-message" style="display:none">
           <div id="signupError" class="form-error-message-popup" style="display:block; text-align:center"></div>
@@ -25,6 +25,14 @@
           <div style="margin-bottom: -25px">
             <input type='password' id="signup-check-password" class='form-input-popup password-input signup-input' placeholder='確認密碼' required>
             <img src="images/password-hide.png" alt="password" id="signup-toggle-check-password" class="toggle-password">
+          </div>
+          <div class="password-requirements" id="password-requirements" style="margin-top:10px;">
+            <ul>
+              <li id="length-condition" style="color:red;">密碼長度介於8-20個字元</li>
+              <li id="uppercase-lowercase-condition" style="color:red;">必須包含至少一個大寫字母和一個小寫字母</li>
+              <li id="number-condition" style="color:red;">必須包含至少一個數字</li>
+              <!-- <li id="special-char-condition" style="color:red;">必須包含至少一個特殊字元（如：!@#$%^&*）</li> -->
+            </ul>
           </div>
           <div class="checkbox-set">
             <input type="checkbox" id="signup-consent" name="signup-consent" style="cursor:pointer;">

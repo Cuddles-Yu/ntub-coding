@@ -9,7 +9,8 @@
   <title>使用回饋 - 評星宇宙</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
   <link rel="stylesheet" href="/styles/feedback.css" />
 </head>
 
@@ -22,13 +23,10 @@
         <p>若您有任何建議或想法，您可以透過這個表單向開發團隊提出！</p>
         <p>◆ 將回饋敘述的越詳細並附上影像輔助說明，越容易瞭解您的想法並推出更新</p>
         <p>◆ 向開發團隊提出建議表示您同意能以任何方式 (包含但不限於重製或修改) 使用該建議作為功能，且您的建議與最終推出的更新可能有些許落差</p>
-        <?php if ($SESSION_DATA->success): ?>
-          <p>◆ 您已登入，系統會自動帶入您的電子郵件</p>
-        <?php endif; ?>
         <!-- <p>◆ 遇到問題了嗎？提供相關說明，協助我們快速排查問題的原因</p> -->
         <input type="hidden" id="member_id" name="member_id" value="<?php echo $MEMBER_ID; ?>">
         <label for="email">
-          電子郵件 <em style="color:red;font-weight:bold;">*</em>
+          <?php if ($SESSION_DATA->success): echo '會員電子郵件'; else: echo '電子郵件 <em style="color:red;font-weight:bold;">*</em>'; endif;?>
         </label>
         <input type="email" id="email" name="email" placeholder="您的電子郵件" <?php if ($SESSION_DATA->success): echo 'disabled value="'.$MEMBER_INFO['email'].'"'; else: echo 'required'; endif; ?>
           style="width:100%;padding:10px;margin-bottom:20px;border:1px solid #ddd;border-radius:5px;font-size:14px;">

@@ -8,84 +8,37 @@ document.querySelectorAll('.suggestion-page').forEach(page => {
 });
 
 window.addEventListener('load', function () {
-
+  generateStoreSuggestion('tab-content-1');
 });
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  // 自動載入熱門推薦的內容
-  document.getElementById('tab-button-1').click();
-  const restaurantGroups = document.querySelectorAll('.restaurant-group');
-  const leftArrows = document.querySelectorAll('.left-arrow');
-  const rightArrows = document.querySelectorAll('.right-arrow');
-  const scrollAmount = 690;
-
-  // 檢查卡片的總寬度是否超過容器寬度
-  function updateArrowVisibility(restaurantGroup, leftArrow, rightArrow) {
-    const cardScrollWidth = restaurantGroup.scrollWidth;
-    const containerWidth = restaurantGroup.clientWidth;
-    if (cardScrollWidth <= containerWidth) {
-      leftArrow.classList.add('hidden');
-      rightArrow.classList.add('hidden');
-    } else {
-      leftArrow.classList.remove('hidden');
-      rightArrow.classList.remove('hidden');
-    }
-  }
-
-  // 初次加載和窗口調整大小時更新箭頭可見性
-  restaurantGroups.forEach(function (restaurantGroup, index) {
-    const leftArrow = leftArrows[index];
-    const rightArrow = rightArrows[index];
-    leftArrow.addEventListener('click', function () {
-      restaurantGroup.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-    });
-    rightArrow.addEventListener('click', function () {
-      restaurantGroup.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    });
-    window.addEventListener('resize', function () {
-      updateArrowVisibility(restaurantGroup, leftArrow, rightArrow);
-    });
-    updateArrowVisibility(restaurantGroup, leftArrow, rightArrow);
-  });
-
-  //card手動滑鼠滾動
-  restaurantGroups.forEach(function(restaurantGroup) {
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-    restaurantGroup.addEventListener('mousedown', function(e) {
-      isDown = true;
-      restaurantGroup.classList.add('active');
-      startX = e.pageX - restaurantGroup.offsetLeft;
-      scrollLeft = restaurantGroup.scrollLeft;
-    });
-    restaurantGroup.addEventListener('mouseleave', function() {
-      isDown = false;
-      restaurantGroup.classList.remove('active');
-    });
-    restaurantGroup.addEventListener('mouseup', function() {
-      isDown = false;
-      restaurantGroup.classList.remove('active');
-    });
-    restaurantGroup.addEventListener('mousemove', function(e) {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - restaurantGroup.offsetLeft;
-      const walk = (x - startX) * 5;
-      restaurantGroup.scrollLeft = scrollLeft - walk;
+  document.querySelectorAll('.nav-link').forEach(tab => {
+    tab.addEventListener('click', function() {
+      const targetTab = tab.getAttribute('data-tab');
+      if (targetTab !== 'tab-content-3' && tab.classList.contains('active')) return;
+      document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelectorAll('[class^="tab-content"]').forEach(content => {
+        content.classList.remove('active');
+        content.innerHTML = '';
+      });
+      const targetContent = document.getElementById(targetTab);
+      if (targetContent) {
+        targetContent.classList.add('active');
+        generateStoreSuggestion(targetTab);
+      }
+      if (targetTab === 'tab-content-3') {
+        document.getElementById('random-nav-item').style.width = '134px';
+        document.getElementById('tab-button-3').innerHTML = '隨機推薦 <i class="fi fi-br-refresh" style="font-size:14px"></i>';
+      } else {
+        document.getElementById('random-nav-item').style.width = '';
+        document.getElementById('tab-button-3').innerText = '隨機推薦';
+      }
     });
   });
 
 });
-
-function toSearchPage() {
-  getCenter();
-  const keyword = encodeURIComponent(document.getElementById('keyword').value);
-  const lat = document.getElementById('map').getAttribute('data-lat');
-  const lng = document.getElementById('map').getAttribute('data-lng');
-  window.location.href = `search?q=${keyword}&lat=${lat}&lng=${lng}`;
-}
 
 document.querySelectorAll('.title-text-2').forEach(tab => {
   tab.addEventListener('click', function() {
@@ -100,9 +53,10 @@ document.querySelectorAll('.title-text-2').forEach(tab => {
 
 function generateStoreSuggestion(content) {
   var searchResults = document.getElementById(content);
+  searchResults.innerHTML = '<div style="height:550px;align-content:center;"><div class="rotating"><img src="./images/icon-loading.png" width="30" height="30"></div><p style="text-align:center;">正在取得推薦餐廳...</p></div>'
   const formData = new FormData();
   formData.set('q', '蛋塔');
-  fetch('../struc/store-suggestion.php', {
+  fetch('/struc/store-suggestion.php', {
     method: 'POST',
     credentials: 'same-origin',
     body: formData

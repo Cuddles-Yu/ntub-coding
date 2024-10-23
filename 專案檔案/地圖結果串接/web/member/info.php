@@ -22,7 +22,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
     <title>會員專區 - 評星宇宙</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>  
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
     <link rel="stylesheet" href="/styles/member.css">
 </head>
 <body>
@@ -262,85 +263,70 @@
           <button id="weight_save_button"  class="save-button btn-solid-windows-blue" onclick="saveWeight()" style="display: none;">完成</button>
         </div>
       </div>
-      <div id="favorite_main_area">
-        <div>
-          <div class="search">
-            <div class="form-floating search-keyword">
-              <input type="text" class="form-control" id="keyword" name="keyword" placeholder="關鍵字">
-              <label for="keyword">搜尋關鍵字</label>
-            </div>
-            <button type="submit" class="btn btn-solid-gray mt-3 search-button">搜尋</button>
-          </div>
-        </div>          
+      <div id="favorite_main_area" style="position:absolute;top:150px;">
         <div class="first_line">
-          <div class="mark_number">
-            <span>#</span>
-          </div>
           <div class="mark_store">
-            <span style="margin-right: 5px;">商家名稱</span>
-            <i class="fi fi-sr-arrow-down" id="store_down_arrow1"></i>
-            <i class="fi fi-sr-arrow-up" id="store_up_arrow1" style="display: none;"></i>
+            <span style="margin-left:8px;font-weight:bold;">名稱</span>
           </div>
           <div class="mark_score">
-            <span style="margin-right: 5px;">評分</span>
-            <i class="fi fi-sr-arrow-down" id="store_down_arrow2"></i>
-            <i class="fi fi-sr-arrow-up" id="store_up_arrow2" style="display: none;"></i>
+            <span style="margin-left:2px;font-weight:bold;">評分</span>
           </div>
           <div class="mark_category">
-            <span style="margin-right: 5px;">類別</span>
-            <i class="fi fi-sr-arrow-down" id="store_down_arrow3"></i>
-            <i class="fi fi-sr-arrow-up" id="store_up_arrow3" style="display: none;"></i>
+            <span style="margin-left:0px;font-weight:bold;">類別</span>
           </div>
           <div class="mark_time">
-            <span style="margin-right: 5px;">收藏時間</span>
-            <i class="fi fi-sr-arrow-down" id="store_down_arrow5"></i>
-            <i class="fi fi-sr-arrow-up" id="store_up_arrow5" style="display: none;"></i>
+            <span style="margin-left:-4px;font-weight:bold;">收藏時間</span>
           </div>
           <div class="mark_button">
-            <div class="sort_button">操作</div>
+          <span style="margin-left:0px;font-weight:bold;">操作功能</span>
           </div>
         </div>
         <div class="content_row_container">
-          <?php $index=1; ?>
-          <?php foreach($FAVORITE_STORES as $store): ?>
-            <?php
-              $name = htmlspecialchars($store['name']);
-              $preview_image = htmlspecialchars($store['preview_image']);
-              $tag = htmlspecialchars($store['tag']);
-              $createTime = htmlspecialchars($store['create_time']);
-              $mark = htmlspecialchars($store['mark']);
-              $markName = $markOptions[$mark]['tagName'] ?? '';
-            ?>
-            <div class="content_row">
-              <div class="mark_number">
-                <span><?=$index?></span>
-              </div>
-              <div class="mark_store">
-                <div class="mark_img">
-                  <img src="<?=$preview_image?>">
+          <?php if (!empty($FAVORITE_STORES)): ?>
+            <?php foreach($FAVORITE_STORES as $store): ?>
+              <?php
+                $id = $store['id'];
+                $link = htmlspecialchars($store['link']);
+                $name = htmlspecialchars($store['name']);
+                $preview_image = htmlspecialchars($store['preview_image']);
+                $tag = htmlspecialchars($store['tag']);
+                $createTime = htmlspecialchars($store['create_time']);
+                $mark = htmlspecialchars($store['mark']);
+                $markName = $markOptions[$mark]['tagName'] ?? '';
+                $score = getBayesianScore(getMemberNormalizedWeight(), $store['id']);
+              ?>
+              <div class="content_row" data-id="<?=$id?>" onclick="goToDetailPage(<?=$id?>)">
+                <div class="mark_store">
+                  <div class="mark_img">
+                    <img src="<?=$preview_image?>">
+                  </div>
+                  <span class="store_name"><?=$name?></span>
                 </div>
-                <span class="store_name"><?=$name?></span>
+                <div class="mark_score">
+                  <span><?=$score?></span>
+                </div>
+                <div class="mark_category">
+                  <span><?=$tag?><?=$markName?></span>
+                </div>
+                <div class="mark_time">
+                  <span style="margin-right: 5px;"><?=$createTime?></span>
+                </div>
+                <div class="mark_button mark_button2">
+                  <div class="sort_button_wrapper" onclick="preventMultipleClick(event);targetFavorite(this);" data-bs-toggle="modal" data-bs-target="#removeFavoriteModal">
+                    <i class="fi fi-sr-trash trans-red-button"></i>
+                  </div>
+                  <div class="sort_button_wrapper" onclick="preventMultipleClick(event);shareFavorite('<?=$link?>');">
+                    <i class="fi fi-sr-share trans-blue-button"></i>
+                  </div>
+                </div>
               </div>
-              <div class="mark_score">
-                <span>00</span>
-              </div>
-              <div class="mark_category">
-                <span><?=$tag?><?=$markName?></span>
-              </div>
-              <div class="mark_time">
-                <span style="margin-right: 5px;"><?=$createTime?></span>
-              </div>
-              <div class="mark_button mark_button2">
-                <i class="fi fi-sr-bookmark sort_button"></i>
-                <i class="fi fi-sr-share sort_button"></i>
-              </div>
-            </div>
-            <?php $index++; ?>
-          <?php endforeach; ?>
+            <?php endforeach; ?>
+          <?php endif; ?>
         </div>
     </div>
   </main>
 
+  <?php require_once $_SERVER['DOCUMENT_ROOT'].'/form/remove-favorite.php'; ?>
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/form/modify-name.php'; ?>
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/form/modify-password.php'; ?>
 

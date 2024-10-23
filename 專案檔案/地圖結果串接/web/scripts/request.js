@@ -103,8 +103,54 @@ function emailVerify(emailInputId) {
   return '';
 }
 
+function passwordVerify(passwordInputId, confirmPasswordInputId) {
+  const uppercaseRegex = /[A-Z]/;
+  const lowercaseRegex = /[a-z]/;
+  const numberRegex = /[0-9]/;
+  // const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+  const passwordInput = document.getElementById(passwordInputId);
+  const confirmPasswordInput = document.getElementById(confirmPasswordInputId);
+  const password = passwordInput.value.trim();
+  const confirmPassword = confirmPasswordInput.value.trim();
+  if (!password) {
+    passwordInput.focus();
+    return '密碼欄位不能為空。';
+  }
+  if (password.length < 8 || password.length > 20) {
+    passwordInput.focus();
+    return '密碼長度必須介於8-20個字元';
+  }
+  if (!uppercaseRegex.test(password) || !lowercaseRegex.test(password)) {
+    passwordInput.focus();
+    return '密碼必須包含至少一個大寫字母和一個小寫字母。';
+  }
+  if (!numberRegex.test(password)) {
+    passwordInput.focus();
+    return '密碼必須包含至少一個數字。';
+  }
+  // if (!specialCharRegex.test(password)) {
+  //   passwordInput.focus();
+  //   return '密碼必須包含至少一個特殊字元（例如：!@#$%^&*）。';
+  // }
+  if (password !== confirmPassword) {
+    confirmPasswordInput.focus();
+    return '密碼與確認密碼不一致。';
+  }
+  return '';
+}
+
+function passwordVerifyRequest() {
+  const verify = passwordVerify('signup-password','signup-check-password');
+  document.getElementById('signupError').innerText = verify;
+  document.getElementById('signup-message').style.display = verify?'block':'none';
+  if (verify!=='') return false;
+  return true;
+}
+
 async function emailVerifyRequest() {
+  const emailInput = document.getElementById('signup-email');
   const verify = emailVerify('signup-email');
+  const email = emailInput.value.trim();
   document.getElementById('signupError').innerText = verify;
   document.getElementById('signup-message').style.display = verify?'block':'none';
   if (verify!=='') return false;
@@ -129,11 +175,24 @@ async function emailVerifyRequest() {
       return false;
     }
   } catch (error) {
-    document.getElementById('signupError').innerText = `發生非預期的錯誤，請稍後再試。`;
+    document.getElementById('signupError').innerText = `發生非預期的錯誤，請稍後再試。${error}`;
     document.getElementById('signup-message').style.display = 'block';
     return false;
   }
 }
+
+document.getElementById('signup-password').addEventListener('input', function() {
+  const password = this.value;
+  const lengthCondition = password.length >= 8 && password.length <= 20;
+  const uppercaseCondition = /[A-Z]/.test(password);
+  const lowercaseCondition = /[a-z]/.test(password);
+  const numberCondition = /[0-9]/.test(password);
+  // const specialCharCondition = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+  document.getElementById('length-condition').style.color = lengthCondition ? 'black' : 'red';
+  document.getElementById('uppercase-lowercase-condition').style.color = (uppercaseCondition && lowercaseCondition) ? 'black' : 'red';
+  document.getElementById('number-condition').style.color = numberCondition ? 'black' : 'red';
+  // document.getElementById('special-char-condition').style.color = specialCharCondition ? 'black' : 'red';
+});
 
 
 async function accountVerifyRequest() {
@@ -159,12 +218,8 @@ async function accountVerifyRequest() {
     document.getElementById('signup-message').style.display = 'block';
     return;
   }
-  if (password !== checkPassword) {
-    checkPasswordInput.focus();
-    document.getElementById('signupError').innerText = '密碼與確認密碼不符。';
-    document.getElementById('signup-message').style.display = 'block';
-    return;
-  }
+  const isPasswordValid = passwordVerifyRequest();
+  if (!isPasswordValid) return;
   if (!consentInput.checked) {
     document.getElementById('signupError').innerText = '請閱讀並同意我們的服務條款。';
     document.getElementById('signup-message').style.display = 'block';

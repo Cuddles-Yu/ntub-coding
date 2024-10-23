@@ -124,6 +124,10 @@ function toggleMenu() {
   }
 }
 
+function closeMemberMenu() {
+  document.getElementById('dropdownMenu').style.display='none';
+}
+
 /* 自動讓登入表單的第一個輸入框取得焦點 */
 document.getElementById('loginModal').addEventListener('shown.bs.modal', function () {
   document.getElementById('login-email').focus()

@@ -36,7 +36,7 @@ function saveCondition() {
   showCondition();
   setTimeout(function() {
     searchStoresByKeyword();
-  }, 100);
+  }, 300);
 }
 
 //搜尋結果滾動條隱藏
@@ -56,6 +56,8 @@ document.getElementById('keyword').addEventListener('keydown', function(event) {
 });
 
 const searchResults = document.getElementById('searchResults');
+
+// 動態載入更多商家
 // searchResults.addEventListener('scroll', () => {
 //   if ((searchResults.scrollTop + searchResults.clientHeight) >= searchResults.scrollHeight - 1000 && !isLoading) {
 //     console.log('scroll to bottom');

@@ -67,7 +67,7 @@
     <a href="/member/info?tab=preference">偏好設定</a>
     <a href="/member/info?tab=weight">權重設定</a>
     <a href="/member/info?tab=favorite">收藏商家</a>
-    <a href="" data-bs-toggle="modal" data-bs-target="#logoutModal">登出</a>
+    <a href="" data-bs-toggle="modal" data-bs-target="#logoutModal" onclick="closeMemberMenu()">登出</a>
   </div>
   <hr class="header-separator">
 

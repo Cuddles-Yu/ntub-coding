@@ -40,7 +40,7 @@ window.addEventListener('load', function () {
     credentials: 'same-origin'
   }).then(response => response.json())
     .then(async data => {
-      if (data && !data.error) {        
+      if (data && !data.error) {
         var latlng = [parseFloat(data[0].latitude), parseFloat(data[0].longitude)];
         storeLatLng = latlng;
         var marker = L.marker(latlng, {

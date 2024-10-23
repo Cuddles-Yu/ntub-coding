@@ -194,21 +194,6 @@ body{
     display: flex;
   }
 
-  #nav_menu2 {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 80px;
-    background-color: white;
-    width: 100%;
-  }
-
-  #nav_menu2 a {
-    padding: 10px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
-  }
-
   .hamburger {
     display: none;
     font-size: 30px;
@@ -260,30 +245,6 @@ body{
   /* 漢堡圖示相關 */
   #nav_menu1 {
     display: none;
-  }
-
-  #nav_menu2 {
-    display: none;
-    flex-direction: column;
-    position: fixed;
-    top: 80px;
-    left: 0;
-    background-color: white;
-    width: 40vh;
-    height: 100vh;
-    transform: translateX(-100%);
-    transition: transform 10s ease-out;
-  }
-
-  #nav_menu2 a {
-    padding: 30px;
-    text-align: center;
-    font-size: 28px;
-  }
-
-  #nav_menu2.show {
-    display: flex;
-    transform: translateX(0);
   }
 
   #overlay {
@@ -356,19 +317,6 @@ body{
     display: none;
   }
 
-  #nav_menu2 {
-    display: none;
-    flex-direction: column;
-    position: fixed;
-    top: 80px;
-    left: 0;
-    background-color: white;
-    width: 40vh;
-    height: 100vh;
-    transform: translateX(-100%);
-    transition: transform 10s ease-out;
-  }
-
   #overlay {
     display: none;
     position: fixed;
@@ -381,17 +329,6 @@ body{
 
   #overlay.show {
     display: block;
-  }
-
-  #nav_menu2.show {
-    display: flex;
-    transform: translateX(0);
-  }
-
-  #nav_menu2 a {
-    padding: 30px;
-    text-align: center;
-    font-size: 28px;
   }
 
   #login2 {

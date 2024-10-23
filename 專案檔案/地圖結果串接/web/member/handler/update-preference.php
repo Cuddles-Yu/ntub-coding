@@ -1,4 +1,4 @@
-<?php  
+<?php
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/db.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/session.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
@@ -60,6 +60,6 @@
       echo json_encode(['success' => true, 'message' => '會員偏好修改成功']);
     } else {
       echo json_encode(['success' => false, 'message' => $conn->error]);
-    }    
+    }
     $stmt->close();
   }

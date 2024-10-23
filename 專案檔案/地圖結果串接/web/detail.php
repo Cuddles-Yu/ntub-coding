@@ -52,7 +52,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>  
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers/dist/leaflet.awesome-markers.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
@@ -256,24 +257,24 @@
         <i class="fi fi-sr-comment-alt group-title-img"></i>
         <h5 class="group-title">評論</h5>
       </div>
+      <div class="invisible"> <!--樣本選擇按鈕(隱藏)-->
+        <div class="btn-group sample-group" role="group" aria-label="Basic radio toggle button group">
+          <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+          <label class="btn btn-outline-secondary sample-button" for="btnradio1">全部</label>
 
-      <!--樣本選擇按鈕-->
-      <div class="btn-group sample-group" role="group" aria-label="Basic radio toggle button group">
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-        <label class="btn btn-outline-secondary sample-button" for="btnradio1">全部</label>
+          <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+          <label class="btn btn-outline-secondary sample-button" for="btnradio2">最相關</label>
 
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-        <label class="btn btn-outline-secondary sample-button" for="btnradio2">最相關</label>
+          <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+          <label class="btn btn-outline-secondary sample-button" for="btnradio3">評分最高</label>
 
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-        <label class="btn btn-outline-secondary sample-button" for="btnradio3">評分最高</label>
-
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
-        <label class="btn btn-outline-secondary sample-button" for="btnradio4">評分最低</label>
+          <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+          <label class="btn btn-outline-secondary sample-button" for="btnradio4">評分最低</label>
+        </div>
+        <button type="button" class="btn question" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="評論樣本選擇" data-bs-custom-class="custom-tooltip1">
+          <i class="fi fi-sr-interrogation question-img"></i>
+        </button>
       </div>
-      <button type="button" class="btn question" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="評論樣本選擇" data-bs-custom-class="custom-tooltip1">
-        <i class="fi fi-sr-interrogation question-img"></i>
-      </button>
     </div>
     <div class="comment-keyword">
       <div class="keyword-title" id="keyword-title">

@@ -28,6 +28,7 @@ window.addEventListener('load', function () {
   });
 
   updateArea('member');
+  checkFavorite();
 });
 
 
@@ -186,21 +187,12 @@ function cancelEditMode2() {
   const cancelButton = document.getElementById('weight_cancel_button');
   sliders.forEach(function(slider) {
       slider.disabled = true;
-      slider.value = initialValues[slider.id]; // 恢復到初始值
-      console.log(slider.id);
-      document.getElementById(slider.id + '-value').innerText = initialValues[slider.id]; // 更新顯示的值
+      slider.value = initialValues[slider.id];
+      document.getElementById(slider.id + '-value').innerText = initialValues[slider.id];
   });
   editButton.style.display = 'inline';
   saveButton.style.display = 'none';
   cancelButton.style.display = 'none';
-}
-
-/* 權重 %數值更新 */
-function updateLabelValue(id) {
-    var slider = document.getElementById(id);
-    var output = document.getElementById(id + '_value');
-    output.textContent = slider.value;
-    slider.setAttribute('value', slider.value);
 }
 
 /* 箭頭圖示切換 */
@@ -229,3 +221,35 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+
+function handleRowClick() {
+  console.log("Row clicked");
+}
+
+function shareFavorite(link) {
+  const shareData = {
+    title: '分享餐廳連結',
+    text: `${document.getElementById('user_name').value}邀請你一起來看看所收藏的餐廳！`,
+    url: link,
+  };
+  if (navigator.share) {
+    navigator.share(shareData).then(() => {
+    }).catch(() => {
+      showAlert('red', '分享過程中發生錯誤，請稍後再試');
+    });
+  } else {
+    navigator.clipboard.writeText(shareData.url).then(function() {
+      showAlert('orange', '此瀏覽器不支援分享功能，已自動複製連結');
+    }).catch(() => {
+      showAlert('red', '複製連結失敗，請稍後再試');
+    });
+  }
+}
+
+function checkFavorite() {
+  const container = document.querySelector('.content_row_container');
+  if (document.querySelectorAll('.content_row').length == 0) {
+    container.innerHTML = '<div style="height:300px;align-content:center;text-align:center;"><p style="font-size:18px">尚未收藏餐廳，前往<a href="/search">餐廳搜尋</a>或<a href="/suggestion">餐廳推薦</a>開始收藏吧！</p></div>';
+  }
+}

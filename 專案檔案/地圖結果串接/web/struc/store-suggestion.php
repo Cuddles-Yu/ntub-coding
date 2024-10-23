@@ -12,9 +12,7 @@
 ?>
 
 <div class="carousel-container">
-  <div class="carousel-arrow left-arrow" type="button">
-    <i class="fi fi-sr-angle-left"></i>
-  </div>
+  <!-- <div class="carousel-arrow left-arrow" type="button"><i class="fi fi-sr-angle-left"></i></div> -->
   <div class="restaurant-group">
     <?php foreach ($stores as $store) : ?>
       <?php
@@ -52,7 +50,7 @@
                   </a>
                 <?php endif?>
               </div>
-              <h5 class="rating"><small class="rating-text"><?=$bayesianScore?> / 綜合評分</small></h5>
+              <h5 class="rating"><small style="font-size:25px;"><?=$bayesianScore?></small><small class="rating-text">/ 綜合評分</small></h5>
               <div class="progress-group-text">
                 <?php
                   $normalizedWeights = [
@@ -89,9 +87,7 @@
               <h6 class="address">地址：<?=$address?></h6>
           </div>
       </div>
-    <?php endforeach; ?>    
+    <?php endforeach; ?>
   </div>
-  <div class="carousel-arrow right-arrow" type="button">
-    <i class="fi fi-sr-angle-right"></i>
-  </div>
+  <!-- <div class="carousel-arrow right-arrow" type="button"><i class="fi fi-sr-angle-right"></i></div> -->
 </div>

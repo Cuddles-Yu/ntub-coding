@@ -1,8 +1,8 @@
-<?php 
+<?php
   function generateCommentsByKeyword($comments, $searchTerm) {
     $output = '';
     foreach ($comments as $comment) {
-      $output .= '<div class="comment-item normal-side" data-rating="' . htmlspecialchars($comment['rating']) . '" data-index="' . htmlspecialchars($comment['id']) . '">';
+      $output .= '<div class="comment-item normal-side" data-rating="'.htmlspecialchars($comment['rating']).'" data-index="' . htmlspecialchars($comment['id']) . '">';
       $output .= '<div class="comment-information">';
       $output .= '<img class="avatar" src="images/' . ($comment['contributor_level'] == 0 ? 'icon-member.png' : 'icon-contributor.png') . '">';
       $output .= '<div class="star-group">';
@@ -30,7 +30,7 @@
       $side = 'bad';
     }
     foreach ($comments as $comment) {
-      $output .= '<div class="comment-item '.$side.'-side data-rating="' . htmlspecialchars($comment['rating']) . '" data-index="' . htmlspecialchars($comment['id']) . '">';
+      $output .= '<div class="comment-item '.$side.'-side" data-rating="'.htmlspecialchars($comment['rating']).'" data-index="' . htmlspecialchars($comment['id']) . '">';
       $output .= '<div class="comment-information">';
       $output .= '<img class="avatar" src="images/' . ($comment['contributor_level'] == 0 ? 'icon-member.png' : 'icon-contributor.png') . '">';
       $output .= '<div class="star-group">';

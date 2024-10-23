@@ -14,8 +14,6 @@ from selenium.webdriver.common.by import By
 database = SqlDatabase('mapdb', 'root', '11236018')
 driver = EdgeDriver(database, url='https://www.google.com.tw/maps/preview')
 
-urls = []
-
 ### 主程式 ###
 if OPEN_DATA:
     match OPEN_DATA:

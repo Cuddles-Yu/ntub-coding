@@ -1,24 +1,25 @@
-<?php 
+<?php
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/session.php';
 ?>
 
 <!doctype html>
-<html lang="zh-TW">  
+<html lang="zh-TW">
 <head>
   <meta charset="utf-8" />
   <title>成員介紹 - 評星宇宙</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>  
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
   <link rel="stylesheet" href="/styles/team.css" />
 </head>
 
 <body>
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
-  
+
   <section class="primary-conent">
 
-    <div class="member-group">  
+    <div class="member-group">
       <div class="member-card">
         <h4 class="member-title">組長</h4>
         <img class="member-picture" src="images/member1.png">
@@ -69,7 +70,7 @@
       </div>
     </div>
   </section>
-    
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
   <script src="https://kit.fontawesome.com/876a36192d.js" crossorigin="anonymous"></script>

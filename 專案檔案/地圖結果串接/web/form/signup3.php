@@ -6,7 +6,7 @@
           目前進度: 3 / 3
         </div>
       </div>
-      <div class="modal-body login-modal-body" style="height:350px">
+      <div class="modal-body login-modal-body" style="height:450px">
         <h2 class="form-h2-title">權重設定</h2>
         <p class="signup-explain">為了計算您客製化的餐廳分數，請依據您的需求調整下列四個項目的權重 [您可以隨時進行設定及修改]</p>
         <div class="slider-container">
