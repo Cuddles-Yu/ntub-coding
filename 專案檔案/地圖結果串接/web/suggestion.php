@@ -21,24 +21,21 @@
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
 
   <section class="tertiary-content" id="tertiary-content" style="padding-top:130px;">
-    <span id="tab-1" class="tab-1"></span>
-    <span id="tab-2" class="tab-2"></span>
-    <span id="tab-3" class="tab-3"></span>
     <ul class="nav nav-tabs" style="place-content:center;font-size:20px;">
-    <li class="nav-item">
-      <a id="tab-button-1" class="nav-link active" data-tab="tab-content-1">最多人瀏覽</a>
-    </li>
-    <li class="nav-item">
-      <a id="tab-button-2" class="nav-link" data-tab="tab-content-2">最多人收藏</a>
-    </li>
     <li class="nav-item" id="random-nav-item">
-      <a id="tab-button-3" class="nav-link" data-tab="tab-content-3">隨機推薦</a>
+      <a id="tab-button-random" style="cursor:pointer;" class="nav-link active" data-tab="tab-content-random">隨機推薦 <i class="fi fi-br-refresh" style="font-size:14px"></i></a>
+    </li>
+    <li class="nav-item">
+      <a id="tab-button-most-browse" class="nav-link" data-tab="tab-content-most-browse">最多人瀏覽</a>
+    </li>
+    <li class="nav-item">
+      <a id="tab-button-most-favorite" class="nav-link" data-tab="tab-content-most-favorite">最多人收藏</a>
     </li>
   </ul>
 
-  <div class="tab-content-1 active" id="tab-content-1"></div>
-  <div class="tab-content-2" id="tab-content-2"></div>
-  <div class="tab-content-3" id="tab-content-3"></div>
+  <div class="tab-content-random active" id="tab-content-random"></div>
+  <div class="tab-content-most-browse" id="tab-content-most-browse"></div>
+  <div class="tab-content-most-favorite" id="tab-content-most-favorite"></div>
 
   </section>
 

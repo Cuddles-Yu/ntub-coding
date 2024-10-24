@@ -8,7 +8,7 @@ document.querySelectorAll('.suggestion-page').forEach(page => {
 });
 
 window.addEventListener('load', function () {
-  generateStoreSuggestion('tab-content-1');
+  generateStoreSuggestion('tab-content-random');
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -16,15 +16,15 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('.nav-link').forEach(tab => {
     tab.addEventListener('click', function() {
       const targetTab = tab.getAttribute('data-tab');
-      if (targetTab !== 'tab-content-3' && tab.classList.contains('active')) return;
+      if (targetTab !== 'tab-content-random' && tab.classList.contains('active')) return;
       const targetContent = document.getElementById(targetTab);
       if (!targetContent) return;
       var regenerate = (targetContent.getElementsByClassName('carousel-container').length == 0);
-      if (targetTab === 'tab-content-3') {
-        document.getElementById('tab-button-3').innerHTML = '隨機推薦 <i class="fi fi-br-refresh" style="font-size:14px"></i>';
+      if (targetTab === 'tab-content-random') {
+        document.getElementById('tab-button-random').innerHTML = '隨機推薦 <i class="fi fi-br-refresh" style="font-size:14px"></i>';
         if (tab.classList.contains('active')) regenerate = true;
       } else {
-        document.getElementById('tab-button-3').innerText = '隨機推薦';
+        document.getElementById('tab-button-random').innerText = '隨機推薦';
       }
       document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
       document.querySelectorAll('[class^="tab-content"]').forEach(content => content.classList.remove('active'));
@@ -39,27 +39,20 @@ document.addEventListener('DOMContentLoaded', function () {
 function generateStoreSuggestion(content) {
   var resultsContainer = document.getElementById(content);
   resultsContainer.innerHTML = `
-    <div style="height:550px;align-content:center;">
+    <div style="width:100%;height:550px;align-content:center;">
       <div class="rotating">
         <img src="./images/icon-loading.png" width="50" height="50">
       </div>
       <p style="text-align:center;">正在取得推薦餐廳...</p>
     </div>`;
-  const formData = new FormData();
-  formData.set('q', '蛋塔');
   fetch('/struc/store-suggestion.php', {
     method: 'POST',
     credentials: 'same-origin',
-    body: formData
   })
     .then(response => response.text())
     .then(data => {
-      if (data && data.trim() !== "") {
-        resultsContainer.innerHTML = data;
-        handleGrabContainer(resultsContainer);
-      } else {
-        resultsContainer.innerHTML = "<p>沒有找到相關結果。</p>";
-      }
+      resultsContainer.innerHTML = data
+      handleGrabContainer(resultsContainer);
     })
     .catch(() => {showAlert('red', '推薦餐廳過程中發生非預期的錯誤');});
 }

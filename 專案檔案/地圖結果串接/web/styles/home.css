@@ -16,14 +16,6 @@ body{
   margin-top: 5px;
 }
 
-.tab-content-1, .tab-content-2, .tab-content-3 {
-  display: none;
-}
-
-.tab-content-1.active, .tab-content-2.active, .tab-content-3.active {
-  display: block;
-}
-
 .sign_up_text{
   color: rgb(139, 139, 139);
   font-size: 16px;
@@ -183,39 +175,6 @@ body{
     visibility: hidden;
     height: 0;
     padding: 0 15px;
-  }
-
-  /*頁籤變換&第一筆*/
-  #tab-1:target ~ #tab > ul li a[href$="#tab-1"],
-  #tab-2:target ~ #tab > ul li a[href$="#tab-2"],
-  #tab-3:target ~ #tab > ul li a[href$="#tab-3"] {
-    background: #7e8b9c;
-    color: white;
-    border-radius: 5px;
-  }
-
-  /* 重置未選中的標籤顏色為白色 */
-  #tab-2:target ~ #tab > ul li a[href$="#tab-1"],
-  #tab-3:target ~ #tab > ul li a[href$="#tab-1"],
-  #tab-1:target ~ #tab > ul li a[href$="#tab-2"],
-  #tab-3:target ~ #tab > ul li a[href$="#tab-2"],
-  #tab-1:target ~ #tab > ul li a[href$="#tab-3"],
-  #tab-2:target ~ #tab > ul li a[href$="#tab-3"] {
-    background: white;
-    color: black;
-  }
-
-  /*頁籤內容顯示&第一筆*/
-  span ~ #tab > div:first-of-type,
-  #tab-1:target ~ #tab > div.tab-content-1,
-  #tab-2:target ~ #tab > div.tab-content-2,
-  #tab-3:target ~ #tab > div.tab-content-3{
-    visibility: visible;
-    height: 100%;
-  }
-
-  .tab-1, .tab-2, .tab-3 {
-    display: none;
   }
 
   .carousel-container {
@@ -491,39 +450,6 @@ body{
     padding: 0 15px;
   }
 
-  /*頁籤變換&第一筆*/
-  #tab-1:target ~ #tab > ul li a[href$="#tab-1"],
-  #tab-2:target ~ #tab > ul li a[href$="#tab-2"],
-  #tab-3:target ~ #tab > ul li a[href$="#tab-3"] {
-    background: #7e8b9c;
-    color: white;
-    border-radius: 5px;
-  }
-
-  /* 重置未選中的標籤顏色為白色 */
-  #tab-2:target ~ #tab > ul li a[href$="#tab-1"],
-  #tab-3:target ~ #tab > ul li a[href$="#tab-1"],
-  #tab-1:target ~ #tab > ul li a[href$="#tab-2"],
-  #tab-3:target ~ #tab > ul li a[href$="#tab-2"],
-  #tab-1:target ~ #tab > ul li a[href$="#tab-3"],
-  #tab-2:target ~ #tab > ul li a[href$="#tab-3"] {
-    background: white;
-    color: black;
-  }
-
-  /*頁籤內容顯示&第一筆*/
-  span ~ #tab > div:first-of-type,
-  #tab-1:target ~ #tab > div.tab-content-1,
-  #tab-2:target ~ #tab > div.tab-content-2,
-  #tab-3:target ~ #tab > div.tab-content-3{
-    visibility: visible;
-    height: 100%;
-  }
-
-  .tab-1, .tab-2, .tab-3{
-    display: none;
-  }
-
   .carousel-container {
     display: flex;
     align-items: center;
@@ -794,39 +720,6 @@ body{
     visibility: hidden;
     height: 0;
     padding: 0 15px;
-  }
-
-  /*頁籤變換&第一筆*/
-  #tab-1:target ~ #tab > ul li a[href$="#tab-1"],
-  #tab-2:target ~ #tab > ul li a[href$="#tab-2"],
-  #tab-3:target ~ #tab > ul li a[href$="#tab-3"] {
-    background: #7e8b9c;
-    color: white;
-    border-radius: 5px;
-  }
-
-  /* 重置未選中的標籤顏色為白色 */
-  #tab-2:target ~ #tab > ul li a[href$="#tab-1"],
-  #tab-3:target ~ #tab > ul li a[href$="#tab-1"],
-  #tab-1:target ~ #tab > ul li a[href$="#tab-2"],
-  #tab-3:target ~ #tab > ul li a[href$="#tab-2"],
-  #tab-1:target ~ #tab > ul li a[href$="#tab-3"],
-  #tab-2:target ~ #tab > ul li a[href$="#tab-3"] {
-    background: white;
-    color: black;
-  }
-
-  /*頁籤內容顯示&第一筆*/
-  span ~ #tab > div:first-of-type,
-  #tab-1:target ~ #tab > div.tab-content-1,
-  #tab-2:target ~ #tab > div.tab-content-2,
-  #tab-3:target ~ #tab > div.tab-content-3{
-    visibility: visible;
-    height: 100%;
-  }
-
-  .tab-1, .tab-2, .tab-3 {
-    display: none;
   }
 
   .carousel-container {
