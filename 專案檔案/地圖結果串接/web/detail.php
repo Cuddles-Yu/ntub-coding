@@ -4,39 +4,40 @@
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/analysis.php';
 
   // 優先使用 GET 參數
-  $STORE_ID = $_GET['id'] ?? null;
+  $storeId = $_GET['id'] ?? null;
 
   // 如果 storeId 或 storeName 不存在，根據現有的值獲取缺失的資訊
-  if (empty($STORE_ID)) {
+  if (empty($storeId)) {
     header("Location: /home");
     exit;
   }
 
   // 獲取店家資訊
-  $storeInfo = getStoreInfoById($STORE_ID);
+  $storeInfo = getStoreInfoById($storeId);
   if (!empty($storeInfo)) {
     $storeName = htmlspecialchars($storeInfo['name']);
     $storeMark = htmlspecialchars($storeInfo['mark']);
+    $totalWithComments = (int)$storeInfo['total_withcomments'];
     $website = htmlspecialchars($storeInfo['website']);
     $phoneNumber = htmlspecialchars($storeInfo['phone_number']);
     $markIcon = $markOptions[$storeMark]['tagIcon'] ?? '';
     $markClass = $markOptions[$storeMark]['buttonClass'] ?? '';
     $storeTag = htmlspecialchars($storeInfo['tag']);
-    $isFavorite = isFavorite($STORE_ID);
+    $isFavorite = isFavorite($storeId);
     $memberServices = getMemberServiceList();
     $memberWeights = getMemberNormalizedWeight();
-    $score = getBayesianScore($memberWeights, $STORE_ID);
-    $relevants = getRelevantComments($STORE_ID);
-    $Highests = getHighestComments($STORE_ID);
-    $Lowests = getLowestComments($STORE_ID);
-    $comments = getComments($STORE_ID);
-    $location = getLocation($STORE_ID);
-    $rating = getRating($STORE_ID);
-    $service = getService($STORE_ID);
-    $keywords = getAllKeywords($STORE_ID);
-    $foodKeywords = getFoodKeyword($STORE_ID);
-    $otherBranches = getOtherBranches($storeInfo['branch_title'], $STORE_ID);
-    $targetsInfo = getTargets($STORE_ID);
+    $score = getBayesianScore($memberWeights, $storeId);
+    $relevants = getRelevantComments($storeId);
+    $Highests = getHighestComments($storeId);
+    $Lowests = getLowestComments($storeId);
+    $comments = getComments($storeId);
+    $location = getLocation($storeId);
+    $rating = getRating($storeId);
+    $service = getService($storeId);
+    $keywords = getAllKeywords($storeId);
+    $foodKeywords = getFoodKeyword($storeId);
+    $otherBranches = getOtherBranches($storeInfo['branch_title'], $storeId);
+    $targetsInfo = getTargets($storeId);
   } else {
     require_once $_SERVER['DOCUMENT_ROOT'].'/error/id-not-found.php';
     exit;
@@ -66,7 +67,7 @@
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
 
   <section class="normal-content section-content">
-    <div id="favorite-button" onclick="toggleFavorite(this,<?=$STORE_ID?>)">
+    <div id="favorite-button" onclick="toggleFavorite(this,<?=$storeId?>)">
       <img src="<?=$isFavorite?'/images/button-favorite-active.png':'/images/button-favorite-inactive.png';?>">
       <h1 class="store-title" id="store-title" style="margin-left:10px"><?=$storeName?></h1>
     </div>
@@ -74,14 +75,24 @@
       <div class="type-rating-status-group">
         <h5 class="rating"><?=$score?></h5>
         <h6 class="rating-text">/ 綜合評分</h6>
-        <button class="store-type btn btn-outline-gray" type="button" onclick="openSearchPage('<?=$storeTag?>')"><?=$storeTag?></button>
-        <?php require_once $_SERVER['DOCUMENT_ROOT'].'/elem/open-hour-button.php';?>
-        <?php if($storeMark): ?>
-          <button type="button" class="btn <?=$markClass?> e-icon" data-bs-toggle="tooltip" 
-            data-bs-placement="bottom" data-bs-title="<?=$storeMark?>餐廳" data-bs-custom-class="custom-tooltip1" data-bs-html="true">
-            <?=$markIcon?>
+        <?php if($totalWithComments < 30): ?>
+          <button
+            class="store-type btn btn-outline-red"
+            type="button"
+            data-bs-container="body"
+            data-bs-toggle="tooltip"
+            data-bs-title="這間餐廳尚未有足夠的評論，統計資料可能沒辦法精確反映餐廳表現"
+            data-bs-placement="bottom"
+            data-bs-custom-class="tooltip tooltip-red"
+            data-bs-html="true">
+            評論不足 <i class="fi fi fi-sr-interrogation status-img"></i>
           </button>
         <?php endif; ?>
+        <button class="store-type btn btn-outline-gray" type="button" onclick="openSearchPage('<?=$storeTag?>')"><i class="fi fi-br-search status-img"></i><?=$storeTag?></button>
+        <?php if($storeMark): ?>
+          <button type="button" class="btn store-type <?=$markClass?>"><?=$markIcon?></button>
+        <?php endif; ?>
+        <?php require_once $_SERVER['DOCUMENT_ROOT'].'/elem/open-hour-button.php';?>
         <?php if (!empty($otherBranches)): ?>
           <button class="btn btn-solid-gray status other-store-rating" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
             aria-expanded="false" aria-controls="collapseExample">
@@ -116,11 +127,6 @@
         <?php endforeach;?>
       </div>
     </div>
-    <!-- 商家介紹 (根據使用者需求而產生的介紹(每個人看到的不一樣))-->
-    <?php if (isset($intro)) : ?>
-        <li id="item" class="introduction" data-content="<?=$intro; ?>"></li>
-    <?php else : ?>
-    <?php endif; ?>
   </section>
 
   <section class="normal-content section-content">
@@ -291,11 +297,10 @@
           </select>
         </div>
       </div>
-      <!--### 生成Mark統計標籤 ###-->
       <?php
-        $positiveMarks = getMarks($STORE_ID, $_POSITIVE);
-        $negativeMarks = getMarks($STORE_ID, $_NEGATIVE);
-        $neutralMarks = getMarks($STORE_ID, [$_PREFER, $_NEUTRAL]);
+        $positiveMarks = getMarks($storeId, $_POSITIVE);
+        $negativeMarks = getMarks($storeId, $_NEGATIVE);
+        $neutralMarks = getMarks($storeId, [$_PREFER, $_NEUTRAL]);
         $normalizedWeights = [
           $_POSITIVE => ['name' => 'good', 'marks' => $positiveMarks],
           $_NEGATIVE => ['name' => 'bad', 'marks' => $negativeMarks],
@@ -323,7 +328,7 @@
       <button id="reset-comment-search" class="btn btn-outline-gray btn-no-outline" onclick="resetCommentSearch()">
         <i class="fi fi-sr-undo" style="font-size: 1.5em;"></i>
       </button>
-      <h5 class="keyword-title-text" id="comment-count-title">留言 0 則</h5> 
+      <h5 class="keyword-title-text" id="comment-count-title">留言 0 則</h5>
       <!--排序按鈕-->
       <div id="comments-order-bar" class="input-group mb-3 sort-button">
         <span class="input-group-text" id="basic-addon1"><i class="fi fi-sr-sort-amount-down"></i>排序</span>
@@ -413,15 +418,16 @@
     </div>
     <div class="carousel-container-tag">
       <div class="carousel-arrow-tag left-arrow-2" type="button"><i class="fi fi-sr-angle-left"></i></div>
-
       <div class="tag-group">
-        <?php
-          foreach ($keywords as $keyword) {
-            echo '<button class="tag btn-outline-secondary btn" type="button" onclick="openSearchPage(\''.$keyword['word'].'\')">';
-            echo '<a class="tag-text">'.htmlspecialchars($keyword['word']).' ('.htmlspecialchars($keyword['count']).')</a>';
-            echo '</button>';
-          }
-        ?>
+        <?php foreach ($keywords as $keyword): ?>
+          <?php
+            $word = htmlspecialchars($keyword['word']);
+            $count = htmlspecialchars($keyword['count']);
+          ?>
+          <button class="tag btn-outline-light-gray btn" type="button" onclick='openSearchPage("<?=$word?>")'>
+            <a class="tag-text"><i class="fi fi-br-search status-img"></i><?=$word?> (<?=$count?>)</a>
+          </button>
+        <?php endforeach; ?>
       </div>
       <div class="carousel-arrow-tag right-arrow-2" type="button"><i class="fi fi-sr-angle-right"></i></div>
   </section>

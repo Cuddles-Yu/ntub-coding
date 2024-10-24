@@ -287,22 +287,6 @@ popoverTriggerList.forEach(function (popoverTriggerEl) {
   });
 });
 
-//店家資訊簡介顯示
-// 獲取所有有 data-content 屬性的 li 元素
-var items = document.querySelectorAll('li.introduction');
-
-// 遍歷每個元素，檢查 data-content 屬性的值
-items.forEach(function (item) {
-  var content = item.getAttribute('data-content');
-  if (content) {
-    // 如果有内容，設置為 li 的文本內容
-    item.textContent = content;
-  } else {
-    // 如果没有内容，隱藏 li 元素
-    item.style.display = 'none';
-  }
-});
-
 //提示框
 // 初始化所有的 Tooltip
 var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))

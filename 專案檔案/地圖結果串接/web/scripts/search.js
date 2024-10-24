@@ -13,6 +13,7 @@ document.querySelectorAll('.home-page').forEach(page => {
 window.addEventListener('load', async function () {
   const urlParams = new URLSearchParams(window.location.search);
   const encodedData = urlParams.get('data')??null;
+  const keyword = urlParams.get('q')??null;
   const data = encodedData ? (decodeSearchParams(encodedData)??null) : null;
   if (data) {
     await setConditionFromData(data);
@@ -27,6 +28,12 @@ window.addEventListener('load', async function () {
         document.getElementById('keyword').value = data.q;
         this.setTimeout(() => {document.getElementById('search-button').click();}, 50);
       }
+    }
+  } else {
+    await defaultLocate();
+    if (keyword) {
+      document.getElementById('keyword').value = keyword;
+      this.setTimeout(() => {document.getElementById('search-button').click();}, 50);
     }
   }
   showCondition();

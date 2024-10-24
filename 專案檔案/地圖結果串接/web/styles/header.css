@@ -4,6 +4,68 @@
     box-sizing: border-box;
 }
 
+.left-arrow {
+  margin-right: 10px;
+  position: absolute;
+  left: -50px;
+}
+
+.right-arrow {
+  margin-left: 10px;
+  position: absolute;
+  right: -50px;
+}
+
+img {
+  -webkit-user-drag: none; /* 禁用圖片的拖動，針對 WebKit 內核的瀏覽器 */
+}
+
+.grab-container {
+  overflow:-moz-hidden-unscrollable; /* 隱藏滾動條 */
+  cursor: grab;    /* 當滑鼠移到容器時，顯示抓取手勢 */
+}
+
+.tooltip {
+  --bs-tooltip-font-size: 16px;
+  --bs-tooltip-opacity: 1;
+  --bs-tooltip-padding-y: 0.5rem;
+  --bs-tooltip-padding-x: 1rem;
+  --bs-tooltip-max-width: auto;
+  --bs-tooltip-border-radius: 0.5rem;
+  --bs-tooltip-border-color: transparent;
+  --bs-tooltip-border-width: 0;
+  --bs-tooltip-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175);
+  --bs-tooltip-animation: 0.15s ease;
+  --bs-tooltip-arrow-width: 0.8rem;
+  --bs-tooltip-arrow-height: 0.4rem;
+  --bs-tooltip-arrow-fade: true;
+  --bs-tooltip-arrow-fade-amount: 0.1;
+  --bs-tooltip-arrow-fade-opacity: 0.25;
+  --bs-tooltip-arrow-fade-color: '#000';
+}
+
+.tooltip-inner {
+  text-align: left;
+}
+
+.tooltip-black {
+  --bs-tooltip-bg: black;
+  --bs-tooltip-color: white;
+}
+.tooltip-red {
+  --bs-tooltip-bg: red;
+  --bs-tooltip-color: white;
+}
+.tooltip-green {
+  --bs-tooltip-bg: green;
+  --bs-tooltip-color: white;
+}
+
+.status-img{
+  font-size: 0.8em;
+  margin-right: 5px;
+}
+
 .filter-container{
   width: 788px;
   margin-left: auto;

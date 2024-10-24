@@ -228,7 +228,7 @@
           </form>
         <div class="button_area">
           <button id="preference_edit_button" class="edit-button btn-solid-gray" onclick="editPreference()">修改</button>
-          <button id="preference_cancel_button" class="cancel-button btn-solid-gray" onclick="cancelEdit()" style="display: none;">取消</button>
+          <button id="preference_cancel_button" class="cancel-button btn-solid-gray" onclick="restorePreference()" style="display: none;">取消</button>
           <button id="preference_save_button" class="save-button btn-solid-windows-blue" onclick="savePreference()" style="display: none;">完成</button>
         </div>
       </div>
@@ -258,8 +258,8 @@
           <span id="price-value"><?=$MEMBER_INFO['price_weight']?></span>
         </div>
         <div class="button_area">
-        <button id="weight_edit_button" class="edit-button btn-solid-gray" onclick="toggleEditMode2()">修改</button>
-          <button id="weight_cancel_button"  class="cancel-button btn-solid-gray" onclick="cancelEditMode2()" style="display: none;">取消</button>
+        <button id="weight_edit_button" class="edit-button btn-solid-gray" onclick="editWeight()">修改</button>
+          <button id="weight_cancel_button"  class="cancel-button btn-solid-gray" onclick="restoreWeight()" style="display: none;">取消</button>
           <button id="weight_save_button"  class="save-button btn-solid-windows-blue" onclick="saveWeight()" style="display: none;">完成</button>
         </div>
       </div>
@@ -286,9 +286,9 @@
             <?php foreach($FAVORITE_STORES as $store): ?>
               <?php
                 $id = $store['id'];
-                $link = htmlspecialchars($store['link']);
+                $shareLink = htmlspecialchars('https://commentspace.ascdc.tw/detail?id='.$id);
                 $name = htmlspecialchars($store['name']);
-                $preview_image = htmlspecialchars($store['preview_image']);
+                $previewImage = htmlspecialchars($store['preview_image']);
                 $tag = htmlspecialchars($store['tag']);
                 $createTime = htmlspecialchars($store['create_time']);
                 $mark = htmlspecialchars($store['mark']);
@@ -298,7 +298,7 @@
               <div class="content_row" data-id="<?=$id?>" onclick="goToDetailPage(<?=$id?>)">
                 <div class="mark_store">
                   <div class="mark_img">
-                    <img src="<?=$preview_image?>">
+                    <img src="<?=$previewImage?>">
                   </div>
                   <span class="store_name"><?=$name?></span>
                 </div>
@@ -315,7 +315,7 @@
                   <div class="sort_button_wrapper" onclick="preventMultipleClick(event);targetFavorite(this);" data-bs-toggle="modal" data-bs-target="#removeFavoriteModal">
                     <i class="fi fi-sr-trash trans-red-button"></i>
                   </div>
-                  <div class="sort_button_wrapper" onclick="preventMultipleClick(event);shareFavorite('<?=$link?>');">
+                  <div class="sort_button_wrapper" onclick="preventMultipleClick(event);shareFavorite('<?=$shareLink?>');">
                     <i class="fi fi-sr-share trans-blue-button"></i>
                   </div>
                 </div>

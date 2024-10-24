@@ -55,15 +55,10 @@ let originalSettings = {};
 var editing = false;
 
 function editPreference() {
-    // const buttonGroups = document.querySelectorAll('.title_text');
-    // buttonGroups.forEach(group => {
-    //     group.querySelector('.deselect_icon').style.display = 'inline';
-    // });
     editing = true;
     document.getElementById('preference_save_button').style.display = 'inline';
     document.getElementById('preference_cancel_button').style.display = 'inline';
     document.getElementById('preference_edit_button').style.display = 'none';
-
     document.querySelectorAll('.checkbox').forEach(input => {
       originalSettings[input.id] = input.checked;
       input.disabled = false;
@@ -72,40 +67,28 @@ function editPreference() {
       originalSettings[input.id] = input.value;
       input.disabled = false;
     });
-
     radioToggle('member', document.getElementById('member-distance-radio').checked?'distance':'geo');
 }
-
 function savePreference() {
-  // const buttonGroups = document.querySelectorAll('.title_text');
-  // buttonGroups.forEach(group => {
-  //     group.querySelector('.select_icon').style.display = 'none';
-  //     group.querySelector('.deselect_icon').style.display = 'none';
-  //     group.querySelector('.mixed_icon').style.display = 'none';
-  // });
   editing = false;
+  hasChanged = false;
+  if (!hasChanged) hasChanged = [...document.querySelectorAll('.checkbox')].some(input => input.checked != originalSettings[input.id]);
+  if (!hasChanged) hasChanged = [...document.querySelectorAll('.field')].some(input => input.value != originalSettings[input.id]);
   document.getElementById('preference_save_button').style.display = 'none';
   document.getElementById('preference_cancel_button').style.display = 'none';
   document.getElementById('preference_edit_button').style.display = 'inline';
   document.querySelectorAll('.field').forEach(input => { input.disabled = true; });
   document.querySelectorAll('.checkbox').forEach(input => { input.disabled = true; });
-  updatePreferences('member');
-
-  radioToggle('member', document.getElementById('member-distance-radio').checked?'distance':'geo');
+  if (hasChanged) {
+    updatePreferences('member');
+    radioToggle('member', document.getElementById('member-distance-radio').checked?'distance':'geo');
+  }
 }
-
-function cancelEdit() {
-  // const buttonGroups = document.querySelectorAll('.title_text');
-  // buttonGroups.forEach(group => {
-  //     group.querySelector('.select_icon').style.display = 'none';
-  //     group.querySelector('.deselect_icon').style.display = 'none';
-  //     group.querySelector('.mixed_icon').style.display = 'none';
-  // });
+function restorePreference() {
   editing = false;
   document.getElementById('preference_save_button').style.display = 'none';
   document.getElementById('preference_cancel_button').style.display = 'none';
   document.getElementById('preference_edit_button').style.display = 'inline';
-
   document.querySelectorAll('.checkbox').forEach(input => {
     input.checked = originalSettings[input.id];
     input.disabled = true;
@@ -114,13 +97,11 @@ function cancelEdit() {
     input.value = originalSettings[input.id];
     input.disabled = true;
   });
-  
   radioToggle('member', document.getElementById('member-distance-radio').checked?'distance':'geo');
 }
 
 /* 切換編輯模式 */
 var initialValues = {};
-
 function saveWeight() {
   const sliders = document.querySelectorAll('#weight_main_area input[type="range"]');
   const editButton = document.getElementById('weight_edit_button');
@@ -130,43 +111,41 @@ function saveWeight() {
   const product = document.getElementById('product').value;
   const service = document.getElementById('service').value;
   const price = document.getElementById('price').value;
-
+  hasChanged = [...sliders].some(slider => initialValues[slider.id] != slider.value);
+  editButton.style.display = 'inline';
+  saveButton.style.display = 'none';
+  cancelButton.style.display = 'none';
   sliders.forEach(function(slider) {
     slider.disabled = true;
   });
-  editButton.style.display = 'inline';
-  saveButton.style.display = 'none';
-  cancelButton.style.display = 'none';  
-
   if (atmosphere+product+service+price == 0) {
     showAlert('red', '更新失敗，至少要有一項權重值 > 0');
-    cancelEditMode2();
+    restoreWeight();
     return;
   }
-
-  const formData = new FormData();
-  formData.set('atmosphere', atmosphere);
-  formData.set('product', product);
-  formData.set('service', service);
-  formData.set('price', price);
-
-  fetch('/member/handler/update-weight.php', {
-    method: 'POST',
-    credentials: 'same-origin',
-    body: formData
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.success) {
-      showAlert('green', data.message);
-    } else {
-      showAlert('red', data.message);
-    }
-  })
-  .catch(() => {showAlert('red', '更新權重過程中發生非預期的錯誤');})
+  if (hasChanged) {
+    const formData = new FormData();
+    formData.set('atmosphere', atmosphere);
+    formData.set('product', product);
+    formData.set('service', service);
+    formData.set('price', price);
+    fetch('/member/handler/update-weight.php', {
+      method: 'POST',
+      credentials: 'same-origin',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        showAlert('green', data.message);
+      } else {
+        showAlert('red', data.message);
+      }
+    })
+    .catch(() => {showAlert('red', '更新權重過程中發生非預期的錯誤');})
+  }
 }
-
-function toggleEditMode2() {
+function editWeight() {
   const sliders = document.querySelectorAll('#weight_main_area input[type="range"]');
   const editButton = document.getElementById('weight_edit_button');
   const saveButton = document.getElementById('weight_save_button');
@@ -179,8 +158,7 @@ function toggleEditMode2() {
   saveButton.style.display = 'inline';
   cancelButton.style.display = 'inline';
 }
-
-function cancelEditMode2() {
+function restoreWeight() {
   const sliders = document.querySelectorAll('#weight_main_area input[type="range"]');
   const editButton = document.getElementById('weight_edit_button');
   const saveButton = document.getElementById('weight_save_button');
@@ -250,6 +228,6 @@ function shareFavorite(link) {
 function checkFavorite() {
   const container = document.querySelector('.content_row_container');
   if (document.querySelectorAll('.content_row').length == 0) {
-    container.innerHTML = '<div style="height:300px;align-content:center;text-align:center;"><p style="font-size:18px">尚未收藏餐廳，前往<a href="/search">餐廳搜尋</a>或<a href="/suggestion">餐廳推薦</a>開始收藏吧！</p></div>';
+    container.innerHTML = '<div style="height:300px;align-content:center;text-align:center;"><p style="font-size:18px">尚未收藏餐廳，前往<a href="/home">餐廳搜尋</a>或<a href="/suggestion">餐廳推薦</a>開始收藏吧！</p></div>';
   }
 }

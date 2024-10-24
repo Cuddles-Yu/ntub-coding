@@ -12,15 +12,15 @@
 <?php if (!empty($storeData)) : ?>
   <?php foreach ($storeData as $storeItem) : ?>
     <?php
-      $STORE_ID = $storeItem['id'];
+      $storeId = $storeItem['id'];
       $bayesianScore = $storeItem['score'];
 
-      $targetsInfo = getTargets($STORE_ID);
-      $isFavorite = isFavorite($STORE_ID);
+      $targetsInfo = getTargets($storeId);
+      $isFavorite = isFavorite($storeId);
       $distance = $storeItem['distance']?normalizeDistance($storeItem['distance']):null;
       $tag = htmlspecialchars($storeItem['tag']);
       $storeName = htmlspecialchars($storeItem['name']);
-      $preview_image = htmlspecialchars($storeItem['preview_image']);
+      $previewImage = htmlspecialchars($storeItem['preview_image']);
       $location = htmlspecialchars(getAddress($storeItem));
       $link = htmlspecialchars($storeItem['link']);
       $website = htmlspecialchars($storeItem['website']);
@@ -32,11 +32,12 @@
       $normalizedWeights = getMemberNormalizedWeight();
       $rowIndex = 1;
     ?>
-    <div class="container-fluid store-body <?=$cardType?> <?php if($isFavorite): echo 'store-card-favorite'; endif;?>" data-id="<?=$STORE_ID?>" onclick="redirectToDetailPage('<?=$STORE_ID?>')">
+    <div class="container-fluid store-body <?=$cardType?> <?php if($isFavorite): echo 'store-card-favorite'; endif;?>" data-id="<?=$storeId?>" onclick="redirectToDetailPage(<?=$storeId?>)">
         <div class="row">
             <div class="store-img-group col-3">
-              <div class="service-match-counter">符合四項</div>
-              <img class="store-img" src="<?=$preview_image?>">
+              <!-- <div class="service-match-counter">符合四項</div> -->
+              <link rel="preload" href="<?=$previewImage?>" as="image">
+              <img src="<?=$previewImage?>" class="store-img">
             </div>
             <div class="store-right col">
             <div class="distance-name-display">
@@ -71,7 +72,7 @@
                       <?php endforeach?>
                     </div>
                     <div class="quick-group col-2">
-                      <div onclick="toggleFavorite(this,<?=$STORE_ID?>);event.stopPropagation();">
+                      <div onclick="toggleFavorite(this,<?=$storeId?>);event.stopPropagation();">
                         <img class="search-result-button-icon" src="<?=$isFavorite?'images/button-favorite-active.png':'images/button-favorite-inactive.png';?>">
                         <h6 class="love-text">收藏</h6>
                       </div>

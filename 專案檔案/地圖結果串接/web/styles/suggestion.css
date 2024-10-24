@@ -222,13 +222,6 @@
     display: none;
   }
 
-  .title-text-2{
-    text-align: center;
-    font-weight: bold;
-    font-size: 40px;
-    cursor: pointer;
-  }
-
   .carousel-container {
     display: flex;
     align-items: center;
@@ -243,14 +236,6 @@
 
   .carousel-arrow.hidden {
     display: none; 
-  }
-
-  .left-arrow {
-    margin-right: 10px;
-  }
-  
-  .right-arrow {
-    margin-left: 10px;
   }
 
   .restaurant-group{
@@ -561,13 +546,6 @@
   .tab-1, .tab-2, .tab-3{
     display: none;
   }
-
-  .title-text-2{
-    text-align: center;
-    font-weight: bold;
-    font-size: 40px;
-  }
-
   .carousel-container {
     display: flex;
     align-items: center;
@@ -581,15 +559,7 @@
   }
 
   .carousel-arrow.hidden {
-    display: none; 
-  }
-
-  .left-arrow {
-    margin-right: 10px;
-  }
-  
-  .right-arrow {
-    margin-left: 10px;
+    display: none;
   }
 
   .restaurant-group{
@@ -900,12 +870,6 @@
     display: none;
   }
 
-  .title-text-2{
-    text-align: center;
-    font-weight: bold;
-    font-size: 40px;
-  }
-
   .carousel-container {
     display: flex;
     align-items: center;
@@ -920,14 +884,6 @@
 
   .carousel-arrow.hidden {
     display: none; 
-  }
-
-  .left-arrow {
-    margin-right: 10px;
-  }
-  
-  .right-arrow {
-    margin-left: 10px;
   }
 
   .restaurant-group{
@@ -1048,6 +1004,11 @@
   scroll-behavior: smooth;
   width: 100%;
   padding: 10px 0;
+}
+
+.nav-item {
+  width: 134px;
+  text-align: center;
 }
 
 .nav-tabs .nav-link {

@@ -26,10 +26,10 @@
     <span id="tab-3" class="tab-3"></span>
     <ul class="nav nav-tabs" style="place-content:center;font-size:20px;">
     <li class="nav-item">
-      <a id="tab-button-1" class="nav-link active" data-tab="tab-content-1">熱門推薦</a>
+      <a id="tab-button-1" class="nav-link active" data-tab="tab-content-1">最多人瀏覽</a>
     </li>
     <li class="nav-item">
-      <a id="tab-button-2" class="nav-link" data-tab="tab-content-2">偏好推薦</a>
+      <a id="tab-button-2" class="nav-link" data-tab="tab-content-2">最多人收藏</a>
     </li>
     <li class="nav-item" id="random-nav-item">
       <a id="tab-button-3" class="nav-link" data-tab="tab-content-3">隨機推薦</a>

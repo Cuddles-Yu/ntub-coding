@@ -8,8 +8,9 @@
 
   function getStoreInfo($storeName) {
       global $conn;
-      $stmt = bindPrepare($conn,
-      " SELECT * FROM stores 
+      $stmt = bindPrepare($conn, "
+        SELECT * FROM stores
+        LEFT JOIN rates ON stores.id = rates.store_id
         WHERE name = ? AND crawler_state IN ('成功', '完成', '超時')
       ", "s", $storeName);
       $stmt->execute();
@@ -51,8 +52,9 @@
 
   function getStoreInfoById($storeId) {
       global $conn;
-      $stmt = bindPrepare($conn,
-      " SELECT * FROM stores 
+      $stmt = bindPrepare($conn, "
+        SELECT * FROM stores
+        LEFT JOIN rates ON stores.id = rates.store_id
         WHERE id = ? AND crawler_state IN ('成功', '完成', '超時')
       ", "i", $storeId);
       $stmt->execute();

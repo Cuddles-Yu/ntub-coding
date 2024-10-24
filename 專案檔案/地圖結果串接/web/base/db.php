@@ -7,8 +7,18 @@
   if ($conn->connect_error) die("無法開啟 MySQL 資料庫連接: " . $conn->connect_error);
 
   $markOptions = [
-    '環保' => ['cardType' => 'store-card-environment', 'buttonClass' => 'btn-outline-green', 'tagIcon' => '♻️', 'tagName' => ' (♻️環保)'],
-    '客家' => ['cardType' => 'store-card-culture', 'buttonClass' => 'btn-outline-orange', 'tagIcon' => '⭐', 'tagName' => ' (⭐客家)']
+    '環保' => [
+      'cardType' => 'store-card-environment',
+      'buttonClass' => 'btn-solid-green',
+      'tagIcon' => '<i class="fi fi-br-recycle status-img"></i> 環保餐廳',
+      'tagName' => ' (<i class="fi fi-br-recycle status-img"></i>環保)'
+    ],
+    '客家' => [
+      'cardType' => 'store-card-culture',
+      'buttonClass' => 'btn-solid-orange',
+      'tagIcon' => '<i class="fi fi-sr-circle-star status-img"></i> 客家餐廳',
+      'tagName' => ' (<i class="fi fi-sr-circle-star status-img"></i>客家)'
+    ]
   ];
 
   $serviceMap = [

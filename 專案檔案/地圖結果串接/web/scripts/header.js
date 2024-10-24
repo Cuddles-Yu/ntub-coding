@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
+
 function clearInputs(...inputs) {
   inputs.forEach(input => input.value = '');
 }

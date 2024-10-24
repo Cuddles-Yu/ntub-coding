@@ -32,17 +32,6 @@ function saveCondition() {
   }, 300);
 }
 
-document.querySelectorAll('.title-text-2').forEach(tab => {
-  tab.addEventListener('click', function() {
-      const targetTab = this.getAttribute('data-tab');
-      document.querySelectorAll('[class^="tab-content"]').forEach(content => {
-          content.classList.remove('active');
-      });
-      document.querySelector(`.${targetTab}`).classList.add('active');
-      generateStoreSuggestion(targetTab);
-  });
-});
-
 document.getElementById('keyword').addEventListener('keydown', function(event) {
   if (event.key === 'Enter') {
     event.preventDefault(); // 防止表單的預設提交行為

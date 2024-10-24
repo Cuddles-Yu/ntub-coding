@@ -249,6 +249,10 @@ function urlToDetailPage(storeId) {
 }
 function openSearchPage(keyword) {
   const encodedData = new URLSearchParams(window.location.search).get('data')??null;
+  if (!encodedData) {
+    window.open(`/search?q=${encodeURIComponent(keyword)}`, '_blank');
+    return;
+  }
   var data = decodeSearchParams(encodedData);
   data.q = keyword;
   window.open(`/search?data=${encodeSearchParams(data)}`, '_blank');

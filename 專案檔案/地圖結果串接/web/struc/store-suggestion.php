@@ -6,45 +6,46 @@
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $searchTerm = isset($_POST['q']) ? $_POST['q'] : '';
-      $stores = searchByKeyword($searchTerm);
       $memberWeights = getMemberNormalizedWeight();
+      $stores = searchByRandom();
   }
 ?>
 
 <div class="carousel-container">
-  <!-- <div class="carousel-arrow left-arrow" type="button"><i class="fi fi-sr-angle-left"></i></div> -->
-  <div class="restaurant-group">
+  <div class="carousel-arrow left-arrow" type="button"><i class="fi fi-sr-angle-left"></i></div>
+  <div class="restaurant-group grab-container">
     <?php foreach ($stores as $store) : ?>
       <?php
-        $STORE_ID = $store['id'];
+        $storeId = $store['id'];
         $storeName = htmlspecialchars($store['name']);
         $previewImage = htmlspecialchars($store['preview_image']);
         $link = htmlspecialchars($store['link']);
         $website = htmlspecialchars($store['website']);
         $tag = htmlspecialchars($store['tag']);
         $mark = $store['mark'];
-        $isFavorite = isFavorite($STORE_ID);
+        $isFavorite = isFavorite($storeId);
         $cardType = $markOptions[$mark]['cardType'] ?? '';
         $tagName = $markOptions[$mark]['tagName'] ?? '';
         $address = htmlspecialchars(getAddress($store));
-        $bayesianScore = getBayesianScore($memberWeights, $STORE_ID);
-        $targetsInfo = getTargets($STORE_ID);
+        $bayesianScore = getBayesianScore($memberWeights, $storeId);
+        $targetsInfo = getTargets($storeId);
       ?>
-      <div class="card restaurant <?=$cardType?> <?php if($isFavorite): echo 'store-card-favorite'; endif;?>">
+      <div class="card restaurant <?=$cardType?> <?php if($isFavorite): echo 'store-card-favorite'; endif;?>" onclick="goToDetailPage(<?=$storeId?>)">
+          <link rel="preload" href="<?=$previewImage?>" as="image">
           <img src="<?=$previewImage?>" class="card-img-top">
           <div class="card-body">
               <h5 class="card-title"><?=$storeName?></h5>
               <div class="quick-group">
-                <div onclick="toggleFavorite(this,<?=$STORE_ID?>);event.stopPropagation();">
-                  <img class="search-result-button-icon" src="<?=isFavorite($STORE_ID)?'images/button-favorite-active.png':'images/button-favorite-inactive.png';?>">
+                <div onclick="toggleFavorite(this,<?=$storeId?>);event.stopPropagation();" draggable="false">
+                  <img class="search-result-button-icon" src="<?=isFavorite($storeId)?'images/button-favorite-active.png':'images/button-favorite-inactive.png';?>">
                   <h6 class="love-text">收藏</h6>
                 </div>
-                <a class="map-link" href="<?=htmlspecialchars($link)?>" target="_blank" onclick="event.stopPropagation();">
+                <a class="map-link" href="<?=htmlspecialchars($link)?>" target="_blank" onclick="event.stopPropagation();" draggable="false">
                   <img class="search-result-button-icon" src="images/button-map.png">
                   <h6 class="map-link-text">地圖</h6>
                 </a>
                 <?php if (!empty($website)) : ?>
-                  <a class="map-link" href="<?=htmlspecialchars($website)?>" target="_blank" onclick="event.stopPropagation();">
+                  <a class="map-link" href="<?=htmlspecialchars($website)?>" target="_blank" onclick="event.stopPropagation();" draggable="false">
                     <img class="search-result-button-icon" src="images/button-browse.png">
                     <h6 class="web-text">官網</h6>
                   </a>
@@ -89,5 +90,5 @@
       </div>
     <?php endforeach; ?>
   </div>
-  <!-- <div class="carousel-arrow right-arrow" type="button"><i class="fi fi-sr-angle-right"></i></div> -->
+  <div class="carousel-arrow right-arrow" type="button"><i class="fi fi-sr-angle-right"></i></div>
 </div>

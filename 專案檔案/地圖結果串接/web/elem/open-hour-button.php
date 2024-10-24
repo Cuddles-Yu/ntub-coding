@@ -61,8 +61,8 @@
     return $status;
   }
 
-  $openingStatus = getOpeningStatus($STORE_ID);
-  $openingHours = getOpeningHours($STORE_ID);
+  $openingStatus = getOpeningStatus($storeId);
+  $openingHours = getOpeningHours($storeId);
   $daysOfWeek = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
   $todayIndex = date('N') - 1;
   $reorderedDays = array_merge(array_slice($daysOfWeek, $todayIndex), array_slice($daysOfWeek, 0, $todayIndex));
