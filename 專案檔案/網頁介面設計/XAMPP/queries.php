@@ -74,7 +74,11 @@ function getKeyword($storeId) {
 // 所有的關鍵字(依商家查詢從多到少)
 function getAllKeywords($storeId) {
     global $conn;
-    $sql = "SELECT word, count FROM keywords WHERE store_id = ? ORDER BY count DESC";
+    $sql = "
+      SELECT word, count FROM keywords
+      WHERE store_id = ? and source = 'comment'
+      ORDER BY count DESC
+    ";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $storeId);
     $stmt->execute();

@@ -6,6 +6,7 @@ from datetime import datetime
 from ckiptagger import WS, POS, NER
 from ckiptagger import construct_dictionary
 from 地圖資訊爬蟲.ckip.module.functions import *
+from 地圖資訊爬蟲.crawler.tables import Keyword
 from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
 
 database = SqlDatabase('mapdb', 'root', '11236018')
@@ -25,14 +26,14 @@ dishes = keywords.get('餐點', []) + keywords.get('關鍵字', []) + keywords.g
 
 # 測試文本
 data = database.fetch('all', f'''
-    SELECT s.name, c.contents FROM comments AS c
+    SELECT s.id, s.name, c.contents FROM comments AS c
     LEFT JOIN stores AS s ON c.store_id = s.id
     WHERE c.contents IS NOT NULL and s.id = 2307
     ORDER BY c.store_id, s.id
 ''')
 
-name_list = [item[0] for item in data]
-sentence_list = [item[1] for item in data]
+name_list = [item[1] for item in data]
+sentence_list = [item[2] for item in data]
 
 # 過濾文本，移除非中文字符並去掉換行符號
 filtered_list = [re.sub(r'[^\u4e00-\u9fff，。；]', '', sentence.replace('\n', '')) for sentence in sentence_list]
@@ -58,7 +59,15 @@ for index in range(total_comments):
 all_pos_dict = {tag: dict(sorted(words.items(), key=lambda item: item[1], reverse=True)) for tag, words in tagged_words.items()}
 
 # write_json(all_pos_dict, 'results/id2307.json')
-print(merge_and_sort_dict(all_pos_dict, '普通名詞(Na)', '地方詞(Nc)'))
+for keyword, count in extract_keywords_dict(all_pos_dict, '普通名詞(Na)', '地方詞(Nc)').items():
+    Keyword.Keyword(
+        store_id=2307,
+        word=keyword,
+        count=count,
+        source='comment',
+        image_url=None,
+        source_url=None
+    ).insert_if_not_exists(database)
 
 print(f'\r已將分析結果輸出至 json 文件中。')
 

@@ -1,5 +1,5 @@
 from 地圖資訊爬蟲.crawler.tables.base import *
-import 地圖資訊爬蟲.crawler.keyword_image as ki
+# import 地圖資訊爬蟲.crawler.keyword_image as ki
 from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
 
 class Keyword:
@@ -10,11 +10,11 @@ class Keyword:
     _image_url = ''
     _source_url = ''
 
-    def __init__(self, store_id, word, source, count, image_url, source_url):
+    def __init__(self, store_id, word, count, source, image_url, source_url):
         self._store_id = int(store_id) if store_id else None
         self._word = word
-        self._source = source
         self._count = int(count)
+        self._source = source
         self._image_url = image_url
         self._source_url = source_url
 

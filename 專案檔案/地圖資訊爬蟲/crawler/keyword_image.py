@@ -14,15 +14,14 @@ def search_url(name: str, kw: str, mode: str):
     #  cr=countryTW imgtype=photo
     query_url = 'https://www.google.com/search?udm=2&imgtype=photo&q='
     name = name.replace('-', ' ')
-    match mode:
-        case 'force':
-            query_url += f'"{name}" "{kw}" -菜單'
-        case 'medium':
-            query_url += f'{name} "{kw}" -菜單'
-        case 'normal':
-            query_url += f'{name} {kw} -菜單'
-        case 'static':
-            query_url += f'"{kw}" -菜單'
+    if mode == 'force':
+        query_url += f'"{name}" "{kw}" -菜單'
+    elif mode == 'medium':
+        query_url += f'{name} "{kw}" -菜單'
+    elif mode == 'normal':
+        query_url += f'{name} {kw} -菜單'
+    elif mode =='static':
+        query_url += f'"{kw}" -菜單'
     return query_url.replace(' ', '+')
 
 def trying(_driver, _store_name, _keyword, modes):

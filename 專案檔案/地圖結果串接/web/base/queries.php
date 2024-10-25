@@ -164,51 +164,52 @@
   }
 
   function getFoodKeyword($storeId) {
-      global $conn, $MIN_KEYWORD_COUNT;
-      $stmt = bindPrepare($conn,
-      " SELECT * FROM keywords
-        WHERE store_id = ? AND source = 'recommend' AND count >= $MIN_KEYWORD_COUNT
-        ORDER BY count DESC
-      ", "i", $storeId);
-      $stmt->execute();
-      $result = $stmt->get_result();
-      $keywords = [];
-      while ($row = $result->fetch_assoc()) {
-              $keywords[] = $row;
-      }
-      $stmt->close();
-      return $keywords;
+    global $conn, $MIN_KEYWORD_COUNT;
+    $stmt = bindPrepare($conn,
+    " SELECT * FROM keywords
+      WHERE store_id = ? AND source = 'recommend' AND count >= $MIN_KEYWORD_COUNT
+      ORDER BY count DESC
+    ", "i", $storeId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $keywords = [];
+    while ($row = $result->fetch_assoc()) {
+      $keywords[] = $row;
+    }
+    $stmt->close();
+    return $keywords;
   }
 
   function getAllKeywords($storeId) {
-      global $conn, $MIN_KEYWORD_COUNT;
-      $stmt = bindPrepare($conn,
-      " SELECT word, count FROM keywords
-        WHERE store_id = ? and source = 'google' AND count >= $MIN_KEYWORD_COUNT
-        ORDER BY count DESC
-      ", "i", $storeId);
-      $stmt->execute();
-      $result = $stmt->get_result();
-
-      $keywords = [];
-      while ($row = $result->fetch_assoc()) {
-              $keywords[] = $row;
-      }
-      $stmt->close();
-      return $keywords;
-  }
+    global $conn;
+    $sql = "
+      SELECT word, count FROM keywords
+      WHERE store_id = ? and source = 'comment'
+      ORDER BY count DESC
+    ";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $storeId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $keywords = [];
+    while ($row = $result->fetch_assoc()) {
+        $keywords[] = $row;
+    }
+    $stmt->close();
+    return $keywords;
+}
 
   function getOtherBranches($branchTitle, $storeId) {
     if (!isset($branchTitle)) return;
     global $conn;
     $stmt = bindPrepare($conn,
     " SELECT s.*, r.avg_ratings, l.city, l.dist, l.vil, l.details 
-      FROM stores AS s 
+      FROM stores AS s
       LEFT JOIN rates AS r ON s.id = r.store_id
       LEFT JOIN locations AS l ON s.id = l.store_id
       WHERE s.crawler_state IN ('成功', '完成', '超時') AND s.branch_title = ? AND s.id != ?
     ", "sd", $branchTitle, $storeId);
-    $stmt->execute();    
+    $stmt->execute();
     $result = $stmt->get_result();
     $branches = [];
     while ($row = $result->fetch_assoc()) {
