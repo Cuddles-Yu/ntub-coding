@@ -35,8 +35,6 @@ sids = database.fetch_column('all', 0, '''
     WHERE m.store_id IS NULL
 ''')
 
-
-
 ### 留言分析 ###
 print()
 

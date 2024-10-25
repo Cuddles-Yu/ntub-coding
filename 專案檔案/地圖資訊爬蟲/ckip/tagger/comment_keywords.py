@@ -4,6 +4,7 @@ import re
 from collections import defaultdict
 from datetime import datetime
 from ckiptagger import WS, POS, NER
+from ckiptagger import construct_dictionary
 from 地圖資訊爬蟲.ckip.module.functions import *
 from 地圖資訊爬蟲.crawler.module.functions.SqlDatabase import SqlDatabase
 
@@ -20,12 +21,13 @@ pos = POS(data_dir)
 ner = NER(data_dir)
 
 keywords = load_json(r'D:\ntub\project\repository\ntub-coding\專案檔案\地圖資訊爬蟲\crawler\doc\KEYWORDS.json')
+dishes = keywords.get('餐點', []) + keywords.get('關鍵字', []) + keywords.get('定義', [])
 
 # 測試文本
 data = database.fetch('all', f'''
     SELECT s.name, c.contents FROM comments AS c
     LEFT JOIN stores AS s ON c.store_id = s.id
-    WHERE c.contents IS NOT NULL
+    WHERE c.contents IS NOT NULL and s.id = 2307
     ORDER BY c.store_id, s.id
 ''')
 
@@ -40,6 +42,7 @@ word_sentence_list = ws(
     filtered_list,
     sentence_segmentation=True,  # To consider delimiters
     segment_delimiter_set={"，", "。", "：", "？", "！", "；"},  # This is the default set of delimiters
+    coerce_dictionary=construct_dictionary({d: 1 for d in dishes})
 )
 # 分詞和詞性標註
 pos_sentence_list = pos(word_sentence_list)
@@ -53,21 +56,9 @@ for index in range(total_comments):
     for word, tag in zip(word_sentence_list[index], pos_sentence_list[index]):
         tagged_words[to_visualize(tag)][word] += 1
 all_pos_dict = {tag: dict(sorted(words.items(), key=lambda item: item[1], reverse=True)) for tag, words in tagged_words.items()}
-write_json(all_pos_dict, 'results/id2307.json')
 
-#### 斷詞分析 ###
-last_store_name = ''
-all_analysis_dict = {}
-for i, sentence in enumerate(sentence_list):
-    if last_store_name != name_list[i]:
-        if last_store_name: all_analysis_dict[last_store_name] = analysis.copy()
-        analysis = defaultdict(lambda: defaultdict(int))
-        last_store_name = name_list[i]
-    for word, tag in zip(word_sentence_list[i], pos_sentence_list[i]):
-        if tag == 'Na' or tag == 'Nc' or tag == 'Nb': analysis[to_visualize(tag)][word] += 1
-    analysis = defaultdict(lambda: defaultdict(int), {tag: defaultdict(int, sorted(words.items(), key=lambda item: item[1], reverse=True)) for tag, words in analysis.items()})
-
-write_json(all_analysis_dict, 'results/test_analysis.json')
+# write_json(all_pos_dict, 'results/id2307.json')
+print(merge_and_sort_dict(all_pos_dict, '普通名詞(Na)', '地方詞(Nc)'))
 
 print(f'\r已將分析結果輸出至 json 文件中。')
 

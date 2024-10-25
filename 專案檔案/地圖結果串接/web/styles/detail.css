@@ -719,6 +719,7 @@ body{
   max-width: 510px;
   display: -webkit-box;
   -webkit-line-clamp: 1;
+  line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
   list-style: none;
@@ -727,6 +728,7 @@ body{
   white-space: wrap;
   font-size: 16px;
   text-underline-offset: 3px;
+  cursor: pointer;
 }
 
 .comment-title{
@@ -1411,6 +1413,7 @@ body{
   max-width: 510px;
   display: -webkit-box;
   -webkit-line-clamp: 1;
+  line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
   list-style: none;
@@ -1419,6 +1422,7 @@ body{
   white-space: wrap;
   font-size: 16px;
   text-underline-offset: 3px;
+  cursor: pointer;
   }
   
   .comment-title{
@@ -2100,6 +2104,7 @@ body{
   max-width: 510px;
   display: -webkit-box;
   -webkit-line-clamp: 1;
+  line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
   list-style: none;
@@ -2107,6 +2112,7 @@ body{
   color: #404040;
   white-space: wrap;
   font-size: 16px;
+  cursor: pointer;
   }
   
   .comment-title{
@@ -2787,6 +2793,7 @@ body{
   max-width: 510px;
   display: -webkit-box;
   -webkit-line-clamp: 1;
+  line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
   list-style: none;
@@ -2794,6 +2801,7 @@ body{
   color: #404040;
   white-space: wrap;
   font-size: 16px;
+  cursor: pointer;
   }
   
   .comment-title{

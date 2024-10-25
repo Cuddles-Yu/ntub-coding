@@ -1,6 +1,21 @@
 import json
 from 地圖資訊爬蟲.crawler.module.color_code import ColorCode
 
+
+def extract_keywords_dict(all_dict, *merge_keys):
+    merged_dict = {}
+    for merge_key in merge_keys:
+        if merge_key in all_dict:
+            for key, value in all_dict[merge_key].items():
+                if len(key) > 1:
+                    if key in merged_dict:
+                        merged_dict[key] += value
+                    else:
+                        merged_dict[key] = value
+    filtered_dict = {k: v for k, v in merged_dict.items() if v >= 10}
+    sorted_merged_dict = dict(sorted(filtered_dict.items(), key=lambda item: item[1], reverse=True))
+    return sorted_merged_dict
+
 def load_json(file_path):
     try:
         with open(file_path, 'r', encoding='utf-8') as file:

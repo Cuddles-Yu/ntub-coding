@@ -237,7 +237,8 @@ function countCheckedServiceMarks() {
 }
 
 function goToDetailPage(storeId) {
-  window.location.href = `/detail?id=${storeId}`;
+  // window.location.href = `/detail?id=${storeId}`;
+  window.open(`/detail?id=${storeId}`, '_blank');
 }
 function redirectToDetailPage(storeId) {
   data = document.getElementById('searchResults').getAttribute('search-data');
