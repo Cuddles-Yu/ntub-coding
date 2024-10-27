@@ -4,6 +4,16 @@
     box-sizing: border-box;
 }
 
+.left-icon-display {
+  padding: 5px 10px;
+  border-bottom-right-radius: 10px;
+  font-weight: bold;
+  display: block;
+  position: absolute;
+  color: white;
+  font-size: 12px;
+}
+
 .left-arrow {
   margin-right: 10px;
   position: absolute;
@@ -14,6 +24,40 @@
   margin-left: 10px;
   position: absolute;
   right: -50px;
+}
+
+.search-result-button-icon {
+  width: 20px;
+  margin-right: 3px;
+  position: relative;
+  top: -2px;
+}
+
+a.map-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.text-icon {
+  width:1em;
+  height:1em;
+  position: relative;
+  margin-right: 5px;
+}
+
+.button-text-icon {
+  width:1em;
+  height:1em;
+  position: relative;
+  margin-right: 5px;
+  top: 2px;
+}
+
+.button-down-arrow {
+  transform: rotate(90deg);
+  margin-left: 5px;
+  margin-bottom: 3px;
+  margin-right: -6px;
 }
 
 img {

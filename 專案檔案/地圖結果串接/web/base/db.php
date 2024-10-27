@@ -10,14 +10,16 @@
     '環保' => [
       'cardType' => 'store-card-environment',
       'buttonClass' => 'btn-solid-green',
+      'tagColor' => 'green',
       'tagIcon' => '<i class="fi fi-br-recycle status-img"></i> 環保餐廳',
-      'tagName' => ' (<i class="fi fi-br-recycle status-img"></i>環保)'
+      'tagName' => '<i class="fi fi-br-recycle status-img"></i> 環保'
     ],
     '客家' => [
       'cardType' => 'store-card-culture',
       'buttonClass' => 'btn-solid-orange',
+      'tagColor' => 'darkorange',
       'tagIcon' => '<i class="fi fi-sr-circle-star status-img"></i> 客家餐廳',
-      'tagName' => ' (<i class="fi fi-sr-circle-star status-img"></i>客家)'
+      'tagName' => '<i class="fi fi-sr-circle-star status-img"></i> 客家'
     ]
   ];
 

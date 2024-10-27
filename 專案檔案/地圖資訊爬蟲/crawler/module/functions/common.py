@@ -11,6 +11,15 @@ from typing import Optional
 from numpy import sin, cos, arccos, pi, round
 from 地圖資訊爬蟲.crawler.module.const import *
 
+def download_image_as_binary(url):
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        return response.content
+    except requests.exceptions.RequestException as e:
+        print(f"Error downloading image: {e}")
+        return None
+
 def get_json_from_api(api_url):
     try:
         response = requests.get(api_url)

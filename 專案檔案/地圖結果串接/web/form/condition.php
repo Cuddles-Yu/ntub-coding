@@ -1,7 +1,10 @@
 <?php
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/queries.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/session.php';
-  global $modalTitle, $modalId, $ALL_CITIES;
+  global $ALL_CITIES;
+
+  $modalTitle = '篩選條件';
+  $modalId = 'condition';
 
   $checkboxGroups = [
     'open_hour_button' => [

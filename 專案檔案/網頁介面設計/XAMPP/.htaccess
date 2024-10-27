@@ -1,7 +1,0 @@
-DirectoryIndex login.html
-
-RewriteEngine On
-
-RewriteCond %{HTTP_HOST} ^(www\.)?commentspace\.ascdc\.tw$
-RewriteCond %{REQUEST_URI} ^/$
-RewriteRule ^$ /login.html [R=301,L]

@@ -11,6 +11,7 @@ def newObject(title, url, branch_title: Optional[str] = None, branch_name: Optio
         branch_name=branch_name,
         tag=None,
         mark=mark,
+        image=None,
         preview_image=None,
         link=url,
         website=None,
@@ -123,6 +124,7 @@ class Store:
     _branch_name = ''
     _tag = ''
     _mark = ''
+    _image = ''
     _preview_image = ''
     _link = ''
     _website = ''
@@ -131,12 +133,13 @@ class Store:
     _crawler_state = ''
     _crawler_description = ''
 
-    def __init__(self, name, branch_title, branch_name, tag, mark, preview_image, link, website, phone_number, last_update, crawler_state, crawler_description):
+    def __init__(self, name, branch_title, branch_name, tag, mark, image, preview_image, link, website, phone_number, last_update, crawler_state, crawler_description):
         self._name = name
         self._branch_title = branch_title
         self._branch_name = branch_name
         self._tag = tag
         self._mark = mark
+        self._image = image
         self._preview_image = preview_image
         self._link = link
         self._website = website
@@ -195,6 +198,10 @@ class Store:
         self._mark = value
 
     @property
+    def image(self):
+        return self._image
+
+    @property
     def preview_image(self):
         return self._preview_image
 
@@ -233,25 +240,6 @@ class Store:
     @property
     def crawler_time(self):
         return 'DEFAULT'
-
-    def to_string(self):
-        return (
-            f"({get(self.id)}, {get(self.name)}, {get(self.branch_title)}, {get(self.branch_name)}, {get(self.tag)}, {get(self.mark)}, {get(self.preview_image)}, {get(self.link)}, "
-            f"{get(self.website)}, {get(self.phone_number)}, {get(self.last_update)}, {get(self.crawler_state)}, {get(self.crawler_description)}, {get(self.crawler_time)})"
-        )
-
-    def to_dict(self) -> dict:
-        return {
-            "tag": self.tag,
-            "mark": self.mark,
-            "preview_image": self.preview_image,
-            "link": self.link,
-            "website": self.website,
-            "phone_number": self.phone_number,
-            "last_update": self.last_update,
-            "crawler_state": self.crawler_state,
-            "crawler_description": self.crawler_description
-        }
 
     def change_id(self, database: SqlDatabase, sid):
         if database.is_value_exists('stores', id=sid): return False
@@ -331,14 +319,33 @@ class Store:
             database.get_value('crawler_description', 'stores', name=self.name)
         )
 
+    def insert_to_database(self, database: SqlDatabase):
+        database.execute(f'''
+            INSERT INTO stores
+            VALUES (
+                {get(self.id)}, {get(self.name)}, {get(self.branch_title)}, {get(self.branch_name)}, {get(self.tag)}, {get(self.mark)}, %s, 
+                {get(self.preview_image)}, {get(self.link)}, {get(self.website)}, {get(self.phone_number)}, {get(self.last_update)}, {get(self.crawler_state)}, 
+                {get(self.crawler_description)}, {get(self.crawler_time)}
+            )
+        ''', self.image)
+
+    def update_to_database(self, database: SqlDatabase):
+        database.execute(f'''
+            UPDATE stores
+            SET tag = {get(self.tag)}, mark = {get(self.mark)}, image = %s, preview_image = {get(self.preview_image)}, link = {get(self.link)}, 
+                website = {get(self.website)}, phone_number = {get(self.phone_number)}, last_update = {get(self.last_update)},
+                crawler_state = {get(self.crawler_state)}, crawler_description = {get(self.crawler_description)}
+            WHERE name = {get(self.name)}
+        ''', self.image)
+
     def insert_if_not_exists(self, database: SqlDatabase):
-        if not self.exists(database, check_name=True): database.add('stores', self.to_string())
+        if not self.exists(database, check_name=True): self.insert_to_database(database)
 
     def update_if_exists(self, database: SqlDatabase):
         if self.exists(database, check_name=True):
-            database.update('stores', self.to_dict(), {"name": self.name})
+            self.update_to_database(database)
         else:
-            database.add('stores', self.to_string())
+            self.insert_to_database(database)
 
     def reset(self, database: SqlDatabase):
         return reset_by_name(database, self._name, show_hint=False)
@@ -350,4 +357,4 @@ class Store:
 class Reference(Store):
 
     def __init__(self, name):
-        super().__init__(name, None, None, None, None, None, None, None, None, None, None, None)
+        super().__init__(name, None, None, None, None, None, None, None, None, None, None, None, None)

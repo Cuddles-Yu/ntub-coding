@@ -9,8 +9,8 @@ def exists(connection, name) -> bool:
     '''))
     return name in databases
 
-def execute(connection, sql):
-    return fetch(connection, 'none', sql)
+def execute(connection, sql, *param):
+    return fetch(connection, 'none', sql, *param)
 
 def fetch_column(connection, mode: str, index, sql) -> list:
     sql_return = fetch(connection, mode, sql)
@@ -21,10 +21,10 @@ def fetch_column(connection, mode: str, index, sql) -> list:
             return fetch(connection, mode, sql)[index]
     return None
 
-def fetch(connection, mode: str, sql):
+def fetch(connection, mode: str, sql, *param):
     cursor = connection.cursor()
     try:
-        cursor.execute(sql)
+        cursor.execute(sql, param)
         if mode.lower() == 'all':
             result = cursor.fetchall()
             return result if result else None

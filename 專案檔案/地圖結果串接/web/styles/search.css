@@ -214,7 +214,8 @@ body{
     font-weight: bold;
     font-size: 20px;
     display: -webkit-box;
-    -webkit-line-clamp: 1; /* 限制為1行 */
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
     line-height: 1.3;
@@ -235,6 +236,9 @@ body{
   .restaurant-style, .address{
     font-size: 12.8px;
     margin-top: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
   }
 
   .progress-group-text{
@@ -484,7 +488,8 @@ body{
     font-weight: bold;
     font-size: 20px;
     display: -webkit-box;
-    -webkit-line-clamp: 1; /* 限制為1行 */
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
     line-height: 1.3;
@@ -505,6 +510,9 @@ body{
   .restaurant-style, .address{
     font-size: 12.8px;
     margin-top: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
   }
 
   .progress-group-text{
@@ -749,7 +757,8 @@ body{
     font-weight: bold;
     font-size: 20px;
     display: -webkit-box;
-    -webkit-line-clamp: 1; /* 限制為1行 */
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
     line-height: 1.3;
@@ -770,6 +779,9 @@ body{
   .restaurant-style, .address{
     font-size: 12.8px;
     margin-top: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
   }
 
   .progress-group-text{

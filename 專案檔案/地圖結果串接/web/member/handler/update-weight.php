@@ -27,6 +27,6 @@
       echo json_encode(['success' => true, 'message' => '會員權重修改成功']);
     } else {
       echo json_encode(['success' => false, 'message' => $conn->error]);
-    }    
+    }
     $stmt->close();
   }

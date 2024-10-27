@@ -26,16 +26,19 @@
       $website = htmlspecialchars($storeItem['website']);
 
       $mark = $storeItem['mark'];
-      $cardType = $markOptions[$mark]['cardType'] ?? '';
-      $tagName = $markOptions[$mark]['tagName'] ?? '';
+      $markItem = $markOptions[$mark] ?? null;
 
       $normalizedWeights = getMemberNormalizedWeight();
       $rowIndex = 1;
     ?>
-    <div class="container-fluid store-body <?=$cardType?> <?php if($isFavorite): echo 'store-card-favorite'; endif;?>" data-id="<?=$storeId?>" onclick="redirectToDetailPage(<?=$storeId?>)">
+    <div class="container-fluid store-body <?=$markItem['cardType']??''?> <?php if($isFavorite): echo 'store-card-favorite'; endif;?>" data-id="<?=$storeId?>" onclick="redirectToDetailPage(<?=$storeId?>)">
         <div class="row">
             <div class="store-img-group col-3">
               <!-- <div class="service-match-counter">符合四項</div> -->
+              <!-- <img scr="/struc/store-image.php?id=4744"class="store-img"> -->
+              <?php if($markItem):?>
+                <div class="left-icon-display" style="background-color:<?=$markItem['tagColor']?>;"><?=$markItem['tagName']?></div>
+              <?php endif;?>
               <link rel="preload" href="<?=$previewImage?>" as="image">
               <img src="<?=$previewImage?>" class="store-img">
             </div>
@@ -49,7 +52,7 @@
                 <div class="store-information row">
                     <div class="col-6">
                       <h5 class="rating"><?=$bayesianScore?><small class="rating-text"> / 綜合評分</small></h5>
-                      <h6 class="restaurant-style">類別：<?=$tag?><?=$tagName?></h6>
+                      <h6 class="restaurant-style">類別：<?=$tag?></h6>
                       <h6 class="address">地址：<?=$location?></h6>
                     </div>
                     <div class="progress-group-text col">

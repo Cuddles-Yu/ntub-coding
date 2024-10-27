@@ -1,5 +1,5 @@
 .suggestion-page {
-  border-bottom-style: solid;  
+  border-bottom-style: solid;
   border-bottom-color: mediumblue;
 }
 .suggestion-menu {
@@ -7,9 +7,19 @@
   border-left-color: mediumblue;
 }
 
+.left-icon-display {
+  font-size: 18px !important;
+  border-top-left-radius: 3px;
+  margin: -1px;
+}
+
 .input-group-login{
   display: flex;
   margin-top: 5px;
+}
+
+.tab-content {
+  max-width: 1400px;
 }
 
 .tab-content-random, .tab-content-most-browse, .tab-content-most-favorite {

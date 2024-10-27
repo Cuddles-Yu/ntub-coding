@@ -25,2080 +25,2084 @@ button {
 
 /* header */
 @media (min-width: 1200px){
-    #login_button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: fixed;
-        height: 80px;
-        right: 10vw;
-    }
+  #login_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    height: 80px;
+    right: 10vw;
+  }
 
-    #login {
-        border: none;
-        background-color: transparent;
-        text-decoration: underline;
-        text-underline-offset: 5px;
-        color: #247cff;
-    }
+  #login {
+    border: none;
+    background-color: transparent;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    color: #247cff;
+  }
 
-    #signup {
-        border: none;
-        background-color: transparent;
-        text-decoration: underline;
-        text-underline-offset: 5px;
-        color: #247cff;
-        margin-left: 10px;
-    }
+  #signup {
+    border: none;
+    background-color: transparent;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    color: #247cff;
+    margin-left: 10px;
+  }
 
 }
 
 @media (min-width: 700px) and (max-width: 1199px){
-    #login_button {
-        display: none;
-        justify-content: center;
-        align-items: center;
-        position: fixed;
-        height: 80px;
-        right: 15vw;
-    }
+  #login_button {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    height: 80px;
+    right: 15vw;
+  }
 
-    #login {
-        border: none;
-        background-color: transparent;
-        text-decoration: underline;
-        text-underline-offset: 5px;
-        color: #247cff;
-    }
+  #login {
+    border: none;
+    background-color: transparent;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    color: #247cff;
+  }
 
-    #signup {
-        border: none;
-        background-color: transparent;
-        text-decoration: underline;
-        text-underline-offset: 5px;
-        color: #247cff;
-        margin-left: 10px;
-    }
+  #signup {
+    border: none;
+    background-color: transparent;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    color: #247cff;
+    margin-left: 10px;
+  }
     
-    #login2 {
-        border: none;
-        background-color: transparent;
-        text-underline-offset: 5px;
-        color: #247cff;
-        text-align: center;
-        font-size: 28px;
-        padding: 30px;
-    }
+  #login2 {
+    border: none;
+    background-color: transparent;
+    text-underline-offset: 5px;
+    color: #247cff;
+    text-align: center;
+    font-size: 28px;
+    padding: 30px;
+  }
 
-    #signup2 {
-        border: none;
-        background-color: transparent;
-        text-underline-offset: 5px;
-        color: #247cff;
-        text-align: center;
-        font-size: 28px;
-        padding: 30px;
-    }
+  #signup2 {
+    border: none;
+    background-color: transparent;
+    text-underline-offset: 5px;
+    color: #247cff;
+    text-align: center;
+    font-size: 28px;
+    padding: 30px;
+  }
 
-    .hamburger {
-        display: block; /* 顯示漢堡圖標 */
-        font-size: 30px;
-        background: none;
-        border: none;
-        cursor: pointer;
-        position: fixed;
-        right: 5vw;
-    }
+  .hamburger {
+    display: block; /* 顯示漢堡圖標 */
+    font-size: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: fixed;
+    right: 5vw;
+  }
 }
 
 @media (max-width: 699px) {
-    #login_button {
-        display: none;
-        justify-content: center;
-        align-items: center;
-        position: fixed;
-        height: 80px;
-        right: 15vw;
-    }
+  #login_button {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    height: 80px;
+    right: 15vw;
+  }
 
-    #login2 {
-        border: none;
-        background-color: transparent;
-        text-underline-offset: 5px;
-        color: #247cff;
-        text-align: center;
-        font-size: 28px;
-        padding: 30px;
-    }
+  #login2 {
+    border: none;
+    background-color: transparent;
+    text-underline-offset: 5px;
+    color: #247cff;
+    text-align: center;
+    font-size: 28px;
+    padding: 30px;
+  }
 
-    #signup2 {
-        border: none;
-        background-color: transparent;
-        text-underline-offset: 5px;
-        color: #247cff;
-        text-align: center;
-        font-size: 28px;
-        padding: 30px;
-    }
+  #signup2 {
+    border: none;
+    background-color: transparent;
+    text-underline-offset: 5px;
+    color: #247cff;
+    text-align: center;
+    font-size: 28px;
+    padding: 30px;
+  }
 
-    .hamburger {
-        display: block; /* 顯示漢堡圖標 */
-        font-size: 30px;
-        background: none;
-        border: none;
-        cursor: pointer;
-        position: fixed;
-        right: 5vw;
-    }
+  .hamburger {
+    display: block; /* 顯示漢堡圖標 */
+    font-size: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: fixed;
+    right: 5vw;
+  }
 }
 
 /* 大螢幕（例如桌面電腦） */
 @media (min-width: 1600px){
     /* 側欄 */
-    .side_area {
-        position: fixed; /* 固定位置 */
-        align-items: center; /* 垂直置中 */
-        left: 10vw; /* 與左邊界距離 10vw */
-        z-index: 999;
-    }
+  .side_area {
+    position: fixed; /* 固定位置 */
+    align-items: center; /* 垂直置中 */
+    left: 10vw; /* 與左邊界距離 10vw */
+    z-index: 999;
+  }
 
-    .page_button {
-        display: flex;
-        justify-content: center;
-        align-items: baseline;
-        font-size: 28px;
-        font-weight: bold;
-        color: #5e5e5e;
-    }
+  .page_button {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    font-size: 28px;
+    font-weight: bold;
+    color: #5e5e5e;
+  }
 
-    .page_button p {
-        margin-left: 0.2vw;
-        cursor: pointer;
-    }
+  .page_button p {
+    margin-left: 0.2vw;
+    cursor: pointer;
+  }
 
-    .logo {
-        font-size: 24px;
-        color: #5e5e5e;
-    }
+  .logo {
+    font-size: 24px;
+    color: #5e5e5e;
+  }
 
     main {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: calc(100vh - 90px); /* 內容高度 - 底欄高度 */
-        width: 100%;
-        flex: 1;
-        overflow: hidden;
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 90px); /* 內容高度 - 底欄高度 */
+    width: 100%;
+    flex: 1;
+    overflow: hidden;
+  }
 
-    .item_name {
-        display: flex;
-        align-items: center;
-        margin-top: 4vh;
-        margin-bottom: 4vh;
-    }
+  .item_name {
+    display: flex;
+    align-items: center;
+    margin-top: 4vh;
+    margin-bottom: 4vh;
+  }
 
-    .item_text {
-        display: inline-block;
-        width: 10vw;
-        font-size: 24px;
-        font-weight: bold;
-        margin-top: 0;
-        margin-bottom: 0;
-    }
+  .item_text {
+    display: inline-block;
+    width: 10vw;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 
-    .item_text2 {
-        background: #FFFFFF;
-        border: 1px solid #2b2b2b;
-        border-radius: 5px;
-        padding: 10px;
-        box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
-    }
+  .item_text2 {
+    background: #FFFFFF;
+    border: 1px solid #2b2b2b;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
+  }
 
-    .edit_info1 {
-        display: inline-block;
-        font-size: 16px;
-        color: #5053AF;
-        font-weight: bold;
-        margin-left: 0.5vw;
-        cursor: pointer;
-    }
+  .edit_info1 {
+    display: inline-block;
+    font-size: 16px;
+    color: #5053AF;
+    font-weight: bold;
+    margin-left: 0.5vw;
+    cursor: pointer;
+  }
 
-    .edit_info1:hover {
-        text-decoration: underline;
-    }
+  .edit_info1:hover {
+    text-decoration: underline;
+  }
 
-    .edit_info2 {
-        display: inline-block;
-        font-size: 16px;
-        color: #5053AF;
-        font-weight: bold;
-        margin-left: 0.5vw;
-        cursor: pointer;
-    }
+  .edit_info2 {
+    display: inline-block;
+    font-size: 16px;
+    color: #5053AF;
+    font-weight: bold;
+    margin-left: 0.5vw;
+    cursor: pointer;
+  }
 
-    .edit_info2:hover {
-        text-decoration: underline;
-    }
+  .edit_info2:hover {
+    text-decoration: underline;
+  }
 
-    #password_title {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 1vh;
-    }
+  #password_title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 1vh;
+  }
     
-    #password_form label {
-        display: inline-block;
-        width: 6vw;
-        font-size: 20px;
-        margin-top: 2vh;
-        margin-bottom: 1vh;
-    }
+  #password_form label {
+    display: inline-block;
+    width: 6vw;
+    font-size: 20px;
+    margin-top: 2vh;
+    margin-bottom: 1vh;
+  }
 
-    #password_form input {
-        width: 50%;
-        height: 35px;
-        font-size: 14px;
-        padding: 5px;
-        margin-top: 2vh;
-        margin-bottom: 2vh;
-    }
+  #password_form input {
+    width: 50%;
+    height: 35px;
+    font-size: 14px;
+    padding: 5px;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+  }
 
-    #password_form button {
-        width: 3vw;
-        font-size: 16px;
-        padding: 5px;
-        margin-top: 1vh;
-        margin-bottom: 1vh;
-    }
+  #password_form button {
+    width: 3vw;
+    font-size: 16px;
+    padding: 5px;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+  }
 
     /* 密碼小視窗關閉按鈕 */
-    .close-button {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
+  .close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
 
-    .close-button:hover,
-    .close-button:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-    }
+  .close-button:hover,
+  .close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
 
     /* 修改密碼成功訊息 */
-    .success-message {
-        color: green;
-        display: none; /* 初始狀態隱藏 */
-        font-size: 16px;
-    }
+  .success-message {
+    color: green;
+    display: none; /* 初始狀態隱藏 */
+    font-size: 16px;
+  }
 
     /* 偏好設定 */
-    #preference_main_area {
-        margin-top: 10vh;
-        margin-left: 8vw;
-    }
+  #preference_main_area {
+    margin-top: 10vh;
+    margin-left: 8vw;
+  }
 
-    .preference_item_container {
-        margin-bottom: 1vh;
-        height: 580px;
-        overflow: scroll;
-        overflow-x: hidden;
-        padding: 10px;
-    }
+  .preference_item_container {
+    margin-bottom: 1vh;
+    height: 580px;
+    overflow: scroll;
+    overflow-x: hidden;
+    padding: 10px;
+  }
 
-    .title_text {
-        display: flex;
-        align-items: center;
-    }
+  .title_text {
+    display: flex;
+    align-items: center;
+  }
 
-    .type_title {
-        font-size: 22px;
-        font-weight: bold;
-        margin-right: 20px;
-    }
+  .type_title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-right: 20px;
+  }
 
-    #meter {
-        margin-right: 50px;
-    }
+  #meter {
+    margin-right: 50px;
+  }
 
-    .fi-sr-checkbox, .fi-sr-square, .fi-sr-square-minus {
-        display: flex;
-        align-items: center;
-        font-size: 20px;
-    }
+  .fi-sr-checkbox, .fi-sr-square, .fi-sr-square-minus {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+  }
 
     /* .select_all_button {
-        background-color: #FFFFFF;
-        font-size: 16px;
-        color: #414141;
-        margin-right: 10px;
-        border-radius: 5px;
-        border: 1px solid #414141;
-    }
+    background-color: #FFFFFF;
+    font-size: 16px;
+    color: #414141;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #414141;
+  }
 
-    .deselect_all_button {
-        background-color: #FFFFFF;
-        font-size: 16px;
-        color: #414141;
-        border-radius: 5px;
-        border: 1px solid #414141;
-    } */
+  .deselect_all_button {
+    background-color: #FFFFFF;
+    font-size: 16px;
+    color: #414141;
+    border-radius: 5px;
+    border: 1px solid #414141;
+  } */
 
-    .checkbox_container {
-        display: flex;
-        flex-wrap: wrap; /* 超出範圍自動換行 */
-        margin-top: 1vh;
-        margin-bottom: 1vh;
-        gap: 20px;
-    }
+  .checkbox_container {
+    display: flex;
+    flex-wrap: wrap; /* 超出範圍自動換行 */
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    gap: 20px;
+  }
 
-    .checkbox_container2 {
-        display: flex;
-        flex-wrap: wrap; /* 超出範圍自動換行 */
-        margin-top: 1vh;
-        margin-bottom: 1vh;
-        align-items: baseline;
-    }
+  .checkbox_container2 {
+    display: flex;
+    flex-wrap: wrap; /* 超出範圍自動換行 */
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    align-items: baseline;
+  }
     
-    .checkbox_item {
-        box-sizing: border-box; /* margin, padding 不會增加元素的寬度 */
-        align-items: center;
-        font-size: 20px;
-    }
+  .checkbox_item {
+    box-sizing: border-box; /* margin, padding 不會增加元素的寬度 */
+    align-items: center;
+    font-size: 20px;
+  }
 
-    .radio_item {
-        box-sizing: border-box; /* margin, padding 不會增加元素的寬度 */
-        align-items: center;
-        font-size: 20px;
-    }
+  .radio_item {
+    box-sizing: border-box; /* margin, padding 不會增加元素的寬度 */
+    align-items: center;
+    font-size: 20px;
+  }
 
-    .edit-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 90px;
-        height: 50px;
-        cursor: pointer;
-        border-radius: 5px;
-        padding: 7px;
-        font-size: 22px;
-        color: white;
-    }
+  .edit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 7px;
+    font-size: 22px;
+    color: white;
+  }
 
-    .save-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 90px;
-        height: 50px;
-        cursor: pointer;
-        border-radius: 5px;
-        padding: 7px;
-        font-size: 22px;
-        color: white;
-    }
+  .save-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 7px;
+    font-size: 22px;
+    color: white;
+  }
 
-    .cancel-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 90px;
-        height: 50px;
-        cursor: pointer;
-        border-radius: 5px;
-        padding: 7px;
-        font-size: 22px;
-        color: white;
-        margin-right: 15px;
-    }
+  .cancel-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 7px;
+    font-size: 22px;
+    color: white;
+    margin-right: 15px;
+  }
 
     /* 權重設定 */
-    #weight_main_area {
-        margin-top: 6vh;
-        margin-left: 8vw;
-    }
+  #weight_main_area {
+    margin-top: 6vh;
+    margin-left: 8vw;
+  }
 
-    .description_text {
-        font-size: 20px;
-    }
+  .description_text {
+    font-size: 20px;
+  }
 
     /* 按鈕 */
-    .button_area {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        margin-top: 2vh;
-    }
+  .button_area {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 2vh;
+  }
 
     /* 滑動條 */
-    .slider-container {
-        display: flex;
-        align-items: center;
-        font-size: 24px;
-        font-weight: bold;
-        margin-top: 4vh;
-        margin-bottom: 4vh;
-    }
+  .slider-container {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 4vh;
+    margin-bottom: 4vh;
+  }
 
-    .slider-container label {
-        width: 7vw;
-    }
+  .slider-container label {
+    width: 7vw;
+  }
     
-    .slider-container span {
-        margin-left: 1vw;
-    }
+  .slider-container span {
+    margin-left: 1vw;
+  }
 
-    .slider-container input[type="range"] {
-        width: 25vw;
-        height: 3.5vh; /* 軌道高度 */
-        -webkit-appearance: none; /* 移除滑動條預設樣式 */
-        appearance: none; /* 移除滑動條預設樣式 */
-        outline: none; /* 移除滑動條預設藍色外框 */
-        background: #D9D9D9; /* 軌道底色 */
-        border-radius: 50px; /* 軌道圓角 */
-    }
+  .slider-container input[type="range"] {
+    width: 25vw;
+    height: 3.5vh; /* 軌道高度 */
+    -webkit-appearance: none; /* 移除滑動條預設樣式 */
+    appearance: none; /* 移除滑動條預設樣式 */
+    outline: none; /* 移除滑動條預設藍色外框 */
+    background: #D9D9D9; /* 軌道底色 */
+    border-radius: 50px; /* 軌道圓角 */
+  }
 
     /* Chrome, Safari, Edge, Opera */
-    .slider-container input[type="range"]::-webkit-slider-thumb {
-        width: 30px;
-        height: 30px;
-        -webkit-appearance: none; /* 移除預設樣式(Chrome, Safari) */
-        appearance: none; /* 移除預設樣式(Edge, Opera) */
-        background: #000466; /* 滑塊顏色 */ 
-        border-radius: 50%; /* 圓形滑塊 */
-        cursor: pointer;
-    }
+  .slider-container input[type="range"]::-webkit-slider-thumb {
+    width: 30px;
+    height: 30px;
+    -webkit-appearance: none; /* 移除預設樣式(Chrome, Safari) */
+    appearance: none; /* 移除預設樣式(Edge, Opera) */
+    background: #000466; /* 滑塊顏色 */ 
+    border-radius: 50%; /* 圓形滑塊 */
+    cursor: pointer;
+  }
     
     /* Firefox */
-    .slider-container input[type="range"]::-moz-range-thumb {
-        width: 30px;
-        height: 30px;
-        background: #000466; /* 滑塊顏色 */
-        border-radius: 50%; /* 圓形滑塊 */
-        cursor: pointer;
-    }
+  .slider-container input[type="range"]::-moz-range-thumb {
+    width: 30px;
+    height: 30px;
+    background: #000466; /* 滑塊顏色 */
+    border-radius: 50%; /* 圓形滑塊 */
+    cursor: pointer;
+  }
     
     /* IE, Edge */
-    .slider-container input[type="range"]::-ms-thumb {
-        width: 30px;
-        height: 30px;
-        background: #000466; /* 滑塊顏色 */
-        border-radius: 50%; /* 圓形滑塊 */
-        cursor: pointer;
-    }
+  .slider-container input[type="range"]::-ms-thumb {
+    width: 30px;
+    height: 30px;
+    background: #000466; /* 滑塊顏色 */
+    border-radius: 50%; /* 圓形滑塊 */
+    cursor: pointer;
+  }
 
     /* 收藏餐廳 */
-    #favorite_main_area {
-        margin-left: 8vw;
-    }
+  #favorite_main_area {
+    margin-left: 8vw;
+  }
 
-    .form-floating>.form-select{
-        padding-top: 26px;
-        padding-bottom: 10px;
-        height: 58px;
-        font-size: 16px;
-    }
+  .form-floating>.form-select{
+    padding-top: 26px;
+    padding-bottom: 10px;
+    height: 58px;
+    font-size: 16px;
+  }
     
-    .form-floating>.form-control, .form-floating>.form-control-plaintext{
-        padding: 16px  12px;
-        height: 58px;
-    }
+  .form-floating>.form-control, .form-floating>.form-control-plaintext{
+    padding: 16px  12px;
+    height: 58px;
+  }
     
-    .search-keyword{
-        width: 350px;
-        position: relative;
-        margin-left: 30px;
-        overflow-x: hidden;
-        font-size: 16px;
-    }
+  .search-keyword{
+    width: 350px;
+    position: relative;
+    margin-left: 30px;
+    overflow-x: hidden;
+    font-size: 16px;
+  }
     
-    .search-button{
-        position: relative;
-        margin-left: 30px;
-        margin-bottom: 15px;
-        color: white;
-        white-space: nowrap;
-        font-size: 16px;
-    }
+  .search-button{
+    position: relative;
+    margin-left: 30px;
+    margin-bottom: 15px;
+    color: white;
+    white-space: nowrap;
+    font-size: 16px;
+  }
 
-    .search{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-left: 10px;
-        margin-right: 10px;
-    }
+  .search{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 
-    .first_line {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 1200px;
-        margin-top: 2vh;
-        margin-bottom: 2vh;
-    }
+  .first_line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 1200px;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+  }
 
-    .content_row {
+  .content_row {
       display: flex;
       justify-content: space-between;
       align-items: center;
       width: 1200px;
-    }
+  }
     
-    .content_row_container {
-        overflow: auto;
-        overflow-x: hidden;
-        max-height: 500px;
-    }
+  .content_row_container {
+    overflow: auto;
+    overflow-x: hidden;
+    max-height: 500px;
+  }
 
-    .mark_number {
-        display: flex;
-        align-items: center;
-        flex-grow: 0.5; /* 讓每個項目可以擴展 */
-        flex-basis: 10px; /* 初始寬度 */
-        margin-right: 10px;
-        font-size: 20px;
-    }
+  .mark_number {
+    display: flex;
+    align-items: center;
+    flex-grow: 0.5; /* 讓每個項目可以擴展 */
+    flex-basis: 10px; /* 初始寬度 */
+    margin-right: 10px;
+    font-size: 20px;
+  }
 
-    .mark_img img {
-        width: 120px;
-        height: 120px;
-        object-fit: cover; /* 保持圖片比例 */
-        object-position: center; /* 圖片置中 */
-        border-radius: 3px;
-        overflow: hidden;
-        margin-right: 10px;
-    }
+  .mark_img img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover; /* 保持圖片比例 */
+    object-position: center; /* 圖片置中 */
+    border-radius: 3px;
+    overflow: hidden;
+    margin-right: 10px;
+  }
 
-    .mark_store {
-        display: flex;
-        align-items: center;
-        flex-grow: 2; /* 讓每個項目可以擴展 */
-        flex-basis: 300px; /* 初始寬度 */
-        margin-right: 20px;
-        font-size: 20px;
-    }
+  .mark_store {
+    display: flex;
+    align-items: center;
+    flex-grow: 2; /* 讓每個項目可以擴展 */
+    flex-basis: 300px; /* 初始寬度 */
+    margin-right: 20px;
+    font-size: 20px;
+  }
 
-    .store_name {
-        font-size: 20px;
-        font-weight: bold;
-        display: -webkit-box;
-        -webkit-line-clamp: 1; /* 限制為1行 */
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
+  .store_name {
+    font-size: 20px;
+    font-weight: bold;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .mark_score {
+    display: flex;
+    align-items: center;
+    flex-grow: 1; /* 讓每個項目可以擴展 */
+    flex-basis: 0px; /* 初始寬度 */
+    font-size: 20px;
+  }
+
+  .mark_category {
+    display: flex;
+    align-items: center;
+    flex-grow: 1; /* 讓每個項目可以擴展 */
+    flex-basis: 60px; /* 初始寬度 */
+    font-size: 20px;
+  }
+
+  .mark_time {
+    display: flex;
+    align-items: center;
+    flex-grow: 1; /* 讓每個項目可以擴展 */
+    flex-basis: 120px; /* 初始寬度 */
+    font-size: 20px;
+  }
     
-    .mark_score {
-        display: flex;
-        align-items: center;
-        flex-grow: 1; /* 讓每個項目可以擴展 */
-        flex-basis: 0px; /* 初始寬度 */
-        font-size: 20px;
-    }
+  .mark_button {
+    display: flex;
+    align-items: center;
+    flex-grow: 1; /* 讓每個項目可以擴展 */
+    flex-basis: 60px; /* 初始寬度 */
+    font-size: 20px;
+  }
+    
+  .mark_button2 {
+    display: flex;
+    align-items: center;
+  }
+    
+  .fi-sr-bookmark {
+    font-size: 22px;
+    margin-right: 7px;
+  }
 
-    .mark_category {
-        display: flex;
-        align-items: center;
-        flex-grow: 1; /* 讓每個項目可以擴展 */
-        flex-basis: 60px; /* 初始寬度 */
-        font-size: 20px;
-    }
-    
-    .mark_time {
-        display: flex;
-        align-items: center;
-        flex-grow: 1; /* 讓每個項目可以擴展 */
-        flex-basis: 120px; /* 初始寬度 */
-        font-size: 20px;
-    }
-    
-    .mark_button {
-        display: flex;
-        align-items: center;
-        flex-grow: 1; /* 讓每個項目可以擴展 */
-        flex-basis: 60px; /* 初始寬度 */
-        font-size: 20px;
-    }
-    
-    .mark_button2 {
-        display: flex;
-        align-items: center;
-    }
-    
-    .fi-sr-bookmark {
-        font-size: 22px;
-        margin-right: 7px;
-    }
-
-    .fi-sr-share {
-        font-size: 22px;
-    }
+  .fi-sr-share {
+    font-size: 22px;
+  }
 }
 
 /* 中等螢幕（筆記型電腦） */
 @media (min-width: 1025px) and (max-width: 1599px) {
     /* 側欄 */
-    .side_area {
-        position: fixed; /* 固定位置 */
-        align-items: center; /* 垂直置中 */
-        left: 10vw; /* 與左邊界距離 10vw */
-        z-index: 999;
-    }
+  .side_area {
+    position: fixed; /* 固定位置 */
+    align-items: center; /* 垂直置中 */
+    left: 10vw; /* 與左邊界距離 10vw */
+    z-index: 999;
+  }
 
-    .page_button {
-        display: flex;
-        justify-content: center;
-        align-items: baseline;
-        font-size: 24px;
-        font-weight: bold;
-        color: #5e5e5e;
-    }
+  .page_button {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    font-size: 24px;
+    font-weight: bold;
+    color: #5e5e5e;
+  }
 
-    .page_button p {
-        margin-left: 0.2vw;
-        cursor: pointer;
-    }
+  .page_button p {
+    margin-left: 0.2vw;
+    cursor: pointer;
+  }
 
-    .logo {
-        font-size: 24px;
-        color: #5e5e5e;
-    }
+  .logo {
+    font-size: 24px;
+    color: #5e5e5e;
+  }
 
     main {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: calc(100vh - 90px); /* 內容高度 - 底欄高度 */
-        width: 100%;
-        flex: 1;
-        overflow: hidden;
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 90px); /* 內容高度 - 底欄高度 */
+    width: 100%;
+    flex: 1;
+    overflow: hidden;
+  }
 
-    .item_name {
-        display: flex;
-        align-items: center;
-        margin-top: 4vh;
-        margin-bottom: 4vh;
-    }
+  .item_name {
+    display: flex;
+    align-items: center;
+    margin-top: 4vh;
+    margin-bottom: 4vh;
+  }
 
-    .item_text {
-        display: inline-block;
-        width: 10vw;
-        font-size: 20px;
-        font-weight: bold;
-        margin-top: 0;
-        margin-bottom: 0;
-    }
+  .item_text {
+    display: inline-block;
+    width: 10vw;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 
-    .item_text2 {
-        background: #FFFFFF;
-        border: 1px solid #2b2b2b;
-        border-radius: 5px;
-        padding: 7px;
-        box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
-    }
+  .item_text2 {
+    background: #FFFFFF;
+    border: 1px solid #2b2b2b;
+    border-radius: 5px;
+    padding: 7px;
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
+  }
 
-    .edit_info1 {
-        display: inline-block;
-        font-size: 14px;
-        color: #5053AF;
-        font-weight: bold;
-        margin-left: 0.5vw;
-        cursor: pointer;
-    }
+  .edit_info1 {
+    display: inline-block;
+    font-size: 14px;
+    color: #5053AF;
+    font-weight: bold;
+    margin-left: 0.5vw;
+    cursor: pointer;
+  }
 
-    .edit_info1:hover {
-        text-decoration: underline;
-    }
+  .edit_info1:hover {
+    text-decoration: underline;
+  }
 
-    .edit_info2 {
-        display: inline-block;
-        font-size: 14px;
-        color: #5053AF;
-        font-weight: bold;
-        margin-left: 0.5vw;
-        cursor: pointer;
-    }
+  .edit_info2 {
+    display: inline-block;
+    font-size: 14px;
+    color: #5053AF;
+    font-weight: bold;
+    margin-left: 0.5vw;
+    cursor: pointer;
+  }
 
-    .edit_info2:hover {
-        text-decoration: underline;
-    }
+  .edit_info2:hover {
+    text-decoration: underline;
+  }
 
-    #password_title {
-        font-size: 22px;
-        font-weight: bold;
-        margin-bottom: 1vh;
-    }
+  #password_title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 1vh;
+  }
     
-    #password_form label {
-        display: inline-block;
-        width: 8vw;
-        font-size: 18px;
-        margin-top: 2vh;
-        margin-bottom: 1vh;
-    }
+  #password_form label {
+    display: inline-block;
+    width: 8vw;
+    font-size: 18px;
+    margin-top: 2vh;
+    margin-bottom: 1vh;
+  }
 
-    #password_form input {
-        width: 50%;
-        height: 30px;
-        font-size: 14px;
-        padding: 5px;
-        margin-top: 2vh;
-        margin-bottom: 2vh;
-    }
+  #password_form input {
+    width: 50%;
+    height: 30px;
+    font-size: 14px;
+    padding: 5px;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+  }
 
-    #password_form button {
-        width: 4vw;
-        font-size: 14px;
-        padding: 5px;
-        margin-top: 1vh;
-        margin-bottom: 1vh;
-    }
+  #password_form button {
+    width: 4vw;
+    font-size: 14px;
+    padding: 5px;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+  }
 
     /* 密碼小視窗關閉按鈕 */
-    .close-button {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
+  .close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
 
-    .close-button:hover,
-    .close-button:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-    }
+  .close-button:hover,
+  .close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
 
     /* 修改密碼成功訊息 */
-    .success-message {
-        color: green;
-        display: none; /* 初始狀態隱藏 */
-        font-size: 16px;
-    }
+  .success-message {
+    color: green;
+    display: none; /* 初始狀態隱藏 */
+    font-size: 16px;
+  }
 
     /* 偏好設定 */
-    #preference_main_area {
-        margin-top: 12vh;
-        margin-left: 8vw;
-    }
+  #preference_main_area {
+    margin-top: 12vh;
+    margin-left: 8vw;
+  }
 
-    .preference_item_container {
-        margin-bottom: 1vh;
-        height: 380px;
-        overflow: scroll;
-        overflow-x: hidden;
-        padding: 10px;
-    }
+  .preference_item_container {
+    margin-bottom: 1vh;
+    height: 380px;
+    overflow: scroll;
+    overflow-x: hidden;
+    padding: 10px;
+  }
 
-    .title_text {
-        display: flex;
-        align-items: center;
-    }
+  .title_text {
+    display: flex;
+    align-items: center;
+  }
 
-    .type_title {
-        font-size: 18px;
-        font-weight: bold;
-        margin-right: 20px;
-    }
+  .type_title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 20px;
+  }
 
-    #meter {
-        margin-right: 50px;
-    }
+  #meter {
+    margin-right: 50px;
+  }
 
-    .fi-sr-checkbox, .fi-sr-square, .fi-sr-square-minus {
-        display: flex;
-        align-items: center;
-        font-size: 16px;
-    }
+  .fi-sr-checkbox, .fi-sr-square, .fi-sr-square-minus {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+  }
 
     /* .select_all_button {
-        display: none;
-        background-color: #FFFFFF;
-        font-size: 16px;
-        color: #414141;
-        margin-right: 10px;
-        border-radius: 5px;
-        border: 1px solid #414141;
-    }
+    display: none;
+    background-color: #FFFFFF;
+    font-size: 16px;
+    color: #414141;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #414141;
+  }
 
-    .deselect_all_button {
-        display: none;
-        background-color: #FFFFFF;
-        font-size: 16px;
-        color: #414141;
-        border-radius: 5px;
-        border: 1px solid #414141;
-    } */
+  .deselect_all_button {
+    display: none;
+    background-color: #FFFFFF;
+    font-size: 16px;
+    color: #414141;
+    border-radius: 5px;
+    border: 1px solid #414141;
+  } */
 
-    .checkbox_container {
-        display: flex;
-        flex-wrap: wrap; /* 超出範圍自動換行 */
-        margin-top: 1vh;
-        margin-bottom: 1vh;
-        gap: 20px;
-    }
+  .checkbox_container {
+    display: flex;
+    flex-wrap: wrap; /* 超出範圍自動換行 */
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    gap: 20px;
+  }
 
-    .checkbox_container2 {
-        display: flex;
-        flex-wrap: wrap; /* 超出範圍自動換行 */
-        margin-top: 1vh;
-        margin-bottom: 1vh;
-        align-items: baseline;
-    }
+  .checkbox_container2 {
+    display: flex;
+    flex-wrap: wrap; /* 超出範圍自動換行 */
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    align-items: baseline;
+  }
     
-    .checkbox_item {
-        box-sizing: border-box; /* margin, padding 不會增加元素的寬度 */
-        align-items: center;
-        font-size: 16px;
-    }
+  .checkbox_item {
+    box-sizing: border-box; /* margin, padding 不會增加元素的寬度 */
+    align-items: center;
+    font-size: 16px;
+  }
 
-    .radio_item {
-        box-sizing: border-box; /* margin, padding 不會增加元素的寬度 */
-        align-items: center;
-        font-size: 20px;
-    }
+  .radio_item {
+    box-sizing: border-box; /* margin, padding 不會增加元素的寬度 */
+    align-items: center;
+    font-size: 20px;
+  }
 
-    .edit-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 80px;
-        height: 45px;
-        cursor: pointer;        
-        border-radius: 5px;
-        padding: 5px;
-        font-size: 18px;
-        color: white;
-    }
+  .edit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 45px;
+    cursor: pointer;    
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 18px;
+    color: white;
+  }
 
-    .save-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 80px;
-        height: 45px;
-        cursor: pointer;
-        border-radius: 5px;
-        padding: 5px;
-        font-size: 18px;
-        color: white;
-    }
+  .save-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 45px;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 18px;
+    color: white;
+  }
 
-    .cancel-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 80px;
-        height: 45px;
-        cursor: pointer;
-        border-radius: 5px;
-        padding: 5px;
-        font-size: 18px;
-        color: white;
-        margin-right: 15px;
-    }
+  .cancel-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 45px;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 18px;
+    color: white;
+    margin-right: 15px;
+  }
 
     /* 權重設定 */
-    #weight_main_area {
-        margin-top: 6vh;
-        margin-left: 8vw;
-    }
+  #weight_main_area {
+    margin-top: 6vh;
+    margin-left: 8vw;
+  }
 
-    .description_text {
-        font-size: 16px;
-    }
+  .description_text {
+    font-size: 16px;
+  }
 
     /* 按鈕 */
-    .button_area {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        margin-top: 2vh;
-    }
+  .button_area {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 2vh;
+  }
 
     /* 滑動條 */
-    .slider-container {
-        display: flex;
-        align-items: center;
-        font-size: 20px;
-        font-weight: bold;
-        margin-top: 4vh;
-        margin-bottom: 4vh;
-    }
+  .slider-container {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 4vh;
+    margin-bottom: 4vh;
+  }
 
-    .slider-container label {
-        width: 7vw;
-    }
+  .slider-container label {
+    width: 7vw;
+  }
     
-    .slider-container span {
-        margin-left: 1vw;
-    }
+  .slider-container span {
+    margin-left: 1vw;
+  }
 
-    .slider-container input[type="range"] {
-        width: 25vw;
-        height: 3.5vh; /* 軌道高度 */
-        -webkit-appearance: none; /* 移除滑動條預設樣式 */
-        appearance: none; /* 移除滑動條預設樣式 */
-        outline: none; /* 移除滑動條預設藍色外框 */
-        background: #D9D9D9; /* 軌道底色 */
-        border-radius: 50px; /* 軌道圓角 */
-    }
+  .slider-container input[type="range"] {
+    width: 25vw;
+    height: 3.5vh; /* 軌道高度 */
+    -webkit-appearance: none; /* 移除滑動條預設樣式 */
+    appearance: none; /* 移除滑動條預設樣式 */
+    outline: none; /* 移除滑動條預設藍色外框 */
+    background: #D9D9D9; /* 軌道底色 */
+    border-radius: 50px; /* 軌道圓角 */
+  }
 
     /* Chrome, Safari, Edge, Opera */
-    .slider-container input[type="range"]::-webkit-slider-thumb {
-        width: 30px;
-        height: 30px;
-        -webkit-appearance: none; /* 移除預設樣式(Chrome, Safari) */
-        appearance: none; /* 移除預設樣式(Edge, Opera) */
-        background: #000466; /* 滑塊顏色 */ 
-        border-radius: 50%; /* 圓形滑塊 */
-        cursor: pointer;
-    }
+  .slider-container input[type="range"]::-webkit-slider-thumb {
+    width: 30px;
+    height: 30px;
+    -webkit-appearance: none; /* 移除預設樣式(Chrome, Safari) */
+    appearance: none; /* 移除預設樣式(Edge, Opera) */
+    background: #000466; /* 滑塊顏色 */ 
+    border-radius: 50%; /* 圓形滑塊 */
+    cursor: pointer;
+  }
     
     /* Firefox */
-    .slider-container input[type="range"]::-moz-range-thumb {
-        width: 30px;
-        height: 30px;
-        background: #000466; /* 滑塊顏色 */
-        border-radius: 50%; /* 圓形滑塊 */
-        cursor: pointer;
-    }
+  .slider-container input[type="range"]::-moz-range-thumb {
+    width: 30px;
+    height: 30px;
+    background: #000466; /* 滑塊顏色 */
+    border-radius: 50%; /* 圓形滑塊 */
+    cursor: pointer;
+  }
     
     /* IE, Edge */
-    .slider-container input[type="range"]::-ms-thumb {
-        width: 30px;
-        height: 30px;
-        background: #000466; /* 滑塊顏色 */
-        border-radius: 50%; /* 圓形滑塊 */
-        cursor: pointer;
-    }
+  .slider-container input[type="range"]::-ms-thumb {
+    width: 30px;
+    height: 30px;
+    background: #000466; /* 滑塊顏色 */
+    border-radius: 50%; /* 圓形滑塊 */
+    cursor: pointer;
+  }
 
     /* 收藏餐廳 */
-    #favorite_main_area {
-        margin-top: 12vh;
-        margin-left: 18vw;
-    }
+  #favorite_main_area {
+    margin-top: 12vh;
+    margin-left: 18vw;
+  }
 
-    .form-floating>.form-select{
-        padding-top: 26px;
-        padding-bottom: 10px;
-        height: 58px;
-        font-size: 16px;
-    }
+  .form-floating>.form-select{
+    padding-top: 26px;
+    padding-bottom: 10px;
+    height: 58px;
+    font-size: 16px;
+  }
     
-    .form-floating>.form-control, .form-floating>.form-control-plaintext{
-        padding: 16px  12px;
-        height: 58px;
-    }
+  .form-floating>.form-control, .form-floating>.form-control-plaintext{
+    padding: 16px  12px;
+    height: 58px;
+  }
     
-    .search-keyword{
-        width: 350px;
-        position: relative;
-        margin-left: 30px;
-        overflow-x: hidden;
-        font-size: 16px;
-    }
+  .search-keyword{
+    width: 350px;
+    position: relative;
+    margin-left: 30px;
+    overflow-x: hidden;
+    font-size: 16px;
+  }
 
-    .search-button{
-        position: relative;
-        margin-left: 30px;
-        margin-bottom: 15px;
-        color: white;
-        white-space: nowrap;
-        font-size: 16px;
-    }
+  .search-button{
+    position: relative;
+    margin-left: 30px;
+    margin-bottom: 15px;
+    color: white;
+    white-space: nowrap;
+    font-size: 16px;
+  }
 
-    .search{
-        align-items: center;
-        justify-content: center;
-        display: flex;
-        margin-left: 10px;
-        margin-right: 10px;
-    }
+  .search{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 
-    .first_line {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 900px;
-        margin-top: 2vh;
-        margin-bottom: 2vh;
-    }
+  .first_line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 900px;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+  }
 
-    .content_row {
+  .content_row {
       display: flex;
       justify-content: space-between;
       align-items: center;
       width: 900px;
   }
 
-    .content_row_container {
-        overflow: auto;
-        overflow-x: hidden;
-        max-height: 350px;
-    }
+  .content_row_container {
+    overflow: auto;
+    overflow-x: hidden;
+    max-height: 350px;
+  }
     
-    .mark_number {
-        display: flex;
-        align-items: center;
-        flex-grow: 0.5; /* 讓每個項目可以擴展 */
-        flex-basis: 10px; /* 初始寬度 */
-        margin-right: 10px;
-    }
+  .mark_number {
+    display: flex;
+    align-items: center;
+    flex-grow: 0.5; /* 讓每個項目可以擴展 */
+    flex-basis: 10px; /* 初始寬度 */
+    margin-right: 10px;
+  }
 
-    .mark_img img {
-        width: 90px;
-        height: 90px;
-        object-fit: cover; /* 保持圖片比例 */
-        object-position: center; /* 圖片置中 */
-        border-radius: 3px;
-        overflow: hidden;
-        margin-right: 5px;
-    }
+  .mark_img img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover; /* 保持圖片比例 */
+    object-position: center; /* 圖片置中 */
+    border-radius: 3px;
+    overflow: hidden;
+    margin-right: 5px;
+  }
 
-    .mark_store {
-        display: flex;
-        align-items: center;
-        flex-grow: 2; /* 讓每個項目可以擴展 */
-        flex-basis: 180px; /* 初始寬度 */
-        margin-right: 20px;
-    }
+  .mark_store {
+    display: flex;
+    align-items: center;
+    flex-grow: 2; /* 讓每個項目可以擴展 */
+    flex-basis: 180px; /* 初始寬度 */
+    margin-right: 20px;
+  }
 
-    .store_name {
-        font-size: 16px;
-        font-weight: bold;
-        display: -webkit-box;
-        -webkit-line-clamp: 1; /* 限制為1行 */
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
+  .store_name {
+    font-size: 16px;
+    font-weight: bold;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
     
-    .mark_score {
-        display: flex;
-        align-items: center;
-        flex-grow: 1; /* 讓每個項目可以擴展 */
-        flex-basis: 0px; /* 初始寬度 */
-    }
+  .mark_score {
+    display: flex;
+    align-items: center;
+    flex-grow: 1; /* 讓每個項目可以擴展 */
+    flex-basis: 0px; /* 初始寬度 */
+  }
 
-    .mark_category {
-        display: flex;
-        align-items: center;
-        flex-grow: 1; /* 讓每個項目可以擴展 */
-        flex-basis: 50px; /* 初始寬度 */
-    }
+  .mark_category {
+    display: flex;
+    align-items: center;
+    flex-grow: 1; /* 讓每個項目可以擴展 */
+    flex-basis: 50px; /* 初始寬度 */
+  }
     
-    .mark_time {
-        display: flex;
-        align-items: center;
-        flex-grow: 1; /* 讓每個項目可以擴展 */
-        flex-basis: 100px; /* 初始寬度 */
-    }
+  .mark_time {
+    display: flex;
+    align-items: center;
+    flex-grow: 1; /* 讓每個項目可以擴展 */
+    flex-basis: 100px; /* 初始寬度 */
+  }
     
-    .mark_button {
-        display: flex;
-        align-items: center;
-        flex-grow: 1; /* 讓每個項目可以擴展 */
-        flex-basis: 60px; /* 初始寬度 */
-    }
+  .mark_button {
+    display: flex;
+    align-items: center;
+    flex-grow: 1; /* 讓每個項目可以擴展 */
+    flex-basis: 60px; /* 初始寬度 */
+  }
     
-    .mark_button2 {
-        display: flex;
-        align-items: center;
-    }
+  .mark_button2 {
+    display: flex;
+    align-items: center;
+  }
     
-    .fi-sr-bookmark {
-        font-size: 18px;
-        margin-right: 7px;
-    }
+  .fi-sr-bookmark {
+    font-size: 18px;
+    margin-right: 7px;
+  }
 
-    .fi-sr-share {
-        font-size: 18px;
-    }
+  .fi-sr-share {
+    font-size: 18px;
+  }
 }
 
 /* 中等螢幕（平板電腦） */
 @media (min-width: 768px) and (max-width: 1024px) {
    /* 側欄 */
    .side_area {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: fixed;
-        top: 140px;
-        left: 50%;
-        transform: translateX(-50%); /* 水平置中 */
-        z-index: 999;
-    }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 140px;
+    left: 50%;
+    transform: translateX(-50%); /* 水平置中 */
+    z-index: 999;
+  }
 
-    .page_button {
-        display: flex;
-        justify-content: center;
-        align-items: baseline;
-        width: 120px;
-        font-size: 20px;
-        font-weight: bold;
-        color: #5e5e5e;
-        margin-right: 20px;
-    }
+  .page_button {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    width: 120px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #5e5e5e;
+    margin-right: 20px;
+  }
 
-    .page_button p {
-        margin-left: 0.2vw;
-        cursor: pointer;
-    }
+  .page_button p {
+    margin-left: 0.2vw;
+    cursor: pointer;
+  }
 
-    .logo {
-        font-size: 24px;
-        color: #5e5e5e;
-    }
+  .logo {
+    font-size: 24px;
+    color: #5e5e5e;
+  }
 
     main {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: calc(100vh - 90px); /* 內容高度 - 底欄高度 */
-        width: 100%;
-        flex: 1;
-        overflow: hidden;
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 90px); /* 內容高度 - 底欄高度 */
+    width: 100%;
+    flex: 1;
+    overflow: hidden;
+  }
 
-    .item_name {
-        display: flex;
-        align-items: center;
-        margin-top: 4vh;
-        margin-bottom: 4vh;
-    }
+  .item_name {
+    display: flex;
+    align-items: center;
+    margin-top: 4vh;
+    margin-bottom: 4vh;
+  }
 
-    .item_text {
-        width: 12vw;
-        font-size: 16px;
-        font-weight: bold;
-        margin-top: 0;
-        margin-bottom: 0;
-        margin-right: 10px;
-    }
+  .item_text {
+    width: 12vw;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 10px;
+  }
 
-    .item_text2 {
-        background: #FFFFFF;
-        width: 30vw;
-        border: 1px solid #2b2b2b;
-        border-radius: 5px;
-        padding: 5px;
-        box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
-    }
+  .item_text2 {
+    background: #FFFFFF;
+    width: 30vw;
+    border: 1px solid #2b2b2b;
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
+  }
 
-    .edit_info1 {
-        display: inline-block;
-        font-size: 16px;
-        color: #5053AF;
-        font-weight: bold;
-        margin-left: 0.5vw;
-        cursor: pointer;
-    }
+  .edit_info1 {
+    display: inline-block;
+    font-size: 16px;
+    color: #5053AF;
+    font-weight: bold;
+    margin-left: 0.5vw;
+    cursor: pointer;
+  }
 
-    .edit_info1:hover {
-        text-decoration: underline;
-    }
+  .edit_info1:hover {
+    text-decoration: underline;
+  }
 
-    .edit_info2 {
-        display: inline-block;
-        font-size: 16px;
-        color: #5053AF;
-        font-weight: bold;
-        margin-left: 0.5vw;
-        cursor: pointer;
-    }
+  .edit_info2 {
+    display: inline-block;
+    font-size: 16px;
+    color: #5053AF;
+    font-weight: bold;
+    margin-left: 0.5vw;
+    cursor: pointer;
+  }
 
-    .edit_info2:hover {
-        text-decoration: underline;
-    }
+  .edit_info2:hover {
+    text-decoration: underline;
+  }
 
-    #password_title {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 1vh;
-    }
+  #password_title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 1vh;
+  }
     
-    #password_form label {
-        display: inline-block;
-        width: 13vw;
-        font-size: 18px;
-        margin-top: 2vh;
-        margin-bottom: 1vh;
-    }
+  #password_form label {
+    display: inline-block;
+    width: 13vw;
+    font-size: 18px;
+    margin-top: 2vh;
+    margin-bottom: 1vh;
+  }
 
-    #password_form input {
-        width: 55%;
-        height: 30px;
-        font-size: 14px;
-        padding: 5px;
-        margin-top: 2vh;
-        margin-bottom: 2vh;
-    }
+  #password_form input {
+    width: 55%;
+    height: 30px;
+    font-size: 14px;
+    padding: 5px;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+  }
 
-    #password_form button {
-        width: 7vw;
-        font-size: 14px;
-        padding: 5px;
-        margin-top: 1vh;
-        margin-bottom: 1vh;
-    }
+  #password_form button {
+    width: 7vw;
+    font-size: 14px;
+    padding: 5px;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+  }
 
     /* 密碼小視窗關閉按鈕 */
-    .close-button {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
+  .close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
 
-    .close-button:hover,
-    .close-button:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-    }
+  .close-button:hover,
+  .close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
 
     /* 修改密碼成功訊息 */
-    .success-message {
-        color: green;
-        display: none; /* 初始狀態隱藏 */
-        font-size: 16px;
-    }
+  .success-message {
+    color: green;
+    display: none; /* 初始狀態隱藏 */
+    font-size: 16px;
+  }
 
     /* 偏好設定 */
-    #preference_main_area {
-        margin-top: 18vh;
-        margin-left: 8vw;
-    }
+  #preference_main_area {
+    margin-top: 18vh;
+    margin-left: 8vw;
+  }
 
-    .preference_item_container {
-        margin-bottom: 1vh;
-        height: 700px;
-        overflow: scroll;
-        overflow-x: hidden;
-        padding: 10px;
-    }
+  .preference_item_container {
+    margin-bottom: 1vh;
+    height: 700px;
+    overflow: scroll;
+    overflow-x: hidden;
+    padding: 10px;
+  }
 
-    .title_text {
-        display: flex;
-        align-items: center;
-    }
+  .title_text {
+    display: flex;
+    align-items: center;
+  }
 
-    .type_title {
-        font-size: 22px;
-        font-weight: bold;
-        margin-right: 7px;
-    }
+  .type_title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-right: 7px;
+  }
 
-    #meter {
-        margin-right: 40px;
-    }
+  #meter {
+    margin-right: 40px;
+  }
 
-    .fi-sr-checkbox, .fi-sr-square, .fi-sr-square-minus {
-        display: flex;
-        align-items: center;
-        font-size: 20px;
-    }
+  .fi-sr-checkbox, .fi-sr-square, .fi-sr-square-minus {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+  }
 
     /* .select_all_button {
-        background-color: #FFFFFF;
-        font-size: 16px;
-        color: #414141;
-        margin-right: 10px;
-        border-radius: 5px;
-        border: 1px solid #414141;
-    }
+    background-color: #FFFFFF;
+    font-size: 16px;
+    color: #414141;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #414141;
+  }
 
-    .deselect_all_button {
-        background-color: #FFFFFF;
-        font-size: 16px;
-        color: #414141;
-        border-radius: 5px;
-        border: 1px solid #414141;
-    } */
+  .deselect_all_button {
+    background-color: #FFFFFF;
+    font-size: 16px;
+    color: #414141;
+    border-radius: 5px;
+    border: 1px solid #414141;
+  } */
 
-    .checkbox_container {
-        display: flex;
-        flex-wrap: wrap; /* 超出範圍自動換行 */
-        margin-top: 1vh;
-        margin-bottom: 1vh;
-        gap: 20px;
-    }
+  .checkbox_container {
+    display: flex;
+    flex-wrap: wrap; /* 超出範圍自動換行 */
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    gap: 20px;
+  }
 
-    .checkbox_container2 {
-        display: flex;
-        flex-wrap: wrap; /* 超出範圍自動換行 */
-        margin-top: 1vh;
-        margin-bottom: 1vh;
-        align-items: baseline;
-    }
+  .checkbox_container2 {
+    display: flex;
+    flex-wrap: wrap; /* 超出範圍自動換行 */
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    align-items: baseline;
+  }
 
-    .checkbox_item {
-        box-sizing: border-box; /* margin, padding 不會增加元素的寬度 */
-        align-items: center;
-        font-size: 20px;
-    }
+  .checkbox_item {
+    box-sizing: border-box; /* margin, padding 不會增加元素的寬度 */
+    align-items: center;
+    font-size: 20px;
+  }
 
-    .radio_item {
-        box-sizing: border-box; /* margin, padding 不會增加元素的寬度 */
-        align-items: center;
-        font-size: 20px;
-    }
+  .radio_item {
+    box-sizing: border-box; /* margin, padding 不會增加元素的寬度 */
+    align-items: center;
+    font-size: 20px;
+  }
 
-    .edit-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 90px;
-        height: 50px;
-        cursor: pointer;
-        border-radius: 5px;
-        padding: 7px;
-        font-size: 22px;
-        color: white;
-        margin-right: 20px;
-    }
+  .edit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 7px;
+    font-size: 22px;
+    color: white;
+    margin-right: 20px;
+  }
 
-    .save-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 90px;
-        height: 50px;
-        cursor: pointer;
-        border-radius: 5px;
-        padding: 7px;
-        font-size: 22px;
-        color: white;
-    }
+  .save-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 7px;
+    font-size: 22px;
+    color: white;
+  }
 
-    .cancel-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 90px;
-        height: 50px;
-        cursor: pointer;
-        border-radius: 5px;
-        padding: 7px;
-        font-size: 22px;
-        color: white;
-        margin-right: 15px;
-    }
+  .cancel-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 7px;
+    font-size: 22px;
+    color: white;
+    margin-right: 15px;
+  }
 
     /* 權重設定 */
-    .description_text {
-        font-size: 20px;
-    }
+  .description_text {
+    font-size: 20px;
+  }
 
     /* 按鈕 */
-    .button_area {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        margin-top: 1vh;
-    }
+  .button_area {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 1vh;
+  }
 
     /* 滑動條 */
-    .slider-container {
-        display: flex;
-        align-items: center;
-        font-size: 24px;
-        font-weight: bold;
-        margin-top: 4vh;
-        margin-bottom: 4vh;
-        margin-left: 5vw;
-    }
+  .slider-container {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 4vh;
+    margin-bottom: 4vh;
+    margin-left: 5vw;
+  }
 
-    .slider-container label {
-        width: 12vw;
-    }
+  .slider-container label {
+    width: 12vw;
+  }
 
-    .slider-container span {
-        margin-left: 1vw;
-    }
+  .slider-container span {
+    margin-left: 1vw;
+  }
 
-    .slider-container input[type="range"] {
-        width: 45vw;
-        height: 3.5vh; /* 軌道高度 */
-        -webkit-appearance: none; /* 移除滑動條預設樣式 */
-        appearance: none; /* 移除滑動條預設樣式 */
-        outline: none; /* 移除滑動條預設藍色外框 */
-        background: #D9D9D9; /* 軌道底色 */
-        border-radius: 50px; /* 軌道圓角 */
-    }
+  .slider-container input[type="range"] {
+    width: 45vw;
+    height: 3.5vh; /* 軌道高度 */
+    -webkit-appearance: none; /* 移除滑動條預設樣式 */
+    appearance: none; /* 移除滑動條預設樣式 */
+    outline: none; /* 移除滑動條預設藍色外框 */
+    background: #D9D9D9; /* 軌道底色 */
+    border-radius: 50px; /* 軌道圓角 */
+  }
 
     /* Chrome, Safari, Edge, Opera */
-    .slider-container input[type="range"]::-webkit-slider-thumb {
-        width: 30px;
-        height: 30px;
-        -webkit-appearance: none; /* 移除預設樣式(Chrome, Safari) */
-        appearance: none; /* 移除預設樣式(Edge, Opera) */
-        background: #000466; /* 滑塊顏色 */ 
-        border-radius: 50%; /* 圓形滑塊 */
-        cursor: pointer;
-    }
+  .slider-container input[type="range"]::-webkit-slider-thumb {
+    width: 30px;
+    height: 30px;
+    -webkit-appearance: none; /* 移除預設樣式(Chrome, Safari) */
+    appearance: none; /* 移除預設樣式(Edge, Opera) */
+    background: #000466; /* 滑塊顏色 */ 
+    border-radius: 50%; /* 圓形滑塊 */
+    cursor: pointer;
+  }
 
     /* Firefox */
-    .slider-container input[type="range"]::-moz-range-thumb {
-        width: 30px;
-        height: 30px;
-        background: #000466; /* 滑塊顏色 */
-        border-radius: 50%; /* 圓形滑塊 */
-        cursor: pointer;
-    }
+  .slider-container input[type="range"]::-moz-range-thumb {
+    width: 30px;
+    height: 30px;
+    background: #000466; /* 滑塊顏色 */
+    border-radius: 50%; /* 圓形滑塊 */
+    cursor: pointer;
+  }
 
     /* IE, Edge */
-    .slider-container input[type="range"]::-ms-thumb {
-        width: 30px;
-        height: 30px;
-        background: #000466; /* 滑塊顏色 */
-        border-radius: 50%; /* 圓形滑塊 */
-        cursor: pointer;
-    }
+  .slider-container input[type="range"]::-ms-thumb {
+    width: 30px;
+    height: 30px;
+    background: #000466; /* 滑塊顏色 */
+    border-radius: 50%; /* 圓形滑塊 */
+    cursor: pointer;
+  }
 
     /* 收藏餐廳 */
-    .form-floating>.form-select{
-        padding-top: 26px;
-        padding-bottom: 10px;
-        height: 58px;
-        font-size: 16px;
-    }
+  .form-floating>.form-select{
+    padding-top: 26px;
+    padding-bottom: 10px;
+    height: 58px;
+    font-size: 16px;
+  }
     
-    .form-floating>.form-control, .form-floating>.form-control-plaintext{
-        padding: 16px  12px;
-        height: 58px;
-    }
+  .form-floating>.form-control, .form-floating>.form-control-plaintext{
+    padding: 16px  12px;
+    height: 58px;
+  }
     
-    .search-keyword{
-        width: 350px;
-        position: relative;
-        margin-left: 30px;
-        overflow-x: hidden;
-        font-size: 16px;
-    }
+  .search-keyword{
+    width: 350px;
+    position: relative;
+    margin-left: 30px;
+    overflow-x: hidden;
+    font-size: 16px;
+  }
     
-    .search-button{
-        position: relative;
-        margin-left: 30px;
-        margin-bottom: 15px;
-        color: white;
-        white-space: nowrap;
-        font-size: 16px;
-    }
+  .search-button{
+    position: relative;
+    margin-left: 30px;
+    margin-bottom: 15px;
+    color: white;
+    white-space: nowrap;
+    font-size: 16px;
+  }
 
-    .search{
-        align-items: center;
-        justify-content: center;
-        display: flex;
-        margin-left: 10px;
-        margin-right: 10px;
-    }
+  .search{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 
-    .first_line {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 700px;
-        margin-top: 2vh;
-        margin-bottom: 2vh;
-        font-size: 18px;
-    }
+  .first_line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 700px;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    font-size: 18px;
+  }
 
-    .content_row {
+  .content_row {
       display: flex;
       justify-content: space-between;
       align-items: center;
       width: 700px;
-    }
+  }
 
-    .content_row_container {
-        overflow: auto;
-        overflow-x: hidden;
-        max-height: 450px;
-    }
+  .content_row_container {
+    overflow: auto;
+    overflow-x: hidden;
+    max-height: 450px;
+  }
     
-    .mark_number {
-        display: flex;
-        align-items: center;
-        flex-grow: 0.5; /* 讓每個項目可以擴展 */
-        flex-basis: 5px; /* 初始寬度 */
-        margin-right: 5px;
-    }
+  .mark_number {
+    display: flex;
+    align-items: center;
+    flex-grow: 0.5; /* 讓每個項目可以擴展 */
+    flex-basis: 5px; /* 初始寬度 */
+    margin-right: 5px;
+  }
 
-    .mark_img img {
-        width: 90px;
-        height: 90px;
-        object-fit: cover; /* 保持圖片比例 */
-        object-position: center; /* 圖片置中 */
-        border-radius: 3px;
-        overflow: hidden;
-        margin-right: 5px;
-    }
+  .mark_img img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover; /* 保持圖片比例 */
+    object-position: center; /* 圖片置中 */
+    border-radius: 3px;
+    overflow: hidden;
+    margin-right: 5px;
+  }
 
-    .mark_store {
-        display: flex;
-        align-items: center;
-        flex-grow: 1; /* 讓每個項目可以擴展 */
-        flex-basis: 200px; /* 初始寬度 */
-        margin-right: 5px;
-    }
+  .mark_store {
+    display: flex;
+    align-items: center;
+    flex-grow: 1; /* 讓每個項目可以擴展 */
+    flex-basis: 200px; /* 初始寬度 */
+    margin-right: 5px;
+  }
 
-    .store_name {
-        font-size: 16px;
-        font-weight: bold;
-        display: -webkit-box;
-        -webkit-line-clamp: 1; /* 限制為1行 */
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
+  .store_name {
+    font-size: 16px;
+    font-weight: bold;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
     
-    .mark_score {
-        display: flex;
-        align-items: center;
-        flex-grow: 0.5; /* 讓每個項目可以擴展 */
-        flex-basis: 50px; /* 初始寬度 */
-    }
+  .mark_score {
+    display: flex;
+    align-items: center;
+    flex-grow: 0.5; /* 讓每個項目可以擴展 */
+    flex-basis: 50px; /* 初始寬度 */
+  }
 
-    .mark_category {
-        display: flex;
-        /* display: none; */
-        align-items: center;
-        flex-grow: 0.5; /* 讓每個項目可以擴展 */
-        flex-basis: 50px; /* 初始寬度 */
-    }
+  .mark_category {
+    display: flex;
+    /* display: none; */
+    align-items: center;
+    flex-grow: 0.5; /* 讓每個項目可以擴展 */
+    flex-basis: 50px; /* 初始寬度 */
+  }
     
-    .mark_time {
-        /* display: flex; */
-        display: none;
-        align-items: center;
-        flex-grow: 0.5; /* 讓每個項目可以擴展 */
-        flex-basis: 50px; /* 初始寬度 */
-    }
+  .mark_time {
+    /* display: flex; */
+    display: none;
+    align-items: center;
+    flex-grow: 0.5; /* 讓每個項目可以擴展 */
+    flex-basis: 50px; /* 初始寬度 */
+  }
     
-    .mark_button {
-        display: flex;
-        align-items: center;
-        flex-grow: 0.5; /* 讓每個項目可以擴展 */
-        flex-basis: 60px; /* 初始寬度 */
-    }
+  .mark_button {
+    display: flex;
+    align-items: center;
+    flex-grow: 0.5; /* 讓每個項目可以擴展 */
+    flex-basis: 60px; /* 初始寬度 */
+  }
     
-    .mark_button2 {
-        display: flex;
-        align-items: center;
-    }
+  .mark_button2 {
+    display: flex;
+    align-items: center;
+  }
     
-    .fi-sr-bookmark {
-        font-size: 20px;
-        margin-right: 7px;
-    }
+  .fi-sr-bookmark {
+    font-size: 20px;
+    margin-right: 7px;
+  }
 
-    .fi-sr-share {
-        font-size: 20px;
-    }
+  .fi-sr-share {
+    font-size: 20px;
+  }
 }
 
 /* 小螢幕（手機） */
 @media (max-width: 767px){
     /* 側欄 */
-    .side_area {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: fixed;
-        top: 85px;
-        left: 50%;
-        transform: translateX(-50%); /* 水平置中 */
-        z-index: 999;
-    }
+  .side_area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 85px;
+    left: 50%;
+    transform: translateX(-50%); /* 水平置中 */
+    z-index: 999;
+  }
 
-    .page_button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 20px;
-        font-weight: bold;
-        color: #5e5e5e;
-        padding: 15px;
-    }
+  .page_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: #5e5e5e;
+    padding: 15px;
+  }
 
-    .page_button p {
-        display: none;
-    }
+  .page_button p {
+    display: none;
+  }
 
-    .logo {
-        font-size: 24px;
-        color: #5e5e5e;
-    }
+  .logo {
+    font-size: 24px;
+    color: #5e5e5e;
+  }
 
     main {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: calc(100vh - 90px); /* 內容高度 - 底欄高度 */
-        width: 100%;
-        flex: 1;
-        overflow: hidden;
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 90px); /* 內容高度 - 底欄高度 */
+    width: 100%;
+    flex: 1;
+    overflow: hidden;
+  }
 
     /* 基本資料 */
 
-    .item_name {
-        display: flex;
-        align-items: center;
-        margin-top: 4vh;
-        margin-bottom: 4vh;
-        margin-left: 12vw;
-    }
+  .item_name {
+    display: flex;
+    align-items: center;
+    margin-top: 4vh;
+    margin-bottom: 4vh;
+    margin-left: 12vw;
+  }
 
-    .item_text {
-        width: 24vw;
-        font-size: 18px;
-        font-weight: bold;
-        margin-top: 0;
-        margin-bottom: 0;
-        margin-right: 7px;
-    }
+  .item_text {
+    width: 24vw;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 7px;
+  }
 
-    .item_text2 {
-        background: #FFFFFF;
-        width: 45vw;
-        border: 1px solid #2b2b2b;
-        border-radius: 5px;
-        padding: 5px;
-        box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
-    }
+  .item_text2 {
+    background: #FFFFFF;
+    width: 45vw;
+    border: 1px solid #2b2b2b;
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
+  }
 
-    .edit_info1 {
-        display: inline-block;
-        font-size: 14px;
-        color: #5053AF;
-        font-weight: bold;
-        margin-left: 0.5vw;
-        cursor: pointer;
-    }
+  .edit_info1 {
+    display: inline-block;
+    font-size: 14px;
+    color: #5053AF;
+    font-weight: bold;
+    margin-left: 0.5vw;
+    cursor: pointer;
+  }
 
-    .edit_info1:hover {
-        text-decoration: underline;
-    }
+  .edit_info1:hover {
+    text-decoration: underline;
+  }
 
-    .edit_info2 {
-        display: inline-block;
-        font-size: 14px;
-        color: #5053AF;
-        font-weight: bold;
-        margin-left: 0.5vw;
-        cursor: pointer;
-    }
+  .edit_info2 {
+    display: inline-block;
+    font-size: 14px;
+    color: #5053AF;
+    font-weight: bold;
+    margin-left: 0.5vw;
+    cursor: pointer;
+  }
 
-    .edit_info2:hover {
-        text-decoration: underline;
-    }
+  .edit_info2:hover {
+    text-decoration: underline;
+  }
 
-    #password_title {
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 2vh;
-    }
+  #password_title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 2vh;
+  }
 
-    #password_form label {
-        display: inline-block;
-        width: 20vw;
-        font-size: 14px;
-        margin-top: 2vh;
-        margin-bottom: 1vh;
-    }
+  #password_form label {
+    display: inline-block;
+    width: 20vw;
+    font-size: 14px;
+    margin-top: 2vh;
+    margin-bottom: 1vh;
+  }
 
-    #password_form input {
-        width: 55%;
-        height: 25px;
-        font-size: 14px;
-        padding: 5px;
-        margin-top: 2vh;
-        margin-bottom: 2vh;
-    }
+  #password_form input {
+    width: 55%;
+    height: 25px;
+    font-size: 14px;
+    padding: 5px;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+  }
 
-    #password_form button {
-        width: 12vw;
-        font-size: 12px;
-        padding: 5px;
-        margin-top: 1vh;
-        margin-bottom: 1vh;
-    }
+  #password_form button {
+    width: 12vw;
+    font-size: 12px;
+    padding: 5px;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+  }
 
     /* 密碼小視窗關閉按鈕 */
-    .close-button {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-        margin-left: auto;
-    }
+  .close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    margin-left: auto;
+  }
 
-    .close-button:hover,
-    .close-button:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-    }
+  .close-button:hover,
+  .close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
 
     /* 修改密碼成功訊息 */
-    .success-message {
-        color: green;
-        display: none; /* 初始狀態隱藏 */
-        font-size: 14px;
-    }
+  .success-message {
+    color: green;
+    display: none; /* 初始狀態隱藏 */
+    font-size: 14px;
+  }
 
     /* 偏好設定 */
-    #preference_main_area {
-        margin-top: 18vh;
-        margin-left: 8vw;
-    }
+  #preference_main_area {
+    margin-top: 18vh;
+    margin-left: 8vw;
+  }
 
-    .preference_item_container {
-        margin-bottom: 1vh;
-        height: 380px;
-        overflow: scroll;
-        overflow-x: hidden;
-        padding: 10px;
-    }
+  .preference_item_container {
+    margin-bottom: 1vh;
+    height: 380px;
+    overflow: scroll;
+    overflow-x: hidden;
+    padding: 10px;
+  }
 
-    .title_text {
-        display: flex;
-        align-items: center;
-    }
+  .title_text {
+    display: flex;
+    align-items: center;
+  }
 
-    .type_title {
-        font-size: 18px;
-        font-weight: bold;
-        margin-right: 5px;
-    }
+  .type_title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 5px;
+  }
 
-    #meter {
-        margin-right: 40px;
-    }
+  #meter {
+    margin-right: 40px;
+  }
 
-    .fi-sr-checkbox, .fi-sr-square, .fi-sr-square-minus {
-        display: flex;
-        align-items: center;
-        font-size: 16px;
-    }
+  .fi-sr-checkbox, .fi-sr-square, .fi-sr-square-minus {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+  }
 
     /* .select_all_button {
-        background-color: #FFFFFF;
-        font-size: 16px;
-        color: #414141;
-        margin-right: 10px;
-        border-radius: 5px;
-        border: 1px solid #414141;
-    }
+    background-color: #FFFFFF;
+    font-size: 16px;
+    color: #414141;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #414141;
+  }
 
-    .deselect_all_button {
-        background-color: #FFFFFF;
-        font-size: 16px;
-        color: #414141;
-        border-radius: 5px;
-        border: 1px solid #414141;
-    } */
+  .deselect_all_button {
+    background-color: #FFFFFF;
+    font-size: 16px;
+    color: #414141;
+    border-radius: 5px;
+    border: 1px solid #414141;
+  } */
 
-    .checkbox_container {
-        display: flex;
-        flex-wrap: wrap; /* 超出範圍自動換行 */
-        margin-top: 1vh;
-        margin-bottom: 1vh;
-        gap: 10px;
-    }
+  .checkbox_container {
+    display: flex;
+    flex-wrap: wrap; /* 超出範圍自動換行 */
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    gap: 10px;
+  }
 
-    .checkbox_container2 {
-        display: flex;
-        flex-wrap: wrap; /* 超出範圍自動換行 */
-        margin-top: 1vh;
-        margin-bottom: 1vh;
-        align-items: baseline;
-    }
+  .checkbox_container2 {
+    display: flex;
+    flex-wrap: wrap; /* 超出範圍自動換行 */
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    align-items: baseline;
+  }
 
-    .checkbox_item {
-        box-sizing: border-box; /* margin, padding 不會增加元素的寬度 */
-        align-items: center;
-        font-size: 16px;
-    }
+  .checkbox_item {
+    box-sizing: border-box; /* margin, padding 不會增加元素的寬度 */
+    align-items: center;
+    font-size: 16px;
+  }
 
-    .radio_item {
-        box-sizing: border-box; /* margin, padding 不會增加元素的寬度 */
-        align-items: center;
-        font-size: 16px;
-    }
+  .radio_item {
+    box-sizing: border-box; /* margin, padding 不會增加元素的寬度 */
+    align-items: center;
+    font-size: 16px;
+  }
 
-    .edit-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 70px;
-        height: 40px;
-        cursor: pointer;
-        border-radius: 5px;
-        padding: 7px;
-        font-size: 16px;
-        color: white;
-        margin-right: 20px;
-    }
+  .edit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 7px;
+    font-size: 16px;
+    color: white;
+    margin-right: 20px;
+  }
 
-    .save-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 70px;
-        height: 40px;
-        cursor: pointer;
-        border-radius: 5px;
-        padding: 7px;
-        font-size: 16px;
-        color: white;
-    }
+  .save-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 7px;
+    font-size: 16px;
+    color: white;
+  }
 
-    .cancel-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 70px;
-        height: 40px;
-        cursor: pointer;
-        border-radius: 5px;
-        padding: 7px;
-        font-size: 16px;
-        color: white;
-        margin-right: 15px;
-    }
+  .cancel-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 7px;
+    font-size: 16px;
+    color: white;
+    margin-right: 15px;
+  }
 
     /* 權重設定 */
-    .description_text {
-        font-size: 16px;
-        margin-top: 22vh;
-        margin-left: 8vw;
-    }
+  .description_text {
+    font-size: 16px;
+    margin-top: 22vh;
+    margin-left: 8vw;
+  }
 
     /* 按鈕 */
-    .button_area {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        margin-top: 1vh;
-    }
+  .button_area {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 1vh;
+  }
 
     /* 滑動條 */
-    .slider-container {
-        display: flex;
-        align-items: center;
-        font-size: 18px;
-        font-weight: bold;
-        margin-top: 4vh;
-        margin-bottom: 4vh;
-        margin-left: 5vw;
-    }
+  .slider-container {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 4vh;
+    margin-bottom: 4vh;
+    margin-left: 5vw;
+  }
 
-    .slider-container label {
-        width: 24vw;
-    }
+  .slider-container label {
+    width: 24vw;
+  }
 
-    .slider-container span {
-        margin-left: 3vw;
-    }
+  .slider-container span {
+    margin-left: 3vw;
+  }
 
-    .slider-container input[type="range"] {
-        width: 45vw;
-        height: 3.5vh; /* 軌道高度 */
-        -webkit-appearance: none; /* 移除滑動條預設樣式 */
-        appearance: none; /* 移除滑動條預設樣式 */
-        outline: none; /* 移除滑動條預設藍色外框 */
-        background: #D9D9D9; /* 軌道底色 */
-        border-radius: 50px; /* 軌道圓角 */
-    }
+  .slider-container input[type="range"] {
+    width: 45vw;
+    height: 3.5vh; /* 軌道高度 */
+    -webkit-appearance: none; /* 移除滑動條預設樣式 */
+    appearance: none; /* 移除滑動條預設樣式 */
+    outline: none; /* 移除滑動條預設藍色外框 */
+    background: #D9D9D9; /* 軌道底色 */
+    border-radius: 50px; /* 軌道圓角 */
+  }
 
     /* Chrome, Safari, Edge, Opera */
-    .slider-container input[type="range"]::-webkit-slider-thumb {
-        width: 30px;
-        height: 30px;
-        -webkit-appearance: none; /* 移除預設樣式(Chrome, Safari) */
-        appearance: none; /* 移除預設樣式(Edge, Opera) */
-        background: #000466; /* 滑塊顏色 */ 
-        border-radius: 50%; /* 圓形滑塊 */
-        cursor: pointer;
-    }
+  .slider-container input[type="range"]::-webkit-slider-thumb {
+    width: 30px;
+    height: 30px;
+    -webkit-appearance: none; /* 移除預設樣式(Chrome, Safari) */
+    appearance: none; /* 移除預設樣式(Edge, Opera) */
+    background: #000466; /* 滑塊顏色 */ 
+    border-radius: 50%; /* 圓形滑塊 */
+    cursor: pointer;
+  }
 
     /* Firefox */
-    .slider-container input[type="range"]::-moz-range-thumb {
-        width: 30px;
-        height: 30px;
-        background: #000466; /* 滑塊顏色 */
-        border-radius: 50%; /* 圓形滑塊 */
-        cursor: pointer;
-    }
+  .slider-container input[type="range"]::-moz-range-thumb {
+    width: 30px;
+    height: 30px;
+    background: #000466; /* 滑塊顏色 */
+    border-radius: 50%; /* 圓形滑塊 */
+    cursor: pointer;
+  }
 
     /* IE, Edge */
-    .slider-container input[type="range"]::-ms-thumb {
-        width: 30px;
-        height: 30px;
-        background: #000466; /* 滑塊顏色 */
-        border-radius: 50%; /* 圓形滑塊 */
-        cursor: pointer;
-    }
+  .slider-container input[type="range"]::-ms-thumb {
+    width: 30px;
+    height: 30px;
+    background: #000466; /* 滑塊顏色 */
+    border-radius: 50%; /* 圓形滑塊 */
+    cursor: pointer;
+  }
 
     /* 收藏餐廳 */
-    #favorite_main_area {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 150px;
-    }
+  #favorite_main_area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 150px;
+  }
 
-    .form-floating>.form-select{
-        padding-top: 26px;
-        padding-bottom: 10px;
-        height: 50px;
-        font-size: 14px;
-    }
+  .form-floating>.form-select{
+    padding-top: 26px;
+    padding-bottom: 10px;
+    height: 50px;
+    font-size: 14px;
+  }
     
-    .form-floating>.form-control, .form-floating>.form-control-plaintext{
-        padding: 16px  12px;
-        height: 50px;
-    }
+  .form-floating>.form-control, .form-floating>.form-control-plaintext{
+    padding: 16px  12px;
+    height: 50px;
+  }
     
-    .search-keyword{
-        width: 140px;
-        position: relative;
-        margin-left: 10px;
-        overflow-x: hidden;
-        font-size: 14px;
-    }
+  .search-keyword{
+    width: 140px;
+    position: relative;
+    margin-left: 10px;
+    overflow-x: hidden;
+    font-size: 14px;
+  }
     
-    .search-button{
-        position: relative;
-        margin-left: 10px;
-        margin-bottom: 15px;
-        color: white;
-        white-space: nowrap;
-        font-size: 14px;
-    }
+  .search-button{
+    position: relative;
+    margin-left: 10px;
+    margin-bottom: 15px;
+    color: white;
+    white-space: nowrap;
+    font-size: 14px;
+  }
 
-    .search{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+  .search{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-    .first_line {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 350px;
-        margin-top: 2vh;
-        margin-bottom: 2vh;
-        font-size: 14px;
-    }
+  .first_line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 350px;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    font-size: 14px;
+  }
 
-    .content_row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 350px;
-    }
+  .content_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 350px;
+  }
 
-    .content_row_container {
-        overflow: auto;
-        overflow-x: hidden;
-        max-height: 300px;
-        padding-right: 10px;
-    }
+  .content_row_container {
+    overflow: auto;
+    overflow-x: hidden;
+    max-height: 300px;
+    padding-right: 10px;
+  }
     
-    .mark_number {
-        display: flex;
-        align-items: center;
-        flex-grow: 0.5; /* 讓每個項目可以擴展 */
-        flex-basis: 5px; /* 初始寬度 */
-        margin-right: 7px;
-    }
+  .mark_number {
+    display: flex;
+    align-items: center;
+    flex-grow: 0.5; /* 讓每個項目可以擴展 */
+    flex-basis: 5px; /* 初始寬度 */
+    margin-right: 7px;
+  }
 
-    .mark_img img {
-        width: 90px;
-        height: 90px;
-        object-fit: cover; /* 保持圖片比例 */
-        object-position: center; /* 圖片置中 */
-        border-radius: 3px;
-        overflow: hidden;
-        margin-right: 5px;
-    }
+  .mark_img img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover; /* 保持圖片比例 */
+    object-position: center; /* 圖片置中 */
+    border-radius: 3px;
+    overflow: hidden;
+    margin-right: 5px;
+  }
 
-    .mark_store {
-        display: flex;
-        align-items: center;
-        flex-grow: 1; /* 讓每個項目可以擴展 */
-        flex-basis: 200px; /* 初始寬度 */
-        margin-right: 5px;
-    }
+  .mark_store {
+    display: flex;
+    align-items: center;
+    flex-grow: 1; /* 讓每個項目可以擴展 */
+    flex-basis: 200px; /* 初始寬度 */
+    margin-right: 5px;
+  }
 
-    .mark_store span {
-        margin-right: 2px !important;
-    }
+  .mark_store span {
+    margin-right: 2px !important;
+  }
 
-    .store_name {
-        font-size: 16px;
-        font-weight: bold;
-        display: -webkit-box;
-        -webkit-line-clamp: 1; /* 限制為1行 */
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
+  .store_name {
+    font-size: 16px;
+    font-weight: bold;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
     
-    .mark_score {
-        display: flex;
-        align-items: center;
-        flex-grow: 0.5; /* 讓每個項目可以擴展 */
-        flex-basis: 50px; /* 初始寬度 */
-    }
+  .mark_score {
+    display: flex;
+    align-items: center;
+    flex-grow: 0.5; /* 讓每個項目可以擴展 */
+    flex-basis: 50px; /* 初始寬度 */
+  }
 
-    .mark_score span {
-        margin-right: 2px !important;
-    }
+  .mark_score span {
+    margin-right: 2px !important;
+  }
 
-    .mark_category {
-        /* display: flex; */
-        display: none;
-        align-items: center;
-        flex-grow: 0.5; /* 讓每個項目可以擴展 */
-        flex-basis: 50px; /* 初始寬度 */
-    }
+  .mark_category {
+    /* display: flex; */
+    display: none;
+    align-items: center;
+    flex-grow: 0.5; /* 讓每個項目可以擴展 */
+    flex-basis: 50px; /* 初始寬度 */
+  }
 
-    .mark_time {
-        /* display: flex; */
-        display: none;
-        align-items: center;
-        flex-grow: 0.5; /* 讓每個項目可以擴展 */
-        flex-basis: 50px; /* 初始寬度 */
-    }
+  .mark_time {
+    /* display: flex; */
+    display: none;
+    align-items: center;
+    flex-grow: 0.5; /* 讓每個項目可以擴展 */
+    flex-basis: 50px; /* 初始寬度 */
+  }
     
-    .mark_button {
-        display: flex;
-        align-items: center;
-        flex-grow: 0.5; /* 讓每個項目可以擴展 */
-        flex-basis: 40px; /* 初始寬度 */
-    }
+  .mark_button {
+    display: flex;
+    align-items: center;
+    flex-grow: 0.5; /* 讓每個項目可以擴展 */
+    flex-basis: 40px; /* 初始寬度 */
+  }
     
-    .mark_button2 {
-        display: flex;
-        align-items: center;
-    }
+  .mark_button2 {
+    display: flex;
+    align-items: center;
+  }
     
-    .fi-sr-bookmark {
-        font-size: 16px;
-        margin-right: 5px;
-    }
+  .fi-sr-bookmark {
+    font-size: 16px;
+    margin-right: 5px;
+  }
 
-    .fi-sr-share {
-        font-size: 16px;
-    }
+  .fi-sr-share {
+    font-size: 16px;
+  }
 }
 
 /* 基本的 content_row 樣式 */

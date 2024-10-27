@@ -242,6 +242,13 @@ function goToDetailPage(storeId) {
 }
 function redirectToDetailPage(storeId) {
   data = document.getElementById('searchResults').getAttribute('search-data');
+  const formData = new FormData();
+  formData.set('id', storeId);
+  fetch('/member/handler/browse-store.php', {
+    method: 'POST',
+    credentials: 'same-origin',
+    body: formData
+  })
   window.location.href = `/detail?id=${storeId}&data=${encodeURIComponent(data)}`;
 }
 function urlToDetailPage(storeId) {

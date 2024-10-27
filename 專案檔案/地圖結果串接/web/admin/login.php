@@ -70,7 +70,7 @@
             document.getElementById('loginError').innerText = data.message;
             document.getElementById('loginError').style.display = 'block';
           }
-        })        
+        })
         .catch(() => {
           document.getElementById('loginError').innerText = '伺服器發生錯誤，請稍後再試';
           document.getElementById('loginError').style.display = 'block';

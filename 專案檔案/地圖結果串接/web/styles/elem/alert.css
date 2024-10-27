@@ -18,6 +18,22 @@
   top: -100px;
   opacity: 0;
 }
+.alert-close {
+  background-color: transparent;
+  color: white;
+  border-color: white;
+  border-width: 2px;
+  border-radius: 5px;
+  margin-left: 10px;
+  padding: 0px 7px;
+  font-size: 14px;
+  top: -2px;
+  position: relative;
+}
+.alert-close:hover {
+  background-color: white;
+  color: gray;
+}
 
 /* 紅色 */
 .alert-dark-red {

@@ -11,9 +11,7 @@
   <meta charset="utf-8" />
   <title>餐廳推薦 - 評星宇宙</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
-  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+  <link rel="stylesheet" href="/styles/common/base.css">
   <link rel="stylesheet" href="/styles/suggestion.css" />
 </head>
 
@@ -33,17 +31,14 @@
     </li>
   </ul>
 
-  <div class="tab-content-random active" id="tab-content-random"></div>
-  <div class="tab-content-most-browse" id="tab-content-most-browse"></div>
-  <div class="tab-content-most-favorite" id="tab-content-most-favorite"></div>
+  <div class="tab-content tab-content-random active" id="tab-content-random"></div>
+  <div class="tab-content tab-content-most-browse" id="tab-content-most-browse"></div>
+  <div class="tab-content tab-content-most-favorite" id="tab-content-most-favorite"></div>
 
   </section>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-  <script src="https://kit.fontawesome.com/876a36192d.js" crossorigin="anonymous"></script>
-  <script src="/scripts/suggestion.js"></script>
-
+  <?php require_once $_SERVER['DOCUMENT_ROOT'].'/scripts/common/base.html';?>
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/footer.php'; ?>
+  <script src="/scripts/suggestion.js"></script>
 </body>
 </html>

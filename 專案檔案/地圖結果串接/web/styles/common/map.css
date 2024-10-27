@@ -1,0 +1,35 @@
+@import url('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css');
+@import url('https://cdn.jsdelivr.net/npm/leaflet.awesome-markers/dist/leaflet.awesome-markers.css');
+@import url('https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css');
+@import url('https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css');
+
+#crosshair {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 35px;
+  height: 35px;
+  margin-left: -17.5px;
+  margin-top: -17.5px;
+  pointer-events: none;
+  z-index: 999;
+}
+#crosshair::before, #crosshair::after {
+  content: '';
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.7); /* 黑色透明線條 */
+}
+#crosshair::before {
+  width: 1px;
+  height: 100%;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+#crosshair::after {
+  height: 1px;
+  width: 100%;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}

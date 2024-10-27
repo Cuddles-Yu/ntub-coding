@@ -46,8 +46,8 @@ class SqlDatabase:
     def close(self):
         self.connection.close()
 
-    def execute(self, sql):
-        execute(self.connection, sql)
+    def execute(self, sql, *param):
+        execute(self.connection, sql, *param)
 
     def fetch(self, mode, sql):
         return fetch(self.connection, mode, sql)

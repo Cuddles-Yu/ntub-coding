@@ -2,7 +2,6 @@
 
 <link rel="stylesheet" href="/styles/header.css" />
 <link rel="stylesheet" href="/styles/elem/form.css" />
-<link rel="stylesheet" href="/styles/common.css" />
 <link rel="stylesheet" href="/styles/elem/solid-button.css" />
 <link rel="stylesheet" href="/styles/elem/outline-button.css" />
 <link rel="stylesheet" href="/styles/elem/alert.css" />
@@ -14,13 +13,13 @@
   <div id="web_name"></div>
 
   <div id="nav_menu1">
-      <a class="link_text page-item home-page" href="/home">餐廳搜尋</a><!-- <img src="/images/icon-member.png" class="text-icon"> -->
+      <a class="link_text page-item home-page" href="/home">餐廳搜尋</a>
       <div class="vertical-line"></div>
       <a class="link_text page-item suggestion-page" href="/suggestion">餐廳推薦</a>
       <div class="vertical-line"></div>
-      <a class="link_text page-item instruction-page" href="/instruction">使用說明</a><!-- !!!需要更新!!! style="color:lightgray;cursor:default;" -->
+      <a class="link_text page-item instruction-page" href="/instruction">使用說明</a><!-- style="color:lightgray;cursor:default;" -->
       <div class="vertical-line"></div>
-      <a class="link_text page-item feedback-page" href="/feedback">聯絡我們</a><!-- href="https://forms.gle/t7CfCTF7phHKU9yJ8" target="_blank" -->
+      <a class="link_text page-item feedback-page" href="/feedback">聯絡我們</a>
       <div class="vertical-line"></div>
       <a class="link_text page-item team-page" href="/team">成員介紹</a>
       <?php if($SESSION_DATA->success): ?>

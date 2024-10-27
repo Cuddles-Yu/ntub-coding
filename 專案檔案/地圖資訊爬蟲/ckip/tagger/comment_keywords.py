@@ -24,6 +24,11 @@ ner = NER(data_dir)
 keywords = load_json(r'D:\ntub\project\repository\ntub-coding\專案檔案\地圖資訊爬蟲\crawler\doc\KEYWORDS.json')
 dishes = keywords.get('餐點', []) + keywords.get('關鍵字', []) + keywords.get('定義', [])
 
+sids = database.fetch('all', f'''
+    SELECT id FROM stores
+    WHERE crawler_state IN ('完成', '超時', '成功')
+''')
+
 # 測試文本
 data = database.fetch('all', f'''
     SELECT s.id, s.name, c.contents FROM comments AS c

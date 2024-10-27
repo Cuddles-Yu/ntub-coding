@@ -3,16 +3,20 @@
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/session.php';
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/function.php';
   global $conn;
-  $stmt = $conn->prepare(query: 
-  " SELECT auth_key FROM administrators
+  $stmt = $conn->prepare("
+    SELECT auth_key FROM administrators
   ");
   $stmt->execute();
   $results = $stmt->get_result();
   $authKeys = [];
   while ($row = $results->fetch_assoc()) {
       $authKeys[] = $row['auth_key'];
-  }    
-  $providedAuthKey = isset($_GET['auth']) ? $_GET['auth'] : '';
+  }
+  $providedAuthKey = $_GET['auth']??'';
+  if (!$providedAuthKey && !in_array(needle:$providedAuthKey, haystack:$authKeys)) {
+    echo '您沒有權限訪問此頁面';
+    exit;
+  }
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +28,7 @@
   <link rel="stylesheet" href="/styles/elem/form.css">
 </head>
 
-<body class="form-body"> 
+<body class="form-body">
   <div class='form-container' id="container" auth="<?=$providedAuthKey?>">
     <h2 class="form-h2">管理者註冊</h2>
     <form novalidate>
@@ -74,24 +78,23 @@
       navigator.clipboard.writeText(authKey)
     }
     function registerRequest() {
-      const nameInput = document.getElementById('name')      
+      const nameInput = document.getElementById('name')
       const passwordInput = document.getElementById('password')
-      const name = nameInput.value;   
+      const name = nameInput.value;
       const password = passwordInput.value;
-      document.getElementById('nameError').style.display = !name ? 'block' : 'none';      
+      document.getElementById('nameError').style.display = !name ? 'block' : 'none';
       document.getElementById('passwordError').style.display = !password ? 'block' : 'none';
       if (!name || !password) {
         !name ? nameInput.focus() : passwordInput.focus();
         return;
-      }      
+      }
       clearInputs(nameInput, passwordInput);
       nameInput.focus();
 
       const formData = new FormData();
-      formData.set('name', name);     
-      formData.set('password', password); 
+      formData.set('name', name);
+      formData.set('password', password);
       document.getElementById('message').style.display = 'block';
-      // 獲取 HTML 搜索結果
       fetch('./handler/register.php', {
         method: 'POST',
         credentials: 'same-origin',
@@ -101,8 +104,8 @@
         .then(data => {
           if (data.success) {
             document.getElementById('container').setAttribute('auth', data.token);
-            document.getElementById('copy-button').style.display = 'block';       
-            document.getElementById('loginError').innerText = `管理員 '${name}' 註冊成功`;     
+            document.getElementById('copy-button').style.display = 'block';
+            document.getElementById('loginError').innerText = `管理員 '${name}' 註冊成功`;
             document.getElementById('loginError').style.color = 'darkgreen';
           } else {
             document.getElementById('copy-button').style.display = 'none';

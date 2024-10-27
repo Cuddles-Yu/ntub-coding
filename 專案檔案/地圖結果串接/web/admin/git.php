@@ -53,7 +53,7 @@
         $output = preg_replace('/\n\s*\n/', "\n", trim($output));
         $logEntry = "
         <div class='log-entry'>
-            <h3>Git Pull 資訊</h3>                    
+            <h3>Git Pull 資訊</h3>
             <p><strong>輸出</strong></p>
             <pre class='git-log'>$output</pre>
             <p><strong>同步時間：</strong>$current_time</p>

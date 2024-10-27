@@ -13,6 +13,7 @@ from selenium.webdriver.common.by import By
 ### 初始化 ###
 database = SqlDatabase('mapdb', 'root', '11236018')
 driver = EdgeDriver(database, url='https://www.google.com.tw/maps/preview')
+urls = []
 
 ### 主程式 ###
 if OPEN_DATA:
@@ -49,8 +50,6 @@ else:
                 print(f'查無需資料修復之商家，程式將自動結束...')
                 driver.exit()
             print(f'資料完整性修復模式 -> 已開啟')
-        else:
-            urls = []
 
 print(f'資料將儲存至資料庫 -> {database.name}')
 if FORCE_CRAWLER: print(f'強制爬蟲模式(自動重設已存在商家) -> 已開啟')
@@ -238,7 +237,10 @@ for i in range(url_count):
     print('\r正在取得商家相片...', end='')
     store_img = driver.wait_for_element(By.CLASS_NAME, 'aoRNLd')
     time.sleep(0.5)
-    if store_img: store_item._preview_image = store_img.find_element(By.TAG_NAME, 'img').get_attribute('src')
+    if store_img:
+        image_url = store_img.find_element(By.TAG_NAME, 'img').get_attribute('src')
+        store_item._preview_image = image_url
+        store_item._image = download_image_as_binary(image_url)
 
     ### 服務項目 ###
     print('\r正在取得服務項目...', end='')

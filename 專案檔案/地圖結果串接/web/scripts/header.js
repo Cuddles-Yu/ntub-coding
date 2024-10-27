@@ -8,15 +8,29 @@ function showAlert(type, message, timeout = 5000) {
   alertBox.classList.add('alert-hide');
   setTimeout(function() {
     alertBox.className = 'alert';
+    alertBox.innerHTML = '';
     alertBox.classList.add(`alert-${type}`);
-    alertBox.textContent = message;
     alertBox.classList.remove('alert-hide');
     alertBox.classList.add('alert-show');
-    alertTimeout = setTimeout(function() {
-      alertBox.classList.remove('alert-show');
-      alertBox.classList.add('alert-hide');
-    }, timeout);
+    const messageText = document.createElement('span');
+    messageText.textContent = message;
+    alertBox.appendChild(messageText);
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'X';
+    closeButton.classList.add('alert-close');
+    closeButton.onclick = hideAlert;
+    alertBox.appendChild(closeButton);
+    alertTimeout = setTimeout(function() { hideAlert(); }, timeout);
   }, 50);
+}
+
+function hideAlert() {
+  const alertBox = document.getElementById('alert-box');
+  if (alertBox.classList.contains('alert-show')) {
+    alertBox.classList.remove('alert-show');
+    alertBox.classList.add('alert-hide');
+    setTimeout(function() { alertBox.textContent = ''; }, 500);
+  }
 }
 
 window.onload = function() {

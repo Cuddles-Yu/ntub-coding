@@ -36,8 +36,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-function generateStoreSuggestion(content) {
-  var resultsContainer = document.getElementById(content);
+function generateStoreSuggestion(tabId) {
+  var resultsContainer = document.getElementById(tabId);
   resultsContainer.innerHTML = `
     <div style="width:100%;height:550px;align-content:center;">
       <div class="rotating">
@@ -45,9 +45,12 @@ function generateStoreSuggestion(content) {
       </div>
       <p style="text-align:center;">正在取得推薦餐廳...</p>
     </div>`;
+  const formData = new FormData();
+  formData.append('mode', tabId.replaceAll('tab-content-', ''));
   fetch('/struc/store-suggestion.php', {
     method: 'POST',
     credentials: 'same-origin',
+    body: formData
   })
     .then(response => response.text())
     .then(data => {

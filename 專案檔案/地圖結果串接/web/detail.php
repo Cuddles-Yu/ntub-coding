@@ -52,15 +52,9 @@
   <title>詳細資訊 - 評星宇宙</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
-  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers/dist/leaflet.awesome-markers.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+  <link rel="stylesheet" href="/styles/common/base.css">
+  <link rel="stylesheet" href="/styles/common/map.css">
   <link rel="stylesheet" href="/styles/detail.css" />
-  <link rel="stylesheet" href="/styles/map.css" />
 </head>
 
 <body>
@@ -432,21 +426,17 @@
       <div class="carousel-arrow-tag right-arrow-2" type="button"><i class="fi fi-sr-angle-right"></i></div>
   </section>
   <?php endif; ?>
-  <section class="section-content">
+
+  <section class="section-content" style="margin-top:20px;">
     <!--資料爬蟲時間--><h6 class="update">資料更新時間：<?=$storeInfo['crawler_time'] ?></h6>
   </section>
 
   <button id="back-to-top-btn" style="display:none;"><i class="fas fa-arrow-up"></i></button>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-  <script src="https://kit.fontawesome.com/876a36192d.js" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers/dist/leaflet.awesome-markers.min.js"></script>
-  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-  <script src="/scripts/detail.js" defer></script>
-  <script src="/scripts/map.js"></script>
-  <script src="/scripts/detail-landmark.js"></script>
+  <?php require_once $_SERVER['DOCUMENT_ROOT'].'/scripts/common/base.html';?>
+  <?php require_once $_SERVER['DOCUMENT_ROOT'].'/scripts/common/map.html';?>
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/footer.php'; ?>
+  <script src="/scripts/detail.js" defer></script>
+  <script src="/scripts/detail-landmark.js"></script>
 </body>
 </html>
