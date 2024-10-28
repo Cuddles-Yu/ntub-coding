@@ -4,7 +4,22 @@
 @import url('https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css');
 @import url('https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css');
 @import url('https://cdn-uicons.flaticon.com/uicons-thin-rounded/css/uicons-thin-rounded.css');
-@import url('https://cdn-uicons.flaticon.com/uicons-light-rounded/css/uicons-light-rounded.css');
-@import url('https://cdn-uicons.flaticon.com/uicons-duotone-rounded/css/uicons-duotone-rounded.css');
-@import url('https://cdn-uicons.flaticon.com/uicons-color-rounded/css/uicons-color-rounded.css');
-@import url('https://cdn-uicons.flaticon.com/uicons-line-rounded/css/uicons-line-rounded.css');
+
+em {
+  font-style: normal !important;
+}
+
+img {
+  -webkit-user-drag: none !important;
+}
+
+.underline {
+  text-decoration: underline !important;
+}
+
+.no-flow {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  text-wrap: nowrap !important;
+  margin:0 0 !important;
+}

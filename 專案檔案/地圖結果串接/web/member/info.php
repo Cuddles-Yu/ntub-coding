@@ -284,7 +284,6 @@
             <?php foreach($FAVORITE_STORES as $store): ?>
               <?php
                 $id = $store['id'];
-                $shareLink = htmlspecialchars('https://commentspace.ascdc.tw/detail?id='.$id);
                 $name = htmlspecialchars($store['name']);
                 $previewImage = htmlspecialchars($store['preview_image']);
                 $tag = htmlspecialchars($store['tag']);
@@ -313,7 +312,7 @@
                   <div class="sort_button_wrapper" onclick="preventMultipleClick(event);targetFavorite(this);" data-bs-toggle="modal" data-bs-target="#removeFavoriteModal">
                     <i class="fi fi-sr-trash trans-red-button"></i>
                   </div>
-                  <div class="sort_button_wrapper" onclick="preventMultipleClick(event);shareFavorite('<?=$shareLink?>');">
+                  <div class="sort_button_wrapper" onclick="preventMultipleClick(event);shareStore('<?=$id?>');">
                     <i class="fi fi-sr-share trans-blue-button"></i>
                   </div>
                 </div>

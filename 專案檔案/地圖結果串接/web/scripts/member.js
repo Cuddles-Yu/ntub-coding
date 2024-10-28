@@ -14,7 +14,7 @@ window.addEventListener('load', function () {
   // 預設顯示的頁面
   const urlParams = new URLSearchParams(window.location.search);
   const tab = urlParams.get('tab');
-  if (tab) switchTo(tab);
+  if (tab) switchTo(tab, onlySwitch=true);
 
   // 強制設置圖示隱藏
   document.querySelectorAll('.select_icon').forEach(function(element) {
@@ -32,22 +32,31 @@ window.addEventListener('load', function () {
 });
 
 
-function switchTo(page) {
+function switchTo(page, onlySwitch = false) {
+  window.history.replaceState({}, '', `${location.protocol}//${location.host}${location.pathname}?tab=${page}`);
+  if (!onlySwitch && page === 'favorite') {
+    location.reload();
+    return;
+  }
   // 主要區域
   document.getElementById("info_main_area").style.display = (page=='info') ? "block" : "none";
   document.getElementById("preference_main_area").style.display = (page=='preference') ? "block" : "none";
   document.getElementById("weight_main_area").style.display = (page=='weight') ? "block" : "none";
   document.getElementById("favorite_main_area").style.display = (page=='favorite') ? "block" : "none";
   // 選單標籤
-  document.getElementById("info").style.color = (page=='info') ? "#8234FF" : "#5e5e5e";
-  document.getElementById("info_logo").style.color = (page=='info') ? "#8234FF" : "#5e5e5e";
-  document.getElementById("preference").style.color = (page=='preference') ? "#8234FF" : "#5e5e5e";
-  document.getElementById("preference_logo").style.color = (page=='preference') ? "#8234FF" : "#5e5e5e";
-  document.getElementById("weight").style.color = (page=='weight') ? "#8234FF" : "#5e5e5e";
-  document.getElementById("weight_logo").style.color = (page=='weight') ? "#8234FF" : "#5e5e5e";
-  document.getElementById("favorite").style.color = (page=='favorite') ? "#8234FF" : "#5e5e5e";
-  document.getElementById("favorite_logo").style.color = (page=='favorite') ? "#8234FF" : "#5e5e5e";
-  window.history.replaceState({}, '', `${location.protocol}//${location.host}${location.pathname}?tab=${page}`);
+  const elements = ['info', 'preference', 'weight', 'favorite'];
+  elements.forEach(id => {
+    const element = document.getElementById(id);
+    const logoElement = document.getElementById(`${id}_logo`);
+    element.style.color = "#5e5e5e";
+    logoElement.style.color = "#5e5e5e";
+    element.style.cursor = "pointer";
+    element.onclick = function() { switchTo(id); };
+  });
+  document.getElementById(page).style.color = "#8234FF";
+  document.getElementById(`${page}_logo`).style.color = "#8234FF";
+  document.getElementById(page).style.cursor = "default";
+  document.getElementById(page).onclick = null;
 }
 
 // 修改偏好設定按鈕
@@ -203,26 +212,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function handleRowClick() {
   console.log("Row clicked");
-}
-
-function shareFavorite(link) {
-  const shareData = {
-    title: '分享餐廳連結',
-    text: `${document.getElementById('user_name').value}邀請你一起來看看所收藏的餐廳！`,
-    url: link,
-  };
-  if (navigator.share) {
-    navigator.share(shareData).then(() => {
-    }).catch(() => {
-      showAlert('red', '分享過程中發生錯誤，請稍後再試');
-    });
-  } else {
-    navigator.clipboard.writeText(shareData.url).then(function() {
-      showAlert('orange', '此瀏覽器不支援分享功能，已自動複製連結');
-    }).catch(() => {
-      showAlert('red', '複製連結失敗，請稍後再試');
-    });
-  }
 }
 
 function checkFavorite() {

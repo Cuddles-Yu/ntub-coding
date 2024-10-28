@@ -19,7 +19,7 @@ button {
 }
 
 /* 預設隱藏 偏好設定、權重設定、收藏餐廳 頁面 */
-#preference_main_area, #weight_main_area, #favorite_main_area {
+#info_main_area, #preference_main_area, #weight_main_area, #favorite_main_area {
     display: none;
 }
 
@@ -169,11 +169,11 @@ button {
     font-size: 28px;
     font-weight: bold;
     color: #5e5e5e;
+    cursor: pointer;
   }
 
   .page_button p {
     margin-left: 0.2vw;
-    cursor: pointer;
   }
 
   .logo {
@@ -655,11 +655,11 @@ button {
     font-size: 24px;
     font-weight: bold;
     color: #5e5e5e;
+    cursor: pointer;
   }
 
   .page_button p {
     margin-left: 0.2vw;
-    cursor: pointer;
   }
 
   .logo {
@@ -1144,11 +1144,11 @@ button {
     font-weight: bold;
     color: #5e5e5e;
     margin-right: 20px;
+    cursor: pointer;
   }
 
   .page_button p {
     margin-left: 0.2vw;
-    cursor: pointer;
   }
 
   .logo {
@@ -1626,6 +1626,7 @@ button {
     font-weight: bold;
     color: #5e5e5e;
     padding: 15px;
+    cursor: pointer;
   }
 
   .page_button p {

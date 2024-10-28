@@ -90,7 +90,7 @@
           </div>
         </div>
         <p class="checkbox-title">基礎設施</p>
-        <div class="checkbox-container">                
+        <div class="checkbox-container">
           <div class="checkbox-item">
             <input type="checkbox" id="signup-toilet" value="">
             <label for="signup-toilet">洗手間</label>
@@ -101,7 +101,7 @@
           </div>
         </div>
         <p class="checkbox-title">付款方式</p>
-        <div class="checkbox-container">                
+        <div class="checkbox-container">
           <div class="checkbox-item">
             <input type="checkbox" id="signup-cash" value="">
             <label for="signup-cash">現金</label>
@@ -120,7 +120,7 @@
           </div>
         </div>
       </div>
-      <div class="modal-footer">          
+      <div class="modal-footer">
         <button type="button" class="btn btn-solid-gray" id="signup2-cancel-button" onclick="cancelSignup('signupModal2')">取消</button>
         <button type="button" class="btn btn-solid-gray" id="signup2-previus-button" data-bs-target="#signupModal1" data-bs-toggle="modal">上一步</button>
         <button type="button" class="btn btn-primary" id="signup2-next-button" data-bs-target="#signupModal3" data-bs-toggle="modal">下一步</button>

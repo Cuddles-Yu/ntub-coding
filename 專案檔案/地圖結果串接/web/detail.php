@@ -32,6 +32,9 @@
     $Lowests = getLowestComments($storeId);
     $comments = getComments($storeId);
     $location = getLocation($storeId);
+    $fullAddress = htmlspecialchars($location['city'].$location['dist'].$location['vil'].$location['city'].$location['details']);
+    $lat = $location['latitude'];
+    $lng = $location['longitude'];
     $rating = getRating($storeId);
     $service = getService($storeId);
     $keywords = getAllKeywords($storeId);
@@ -52,8 +55,8 @@
   <title>詳細資訊 - 評星宇宙</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
-  <link rel="stylesheet" href="/styles/common/base.css">
   <link rel="stylesheet" href="/styles/common/map.css">
+  <link rel="stylesheet" href="/styles/common/base.css">
   <link rel="stylesheet" href="/styles/detail.css" />
 </head>
 
@@ -62,7 +65,7 @@
 
   <section class="normal-content section-content">
     <div id="favorite-button" onclick="toggleFavorite(this,<?=$storeId?>)">
-      <img src="<?=$isFavorite?'/images/button-favorite-active.png':'/images/button-favorite-inactive.png';?>">
+      <i class="fi <?=$isFavorite?'fi-sr-bookmark':'fi-br-bookmark'?>" style="font-size:34px;top:2px;position:relative;"></i>
       <h1 class="store-title" id="store-title" style="margin-left:10px"><?=$storeName?></h1>
     </div>
     <div class="love-group">
@@ -376,13 +379,12 @@
         <div class="introduction-item-group">
           <div class="store-introduction-group">
             <li class="introduction-title">地址</li>
-            <li class="introduction-item"><a class="introduction-item" onclick="navigateToStore(<?=htmlspecialchars(json_encode($location['latitude'])); ?>, <?=htmlspecialchars(json_encode($location['longitude'])); ?>)">
-                <?=htmlspecialchars($location['city'] . '' . $location['dist'] . '' . $location['vil'] . '' . $location['city'] . '' . $location['details']); ?></a></li>
+            <div class="introduction-item no-flow underline" onclick="confirmNavigate(<?=$lat?>,<?=$lng?>)"><?=$fullAddress?></div>
           </div>
           <div class="store-introduction-group">
             <li class="introduction-title">電話</li>
             <?php if($phoneNumber):?>
-              <li class="introduction-item"><?=$phoneNumber;?></li>
+              <li class="introduction-item no-flow"><?=$phoneNumber;?></li>
             <?php else:?>
               <li class="introduction-item">(未提供)</li>
             <?php endif;?>
@@ -390,7 +392,7 @@
           <div class="store-introduction-group">
             <li class="introduction-title">相關網站</li>
             <?php if($website):?>
-              <a class="introduction-item" href="<?=$website;?>" target="_blank"><?=$website;?></a>
+              <div class="introduction-item no-flow underline" onclick="confirmExternalLink('<?=$website?>')"><?=$website?></div>
             <?php else:?>
               <li class="introduction-item">(未提供)</li>
             <?php endif;?>

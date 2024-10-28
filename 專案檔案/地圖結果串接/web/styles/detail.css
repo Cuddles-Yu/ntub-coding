@@ -700,9 +700,9 @@ body{
 .store-introduction-group{
   margin-top: 15px;
   list-style: none;
-  user-select: text;
-  -webkit-user-select: text;
-  -moz-user-select: text;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
 }
 
 .introduction-title{
@@ -717,7 +717,6 @@ body{
 
 .introduction-item{
   max-width: 510px;
-  display: -webkit-box;
   -webkit-line-clamp: 1;
   line-clamp: 1;
   -webkit-box-orient: vertical;
@@ -1394,9 +1393,9 @@ body{
   .store-introduction-group{
   margin-top: 15px;
   list-style: none;
-  user-select: text;
-  -webkit-user-select: text;
-  -moz-user-select: text;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
   }
   
   .introduction-title{
@@ -1411,7 +1410,6 @@ body{
   
   .introduction-item{
   max-width: 510px;
-  display: -webkit-box;
   -webkit-line-clamp: 1;
   line-clamp: 1;
   -webkit-box-orient: vertical;
@@ -2085,9 +2083,9 @@ body{
   .store-introduction-group{
   margin-top: 15px;
   list-style: none;
-  user-select: text;
-  -webkit-user-select: text;
-  -moz-user-select: text;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
   }
   
   .introduction-title{
@@ -2102,7 +2100,6 @@ body{
   
   .introduction-item{
   max-width: 510px;
-  display: -webkit-box;
   -webkit-line-clamp: 1;
   line-clamp: 1;
   -webkit-box-orient: vertical;
@@ -2774,9 +2771,9 @@ body{
   .store-introduction-group{
   margin-top: 15px;
   list-style: none;
-  user-select: text;
-  -webkit-user-select: text;
-  -moz-user-select: text;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
   }
   
   .introduction-title{
@@ -2788,10 +2785,9 @@ body{
   content: '▪';
   margin-right: 9px;
   }
-  
+
   .introduction-item{
   max-width: 510px;
-  display: -webkit-box;
   -webkit-line-clamp: 1;
   line-clamp: 1;
   -webkit-box-orient: vertical;

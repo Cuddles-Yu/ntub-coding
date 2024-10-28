@@ -29,7 +29,6 @@ function hideAlert() {
   if (alertBox.classList.contains('alert-show')) {
     alertBox.classList.remove('alert-show');
     alertBox.classList.add('alert-hide');
-    setTimeout(function() { alertBox.textContent = ''; }, 500);
   }
 }
 
@@ -150,9 +149,20 @@ document.getElementById('loginModal').addEventListener('shown.bs.modal', functio
 document.getElementById('signupModal1').addEventListener('shown.bs.modal', function () {
   document.getElementById('signup-email').focus()
 })
-document.getElementById('logoutModal').addEventListener('shown.bs.modal', function () {
-  document.getElementById('logout-confirm-button').focus()
-})
+
+function confirmExternalLink(link) {
+  closeOpenedModal();
+  let modal = new bootstrap.Modal(document.getElementById('externalLinkModal'));
+  document.getElementById('externalLink-confirm-button').setAttribute('onclick', `setTimeout(function(){window.open('${link}', '_blank');},300);`);
+  modal.show();
+}
+
+function confirmNavigate(lat, lng) {
+  closeOpenedModal();
+  let modal = new bootstrap.Modal(document.getElementById('navigationModal'));
+  document.getElementById('navigation-confirm-button').setAttribute('onclick', `setTimeout(function(){navigateToStore(${lat},${lng});},300);`);
+  modal.show();
+}
 
 function cancelSignup(targetId) {
   if (
@@ -166,7 +176,7 @@ function cancelSignup(targetId) {
   } else {
     closeOpenedModal();
     let modal = new bootstrap.Modal(document.getElementById('cancelSignupModal'));
-    document.getElementById('cancel-signup-cancel-button').setAttribute('onclick', `showModal('${targetId}')`);
+    document.getElementById('cancelSignup-cancel-button').setAttribute('onclick', `showModal('${targetId}')`);
     modal.show();
   }
 }
@@ -268,9 +278,9 @@ document.querySelectorAll('.close-menu').forEach(tab => {
 const currentHour = new Date().getHours();
 const iconContainer = document.getElementById('web_name');
 if (currentHour >= 6 && currentHour < 18) {
-    iconContainer.innerHTML = '<a href="/home"><img src="/images/logo-yellow.png" id="web_logo" style="margin-top:-8px;">評星宇宙</a>';
+    iconContainer.innerHTML = '<a href="/home" draggable="false"><img src="/images/logo-yellow.png" id="web_logo" style="margin-top:-8px;">評星宇宙</a>';
 } else {
-    iconContainer.innerHTML = '<a href="/home"><img src="/images/logo-blue+.png" id="web_logo" style="margin-top:-8px;">評星宇宙</a>';
+    iconContainer.innerHTML = '<a href="/home" draggable="false"><img src="/images/logo-blue+.png" id="web_logo" style="margin-top:-8px;">評星宇宙</a>';
 }
 
 /* 點擊使用者圖示時，顯示/隱藏會員下拉選單 */

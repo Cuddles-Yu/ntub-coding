@@ -5,19 +5,12 @@
 }
 
 .home-page {
-  border-bottom-style: solid;  
+  border-bottom-style: solid;
   border-bottom-color: mediumblue;
 }
 .home-menu {
   border-left-style: solid;
   border-left-color: mediumblue;
-}
-
-.search-result-button-icon {
-  width: 20px;
-  margin-right: 3px;
-  position: relative;
-  top: -2px;
 }
 
 .service-match-counter {

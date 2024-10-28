@@ -31,7 +31,7 @@
       $normalizedWeights = getMemberNormalizedWeight();
       $rowIndex = 1;
     ?>
-    <div class="container-fluid store-body <?=$markItem['cardType']??''?> <?php if($isFavorite): echo 'store-card-favorite'; endif;?>" data-id="<?=$storeId?>" onclick="redirectToDetailPage(<?=$storeId?>)">
+    <div class="container-fluid store-body <?=$markItem['cardType']??''?> <?php if($isFavorite): echo 'store-card-favorite'; endif;?>" data-id="<?=$storeId?>" onclick="goToDetailPage(<?=$storeId?>)">
         <div class="row">
             <div class="store-img-group col-3">
               <!-- <div class="service-match-counter">符合四項</div> -->
@@ -75,20 +75,18 @@
                       <?php endforeach?>
                     </div>
                     <div class="quick-group col-2">
-                      <div onclick="toggleFavorite(this,<?=$storeId?>);event.stopPropagation();">
-                        <img class="search-result-button-icon" src="<?=$isFavorite?'images/button-favorite-active.png':'images/button-favorite-inactive.png';?>">
+                      <div onclick="preventMultipleClick(event);toggleFavorite(this,<?=$storeId?>);">
+                        <i class="small-toolbar-button fi <?=$isFavorite?'fi-sr-bookmark':'fi-br-bookmark'?>"></i>
                         <h6 class="love-text">收藏</h6>
                       </div>
-                      <a class="map-link" href="<?=$link?>" target="_blank" onclick="event.stopPropagation();">
-                        <img class="search-result-button-icon" src="images/button-map.png">
-                        <h6 class="map-link-text">地圖</h6>
-                      </a>
-                      <?php if (!empty($website)) : ?>
-                        <a class="map-link" href="<?=$website?>" target="_blank" onclick="event.stopPropagation();">
-                          <img class="search-result-button-icon" src="images/button-browse.png">
-                          <h6 class="web-text">官網</h6>
-                        </a>
-                      <?php endif?>
+                      <div onclick="preventMultipleClick(event);shareStore(<?=$storeId?>);">
+                        <i class="small-toolbar-button fi fi-sr-share"></i>
+                        <h6 class="love-text">分享</h6>
+                      </div>
+                      <div onclick="preventMultipleClick(event);highlightMarkerById(<?=$storeId?>);">
+                        <img class="search-result-button-icon" style="right:1px;" src="/images/location-mark1.png">
+                        <h6 class="map-link-text">地標</h6>
+                      </div>
                     </div>
                 </div>
             </div>

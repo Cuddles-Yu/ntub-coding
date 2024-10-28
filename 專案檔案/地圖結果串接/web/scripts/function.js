@@ -10,6 +10,25 @@ function copyToClipboard(text) {
   });
 }
 
+function shareStore(storeId) {
+  const shareData = {
+    title: '分享餐廳連結',
+    url: `https://commentspace.ascdc.tw/detail?id=${storeId}`,
+  };
+  if (navigator.share) {
+    navigator.share(shareData).then(() => {
+    }).catch(() => {
+      showAlert('red', '分享過程中發生錯誤，請稍後再試');
+    });
+  } else {
+    navigator.clipboard.writeText(shareData.url).then(function() {
+      showAlert('orange', '此瀏覽器不支援分享功能，已自動複製連結');
+    }).catch(() => {
+      showAlert('red', '複製連結失敗，請稍後再試');
+    });
+  }
+}
+
 function toggleFavorite(element, storeId) {
   element.disabled = true;
   const formData = new FormData();
@@ -26,12 +45,14 @@ function toggleFavorite(element, storeId) {
       const storeBody = element.closest('.store-body');
       const storeCard = element.closest('.restaurant');
       if (data.isFavorite) {
-        element.querySelector('img').src = 'images/button-favorite-active.png';
+        element.querySelector('i').classList.remove('fi-br-bookmark');
+        element.querySelector('i').classList.add('fi-sr-bookmark');
         if (storeBody) storeBody.classList.add('store-card-favorite');
         if (storeCard) storeCard.classList.add('store-card-favorite');
         showAlert('green', data.message, 3000);
       } else {
-        element.querySelector('img').src = 'images/button-favorite-inactive.png';
+        element.querySelector('i').classList.remove('fi-sr-bookmark');
+        element.querySelector('i').classList.add('fi-br-bookmark');
         if (storeBody) storeBody.classList.remove('store-card-favorite');
         if (storeCard) storeCard.classList.remove('store-card-favorite');
         showAlert('dark-orange', data.message, 3000);

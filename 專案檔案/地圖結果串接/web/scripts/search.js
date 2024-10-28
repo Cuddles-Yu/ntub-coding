@@ -141,7 +141,7 @@ async function searchStoresByKeyword() {
             .then(response => response.json())
             .then(landmarkData => {
               if (Array.isArray(landmarkData) && landmarkData.length > 0) {
-                processJsonData(landmarkData);
+                processMapData(landmarkData);
               }
               resolve();
             });
@@ -172,47 +172,6 @@ async function searchStoresByKeyword() {
       searchResults.setAttribute('search-data', getEncodeSearchParams());
       searchResults.scrollTo(0, 0);
     });
-}
-
-function processJsonData(data) {
-  markers.clearLayers();
-  var latlngs = [];
-  var center = map.getCenter();
-  // setView([center.lat, center.lng], 15);
-  if (data.length > 0) {
-    for (let i = 0; i < data.length; i++) {
-      if (data[i].latitude && data[i].longitude) {
-        var latlng = [parseFloat(data[i].latitude), parseFloat(data[i].longitude)];
-        if (isFinite(latlng[0]) && isFinite(latlng[1])) {
-          latlngs.push(latlng);
-          var marker = L.marker(latlng, { icon: storeIcon })
-            .bindPopup(
-              `<div class="popup-content" style="cursor:default;">
-                <img src="${data[i].preview_image}" style="width:200px;height:112.5px;object-fit:cover;object-position:center;"/>
-                <div style="font-weight:bold;font-size:16px;margin-top:10px;margin-bottom:10px;overflow:hidden;text-overflow:ellipsis;text-wrap:nowrap;width:200px">${data[i].name}</div>
-                <div style="font-size:14px;margin-bottom:5px;color:red;">綜合評分：${data[i].score}</div>
-                <div style="font-size:14px;">標籤：${data[i].tag}</div>
-              </div>`
-            , {
-              maxWidth: 193,
-              className: 'custom-popup',
-              closeButton: false,
-              closeOnClick: true,
-            }).on('click', function () {
-              browseHighlightResult(data[i].id);
-            }).on('popupclose', function () {
-              // clearHighlightResult();
-            });;
-          markers.addLayer(marker);
-        }
-      }
-    }
-    map.addLayer(markers);
-    setPlaceCenter(latlngs);
-  }
-}
-function updateMapMarkers(data) {
-  processJsonData(data);
 }
 
 function browseHighlightResult(storeId) {

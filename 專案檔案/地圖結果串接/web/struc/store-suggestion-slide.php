@@ -36,20 +36,14 @@
           <div class="card-body">
               <h5 class="card-title"><?=$storeName?></h5>
               <div class="quick-group">
-                <div onclick="toggleFavorite(this,<?=$storeId?>);event.stopPropagation();" draggable="false">
+                <div onclick="preventMultipleClick(event);toggleFavorite(this,<?=$storeId?>);">
                   <img class="search-result-button-icon" src="<?=isFavorite($storeId)?'images/button-favorite-active.png':'images/button-favorite-inactive.png';?>">
                   <h6 class="love-text">收藏</h6>
                 </div>
-                <a class="map-link" href="<?=htmlspecialchars($link)?>" target="_blank" onclick="event.stopPropagation();" draggable="false">
-                  <img class="search-result-button-icon" src="images/button-map.png">
-                  <h6 class="map-link-text">地圖</h6>
-                </a>
-                <?php if (!empty($website)) : ?>
-                  <a class="map-link" href="<?=htmlspecialchars($website)?>" target="_blank" onclick="event.stopPropagation();" draggable="false">
-                    <img class="search-result-button-icon" src="images/button-browse.png">
-                    <h6 class="web-text">官網</h6>
-                  </a>
-                <?php endif?>
+                <div onclick="preventMultipleClick(event);shareStore(<?=$storeId?>);">
+                <i class="small-toolbar-button fi fi-sr-share"></i>
+                  <h6 class="love-text">分享</h6>
+                </div>
               </div>
               <h5 class="rating"><small style="font-size:25px;"><?=$bayesianScore?></small><small class="rating-text">/ 綜合評分</small></h5>
               <div class="progress-group-text">

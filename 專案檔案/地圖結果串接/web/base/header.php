@@ -13,18 +13,18 @@
   <div id="web_name"></div>
 
   <div id="nav_menu1">
-      <a class="link_text page-item home-page" href="/home">餐廳搜尋</a>
+      <a class="link_text page-item home-page" href="/home" draggable="false">餐廳搜尋</a>
       <div class="vertical-line"></div>
-      <a class="link_text page-item suggestion-page" href="/suggestion">餐廳推薦</a>
+      <a class="link_text page-item suggestion-page" href="/suggestion" draggable="false">餐廳推薦</a>
       <div class="vertical-line"></div>
-      <a class="link_text page-item instruction-page" href="/instruction">使用說明</a><!-- style="color:lightgray;cursor:default;" -->
+      <a class="link_text page-item instruction-page" href="/instruction" draggable="false">使用說明</a><!-- style="color:lightgray;cursor:default;" -->
       <div class="vertical-line"></div>
-      <a class="link_text page-item feedback-page" href="/feedback">聯絡我們</a>
+      <a class="link_text page-item feedback-page" href="/feedback" draggable="false">聯絡我們</a>
       <div class="vertical-line"></div>
-      <a class="link_text page-item team-page" href="/team">成員介紹</a>
+      <a class="link_text page-item team-page" href="/team" draggable="false">成員介紹</a>
       <?php if($SESSION_DATA->success): ?>
         <div class="vertical-line"></div>
-        <a class="link_text page-item member-page" href="/member/info?tab=info"><img src="/images/icon-crown.png" class="text-icon">會員專區</a>
+        <a class="link_text page-item member-page" href="/member/info?tab=info" draggable="false"><img src="/images/icon-crown.png" class="text-icon">會員專區</a>
       <?php endif; ?>
   </div>
 
@@ -39,19 +39,19 @@
   <button id="hamburger_btn" class="hamburger">&#9776;</button>
   <div id="overlay"></div>
   <nav id="nav_menu2">
-      <a class="link_text page-menu home-menu" href="/home">餐廳搜尋</a>
-      <a class="link_text page-menu suggestion-menu" href="/suggestion">餐廳推薦</a>
-      <a class="link_text page-menu instruction-menu" href="/instruction">使用說明</a>
-      <a class="link_text page-menu feedback-menu" href="/feedback">聯絡我們</a>
-      <a class="link_text page-menu team-menu" href="/team">成員介紹</a>
+      <a class="link_text page-menu home-menu" href="/home" draggable="false">餐廳搜尋</a>
+      <a class="link_text page-menu suggestion-menu" href="/suggestion" draggable="false">餐廳推薦</a>
+      <a class="link_text page-menu instruction-menu" href="/instruction" draggable="false">使用說明</a>
+      <a class="link_text page-menu feedback-menu" href="/feedback" draggable="false">聯絡我們</a>
+      <a class="link_text page-menu team-menu" href="/team" draggable="false">成員介紹</a>
       <?php if($SESSION_DATA->success): ?>
         <span class="display-after-login menu-separator"></span>
-        <a class="link_text page-menu member-menu" href="javascript:void(0);" onclick="toggleMenu()">會員專區<img src="/images/button-expand-arrow.png" class="text-icon" id="expand-arrow"></a>
+        <a class="link_text page-menu member-menu" onclick="toggleMenu()">會員專區<img src="/images/button-expand-arrow.png" class="text-icon" id="expand-arrow" draggable="false"></a>
         <div id="member-menu-items" class="page-menu" style="display: none;">
-          <a class="display-after-login link_text close-menu" href="/member/info?tab=info" id="member-info-nav">基本資料</a>
-          <a class="display-after-login link_text close-menu" href="/member/info?tab=preference" id="member-preference-nav">偏好設定</a>
-          <a class="display-after-login link_text close-menu" href="/member/info?tab=weight" id="member-weight-nav">權重設定</a>
-          <a class="display-after-login link_text close-menu" href="/member/info?tab=favorite" id="member-favorite-nav">收藏商家</a>
+          <a class="display-after-login link_text close-menu" href="/member/info?tab=info" id="member-info-nav" draggable="false">基本資料</a>
+          <a class="display-after-login link_text close-menu" href="/member/info?tab=preference" id="member-preference-nav" draggable="false">偏好設定</a>
+          <a class="display-after-login link_text close-menu" href="/member/info?tab=weight" id="member-weight-nav" draggable="false">權重設定</a>
+          <a class="display-after-login link_text close-menu" href="/member/info?tab=favorite" id="member-favorite-nav" draggable="false">收藏商家</a>
         </div>
         <span class="display-after-login menu-separator"></span>
         <a class="link_text close-menu" id="member-logout-nav" data-bs-toggle="modal" data-bs-target="#logoutModal">登出</a>
@@ -66,13 +66,15 @@
     <a href="/member/info?tab=preference">偏好設定</a>
     <a href="/member/info?tab=weight">權重設定</a>
     <a href="/member/info?tab=favorite">收藏商家</a>
-    <a href="" data-bs-toggle="modal" data-bs-target="#logoutModal" onclick="closeMemberMenu()">登出</a>
+    <a data-bs-toggle="modal" data-bs-target="#logoutModal" onclick="closeMemberMenu()">登出</a>
   </div>
   <hr class="header-separator">
 
 </header>
 <?php require_once $_SERVER['DOCUMENT_ROOT'].'/form/logout.php'; ?>
 <?php require_once $_SERVER['DOCUMENT_ROOT'].'/form/login.php'; ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'].'/form/navigation.php'; ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'].'/form/external-link.php'; ?>
 <?php require_once $_SERVER['DOCUMENT_ROOT'].'/form/cancel-signup.php'; ?>
 <?php require_once $_SERVER['DOCUMENT_ROOT'].'/form/signup1.php'; ?>
 <?php require_once $_SERVER['DOCUMENT_ROOT'].'/form/signup2.php'; ?>

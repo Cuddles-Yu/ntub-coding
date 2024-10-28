@@ -219,16 +219,6 @@ body{
     display: flex;
   }
 
-  .love-text, .map-link-text, .web-text{
-    font-weight: bold;
-    font-size: 16px;
-    color: #374957;
-    text-decoration: none;
-    white-space: nowrap;
-    display: inline-block;
-    margin-right: 15px;
-  }
-
   .rating{
     color: #AC3535;
     font-weight: bold;
@@ -492,16 +482,6 @@ body{
     display: flex;
   }
 
-  .love-text, .map-link-text, .web-text{
-    font-weight: bold;
-    font-size: 16px;
-    color: #374957;
-    text-decoration: none;
-    white-space: nowrap;
-    display: inline-block;
-    margin-right: 15px;
-  }
-
   .rating{
     color: #AC3535;
     font-weight: bold;
@@ -763,17 +743,7 @@ body{
   .quick-group{
     display: flex;
   }
-
-  .love-text, .map-link-text, .web-text{
-    font-weight: bold;
-    font-size: 16px;
-    color: #374957;
-    text-decoration: none;
-    white-space: nowrap;
-    display: inline-block;
-    margin-right: 15px;
-  }
-
+  
   .love-img, .map-link-img, .web-img{
     width: 20px;
     margin-right: 3px;

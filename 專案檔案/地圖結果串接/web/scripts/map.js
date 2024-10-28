@@ -271,7 +271,7 @@ function getCenter() {
   return mapCenter;
 }
 function setView([lat, lng], zoomLevel) {
-  map.setView([lat, lng], zoomLevel);
+  map.setView([lat, lng], zoomLevel, { animate: true });
   getCenter()
 }
 function setPlaceCenter(latlngs) {
@@ -289,4 +289,69 @@ function setPlaceCenter(latlngs) {
     document.getElementById('map').setAttribute('search-lng', mapCenter.lng);
     document.getElementById('map').setAttribute('search-zoom', zoomLevel);
     document.getElementById('search-locate-button').style.display = 'block';
+}
+
+function highlightMarkerById(storeId) {
+  var marker = markerDictionary[storeId];
+  if (marker) {
+    var latlng = marker.getLatLng();
+    if (latlng) {
+      clearHighlightResult();
+      window.scrollTo(0, 0, 'smooth');
+      var element = document.querySelector(`.store-body[data-id="${storeId}"]`);
+      if (element) element.classList.add('store-card-highlight');
+
+      setView([latlng.lat, latlng.lng], 16, { animate: true });
+      map.once('moveend', function () {
+        var visibleParent = markers.getVisibleParent(marker);
+        if (visibleParent && visibleParent !== marker) {
+          visibleParent.spiderfy();
+        }
+        setTimeout(() => {
+          marker.openPopup();
+        }, 100);
+      });
+    }
+  }
+}
+
+var markerDictionary = {};
+function processMapData(data) {
+  markers.clearLayers();
+  var latlngs = [];
+  if (data.length > 0) {
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].latitude && data[i].longitude) {
+        var latlng = [parseFloat(data[i].latitude), parseFloat(data[i].longitude)];
+        if (isFinite(latlng[0]) && isFinite(latlng[1])) {
+          latlngs.push(latlng);
+          var marker = L.marker(latlng, { icon: storeIcon })
+            .bindPopup(
+              `<div class="popup-content" data-id="${data[i].id}" style="cursor:default;">
+                <img src="${data[i].preview_image}" style="width:200px;height:112.5px;object-fit:cover;object-position:center;"/>
+                <div style="font-weight:bold;font-size:16px;margin-top:10px;margin-bottom:10px;overflow:hidden;text-overflow:ellipsis;text-wrap:nowrap;width:200px">${data[i].name}</div>
+                <div style="font-size:14px;margin-bottom:5px;color:red;">綜合評分：${data[i].score}</div>
+                <div style="font-size:14px;">標籤：${data[i].tag}</div>
+              </div>`,
+              {
+                maxWidth: 193,
+                className: 'custom-popup',
+                closeButton: false,
+                closeOnClick: true,
+              }
+            ).on('click', function () {
+              browseHighlightResult(data[i].id);
+            });
+          markerDictionary[data[i].id] = marker;
+          markers.addLayer(marker);
+        }
+      }
+    }
+    map.addLayer(markers);
+    setPlaceCenter(latlngs);
+  }
+}
+
+function updateMapMarkers(data) {
+  processMapData(data);
 }

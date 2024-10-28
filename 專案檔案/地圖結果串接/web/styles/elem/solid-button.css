@@ -762,10 +762,52 @@
   border: 1px solid #744DA9;
 }
 .btn-solid-windows-purple:hover {
-  background-color: #8A69C0; 
+  background-color: #8A69C0;
   color: white;
 }
 .btn-solid-windows-purple:active {
-  background-color: #5C3B85 !important; 
+  background-color: #5C3B85 !important;
+  color: white !important;
+}
+
+.btn-solid-mediumblue {
+  background-color: #0000CD;
+  color: white;
+  border: 1px solid #0000CD;
+}
+.btn-solid-mediumblue:hover {
+  background-color: #3333FF;
+  color: white;
+}
+.btn-solid-mediumblue:active {
+  background-color: #000099 !important;
+  color: white !important;
+}
+
+.btn-solid-light-mediumblue {
+  background-color: #6666FF;
+  color: white;
+  border: 1px solid #6666FF;
+}
+.btn-solid-light-mediumblue:hover {
+  background-color: #8080FF;
+  color: white;
+}
+.btn-solid-light-mediumblue:active {
+  background-color: #4D4DFF !important;
+  color: white !important;
+}
+
+.btn-solid-dark-mediumblue {
+  background-color: #00008B;
+  color: white;
+  border: 1px solid #00008B;
+}
+.btn-solid-dark-mediumblue:hover {
+  background-color: #0000A3;
+  color: white;
+}
+.btn-solid-dark-mediumblue:active {
+  background-color: #000066 !important;
   color: white !important;
 }
