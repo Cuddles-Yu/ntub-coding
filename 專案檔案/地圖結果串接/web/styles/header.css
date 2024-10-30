@@ -5,11 +5,62 @@
 }
 
 .small-toolbar-button {
-  top:2px;
-  position:relative;
-  margin-right:3px;
-  color:#374957;
+  top: 4px !important;
+  position: relative;
+  margin-right: 3px;
+  color: #374957;
   font-size: 1em;
+  left: 6px;
+}
+
+.small-toolbar-text {
+  font-weight: bold;
+  font-size: 16px;
+  color: #374957;
+  text-decoration: none;
+  white-space: nowrap;
+  display: inline-block;
+  margin-right: 10px;
+  top: 2px;
+  position: relative;
+  left: 3px;
+}
+
+.small-toolbar {
+  display: flex;
+  left: -5px;
+  position: relative;
+  top: -3px;
+}
+
+.full-store-card {
+  width: 288px;
+  height: 500px;
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+
+.half-store-card {
+  width: 288px;
+  height: 390px;
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+
+.card-img-top{
+  width: 100%;
+  min-height: 214px;
+  max-height: 214px;
+  object-fit: cover;
+}
+
+.store-card-text {
+  font-size: 13px;
+  margin-top: 10px;
+  width: 254px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
 }
 
 .left-icon-display {
@@ -68,8 +119,9 @@ a.map-link {
 }
 
 .grab-container {
-  overflow:-moz-hidden-unscrollable; /* 隱藏滾動條 */
-  cursor: grab;    /* 當滑鼠移到容器時，顯示抓取手勢 */
+  overflow:-moz-hidden-unscrollable;
+  cursor: grab;
+  scrollbar-width: none !important;
 }
 
 .tooltip {
@@ -222,6 +274,10 @@ a.map-link {
   height: fit-content;
 }
 
+.navigation-input-box {
+  width: 100%;
+}
+
 .condition-input-box {
   width: 336px;
 }
@@ -301,6 +357,9 @@ a.map-link {
   min-height: calc(100% - 160px);
 }
 
+.top-content {
+  margin-top: 30px;
+}
 .normal-content {
   margin-top: 50px;
 }
@@ -341,7 +400,7 @@ body {
   top: 80px;
   margin: 0;
   border-bottom-style: revert-layer;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .signup-progress {

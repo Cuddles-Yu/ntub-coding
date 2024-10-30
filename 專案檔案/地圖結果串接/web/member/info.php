@@ -21,8 +21,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
     <title>會員專區 - 評星宇宙</title>
-    <link rel="stylesheet" href="/styles/common/base.css">
-    <link rel="stylesheet" href="/styles/member.css">
+    <link rel="stylesheet" href="/styles/common/base.css?v=<?=$VERSION?>">
+    <link rel="stylesheet" href="/styles/member.css?v=<?=$VERSION?>">
 </head>
 <body>
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
@@ -299,15 +299,9 @@
                   </div>
                   <span class="store_name"><?=$name?></span>
                 </div>
-                <div class="mark_score">
-                  <span><?=$score?></span>
-                </div>
-                <div class="mark_category">
-                  <span><?=$tag?><?=$markName?></span>
-                </div>
-                <div class="mark_time">
-                  <span style="margin-right: 5px;"><?=$createTime?></span>
-                </div>
+                <div class="mark_score"><span><?=$score?></span></div>
+                <div class="mark_category"><span><?=$tag?></span></div>
+                <div class="mark_time"><span style="margin-right: 5px;"><?=$createTime?></span></div>
                 <div class="mark_button mark_button2">
                   <div class="sort_button_wrapper" onclick="preventMultipleClick(event);targetFavorite(this);" data-bs-toggle="modal" data-bs-target="#removeFavoriteModal">
                     <i class="fi fi-sr-trash trans-red-button"></i>
@@ -323,11 +317,11 @@
     </div>
   </main>
 
-  <?php require_once $_SERVER['DOCUMENT_ROOT'].'/form/remove-favorite.php'; ?>
+  <?php require_once $_SERVER['DOCUMENT_ROOT'].'/form/message/remove-favorite.php'; ?>
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/form/modify-name.php'; ?>
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/form/modify-password.php'; ?>
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/scripts/common/base.html';?>
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/footer.php'; ?>
-  <script src="/scripts/member.js" defer></script>
+  <script src="/scripts/member.js?v=<?=$VERSION?>" defer></script>
 </body>
 </html>

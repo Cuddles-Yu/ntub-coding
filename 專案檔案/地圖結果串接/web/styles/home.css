@@ -7,7 +7,11 @@
   border-left-color: mediumblue;
 }
 
-body{
+.input-group{
+  width: 230px;
+}
+
+body {
   padding-top: 90px;
 }
 
@@ -48,7 +52,7 @@ body{
   }
 
   .search-keyword{
-    width: 600px;
+    width: 480px;
     position: relative;
     overflow-x: hidden;
     font-size: 16px;
@@ -62,11 +66,6 @@ body{
     font-size: 16px;
     background-color: #919ca5;
     border: 1px solid #919ca5;
-  }
-
-
-  .input-group{
-    width: 200px;
   }
 
   .search-button{
@@ -193,30 +192,12 @@ body{
     display: none; 
   }
 
-  .card-img-top{
-    width: 100%;
-    height: 214px;
-    object-fit: cover;
-  }
-
-  .restaurant{
-    margin-top: 5px;
-    width: 288px;
-    height: 500px;
-    flex: 0 0 auto;
-    cursor: pointer;
-  }
-
   .card-title {
     font-weight: bold;
     font-size: 20px;
     overflow: hidden;
     text-overflow: ellipsis;
     text-wrap: nowrap;
-  }
-
-  .quick-group{
-    display: flex;
   }
 
   .rating{
@@ -260,14 +241,6 @@ body{
     min-width: 40px;
   }
 
-  .restaurant-style, .address{
-    font-size: 12.8px;
-    margin-top: 10px;
-    width: 254px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-wrap: nowrap;
-  }
 }
 
 
@@ -293,7 +266,7 @@ body{
   }
 
   .search-keyword{
-    width: 470px;
+    width: 350px;
     position: relative;
     margin-left: 10px;
     overflow-x: hidden;
@@ -320,10 +293,6 @@ body{
 
   .checkbox-title:not(:first-child){
     margin-top: 5px;
-  }
-
-  .input-group{
-    width: 200px;
   }
 
   .checkbox-container{
@@ -456,30 +425,12 @@ body{
     display: none; 
   }
 
-  .card-img-top{
-    width: 100%;
-    height: 214px;
-    object-fit: cover;
-  }
-
-  .restaurant{
-    margin-top: 5px;
-    width: 288px;
-    height: 500px;
-    flex: 0 0 auto;
-    cursor: pointer;
-  }
-
   .card-title {
     font-weight: bold;
     font-size: 20px;
     overflow: hidden;
     text-overflow: ellipsis;
     text-wrap: nowrap;
-  }
-
-  .quick-group{
-    display: flex;
   }
 
   .rating{
@@ -523,14 +474,6 @@ body{
     min-width: 40px;
   }
 
-  .restaurant-style, .address{
-    font-size: 12.8px;
-    margin-top: 10px;
-    width: 254px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-wrap: nowrap;
-  }
 }
 
 @media (max-width: 550px){
@@ -555,8 +498,8 @@ body{
   }
 
   .search-keyword{
-    width: 470px;
-    position: relative;    
+    width: 350px;
+    position: relative;
     margin-left: 10px;
     overflow-x: hidden;
     font-size: 16px;
@@ -584,10 +527,6 @@ body{
     margin-top: 5px;
   }
 
-  .input-group{
-    width: 200px;
-  }
-  
   .checkbox-container{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); /* 自動適應列數 */
@@ -715,21 +654,7 @@ body{
   }
 
   .carousel-arrow.hidden {
-    display: none; 
-  }
-
-  .card-img-top{
-    width: 100%;
-    height: 214px;
-    object-fit: cover;
-  }
-
-  .restaurant{
-    margin-top: 5px;
-    width: 288px;
-    height: 500px;
-    flex: 0 0 auto;
-    cursor: pointer;
+    display: none;
   }
 
   .card-title {
@@ -739,16 +664,7 @@ body{
     text-overflow: ellipsis;
     text-wrap: nowrap;
   }
-
-  .quick-group{
-    display: flex;
-  }
   
-  .love-img, .map-link-img, .web-img{
-    width: 20px;
-    margin-right: 3px;
-  }
-
   .rating{
     color: #AC3535;
     font-weight: bold;
@@ -790,12 +706,4 @@ body{
     min-width: 40px;
   }
 
-  .restaurant-style, .address{
-    font-size: 12.8px;
-    margin-top: 10px;
-    width: 254px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-wrap: nowrap;
-  }
 }

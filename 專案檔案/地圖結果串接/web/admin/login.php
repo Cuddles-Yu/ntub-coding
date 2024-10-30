@@ -13,7 +13,7 @@
   <title>管理者登入 - 評星宇宙</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
-  <link rel="stylesheet" href="/styles/elem/form.css">
+  <link rel="stylesheet" href="/styles/elem/form.css?v=<?=$VERSION?>">
 </head>
 
 <body class="form-body">
@@ -55,7 +55,7 @@
     });
     function loginRequest() {
       const formData = new FormData();
-      formData.set('name', document.getElementById('name').value);     
+      formData.set('name', document.getElementById('name').value);
       formData.set('password', document.getElementById('password').value);
       fetch('./handler/check.php', {
         method: 'POST',
@@ -65,7 +65,7 @@
         .then(response => response.json())
         .then(data => {
           if (data.success) {
-            window.location.href = './git.php?auth=' + data.token;
+            window.location.href = `./git.php?auth=${data.token}`;
           } else {
             document.getElementById('loginError').innerText = data.message;
             document.getElementById('loginError').style.display = 'block';

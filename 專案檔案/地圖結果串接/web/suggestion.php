@@ -11,8 +11,8 @@
   <meta charset="utf-8" />
   <title>餐廳推薦 - 評星宇宙</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
-  <link rel="stylesheet" href="/styles/common/base.css">
-  <link rel="stylesheet" href="/styles/suggestion.css" />
+  <link rel="stylesheet" href="/styles/common/base.css?v=<?=$VERSION?>">
+  <link rel="stylesheet" href="/styles/suggestion.css?v=<?=$VERSION?>" />
 </head>
 
 <body>
@@ -20,7 +20,7 @@
 
   <section class="tertiary-content" id="tertiary-content" style="padding-top:130px;">
     <ul class="nav nav-tabs" style="place-content:center;font-size:20px;">
-    <li class="nav-item" id="random-nav-item">
+    <li class="nav-item">
       <a id="tab-button-random" style="cursor:pointer;" class="nav-link active" data-tab="tab-content-random">隨機推薦 <i class="fi fi-br-refresh" style="font-size:14px"></i></a>
     </li>
     <li class="nav-item">
@@ -39,6 +39,6 @@
 
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/scripts/common/base.html';?>
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/footer.php'; ?>
-  <script src="/scripts/suggestion.js"></script>
+  <script src="/scripts/suggestion.js?v=<?=$VERSION?>"></script>
 </body>
 </html>

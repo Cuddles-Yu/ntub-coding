@@ -8,9 +8,9 @@
   <meta charset="utf-8" />
   <title>搜尋結果 - 評星宇宙</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
-  <link rel="stylesheet" href="/styles/common/base.css">
-  <link rel="stylesheet" href="/styles/common/map.css">
-  <link rel="stylesheet" href="/styles/search.css" />
+  <link rel="stylesheet" href="/styles/common/base.css?v=<?=$VERSION?>">
+  <link rel="stylesheet" href="/styles/common/map.css?v=<?=$VERSION?>">
+  <link rel="stylesheet" href="/styles/search.css?v=<?=$VERSION?>" />
 </head>
 
 <body>
@@ -24,6 +24,9 @@
             <input type="text" class="form-control" id="keyword" name="keyword" placeholder="關鍵字">
             <label for="keyword">查詢關鍵字</label>
           </div>
+          <button type="button" class="btn btn-solid-gray mt-3 filter-button" data-bs-toggle="modal" data-bs-target="#navigationModal">
+            <i class="fi fi-sr-marker filter-img button-text-icon"></i>快速定位
+          </button>
           <button type="button" class="btn btn-solid-gray mt-3 filter-button" data-bs-toggle="modal" data-bs-target="#conditionModal">
             <i class="fi fi-sr-filter filter-img button-text-icon"></i>篩選條件
           </button>
@@ -41,18 +44,17 @@
           <h1 class="tertiary-text" id="search-result-title">搜尋結果</h1>
           <div class="title-line"></div>
         </div>
-        <div id="searchResults" class="store-display store">
-          <!-- 動態生成搜尋結果 -->
-        </div>
+        <div id="searchResults" class="store-display store"></div>
       </div>
     </div>
   </div>
 
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/form/condition.php';?>
+  <?php require_once $_SERVER['DOCUMENT_ROOT'].'/form/navigation.php';?>
 
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/scripts/common/base.html';?>
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/scripts/common/map.html';?>
-  <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/footer.php'; ?>
-  <script src="/scripts/search.js" defer></script>
+  <?php $mrtStations = true; require_once $_SERVER['DOCUMENT_ROOT'].'/base/footer.php'; ?>
+  <script src="/scripts/search.js?v=<?=$VERSION?>" defer></script>
 </body>
 </html>

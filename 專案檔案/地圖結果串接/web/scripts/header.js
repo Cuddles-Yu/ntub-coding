@@ -24,6 +24,13 @@ function showAlert(type, message, timeout = 5000) {
   }, 50);
 }
 
+function paramAlert() {
+  showAlert('red', '非預期的參數錯誤');
+}
+function exceptionAlert(process) {
+  showAlert('red', process + '時發生非預期的錯誤');
+}
+
 function hideAlert() {
   const alertBox = document.getElementById('alert-box');
   if (alertBox.classList.contains('alert-show')) {
@@ -153,13 +160,13 @@ document.getElementById('signupModal1').addEventListener('shown.bs.modal', funct
 function confirmExternalLink(link) {
   closeOpenedModal();
   let modal = new bootstrap.Modal(document.getElementById('externalLinkModal'));
-  document.getElementById('externalLink-confirm-button').setAttribute('onclick', `setTimeout(function(){window.open('${link}', '_blank');},300);`);
+  document.getElementById('externalLink-confirm-button').setAttribute('onclick', `setTimeout(function(){toUrl('${link}');},300);`);
   modal.show();
 }
 
 function confirmNavigate(lat, lng) {
   closeOpenedModal();
-  let modal = new bootstrap.Modal(document.getElementById('navigationModal'));
+  let modal = new bootstrap.Modal(document.getElementById('checkNavigationModal'));
   document.getElementById('navigation-confirm-button').setAttribute('onclick', `setTimeout(function(){navigateToStore(${lat},${lng});},300);`);
   modal.show();
 }

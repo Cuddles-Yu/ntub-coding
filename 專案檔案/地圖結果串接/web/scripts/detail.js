@@ -12,6 +12,7 @@ document.querySelectorAll('.home-page').forEach(page => {
 window.addEventListener('load', async function () {
   if (storeId) {
     searchCommentsByKeyword();
+    generateMark();
   }
   await defaultLocate();
 });
@@ -142,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     window.addEventListener('resize', updateArrowVisibility);
     updateArrowVisibility(recommendCard, recommendLeftArrow, recommendRightArrow);
-  }  
+  }
   //水平滾動箭頭控制(最多人提到)
   const keywordGroup = document.querySelector('.tag-group');
   const keywordLeftArrow = document.querySelector('.left-arrow-2');
@@ -208,11 +209,9 @@ function searchCommentsByTarget(button) {
   document.getElementById('clear-button').setAttribute('style', 'display:none;');
   document.getElementById('reset-comment-search').setAttribute('style', 'display:block;');
   document.getElementById('comment-title').scrollIntoView({ behavior: 'smooth', block: 'start' });
-
   const formData = new FormData();
   formData.set('id', storeId);
   formData.set('q', target);
-  formData.set('target', document.getElementById('filterSelect').value);
   formData.set('type', button.classList[0]);
   fetch('struc/comment-target.php', {
       method: 'POST',
@@ -222,19 +221,24 @@ function searchCommentsByTarget(button) {
   .then(response => response.json())
   .then(data => {
       commentGroup.innerHTML = data.html;
-      commentCountTitle.textContent = `${data.type}關鍵字搜尋結果 ${data.count} 則 | ${target}`;
+      commentCountTitle.textContent = `${data.type}標記搜尋結果 ${data.count} 則 | ${target}`;
       reorderComments();
   })
-  .catch(() => {showAlert('red', '發送請求時發生非預期的錯誤');});
+  .catch(() => { exceptionAlert('取得標記搜尋結果'); });
 }
 
 function generateMark() {
-  const searchTerm = document.getElementById('filterSelect').value;
-  
+  const target = document.getElementById('filterSelect').value;
+  const goodGroup = document.getElementById('group-keyword-good');
+  const badGroup = document.getElementById('group-keyword-bad');
+  const middleGroup = document.getElementById('group-keyword-middle');
+  const generating = '<div class="rotating"><img src="./images/icon-loading.png" width="20" height="20"></div>正在載入...';
+  goodGroup.innerHTML = generating;
+  badGroup.innerHTML = generating;
+  middleGroup.innerHTML = generating;
   const formData = new FormData();
   formData.set('id', storeId);
-  formData.set('target', searchTerm);
-  
+  formData.set('target', target);
   fetch('struc/mark-state.php', {
       method: 'POST',
       credentials: 'same-origin',
@@ -242,11 +246,11 @@ function generateMark() {
   })
   .then(response => response.json())
   .then(data => {
-      document.getElementById('group-keyword-good').innerHTML = data.good;
-      document.getElementById('group-keyword-bad').innerHTML = data.bad;
-      document.getElementById('group-keyword-middle').innerHTML = data.middle;
+    goodGroup.innerHTML = data.good;
+    badGroup.innerHTML = data.bad;
+    middleGroup.innerHTML = data.middle;
   })
-  .catch(() => {showAlert('red', '發送請求時發生非預期的錯誤');});
+  .catch(() => { exceptionAlert('取得標記'); });
 }
 
 function searchCommentsByKeyword() {
@@ -254,11 +258,9 @@ function searchCommentsByKeyword() {
   const commentGroup = document.getElementById('commentGroup');
   const commentCountTitle = document.getElementById('comment-count-title');
   if (commentGroup.getAttribute('keyword') === searchTerm) return;
-  
   const formData = new FormData();
   formData.set('id', storeId);
   formData.set('q', searchTerm);
-  
   fetch('struc/comment-keyword.php', {
       method: 'POST',
       credentials: 'same-origin',
@@ -275,7 +277,7 @@ function searchCommentsByKeyword() {
       }
       reorderComments();
   })
-  .catch(() => {showAlert('red', '發送請求時發生非預期的錯誤');});
+  .catch(() => { exceptionAlert('取得留言'); });
 }
 
 //其他分店展開框
@@ -335,8 +337,9 @@ document.getElementById('sortSelect').addEventListener('change', function() {
   document.getElementById('commentGroup').scrollTo(0, 0);
 });
 
-document.getElementById('filterSelect').addEventListener('change', function() {  
+document.getElementById('filterSelect').addEventListener('change', function() {
   resetCommentSearch();
+  generateMark();
 });
 
 function navigateToStore(storeLat, storeLng) {
@@ -345,7 +348,23 @@ function navigateToStore(storeLat, storeLng) {
       var userLat = position.coords.latitude;
       var userLng = position.coords.longitude;
       var googleMapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${storeLat},${storeLng}`;
-      window.open(googleMapsUrl, '_blank');
+      toUrl(googleMapsUrl);
     });
   }
 }
+
+let lastScrollTop = 0;
+const mainHeader = document.getElementById('commentspace-header');
+const infoHeader = document.getElementById('storeinfo-header');
+
+window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+    if (currentScroll > 90 && currentScroll > lastScrollTop) {
+      mainHeader.style.transform = 'translateY(-100%)';
+      infoHeader.style.transform = 'translateY(0%)';
+    } else {
+      mainHeader.style.transform = 'translateY(0%)';
+      infoHeader.style.transform = 'translateY(-100%)';
+    }
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // 避免負值
+});

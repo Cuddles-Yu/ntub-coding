@@ -85,7 +85,7 @@ body{
   }
 
   .search-keyword{
-    width: 510px;
+    width: 386px;
     position: relative;
     overflow-x: hidden;
     font-size: 16px;
@@ -158,13 +158,6 @@ body{
     border-radius: 10px;
     min-height: 130px;
     margin-bottom: 20px;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .store-body:hover {
-    transform: scale(1.01);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 添加陰影 */
   }
 
   .store-img-group{
@@ -226,14 +219,6 @@ body{
     font-size: 12px;
   }
 
-  .restaurant-style, .address{
-    font-size: 12.8px;
-    margin-top: 10px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-wrap: nowrap;
-  }
-
   .progress-group-text{
     margin-top: 7px;
     font-size: 13px;
@@ -263,20 +248,11 @@ body{
     min-width: 40px;
   }
 
-  .quick-group{
+  .quick-group {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 8px;
-  }
-
-  .love-text, .map-link-text, .web-text{
-    font-weight: bold;
-    font-size: 16px;
-    color: #374957;
-    text-decoration: none;
-    white-space: nowrap;
-    display: inline-block;
   }
 
 }
@@ -360,7 +336,7 @@ body{
   }
 
   .search-keyword{
-    width: 500px;
+    width: 386px;
     position: relative;
     overflow-x: hidden;
     font-size: 16px;
@@ -431,13 +407,6 @@ body{
     border-radius: 10px;
     min-height: 140px;
     margin-bottom: 20px;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .store-body:hover {
-    transform: scale(1.01);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 添加陰影 */
   }
 
   .store-img-group{
@@ -500,14 +469,6 @@ body{
     font-size: 12px;
   }
 
-  .restaurant-style, .address{
-    font-size: 12.8px;
-    margin-top: 10px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-wrap: nowrap;
-  }
-
   .progress-group-text{
     margin-top: 7px;
     font-size: 13px;
@@ -544,14 +505,6 @@ body{
     margin-top: 8px;
   }
 
-  .love-text, .map-link-text, .web-text{
-    font-weight: bold;
-    font-size: 16px;
-    color: #374957;
-    text-decoration: none;
-    white-space: nowrap;
-    display: inline-block;
-  }
 }
 
 @media (max-width:695px){
@@ -633,7 +586,7 @@ body{
   }
 
   .search-keyword{
-    width: 500px;
+    width: 386px;
     position: relative;
     overflow-x: hidden;
     font-size: 16px;
@@ -703,13 +656,6 @@ body{
     border-radius: 10px;
     min-height: 140px;
     margin-bottom: 20px;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .store-body:hover {
-    transform: scale(1.01);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 添加陰影 */
   }
 
   .store-img-group{
@@ -768,15 +714,6 @@ body{
   .rating-text{
     font-size: 12px;
   }
-
-  .restaurant-style, .address{
-    font-size: 12.8px;
-    margin-top: 10px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-wrap: nowrap;
-  }
-
   .progress-group-text{
     margin-top: 7px;
     font-size: 13px;
@@ -811,10 +748,6 @@ body{
     flex-direction: column;
     align-items: center;
     margin-top: 8px;
-  }
-
-  .love-text, .map-link-text, .web-text{
-    display: none;
   }
 
 }

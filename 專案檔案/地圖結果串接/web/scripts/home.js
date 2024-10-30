@@ -22,14 +22,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function toSearchPage() {
   getCenter();
-  window.location.href = `search?data=${getEncodeSearchParams()}`;
+  toUrl(`search?data=${getEncodeSearchParams()}`, newTab=false);
 }
 
-function saveCondition() {
+function saveCondition(delay = 300) {
   showCondition();
   setTimeout(function() {
     toSearchPage();
-  }, 300);
+  }, delay);
 }
 
 document.getElementById('keyword').addEventListener('keydown', function(event) {
@@ -37,11 +37,4 @@ document.getElementById('keyword').addEventListener('keydown', function(event) {
     event.preventDefault(); // 防止表單的預設提交行為
     document.getElementById('search-button').click(); // 觸發按鈕點擊事件
   }
-});
-
-document.getElementById('overlay').addEventListener('click', function() {
-  var navMenu = document.getElementById('nav_menu2');
-  var overlay = document.getElementById('overlay');
-  navMenu.classList.remove('show');
-  overlay.classList.remove('show');
 });

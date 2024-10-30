@@ -151,7 +151,7 @@ function saveWeight() {
         showAlert('red', data.message);
       }
     })
-    .catch(() => {showAlert('red', '更新權重過程中發生非預期的錯誤');})
+    .catch(() => { exceptionAlert('更新權重設定'); });
   }
 }
 function editWeight() {
@@ -217,6 +217,16 @@ function handleRowClick() {
 function checkFavorite() {
   const container = document.querySelector('.content_row_container');
   if (document.querySelectorAll('.content_row').length == 0) {
-    container.innerHTML = '<div style="height:300px;align-content:center;text-align:center;"><p style="font-size:18px">尚未收藏餐廳，前往<a href="/home">餐廳搜尋</a>或<a href="/suggestion">餐廳推薦</a>開始收藏吧！</p></div>';
+    container.innerHTML = `
+      <div style="height:300px;align-content:center;text-align:center;">
+        <p style="font-size:18px">
+          尚未收藏餐廳，前往
+          <a draggable="false" href="/home">餐廳搜尋</a>
+          或
+          <a draggable="false" href="/suggestion">餐廳推薦</a>
+          開始收藏吧！
+        </p>
+      </div>
+    `;
   }
 }

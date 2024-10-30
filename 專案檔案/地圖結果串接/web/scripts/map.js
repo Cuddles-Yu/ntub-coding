@@ -22,7 +22,7 @@ map.on('moveend', function() {
 });
 
 var OpenStreetMap_Mapnik = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>contributors'
+  attribution: '&copy; <a draggable="false" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>contributors'
 }).addTo(map);
 
 var storeIcon = L.icon({
@@ -270,7 +270,7 @@ function getCenter() {
   document.getElementById('map').setAttribute('data-lng', mapCenter.lng);
   return mapCenter;
 }
-function setView([lat, lng], zoomLevel) {
+function setView([lat, lng], zoomLevel = 16) {
   map.setView([lat, lng], zoomLevel, { animate: true });
   getCenter()
 }

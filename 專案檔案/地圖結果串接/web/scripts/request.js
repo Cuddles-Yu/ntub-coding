@@ -174,8 +174,8 @@ async function emailVerifyRequest() {
       document.getElementById('signup-message').style.display = 'block';
       return false;
     }
-  } catch (error) {
-    document.getElementById('signupError').innerText = `發生非預期的錯誤，請稍後再試。${error}`;
+  } catch (eror) {
+    document.getElementById('signupError').innerText = `發生非預期的錯誤，請稍後再試。`;
     document.getElementById('signup-message').style.display = 'block';
     return false;
   }
@@ -299,15 +299,15 @@ function signupRequest() {
     credentials: 'same-origin',
     body: formData
   })
-  .then(response => response.json())
-  .then(data => {
-    cancelModal();
-    if (data.success) {
-      showAlert('brown', '您已成功註冊為評星宇宙會員');
-      setTimeout(function() {showModal('loginModal');}, 500);
-    } else {
-      showAlert('red', '發生了預期之外的錯誤，請重新註冊');
-    }
-  })
-  .catch(() => {showAlert('red', '註冊過程中發生非預期的錯誤');})
+    .then(response => response.json())
+    .then(data => {
+      cancelModal();
+      if (data.success) {
+        showAlert('brown', '您已成功註冊為評星宇宙會員');
+        setTimeout(function() {showModal('loginModal');}, 500);
+      } else {
+        exceptionAlert('註冊會員');
+      }
+    })
+    .catch(() => { exceptionAlert('註冊會員'); })
 }

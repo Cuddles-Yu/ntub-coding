@@ -38,3 +38,12 @@
     $item = str_replace('-', '_', $item);
     return $MEMBER_INFO[$item] ? 'checked' : '';
   }
+
+  function targetTransform($target) {
+    global $_ATMOSPHERE, $_SERVICE, $_PRICE, $_PRODUCT;
+    if ($target === $_ATMOSPHERE) $target = '環境';
+    if ($target === $_SERVICE) $target = '服務';
+    if ($target === $_PRICE) $target = '售價';
+    if ($target === $_PRODUCT) $target = '產品';
+    return $target;
+  }

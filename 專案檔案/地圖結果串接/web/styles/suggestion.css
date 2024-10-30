@@ -20,6 +20,7 @@
 
 .tab-content {
   max-width: 1400px;
+  place-self: center;
 }
 
 .tab-content-random, .tab-content-most-browse, .tab-content-most-favorite {
@@ -212,33 +213,7 @@
   }
 
   .carousel-arrow.hidden {
-    display: none; 
-  }
-
-  .restaurant-group{
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    gap: 30px;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    scroll-behavior: smooth;
-    margin-top: 20px;
-    padding-top: 5px;
-  }
-
-  .card-img-top{
-    width: 100%;
-    height: 214px;
-    object-fit: cover;
-  }
-
-  .restaurant{
-    margin-top: 5px;
-    width: 288px;
-    height: 500px;
-    flex: 0 0 auto;
-    cursor: pointer;
+    display: none;
   }
 
   .card-title {
@@ -247,20 +222,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
     text-wrap: nowrap;
-  }
-
-  .quick-group{
-    display: flex;
-  }
-
-  .love-text, .map-link-text, .web-text{
-    font-weight: bold;
-    font-size: 16px;
-    color: #374957;
-    text-decoration: none;
-    white-space: nowrap;
-    display: inline-block;
-    margin-right: 10px;
   }
 
   .rating{
@@ -304,14 +265,6 @@
     min-width: 40px;
   }
 
-  .restaurant-style, .address{
-    font-size: 12.8px;
-    margin-top: 10px;
-    width: 254px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-wrap: nowrap;
-  }
 }
 
 
@@ -447,8 +400,8 @@
 
   /* 頁籤ul */
   #tab > ul {
-    display: flex;             
-    justify-content: center;   
+    display: flex;
+    justify-content: center;
     margin: 0;
     padding: 20px 20px 0 20px;
     gap: 30px;
@@ -459,7 +412,7 @@
   }
 
   /* 頁籤上的文字 */
-  #tab > ul > li > a { 
+  #tab > ul > li > a {
     text-decoration: none;
     font-size: 25px;
     color: #333;
@@ -501,52 +454,12 @@
     display: none;
   }
 
-  .restaurant-group{
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    gap: 30px;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    scroll-behavior: smooth;
-    margin-top: 20px;
-    padding-top: 5px;
-  }
-
-  .card-img-top{
-    width: 100%;
-    height: 214px;
-    object-fit: cover;
-  }
-
-  .restaurant{
-    margin-top: 5px;
-    width: 288px;
-    height: 500px;
-    flex: 0 0 auto;
-    cursor: pointer;
-  }
-
   .card-title {
     font-weight: bold;
     font-size: 20px;
     overflow: hidden;
     text-overflow: ellipsis;
     text-wrap: nowrap;
-  }
-
-  .quick-group{
-    display: flex;
-  }
-
-  .love-text, .map-link-text, .web-text{
-    font-weight: bold;
-    font-size: 16px;
-    color: #374957;
-    text-decoration: none;
-    white-space: nowrap;
-    display: inline-block;
-    margin-right: 10px;
   }
 
   .rating{
@@ -590,14 +503,6 @@
     min-width: 40px;
   }
 
-  .restaurant-style, .address{
-    font-size: 12.8px;
-    margin-top: 10px;
-    width: 254px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-wrap: nowrap;
-  }
 }
 
 @media (max-width: 550px){
@@ -789,33 +694,7 @@
   }
 
   .carousel-arrow.hidden {
-    display: none; 
-  }
-
-  .restaurant-group{
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    gap: 15px;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    scroll-behavior: smooth;
-    margin-top: 20px;
-    padding-top: 5px;
-  }
-
-  .card-img-top{
-    width: 100%;
-    height: 214px;
-    object-fit: cover;
-  }
-
-  .restaurant{
-    margin-top: 5px;
-    width: 288px;
-    height: 500px;
-    flex: 0 0 auto;
-    cursor: pointer;
+    display: none;
   }
 
   .card-title {
@@ -824,25 +703,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
     text-wrap: nowrap;
-  }
-
-  .quick-group{
-    display: flex;
-  }
-
-  .love-text, .map-link-text, .web-text{
-    font-weight: bold;
-    font-size: 16px;
-    color: #374957;
-    text-decoration: none;
-    white-space: nowrap;
-    display: inline-block;
-    margin-right: 10px;
-  }
-
-  .love-img, .map-link-img, .web-img{
-    width: 20px;
-    margin-right: 3px;
   }
 
   .rating{
@@ -886,16 +746,7 @@
     min-width: 40px;
   }
 
-  .restaurant-style, .address{
-    font-size: 12.8px;
-    margin-top: 10px;
-    width: 254px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-wrap: nowrap;
-  }
 }
-
 
 .carousel-container {
   display: flex;
@@ -904,12 +755,17 @@
   margin-top: 20px;
 }
 
-.restaurant-group {
+.store-suggestion-group {
+  padding: 10px;
+  margin-top: 20px;
   display: flex;
   overflow-x: auto;
   scroll-behavior: smooth;
   width: 100%;
-  padding: 10px 0;
+  padding-bottom: 10px;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 30px;
 }
 
 .nav-item {
@@ -929,7 +785,4 @@
   background-color: var(--bs-nav-tabs-link-active-bg);
   border-color: var(--bs-nav-tabs-link-active-border-color);
   cursor: default;
-}
-#tab-button-3.active {
-  cursor: pointer;
 }

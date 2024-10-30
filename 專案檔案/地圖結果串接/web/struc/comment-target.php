@@ -10,8 +10,6 @@
     $object = $_POST['q']??'';
     $storeId = $_POST['id']??'';
     $requestType = $_POST['type']??'';
-    $target = $_POST['target']??'';
-    if ($target === '氛圍') $target = '環境';
 
     $type = '中立';
     $states = [$_PREFER, $_NEUTRAL];
@@ -25,22 +23,12 @@
     $allStates = implode(',', array_map(function($state) use ($conn) {
         return "'" . $conn->real_escape_string($state) . "'";
     }, $states));
-
-    if ($target === '全部') {
-      $stmt = $conn->prepare("
-        SELECT DISTINCT c.* FROM marks AS m
-        INNER JOIN comments AS c ON m.comment_id = c.id AND m.store_id = c.store_id
-        WHERE m.store_id = ? AND object = ? AND state IN ($allStates)
-      ");
-      $stmt->bind_param("is", $storeId, $object);
-    } else {
-      $stmt = $conn->prepare("
-        SELECT DISTINCT c.* FROM marks AS m
-        INNER JOIN comments AS c ON m.comment_id = c.id AND m.store_id = c.store_id
-        WHERE m.store_id = ? AND object = ? AND target = ? AND state IN ($allStates)
-      ");
-      $stmt->bind_param("iss", $storeId, $object, $target);
-    }
+    $stmt = $conn->prepare("
+      SELECT DISTINCT c.* FROM marks AS m
+      INNER JOIN comments AS c ON m.comment_id = c.id AND m.store_id = c.store_id
+      WHERE m.store_id = ? AND object = ? AND state IN ($allStates)
+    ");
+    $stmt->bind_param("is", $storeId, $object);
     $stmt->execute();
     $result = $stmt->get_result();
     $comments = [];

@@ -23,3 +23,58 @@ img {
   text-wrap: nowrap !important;
   margin:0 0 !important;
 }
+
+.pointer {
+  cursor: pointer !important;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none !important;
+}
+
+.clickable-transform {
+  cursor: pointer !important;
+  transition: transform 0.2s ease; /* 平滑過渡效果 */
+}
+.clickable-transform:hover {
+  transform: scale(1.01); /* 滑鼠移上時放大 */
+}
+.clickable-transform:active {
+  transform: scale(0.99); /* 按下時微縮小 */
+}
+
+.clickable-shadow {
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+.clickable-shadow:hover {
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3);
+}
+.clickable-shadow:active {
+  transform: scale(0.99);
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.clickable-overlay {
+  cursor: pointer !important;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+.clickable-overlay::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.clickable-overlay:hover::after {
+  opacity: 1;
+}
+.clickable-overlay:active {
+  transform: scale(0.99);
+}

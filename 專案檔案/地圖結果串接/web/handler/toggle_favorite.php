@@ -12,6 +12,7 @@
       exit();
     }
     $storeId = $_POST['storeId'];
+    $currentState = $_POST['currentState'];
 
     // 檢查 storeId 是否存在
     $stmt = bindPrepare($conn, "
@@ -24,7 +25,7 @@
     $stmt->close();
 
     if ($storeCount == 0) {
-      echo json_encode(['success' => false, 'message' => '商家不存在']);
+      echo json_encode(['success' => false, 'message' => '餐廳不存在']);
       exit();
     }
 
@@ -39,6 +40,10 @@
     $stmt->close();
 
     if ($count>0) {
+      if ($currentState == '0') {
+        echo json_encode(['success' => true, 'isFavorite' => true, 'refresh' => true, 'message' => '該餐廳已加入至收藏']);
+        exit();
+      }
       $stmt = bindPrepare($conn, "
         DELETE FROM favorites
         WHERE member_id = ? AND store_id = ?
@@ -46,19 +51,23 @@
       if ($stmt->execute()) {
         echo json_encode(['success' => true, 'isFavorite' => false, 'message' => '已將該餐廳從收藏中移除']);
       } else {
-        echo json_encode(['success' => false, 'message' => $conn->error]);
+        echo json_encode(['success' => false, 'refresh' => false, 'message' => $conn->error]);
       }
       $stmt->close();
     } else {
-        $stmt = bindPrepare($conn, "
-          INSERT INTO favorites (member_id, store_id)
-          VALUES (?, ?)
-        ", "ii", $MEMBER_ID, $storeId);
-        if ($stmt->execute()) {
-          echo json_encode(['success' => true, 'isFavorite' => true, 'message' => '已將該餐廳加入收藏']);
-        } else {
-          echo json_encode(['success' => false, 'message' => $conn->error]);
-        }
-        $stmt->close();
+      if ($currentState == '1') {
+        echo json_encode(['success' => true, 'isFavorite' => false, 'refresh' => true, 'message' => '該餐廳已從收藏中移除']);
+        exit();
+      }
+      $stmt = bindPrepare($conn, "
+        INSERT INTO favorites (member_id, store_id)
+        VALUES (?, ?)
+      ", "ii", $MEMBER_ID, $storeId);
+      if ($stmt->execute()) {
+        echo json_encode(['success' => true, 'isFavorite' => true, 'refresh' => false, 'message' => '已將該餐廳加入收藏']);
+      } else {
+        echo json_encode(['success' => false, 'refresh' => false, 'message' => $conn->error]);
+      }
+      $stmt->close();
     }
   }

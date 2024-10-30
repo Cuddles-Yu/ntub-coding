@@ -57,111 +57,84 @@ function generateStoreSuggestion(tabId) {
       resultsContainer.innerHTML = data
       handleGrabContainer(resultsContainer);
     })
-    .catch(() => {showAlert('red', '推薦餐廳過程中發生非預期的錯誤');});
+    .catch(() => { exceptionAlert('取得推薦餐廳'); });
 }
-
-document.getElementById('overlay').addEventListener('click', function() {
-  var navMenu = document.getElementById('nav_menu2');
-  var overlay = document.getElementById('overlay');
-  navMenu.classList.remove('show');
-  overlay.classList.remove('show');
-});
-
-//隱藏推薦滾動條
-function handleScroll(container) {
-  if (container.scrollHeight > container.clientHeight) {
-    container.style.overflowY = 'scroll'; // 顯示滾動條
-  } else {
-    container.style.overflowY = 'auto'; // 隱藏滾動條
-  }
-};
-document.querySelectorAll('.restaurant-group, .restaurant-group-2, .restaurant-group-3').forEach(container => {
-  handleScroll(container);
-});
 
 function handleGrabContainer(resultsContainer) {
   const container = resultsContainer.querySelector('.grab-container');
-
   let isDown = false;
   let startX;
   let scrollLeft;
   let isDragging = false;
-
   const leftArrow = container.parentElement.querySelector('.left-arrow');
   const rightArrow = container.parentElement.querySelector('.right-arrow');
-
-  // 獲取內部元素的寬度和 gap
   const getScrollDistance = () => {
-    const firstItem = container.querySelector(':scope > *'); // 獲取第一個子元素
-    if (!firstItem) return 0; // 如果沒有元素則不滾動
-
+    const firstItem = container.querySelector(':scope > *');
+    if (!firstItem) return 0;
     const itemStyle = window.getComputedStyle(firstItem);
-    const itemWidth = firstItem.offsetWidth;  // 單個子元素的寬度
-    const gapWidth = parseInt(itemStyle.marginRight) || 0; // 元素之間的 margin 充當 gap
-
-    // 滾動距離 = 3 個元素的寬度 + 2 個 gap 的寬度
+    const itemWidth = firstItem.offsetWidth;
+    const gapWidth = parseInt(itemStyle.marginRight) || 0;
     return (itemWidth * 4) + (gapWidth * 3);
   };
-
-  // 判斷是否需要顯示箭頭和 grab 游標
   const checkScrollability = () => {
     if (container.scrollWidth > container.clientWidth) {
-      // 容器可滾動，顯示按鈕和抓取游標
       container.style.cursor = 'grab';
       leftArrow.style.display = 'block';
       rightArrow.style.display = 'block';
     } else {
-      // 容器不可滾動，隱藏按鈕和抓取游標
       container.style.cursor = 'default';
       leftArrow.style.display = 'none';
       rightArrow.style.display = 'none';
     }
   };
-
-  // 初始化檢查滾動
   checkScrollability();
-
-  // 綁定拖曳滾動事件
   container.addEventListener('mousedown', (e) => {
     isDown = true;
     container.classList.add('active');
     startX = e.pageX - container.offsetLeft;
     scrollLeft = container.scrollLeft;
   });
-
   container.addEventListener('mouseleave', () => {
     isDown = false;
     container.classList.remove('active');
   });
-
   container.addEventListener('mouseup', () => {
     isDown = false;
     container.classList.remove('active');
   });
-
   container.addEventListener('mousemove', (e) => {
     if (!isDown) return;
     e.preventDefault();
     const x = e.pageX - container.offsetLeft;
     const walk = x - startX;
-    container.scrollLeft = scrollLeft - walk*3;  // 滾動容器
+    container.scrollLeft = scrollLeft - walk*3;
   });
-
-  // 左右箭頭控制滾動
   leftArrow.addEventListener('click', () => {
     const scrollDistance = getScrollDistance();
     container.scrollBy({
-      left: -scrollDistance, // 向左滾動的距離
-      behavior: 'smooth' // 平滑滾動
+      left: -scrollDistance,
+      behavior: 'smooth'
     });
   });
-
   rightArrow.addEventListener('click', () => {
     const scrollDistance = getScrollDistance();
     container.scrollBy({
-      left: scrollDistance, // 向右滾動的距離
-      behavior: 'smooth' // 平滑滾動
+      left: scrollDistance,
+      behavior: 'smooth'
     });
   });
-
+  function checkArrowVisibility() {
+    if (container.scrollLeft === 0) {
+      leftArrow.style.display = 'none';
+    } else {
+      leftArrow.style.display = 'block';
+    }
+    if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
+      rightArrow.style.display = 'none';
+    } else {
+      rightArrow.style.display = 'block';
+    }
+  }
+  container.addEventListener('scroll', checkArrowVisibility);
+  checkArrowVisibility();
 }

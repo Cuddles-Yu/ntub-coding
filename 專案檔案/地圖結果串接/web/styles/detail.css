@@ -7,6 +7,15 @@
   border-left-color: mediumblue;
 }
 
+#commentspace-header {
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+}
+#storeinfo-header {
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+
 #back-to-top-btn {
   position: fixed;
   bottom: 30px;
@@ -478,14 +487,14 @@ body{
   margin-bottom: 0;
 }
 
-.collect{
+.collect {
   color: #374957;
   font-size: 16px;
   text-align: right;
   width: 40px;
 }
 
-.status{  
+.status{
   font-size: 19px;
   font-weight: bold;
   display: flex;
@@ -506,10 +515,6 @@ body{
   margin-right: 10px;
   margin-bottom: 30px;
   text-align: right;
-}
-
-.love-img{
-  width: 35px;
 }
 
 .introduction{
@@ -715,11 +720,8 @@ body{
   margin-right: 9px;
 }
 
-.introduction-item{
+.introduction-item {
   max-width: 510px;
-  -webkit-line-clamp: 1;
-  line-clamp: 1;
-  -webkit-box-orient: vertical;
   overflow: hidden;
   list-style: none;
   text-indent: 16px;
@@ -727,7 +729,6 @@ body{
   white-space: wrap;
   font-size: 16px;
   text-underline-offset: 3px;
-  cursor: pointer;
 }
 
 .comment-title{
@@ -1209,11 +1210,7 @@ body{
   font-size: 12px;
   white-space: nowrap;
   }
-  
-  .love-img{
-  width: 26px;
-  }
-  
+
   .introduction{
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -1410,9 +1407,6 @@ body{
   
   .introduction-item{
   max-width: 510px;
-  -webkit-line-clamp: 1;
-  line-clamp: 1;
-  -webkit-box-orient: vertical;
   overflow: hidden;
   list-style: none;
   text-indent: 16px;
@@ -1420,7 +1414,6 @@ body{
   white-space: wrap;
   font-size: 16px;
   text-underline-offset: 3px;
-  cursor: pointer;
   }
   
   .comment-title{
@@ -1905,11 +1898,7 @@ body{
   font-size: 12px;
   white-space: nowrap;
   }
-  
-  .love-img{
-  width: 26px;
-  }
-  
+
   .introduction{
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -2100,16 +2089,12 @@ body{
   
   .introduction-item{
   max-width: 510px;
-  -webkit-line-clamp: 1;
-  line-clamp: 1;
-  -webkit-box-orient: vertical;
   overflow: hidden;
   list-style: none;
   text-indent: 16px;
   color: #404040;
   white-space: wrap;
   font-size: 16px;
-  cursor: pointer;
   }
   
   .comment-title{
@@ -2570,7 +2555,7 @@ body{
   text-align: right;
   width: 40px;
   }
-  
+
   .status{
   font-size: 14px;
   font-weight: bold;
@@ -2583,18 +2568,14 @@ body{
   font-size: 20px;
   text-align: start;
   }
-  
+
   .update{
   margin-top: 7px;
   color: #2E2E2E;
   font-size: 12px;
   white-space: nowrap;
   }
-  
-  .love-img{
-  width: 26px;
-  }
-  
+
   .introduction{
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -2788,16 +2769,12 @@ body{
 
   .introduction-item{
   max-width: 510px;
-  -webkit-line-clamp: 1;
-  line-clamp: 1;
-  -webkit-box-orient: vertical;
   overflow: hidden;
   list-style: none;
   text-indent: 16px;
   color: #404040;
   white-space: wrap;
   font-size: 16px;
-  cursor: pointer;
   }
   
   .comment-title{

@@ -101,6 +101,50 @@
     return $storeItem['city'].$storeItem['dist'].$storeItem['details'];
   }
 
+  function searchByStoreMark($mark) {
+    global $conn, $memberWeights, $_ATMOSPHERE, $_PRICE, $_PRODUCT, $_SERVICE, $RECOMMEND_LIMIT, $MIN_RECOMMEND_COUNT;
+    $C = getCValue();
+    $atmosphereWeight = $memberWeights[$_ATMOSPHERE]['weight'];
+    $productWeight = $memberWeights[$_PRODUCT]['weight'];
+    $serviceWeight = $memberWeights[$_SERVICE]['weight'];
+    $priceWeight = $memberWeights[$_PRICE]['weight'];
+    $stmt = bindPrepare($conn, "
+      SELECT
+        s.id, s.name, s.tag, s.mark, s.preview_image, s.link, s.website, r.avg_ratings, r.total_reviews,
+        l.city, l.dist, l.details, r.environment_rating, r.product_rating, r.service_rating, r.price_rating, l.latitude, l.longitude,
+        ((? * (SELECT AVG(
+          COALESCE(environment_rating, 0) * ? +
+          COALESCE(product_rating, 0) * ? +
+          COALESCE(service_rating, 0) * ? +
+          COALESCE(price_rating, 0) * ?
+        ) FROM rates WHERE comments_analysis = 1) +
+        (r.total_withcomments * (
+          COALESCE(r.environment_rating, 0) * ? +
+          COALESCE(r.product_rating, 0) * ? +
+          COALESCE(r.service_rating, 0) * ? +
+          COALESCE(r.price_rating, 0) * ?))
+        ) / (? + r.total_withcomments)) AS score
+      FROM stores AS s
+      INNER JOIN (
+        SELECT id FROM stores
+        WHERE mark = ? and crawler_state IN ('成功', '完成', '超時')
+      ) AS mark_stores ON s.id = mark_stores.id
+      INNER JOIN keywords AS k ON s.id = k.store_id
+      INNER JOIN rates AS r ON s.id = r.store_id
+      INNER JOIN locations AS l ON s.id = l.store_id
+      GROUP BY s.id
+      ORDER BY score DESC
+    ", 'dddddddddds', $C, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight, $C,
+      $mark
+    );
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stores = [];
+    while ($row = $result->fetch_assoc()) $stores[] = $row;
+    $stmt->close();
+    return $stores;
+  }
+
   function searchByBrowse() {
     global $conn, $memberWeights, $_ATMOSPHERE, $_PRICE, $_PRODUCT, $_SERVICE, $RECOMMEND_LIMIT, $MIN_RECOMMEND_COUNT;
     $C = getCValue();
@@ -138,8 +182,8 @@
       GROUP BY s.id
       ORDER BY score DESC
       LIMIT ?
-    ", 'ddddddddddii', $C, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight,
-        $C, $MIN_RECOMMEND_COUNT, $RECOMMEND_LIMIT
+    ", 'ddddddddddii', $C, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight, $C,
+      $MIN_RECOMMEND_COUNT, $RECOMMEND_LIMIT
     );
     $stmt->execute();
     $result = $stmt->get_result();
@@ -185,8 +229,8 @@
       GROUP BY s.id
       ORDER BY score DESC
       LIMIT ?
-    ", 'ddddddddddii', $C, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight,
-        $C, $MIN_RECOMMEND_COUNT, $RECOMMEND_LIMIT
+    ", 'ddddddddddii', $C, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight, $C,
+      $MIN_RECOMMEND_COUNT, $RECOMMEND_LIMIT
     );
     $stmt->execute();
     $result = $stmt->get_result();
@@ -232,8 +276,8 @@
       INNER JOIN locations AS l ON s.id = l.store_id
       GROUP BY s.id
       ORDER BY score DESC
-    ", 'ddddddddddi', $C, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight,
-        $C, $RECOMMEND_LIMIT
+    ", 'ddddddddddi', $C, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight, $C,
+      $RECOMMEND_LIMIT
     );
     $stmt->execute();
     $result = $stmt->get_result();
@@ -252,33 +296,34 @@
     $priceWeight = $memberWeights[$_PRICE]['weight'];
     $keyword = "%$keyword%";
     if (($userLat&&$userLng)) {
-        $stmt = bindPrepare($conn, "
-          SELECT DISTINCT
-            s.id, s.name, s.tag, s.mark, s.preview_image, s.link, s.website, r.avg_ratings, r.total_reviews,
-            l.city, l.dist, l.details, r.environment_rating, r.product_rating, r.service_rating, r.price_rating, l.latitude, l.longitude,
-            (6371000 * acos(cos(radians(?)) * cos(radians(l.latitude)) * cos(radians(l.longitude) - radians(?)) + sin(radians(?)) * sin(radians(l.latitude)))) AS distance,
-            ((? * (SELECT AVG(
-              COALESCE(environment_rating, 0) * ? +
-              COALESCE(product_rating, 0) * ? +
-              COALESCE(service_rating, 0) * ? +
-              COALESCE(price_rating, 0) * ?
-            ) FROM rates WHERE comments_analysis = 1) +
-            (r.total_withcomments * (
-              COALESCE(r.environment_rating, 0) * ? +
-              COALESCE(r.product_rating, 0) * ? +
-              COALESCE(r.service_rating, 0) * ? +
-              COALESCE(r.price_rating, 0) * ?))
-            ) / (? + r.total_withcomments)) AS score
-          FROM stores AS s
-          INNER JOIN keywords AS k ON s.id = k.store_id
-          INNER JOIN rates AS r ON s.id = r.store_id
-          INNER JOIN locations AS l ON s.id = l.store_id
-          WHERE (s.name LIKE ? OR s.tag LIKE ? OR k.word LIKE ?) AND s.crawler_state IN ('成功', '完成', '超時')
-          HAVING distance <= ?
-          ORDER BY score DESC
-          LIMIT ?
-        ", 'dddddddddddddsssii', $userLat, $userLng, $userLat, $C, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight,
-          $C, $keyword, $keyword, $keyword, $searchRadius, $RESULT_LIMIT
+      $stmt = bindPrepare($conn, "
+        SELECT DISTINCT
+          s.id, s.name, s.tag, s.mark, s.preview_image, s.link, s.website, r.avg_ratings, r.total_reviews,
+          l.city, l.dist, l.details, r.environment_rating, r.product_rating, r.service_rating, r.price_rating, l.latitude, l.longitude,
+          (6371000 * acos(cos(radians(?)) * cos(radians(l.latitude)) * cos(radians(l.longitude) - radians(?)) + sin(radians(?)) * sin(radians(l.latitude)))) AS distance,
+          ((? * (SELECT AVG(
+            COALESCE(environment_rating, 0) * ? +
+            COALESCE(product_rating, 0) * ? +
+            COALESCE(service_rating, 0) * ? +
+            COALESCE(price_rating, 0) * ?
+          ) FROM rates WHERE comments_analysis = 1) +
+          (r.total_withcomments * (
+            COALESCE(r.environment_rating, 0) * ? +
+            COALESCE(r.product_rating, 0) * ? +
+            COALESCE(r.service_rating, 0) * ? +
+            COALESCE(r.price_rating, 0) * ?))
+          ) / (? + r.total_withcomments)) AS score
+        FROM stores AS s
+        INNER JOIN keywords AS k ON s.id = k.store_id
+        INNER JOIN rates AS r ON s.id = r.store_id
+        INNER JOIN locations AS l ON s.id = l.store_id
+        WHERE (s.name LIKE ? OR s.tag LIKE ? OR k.word LIKE ?) AND s.crawler_state IN ('成功', '完成', '超時')
+        HAVING distance <= ?
+        ORDER BY score DESC
+        LIMIT ?
+      ", 'dddddddddddddsssii', $userLat, $userLng, $userLat, $C,
+        $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight, $C,
+        $keyword, $keyword, $keyword, $searchRadius, $RESULT_LIMIT
       );
     } elseif ($city) {
       if ($dist) {
@@ -305,8 +350,9 @@
           WHERE (s.name LIKE ? OR s.tag LIKE ? OR k.word LIKE ?) AND l.city = ? AND l.dist = ? AND s.crawler_state IN ('成功', '完成', '超時')
           ORDER BY score DESC
           LIMIT ?
-        ", 'ddddddddddsssssi', $C, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight,
-          $C, $keyword, $keyword, $keyword, $city, $dist, $RESULT_LIMIT
+        ", 'ddddddddddsssssi', $C, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight,
+          $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight, $C,
+          $keyword, $keyword, $keyword, $city, $dist, $RESULT_LIMIT
         );
       } else {
         $stmt = bindPrepare($conn, "
@@ -332,8 +378,9 @@
           WHERE (s.name LIKE ? OR s.tag LIKE ? OR k.word LIKE ?) AND l.city = ? AND s.crawler_state IN ('成功', '完成', '超時')
           ORDER BY score DESC
           LIMIT ?
-        ", 'ddddddddddssssi', $C, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight,
-          $C, $keyword, $keyword, $keyword, $city, $RESULT_LIMIT
+        ", 'ddddddddddssssi', $C, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight,
+          $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight, $C,
+          $keyword, $keyword, $keyword, $city, $RESULT_LIMIT
         );
       }
     } else {
@@ -360,8 +407,9 @@
         WHERE (s.name LIKE ? OR s.tag LIKE ? OR k.word LIKE ?) AND s.crawler_state IN ('成功', '完成', '超時')
         ORDER BY score DESC
         LIMIT ?
-      ", 'ddddddddddsssi', $C, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight,
-        $C, $keyword, $keyword, $keyword, $RESULT_LIMIT
+      ", 'ddddddddddsssi', $C, $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight,
+        $atmosphereWeight, $productWeight, $serviceWeight, $priceWeight, $C,
+        $keyword, $keyword, $keyword, $RESULT_LIMIT
       );
     }
     $stmt->execute();

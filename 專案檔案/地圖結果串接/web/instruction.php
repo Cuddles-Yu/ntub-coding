@@ -8,8 +8,8 @@
   <meta charset="utf-8" />
   <title>使用說明 - 評星宇宙</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
-  <link rel="stylesheet" href="/styles/common/base.css">
-  <link rel="stylesheet" href="/styles/instruction.css" />
+  <link rel="stylesheet" href="/styles/common/base.css?v=<?=$VERSION?>">
+  <link rel="stylesheet" href="/styles/instruction.css?v=<?=$VERSION?>" />
 </head>
 
 <body>
@@ -23,6 +23,6 @@
 
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/scripts/common/base.html';?>
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/footer.php'; ?>
-  <script src="/scripts/instruction.js" defer></script>
+  <script src="/scripts/instruction.js?v=<?=$VERSION?>" defer></script>
 </body>
 </html>

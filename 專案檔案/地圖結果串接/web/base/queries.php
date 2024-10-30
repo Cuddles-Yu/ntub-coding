@@ -18,6 +18,21 @@
       return $result->fetch_assoc();
   }
 
+  function getLandmarkCategories() {
+    global $conn;
+    $stmt = $conn->prepare("
+      SELECT DISTINCT category FROM landmarks
+    ");
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $categories = [];
+    while ($row = $result->fetch_assoc()) {
+      $categories[] = $row['category'];
+    }
+    $stmt->close();
+    return $categories;
+  }
+
   function getCities() {
     global $conn;
     $stmt = $conn->prepare("
@@ -219,37 +234,38 @@
     return $branches;
   };
 
-  function getMarks($storeId, $states, $target='') {
+  function getMarks($storeId, $states, $target) {
       global $conn;
       if (!is_array($states)) $states = [$states];
       $allStates = implode(',', array_map(function($state) use ($conn) {
-          return "'" . $conn->real_escape_string($state) . "'";
+        return "'" . $conn->real_escape_string($state) . "'";
       }, $states));
       if ($target) {
+        $target = targetTransform($target);
         $stmt = bindPrepare($conn, "
-        SELECT object, COUNT(*) AS count FROM marks AS m
-        INNER JOIN comments AS c ON m.store_id = c.store_id AND m.comment_id = c.id
-        WHERE object !='' AND m.store_id = ? AND target = ? AND state IN ($allStates)
-        GROUP BY object
-        ORDER BY count DESC
-        LIMIT 20
-      ", "is", $storeId, $target);
+          SELECT object, COUNT(*) AS count FROM marks AS m
+          INNER JOIN comments AS c ON m.store_id = c.store_id AND m.comment_id = c.id
+          WHERE object !='' AND m.store_id = ? AND target = ? AND state IN ($allStates)
+          GROUP BY object
+          HAVING count > 1
+          ORDER BY count DESC
+          LIMIT 20
+        ", "is", $storeId, $target);
       } else {
         $stmt = bindPrepare($conn, "
         SELECT object, COUNT(*) AS count FROM marks AS m
         INNER JOIN comments AS c ON m.store_id = c.store_id AND m.comment_id = c.id
         WHERE object !='' AND m.store_id = ? AND state IN ($allStates)
         GROUP BY object
+        HAVING count > 1
         ORDER BY count DESC
         LIMIT 20
       ", "i", $storeId);
-      }      
+      }
       $stmt->execute();
       $result = $stmt->get_result();
       $marks = [];
-      while ($row = $result->fetch_assoc()) {
-          $marks[] = $row;
-      }
+      while ($row = $result->fetch_assoc()) $marks[] = $row;
       $stmt->close();
       return $marks;
   }

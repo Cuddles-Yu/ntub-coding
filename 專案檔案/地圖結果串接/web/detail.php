@@ -55,17 +55,23 @@
   <title>詳細資訊 - 評星宇宙</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
-  <link rel="stylesheet" href="/styles/common/map.css">
-  <link rel="stylesheet" href="/styles/common/base.css">
-  <link rel="stylesheet" href="/styles/detail.css" />
+  <link rel="stylesheet" href="/styles/common/map.css?v=<?=$VERSION?>">
+  <link rel="stylesheet" href="/styles/common/base.css?v=<?=$VERSION?>">
+  <link rel="stylesheet" href="/styles/detail.css?v=<?=$VERSION?>" />
 </head>
 
 <body>
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
-
-  <section class="normal-content section-content">
+  <header id="storeinfo-header">
     <div id="favorite-button" onclick="toggleFavorite(this,<?=$storeId?>)">
-      <i class="fi <?=$isFavorite?'fi-sr-bookmark':'fi-br-bookmark'?>" style="font-size:34px;top:2px;position:relative;"></i>
+      <i class="store-bookmark fi <?=$isFavorite?'fi-sr-bookmark':'fi-br-bookmark'?>" style="font-size:34px;top:2px;position:relative;"></i>
+      <h1 class="store-title" id="store-title" style="margin-left:10px"><?=$storeName?></h1>
+    </div>
+    <hr class="header-separator">
+  </header>
+  <section class="top-content section-content">
+    <div id="favorite-button" onclick="toggleFavorite(this,<?=$storeId?>)">
+      <i class="store-bookmark fi <?=$isFavorite?'fi-sr-bookmark':'fi-br-bookmark'?>" style="font-size:34px;top:2px;position:relative;"></i>
       <h1 class="store-title" id="store-title" style="margin-left:10px"><?=$storeName?></h1>
     </div>
     <div class="love-group">
@@ -294,33 +300,15 @@
           </select>
         </div>
       </div>
-      <?php
-        $positiveMarks = getMarks($storeId, $_POSITIVE);
-        $negativeMarks = getMarks($storeId, $_NEGATIVE);
-        $neutralMarks = getMarks($storeId, [$_PREFER, $_NEUTRAL]);
-        $normalizedWeights = [
-          $_POSITIVE => ['name' => 'good', 'marks' => $positiveMarks],
-          $_NEGATIVE => ['name' => 'bad', 'marks' => $negativeMarks],
-          $_NEUTRAL => ['name' => 'middle', 'marks' => $neutralMarks],
-        ];
-      ?>
-      <?php foreach ($normalizedWeights as $category => $data): ?>
-        <div class="group-gb <?=$data['name'] ?>-side">
-          <h6 class="title-gb"><?=$category ?><i class="fi fi-sr-caret-right keyword-arrow"></i></h6>
-          <div class="group-keyword">
-            <?php foreach ($data['marks'] as $index => $keyword): ?>
-              <div class="keywords">
-                <button type="button" class="comment-<?=$data['name']?>" onclick="searchCommentsByTarget(this)">
-                  <w class="object"><?=htmlspecialchars($keyword['object']); ?></w>
-                  <w class="count">(<?=htmlspecialchars($keyword['count']); ?>)</w>
-                </button>
-              </div>
-            <?php endforeach; ?>
+      <?php $commentTargets = [$_POSITIVE => 'good', $_NEGATIVE => 'bad', $_NEUTRAL => 'middle']; ?>
+      <?php foreach ($commentTargets as $target => $name): ?>
+        <div class="group-gb <?=$name?>-side">
+          <h6 class="title-gb"><?=$target?><i class="fi fi-sr-caret-right keyword-arrow"></i></h6>
+          <div id="group-keyword-<?=$name?>" class="group-keyword">
           </div>
         </div>
       <?php endforeach; ?>
     </div>
-
     <div class="keyword-title" id="comment-title">
       <button id="reset-comment-search" class="btn btn-outline-gray btn-no-outline" onclick="resetCommentSearch()">
         <i class="fi fi-sr-undo" style="font-size: 1.5em;"></i>
@@ -361,7 +349,7 @@
               <div class="card-body" onclick="openSearchPage('<?=$foodKeyword['word']?>')">
                 <a class="card-text"><?=htmlspecialchars($foodKeyword['word']); ?>(<?=htmlspecialchars($foodKeyword['count']); ?>)</a>
               </div>
-              <a class="card-a" href="https://www.google.com/search?udm=2&q=<?=urlencode($storeName.' '.$storeTag.' '. $foodKeyword['word']); ?> " target="_blank"><img class="card-img" src="<?=$foodKeyword['image_url'] ?>"></a>
+              <a class="card-a" draggable="false" href="https://www.google.com/search?udm=2&q=<?=urlencode($storeName.' '.$storeTag.' '. $foodKeyword['word']); ?> " target="_blank"><img class="card-img" src="<?=$foodKeyword['image_url'] ?>"></a>
             </div>
           <?php endforeach; ?>
         </div>
@@ -379,7 +367,7 @@
         <div class="introduction-item-group">
           <div class="store-introduction-group">
             <li class="introduction-title">地址</li>
-            <div class="introduction-item no-flow underline" onclick="confirmNavigate(<?=$lat?>,<?=$lng?>)"><?=$fullAddress?></div>
+            <div class="introduction-item pointer no-flow underline" onclick="confirmNavigate(<?=$lat?>,<?=$lng?>)"><?=$fullAddress?></div>
           </div>
           <div class="store-introduction-group">
             <li class="introduction-title">電話</li>
@@ -392,7 +380,7 @@
           <div class="store-introduction-group">
             <li class="introduction-title">相關網站</li>
             <?php if($website):?>
-              <div class="introduction-item no-flow underline" onclick="confirmExternalLink('<?=$website?>')"><?=$website?></div>
+              <div class="introduction-item pointer no-flow underline" onclick="confirmExternalLink('<?=$website?>')"><?=$website?></div>
             <?php else:?>
               <li class="introduction-item">(未提供)</li>
             <?php endif;?>
@@ -438,7 +426,7 @@
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/scripts/common/base.html';?>
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/scripts/common/map.html';?>
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/footer.php'; ?>
-  <script src="/scripts/detail.js" defer></script>
-  <script src="/scripts/detail-landmark.js"></script>
+  <script src="/scripts/detail.js?v=<?=$VERSION?>" defer></script>
+  <script src="/scripts/detail-landmark.js?v=<?=$VERSION?>"></script>
 </body>
 </html>

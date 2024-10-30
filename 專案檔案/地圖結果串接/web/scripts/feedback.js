@@ -38,5 +38,5 @@ function sendFeedback() {
         showAlert('red', data.message);
       }
     })
-    .catch(() => {showAlert('red', '提交建議過程中發生非預期的錯誤');});
+    .catch(() => { exceptionAlert('提交建議'); });
 }

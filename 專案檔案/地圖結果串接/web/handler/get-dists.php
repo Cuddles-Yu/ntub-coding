@@ -7,7 +7,7 @@
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $CITY = $_POST['city'];
     $stmt = bindPrepare($conn, "
-      SELECT DISTINCT dist FROM locations 
+      SELECT DISTINCT dist FROM locations
       WHERE city = ?
     ", "s", $CITY);
     $stmt->execute();

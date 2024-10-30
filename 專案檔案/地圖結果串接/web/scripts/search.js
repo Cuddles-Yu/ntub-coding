@@ -64,7 +64,7 @@ document.getElementById('keyword').addEventListener('keydown', function(event) {
 
 const searchResults = document.getElementById('searchResults');
 
-// 動態載入更多商家
+// 動態載入更多餐廳
 // searchResults.addEventListener('scroll', () => {
 //   if ((searchResults.scrollTop + searchResults.clientHeight) >= searchResults.scrollHeight - 1000 && !isLoading) {
 //     console.log('scroll to bottom');
@@ -103,7 +103,7 @@ async function searchStoresByKeyword() {
   document.getElementById('search-result-title').innerText = '搜尋結果';
   searchButton.disabled = true;
 
-  overlay = generateLoadingOverlay(0, '正在為您搜尋符合條件的商家', '這可能會花費一些時間，請稍候...');
+  overlay = generateLoadingOverlay(0, '正在為您搜尋符合條件的餐廳', '這可能會花費一些時間，請稍候...');
   showInfoBar('');
   document.getElementById('search-locate-button').style.display = 'none';
   markers.clearLayers();
@@ -151,9 +151,7 @@ async function searchStoresByKeyword() {
         searchResults.innerHTML = "<p style='text-align:center;'>沒有找到相關結果。</p>";
       }
     })
-    .catch(error => {
-      console.error('查詢過程中產生非預期的錯誤:', error);
-    })
+    .catch(() => { exceptionAlert('取得餐廳搜尋結果'); })
     .finally(() => {
       if (distanceMode) {
         var mapCenter = getCenter();

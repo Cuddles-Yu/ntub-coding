@@ -33,7 +33,7 @@ function toggleFavorite(element, storeId) {
   element.disabled = true;
   const formData = new FormData();
   formData.append('storeId', storeId);
-
+  formData.append('currentState', element.querySelector('i').classList.contains('fi-sr-bookmark')?'1':'0');
   fetch('/handler/toggle_favorite.php', {
     method: 'POST',
     body: formData,
@@ -43,19 +43,36 @@ function toggleFavorite(element, storeId) {
   .then(data => {
     if (data.success) {
       const storeBody = element.closest('.store-body');
-      const storeCard = element.closest('.restaurant');
+      const storeCard = element.closest('.card');
+      const bookmarks = document.querySelectorAll('.store-bookmark');
       if (data.isFavorite) {
-        element.querySelector('i').classList.remove('fi-br-bookmark');
-        element.querySelector('i').classList.add('fi-sr-bookmark');
+        if (bookmarks.length > 0) {
+          bookmarks.forEach(bookmark => {
+            bookmark.classList.remove('fi-br-bookmark');
+            bookmark.classList.add('fi-sr-bookmark');
+          });
+        } else {
+          const bookmark = element.querySelector('i');
+          bookmark.classList.remove('fi-br-bookmark');
+          bookmark.classList.add('fi-sr-bookmark');
+        }
         if (storeBody) storeBody.classList.add('store-card-favorite');
         if (storeCard) storeCard.classList.add('store-card-favorite');
-        showAlert('green', data.message, 3000);
+        showAlert(data.refresh?'purple':'green', data.message, 3000);
       } else {
-        element.querySelector('i').classList.remove('fi-sr-bookmark');
-        element.querySelector('i').classList.add('fi-br-bookmark');
+        if (bookmarks.length > 0) {
+          bookmarks.forEach(bookmark => {
+            bookmark.classList.remove('fi-sr-bookmark');
+            bookmark.classList.add('fi-br-bookmark');
+          });
+        } else {
+          const bookmark = element.querySelector('i');
+          bookmark.classList.remove('fi-sr-bookmark');
+          bookmark.classList.add('fi-br-bookmark');
+        }
         if (storeBody) storeBody.classList.remove('store-card-favorite');
         if (storeCard) storeCard.classList.remove('store-card-favorite');
-        showAlert('dark-orange', data.message, 3000);
+        showAlert(data.refresh?'purple':'dark-orange', data.message, 3000);
       }
     } else {
       showAlert('red', data.message);
@@ -66,10 +83,8 @@ function toggleFavorite(element, storeId) {
       }, 100);
     }
   })
-  .catch(() => {showAlert('red', '收藏過程中發生非預期的錯誤');})
-  .finally(() => {
-    element.disabled = false;
-  });
+  .catch(() => { exceptionAlert('收藏餐廳'); })
+  .finally(() => { element.disabled = false; });
 }
 
 function toBase64(str) {
@@ -82,6 +97,8 @@ function getEncodeSearchParams() {
     q: document.getElementById('keyword').value,
     lat: document.getElementById('map').getAttribute('data-lat'),
     lng: document.getElementById('map').getAttribute('data-lng'),
+    navigateC: document.getElementById('navigation-category-select').value,
+    navigateL: document.getElementById('navigation-landmark-select').value,
     city: document.getElementById('condition-city-select').value,
     dist: document.getElementById('condition-dist-select').value,
     gm : document.getElementById('condition-geo-radio').checked,
@@ -134,6 +151,10 @@ async function setConditionFromData(data) {
   document.getElementById('condition-city-select').value = data.city;
   await updateArea('condition');
   document.getElementById('condition-dist-select').value = data.dist;
+  document.getElementById('navigation-category-select').value = data.navigateC;
+  await updateLandmark();
+  document.getElementById('navigation-landmark-select').value = data.navigateL;
+  checkLandmark();
   if (data.gm) {
     radioChecked(document.getElementById('condition-geo-radio'), true);
   } else {
@@ -247,8 +268,7 @@ function updatePreferences(target, show = true) {
         if (show) showAlert('red', data.message);
       }
     })
-    .catch(() => {showAlert('red', '更新偏好過程中發生非預期的錯誤');
-  });
+    .catch(() => { exceptionAlert('更新偏好設定'); });
 }
 
 function countCheckedServiceMarks() {
@@ -257,9 +277,16 @@ function countCheckedServiceMarks() {
   return checkedCount;
 }
 
+function toUrl(url, newTab = true) {
+  if (newTab) {
+    window.open(url, '_blank');
+  } else {
+    window.location.href = url;
+  }
+}
+
 function goToDetailPage(storeId) {
-  // window.location.href = `/detail?id=${storeId}`;
-  window.open(`/detail?id=${storeId}`, '_blank');
+  toUrl(`/detail?id=${storeId}`);
 }
 function redirectToDetailPage(storeId) {
   data = document.getElementById('searchResults').getAttribute('search-data');
@@ -270,21 +297,21 @@ function redirectToDetailPage(storeId) {
     credentials: 'same-origin',
     body: formData
   })
-  window.location.href = `/detail?id=${storeId}&data=${encodeURIComponent(data)}`;
+  toUrl(`/detail?id=${storeId}&data=${encodeURIComponent(data)}`);
 }
 function urlToDetailPage(storeId) {
   const data = new URLSearchParams(window.location.search).get('data')??null;
-  window.location.href = `/detail?id=${storeId}&data=${encodeURIComponent(data)}`;
+  toUrl(`/detail?id=${storeId}&data=${encodeURIComponent(data)}`, newTab=false);
 }
 function openSearchPage(keyword) {
   const encodedData = new URLSearchParams(window.location.search).get('data')??null;
   if (!encodedData) {
-    window.open(`/search?q=${encodeURIComponent(keyword)}`, '_blank');
+    toUrl(`/search?q=${encodeURIComponent(keyword)}`);
     return;
   }
   var data = decodeSearchParams(encodedData);
   data.q = keyword;
-  window.open(`/search?data=${encodeSearchParams(data)}`, '_blank');
+  toUrl(`/search?data=${encodeSearchParams(data)}`);
 }
 
 function radioChecked(target, state) {
@@ -331,6 +358,46 @@ async function updateArea(target) {
   if (!preloading) geoRadio.checked = !distanceRadio.checked;
   if (distanceRadio.checked) distanceRadio.dispatchEvent(new Event('change'));
   if (geoRadio.checked) geoRadio.dispatchEvent(new Event('change'));
+}
+
+async function updateLandmark() {
+  const selectedCategory = document.getElementById(`navigation-category-select`).value;
+  const landmarkSelect = document.getElementById(`navigation-landmark-select`);
+  if (selectedCategory === '') {
+    landmarkSelect.innerHTML = "";
+    landmarkSelect.disabled = true;
+    return;
+  }
+  landmarkSelect.disabled = false;
+  landmarkSelect.innerHTML = "<option value=''>(未選擇)</option>";
+  const formData = new FormData();
+  formData.set('category', selectedCategory);
+  await fetch('/handler/get-landmarks.php', {
+    method: 'POST',
+    credentials: 'same-origin',
+    body: formData
+  }).then(response => response.json())
+    .then(data => {
+      data.forEach(landmark => {
+        landmarkSelect.innerHTML += `<option value="${landmark['name']}" lng="${landmark['longitude']}" lat="${landmark['latitude']}">${landmark['name']}</option>`;
+      });
+    })
+    .catch(() => { exceptionAlert('取得快速定位'); })
+    .finally(() => { checkLandmark(); });
+}
+
+function checkLandmark() {
+  const selectedLandmark = document.getElementById(`navigation-landmark-select`).value;
+  document.getElementById('navigation-confirm-button').disabled = (selectedLandmark === '');
+  document.getElementById('navigation-search-button').disabled = (selectedLandmark === '');
+}
+
+function setLandmark() {
+  const landmarkSelect = document.getElementById(`navigation-landmark-select`).querySelector('option:checked');
+  const lat = landmarkSelect.getAttribute('lat');
+  const lng = landmarkSelect.getAttribute('lng');
+  setView([lat, lng], 14);
+  showAlert('green', `已將地圖移動至${landmarkSelect.value}`);
 }
 
 function radioToggle(target, type) {

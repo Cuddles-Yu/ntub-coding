@@ -13,17 +13,17 @@
   // 查詢資料
   function getStoreData($storeId) {
       global $conn;
-      $stmt = bindPrepare($conn, 
-      " SELECT 
+      $stmt = bindPrepare($conn,
+      " SELECT
           s.id AS store_id,
           s.name AS store_name,
           s.link AS store_link,
           s.preview_image AS store_preview_image,
           l.latitude AS location_latitude,
-          l.longitude AS location_longitude, 
+          l.longitude AS location_longitude,
           s.tag AS tag,
-          r.real_rating AS rate_real_rating,      
-          r.total_samples AS sample_ratings,      
+          r.real_rating AS rate_real_rating,
+          r.total_samples AS sample_ratings,
           r.total_withcomments AS total_withcomments,
           r.avg_ratings AS avg_ratings
         FROM stores AS s
@@ -42,7 +42,7 @@
                   'name' => $row['store_name'],
                   'link' => $row['store_link'],
                   'preview_image' => $row['store_preview_image'],
-                  'latitude' => floatval($row['location_latitude']), 
+                  'latitude' => floatval($row['location_latitude']),
                   'longitude' => floatval($row['location_longitude']),
                   'tag' => $row['tag'],
                   'rating' => floatval($row['avg_ratings']),
@@ -57,6 +57,5 @@
       $conn->close();
       return $data;
   }
-  
   header('Content-Type: application/json');
   echo json_encode(getStoreData($storeId));

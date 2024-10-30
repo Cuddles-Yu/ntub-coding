@@ -21,7 +21,7 @@
 
 <div class="carousel-container">
   <div class="carousel-arrow left-arrow" type="button"><i class="fi fi-sr-angle-left"></i></div>
-  <div class="restaurant-group grab-container">
+  <div class="store-suggestion-group grab-container">
     <?php if (empty($stores)) : ?>
       <div style="width:100%;">
         <p style="text-align:center;">數據不足，暫時沒有可以推薦給您<?=$targetMode?>的餐廳</p>
@@ -43,7 +43,7 @@
           $bayesianScore = getBayesianScore($memberWeights, $storeId);
           $targetsInfo = getTargets($storeId);
         ?>
-        <div class="card restaurant <?=$markItem['cardType']??''?> <?php if($isFavorite): echo 'store-card-favorite'; endif;?>" onclick="goToDetailPage(<?=$storeId?>)">
+        <div class="clickable-shadow clickable-transform card full-store-card <?=$markItem['cardType']??''?> <?php if($isFavorite): echo 'store-card-favorite'; endif;?>" onclick="goToDetailPage(<?=$storeId?>)">
           <?php if($markItem):?>
             <div class="left-icon-display" style="background-color:<?=$markItem['tagColor']?>;"><?=$markItem['tagName']?></div>
           <?php elseif($mode === 'most-favorite'):?>
@@ -55,14 +55,14 @@
           <img src="<?=$previewImage?>" class="card-img-top">
           <div class="card-body">
               <h5 class="card-title"><?=$storeName?></h5>
-              <div class="quick-group">
-                <div onclick="preventMultipleClick(event);toggleFavorite(this,<?=$storeId?>);">
+              <div class="small-toolbar">
+                <div class="clickable-overlay" onclick="preventMultipleClick(event);toggleFavorite(this,<?=$storeId?>);">
                 <i class="small-toolbar-button fi <?=$isFavorite?'fi-sr-bookmark':'fi-br-bookmark'?>"></i>
-                  <h6 class="love-text">收藏</h6>
+                  <h6 class="small-toolbar-text">收藏</h6>
                 </div>
-                <div onclick="preventMultipleClick(event);shareStore(<?=$storeId?>);">
+                <div class="clickable-overlay" onclick="preventMultipleClick(event);shareStore(<?=$storeId?>);">
                 <i class="small-toolbar-button fi fi-sr-share"></i>
-                  <h6 class="love-text">分享</h6>
+                  <h6 class="small-toolbar-text">分享</h6>
                 </div>
               </div>
               <h5 class="rating"><small style="font-size:25px;"><?=$bayesianScore?></small><small class="rating-text">/ 綜合評分</small></h5>
@@ -98,8 +98,8 @@
                   <?php $rowIndex++; ?>
                 <?php endforeach; ?>
               </div>
-              <h6 class="restaurant-style">類別：<?=$tag?></h6>
-              <h6 class="address">地址：<?=$address?></h6>
+              <h6 class="store-card-text">類別：<?=$tag?></h6>
+              <h6 class="store-card-text">地址：<?=$address?></h6>
             </div>
         </div>
       <?php endforeach; ?>

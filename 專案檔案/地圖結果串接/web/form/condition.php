@@ -3,7 +3,7 @@
   require_once $_SERVER['DOCUMENT_ROOT'].'/base/session.php';
   global $ALL_CITIES;
 
-  $modalTitle = '篩選條件';
+  $modalTitle = '<i class="fi fi-sr-filter filter-img button-text-icon"></i>篩選條件';
   $modalId = 'condition';
 
   $checkboxGroups = [
@@ -150,4 +150,4 @@
   </div>
 </div>
 
-<script src="/scripts/condition.js" defer></script>
+<script src="/scripts/condition.js?v=<?=$VERSION?>" defer></script>

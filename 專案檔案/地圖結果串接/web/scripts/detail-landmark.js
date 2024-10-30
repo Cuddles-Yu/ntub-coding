@@ -46,7 +46,7 @@ window.addEventListener('load', function () {
         var marker = L.marker(latlng, {
           icon: mapIcon
         }).on('click', function () {
-          window.open(`${data[0].link}`, '_blank');
+          toUrl(`${data[0].link}`);
         });
         map.addLayer(marker);
         bounds.push(latlng);
@@ -77,7 +77,7 @@ window.addEventListener('load', function () {
                 maxZoom: zoomLevel
             });
             storeButton.style.display = 'block';
-            showInfoBar(`當前位置與該商家距離 ${normalizeDistance(distance)}`)
+            showInfoBar(`當前位置與該餐廳距離 ${normalizeDistance(distance)}`)
           }
         } catch (error) {
           locateButton.style.display = 'block';
@@ -92,5 +92,5 @@ window.addEventListener('load', function () {
         storeLocate();
       }
     })
-    .catch(() => {showAlert('red', '取得您的位置時發生非預期的錯誤');});
+    .catch(() => { exceptionAlert('取得您的位置'); });
 });

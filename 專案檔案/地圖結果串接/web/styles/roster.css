@@ -1,0 +1,800 @@
+.roster-page {
+  border-bottom-style: solid;
+  border-bottom-color: mediumblue;
+}
+.roster-menu {
+  border-left-style: solid;
+  border-left-color: mediumblue;
+}
+
+.tertiary-content {
+  max-width: 1520px !important;
+}
+
+.left-icon-display {
+  font-size: 18px !important;
+  border-top-left-radius: 3px;
+  margin: -1px;
+}
+
+.input-group-login{
+  display: flex;
+  margin-top: 5px;
+}
+
+.tab-content {
+  place-self: center;
+}
+
+.tab-content-environmental, .tab-content-hakka {
+  display: none;
+}
+
+.tab-content-environmental.active, .tab-content-hakka.active {
+  display: block;
+}
+
+.sign_up_text{
+  color: rgb(139, 139, 139);
+  font-size: 16px;
+  left: auto;
+  display: flex;
+  justify-content: flex-end;
+  text-decoration: none;
+}
+
+@media (min-width: 711px){
+  .title-text{
+    margin-top: 70px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 75px;
+    background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+    background-clip: text;
+    color: transparent;
+  }
+
+  .search{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-top: 15px;
+    gap: 10px;
+  }
+
+  .search-city{
+    display: none;
+  }
+
+  .search-keyword{
+    width: 600px;
+    position: relative;
+    overflow-x: hidden;
+    font-size: 16px;
+  }
+
+  .form-floating>.form-control, .form-floating>.form-control-plaintext{
+    padding: 16px  12px;
+    height: 65px;
+  }
+
+  .filter-button{
+    position: relative;
+    margin-bottom: 15px;
+    color: white;
+    white-space: nowrap;
+    font-size: 16px;
+    background-color: #919ca5;
+    border: 1px solid #919ca5;
+  }
+
+
+  .input-group{
+    width: 200px;
+  }
+
+  .search-button{
+    position: relative;
+    margin-bottom: 15px;
+    color: white;
+    white-space: nowrap;
+    font-size: 16px;
+  }
+
+  .filter-container{
+    width: 725px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    background-color: #d9dfe4;
+    border-radius: 5px;
+    display: flex;
+    display: none;
+  }
+
+  .filter-result{
+    max-width: 100%;
+    display: flex;
+    white-space: nowrap;
+    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .condition{
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid #b0c4d6;
+    background-color: white;
+    border-radius: 10px;
+    font-size: 16px;
+  }
+
+  .legend{
+    font-size: 12px;
+  }
+
+  .tip-line{
+    border: 1px solid #68737a;
+    margin-top: 45px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+  }
+
+  .tip{
+    color: #68737a;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+
+  #tab {
+    width: 100%;
+    background: white;
+  }
+
+  /* 頁籤ul */
+  #tab > ul {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 20px 20px 0 20px;
+    gap: 30px;
+  }
+
+  #tab > ul > li {
+    list-style-type: none;
+  }
+
+  /* 頁籤上的文字 */
+  #tab > ul > li > a { 
+    text-decoration: none;
+    font-size: 30px;
+    color: #333;
+    float: left;
+    padding: 10px;
+    margin-left: 5px;
+    white-space: nowrap;
+  }
+
+  /*頁籤div內容*/
+  #tab > div {
+    clear: both;
+    padding: 0 15px;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+  }
+
+  /*第一筆的底色*/
+  #tab > ul li:first-child a {
+    background: #7e8b9c;
+    color: white;
+    border-radius: 5px;
+  }
+
+  span:target ~ #tab > div:first-of-type {
+    visibility: hidden;
+    height: 0;
+    padding: 0 15px;
+  }
+
+  .carousel-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .carousel-arrow{
+    font-size: 25px;
+    color: #8b8686;
+    margin-top: 20px;
+  }
+
+  .carousel-arrow.hidden {
+    display: none;
+  }
+
+  .card-title {
+    font-weight: bold;
+    font-size: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+  }
+
+  .rating{
+    color: #AC3535;
+    font-weight: bold;
+    font-size: 25px;
+  }
+
+  .rating-text{
+    margin-left: 5px;
+    font-size: 12px;
+  }
+
+  .progress-group-text{
+    margin-top: 7px;
+    font-size: 13px;
+    white-space: nowrap;
+    padding-right: 60px;
+  }
+  
+  .progress-score{
+    font-size: 13px;
+    text-align: right;
+    white-space: nowrap;
+    width: 50px;
+  }
+
+  .progress-group{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 5px;
+    margin-bottom: 3px;
+  }
+
+  .progress{
+    height: 12px;
+    margin-bottom: 5px;
+    flex-grow: 1;
+    min-width: 40px;
+  }
+
+}
+
+
+@media (min-width: 551px) and (max-width: 710px){
+  .title-text{
+    margin-top: 60px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 65px;
+    background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+    background-clip: text;
+    color: transparent;
+  }
+
+  .search{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-top: 15px;
+  }
+
+  .search-city{
+    display: none;
+  }
+
+  .search-keyword{
+    width: 470px;
+    position: relative;
+    margin-left: 10px;
+    overflow-x: hidden;
+    font-size: 16px;
+  }
+
+  .form-floating>.form-control, .form-floating>.form-control-plaintext{
+    padding: 16px  12px;
+    height: 65px;
+  }
+
+  .filter-button{
+    position: relative;
+    margin-left: 20px;
+    margin-bottom: 15px;
+    color: white;
+    white-space: nowrap;
+    font-size: 16px;
+    background-color: #919ca5;
+    border: 1px solid #919ca5;
+  }
+
+  .checkbox-title{
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-right: 15px;
+  }
+
+  .checkbox-title:not(:first-child){
+    margin-top: 5px;
+  }
+
+  .input-group{
+    width: 200px;
+  }
+
+  .checkbox-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); /* 自動適應列數 */
+  }
+
+  .search-button{
+    position: relative;
+    margin-left: 20px;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    color: white;
+    white-space: nowrap;
+    font-size: 16px;
+  }
+
+  .filter-container{
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    background-color: #d9dfe4;
+    border-radius: 5px;
+    display: flex;
+    display: none;
+  }
+
+  .filter-result{
+    max-width: 100%;
+    display: flex;
+    white-space: nowrap;
+    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .condition{
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid #b0c4d6;
+    background-color: white;
+    border-radius: 10px;
+    font-size: 14px;
+  }
+
+  .legend{
+    font-size: 12px;
+  }
+
+  .tip-line{
+    border: 1px solid #68737a;
+    margin-top: 45px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .tip{
+    color: #68737a;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+
+  #tab {
+    width: 100%;
+    background: white;
+  }
+
+  /* 頁籤ul */
+  #tab > ul {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 20px 20px 0 20px;
+    gap: 30px;
+  }
+
+  #tab > ul > li {
+    list-style-type: none;
+  }
+
+  /* 頁籤上的文字 */
+  #tab > ul > li > a {
+    text-decoration: none;
+    font-size: 25px;
+    color: #333;
+    float: left;
+    padding: 10px;
+    margin-left: 5px;
+    white-space: nowrap;
+  }
+
+  /*頁籤div內容*/
+  #tab > div {
+    clear: both;
+    padding: 0 15px;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+  }
+
+  /*第一筆的底色*/
+  #tab > ul li:first-child a {
+    background: #7e8b9c;
+    color: white;
+    border-radius: 5px;
+  }
+
+  .carousel-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .carousel-arrow{
+    font-size: 25px;
+    color: #8b8686;
+    margin-top: 20px;
+  }
+
+  .carousel-arrow.hidden {
+    display: none;
+  }
+
+  .card-title {
+    font-weight: bold;
+    font-size: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+  }
+
+  .rating{
+    color: #AC3535;
+    font-weight: bold;
+    font-size: 23px;
+  }
+
+  .rating-text{
+    margin-left: 5px;
+    font-size: 12px;
+  }
+
+  .progress-group-text{
+    margin-top: 7px;
+    font-size: 13px;
+    white-space: nowrap;
+    padding-right: 60px;
+  }
+  
+  .progress-score{
+    font-size: 13px;
+    text-align: right;
+    white-space: nowrap;
+    width: 50px;
+  }
+
+  .progress-group{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 5px;
+    margin-bottom: 3px;
+  }
+
+  .progress{
+    height: 12px;
+    margin-bottom: 5px;
+    flex-grow: 1;
+    min-width: 40px;
+  }
+
+}
+
+@media (max-width: 550px){
+  .title-text{
+    margin-top: 25px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 50px;
+    background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+    background-clip: text;
+    color: transparent;
+  }
+
+  .search{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-top: 15px;
+  }
+
+  .search-city{
+    display: none;
+  }
+
+  .search-keyword{
+    width: 470px;
+    position: relative;    
+    margin-left: 10px;
+    overflow-x: hidden;
+    font-size: 16px;
+  }
+
+  .form-floating>.form-control, .form-floating>.form-control-plaintext{
+    padding: 16px  12px;
+    height: 38px;
+  }
+
+  .filter-button{
+    position: relative;
+    margin-left: 20px;
+    margin-bottom: 15px;
+    color: white;
+    white-space: nowrap;
+    font-size: 16px;
+    background-color: #919ca5;
+    border: 1px solid #919ca5;
+  }
+
+  .checkbox-title{
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-right: 15px;
+  }
+
+  .checkbox-title:not(:first-child){
+    margin-top: 5px;
+  }
+
+  .input-group{
+    width: 200px;
+  }
+  
+  .checkbox-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); /* 自動適應列數 */
+  }
+
+  .search-button{
+    position: relative;
+    margin-left: 20px;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    color: white;
+    white-space: nowrap;
+    font-size: 16px;
+  }
+
+  .filter-container{
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    background-color: #d9dfe4;
+    border-radius: 5px;
+    display: flex;
+    display: none;
+  }
+
+  .filter-result{
+    max-width: 100%;
+    display: flex;
+    white-space: nowrap;
+    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  
+  .condition{
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid #b0c4d6;
+    background-color: white;
+    border-radius: 10px;
+    font-size: 14px;
+  }
+
+  .legend{
+    font-size: 12px;
+  }
+
+  .tip-line{
+    border: 1px solid #68737a;
+    margin-top: 45px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .tip{
+    color: #68737a;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+
+  #tab {
+    width: 100%;
+    background: white;
+  }
+
+  /* 頁籤ul */
+  #tab > ul {
+    display: flex;             
+    justify-content: center;   
+    margin: 0;
+    padding: 20px 20px 0 20px;
+    gap: 30px;
+  }
+
+  #tab > ul > li {
+    list-style-type: none;
+  }
+
+  /* 頁籤上的文字 */
+  #tab > ul > li > a { 
+    text-decoration: none;
+    font-size: 20px;
+    color: #333;
+    float: left;
+    padding: 10px;
+    margin-left: 5px;
+    white-space: nowrap;
+  }
+
+  /*頁籤div內容*/
+  #tab > div {
+    clear: both;
+    padding: 0 15px;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+  }
+
+  /*第一筆的底色*/
+  #tab > ul li:first-child a {
+    background: #7e8b9c;
+    color: white;
+    border-radius: 5px;
+  }
+
+  span:target ~ #tab > div:first-of-type {
+    visibility: hidden;
+    height: 0;
+    padding: 0 15px;
+  }
+
+  .carousel-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .carousel-arrow{
+    font-size: 25px;
+    color: #8b8686;
+    margin-top: 20px;
+  }
+
+  .carousel-arrow.hidden {
+    display: none;
+  }
+
+  .card-title {
+    font-weight: bold;
+    font-size: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+  }
+
+  .rating{
+    color: #AC3535;
+    font-weight: bold;
+    font-size: 23px;
+  }
+
+  .rating-text{
+    margin-left: 5px;
+    font-size: 12px;
+  }
+
+  .progress-group-text{
+    margin-top: 7px;
+    font-size: 13px;
+    white-space: nowrap;
+    padding-right: 60px;
+  }
+
+  .progress-score{
+    font-size: 13px;
+    text-align: right;
+    white-space: nowrap;
+    width: 50px;
+  }
+
+  .progress-group{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 5px;
+    margin-bottom: 3px;
+  }
+
+  .progress{
+    height: 12px;
+    margin-bottom: 5px;
+    flex-grow: 1;
+    min-width: 40px;
+  }
+
+}
+
+.carousel-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-top: 20px;
+}
+
+.store-roster-group {
+  padding: 10px;
+  margin-top: 20px;
+  display: flex;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  width: 100%;
+  height: 580px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 40px 10px;
+  scroll-behavior: smooth;
+  position: relative;
+}
+
+.nav-item {
+  width: 134px;
+  text-align: center;
+}
+
+.nav-tabs .nav-link {
+  color: black;
+  background-color: transparent;
+  border-color: transparent;
+  cursor: pointer;
+}
+.nav-tabs .nav-link.active.green {
+  color: green;
+  font-weight: bold;
+  background-color: var(--bs-nav-tabs-link-active-bg);
+  border-color: var(--bs-nav-tabs-link-active-border-color);
+  cursor: default;
+}
+.nav-tabs .nav-link.active.orange {
+  color: darkorange;
+  font-weight: bold;
+  background-color: var(--bs-nav-tabs-link-active-bg);
+  border-color: var(--bs-nav-tabs-link-active-border-color);
+  cursor: default;
+}

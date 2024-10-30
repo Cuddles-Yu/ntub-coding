@@ -31,7 +31,7 @@
       $normalizedWeights = getMemberNormalizedWeight();
       $rowIndex = 1;
     ?>
-    <div class="container-fluid store-body <?=$markItem['cardType']??''?> <?php if($isFavorite): echo 'store-card-favorite'; endif;?>" data-id="<?=$storeId?>" onclick="goToDetailPage(<?=$storeId?>)">
+    <div class="clickable-shadow clickable-transform container-fluid store-body <?=$markItem['cardType']??''?> <?php if($isFavorite): echo 'store-card-favorite'; endif;?>" data-id="<?=$storeId?>" onclick="redirectToDetailPage(<?=$storeId?>)">
         <div class="row">
             <div class="store-img-group col-3">
               <!-- <div class="service-match-counter">符合四項</div> -->
@@ -52,8 +52,8 @@
                 <div class="store-information row">
                     <div class="col-6">
                       <h5 class="rating"><?=$bayesianScore?><small class="rating-text"> / 綜合評分</small></h5>
-                      <h6 class="restaurant-style">類別：<?=$tag?></h6>
-                      <h6 class="address">地址：<?=$location?></h6>
+                      <h6 class="store-card-text">類別：<?=$tag?></h6>
+                      <h6 class="store-card-text">地址：<?=$location?></h6>
                     </div>
                     <div class="progress-group-text col">
                       <?php foreach ($normalizedWeights as $category => $data): ?>
@@ -75,17 +75,17 @@
                       <?php endforeach?>
                     </div>
                     <div class="quick-group col-2">
-                      <div onclick="preventMultipleClick(event);toggleFavorite(this,<?=$storeId?>);">
+                      <div class="clickable-overlay" onclick="preventMultipleClick(event);toggleFavorite(this,<?=$storeId?>);">
                         <i class="small-toolbar-button fi <?=$isFavorite?'fi-sr-bookmark':'fi-br-bookmark'?>"></i>
-                        <h6 class="love-text">收藏</h6>
+                        <h6 class="small-toolbar-text">收藏</h6>
                       </div>
-                      <div onclick="preventMultipleClick(event);shareStore(<?=$storeId?>);">
+                      <div class="clickable-overlay" onclick="preventMultipleClick(event);shareStore(<?=$storeId?>);">
                         <i class="small-toolbar-button fi fi-sr-share"></i>
-                        <h6 class="love-text">分享</h6>
+                        <h6 class="small-toolbar-text">分享</h6>
                       </div>
-                      <div onclick="preventMultipleClick(event);highlightMarkerById(<?=$storeId?>);">
-                        <img class="search-result-button-icon" style="right:1px;" src="/images/location-mark1.png">
-                        <h6 class="map-link-text">地標</h6>
+                      <div class="clickable-overlay" onclick="preventMultipleClick(event);highlightMarkerById(<?=$storeId?>);">
+                        <img class="search-result-button-icon" style="right:-5px;top:1px;" src="/images/location-mark1.png">
+                        <h6 class="small-toolbar-text">地標</h6>
                       </div>
                     </div>
                 </div>

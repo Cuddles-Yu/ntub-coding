@@ -1,35 +1,35 @@
 <?php
-  $formName = 'navigation';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/base/queries.php';
+  $landmarkCategories = getLandmarkCategories();
+  $modalTitle = '<i class="fi fi-sr-marker filter-img button-text-icon"></i>快速定位';
+  $modalId = 'navigation';
 ?>
-<div class="modal fade" data-bs-keyboard="false" data-bs-backdrop="static" id="<?=$formName?>Modal" tabindex="-1" aria-labelledby="<?=$formName?>ModalLabel" aria-hidden="true">
-  <div class="modal-dialog form-dialog modal-dialog-centered" style="justify-content:center;">
-    <div class="modal-content" style="width:auto">
-      <div class="modal-body">
-        <form novalidate style="margin-top:15px;margin-left:20px;margin-right:20px;">
-          <div style="display: flex; align-items: center;">
-            <!-- <img src="/images/.png" alt="Image" style="height:50px;margin-right:15px;margin-bottom:10px;"> -->
-            <i class="fi fi-sr-navigation" style="font-size: 40px; margin-right: 15px; color: #cc5500;"></i>
-            <div>
-              <h2>導航至餐廳</h2>
-              <p>開啟 GoogleMaps 規劃前往路線</p>
-            </div>
-          </div>
-        </form>
+
+<div class="modal fade" data-bs-keyboard="false" data-bs-backdrop="static" id="<?=$modalId?>Modal" aria-hidden="true" tabindex="-1" aria-labelledby="<?=$modalId?>ModalLabel">
+  <div class="modal-dialog form-dialog modal-dialog-centered modal-dialog-scrollable login-modal">
+    <div class="modal-content">
+      <h2 class="form-h2-title" style="padding-top:20px;"><?=$modalTitle?></h2>
+      <div class="modal-body login-modal-body" style="padding-top:10px;">
+        <div id="comments-order-bar" class="input-group navigation-input-box mb-3 sort-button">
+          <span class="input-group-text condition-input-box-title" id="basic-addon1">捷運車站</span>
+          <select class="form-select condition-input-box-main" aria-label="Default select example" id="navigation-category-select" onchange="updateLandmark()">
+            <option value="" selected>(未選擇)</option>
+            <?php foreach($landmarkCategories as $category): ?>
+              <option value="<?=$category?>"><?=$category?>
+              </option>
+            <?php endforeach; ?>
+          </select>
+          <select class="form-select condition-input-box-main" aria-label="Default select example" id="navigation-landmark-select" onchange="checkLandmark()" disabled>
+          </select>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-solid-gray keydown-by-esc" id="<?=$formName?>-cancel-button" data-bs-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-solid-dark-orange keydown-by-enter" id="<?=$formName?>-confirm-button" data-bs-dismiss="modal">確定</button>
+        <button type="button" class="btn btn-solid-gray" id="<?=$modalId?>-cancel-button" data-bs-dismiss="modal" onclick="showCondition();">關閉</button>
+        <button type="button" class="btn btn-solid-green" id="<?=$modalId?>-confirm-button" data-bs-dismiss="modal" onclick="setLandmark();showCondition();" disabled>定位</button>
+        <button type="button" class="btn btn-solid-windows-blue" id="<?=$modalId?>-search-button" data-bs-dismiss="modal" onclick="setLandmark();saveCondition(1000);" disabled>搜尋</button>
       </div>
     </div>
   </div>
 </div>
 
-<script>
-  document.getElementById('<?=$formName?>Modal').addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-      document.getElementById('<?=$formName?>Modal').querySelector('.keydown-by-enter').click();
-    } else if (event.key === 'Escape') {
-      document.getElementById('<?=$formName?>Modal').querySelector('.keydown-by-esc').click();
-    }
-  });
-</script>
+<script src="/scripts/condition.js?v=<?=$VERSION?>" defer></script>
