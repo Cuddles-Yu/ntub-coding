@@ -7,16 +7,7 @@
   border-left-color: mediumblue;
 }
 
-#commentspace-header {
-  transform: translateY(0);
-  transition: transform 0.3s ease;
-}
-#storeinfo-header {
-  transform: translateY(-100%);
-  transition: transform 0.3s ease;
-}
-
-#back-to-top-btn {
+.circle-button {
   position: fixed;
   bottom: 30px;
   right: 30px;
@@ -35,13 +26,62 @@
   align-items: center;
   display: flex;
 }
-#back-to-top-btn:hover {
+.circle-button:hover {
   background-color: #f0f0f0;
 }
-#back-to-top-btn:active {
+.circle-button:active {
   background-color: #cccccc;
 }
 
+.circle-button-icon {
+  top: 2px;
+  position: relative;
+}
+
+.comment-good, .comment-bad, .comment-middle, .comment-more {
+  border: 2px solid;
+  height: 35px;
+  text-align: center;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 10px;
+  background-color: white;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+.comment-good:hover, .comment-bad:hover, .comment-middle:hover, .comment-more:hover {
+  color: black;
+}
+.comment-good {
+  border-color: #5FA74D;
+  color: #5FA74D;
+}
+.comment-bad {
+  border-color: #BC4763;
+  color: #BC4763;
+}
+.comment-middle{
+  border-color: #51519b;
+  color: #51519b;
+}
+.comment-more {
+  border-color: #575757;
+  color: #575757;
+}
+
+#commentspace-header {
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+}
+#storeinfo-header {
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
 
 *,
 *::before,
@@ -845,47 +885,6 @@ body{
   padding: 10px;
 }
 
-.comment-good, .comment-bad, .comment-neutral, .comment-middle {
-  border: 2px solid;
-  height: 35px;
-  text-align: center;
-  padding: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 10px;
-  background-color: white;
-  font-size: 16px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  white-space: nowrap;
-}
-
-.comment-good:hover, .comment-bad:hover, .comment-neutral:hover, .comment-middle:hover {
-  color: black;
-}
-
-.comment-good {
-  border-color: #5FA74D;
-  color: #5FA74D;
-}
-
-.comment-bad {
-  border-color: #BC4763;
-  color: #BC4763;
-}
-
-.comment-neutral{
-  border-color: #ad894f;
-  color: #ad894f;
-}
-
-.comment-middle{
-  border-color: #51519b;
-  color: #51519b;
-}
-
 .sort-button{
   font-size: 16px;
   width: 600px;
@@ -1527,46 +1526,6 @@ body{
   gap: 10px;
   padding: 10px;
   }
-  
-  .comment-good, .comment-bad, .comment-neutral, .comment-middle {
-  border: 2px solid;
-  min-width: 75px;
-  height: 33px;
-  text-align: center;
-  padding: 4px;
-  border-radius: 10px;
-  background-color: white;
-  font-size: 14px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  white-space: nowrap;
-  }
-
-  .comment-good:hover, .comment-bad:hover, .comment-neutral:hover, .comment-middle:hover {
-  color: black;
-  }
-  
-  .comment-good {
-  border-color: #5FA74D;
-  color: #5FA74D;
-  }
-  
-  .comment-bad {
-  border-color: #BC4763;
-  color: #BC4763;
-  }
-  
-  .comment-neutral{
-  border-color: #ad894f;
-  color: #ad894f;
-  }
-
-  .comment-middle{
-  border-color: #51519b;
-  color: #51519b;
-  }
 
   .sort-button{
   font-size: 16px;
@@ -2203,46 +2162,6 @@ body{
   flex-wrap: wrap;
   gap: 10px;
   padding: 10px;
-  }
-  
-  .comment-good, .comment-bad, .comment-neutral, .comment-middle {
-  border: 2px solid;
-  min-width: 75px;
-  height: 33px;
-  text-align: center;
-  padding: 4px;
-  border-radius: 10px;
-  background-color: white;
-  font-size: 14px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  white-space: nowrap;
-  }
-
-  .comment-good:hover, .comment-bad:hover, .comment-neutral:hover, .comment-middle:hover {
-  color: black;
-  }
-  
-  .comment-good {
-  border-color: #5FA74D;
-  color: #5FA74D;
-  }
-  
-  .comment-bad {
-  border-color: #BC4763;
-  color: #BC4763;
-  }
-  
-  .comment-neutral{
-  border-color: #ad894f;
-  color: #ad894f;
-  }
-
-  .comment-middle{
-  border-color: #51519b;
-  color: #51519b;
   }
 
   .sort-button{
@@ -2890,46 +2809,6 @@ body{
   gap: 10px;
   padding: 10px;
   }
-  
-  .comment-good, .comment-bad, .comment-neutral, .comment-middle {
-  border: 2px solid;
-  min-width: 75px;
-  height: 33px;
-  text-align: center;
-  padding: 4px;
-  border-radius: 10px;
-  background-color: white;
-  font-size: 14px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  white-space: nowrap;
-  }
-
-  .comment-good:hover, .comment-bad:hover, .comment-neutral:hover, .comment-middle:hover {
-  color: black;
-  }
-  
-  .comment-good {
-  border-color: #5FA74D;
-  color: #5FA74D;
-  }
-  
-  .comment-bad {
-  border-color: #BC4763;
-  color: #BC4763;
-  }
-  
-  .comment-neutral{
-  border-color: #ad894f;
-  color: #ad894f;
-  }
-
-  .comment-middle{
-  border-color: #51519b;
-  color: #51519b;
-  }
 
   .sort-button{
   font-size: 16px;
@@ -3113,26 +2992,5 @@ body{
   margin-right: 3px;
   color: #374957;
   font-size: 16px;
-  }
-}
-
-@media (max-width: 595px) {
-  .comment-good, .comment-bad, .comment-neutral, .comment-middle {
-  border: 2px solid;
-  min-width: 75px;
-  height: 33px;
-  text-align: center;
-  padding: 4px;
-  border-radius: 10px;
-  background-color: white;
-  font-size: 14px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
-  }
-
-  .comment-good:hover, .comment-bad:hover, .comment-neutral:hover, .comment-middle:hover {
-  color: black;
   }
 }

@@ -64,14 +64,14 @@
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
   <header id="storeinfo-header">
     <div id="favorite-button" onclick="toggleFavorite(this,<?=$storeId?>)">
-      <i class="store-bookmark fi <?=$isFavorite?'fi-sr-bookmark':'fi-br-bookmark'?>" style="font-size:34px;top:2px;position:relative;"></i>
-      <h1 class="store-title" id="store-title" style="margin-left:10px"><?=$storeName?></h1>
+      <i class="store-bookmark fi <?=$isFavorite?'fi-sr-heart':'fi-br-heart'?>" style="font-size:34px;top:2px;position:relative;"></i>
+      <h1 class="store-title no-flow" id="store-title" style="margin-left:10px;max-width:1490px;"><?=$storeName?></h1>
     </div>
     <hr class="header-separator">
   </header>
   <section class="top-content section-content">
     <div id="favorite-button" onclick="toggleFavorite(this,<?=$storeId?>)">
-      <i class="store-bookmark fi <?=$isFavorite?'fi-sr-bookmark':'fi-br-bookmark'?>" style="font-size:34px;top:2px;position:relative;"></i>
+      <i class="store-bookmark fi <?=$isFavorite?'fi-sr-heart':'fi-br-heart'?>" style="font-size:34px;top:2px;position:relative;"></i>
       <h1 class="store-title" id="store-title" style="margin-left:10px"><?=$storeName?></h1>
     </div>
     <div class="love-group">
@@ -93,7 +93,7 @@
         <?php endif; ?>
         <button class="store-type btn btn-outline-gray" type="button" onclick="openSearchPage('<?=$storeTag?>')"><i class="fi fi-br-search status-img"></i><?=$storeTag?></button>
         <?php if($storeMark): ?>
-          <button type="button" class="btn store-type <?=$markClass?>"><?=$markIcon?></button>
+          <button type="button" class="store-type <?=$markClass?>"><?=$markIcon?></button>
         <?php endif; ?>
         <?php require_once $_SERVER['DOCUMENT_ROOT'].'/elem/open-hour-button.php';?>
         <?php if (!empty($otherBranches)): ?>
@@ -117,15 +117,15 @@
           ?>
           <div class="other-store-display">
             <div class="other-store-group" style="width:100%;height:40px;" onclick="urlToDetailPage(<?=$branchId?>)">
-              <p class="store-name no-flow" style="width:14%"><?=$branchTitle?></p>
+              <p class="store-name no-flow-margin" style="width:14%"><?=$branchTitle?></p>
               <p style="width:2%;text-align:center;color:lightgrey;;margin:0 0;">|</p>
-              <p class="store-name no-flow" style="width:14%"><?=$branchName?></p>
+              <p class="store-name no-flow-margin" style="width:14%"><?=$branchName?></p>
               <p style="width:2%;text-align:center;color:lightgrey;margin:0 0;">|</p>
-              <p class="other-rating no-flow" style="width:16%;text-align:center"><?=$branchScore?> / 綜合評分</p>
+              <p class="other-rating no-flow-margin" style="width:16%;text-align:center"><?=$branchScore?> / 綜合評分</p>
               <p style="width:2%;text-align:center;color:lightgrey;margin:0 0;">|</p>
-              <p class="other-map address no-flow"><i class="fi fi-sr-map-marker address-img"></i><?=$address?></p>
+              <p class="other-map address no-flow-margin"><i class="fi fi-sr-map-marker address-img"></i><?=$address?></p>
         </div>
-            <!-- <i class="fi fi-sr-bookmark collect" role="button"></i>-->
+            <!-- <i class="fi fi-sr-heart collect" role="button"></i>-->
           </div>
         <?php endforeach;?>
       </div>
@@ -367,12 +367,12 @@
         <div class="introduction-item-group">
           <div class="store-introduction-group">
             <li class="introduction-title">地址</li>
-            <div class="introduction-item pointer no-flow underline" onclick="confirmNavigate(<?=$lat?>,<?=$lng?>)"><?=$fullAddress?></div>
+            <div class="introduction-item pointer no-flow-margin underline" onclick="confirmNavigate(<?=$lat?>,<?=$lng?>)"><?=$fullAddress?></div>
           </div>
           <div class="store-introduction-group">
             <li class="introduction-title">電話</li>
             <?php if($phoneNumber):?>
-              <li class="introduction-item no-flow"><?=$phoneNumber;?></li>
+              <li class="introduction-item no-flow-margin"><?=$phoneNumber;?></li>
             <?php else:?>
               <li class="introduction-item">(未提供)</li>
             <?php endif;?>
@@ -380,7 +380,7 @@
           <div class="store-introduction-group">
             <li class="introduction-title">相關網站</li>
             <?php if($website):?>
-              <div class="introduction-item pointer no-flow underline" onclick="confirmExternalLink('<?=$website?>')"><?=$website?></div>
+              <div class="introduction-item pointer no-flow-margin underline" onclick="confirmExternalLink('<?=$website?>')"><?=$website?></div>
             <?php else:?>
               <li class="introduction-item">(未提供)</li>
             <?php endif;?>
@@ -421,7 +421,12 @@
     <!--資料爬蟲時間--><h6 class="update">資料更新時間：<?=$storeInfo['crawler_time'] ?></h6>
   </section>
 
-  <button id="back-to-top-btn" style="display:none;"><i class="fas fa-arrow-up"></i></button>
+  <?php if($storeId):?>
+    <button id="back-to-top-btn" class="circle-button" style="bottom:90px;display:none;"><i class="fi fi-sr-up circle-button-icon"></i></button>
+    <button id="share-store-btn" class="circle-button" onclick="shareStore(<?=$storeId?>);"><i class="fi fi-sr-share circle-button-icon"></i></button>
+  <?php else:?>
+    <button id="back-to-top-btn" class="circle-button" style="display:none;"><i class="fi fi-sr-up circle-button-icon"></i></button>
+  <?php endif;?>
 
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/scripts/common/base.html';?>
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/scripts/common/map.html';?>

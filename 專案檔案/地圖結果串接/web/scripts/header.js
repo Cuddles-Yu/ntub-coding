@@ -167,7 +167,7 @@ function confirmExternalLink(link) {
 function confirmNavigate(lat, lng) {
   closeOpenedModal();
   let modal = new bootstrap.Modal(document.getElementById('checkNavigationModal'));
-  document.getElementById('navigation-confirm-button').setAttribute('onclick', `setTimeout(function(){navigateToStore(${lat},${lng});},300);`);
+  document.getElementById('checkNavigation-confirm-button').setAttribute('onclick', `setTimeout(function(){navigateToStore(${lat},${lng});},300);`);
   modal.show();
 }
 

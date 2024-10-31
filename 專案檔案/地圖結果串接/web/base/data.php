@@ -8,8 +8,8 @@
 
   function getStoreData() {
       global $conn;
-      $stmt = $conn->prepare(query:
-      " SELECT 
+      $stmt = $conn->prepare("
+        SELECT
           s.id AS store_id,
           s.name AS store_name,
           s.link AS store_link,

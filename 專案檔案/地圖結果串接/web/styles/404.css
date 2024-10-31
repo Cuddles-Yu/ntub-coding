@@ -7,38 +7,31 @@ body {
   height: 100vh;
   margin: 0;
 }
-
 .container {
   display: flex;
   align-items: center;
   padding: 30px;
 }
-
 .icon {
   flex-shrink: 0;
   margin-right: 20px;
 }
-
 .icon img {
   max-width: 150px;
 }
-
 .text {
   text-align: left;
 }
-
 h1 {
   font-size: 36px;
   color: #ff5252;
   margin: 0 0 10px;
 }
-
 p {
   font-size: 18px;
   color: #333;
   margin: 10px 0;
 }
-
 a {
   display: inline-block;
   margin-top: 20px;
@@ -48,7 +41,6 @@ a {
   text-decoration: none;
   border-radius: 5px;
 }
-
 a:hover {
   background-color: #357ae8;
 }

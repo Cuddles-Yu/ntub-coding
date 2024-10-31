@@ -1,3 +1,5 @@
+<?php $VERSION = '1.1'; ?>
+
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -10,7 +12,7 @@
 <body>
   <div class="container">
     <div class="icon">
-      <img src="<?=$icon??'/images/website-error.png';?>" alt="圖示">
+      <img src="<?=$icon??'/images/website-error.png';?>">
     </div>
     <div class="text">
       <h1><?=$errorMessage?></h1>

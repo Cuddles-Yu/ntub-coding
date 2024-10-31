@@ -6,7 +6,7 @@
   $conn = new mysqli("localhost", "root", trim(file_get_contents($pwdFile)), "mapdb");
   if ($conn->connect_error) die("無法開啟 MySQL 資料庫連接: " . $conn->connect_error);
 
-  $VERSION = '1.0';
+  $VERSION = '1.1';
 
   $markOptions = [
     '環保' => [

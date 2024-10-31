@@ -45,6 +45,11 @@
   color: white;
   border: 1px solid #FFA500;
 }
+.btn-solid-orange:not(.btn):hover, .btn-solid-orange:not(.btn):active {
+  background-color: #FFA500 !important;
+  color: white !important;
+  cursor: default !important;
+}
 .btn-solid-orange:hover {
   background-color: #FFB733; 
   color: white;
@@ -116,11 +121,11 @@
   border: 1px solid #CCCC00;
 }
 .btn-solid-dark-yellow:hover {
-  background-color: #E0E000; 
+  background-color: #E0E000;
   color: black;
 }
 .btn-solid-dark-yellow:active {
-  background-color: #999900 !important; 
+  background-color: #999900 !important;
   color: black !important;
 }
 
@@ -129,12 +134,17 @@
   color: white;
   border: 1px solid #008000;
 }
+.btn-solid-green:not(.btn):hover, .btn-solid-green:not(.btn):active {
+  background-color: #008000 !important;
+  color: white !important;
+  cursor: default !important;
+}
 .btn-solid-green:hover {
-  background-color: #339933; 
+  background-color: #339933;
   color: white;
 }
 .btn-solid-green:active {
-  background-color: #006400 !important; 
+  background-color: #006400 !important;
   color: white !important;
 }
 

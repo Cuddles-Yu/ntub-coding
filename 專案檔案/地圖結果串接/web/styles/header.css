@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+.fi-sr-heart {
+  color: red !important;
+}
+
 .small-toolbar-button {
   top: 4px !important;
   position: relative;

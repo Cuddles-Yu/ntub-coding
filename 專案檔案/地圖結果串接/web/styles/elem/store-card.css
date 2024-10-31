@@ -7,8 +7,8 @@
 }
 
 .store-card-favorite {
-  background-color: #f3e2b8;
-  border-color: goldenrod;
+  background-color: #f3cfdb;
+  border-color: palevioletred;
   border-width: thick;
   border-style: outset;
 }
@@ -18,7 +18,7 @@
   border-style: outset;
 }
 .store-card-solid-red {
-  background-color: #f9dada; 
+  background-color: #f9dada;
   border-color: red;
   border-width: thick;
   border-style: outset;

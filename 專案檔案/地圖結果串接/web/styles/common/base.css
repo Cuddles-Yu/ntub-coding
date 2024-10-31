@@ -17,11 +17,17 @@ img {
   text-decoration: underline !important;
 }
 
-.no-flow {
+.no-flow-margin {
   overflow: hidden !important;
   text-overflow: ellipsis !important;
   text-wrap: nowrap !important;
   margin:0 0 !important;
+}
+
+.no-flow {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  text-wrap: nowrap !important;
 }
 
 .pointer {

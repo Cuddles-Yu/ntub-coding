@@ -194,7 +194,7 @@ function resetCommentSearch() {
   document.getElementById('search-button').setAttribute('style', 'border-color:lightgray;');
   document.getElementById('clear-button').setAttribute('style', 'border-color:lightgray;color:gray;');
   document.getElementById('reset-comment-search').setAttribute('style', '');
-  document.getElementById('keyword-title').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  scrollToElement('keyword-title');
   searchCommentsByKeyword();
 }
 
@@ -208,7 +208,7 @@ function searchCommentsByTarget(button) {
   document.getElementById('search-button').setAttribute('style', 'display:none;');
   document.getElementById('clear-button').setAttribute('style', 'display:none;');
   document.getElementById('reset-comment-search').setAttribute('style', 'display:block;');
-  document.getElementById('comment-title').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  scrollToElement('comment-title');
   const formData = new FormData();
   formData.set('id', storeId);
   formData.set('q', target);
@@ -227,18 +227,19 @@ function searchCommentsByTarget(button) {
   .catch(() => { exceptionAlert('取得標記搜尋結果'); });
 }
 
-function generateMark() {
+function generateMark(state=null, limit=true) {
   const target = document.getElementById('filterSelect').value;
   const goodGroup = document.getElementById('group-keyword-good');
   const badGroup = document.getElementById('group-keyword-bad');
   const middleGroup = document.getElementById('group-keyword-middle');
   const generating = '<div class="rotating"><img src="./images/icon-loading.png" width="20" height="20"></div>正在載入...';
-  goodGroup.innerHTML = generating;
-  badGroup.innerHTML = generating;
-  middleGroup.innerHTML = generating;
+  if (!state || state === 'good') goodGroup.innerHTML = generating;
+  if (!state || state === 'bad') badGroup.innerHTML = generating;
+  if (!state || state === 'middle') middleGroup.innerHTML = generating;
   const formData = new FormData();
   formData.set('id', storeId);
   formData.set('target', target);
+  formData.set('limit', limit?1:0);
   fetch('struc/mark-state.php', {
       method: 'POST',
       credentials: 'same-origin',
@@ -246,9 +247,9 @@ function generateMark() {
   })
   .then(response => response.json())
   .then(data => {
-    goodGroup.innerHTML = data.good;
-    badGroup.innerHTML = data.bad;
-    middleGroup.innerHTML = data.middle;
+    if (!state || state === 'good') goodGroup.innerHTML = data.good;
+    if (!state || state === 'bad') badGroup.innerHTML = data.bad;
+    if (!state || state === 'middle') middleGroup.innerHTML = data.middle;
   })
   .catch(() => { exceptionAlert('取得標記'); });
 }
@@ -354,17 +355,46 @@ function navigateToStore(storeLat, storeLng) {
 }
 
 let lastScrollTop = 0;
+let isProgrammaticScroll = false;
+let scrollTimeout = null;
 const mainHeader = document.getElementById('commentspace-header');
 const infoHeader = document.getElementById('storeinfo-header');
+let observer;
 
 window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
-    if (currentScroll > 90 && currentScroll > lastScrollTop) {
-      mainHeader.style.transform = 'translateY(-100%)';
-      infoHeader.style.transform = 'translateY(0%)';
-    } else {
-      mainHeader.style.transform = 'translateY(0%)';
-      infoHeader.style.transform = 'translateY(-100%)';
-    }
-    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // 避免負值
+  if (isProgrammaticScroll) return;
+  const currentScroll = window.scrollY;
+  if (currentScroll > 90 && currentScroll > lastScrollTop) {
+    mainHeader.style.transform = 'translateY(-100%)';
+    infoHeader.style.transform = 'translateY(0%)';
+  } else {
+    mainHeader.style.transform = 'translateY(0%)';
+    infoHeader.style.transform = 'translateY(-100%)';
+  }
+  lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
 });
+
+function initObserver() {
+  observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+      scrollTimeout = setTimeout(() => {
+        isProgrammaticScroll = false;
+      }, 150);
+      observer.disconnect();
+    }
+  });
+}
+function scrollToElement(elementId) {
+  isProgrammaticScroll = true;
+  const element = document.getElementById(elementId);
+  if (element) {
+    if (!observer) {
+      initObserver();
+    }
+    observer.observe(element);
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}

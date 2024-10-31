@@ -7,4 +7,4 @@
   $link = "/home";
   $linkLabel = "返回首頁";
 
-  require_once '../struc/error-template.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/struc/error-template.php';

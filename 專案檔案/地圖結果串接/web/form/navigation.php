@@ -10,7 +10,7 @@
     <div class="modal-content">
       <h2 class="form-h2-title" style="padding-top:20px;"><?=$modalTitle?></h2>
       <div class="modal-body login-modal-body" style="padding-top:10px;">
-        <div id="comments-order-bar" class="input-group navigation-input-box mb-3 sort-button">
+        <div id="comments-order-bar" class="input-group navigation-input-box sort-button">
           <span class="input-group-text condition-input-box-title" id="basic-addon1">捷運車站</span>
           <select class="form-select condition-input-box-main" aria-label="Default select example" id="navigation-category-select" onchange="updateLandmark()">
             <option value="" selected>(未選擇)</option>
@@ -21,6 +21,10 @@
           </select>
           <select class="form-select condition-input-box-main" aria-label="Default select example" id="navigation-landmark-select" onchange="checkLandmark()" disabled>
           </select>
+          <div style="margin-top:10px;color:gray;">
+            <i class="fi fi-sr-comment-info text-icon" style="left:1px;top:2px;"></i>
+            定位後將自動設定為<em style="color:#663399;">中心距離</em>搜尋模式
+          </div>
         </div>
       </div>
       <div class="modal-footer">

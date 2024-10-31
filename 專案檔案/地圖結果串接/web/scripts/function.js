@@ -33,7 +33,7 @@ function toggleFavorite(element, storeId) {
   element.disabled = true;
   const formData = new FormData();
   formData.append('storeId', storeId);
-  formData.append('currentState', element.querySelector('i').classList.contains('fi-sr-bookmark')?'1':'0');
+  formData.append('currentState', element.querySelector('i').classList.contains('fi-sr-heart')?'1':'0');
   fetch('/handler/toggle_favorite.php', {
     method: 'POST',
     body: formData,
@@ -48,13 +48,13 @@ function toggleFavorite(element, storeId) {
       if (data.isFavorite) {
         if (bookmarks.length > 0) {
           bookmarks.forEach(bookmark => {
-            bookmark.classList.remove('fi-br-bookmark');
-            bookmark.classList.add('fi-sr-bookmark');
+            bookmark.classList.remove('fi-br-heart');
+            bookmark.classList.add('fi-sr-heart');
           });
         } else {
           const bookmark = element.querySelector('i');
-          bookmark.classList.remove('fi-br-bookmark');
-          bookmark.classList.add('fi-sr-bookmark');
+          bookmark.classList.remove('fi-br-heart');
+          bookmark.classList.add('fi-sr-heart');
         }
         if (storeBody) storeBody.classList.add('store-card-favorite');
         if (storeCard) storeCard.classList.add('store-card-favorite');
@@ -62,13 +62,13 @@ function toggleFavorite(element, storeId) {
       } else {
         if (bookmarks.length > 0) {
           bookmarks.forEach(bookmark => {
-            bookmark.classList.remove('fi-sr-bookmark');
-            bookmark.classList.add('fi-br-bookmark');
+            bookmark.classList.remove('fi-sr-heart');
+            bookmark.classList.add('fi-br-heart');
           });
         } else {
           const bookmark = element.querySelector('i');
-          bookmark.classList.remove('fi-sr-bookmark');
-          bookmark.classList.add('fi-br-bookmark');
+          bookmark.classList.remove('fi-sr-heart');
+          bookmark.classList.add('fi-br-heart');
         }
         if (storeBody) storeBody.classList.remove('store-card-favorite');
         if (storeCard) storeCard.classList.remove('store-card-favorite');
@@ -97,39 +97,39 @@ function getEncodeSearchParams() {
     q: document.getElementById('keyword').value,
     lat: document.getElementById('map').getAttribute('data-lat'),
     lng: document.getElementById('map').getAttribute('data-lng'),
-    navigateC: document.getElementById('navigation-category-select').value,
-    navigateL: document.getElementById('navigation-landmark-select').value,
+    nc: document.getElementById('navigation-category-select').value,
+    nl: document.getElementById('navigation-landmark-select').value,
     city: document.getElementById('condition-city-select').value,
     dist: document.getElementById('condition-dist-select').value,
     gm : document.getElementById('condition-geo-radio').checked,
     r: document.getElementById('condition-search-radius-input').value,
-    willOpen: document.getElementById('condition-will-open').checked,
-    openNow: document.getElementById('condition-open-now').checked,
-    willClose: document.getElementById('condition-will-close').checked,
-    closeNow: document.getElementById('condition-close-now').checked,
-    parking: document.getElementById('condition-parking').checked,
-    accessible: document.getElementById('condition-wheelchair-accessible').checked,
-    vegetarian: document.getElementById('condition-vegetarian').checked,
-    healthy: document.getElementById('condition-healthy').checked,
-    kids: document.getElementById('condition-kids-friendly').checked,
-    pets: document.getElementById('condition-pets-friendly').checked,
-    gender: document.getElementById('condition-gender-friendly').checked,
-    delivery: document.getElementById('condition-delivery').checked,
-    takeaway: document.getElementById('condition-takeaway').checked,
-    dineIn: document.getElementById('condition-dine-in').checked,
-    breakfast: document.getElementById('condition-breakfast').checked,
-    brunch: document.getElementById('condition-brunch').checked,
-    lunch: document.getElementById('condition-lunch').checked,
-    dinner: document.getElementById('condition-dinner').checked,
-    reservation: document.getElementById('condition-reservation').checked,
-    group: document.getElementById('condition-group-friendly').checked,
-    family: document.getElementById('condition-family-friendly').checked,
-    toilet: document.getElementById('condition-toilet').checked,
+    wo: document.getElementById('condition-will-open').checked,
+    on: document.getElementById('condition-open-now').checked,
+    wc: document.getElementById('condition-will-close').checked,
+    cn: document.getElementById('condition-close-now').checked,
+    par: document.getElementById('condition-parking').checked,
+    acc: document.getElementById('condition-wheelchair-accessible').checked,
+    veg: document.getElementById('condition-vegetarian').checked,
+    heal: document.getElementById('condition-healthy').checked,
+    kid: document.getElementById('condition-kids-friendly').checked,
+    pet: document.getElementById('condition-pets-friendly').checked,
+    gr: document.getElementById('condition-gender-friendly').checked,
+    dy: document.getElementById('condition-delivery').checked,
+    ty: document.getElementById('condition-takeaway').checked,
+    di: document.getElementById('condition-dine-in').checked,
+    bf: document.getElementById('condition-breakfast').checked,
+    bh: document.getElementById('condition-brunch').checked,
+    lh: document.getElementById('condition-lunch').checked,
+    dr: document.getElementById('condition-dinner').checked,
+    res: document.getElementById('condition-reservation').checked,
+    gp: document.getElementById('condition-group-friendly').checked,
+    fy: document.getElementById('condition-family-friendly').checked,
+    tt: document.getElementById('condition-toilet').checked,
     wifi: document.getElementById('condition-wifi').checked,
     cash: document.getElementById('condition-cash').checked,
-    credit: document.getElementById('condition-credit-card').checked,
-    debit: document.getElementById('condition-debit-card').checked,
-    mobile: document.getElementById('condition-mobile-payment').checked,
+    ct: document.getElementById('condition-credit-card').checked,
+    dt: document.getElementById('condition-debit-card').checked,
+    me: document.getElementById('condition-mobile-payment').checked,
   };
   return encodeSearchParams(data);
 }
@@ -151,9 +151,9 @@ async function setConditionFromData(data) {
   document.getElementById('condition-city-select').value = data.city;
   await updateArea('condition');
   document.getElementById('condition-dist-select').value = data.dist;
-  document.getElementById('navigation-category-select').value = data.navigateC;
+  document.getElementById('navigation-category-select').value = data.nc;
   await updateLandmark();
-  document.getElementById('navigation-landmark-select').value = data.navigateL;
+  document.getElementById('navigation-landmark-select').value = data.nl;
   checkLandmark();
   if (data.gm) {
     radioChecked(document.getElementById('condition-geo-radio'), true);
@@ -161,33 +161,33 @@ async function setConditionFromData(data) {
     radioChecked(document.getElementById('condition-distance-radio'), true);
   }
   document.getElementById('condition-search-radius-input').value = data.r;
-  document.getElementById('condition-will-open').checked = data.willOpen;
-  document.getElementById('condition-open-now').checked = data.openNow;
-  document.getElementById('condition-will-close').checked = data.willClose;
-  document.getElementById('condition-close-now').checked = data.closeNow;
-  document.getElementById('condition-parking').checked = data.parking;
-  document.getElementById('condition-wheelchair-accessible').checked = data.accessible;
-  document.getElementById('condition-vegetarian').checked = data.vegetarian;
-  document.getElementById('condition-healthy').checked = data.healthy;
-  document.getElementById('condition-kids-friendly').checked = data.kids;
-  document.getElementById('condition-pets-friendly').checked = data.petsFriendly;
-  document.getElementById('condition-gender-friendly').checked = data.gender;
-  document.getElementById('condition-delivery').checked = data.delivery;
-  document.getElementById('condition-takeaway').checked = data.takeaway;
-  document.getElementById('condition-dine-in').checked = data.dineIn;
-  document.getElementById('condition-breakfast').checked = data.breakfast;
-  document.getElementById('condition-brunch').checked = data.brunch;
-  document.getElementById('condition-lunch').checked = data.lunch;
-  document.getElementById('condition-dinner').checked = data.dinner;
-  document.getElementById('condition-reservation').checked = data.reservation;
-  document.getElementById('condition-group-friendly').checked = data.group;
-  document.getElementById('condition-family-friendly').checked = data.family;
-  document.getElementById('condition-toilet').checked = data.toilet;
+  document.getElementById('condition-will-open').checked = data.wo;
+  document.getElementById('condition-open-now').checked = data.on;
+  document.getElementById('condition-will-close').checked = data.wc;
+  document.getElementById('condition-close-now').checked = data.cn;
+  document.getElementById('condition-parking').checked = data.par;
+  document.getElementById('condition-wheelchair-accessible').checked = data.acc;
+  document.getElementById('condition-vegetarian').checked = data.veg;
+  document.getElementById('condition-healthy').checked = data.heal;
+  document.getElementById('condition-kids-friendly').checked = data.kid;
+  document.getElementById('condition-pets-friendly').checked = data.pet;
+  document.getElementById('condition-gender-friendly').checked = data.gr;
+  document.getElementById('condition-delivery').checked = data.dy;
+  document.getElementById('condition-takeaway').checked = data.ty;
+  document.getElementById('condition-dine-in').checked = data.di;
+  document.getElementById('condition-breakfast').checked = data.bf;
+  document.getElementById('condition-brunch').checked = data.bh;
+  document.getElementById('condition-lunch').checked = data.lh;
+  document.getElementById('condition-dinner').checked = data.dr;
+  document.getElementById('condition-reservation').checked = data.res;
+  document.getElementById('condition-group-friendly').checked = data.gp;
+  document.getElementById('condition-family-friendly').checked = data.fy;
+  document.getElementById('condition-toilet').checked = data.tt;
   document.getElementById('condition-wifi').checked = data.wifi;
   document.getElementById('condition-cash').checked = data.cash;
-  document.getElementById('condition-credit-card').checked = data.credit;
-  document.getElementById('condition-debit-card').checked = data.debit;
-  document.getElementById('condition-mobile-payment').checked = data.mobile;
+  document.getElementById('condition-credit-card').checked = data.ct;
+  document.getElementById('condition-debit-card').checked = data.dt;
+  document.getElementById('condition-mobile-payment').checked = data.me;
 }
 
 function updatePreferences(target, show = true) {
@@ -394,8 +394,10 @@ function checkLandmark() {
 
 function setLandmark() {
   const landmarkSelect = document.getElementById(`navigation-landmark-select`).querySelector('option:checked');
+  const distanceRadio = document.getElementById('condition-distance-radio');
   const lat = landmarkSelect.getAttribute('lat');
   const lng = landmarkSelect.getAttribute('lng');
+  if (!distanceRadio.checked) distanceRadio.checked = true;
   setView([lat, lng], 14);
   showAlert('green', `已將地圖移動至${landmarkSelect.value}`);
 }

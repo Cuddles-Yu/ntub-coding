@@ -234,38 +234,51 @@
     return $branches;
   };
 
-  function getMarks($storeId, $states, $target) {
-      global $conn;
-      if (!is_array($states)) $states = [$states];
-      $allStates = implode(',', array_map(function($state) use ($conn) {
+  function getMarks($storeId, $states, $target, $limit) {
+    global $conn;
+    if (!is_array($states)) $states = [$states];
+    $allStates = implode(',', array_map(function($state) use ($conn) {
         return "'" . $conn->real_escape_string($state) . "'";
-      }, $states));
-      if ($target) {
-        $target = targetTransform($target);
-        $stmt = bindPrepare($conn, "
-          SELECT object, COUNT(*) AS count FROM marks AS m
-          INNER JOIN comments AS c ON m.store_id = c.store_id AND m.comment_id = c.id
-          WHERE object !='' AND m.store_id = ? AND target = ? AND state IN ($allStates)
-          GROUP BY object
-          HAVING count > 1
-          ORDER BY count DESC
-          LIMIT 20
-        ", "is", $storeId, $target);
-      } else {
-        $stmt = bindPrepare($conn, "
+    }, $states));
+    if ($target) {
+      $target = targetTransform($target);
+      $stmt = bindPrepare($conn, "
+        SELECT object, COUNT(*) AS count FROM marks AS m
+        INNER JOIN comments AS c ON m.store_id = c.store_id AND m.comment_id = c.id
+        WHERE object !='' AND m.store_id = ? AND target = ? AND state IN ($allStates)
+        GROUP BY object".
+        (!$limit ? " HAVING count > 1" : "")."
+        ORDER BY count DESC, object
+      ", "is", $storeId, $target);
+    } else {
+      $stmt = bindPrepare($conn, "
         SELECT object, COUNT(*) AS count FROM marks AS m
         INNER JOIN comments AS c ON m.store_id = c.store_id AND m.comment_id = c.id
         WHERE object !='' AND m.store_id = ? AND state IN ($allStates)
-        GROUP BY object
-        HAVING count > 1
-        ORDER BY count DESC
-        LIMIT 20
+        GROUP BY object".
+        (!$limit ? " HAVING count > 1" : "")."
+        ORDER BY count DESC, object
       ", "i", $storeId);
+    }
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $marks = [];
+    $count = 0;
+    $endResult = false;
+    $showMore = false;
+    while ($row = $result->fetch_assoc()) {
+      if ($row['count'] <= 1) {
+        $endResult = true;
+        if (!$limit) break;
       }
-      $stmt->execute();
-      $result = $stmt->get_result();
-      $marks = [];
-      while ($row = $result->fetch_assoc()) $marks[] = $row;
-      $stmt->close();
-      return $marks;
-  }
+      if ($limit && $count >= 20) {
+        $showMore = $row['count'] > 1;
+        break;
+      }
+      $marks[] = $row;
+      $count++;
+    }
+    if ($count < 20) $endResult = true;
+    $stmt->close();
+    return ['marks' => $marks, 'endResult' => $endResult, 'showMore' => $showMore];
+}

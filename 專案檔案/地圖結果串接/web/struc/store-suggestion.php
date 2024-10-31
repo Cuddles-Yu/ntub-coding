@@ -57,7 +57,7 @@
               <h5 class="card-title"><?=$storeName?></h5>
               <div class="small-toolbar">
                 <div class="clickable-overlay" onclick="preventMultipleClick(event);toggleFavorite(this,<?=$storeId?>);">
-                <i class="small-toolbar-button fi <?=$isFavorite?'fi-sr-bookmark':'fi-br-bookmark'?>"></i>
+                <i class="small-toolbar-button fi <?=$isFavorite?'fi-sr-heart':'fi-br-heart'?>"></i>
                   <h6 class="small-toolbar-text">收藏</h6>
                 </div>
                 <div class="clickable-overlay" onclick="preventMultipleClick(event);shareStore(<?=$storeId?>);">
