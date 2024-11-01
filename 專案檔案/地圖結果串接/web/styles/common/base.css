@@ -34,6 +34,22 @@ img {
   cursor: pointer !important;
 }
 
+.large-component {
+  transform: scale(1.4) !important;
+}
+
+.hide-button {
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
 .hide-scrollbar {
   scrollbar-width: none !important;
 }

@@ -80,8 +80,8 @@
         </div>
         <div id="comments-order-bar" class="input-group condition-input-box mb-3 sort-button" style="margin-bottom:-1px !important;">
           <span class="input-group-text condition-input-box-title" id="basic-addon1">搜尋半徑</span>
-          <input id="<?=$modalId?>-search-radius-input" type="text" class="form-control condition-input-box-main"
-            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+          <input id="<?=$modalId?>-search-radius-input" type="number" class="form-control condition-input-box-main"
+            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" step="100" min="100" max="10000"
             value="<?php if($SESSION_DATA->success):echo $MEMBER_INFO['search_radius']; else:echo '1500'; endif;?>">
           <span class="input-group-text" id="inputGroup-sizing-sm">公尺</span>
         </div>

@@ -6,13 +6,14 @@
   $conn = new mysqli("localhost", "root", trim(file_get_contents($pwdFile)), "mapdb");
   if ($conn->connect_error) die("無法開啟 MySQL 資料庫連接: " . $conn->connect_error);
 
-  $VERSION = '1.1';
+  $VERSION = '1.2';
 
   $markOptions = [
     '環保' => [
       'cardType' => 'store-card-environment',
       'buttonClass' => 'btn-solid-green',
       'tagColor' => 'green',
+      'icon' => '<i class="fi fi-br-recycle status-img"></i>',
       'tagIcon' => '<i class="fi fi-br-recycle status-img"></i> 環保餐廳',
       'tagName' => '<i class="fi fi-br-recycle status-img"></i> 環保'
     ],
@@ -20,6 +21,7 @@
       'cardType' => 'store-card-culture',
       'buttonClass' => 'btn-solid-orange',
       'tagColor' => 'darkorange',
+      'icon' => '<i class="fi fi-sr-star status-img"></i>',
       'tagIcon' => '<i class="fi fi-sr-star status-img"></i> 客家餐廳',
       'tagName' => '<i class="fi fi-sr-star status-img"></i> 客家'
     ]

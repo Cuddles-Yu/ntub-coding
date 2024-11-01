@@ -4,6 +4,27 @@
     box-sizing: border-box;
 }
 
+.more-info {
+  margin-left: 10px;
+  top: 1px;
+  position: relative;
+}
+
+.trans-red-button, .trans-blue-button, .trans-windows-blue-button {
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+.trans-blue-button:hover {
+  color: blue;
+}
+.trans-red-button:hover {
+  color: red;
+}
+.trans-windows-blue-button:hover {
+  color: #0078D7;
+}
+
+
 .fi-sr-heart {
   color: red !important;
 }
@@ -161,6 +182,10 @@ a.map-link {
 }
 .tooltip-green {
   --bs-tooltip-bg: green;
+  --bs-tooltip-color: white;
+}
+.tooltip-windows-blue {
+  --bs-tooltip-bg: #0078D7;
   --bs-tooltip-color: white;
 }
 

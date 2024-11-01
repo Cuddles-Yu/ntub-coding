@@ -7,6 +7,11 @@
   border-left-color: goldenrod;
 }
 
+.modify-button {
+  width: auto !important;
+  padding: 0 10px !important;
+}
+
 .item-text-right {
   text-align: right;
   padding-right: 30px;
@@ -79,7 +84,7 @@ button {
     color: #247cff;
     margin-left: 10px;
   }
-    
+
   #login2 {
     border: none;
     background-color: transparent;
@@ -246,7 +251,7 @@ button {
     font-weight: bold;
     margin-bottom: 1vh;
   }
-    
+
   #password_form label {
     display: inline-block;
     width: 6vw;
@@ -361,7 +366,7 @@ button {
     margin-bottom: 1vh;
     align-items: baseline;
   }
-    
+
   .checkbox_item {
     box-sizing: border-box; /* margin, padding 不會增加元素的寬度 */
     align-items: center;
@@ -445,9 +450,10 @@ button {
   .slider-container label {
     width: 7vw;
   }
-    
+
   .slider-container span {
     margin-left: 1vw;
+    width: 50px;
   }
 
   .slider-container input[type="range"] {
@@ -470,7 +476,7 @@ button {
     border-radius: 50%; /* 圓形滑塊 */
     cursor: pointer;
   }
-    
+
     /* Firefox */
   .slider-container input[type="range"]::-moz-range-thumb {
     width: 30px;
@@ -479,7 +485,7 @@ button {
     border-radius: 50%; /* 圓形滑塊 */
     cursor: pointer;
   }
-    
+
     /* IE, Edge */
   .slider-container input[type="range"]::-ms-thumb {
     width: 30px;
@@ -500,12 +506,12 @@ button {
     height: 58px;
     font-size: 16px;
   }
-    
+
   .form-floating>.form-control, .form-floating>.form-control-plaintext{
     padding: 16px  12px;
     height: 58px;
   }
-    
+
   .search-keyword{
     width: 350px;
     position: relative;
@@ -513,7 +519,7 @@ button {
     overflow-x: hidden;
     font-size: 16px;
   }
-    
+
   .search-button{
     position: relative;
     margin-left: 30px;
@@ -541,12 +547,16 @@ button {
   }
 
   .content_row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 1200px;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
   }
-    
+
   .content_row_container {
     overflow: auto;
     overflow-x: hidden;
@@ -556,8 +566,8 @@ button {
   .mark_number {
     display: flex;
     align-items: center;
-    flex-grow: 0.5; /* 讓每個項目可以擴展 */
-    flex-basis: 10px; /* 初始寬度 */
+    flex-grow: 0.5;
+    flex-basis: 10px;
     margin-right: 10px;
     font-size: 20px;
   }
@@ -575,10 +585,11 @@ button {
   .mark_store {
     display: flex;
     align-items: center;
-    flex-grow: 2; /* 讓每個項目可以擴展 */
-    flex-basis: 300px; /* 初始寬度 */
+    flex-grow: 2;
+    flex-basis: 300px;
     margin-right: 20px;
     font-size: 20px;
+    position: relative;
   }
 
   .store_name {
@@ -592,42 +603,33 @@ button {
   }
 
   .mark_score {
-    display: flex;
-    align-items: center;
-    flex-grow: 1; /* 讓每個項目可以擴展 */
-    flex-basis: 0px; /* 初始寬度 */
+    flex-grow: 1;
+    flex-basis: 0px;
     font-size: 20px;
+    margin-right: 20px;
   }
 
   .mark_category {
-    display: flex;
-    align-items: center;
-    flex-grow: 1; /* 讓每個項目可以擴展 */
-    flex-basis: 60px; /* 初始寬度 */
+    flex-grow: 1;
+    flex-basis: 60px;
     font-size: 20px;
+    margin-right: 20px;
   }
 
   .mark_time {
-    display: flex;
-    align-items: center;
-    flex-grow: 1; /* 讓每個項目可以擴展 */
-    flex-basis: 120px; /* 初始寬度 */
+    flex-grow: 1;
+    flex-basis: 90px;
     font-size: 20px;
+    margin-right: 20px;
+    margin-right: 20px;
   }
-    
+
   .mark_button {
-    display: flex;
-    align-items: center;
-    flex-grow: 1; /* 讓每個項目可以擴展 */
-    flex-basis: 60px; /* 初始寬度 */
+    flex-grow: 1;
+    flex-basis: 0px;
     font-size: 20px;
   }
-    
-  .mark_button2 {
-    display: flex;
-    align-items: center;
-  }
-    
+
   .fi-sr-heart {
     font-size: 22px;
     margin-right: 7px;
@@ -732,7 +734,7 @@ button {
     font-weight: bold;
     margin-bottom: 1vh;
   }
-    
+
   #password_form label {
     display: inline-block;
     width: 8vw;
@@ -849,7 +851,7 @@ button {
     margin-bottom: 1vh;
     align-items: baseline;
   }
-    
+
   .checkbox_item {
     box-sizing: border-box; /* margin, padding 不會增加元素的寬度 */
     align-items: center;
@@ -933,7 +935,7 @@ button {
   .slider-container label {
     width: 7vw;
   }
-    
+
   .slider-container span {
     margin-left: 1vw;
   }
@@ -958,7 +960,7 @@ button {
     border-radius: 50%; /* 圓形滑塊 */
     cursor: pointer;
   }
-    
+
     /* Firefox */
   .slider-container input[type="range"]::-moz-range-thumb {
     width: 30px;
@@ -967,7 +969,7 @@ button {
     border-radius: 50%; /* 圓形滑塊 */
     cursor: pointer;
   }
-    
+
     /* IE, Edge */
   .slider-container input[type="range"]::-ms-thumb {
     width: 30px;
@@ -989,12 +991,12 @@ button {
     height: 58px;
     font-size: 16px;
   }
-    
+
   .form-floating>.form-control, .form-floating>.form-control-plaintext{
     padding: 16px  12px;
     height: 58px;
   }
-    
+
   .search-keyword{
     width: 350px;
     position: relative;
@@ -1030,10 +1032,14 @@ button {
   }
 
   .content_row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 900px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 900px;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
   }
 
   .content_row_container {
@@ -1041,12 +1047,12 @@ button {
     overflow-x: hidden;
     max-height: 350px;
   }
-    
+
   .mark_number {
     display: flex;
     align-items: center;
-    flex-grow: 0.5; /* 讓每個項目可以擴展 */
-    flex-basis: 10px; /* 初始寬度 */
+    flex-grow: 0.5;
+    flex-basis: 10px;
     margin-right: 10px;
   }
 
@@ -1063,9 +1069,10 @@ button {
   .mark_store {
     display: flex;
     align-items: center;
-    flex-grow: 2; /* 讓每個項目可以擴展 */
-    flex-basis: 180px; /* 初始寬度 */
+    flex-grow: 2;
+    flex-basis: 180px;
     margin-right: 20px;
+    position: relative;
   }
 
   .store_name {
@@ -1077,40 +1084,35 @@ button {
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-    
+
   .mark_score {
     display: flex;
     align-items: center;
-    flex-grow: 1; /* 讓每個項目可以擴展 */
-    flex-basis: 0px; /* 初始寬度 */
+    flex-grow: 1;
+    flex-basis: 0px;
   }
 
   .mark_category {
     display: flex;
     align-items: center;
-    flex-grow: 1; /* 讓每個項目可以擴展 */
-    flex-basis: 50px; /* 初始寬度 */
+    flex-grow: 1;
+    flex-basis: 50px;
   }
-    
+
   .mark_time {
     display: flex;
     align-items: center;
-    flex-grow: 1; /* 讓每個項目可以擴展 */
-    flex-basis: 100px; /* 初始寬度 */
+    flex-grow: 1;
+    flex-basis: 100px;
   }
-    
+
   .mark_button {
     display: flex;
     align-items: center;
-    flex-grow: 1; /* 讓每個項目可以擴展 */
-    flex-basis: 60px; /* 初始寬度 */
+    flex-grow: 1;
+    flex-basis: 60px;
   }
-    
-  .mark_button2 {
-    display: flex;
-    align-items: center;
-  }
-    
+
   .fi-sr-heart {
     font-size: 18px;
     margin-right: 7px;
@@ -1222,7 +1224,7 @@ button {
     font-weight: bold;
     margin-bottom: 1vh;
   }
-    
+
   #password_form label {
     display: inline-block;
     width: 13vw;
@@ -1469,12 +1471,12 @@ button {
     height: 58px;
     font-size: 16px;
   }
-    
+
   .form-floating>.form-control, .form-floating>.form-control-plaintext{
     padding: 16px  12px;
     height: 58px;
   }
-    
+
   .search-keyword{
     width: 350px;
     position: relative;
@@ -1482,7 +1484,7 @@ button {
     overflow-x: hidden;
     font-size: 16px;
   }
-    
+
   .search-button{
     position: relative;
     margin-left: 30px;
@@ -1511,10 +1513,14 @@ button {
   }
 
   .content_row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 700px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 700px;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
   }
 
   .content_row_container {
@@ -1522,12 +1528,12 @@ button {
     overflow-x: hidden;
     max-height: 450px;
   }
-    
+
   .mark_number {
     display: flex;
     align-items: center;
-    flex-grow: 0.5; /* 讓每個項目可以擴展 */
-    flex-basis: 5px; /* 初始寬度 */
+    flex-grow: 0.5;
+    flex-basis: 5px;
     margin-right: 5px;
   }
 
@@ -1544,9 +1550,10 @@ button {
   .mark_store {
     display: flex;
     align-items: center;
-    flex-grow: 1; /* 讓每個項目可以擴展 */
-    flex-basis: 200px; /* 初始寬度 */
+    flex-grow: 1;
+    flex-basis: 200px;
     margin-right: 5px;
+    position: relative;
   }
 
   .store_name {
@@ -1558,42 +1565,36 @@ button {
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-    
+
   .mark_score {
     display: flex;
     align-items: center;
-    flex-grow: 0.5; /* 讓每個項目可以擴展 */
-    flex-basis: 50px; /* 初始寬度 */
+    flex-grow: 0.5;
+    flex-basis: 50px;
   }
 
   .mark_category {
     display: flex;
     /* display: none; */
     align-items: center;
-    flex-grow: 0.5; /* 讓每個項目可以擴展 */
-    flex-basis: 50px; /* 初始寬度 */
+    flex-grow: 0.5;
+    flex-basis: 50px;
   }
-    
+
   .mark_time {
     /* display: flex; */
     display: none;
     align-items: center;
-    flex-grow: 0.5; /* 讓每個項目可以擴展 */
-    flex-basis: 50px; /* 初始寬度 */
+    flex-grow: 0.5;
+    flex-basis: 50px;
   }
-    
   .mark_button {
     display: flex;
     align-items: center;
-    flex-grow: 0.5; /* 讓每個項目可以擴展 */
-    flex-basis: 60px; /* 初始寬度 */
+    flex-grow: 0.5;
+    flex-basis: 60px;
   }
-    
-  .mark_button2 {
-    display: flex;
-    align-items: center;
-  }
-    
+
   .fi-sr-heart {
     font-size: 20px;
     margin-right: 7px;
@@ -1964,12 +1965,12 @@ button {
     height: 50px;
     font-size: 14px;
   }
-    
+
   .form-floating>.form-control, .form-floating>.form-control-plaintext{
     padding: 16px  12px;
     height: 50px;
   }
-    
+
   .search-keyword{
     width: 140px;
     position: relative;
@@ -1977,7 +1978,7 @@ button {
     overflow-x: hidden;
     font-size: 14px;
   }
-    
+
   .search-button{
     position: relative;
     margin-left: 10px;
@@ -2008,6 +2009,10 @@ button {
     justify-content: space-between;
     align-items: center;
     width: 350px;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
   }
 
   .content_row_container {
@@ -2016,12 +2021,12 @@ button {
     max-height: 300px;
     padding-right: 10px;
   }
-    
+
   .mark_number {
     display: flex;
     align-items: center;
-    flex-grow: 0.5; /* 讓每個項目可以擴展 */
-    flex-basis: 5px; /* 初始寬度 */
+    flex-grow: 0.5;
+    flex-basis: 5px;
     margin-right: 7px;
   }
 
@@ -2038,9 +2043,10 @@ button {
   .mark_store {
     display: flex;
     align-items: center;
-    flex-grow: 1; /* 讓每個項目可以擴展 */
-    flex-basis: 200px; /* 初始寬度 */
+    flex-grow: 1;
+    flex-basis: 200px;
     margin-right: 5px;
+    position: relative;
   }
 
   .mark_store span {
@@ -2056,12 +2062,12 @@ button {
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-    
+
   .mark_score {
     display: flex;
     align-items: center;
-    flex-grow: 0.5; /* 讓每個項目可以擴展 */
-    flex-basis: 50px; /* 初始寬度 */
+    flex-grow: 0.5;
+    flex-basis: 50px;
   }
 
   .mark_score span {
@@ -2072,30 +2078,25 @@ button {
     /* display: flex; */
     display: none;
     align-items: center;
-    flex-grow: 0.5; /* 讓每個項目可以擴展 */
-    flex-basis: 50px; /* 初始寬度 */
+    flex-grow: 0.5;
+    flex-basis: 50px;
   }
 
   .mark_time {
     /* display: flex; */
     display: none;
     align-items: center;
-    flex-grow: 0.5; /* 讓每個項目可以擴展 */
-    flex-basis: 50px; /* 初始寬度 */
+    flex-grow: 0.5;
+    flex-basis: 50px;
   }
-    
+
   .mark_button {
     display: flex;
     align-items: center;
-    flex-grow: 0.5; /* 讓每個項目可以擴展 */
-    flex-basis: 40px; /* 初始寬度 */
+    flex-grow: 0.5;
+    flex-basis: 40px;
   }
-    
-  .mark_button2 {
-    display: flex;
-    align-items: center;
-  }
-    
+
   .fi-sr-heart {
     font-size: 16px;
     margin-right: 5px;
@@ -2106,34 +2107,16 @@ button {
   }
 }
 
-/* 基本的 content_row 樣式 */
-.content_row {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-/* 滑鼠懸停時的效果 */
 .content_row:hover {
-  background-color: #f0f0f0; /* 懸停時的淺灰色背景 */
+  background-color: #f0f0f0;
 }
-
+.content_row:active {
+  background-color: lightgray;
+}
 .sort_button_wrapper {
   cursor: pointer;
   display: inline-block;
   padding: 5px;
-}
-.trans-red-button, .trans-blue-button {
-  font-size: 18px;
-  transition: color 0.3s ease;
-}
-.trans-blue-button:hover {
-  color: blue;
-}
-.trans-red-button:hover {
-  color: red;
 }
 
 .favorite-target {

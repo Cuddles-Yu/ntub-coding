@@ -47,6 +47,7 @@
       <a class="link_text page-menu feedback-menu" href="/feedback" draggable="false">聯絡我們</a>
       <!--(比賽專用)-->
       <!-- <a class="link_text page-menu team-menu" href="/team" draggable="false">成員介紹</a> -->
+      <a class="link_text page-menu roster-menu" href="/roster" draggable="false">餐廳名冊</a>
       <?php if($SESSION_DATA->success): ?>
         <span class="display-after-login menu-separator"></span>
         <a class="link_text page-menu member-menu" onclick="toggleMenu()">會員專區<img src="/images/button-expand-arrow.png" class="text-icon" id="expand-arrow" draggable="false"></a>

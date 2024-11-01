@@ -17,29 +17,38 @@ window.addEventListener('load', async function () {
   await defaultLocate();
 });
 
-// 當前窗口滾動時執行此函數
 window.onscroll = function() {
   scrollFunction();
 };
 function scrollFunction() {
   const btn = document.getElementById("back-to-top-btn");
   if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
-    btn.style.display = "block";  // 顯示按鈕
+    btn.style.display = "block";
   } else {
-    btn.style.display = "none";  // 隱藏按鈕
+    btn.style.display = "none";
   }
 }
+
 // 點擊按鈕時返回頁面頂端
 document.getElementById("back-to-top-btn").addEventListener("click", function() {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth' // 平滑滾動效果
-  });
+  scrollToTop();
 });
 
 
 document.addEventListener('DOMContentLoaded', function () {
   document.title = `${document.getElementById('store-title').textContent.trim()}詳細資訊 - 評星宇宙`;
+  //重新排序其他分店
+  const otherStoreContainer = document.querySelector(".other-store");
+  const storeDisplays = Array.from(otherStoreContainer.querySelectorAll(".other-store-display"));
+  storeDisplays.sort((a, b) => {
+    const ratingA = parseFloat(a.querySelector(".other-rating").innerText);
+    const ratingB = parseFloat(b.querySelector(".other-rating").innerText);
+    return ratingB - ratingA;
+  });
+  otherStoreContainer.innerHTML = "";
+  storeDisplays.forEach(display => {
+    otherStoreContainer.appendChild(display);
+  });
   //手動滑鼠滾動(推薦餐點)
   const CardGroups = document.querySelectorAll('.group-card');
   CardGroups.forEach(function(CardGroups) {

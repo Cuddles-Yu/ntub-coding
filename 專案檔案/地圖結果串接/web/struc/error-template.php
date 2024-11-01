@@ -1,4 +1,4 @@
-<?php $VERSION = '1.1'; ?>
+<?php $VERSION = '1.2'; ?>
 
 <!DOCTYPE html>
 <html lang="zh-TW">

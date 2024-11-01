@@ -28,8 +28,8 @@
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
   <main>
       <div class="side_area">
-          <div class="page_button" id="info" style="color: #8234ff;" onclick="switchTo('info')">
-              <i class="fi fi-sr-interrogation logo" id="info_logo" style="color: #8234ff;"></i>
+          <div class="page_button" id="info" onclick="switchTo('info')">
+              <i class="fi fi-sr-interrogation logo" id="info_logo"></i>
               <p>基本資料</p>
           </div>
           <div class="page_button" id="preference" onclick="switchTo('preference')">
@@ -69,7 +69,7 @@
           <form class="preference_item_container">
             <div class="type_title">搜尋模式 <em style="color:red;font-weight:bold;">*</em></div>
             <div style="display:flex;align-items:center;margin-top:10px;">
-              <input type="radio" id="member-distance-radio" class="checkbox" name="search-type" value="distance" style="margin-right:5px;"
+              <input type="radio" id="member-distance-radio" class="checkbox large-component" name="search-type" value="distance" style="margin-right:5px;"
                 <?php if($SESSION_DATA->success && $MEMBER_INFO['search_mode'] === 'distance'): echo 'checked'; endif;?> disabled>
               <label for="member-distance-radio">
                 <p class="checkbox-title" style="margin-bottom:2px;margin-left:5px;" id="member-distance-title">中心距離</p>
@@ -77,13 +77,13 @@
             </div>
             <div id="comments-order-bar" class="input-group member-input-box mb-3 sort-button" style="margin-top:1vh;margin-bottom:1vh;">
               <span class="input-group-text member-input-box-title" id="basic-addon1">搜尋半徑</span>
-              <input id="member-search-radius-input" type="text" class="form-control member-input-box-main field" style="max-width:182px;"
-                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+              <input id="member-search-radius-input" type="number" class="form-control member-input-box-main field" style="max-width:182px;"
+                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" step="100" min="100" max="10000"
                 value="<?php if($SESSION_DATA->success): echo $MEMBER_INFO['search_radius']; else: echo '1500'; endif;?>" disabled>
               <span class="input-group-text" id="inputGroup-sizing-sm">公尺</span>
             </div>
             <div style="display:flex;align-items:center;margin-top:10px;">
-              <input type="radio" id="member-geo-radio" class="checkbox" name="search-type" value="geo" style="margin-right:5px;"
+              <input type="radio" id="member-geo-radio" class="checkbox large-component" name="search-type" value="geo" style="margin-right:5px;"
                 <?php if($SESSION_DATA->success && $MEMBER_INFO['search_mode'] === 'geo'): echo 'checked'; endif;?> disabled>
               <label for="member-geo-radio">
                 <p class="checkbox-title" style="margin-bottom:2px;margin-left:5px;
@@ -216,7 +216,7 @@
                 <div class="checkbox_container <?=$group['class']?>">
                   <?php foreach($group['items'] as $item => $value): ?>
                       <div class="checkbox_item">
-                        <input type="checkbox" class="<?=$group['select']?> checkbox" id="<?=$item?>" name="<?=$item?>" autocomplete="on" disabled
+                        <input type="checkbox" class="<?=$group['select']?> checkbox large-component" id="<?=$item?>" name="<?=$item?>" autocomplete="on" disabled
                           <?=transformToPreference($item)?>>
                         <label for="<?=$item?>"><?=$value?></label>
                       </div>
@@ -225,9 +225,9 @@
               <?php endforeach; ?>
           </form>
         <div class="button_area">
-          <button id="preference_edit_button" class="edit-button btn-solid-gray" onclick="editPreference()">修改</button>
-          <button id="preference_cancel_button" class="cancel-button btn-solid-gray" onclick="restorePreference()" style="display: none;">取消</button>
-          <button id="preference_save_button" class="save-button btn-solid-windows-blue" onclick="savePreference()" style="display: none;">完成</button>
+          <button id="preference_edit_button" class="modify-button edit-button btn-solid-gray" onclick="editPreference()">修改</button>
+          <button id="preference_cancel_button" class="modify-button cancel-button btn-solid-gray" onclick="restorePreference()" style="display:none;">取消</button>
+          <button id="preference_save_button" class="modify-button save-button btn-solid-windows-blue" onclick="savePreference()" style="display:none;">完成</button>
         </div>
       </div>
       <div id="weight_main_area">
@@ -256,9 +256,10 @@
           <span id="price-value"><?=$MEMBER_INFO['price_weight']?></span>
         </div>
         <div class="button_area">
-        <button id="weight_edit_button" class="edit-button btn-solid-gray" onclick="editWeight()">修改</button>
-          <button id="weight_cancel_button"  class="cancel-button btn-solid-gray" onclick="restoreWeight()" style="display: none;">取消</button>
-          <button id="weight_save_button"  class="save-button btn-solid-windows-blue" onclick="saveWeight()" style="display: none;">完成</button>
+        <button id="weight_edit_button" class="modify-button edit-button btn-solid-gray" onclick="editWeight()">修改</button>
+        <button id="weight_reset_button"  class="modify-button cancel-button btn-solid-gray" onclick="resetWeight()" style="display:none;">設為預設</button>
+        <button id="weight_cancel_button"  class="modify-button cancel-button btn-solid-gray" onclick="restoreWeight()" style="display:none;">取消</button>
+        <button id="weight_save_button"  class="modify-button save-button btn-solid-windows-blue" onclick="saveWeight()" style="display:none;">完成</button>
         </div>
       </div>
       <div id="favorite_main_area" style="position:absolute;top:150px;">
@@ -276,7 +277,7 @@
             <span style="margin-left:-4px;font-weight:bold;">收藏時間</span>
           </div>
           <div class="mark_button">
-          <span style="margin-left:0px;font-weight:bold;">操作功能</span>
+          <span style="margin-left:-4px;font-weight:bold;">操作功能</span>
           </div>
         </div>
         <div class="content_row_container">
@@ -288,21 +289,25 @@
                 $previewImage = htmlspecialchars($store['preview_image']);
                 $tag = htmlspecialchars($store['tag']);
                 $createTime = htmlspecialchars($store['create_time']);
-                $mark = htmlspecialchars($store['mark']);
+                $mark = $store['mark'];
+                $markItem = $markOptions[$mark]??null;
                 $markName = $markOptions[$mark]['tagName'] ?? '';
                 $score = getBayesianScore(getMemberNormalizedWeight(), $store['id']);
               ?>
               <div class="content_row" data-id="<?=$id?>" onclick="goToDetailPage(<?=$id?>)">
                 <div class="mark_store">
                   <div class="mark_img">
+                    <?php if($markItem):?>
+                      <div class="left-icon-display" style="background-color:<?=$markItem['tagColor']?>;"><?=$markItem['icon']?></div>
+                    <?php endif;?>
                     <img src="<?=$previewImage?>">
                   </div>
                   <span class="store_name"><?=$name?></span>
                 </div>
-                <div class="mark_score"><span><?=$score?></span></div>
-                <div class="mark_category"><span><?=$tag?></span></div>
-                <div class="mark_time"><span style="margin-right: 5px;"><?=$createTime?></span></div>
-                <div class="mark_button mark_button2">
+                <div class="mark_score no-flow"><span><?=$score?></span></div>
+                <div class="mark_category no-flow"><span><?=$tag?></span></div>
+                <div class="mark_time no-flow"><span style="margin-right: 5px;"><?=$createTime?></span></div>
+                <div class="mark_button">
                   <div class="sort_button_wrapper" onclick="preventMultipleClick(event);targetFavorite(this);" data-bs-toggle="modal" data-bs-target="#removeFavoriteModal">
                     <i class="fi fi-sr-trash trans-red-button"></i>
                   </div>

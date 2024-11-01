@@ -31,7 +31,7 @@ function normalizeDistance(distance) {
 
 window.addEventListener('load', function () {
   var bounds = [];
-  var storeLatLng = null;  
+  var storeLatLng = null;
   const mapElement = this.document.getElementById('map');
   const locateButton = this.document.getElementById('current-locate-button');
   const storeButton = this.document.getElementById('search-locate-button');

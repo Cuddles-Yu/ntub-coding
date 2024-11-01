@@ -195,13 +195,14 @@
     return $keywords;
   }
 
-  function getAllKeywords($storeId) {
+  function getKeywords($storeId, $limit=0) {
     global $conn;
     $sql = "
       SELECT word, count FROM keywords
       WHERE store_id = ? and source = 'comment'
-      ORDER BY count DESC
-    ";
+      ORDER BY count DESC".
+      ($limit?" LIMIT $limit" : "")
+    ;
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $storeId);
     $stmt->execute();
@@ -218,7 +219,7 @@
     if (!isset($branchTitle)) return;
     global $conn;
     $stmt = bindPrepare($conn,
-    " SELECT s.*, r.avg_ratings, l.city, l.dist, l.vil, l.details 
+    " SELECT s.*, r.avg_ratings, l.city, l.dist, l.vil, l.details
       FROM stores AS s
       LEFT JOIN rates AS r ON s.id = r.store_id
       LEFT JOIN locations AS l ON s.id = l.store_id

@@ -37,7 +37,7 @@
     $lng = $location['longitude'];
     $rating = getRating($storeId);
     $service = getService($storeId);
-    $keywords = getAllKeywords($storeId);
+    $keywords = getKeywords($storeId, 20);
     $foodKeywords = getFoodKeyword($storeId);
     $otherBranches = getOtherBranches($storeInfo['branch_title'], $storeId);
     $targetsInfo = getTargets($storeId);
@@ -266,7 +266,7 @@
         <i class="fi fi-sr-comment-alt group-title-img"></i>
         <h5 class="group-title">評論</h5>
       </div>
-      <div class="invisible"> <!--樣本選擇按鈕(隱藏)-->
+      <div class="invisible">
         <div class="btn-group sample-group" role="group" aria-label="Basic radio toggle button group">
           <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
           <label class="btn btn-outline-secondary sample-button" for="btnradio1">全部</label>
@@ -288,7 +288,6 @@
     <div class="comment-keyword">
       <div class="keyword-title" id="keyword-title">
         <h5 class="keyword-title-text">標記</h5>
-        <!--篩選按鈕-->
         <div class="input-group mb-3 filter-button">
           <span class="input-group-text" id="basic-addon1"><i class="fi fi-sr-filter-list"></i></i>篩選</span>
           <select class="form-select" aria-label="Default select example" id="filterSelect">
@@ -337,8 +336,22 @@
       <div class="title-group">
         <i class="fi fi-sr-hand-holding-heart group-title-img"></i>
         <h5 class="group-title">吃過都推薦</h5>
-        <button type="button" class="btn question-2" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="點擊文字搜尋餐點餐廳<br>點擊圖片搜尋餐點照片" data-bs-custom-class="custom-tooltip1" data-bs-html="true">
-          <i class="fi fi-sr-interrogation question-img"></i>
+        <button
+          class="more-info hide-button"
+          type="button"
+          data-bs-container="body"
+          data-bs-toggle="tooltip"
+          data-bs-title="
+            <strong>[互動說明]</strong>
+            <br>
+            點擊文字 ➔ 查詢餐點關鍵字
+            <br>
+            點擊圖片 ➔ 搜尋餐點圖片
+          "
+          data-bs-placement="bottom"
+          data-bs-custom-class="tooltip tooltip-windows-blue"
+          data-bs-html="true">
+          <i class="fi fi-sr-interrogation question-img trans-windows-blue-button"></i>
         </button>
       </div>
       <div class="carousel-container">

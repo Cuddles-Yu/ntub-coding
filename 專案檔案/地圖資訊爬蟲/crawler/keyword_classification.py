@@ -7,6 +7,8 @@ class BreakLoopException(Exception):
     pass
 
 class Classification(Enum):
+    fine = '先不管'
+    not_keyword = '非關鍵字'
     keywords = '關鍵字'
     dishes = '餐點'
     check = '觀察'
@@ -21,6 +23,9 @@ if __name__ == '__main__':
     database = SqlDatabase.SqlDatabase('mapdb', 'root', '11236018')
     ### 讀取檔案 ###
     data = load_json(JSON_FILE)
+    keywords = load_json(r'D:\ntub\project\repository\ntub-coding\專案檔案\地圖資訊爬蟲\ckip\tagger\results\all_keywords.json')
+    fines_list = data.get(Classification.fine.value, [])
+    not_keywords_list = data.get(Classification.not_keyword.value, [])
     keywords_list = data.get(Classification.keywords.value, [])
     dishes_list = data.get(Classification.dishes.value, [])
     check_list = data.get(Classification.check.value, [])
@@ -29,22 +34,29 @@ if __name__ == '__main__':
     foreign_list = data.get(Classification.foreign.value, [])
 
     try:
-        print(f"進行'關鍵字keywords'監督式劃分 [*結束;0忽略;1餐點;2關鍵字;3形容詞;4外文;-觀察;?/搜尋;\\檢查]\n")
-        keywords = database.fetch('all', f'''
-                SELECT DISTINCT word, SUM(count) AS c, COUNT(*) AS f FROM stores AS s, keywords AS k
-                WHERE s.id = k.store_id and source = 'recommend'
-                GROUP BY word
-                ORDER BY f DESC, c DESC
-        ''')
-        ### 劃分資料 ###
-        for i, (keyword, count, frequency) in enumerate(keywords):
-            if keyword in dishes_list or keyword in keywords_list or keyword in check_list or keyword in adjective_list or keyword in ignore_list or keyword in foreign_list: continue
+        print(f"進行'關鍵字keywords'監督式劃分 [*結束;[非關鍵字;]先不管;0忽略;1餐點;2關鍵字;3形容詞;4外文;-觀察;?/搜尋;\\檢查]\n")
+        # keywords = database.fetch('all', f'''
+        #         SELECT DISTINCT word, SUM(count) AS c, COUNT(*) AS f FROM stores AS s, keywords AS k
+        #         WHERE s.id = k.store_id and source = 'recommend'
+        #         GROUP BY word
+        #         ORDER BY f DESC, c DESC
+        # ''')
+        # ### 劃分資料 ###
+        # for i, (keyword, count, frequency) in enumerate(keywords):
+        for i, (keyword, count) in enumerate(keywords.items()):
+            if keyword in fines_list or keyword in not_keywords_list or keyword in dishes_list or keyword in keywords_list or keyword in check_list or keyword in adjective_list or keyword in ignore_list or keyword in foreign_list: continue
             if len(keyword) > 3: continue
             # if not re.search(r'[^\u4e00-\u9fa5]', keyword): continue
             while True:
                 print(f'{ColorCode.DARK_BLUE}進度[{i+1}/{len(keywords)}] {keyword} {ColorCode.DEFAULT}', end='')
                 control = input()
                 match control:
+                    case '[':
+                        data[Classification.not_keyword.value].append(keyword)
+                        break
+                    case ']':
+                        data[Classification.fine.value].append(keyword)
+                        break
                     case '0':
                         data[Classification.ignore.value].append(keyword)
                         break

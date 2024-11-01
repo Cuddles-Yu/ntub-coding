@@ -10,6 +10,10 @@ function copyToClipboard(text) {
   });
 }
 
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 function shareStore(storeId) {
   const shareData = {
     title: '分享餐廳連結',

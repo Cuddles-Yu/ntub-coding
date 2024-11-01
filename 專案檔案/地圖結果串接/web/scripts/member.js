@@ -114,6 +114,7 @@ var initialValues = {};
 function saveWeight() {
   const sliders = document.querySelectorAll('#weight_main_area input[type="range"]');
   const editButton = document.getElementById('weight_edit_button');
+  const resetButton = document.getElementById('weight_reset_button');
   const saveButton = document.getElementById('weight_save_button');
   const cancelButton = document.getElementById('weight_cancel_button');
   const atmosphere = document.getElementById('atmosphere').value;
@@ -122,6 +123,7 @@ function saveWeight() {
   const price = document.getElementById('price').value;
   hasChanged = [...sliders].some(slider => initialValues[slider.id] != slider.value);
   editButton.style.display = 'inline';
+  resetButton.style.display = 'none';
   saveButton.style.display = 'none';
   cancelButton.style.display = 'none';
   sliders.forEach(function(slider) {
@@ -157,6 +159,7 @@ function saveWeight() {
 function editWeight() {
   const sliders = document.querySelectorAll('#weight_main_area input[type="range"]');
   const editButton = document.getElementById('weight_edit_button');
+  const resetButton = document.getElementById('weight_reset_button');
   const saveButton = document.getElementById('weight_save_button');
   const cancelButton = document.getElementById('weight_cancel_button');
   sliders.forEach(function(slider) {
@@ -164,12 +167,21 @@ function editWeight() {
     slider.disabled = false;
   });
   editButton.style.display = 'none';
+  resetButton.style.display = 'inline';
   saveButton.style.display = 'inline';
   cancelButton.style.display = 'inline';
+}
+function resetWeight() {
+  const sliders = document.querySelectorAll('#weight_main_area input[type="range"]');
+  sliders.forEach(function(slider) {
+    slider.value = 50;
+    document.getElementById(slider.id + '-value').innerText = 50;
+  });
 }
 function restoreWeight() {
   const sliders = document.querySelectorAll('#weight_main_area input[type="range"]');
   const editButton = document.getElementById('weight_edit_button');
+  const resetButton = document.getElementById('weight_reset_button');
   const saveButton = document.getElementById('weight_save_button');
   const cancelButton = document.getElementById('weight_cancel_button');
   sliders.forEach(function(slider) {
@@ -178,6 +190,7 @@ function restoreWeight() {
       document.getElementById(slider.id + '-value').innerText = initialValues[slider.id];
   });
   editButton.style.display = 'inline';
+  resetButton.style.display = 'none';
   saveButton.style.display = 'none';
   cancelButton.style.display = 'none';
 }
