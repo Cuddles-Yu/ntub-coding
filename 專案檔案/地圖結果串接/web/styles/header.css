@@ -11,7 +11,7 @@
 }
 
 .trans-red-button, .trans-blue-button, .trans-windows-blue-button {
-  font-size: 18px;
+  font-size: 25px;
   transition: color 0.3s ease;
 }
 .trans-blue-button:hover {
