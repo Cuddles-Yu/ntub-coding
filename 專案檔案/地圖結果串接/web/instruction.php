@@ -15,9 +15,9 @@
 <body>
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
 
-  <section class="primary-conent">
-    <div style="display:grid;margin-top:75px;">
-      <iframe class="pdf-container" src="/pdf/instruction.pdf#zoom=page-width" style="width:80%;height:75vh;justify-self:center;"></iframe>
+  <section class="main-content">
+    <div style="display:grid;height:100%;">
+      <iframe class="pdf-container" src="/pdf/instruction.pdf#zoom=page-width" style="width:100%;height:100%;"></iframe>
     </div>
   </section>
 

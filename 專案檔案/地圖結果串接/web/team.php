@@ -15,7 +15,7 @@
 <body>
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
 
-  <section class="primary-conent">
+  <section class="main-content main-container">
 
     <div class="member-group">
       <div class="member-card">

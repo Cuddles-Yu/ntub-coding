@@ -4,6 +4,30 @@
     box-sizing: border-box;
 }
 
+.btn-more-pages {
+  position: fixed;
+  font-size: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  right: 30px;
+}
+
+.btn-member {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  cursor: pointer;
+}
+
+.img-member {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
 .more-info {
   margin-left: 10px;
   top: 1px;
@@ -378,8 +402,7 @@ a.map-link {
 }
 
 .main-content {
-  min-height: calc(100% - 160px);
-  margin-top: 70px;
+  flex: 1;
 }
 
 .secondary-content {
@@ -403,8 +426,11 @@ html {
 }
 
 body {
-  margin: 0;
+  padding-top: 80px;
   height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
   user-select:none; /* 禁止選取standard syntax */
   -webkit-user-select:none; /* 禁止for Chrome、Safari */
   -moz-user-select:none;  /* 禁止for Mozilla、Firefox */
@@ -486,7 +512,8 @@ body {
   margin-bottom: 8px;
 }
 
-@media (min-width: 1400px){
+@media (min-width: 1600px){
+
   header {
       display: flex;
       justify-content: center;
@@ -511,22 +538,6 @@ body {
       height: 30px; /* 設置高度 */
       background-color: #C5C5C5; /* 設置顏色 */
       margin: 0 40px; /* 設置上下為0，左右為20px的間距 */
-  }
-
-  #user_icon {
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    right: 10vw;
-    cursor: pointer;
-    display: none;
-  }
-  
-  #user_icon_logo {
-    width: 40px;
-    height: 40px;
-    right: 10vw;
-    cursor: pointer;
   }
 
   #web_name {
@@ -558,7 +569,7 @@ body {
       align-items: center;
       position: fixed;
       height: 80px;
-      right: 10vw;
+      right: 15vw;
   }
 
   #login {
@@ -577,7 +588,7 @@ body {
       color: #247cff;
       margin-left: 10px;
   }
-  
+
   /* 漢堡圖示 */
   #nav_menu1 {
       display: flex;
@@ -599,16 +610,18 @@ body {
     font-size: 28px
   }
 
-  .hamburger {
-      display: none; /* 隱藏漢堡圖標 */
-      font-size: 30px;
-      background: none;
-      border: none;
-      cursor: pointer;
+  .btn-more-pages {
+      display: none;
   }
+
+  .btn-member {
+    right: 10vw;
+  }
+
 }
 
-@media (min-width: 700px) and (max-width: 1400px){
+@media (min-width: 700px) and (max-width: 1600px){
+
   header {
       display: flex;
       justify-content: center;
@@ -633,24 +646,6 @@ body {
       height: 30px; /* 設置高度 */
       background-color: #C5C5C5; /* 設置顏色 */
       margin: 0 40px; /* 設置上下為0，左右為20px的間距 */
-  }
-
-  #user_icon {
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    right: 10vw;
-    cursor: pointer;
-    display: none;
-  }
-
-  #user_icon_logo {
-    display: none;
-    position: fixed;
-    width: 40px;
-    height: 40px;
-    right: 10vw;
-    cursor: pointer;
   }
 
   #web_name {
@@ -702,9 +697,8 @@ body {
       margin-left: 10px;
   }
 
-  /* 漢堡圖示相關 */
   #nav_menu1 {
-      display: none; 
+      display: none;
   }
   #nav_menu2 {
       display: none;
@@ -765,18 +759,18 @@ body {
       padding: 30px;
   }
 
-  .hamburger {
-      display: block; /* 顯示漢堡圖標 */
-      font-size: 30px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      position: fixed;
-      right: 5vw;
+  .btn-more-pages {
+      display: block;
   }
+
+  .btn-member {
+    right: 80px;
+  }
+
 }
 
 @media (max-width: 699px) {
+
   header {
       display: flex;
       justify-content: center;
@@ -801,24 +795,6 @@ body {
       height: 30px; /* 設置高度 */
       background-color: #C5C5C5; /* 設置顏色 */
       margin: 0 40px; /* 設置上下為0，左右為20px的間距 */
-  }
-
-  #user_icon {
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    right: 10vw;
-    cursor: pointer;
-    display: none;
-  }
-
-  #user_icon_logo {
-    display: none;
-    position: fixed;
-    width: 40px;
-    height: 40px;
-    right: 14vw;
-    cursor: pointer;
   }
 
   #web_name {
@@ -853,7 +829,6 @@ body {
       right: 15vw;
   }
 
-  /* 漢堡圖示相關 */
   #nav_menu1 {
       display: none;
   }
@@ -871,7 +846,7 @@ body {
   }
 
   #overlay {
-      display: none; /* 隱藏遮罩 */
+      display: none;
       position: fixed;
       top: 80px;
       left: 0;
@@ -916,15 +891,14 @@ body {
       padding: 30px;
   }
 
-  .hamburger {
-      display: block; /* 顯示漢堡圖標 */
-      font-size: 30px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      position: fixed;
-      right: 5vw;
+  .btn-more-pages {
+      display: block;
   }
+
+  .btn-member {
+    right: 80px;
+  }
+
 }
 
 /* 下拉選單樣式 */

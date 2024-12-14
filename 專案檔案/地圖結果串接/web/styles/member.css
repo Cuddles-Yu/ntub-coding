@@ -186,14 +186,10 @@ button {
     color: #5e5e5e;
   }
 
-    main {
+  .main {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 90px); /* 內容高度 - 底欄高度 */
-    width: 100%;
-    flex: 1;
-    overflow: hidden;
   }
 
   .item_name {
@@ -669,14 +665,10 @@ button {
     color: #5e5e5e;
   }
 
-    main {
+  .main {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 90px); /* 內容高度 - 底欄高度 */
-    width: 100%;
-    flex: 1;
-    overflow: hidden;
   }
 
   .item_name {
@@ -1158,14 +1150,10 @@ button {
     color: #5e5e5e;
   }
 
-    main {
+  .main {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 90px); /* 內容高度 - 底欄高度 */
-    width: 100%;
-    flex: 1;
-    overflow: hidden;
   }
 
   .item_name {
@@ -1639,14 +1627,10 @@ button {
     color: #5e5e5e;
   }
 
-    main {
+  .main {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 90px); /* 內容高度 - 底欄高度 */
-    width: 100%;
-    flex: 1;
-    overflow: hidden;
   }
 
     /* 基本資料 */

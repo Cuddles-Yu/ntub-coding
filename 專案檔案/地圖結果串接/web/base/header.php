@@ -23,30 +23,32 @@
       <div class="vertical-line"></div>
       <a class="link_text page-item feedback-page" href="/feedback" draggable="false">聯絡我們</a>
       <div class="vertical-line"></div>
-      <!--(比賽專用)-->
-      <!-- <a class="link_text page-item team-page" href="/team" draggable="false">成員介紹</a> -->
+      <a class="link_text page-item team-page" href="/team" draggable="false">成員介紹</a>
+      <div class="vertical-line"></div>
       <a class="link_text page-item roster-page" href="/roster" draggable="false">餐廳名冊</a>
       <?php if($SESSION_DATA->success): ?>
         <div class="vertical-line"></div>
         <a class="link_text page-item member-page" href="/member/info?tab=info" draggable="false"><img src="/images/icon-crown.png" class="text-icon">會員專區</a>
       <?php endif; ?>
   </div>
-  <div id="user_icon" <?php if($SESSION_DATA->success): ?>style="display:flex;"<?php endif; ?>>
-    <img src="/images/icon-member.png" id="user_icon_logo">
-  </div>
-  <div id="login_button" <?php if($SESSION_DATA->success): ?>style="display:none;"<?php endif; ?>>
-    <button id="login" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">登入</button>
-    <button id="signup" type="button" data-bs-toggle="modal" data-bs-target="#signupModal1">註冊</button>
-  </div>
-  <button id="hamburger_btn" class="hamburger">&#9776;</button>
+  <?php if($SESSION_DATA->success): ?>
+    <div class="btn-member">
+      <img src="/images/icon-member.png" class="img-member">
+    </div>
+  <?php else: ?>
+    <div id="login_button">
+      <button id="login" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">登入</button>
+      <button id="signup" type="button" data-bs-toggle="modal" data-bs-target="#signupModal1">註冊</button>
+    </div>
+  <?php endif; ?>
+  <button class="btn-more-pages">&#9776;</button>
   <div id="overlay"></div>
   <nav id="nav_menu2">
       <a class="link_text page-menu home-menu" href="/home" draggable="false">餐廳搜尋</a>
       <a class="link_text page-menu suggestion-menu" href="/suggestion" draggable="false">餐廳推薦</a>
       <a class="link_text page-menu instruction-menu" href="/instruction" draggable="false">使用說明</a>
       <a class="link_text page-menu feedback-menu" href="/feedback" draggable="false">聯絡我們</a>
-      <!--(比賽專用)-->
-      <!-- <a class="link_text page-menu team-menu" href="/team" draggable="false">成員介紹</a> -->
+      <a class="link_text page-menu team-menu" href="/team" draggable="false">成員介紹</a>
       <a class="link_text page-menu roster-menu" href="/roster" draggable="false">餐廳名冊</a>
       <?php if($SESSION_DATA->success): ?>
         <span class="display-after-login menu-separator"></span>

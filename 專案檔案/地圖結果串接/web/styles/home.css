@@ -1,5 +1,5 @@
 .home-page {
-  border-bottom-style: solid;  
+  border-bottom-style: solid;
   border-bottom-color: mediumblue;
 }
 .home-menu {
@@ -9,10 +9,6 @@
 
 .input-group{
   width: 230px;
-}
-
-body {
-  padding-top: 90px;
 }
 
 .input-group-login{

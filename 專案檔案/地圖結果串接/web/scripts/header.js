@@ -255,7 +255,7 @@ function bindFormControl(inputClass, buttonId) {
 }
 
 /* 點擊漢堡圖示時，顯示/隱藏選單 */
-document.getElementById('hamburger_btn').addEventListener('click', function() {
+document.querySelector('.btn-more-pages').addEventListener('click', function() {
   var navMenu = document.getElementById('nav_menu2');
   var overlay = document.getElementById('overlay');
   if (navMenu.classList.contains('show')) {
@@ -291,7 +291,7 @@ if (currentHour >= 6 && currentHour < 18) {
 }
 
 /* 點擊使用者圖示時，顯示/隱藏會員下拉選單 */
-const memberIcon = document.getElementById('user_icon');
+const memberIcon = document.querySelector('.btn-member');
 const dropdownMenu = document.getElementById('dropdownMenu');
 memberIcon.addEventListener('click', function() {
     dropdownMenu.style.display = dropdownMenu.style.display === 'none' || dropdownMenu.style.display === '' ? 'block' : 'none';

@@ -48,7 +48,7 @@
 <body>
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
 
-  <section class="main-content">
+  <section class="main-content" style="margin-top:70px;">
     <h2 class="title-text"><?=$RANDOM_SLOGANS[array_rand($RANDOM_SLOGANS)];?></h2>
     <div class="search">
       <div class="form-floating search-keyword">

@@ -3,10 +3,10 @@
 <link rel="stylesheet" href="/styles/footer.css?v=<?=$VERSION?>" />
 <footer>
   <div class="bottom">
-    <!--(比賽專用)-->
-    <!-- 台北商業大學 | 資訊管理系<br> -->
-    <!-- 北商資管專題 113206 小組<br> -->
+    台北商業大學 | 資訊管理系<br>
+    北商資管專題 113206 小組
     <?php if(isset($specialRestaurant)): ?>
+      <br>
       <en>
         餐廳名冊資料來源自
         <a href="https://data.taipei" target="_blank" draggable="false" style="color:white;">臺北市資料大平臺</a>
@@ -19,6 +19,7 @@
       </en>
       <br>
     <?php elseif(isset($mrtStations)): ?>
+      <br>
       <en>
         快速定位資料來源自
         <a href="https://data.taipei" target="_blank" draggable="false" style="color:white;">臺北市資料大平臺</a>
@@ -32,6 +33,8 @@
     <?php else: ?>
       <br><br>
     <?php endif; ?>
-    <en style="float:right;">Copyright ©2024 All rights reserved. Uicons by <a href="https://www.flaticon.com/uicons" draggable="false" target="_blank" style="color:white;">Flaticon</a></en>
+    <div style="text-align: right; width: 100%;">
+      <en>Copyright ©2024 All rights reserved. Uicons by <a href="https://www.flaticon.com/uicons" draggable="false" target="_blank" style="color:white;">Flaticon</a></en>
+    </div>
   </div>
 </footer>

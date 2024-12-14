@@ -18,19 +18,17 @@
 <body>
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/base/header.php'; ?>
 
-  <section class="tertiary-content" id="tertiary-content" style="padding-top:130px;">
+  <section class="main-content" style="margin-top:40px;">
     <ul class="nav nav-tabs" style="place-content:center;font-size:20px;">
-    <li class="nav-item">
-      <a id="tab-button-environmental" class="green nav-link active" data-tab="tab-content-environmental">環保餐廳 <i class="fi fi-br-recycle" style="font-size:14px"></i></a>
-    </li>
-    <li class="nav-item">
-      <a id="tab-button-hakka" class="orange nav-link" data-tab="tab-content-hakka">客家餐廳 <i class="fi fi-sr-star" style="font-size:14px"></i></a>
-    </li>
-  </ul>
-
-  <div class="tab-content tab-content-environmental active" id="tab-content-environmental"></div>
-  <div class="tab-content tab-content-hakka" id="tab-content-hakka"></div>
-
+      <li class="nav-item">
+        <a id="tab-button-environmental" class="green nav-link active" data-tab="tab-content-environmental">環保餐廳 <i class="fi fi-br-recycle" style="font-size:14px"></i></a>
+      </li>
+      <li class="nav-item">
+        <a id="tab-button-hakka" class="orange nav-link" data-tab="tab-content-hakka">客家餐廳 <i class="fi fi-sr-star" style="font-size:14px"></i></a>
+      </li>
+    </ul>
+    <div class="tab-content tab-content-environmental active" id="tab-content-environmental"></div>
+    <div class="tab-content tab-content-hakka" id="tab-content-hakka"></div>
   </section>
 
   <?php require_once $_SERVER['DOCUMENT_ROOT'].'/scripts/common/base.html';?>
